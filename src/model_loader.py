@@ -19,9 +19,8 @@ _DEFAULT_RETRIES = 3
 _DEFAULT_HF_BACKOFF_RETRIES = 1
 _DEFAULT_REMOTE_TIMEOUT_SECONDS = 60
 _DEFAULT_REMOTE_EMBED_ENDPOINT = "https://embed.zwwen.online/embed"
-# 当前服务默认按公开模式接入，不主动发送 Authorization 头。
-# 若后续需要固定鉴权，可直接把该常量改成固定字符串。
-_DEFAULT_REMOTE_EMBED_API_KEY = ""
+# 当前服务使用固定 API key 接入。
+_DEFAULT_REMOTE_EMBED_API_KEY = "26932a86d772001af60cbd9d2c162bfda3a90e094f797f3d6806f6077478b27a"
 
 
 def _log_default(message: str) -> None:
