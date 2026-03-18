@@ -1,0 +1,565 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-18T20:29:26.843781+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 24,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.12808v1",
+      "title": "A Multi-task Large Reasoning Model for Molecular Science",
+      "abstract": "Advancements in artificial intelligence for molecular science are necessitating a paradigm shift from purely data-driven predictions to knowledge-guided computational reasoning. Existing molecular models are predominantly proprietary, lacking general molecular intelligence and generalizability. This underscores the necessity for computational methods that can effectively integrate scientific logic with deep learning architectures. Here we introduce a multi-task large reasoning model designed to emulate the cognitive processes of molecular scientists through structured reasoning and reflection. Our approach incorporates multi-specialist modules to provide versatile molecular expertise and a chain-of-thought (CoT) framework enhanced by reinforcement learning infused with molecular knowledge, enabling structured and reflective reasoning. Systematic evaluations across 10 molecular tasks and 47 metrics demonstrate that our model achieves an average 50.3% improvement over the base architecture, outperforming over 20 state-of-the-art baselines, including ultra-large-parameter foundation models, despite using significantly fewer training data and computational resources. This validates that embedding explicit reasoning mechanisms enables high-efficiency learning, allowing smaller-scale models to surpass massive counterparts in both efficacy and interpretability. The practical utility of this computational framework was validated through a case study on the design of central nervous system (CNS) drug candidates, illustrating its capacity to bridge data-driven and knowledge-integrated approaches for intelligent molecular design.",
+      "authors": [
+        "Pengfei Liu",
+        "Shuang Ge",
+        "Jun Tao",
+        "Zhixiang Ren"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-13T09:10:43+00:00",
+      "link": "https://arxiv.org/pdf/2603.12808v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "large reasoning model for molecular science and computational biology",
+      "llm_evidence_cn": "用于分子科学和计算生物学的大型推理模型",
+      "llm_evidence": "用于分子科学和计算生物学的大型推理模型",
+      "canonical_evidence": "用于分子科学和计算生物学的大型推理模型",
+      "llm_tldr_en": "A multi-task reasoning model for molecular science using structured reflection and specialist modules.",
+      "llm_tldr_cn": "一种利用结构化反思和专家模块进行分子科学研究的多任务推理模型。",
+      "llm_tldr": "一种利用结构化反思和专家模块进行分子科学研究的多任务推理模型。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10811v1",
+      "title": "Protein Counterfactuals via Diffusion-Guided Latent Optimization",
+      "abstract": "Deep learning models can predict protein properties with unprecedented accuracy but rarely offer mechanistic insight or actionable guidance for engineering improved variants. When a model flags an antibody as unstable, the protein engineer is left without recourse: which mutations would rescue stability while preserving function? We introduce Manifold-Constrained Counterfactual Optimization for Proteins (MCCOP), a framework that computes minimal, biologically plausible sequence edits that flip a model's prediction to a desired target state. MCCOP operates in a continuous joint sequence-structure latent space and employs a pretrained diffusion model as a manifold prior, balancing three objectives: validity (achieving the target property), proximity (minimizing mutations), and plausibility (producing foldable proteins). We evaluate MCCOP on three protein engineering tasks - GFP fluorescence rescue, thermodynamic stability enhancement, and E3 ligase activity recovery - and show that it generates sparser, more plausible counterfactuals than both discrete and continuous baselines. The recovered mutations align with known biophysical mechanisms, including chromophore packing and hydrophobic core consolidation, establishing MCCOP as a tool for both model interpretation and hypothesis-driven protein design. Our code is publicly available at github.com/weroks/mccop.",
+      "authors": [
+        "Weronika Kłos",
+        "Sidney Bender",
+        "Lukas Kades"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-11T14:19:52+00:00",
+      "link": "https://arxiv.org/pdf/2603.10811v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "biologically plausible sequence edits and protein property prediction",
+      "llm_evidence_cn": "生物学合理的序列编辑和蛋白质属性预测",
+      "llm_evidence": "生物学合理的序列编辑和蛋白质属性预测",
+      "canonical_evidence": "生物学合理的序列编辑和蛋白质属性预测",
+      "llm_tldr_en": "A framework for minimal protein sequence edits to achieve desired properties using diffusion models.",
+      "llm_tldr_cn": "一个利用扩散模型进行蛋白质序列编辑以实现目标属性的框架。",
+      "llm_tldr": "一个利用扩散模型进行蛋白质序列编辑以实现目标属性的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.09268v1",
+      "title": "Logos: An evolvable reasoning engine for rational molecular design",
+      "abstract": "The discovery and design of functional molecules remain central challenges across chemistry,biology, and materials science. While recent advances in machine learning have accelerated molecular property prediction and candidate generation, existing models tend to excel either in physical fidelity without transparent reasoning, or in flexible reasoning without guarantees of chemical validity. This imbalance limits the reliability of artificial intelligence systems in real scientific design workflows.Here we present Logos, a compact molecular reasoning model that integrates multi-step logical reasoning with strict chemical consistency. Logos is trained using a staged strategy that first exposes the model to explicit reasoning examples linking molecular descriptions to structural decisions, and then progressively aligns these reasoning patterns with molecular representations. In a final training phase, chemical rules and invariants are incorporated directly into the optimization objective, guiding the model toward chemically valid outputs. Across multiple benchmark datasets, Logos achieves strong performance in both structural accuracy and chemical validity, matching or surpassing substantially larger general-purpose language models while operating with a fraction of their parameters. Beyond benchmark evaluation, the model exhibits stable behaviour in molecular optimization tasks involving multiple, potentially conflicting constraints. By explicitly exposing intermediate reasoning steps, Logos enables human inspection and assessment of the design logic underlying each generated structure. These results indicate that jointly optimizing for reasoning structure and physical consistency offers a practical pathway toward reliable and interpretable AI systems for molecular science, supporting closer integration of artificial intelligence into scientific discovery processes.",
+      "authors": [
+        "Haibin Wen",
+        "Zhe Zhao",
+        "Fanfu Wang",
+        "Tianyi Xu",
+        "Hao Zhang",
+        "Chao Yang",
+        "Ye Wei"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-10T06:56:35+00:00",
+      "link": "https://arxiv.org/pdf/2603.09268v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "molecular reasoning model for biological design",
+      "llm_evidence_cn": "用于生物分子设计的推理模型",
+      "llm_evidence": "用于生物分子设计的推理模型",
+      "canonical_evidence": "用于生物分子设计的推理模型",
+      "llm_tldr_en": "Logos is a molecular reasoning engine that combines multi-step logic with chemical consistency for rational design.",
+      "llm_tldr_cn": "Logos是一个结合多步逻辑推理与化学一致性的分子推理引擎，用于理性分子设计。",
+      "llm_tldr": "Logos是一个结合多步逻辑推理与化学一致性的分子推理引擎，用于理性分子设计。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.09716v1",
+      "title": "AutoAgent: Evolving Cognition and Elastic Memory Orchestration for Adaptive Agents",
+      "abstract": "Autonomous agent frameworks still struggle to reconcile long-term experiential learning with real-time, context-sensitive decision-making. In practice, this gap appears as static cognition, rigid workflow dependence, and inefficient context usage, which jointly limit adaptability in open-ended and non-stationary environments. To address these limitations, we present AutoAgent, a self-evolving multi-agent framework built on three tightly coupled components: evolving cognition, on-the-fly contextual decision-making, and elastic memory orchestration. At the core of AutoAgent, each agent maintains structured prompt-level cognition over tools, self-capabilities, peer expertise, and task knowledge. During execution, this cognition is combined with live task context to select actions from a unified space that includes tool calls, LLM-based generation, and inter-agent requests. To support efficient long-horizon reasoning, an Elastic Memory Orchestrator dynamically organizes interaction history by preserving raw records, compressing redundant trajectories, and constructing reusable episodic abstractions, thereby reducing token overhead while retaining decision-critical evidence. These components are integrated through a closed-loop cognitive evolution process that aligns intended actions with observed outcomes to continuously update cognition and expand reusable skills, without external retraining. Empirical results across retrieval-augmented reasoning, tool-augmented agent benchmarks, and embodied task environments show that AutoAgent consistently improves task success, tool-use efficiency, and collaborative robustness over static and memory-augmented baselines. Overall, AutoAgent provides a unified and practical foundation for adaptive autonomous agents that must learn from experience while making reliable context-aware decisions in dynamic environments.",
+      "authors": [
+        "Xiaoxing Wang",
+        "Ning Liao",
+        "Shikun Wei",
+        "Chen Tang",
+        "Feiyu Xiong"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-10T14:23:49+00:00",
+      "link": "https://arxiv.org/pdf/2603.09716v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Self-evolving multi-agent framework for adaptive decision-making",
+      "llm_evidence_cn": "用于自适应决策的自我进化多智能体框架",
+      "llm_evidence": "用于自适应决策的自我进化多智能体框架",
+      "canonical_evidence": "用于自适应决策的自我进化多智能体框架",
+      "llm_tldr_en": "Introduces AutoAgent, a framework for agents to evolve cognition and memory for open-ended tasks.",
+      "llm_tldr_cn": "介绍了 AutoAgent，一个让智能体在开放任务中进化认知和内存的框架。",
+      "llm_tldr": "介绍了 AutoAgent，一个让智能体在开放任务中进化认知和内存的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.11445v2",
+      "title": "Verified Multi-Agent Orchestration: A Plan-Execute-Verify-Replan Framework for Complex Query Resolution",
+      "abstract": "We present Verified Multi-Agent Orchestration (VMAO), a framework that coordinates specialized LLM-based agents through a verification-driven iterative loop. Given a complex query, our system decomposes it into a directed acyclic graph (DAG) of sub-questions, executes them through domain-specific agents in parallel, verifies result completeness via LLM-based evaluation, and adaptively replans to address gaps. The key contributions are: (1) dependency-aware parallel execution over a DAG of sub-questions with automatic context propagation, (2) verification-driven adaptive replanning that uses an LLM-based verifier as an orchestration-level coordination signal, and (3) configurable stop conditions that balance answer quality against resource usage. On 25 expert-curated market research queries, VMAO improves answer completeness from 3.1 to 4.2 and source quality from 2.6 to 4.1 (1-5 scale) compared to a single-agent baseline, demonstrating that orchestration-level verification is an effective mechanism for multi-agent quality assurance.",
+      "authors": [
+        "Xing Zhang",
+        "Yanwei Cui",
+        "Guanghui Wang",
+        "Wei Qiu",
+        "Ziyuan Li",
+        "Fangwei Han",
+        "Yajing Huang",
+        "Hengzhi Qiu",
+        "Bing Zhu",
+        "Peiyang He"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-12T02:10:10+00:00",
+      "link": "https://arxiv.org/pdf/2603.11445v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Orchestration framework for specialized LLM-based agents",
+      "llm_evidence_cn": "专业 LLM 智能体的编排框架",
+      "llm_evidence": "专业 LLM 智能体的编排框架",
+      "canonical_evidence": "专业 LLM 智能体的编排框架",
+      "llm_tldr_en": "Presents VMAO, a framework for coordinating specialized agents through iterative verification.",
+      "llm_tldr_cn": "展示了 VMAO，一个通过迭代验证协调专业智能体的框架。",
+      "llm_tldr": "展示了 VMAO，一个通过迭代验证协调专业智能体的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.10062v1",
+      "title": "Multi-Agent Memory from a Computer Architecture Perspective: Visions and Challenges Ahead",
+      "abstract": "As LLM agents evolve into collaborative multi-agent systems, their memory requirements grow rapidly in complexity. This position paper frames multi-agent memory as a computer architecture problem. We distinguish shared and distributed memory paradigms, propose a three-layer memory hierarchy (I/O, cache, and memory), and identify two critical protocol gaps: cache sharing across agents and structured memory access control. We argue that the most pressing open challenge is multi-agent memory consistency. Our architectural framing provides a foundation for building reliable, scalable multi-agent systems.",
+      "authors": [
+        "Zhongming Yu",
+        "Naicheng Yu",
+        "Hejia Zhang",
+        "Wentao Ni",
+        "Mingrui Yin",
+        "Jiaying Yang",
+        "Yujie Zhao",
+        "Jishen Zhao"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-09T21:16:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.10062v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Architectural framing for multi-agent memory systems",
+      "llm_evidence_cn": "多智能体记忆系统的架构框架",
+      "llm_evidence": "多智能体记忆系统的架构框架",
+      "canonical_evidence": "多智能体记忆系统的架构框架",
+      "llm_tldr_en": "Explores memory hierarchy and consistency challenges in collaborative multi-agent systems.",
+      "llm_tldr_cn": "探讨了协作多智能体系统中的存储层次结构和一致性挑战。",
+      "llm_tldr": "探讨了协作多智能体系统中的存储层次结构和一致性挑战。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.12932v2",
+      "title": "DS$^2$-Instruct: Domain-Specific Data Synthesis for Large Language Models Instruction Tuning",
+      "abstract": "Adapting Large Language Models (LLMs) to specialized domains requires high-quality instruction tuning datasets, which are expensive to create through human annotation. Existing data synthesis methods focus on general-purpose tasks and fail to capture domain-specific terminology and reasoning patterns. To address this, we introduce DS$^2$-Instruct, a zero-shot framework that generates domain-specific instruction datasets without human supervision. Our approach first generates task-informed keywords to ensure comprehensive domain coverage. It then creates diverse instructions by pairing these keywords with different cognitive levels from Bloom's Taxonomy. Finally, it uses self-consistency validation to ensure data quality. We apply this framework to generate datasets across seven challenging domains, such as mathematics, finance, and logical reasoning. Comprehensive evaluation demonstrates that models fine-tuned on our generated data achieve substantial improvements over existing data generation methods.",
+      "authors": [
+        "Ruiyao Xu",
+        "Noelle I. Samia",
+        "Han Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-13T12:25:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.12932v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Domain-specific data synthesis for LLM instruction tuning",
+      "llm_evidence_cn": "LLM 指令微调的领域特定数据合成",
+      "llm_evidence": "LLM 指令微调的领域特定数据合成",
+      "canonical_evidence": "LLM 指令微调的领域特定数据合成",
+      "llm_tldr_en": "A framework for generating high-quality instruction datasets for specialized domains like biology.",
+      "llm_tldr_cn": "一个为生物等专业领域生成高质量指令数据集的框架。",
+      "llm_tldr": "一个为生物等专业领域生成高质量指令数据集的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.10600v1",
+      "title": "Trajectory-Informed Memory Generation for Self-Improving Agent Systems",
+      "abstract": "LLM-powered agents face a persistent challenge: learning from their execution experiences to improve future performance. While agents can successfully complete many tasks, they often repeat inefficient patterns, fail to recover from similar errors, and miss opportunities to apply successful strategies from past executions. We present a novel framework for automatically extracting actionable learnings from agent execution trajectories and utilizing them to improve future performance through contextual memory retrieval. Our approach comprises four components: (1) a Trajectory Intelligence Extractor that performs semantic analysis of agent reasoning patterns, (2) a Decision Attribution Analyzer that identifies which decisions and reasoning steps led to failures, recoveries, or inefficiencies, (3) a Contextual Learning Generator that produces three types of guidance -- strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions, and (4) an Adaptive Memory Retrieval System that injects relevant learnings into agent prompts based on multi-dimensional similarity. Unlike existing memory systems that store generic conversational facts, our framework understands execution patterns, extracts structured learnings with provenance, and retrieves guidance tailored to specific task contexts. Evaluation on the AppWorld benchmark demonstrates consistent improvements, with up to 14.3 percentage point gains in scenario goal completion on held-out tasks and particularly strong benefits on complex tasks (28.5~pp scenario goal improvement, a 149\\% relative increase).",
+      "authors": [
+        "Gaodan Fang",
+        "Vatche Isahagian",
+        "K. R. Jayaram",
+        "Ritesh Kumar",
+        "Vinod Muthusamy",
+        "Punleuk Oum",
+        "Gegi Thomas"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.DB",
+        "cs.IR"
+      ],
+      "published": "2026-03-11T09:54:09+00:00",
+      "link": "https://arxiv.org/pdf/2603.10600v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Self-improving agent systems learning from execution trajectories",
+      "llm_evidence_cn": "从执行轨迹中学习的自改进智能体系统",
+      "llm_evidence": "从执行轨迹中学习的自改进智能体系统",
+      "canonical_evidence": "从执行轨迹中学习的自改进智能体系统",
+      "llm_tldr_en": "A framework for agents to learn from past execution patterns to improve future performance via memory retrieval.",
+      "llm_tldr_cn": "一种让智能体从过去执行模式中学习，通过记忆检索提高未来性能的框架。",
+      "llm_tldr": "一种让智能体从过去执行模式中学习，通过记忆检索提高未来性能的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.14575v1",
+      "title": "CausalEvolve: Towards Open-Ended Discovery with Causal Scratchpad",
+      "abstract": "Evolve-based agent such as AlphaEvolve is one of the notable successes in using Large Language Models (LLMs) to build AI Scientists. These agents tackle open-ended scientific problems by iteratively improving and evolving programs, leveraging the prior knowledge and reasoning capabilities of LLMs. Despite the success, existing evolve-based agents lack targeted guidance for evolution and effective mechanisms for organizing and utilizing knowledge acquired from past evolutionary experience. Consequently, they suffer from decreasing evolution efficiency and exhibit oscillatory behavior when approaching known performance boundaries. To mitigate the gap, we develop CausalEvolve, equipped with a causal scratchpad that leverages LLMs to identify and reason about guiding factors for evolution. At the beginning, CausalEvolve first identifies outcome-level factors that offer complementary inspirations in improving the target objective. During the evolution, CausalEvolve also inspects surprise patterns during the evolution and abductive reasoning to hypothesize new factors, which in turn offer novel directions. Through comprehensive experiments, we show that CausalEvolve effectively improves the evolutionary efficiency and discovers better solutions in 4 challenging open-ended scientific tasks.",
+      "authors": [
+        "Yongqiang Chen",
+        "Chenxi Liu",
+        "Zhenhao Chen",
+        "Tongliang Liu",
+        "Bo Han",
+        "Kun Zhang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "stat.ML"
+      ],
+      "published": "2026-03-15T19:53:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.14575v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agents for open-ended scientific discovery",
+      "llm_evidence_cn": "用于开放式科学发现的LLM智能体",
+      "llm_evidence": "用于开放式科学发现的LLM智能体",
+      "canonical_evidence": "用于开放式科学发现的LLM智能体",
+      "llm_tldr_en": "CausalEvolve uses LLMs and causal reasoning to improve the efficiency of AI scientists.",
+      "llm_tldr_cn": "CausalEvolve利用LLM和因果推理提升AI科学家在科学发现中的效率。",
+      "llm_tldr": "CausalEvolve利用LLM和因果推理提升AI科学家在科学发现中的效率。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.11445v1",
+      "title": "Verified Multi-Agent Orchestration: A Plan-Execute-Verify-Replan Framework for Complex Query Resolution",
+      "abstract": "We present Verified Multi-Agent Orchestration (VMAO), a framework that coordinates specialized LLM-based agents through a verification-driven iterative loop. Given a complex query, our system decomposes it into a directed acyclic graph (DAG) of sub-questions, executes them through domain-specific agents in parallel, verifies result completeness via LLM-based evaluation, and adaptively replans to address gaps. The key contributions are: (1) dependency-aware parallel execution over a DAG of sub-questions with automatic context propagation, (2) verification-driven adaptive replanning that uses an LLM-based verifier as an orchestration-level coordination signal, and (3) configurable stop conditions that balance answer quality against resource usage. On 25 expert-curated market research queries, VMAO improves answer completeness from 3.1 to 4.2 and source quality from 2.6 to 4.1 (1-5 scale) compared to a single-agent baseline, demonstrating that orchestration-level verification is an effective mechanism for multi-agent quality assurance.",
+      "authors": [
+        "Xing Zhang",
+        "Yanwei Cui",
+        "Guanghui Wang",
+        "Qucy Wei Qiu",
+        "Ziyuan Li",
+        "Fangwei Han",
+        "Yajing Huang",
+        "Hengzhi Qiu",
+        "Bin Zhu",
+        "Peiyang He"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-12T02:10:10+00:00",
+      "link": "https://arxiv.org/pdf/2603.11445v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent orchestration framework for complex query resolution",
+      "llm_evidence_cn": "用于复杂查询解析的多智能体编排框架",
+      "llm_evidence": "用于复杂查询解析的多智能体编排框架",
+      "canonical_evidence": "用于复杂查询解析的多智能体编排框架",
+      "llm_tldr_en": "A framework for coordinating specialized LLM agents through a plan-execute-verify-replan loop.",
+      "llm_tldr_cn": "一种通过计划-执行-验证-重新计划循环协调专业LLM智能体的框架。",
+      "llm_tldr": "一种通过计划-执行-验证-重新计划循环协调专业LLM智能体的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.15390v1",
+      "title": "Hecate: A Modular Genomic Compressor",
+      "abstract": "We present Hecate, a modular lossless genomic compression framework. It is designed around uncommon but practical source-coding choices. Unlike many single-method compressors, Hecate treats compression as a conditional coding problem over coupled FASTA/FASTQ streams (control, headers, nucleotides, case, quality, extras). It uses per-stream codecs under a shared indexed block container. Codecs include alphabet-aware packing with an explicit side channel for out-of-alphabet residues, an auxiliary-index Burrows-Wheeler pipeline with custom arithmetic coding, and a blockwise Markov mixture coder with explicit model-competition signaling. This architecture yields high throughput, exact random-access slicing, and referential mode through streamwise binary differencing. In a comprehensive benchmark suite, Hecate provides the best compression vs. speed trade-offs against state-of-the-art established tools (MFCompress, NAF, bzip3, AGC), with notably stronger behaviour on large genomes and high-similarity referential settings. For the same compression ratio, Hecate is 2 to 10 times faster. When given the same time budget as other algorithms, Hecate achieves up to 5% to 10% better compression.",
+      "authors": [
+        "Kamila Szewczyk",
+        "Sven Rahmann"
+      ],
+      "primary_category": "cs.DS",
+      "categories": [
+        "cs.DS",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-16T15:06:28+00:00",
+      "link": "https://arxiv.org/pdf/2603.15390v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Modular genomic compression framework for FASTA/FASTQ streams",
+      "llm_evidence_cn": "用于FASTA/FASTQ流的模块化基因组压缩框架",
+      "llm_evidence": "用于FASTA/FASTQ流的模块化基因组压缩框架",
+      "canonical_evidence": "用于FASTA/FASTQ流的模块化基因组压缩框架",
+      "llm_tldr_en": "A modular lossless genomic compressor designed for efficient handling of nucleotide and quality data streams.",
+      "llm_tldr_cn": "一种模块化无损基因组压缩器，旨在高效处理核苷酸和质量数据流。",
+      "llm_tldr": "一种模块化无损基因组压缩器，旨在高效处理核苷酸和质量数据流。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.12740v1",
+      "title": "ToolTree: Efficient LLM Agent Tool Planning via Dual-Feedback Monte Carlo Tree Search and Bidirectional Pruning",
+      "abstract": "Large Language Model (LLM) agents are increasingly applied to complex, multi-step tasks that require interaction with diverse external tools across various domains. However, current LLM agent tool planning methods typically rely on greedy, reactive tool selection strategies that lack foresight and fail to account for inter-tool dependencies. In this paper, we present ToolTree, a novel Monte Carlo tree search-inspired planning paradigm for tool planning. ToolTree explores possible tool usage trajectories using a dual-stage LLM evaluation and bidirectional pruning mechanism that enables the agent to make informed, adaptive decisions over extended tool-use sequences while pruning less promising branches before and after the tool execution. Empirical evaluations across both open-set and closed-set tool planning tasks on 4 benchmarks demonstrate that ToolTree consistently improves performance while keeping the highest efficiency, achieving an average gain of around 10\\% compared to the state-of-the-art planning paradigm.",
+      "authors": [
+        "Shuo Yang",
+        "Soyeon Caren Han",
+        "Yihao Ding",
+        "Shuhe Wang",
+        "Eduard Hoy"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-13T07:37:06+00:00",
+      "link": "https://arxiv.org/pdf/2603.12740v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM agent tool planning via Monte Carlo Tree Search",
+      "llm_evidence_cn": "通过蒙特卡洛树搜索进行LLM智能体工具规划",
+      "llm_evidence": "通过蒙特卡洛树搜索进行LLM智能体工具规划",
+      "canonical_evidence": "通过蒙特卡洛树搜索进行LLM智能体工具规划",
+      "llm_tldr_en": "A novel planning paradigm for LLM agents to make informed decisions over extended tool-use sequences.",
+      "llm_tldr_cn": "一种新型LLM智能体规划范式，用于在长工具使用序列中做出明智决策。",
+      "llm_tldr": "一种新型LLM智能体规划范式，用于在长工具使用序列中做出明智决策。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.15953v1",
+      "title": "A Family of LLMs Liberated from Static Vocabularies",
+      "abstract": "Tokenization is a central component of natural language processing in current large language models (LLMs), enabling models to convert raw text into processable units. Although learned tokenizers are widely adopted, they exhibit notable limitations, including their large, fixed vocabulary sizes and poor adaptability to new domains or languages. We present a family of models with up to 70 billion parameters based on the hierarchical autoregressive transformer (HAT) architecture. In HAT, an encoder transformer aggregates bytes into word embeddings and then feeds them to the backbone, a classical autoregressive transformer. The outputs of the backbone are then cross-attended by the decoder and converted back into bytes. We show that we can reuse available pre-trained models by converting the Llama 3.1 8B and 70B models into the HAT architecture: Llama-3.1-8B-TFree-HAT and Llama-3.1-70B-TFree-HAT are byte-level models whose encoder and decoder are trained from scratch, but where we adapt the pre-trained Llama backbone, i.e., the transformer blocks with the embedding matrix and head removed, to handle word embeddings instead of the original tokens. We also provide a 7B HAT model, Llama-TFree-HAT-Pretrained, trained entirely from scratch on nearly 4 trillion words. The HAT architecture improves text compression by reducing the number of required sequence positions and enhances robustness to intra-word variations, e.g., spelling differences. Through pre-training, as well as subsequent supervised fine-tuning and direct preference optimization in English and German, we show strong proficiency in both languages, improving on the original Llama 3.1 in most benchmarks. We release our models (including 200 pre-training checkpoints) on Hugging Face.",
+      "authors": [
+        "Aleph Alpha",
+        ":",
+        "Adnen Abdessaied",
+        "Artur Baranowski",
+        "Lukas Balles",
+        "Michael Barlow",
+        "Fabien C. Y. Benureau",
+        "Felix Berkenkamp",
+        "Lukas Bluebaum",
+        "Bastian Boll",
+        "Thomas F. Burns",
+        "Björn Deiseroth",
+        "Constantin Eichenberg",
+        "David Friede",
+        "Pablo Iyu Guerrero",
+        "Ahmed Hammam",
+        "Bastian Harren",
+        "Johann Higl",
+        "Yasser Jadidi",
+        "Carina Kauf",
+        "Johannes Messner",
+        "Jan Hendrik Metzen",
+        "Max Meuer",
+        "Vedant Nanda",
+        "Pit Neitemeier",
+        "Koen Oostermeijer",
+        "Letitia Parcalabescu",
+        "Markus Pernpointner",
+        "Felix Reinfurt",
+        "Dylan Rodriquez",
+        "Grégory Schott",
+        "Philipp Siedler",
+        "Martin Simonovsky",
+        "Till Speicher",
+        "Volker Stampa",
+        "Stephan Wäldchen",
+        "Samuel Weinbach",
+        "Gregor Ziegltrum"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-03-16T22:07:18+00:00",
+      "link": "https://arxiv.org/pdf/2603.15953v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLMs adaptable to new domains without static vocabularies",
+      "llm_evidence_cn": "无需静态词汇表即可适应新领域的 LLM",
+      "llm_evidence": "无需静态词汇表即可适应新领域的 LLM",
+      "canonical_evidence": "无需静态词汇表即可适应新领域的 LLM",
+      "llm_tldr_en": "Develops HAT architecture to eliminate tokenization barriers in domain-specific LLM applications.",
+      "llm_tldr_cn": "开发了 HAT 架构，以消除领域特定 LLM 应用中的分词障碍。",
+      "llm_tldr": "开发了 HAT 架构，以消除领域特定 LLM 应用中的分词障碍。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

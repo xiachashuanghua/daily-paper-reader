@@ -1,0 +1,822 @@
+Title: Logos: An evolvable reasoning engine for rational molecular design
+
+URL Source: https://arxiv.org/pdf/2603.09268v1
+
+Published Time: Wed, 11 Mar 2026 00:41:55 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# Logos: An evolvable reasoning engine for rational molecular design 
+
+Haibin Wen 1, Zhe Zhao 1, Fanfu Wang 4, Tianyi Xu 1, Hao Zhang 3, Chao Yang 2, and Ye Wei 11City University of Hong Kong, Hong Kong 999077, China 
+
+> 2
+
+Shanghai Jiao Tong University, Shanghai 200240, China 
+
+> 3
+
+Riltide Medicines, Beijing, China 
+
+> 4
+
+Lanzhou University, Lanzhou 730000, China 
+
+Abstract 
+
+The discovery and design of functional molecules remain central challenges across chemistry, biology, and materials science. While recent advances in machine learning have accelerated molecular property prediction and candidate generation, existing models tend to excel either in physical fidelity without transparent reasoning, or in flexible reasoning without guarantees of chemical validity. This imbalance limits the reliability of artificial intelligence systems in real scientific design workflows. Here we present Logos, a compact molecular reasoning model that integrates multi-step logi-cal reasoning with strict chemical consistency. Logos is trained using a staged strategy that first exposes the model to explicit reasoning examples linking molecular descriptions to structural decisions, and then progressively aligns these reasoning patterns with molecular representa-tions. In a final training phase, chemical rules and invariants are incorporated directly into the optimization objective, guiding the model toward chemically valid outputs. Across multiple benchmark datasets, Logos achieves strong performance in both structural accuracy and chemical validity, matching or surpassing substantially larger general-purpose lan-guage models while operating with a fraction of their parameters. Beyond benchmark evaluation, the model exhibits stable behaviour in molecular optimization tasks involving multiple, poten-tially conflicting constraints. By explicitly exposing intermediate reasoning steps, Logos enables human inspection and assessment of the design logic underlying each generated structure. These results indicate that jointly optimizing for reasoning structure and physical consistency offers a practical pathway toward reliable and interpretable AI systems for molecular science, supporting closer integration of artificial intelligence into scientific discovery processes. 
+
+## 1 Introduction 
+
+Molecular discovery is a central driver of advances in pharmaceutical development, materials en-gineering, and sustainable energy[26, 35, 36]. The theoretical space of synthetically accessible, stable molecules is immense-estimated at 10 60 [28] or more, yet exploration of this chemical space is severely constrained by traditional paradigms that rely on human intuition and iterative em-1
+
+> arXiv:2603.09268v1 [cs.AI] 10 Mar 2026
+
+piricism [2, 29]. Overcoming the resulting scalability limits and high attrition rates requires a paradigm shift. In particular, the field needs advanced artificial intelligence architectures that not only generate molecular candidates but also rationalize them, creating a feedback loop in which computational proposals are systematically evaluated and refined by scientific expertise[18, 19, 45]. To facilitate this collaborative feedback loop, the AI must bridge human intuition and chemical re-ality. Meanwhile, molecular discovery is often posed as a generative problem: translating abstract linguistic specifications, such as human-desired properties, functions, or structural motifs, into con-crete candidate structures. Because design objectives are largely articulated in text, inverse design can be viewed as the mapping from these semantic inputs to chemical entities[8, 34]. Although machine learning methods, especially transformers and graph neural networks[10, 17, 44], have achieved strong performance in molecular representation and property prediction[12, 23, 30, 33], a critical gap remains. Many realistic design tasks require more than statistical pattern matching; they demand nuanced interpretation of complex, hierarchical constraints and their translation into valid molecular structures that obey physicochemical principles. This motivates a key question: can we engineer a model that systematically decomposes abstract targets into discrete structural modifications, ranging from scaffold selection to functional group optimization, rather than relying on generic textual inference alone[1, 9, 21]? The language understanding and multi-step reasoning capabilities of large language models (LLMs) are well aligned with these requirements[24, 40]. LLMs can interpret textual design briefs and approximate chemists’ reasoning from abstract properties to concrete structures, while few-shot and in-context learning address the sparsity and heterogeneity of molecular datasets[20]. This suggests the possibility of a direct “description → structure” workflow with auditable reasoning, enabling effective human–AI collaboration. However, current LLMs generally lack explicit chemical grounding and often produce syntactically plausible but chemically invalid structures, limiting their reliability in design pipelines[6, 16, 42]. Conversely, specialized scientific models achieve high chemical validity and domain accuracy but are opaque and poorly suited to natural language inputs. The central challenge, therefore, is to endow LLMs with robust chemical validity while preserving and exposing their reasoning, thereby combining language-native interaction with accountable, scientifically grounded molecular design[46]. Here we introduce Logos, a compact molecular reasoning model designed to integrate multi-step logical reasoning with strict chemical consistency. Moving beyond mere scaling, Logos achieves expert-level reasoning within a controlled parameter budget by aligning training with scientific logic. It explicitly translates complex instructions into chemically valid and logically traceable molecular designs. To achieve this, we adopt an iterative, staged training strategy that progres-sively aligns linguistic reasoning with molecular structure[7, 34]. First, to overcome the scarcity of explicit reasoning data, we augment existing description–structure pairs with intermediate reason-ing steps generated by a larger language model. Next, supervised fine-tuning[24] aligns these rea-soning patterns with molecular representations for principled structure generation. Finally, instead 2of relying on external post hoc filters, chemical validity is internalized through a physics-guided reinforcement learning process[15, 22, 32]. By incorporating chemical rules evaluated by standard cheminformatics toolkits[3, 14], this final stage encourages the model to favor reasoning trajectories that naturally yield chemically valid molecules while suppressing invalid pathways. Crucially, the optimized model can then be deployed to further expand the reasoning dataset, driving subsequent cycles of this training pipeline. Across multiple benchmark datasets[8, 25], Logos achieves strong performance in both structural accuracy and chemical validity, matching or exceeding much larger general-purpose models while operating at a fraction of their scale. Beyond benchmark metrics, the model exhibits stable be-haviour in multi-constraint molecular optimization tasks, where competing objectives must be bal-anced through iterative structural refinement. Logos exposes its intermediate reasoning steps, allowing researchers to inspect and evaluate the logic underlying each design decision. Taken together, these results suggest that reliable scientific AI systems need not sacrifice inter-pretability for performance, nor physical consistency for reasoning flexibility. By jointly optimizing for logical structure and chemical validity, Logos illustrates a pathway toward AI models that func-tion as transparent, trustworthy collaborators in molecular science. In the following sections we present the system architecture and training pipeline (Fig. 1), benchmark results across caption-to-molecule tasks and the evolutionary training mechanism (Fig. 2, Fig. 3), and the application of Logos to interactive, multi-objective molecular design (Fig. 4). We then discuss trade-offs, lim-itations, scale versus reasoning, and future work (Discussion). Full details of the task format, data preparation, supervised and reinforcement training, and bootstrapping procedure are given in Methods. 
+
+## 2 Results 
+
+2.1 Motivation and Three-Stage Training Framework 
+
+Current molecular design approaches divide into two categories with complementary weaknesses (Fig. 1a). Specialized models such as GNN-based generators achieve high chemical accuracy but cannot accept free-text design briefs or explain their decisions in natural language. General-purpose LLMs articulate multi-step reasoning but frequently output chemically invalid SMILES because they are not grounded in valency or topological constraints. The former handle tasks where inputs and outputs are both structural or numerical, but fail when presented with open-ended instructions. The latter follow complex prompts fluently yet produce structures that violate basic chemical rules, limiting their reliability in workflows where validity is required. Logos is designed to combine the chemical fidelity of specialized models with the reasoning transparency of LLMs, so that both the final structure and the logic underlying it can be examined and revised. The model is trained in three stages (Fig. 1b). In Cycle 1 (self-data distillation), a larger teacher model generates chain-of-thought (CoT) reasoning for existing molecule–caption pairs, producing 3Non-resoning 
+
+Dataset 
+
+Resoning 
+
+Dataset 
+
+Chain of Thought 
+
+Alright , let's tackle this 
+
+problem . N-nitrosoureas are 
+
+derivatives of urea … 
+
+Urea has the structure … 
+
+So , the structure would 
+
+be:… 
+
+Cycle Step 1 : Self Data Distillation 
+
+Cycle Step 2 : Supervised Fine-Tuning Cycle Step 3 : : Molecule focused 
+
+Group Relative Policy Optimization 
+
+The design rationale is understood. 
+
+Non-resoning 
+
+Dataset 
+
+Caption: This 
+
+molecule belongs to 
+
+the N-nitrosourea … 
+
+Mol: 
+
+Resoning 
+
+Dataset 
+
+Caption: ... 
+
+Mol ：... 
+
+Chain of Thought 
+
+Database 
+
+b. How to get Logos 
+
+c. Logos is better 
+
+Chebi-20 
+
+> Validity Score
+
+a. What is Logos 
+
+Logos 
+
+Large Language Model 
+
+Specialized Model A 
+
+Specialized Model B 
+
+Specialized Model C 
+
+Low Cost 
+
+Language Taks 
+
+Interpretable Gen. 
+
+Mol. Editing 
+
+Mol. Discovery A 
+
+Mol. Discovery B 
+
+Logos-1 Logos-0 
+
+The design rationale is not 
+
+understood. 
+
+More Professional molecular 
+
+design expertise. 
+
+Explanations cannot even be 
+
+provided. 
+
+Explanations can be provided.. 
+
+Pcdes 
+
+Logos-1 
+
+…
+
+Translation: 
+
+description → exact representation 
+
+1 Optimization: 
+
+target → local edit 
+
+2
+
+Distillation: fuzzy concept → candidate design 
+
+That’s exactly 
+
+what I want. 
+
+d. Logos in application 
+
+Here you are. 
+
+I need a new molecule based 
+
+on the current backbone with 
+
+a solubility of 0.011 mM ... 
+
+This molecule is a 
+
+nucleobase analogue: a 
+
+uracil derivative substituted 
+
+at the C6 position with... 
+
+I need a new 
+
+molecule, 
+
+maybe ...l ower log_D 
+
+User 
+
+Logos 
+
+User 
+
+Logos 
+
+In that case, possible 
+
+modification can be 
+
+multi-step 
+
+We can modify 
+
+this to ... 
+
+User 
+
+Logos 
+
+User 
+
+…
+
+> Validity Score
+
+Domain Expertise 
+
+> Language Comprehension & Reasoning
+
+Molecule Design 
+
+Logos Large Language 
+
+Model 
+
+Specialized Model 
+
+• Excellent language comprehension .
+
+• Deep domain expertise 
+
+• High accuracy in specific tasks.. 
+
+• Broad reasoning abilities 
+
+Evolve 
+
+Deep domain expertise ,
+
+no language abilities 
+
+Excellent language abilities, 
+
+limited domain knowledge 
+
+3Figure 1: Conceptual framework and training pipeline of Logos. a, Logos combines the chemical accuracy of specialized models (bottom lright) with the reasoning of general LLMs (top left), addressing both interpretability and structural validity. b, Three-stage pipeline: Cycle 1 (self-data distillation) builds chain-of-thought (CoT) data with a teacher model; Cycle 2 (supervised fine-tuning) trains on molecular design; Cycle 3 (molecule-focused GRPO) uses reinforcement learning with chemical rewards. c, Validity scores on ChEBI-20 and PCdes; Logos-1.5b (final) and Logos-4b approach ∼99.9%, outperforming larger baselines. d, Logos enables interactive molecular design through three paradigms 4a dataset that pairs descriptions with explicit reasoning steps and structural outputs. Standard chemical databases provide only caption–structure pairs; this step synthesises the missing reasoning layer. The student then learns to reproduce both the reasoning style and the structural output, preparing it for the reinforcement stage in which validity is directly rewarded. In Cycle 2 (supervised fine-tuning, SFT), a 1.5B-parameter student is trained on these data and becomes an intermediate model, Logos-0, capable of following instructions and outputting both reasoning and a molecule. In Cycle 3 (molecule-focused group relative policy optimization, GRPO), reinforcement learning rewards encode chemical validity via RDKit checks and consistency with the ground truth. SFT alone does not guarantee that valency or other physical constraints are satisfied at generation time; the reward signal provides a direct incentive for validity. These three cycles operate iteratively, progressively augmenting the original molecule–caption dataset with high-quality CoT reasoning paths. A more capable 4B-parameter model is subsequently trained on this final dataset, undergoing both SFT and GRPO in a single unified pass. On ChEBI-20 and PCdes[7, 8], Logos-1.5b (final) reaches validity scores of 0.9996 and 0.9997, and Logos-4b achieves similarly near-perfect performance (Fig. 1c), above all larger baselines in the figure. Fig. 1d illustrates the intended use pattern: the user specifies scaffold and property constraints; the model returns a candidate molecule with its reasoning in a <think> block; Logos supports diverse discovery workflows: exact description-to-molecule translation, targeted scaffold optimization, and multi-step conceptual distillation. In the latter, the user can supply validation feedback (e.g., from experiments or simulations), and the model uses this to adjust its reasoning and strategy in subsequent rounds, making the system suitable for iterative design rather than single-shot generation. The performance gains afforded by this framework are quantified in the sections that follow. 
+
+2.2 Superior Performance across Multi-Dataset Benchmarks 
+
+We evaluated Logos and comparison models on two caption-to-molecule benchmarks: ChEBI-20[8, 13], which uses biochemical and functional descriptions, and PCdes, which uses physicochemical property descriptions. The two datasets probe complementary aspects of generalization, namely biological role versus property constraints, and together assess whether performance holds across different types of molecular design tasks. We compared the full evolutionary series of Logos-1.5b (from initial version v1 through the final post-GRPO model) and the final Logos-4b against four general-purpose LLMs: DeepSeek-14b[5], Qwen3-32b[43], DeepSeek-R1[5], and GPT-5 (Fig. 2). The validity score measures the fraction of generated SMILES satisfying basic chemical rules such as valency[25]. General-purpose models consistently score below 1.0: GPT-5 reaches 0.7812 on ChEBI-20 and 0.8290 on PCdes, while DeepSeek-R1 achieves 0.8397 and 0.8753, respectively. Logos-1.5b (final) reaches 0.9996 and 0.9997, with invalid structures largely eliminated after the GRPO stage. Exact match (EM) measures graph-level identity with the ground-truth molecule. Logos-1.5b (final) achieves EM 0.3406 on ChEBI-20 and 0.3103 on PCdes; Logos-4b improves these to 0.5588 and 50.5047, compared with 0.2467 and 0.3023 for GPT-5. The gain from v1 to the final 1.5b model is +0.2433 on ChEBI-20 and +0.2110 on PCdes, with the largest improvements concentrated at the GRPO stage, consistent with the reward signal directly shaping generation toward correct and valid structures. On PCdes the same ordering holds: Logos (final) leads both on validity and EM over the general-purpose baselines. To capture partial correctness and structural proximity, we computed fingerprint-based similarities (MACCS, RDKit path, and Morgan[3, 25]). MACCS reflects the presence of key functional groups; on ChEBI-20, Logos-1.5b (final) reaches 0.9376 and Logos-4b improves this to 0.9629, versus 0.7365 for DeepSeek-R1 and 0.7205 for GPT-5. RDKit and Morgan similarities reach 0.8228 and 0.7422 for Logos-1.5b (final), and an impressive 0.9038 and 0.8569 for Logos-4b, versus 0.6367 and 0.5878 for GPT-5 on ChEBI-20, indicating that the generated molecules align well with the targets in topology and local atomic environment. The Fréchet ChemNet distance (FCD)[25] measures the distance between the distribution of generated molecules and a reference set of drug-like molecules in a learned feature space; a lower FCD corresponds to more realistic, drug-like distributions; we use the same metric and reference set as in prior work for comparability. Logos-1.5b (final) reaches FCD 0.4795 on ChEBI-20, while Logos-4b achieves an even lower FCD of 0.2868, versus 4.0779 for GPT-5 and 1.9183 for DeepSeek-R1, and FCD drops sharply from v1 to the final 1.5b model on both datasets (Fig. 2). Taken together, the 4B-parameter Logos outperforms the much larger general-purpose models we tested on validity, exact match, structural similarity, and distributional realism, indicating that molecule-focused training with chemical rewards can compensate for smaller scale on these tasks. 
+
+2.3 Evolutionary Training Mechanism, Ablation Analysis, and Structured Rea-soning Format 
+
+The training procedure is organized into three cycles that are summarized in Fig. 3a. Molecular databases typically provide caption–structure pairs without explicit reasoning steps[8, 13, 40]. To obtain a training signal for reasoning, we first use a larger teacher model (14B parameters) to gener-ate chain-of-thought (CoT) for these pairs; the teacher is prompted to explain how the description maps to structural decisions before outputting the SMILES. The resulting CoT dataset is then used to train a smaller student (1.5B/4B parameters). In Cycle 2, the student is supervised on this dataset and becomes the intermediate model Logos-0, which can follow instructions and output both a reasoning block and a molecule. Supervised training alone, however, does not guarantee that generated molecules are chemically valid[23, 27]. In Cycle 3 we apply molecule-focused group relative policy optimization (M-GRPO)[32]: for each prompt the model produces multiple comple-tions; each completion receives a scalar reward that encodes chemical validity (e.g., valency checks), match or similarity to the ground truth, and structural fingerprint similarity; a KL penalty limits drift from the initial policy. The policy is updated using the relative advantage of each completion within its group, so that trajectories that yield valid, correct molecules are favoured. This stage 6Chebi20 Pcdes Pcdes        
+
+> Exact Match Frechet ChemNet Distance
+> Morgan Fingerprint Similarity RDKit Fingerprint Similarity Vailidity Score
+> Morgan Fingerprint Similarity RDKit Fingerprint Similarity Vailidity Score
+> Exact Match Frechet ChemNet Distance Molecular ACCess System
+> Similarity
+> Molecular ACCess System
+> Similarity
+> Chebi20
+
+Figure 2: Benchmarking across Logos-1.5b versions (v1 to final), Logos-4b and general LLMs (e.g., DeepSeek-14b, GPT-5) on ChEBI-20 and PCdes. Logos-1.5b final reaches exact match 0.3406 (ChEBI-20) and validity ∼1.0. Structural similarity (MACCS, RDKit, Morgan) improves across versions; FCD decreases to 0.4795, indicating that generated molecules lie closer to real drug-like chemistry. 7yields the final Logos model. The benchmark results above reflect the full three-stage pipeline; ablation experiments reported here isolate the contribution of each stage and examine how the output format itself underpins both the training signal and downstream interpretability. When the full M-GRPO pipeline is used, including self-data distillation in Cycle 1, exact match on the evaluation set exceeds 0.35 (Fig. 3b). Removing self-data distillation, whether under M-GRPO or SFT alone, reduces performance to approximately 0.20–0.25, indicating that the CoT data produced in Cycle 1 cannot be replaced by caption–structure pairs alone. Maximum generation length over training further distinguishes the regimes: under M-GRPO, generation length converges to a stable range, whereas the SFT-only model produces longer and often redundant outputs, suggesting that the reward signal suppresses unfocused reasoning chains. These ablations support the use of all three cycles in the final pipeline. All training and evaluation use a fixed output format (Fig. 3c). The model must first emit a reasoning block bounded by <think> and </think> tags, then a single JSON object whose molecule 
+
+field contains the SMILES. The system prompt defines the task and, when applicable, includes few-shot caption–molecule examples. For a complex request, such as generating a trisaccharide with specified glycosidic linkages, the model states the linkage logic and stereochemical constraints in the reasoning block before producing the SMILES, explicitly tying each structure to a verifiable reasoning trace. This format serves two purposes: it makes chemical validity checkable by tools such as RDKit, enabling the GRPO reward computation, and it makes the design logic readable by a human reviewer. Requiring the reasoning block to precede the answer also reduces the risk of the model short-circuiting to a bare SMILES output, which would undermine both auditability and iterative refinement. This explicit reasoning structure directly supports the human-in-the-loop application described in the next section. 
+
+2.4 Interactive Application to Multi-Objective Molecular Optimization 
+
+Benchmark evaluation addresses performance on well-defined tasks, such as caption-to-molecule generation and molecule editing. Figure 4a (1 and 2) illustrates how Logos processes these foun-dational tasks. Building on this, Figure 4a (3) demonstrates how users can initiate a query with vague requirements, draw inspiration from the model’s explicit chain of thought, and interactively refine their criteria to obtain the desired molecule. Furthermore, we now examine whether this explicit reasoning capability transfers to iterative, multi-objective optimization closer to real-world practice. In lead optimization, chemists cycle between design hypotheses and experimental or in silico validation, balancing objectives, such as log D7.4, solubility, and scaffold retention, that fre-quently conflict[4, 39]. We tested Logos under a human-in-the-loop protocol and compared it with a larger general-purpose reasoning model (Fig. 4b). log D7.4 and solubility were chosen as exemplar constraints because they are routinely paired in drug discovery and can work against each other: raising lipophilicity tends to reduce aqueous solubility, so the model must navigate a trade-off rather than optimize a single quantity. 8Evolve over 
+
+multiple cycles 
+
+> …
+
+𝐀 1 𝐀 2 𝐀 𝐀 
+
+𝐀 1 𝐀 2 𝐀 𝐀 
+
+Sampling 
+
+Teacher Model: 
+
+LLM-14B 
+
+Prompt 
+
+System: ... 
+
+User: ... 
+
+Input: 
+
+Completion 
+
+Mol COT 
+
+Mol COT 
+
+> …
+
+Cold Start 
+
+Mol COT 
+
+Non-resoning 
+
+Dataset 
+
+Resoning 
+
+Dataset 
+
+Student Model :
+
+LLM-1.5B 
+
+𝐀🠀 
+
+Cycle Step 1 : Self Data Distillation 
+
+Database 
+
+Non-resoning 
+
+Dataset 
+
+Resoning 
+
+Dataset 
+
+Sampling 
+
+System 
+
+User 
+
+Mol 
+
+COT 
+
+Cycle Step 3 : Molecule focused 
+
+Group Relative Policy Optimization 
+
+Sampling 
+
+Rule 
+
+System 
+
+User 
+
+Logos-0 
+
+Cold Start: 
+
+Cold-Start Data Distillation: A marginally larger model 
+
+shall be adopted upon the initial access to this module 
+
+Mol 𝐀 1 𝐀 1 …𝐀 1 𝐀 2 𝐀 𝐀 
+
+> …
+
+Advantage = 𝐀𡐀𝐀𤠀𝐀𩀀 − 𝐀𡐀𤠀𤠀 (𝐀𡐀𝐀𤠀𝐀𩀀𝐀 )
+
+𝐀𨀀𩀀 (𝐀𡐀𝐀𤠀𝐀𩀀𝐀 )
+
+Cycle Step 2 : Supervised Fine-Tuning 
+
+a. Training Pipeline 
+
+3
+
+2
+
+Step 
+
+Cycle Training Path 
+
+Cold Start Path 
+
+Logos-1 
+
+Logos-0 
+
+Logos-1 
+
+Rewards Outputs 
+
+Advantages 
+
+b. Main Benefits of Each 
+
+Cycle Step 
+
+Chain of 
+
+Thought 
+
+Molecule 
+
+Okay , let's tackle this problem. The input describes a trisaccharide made up 
+
+of D-mannopyranose and two D-arabinofuranose residues connected by (1-
+
+>2) and (1->5) glycosidic bonds… First, I need to break down the 
+
+caption…The glycosidic bonds are (1->2) and (1->5). 
+
+So the first sugar is …The second sugar is…The third sugar is … 
+
+The output should be in the exact JSON format, so I'll structure it accordingly, 
+
+ensuring no other content is included. 
+
+C([C@@H]1[C@H]([C@@H]([C@@H](C(O1)O[C@H]2[C@@H]([C@H] 
+
+(OC2OC[C@@H]3[C@H]([C@@H](C(O3)O)O)O)CO)O)O)O)O)O 
+
+Your response should only be in the exact JSON format above; THERE 
+
+SHOULD BE NO OTHER CONTENT INCLUDED IN YOUR RESPONSE. 
+
+The molecule is a long-chain fatty acid that is a C20, polyunsaturated fatty 
+
+acid having four (Z)-double bonds at positions 5, 8, 11 and 14. It has a role 
+
+as a human metabolite, an EC 3.1.1.1 (carboxylesterase) inhibitor 
+
+Example 1: 
+
+Instruction: … Input: The molecule is a … 
+
+Your output should be: {"molecule": “…”} 
+
+You are now working as an excellent expert in chemistry and drug discovery. 
+
+Task 
+
+Description 
+
+Given the caption of a molecule, your job is to predict the SMILES 
+
+representation of the molecule. The molecule caption is a … 
+
+Reference 
+
+Example 
+
+Output 
+
+Control 
+
+Input 
+
+Prompt 
+
+c. Illustration of The Dataset 
+
+Completion   
+
+> System User
+> Non-Reasoning Dataset
+> Reasoning Dataset
+> 2
+> 1
+> 5
+> 43
+> 1
+> 24
+> 3
+
+Expert Role 
+
+M-GRPO 1 SFT 2 
+
+> 4
+
+M-GRPO w.o. SDD  
+
+> 3
+
+SFT w.o , SDD  
+
+> 5
+
+Max Molecule Length 
+
+Completions / Max_Length 
+
+Step 
+
+Exact Match 
+
+> Distance
+
+1Figure 3: Evolutionary training and output format. a, Pipeline: teacher (LLM-14B) generates CoT for description–structure pairs (Cycle 1); student (LLM-1.5B) is fine-tuned on CoT data to become Logos-0 (Cycle 2); M-GRPO with chemical rewards yields Logos (Cycle 3). b, Ablations: full M-GRPO (solid blue) reaches EM > 0.35; removing self-data distillation (w.o. SDD) lowers performance; M-GRPO stabilizes generation length. c, Output format: system prompt plus JSON; the model outputs reasoning in <think> then the molecule in JSON, e.g. for a trisaccharide task. 9Translation: description → exact representation 
+
+a. 
+
+This molecule is a nucleobase analogue: a uracil derivative substituted at the C6 
+
+position with a (4-hydroxybutyl) amino group and at the C5 position with an (E)-(2-
+
+oxopropylidene) amino group. It is one of 20 analogues of the MR1-presented 
+
+MAIT-cell antigen 5-OP-RU (PMID: 32123373)... it is a pyrimidinone and a 
+
+nucleobase analogue derived from uracil. 
+
+Logos 
+
+b. 
+
+User 
+
+Optimization: target → local edit 
+
+Logos 
+
+User 
+
+Sceneraios 
+
+We aim to derive a simplified SMILES string from the textual structural 
+
+description of the target molecule ... 
+
+The final 
+
+output: 
+
+I am undertaking a drug molecular design task. I need a new 
+
+molecule based on the current backbone that has solubility lager 
+
+than 0.74 and logD_7.4 value close to 2.7. 
+
+Alright, let’s tackle this problem... 
+
+𝐀 2 can be modified as 
+
+Derive the scaffold 
+
+template from Example 1 
+
+C6 C5 
+
+> C5
+
+Attach C5 fragement 
+
+(Step 2 ), and then attach 
+
+C6 chain ( Step 3 )
+
+Step 1 
+
+Step 2 
+
+Step 3 
+
+Reference Examples Example 1: CC(=O)C=NC1=C(NC(=O)NC1=O)NCCCO ... 
+
+Minimal edit at C6 
+
+(Step 4 )
+
+C6: 
+
+NCCCO → NCCCCO 
+
+Reference Examples Example 1: O=C1N[C@H](C(F)(F)F)CN1[C@@H] 
+
+(C2=CC3=NC([C@@H](NC(C4=NON=C4C)=O)C5CCC(F)(F)CC5)=CN3N=C2)COC .. 
+
+Distillation: fuzzy concept → candidate design 
+
+I need a broad-spectrum 
+
+antibiotic molecule, 
+
+typically produced by the 
+
+Streptomyces genus ... User 
+
+1 2
+
+3
+
+Logos 95 candidates 
+
+Candidate 1 
+
+…
+
+Interaction 1 
+
+User 
+
+…
+
+Logos 
+
+94 candidates 
+
+Max similarity to target dsign: 0.6912 
+
+Avg similarity to target dsign: 0.5178 
+
+Candidate 2 
+
+Interaction 2 
+
+Max similarity to 
+
+target dsign: 0.8772 
+
+Avg similarity to 
+
+target dsign: 0.6277 
+
+User 
+
+…
+
+Logos 
+
+Interaction 3 
+
+100 candidates 
+
+Max similarity to 
+
+target dsign: 1.0000 
+
+Avg similarity to 
+
+target dsign: 0.9674 
+
+Failure Rate Comparison Accuracy Comparison 
+
+can be modified as 𝐀 1
+
+The final 
+
+output: 
+
+The Number of Example Mols The Number of EXample Mols 
+
+Analysis 
+
+Backbone: Step 1 
+
+Step 2 Step 3 
+
+Generated invalid mols 
+
+Reference mols Figure 4: Interactive Application to Multi-Objective Molecular Optimization. a, Three exemplary paradigms for rational molecule design: (1) Translation , where the model converts a detailed tex-tual description into an exact molecular representation through step-by-step structural assembly; (2) Optimization , which performs local edits on a given backbone to satisfy specific physicochemi-cal property constraints (e.g., log D7.4 and solubility); and (3) Distillation , an iterative multi-turn process that refines candidate molecules from a fuzzy conceptual query, gradually converging on the desired molecule. b. Analysis of Logos’ performance in real-world cases of multi-objectice optimization from [37]. 10 The user specifies constraints (for example, retain a given scaffold, achieve desired log D7.4 and solubility), and the model returns candidate molecules with its reasoning in the <think> block. The user then provides feedback from assays or property predictions, and the model incorporates this in the next round. Because the reasoning is visible, the user can identify which structural choices drove each candidate and redirect the logic; black-box generators that output only a structure leave the user to infer what to change, making iteration slower and less targeted. The first two panels of Fig. 4b illustrate the molecule generation failure rate (i.e., invalid molecules) and the success rate of generating molecules with the correct log D7.4 and solubility values when DeepSeek-14B and Logos are provided with varying numbers of reference samples containing explicit property values. In comparison, Logos generates a higher proportion of chemically valid molecules and achieves a greater success rate in generating molecules with the desired log D7.4 and solubility values. Furthermore, when the user expects a log D7.4 of 2.8 and a solubility of 0.56, the third panel of Fig. 4b presents a similarity comparison between the generated valid molecules, whose actual 
+
+log D7.4 and solubility cannot be pre-determined, and known samples. While the actual properties of these molecules remain unverified, structural similarity analysis indicates that they closely resemble known samples with the target profiles. This demonstrates that the model steers generation toward the specified region of property space even when several constraints are simultaneously active. Logos thus supports iterative, multi-objective molecular design workflows in which the reasoning behind each candidate is explicit and open to inspectiond. 
+
+## 3 Discussion 
+
+The results above support two main conclusions: that a compact, domain-trained model can match or exceed much larger general-purpose LLMs on caption-to-molecule benchmarks when reasoning is combined with explicit chemical constraints, and that the same model can participate in iterative, human-in-the-loop design when multiple objectives must be balanced. Here we discuss the trade-offs implied by these findings, the limitations of the current work, the relationship between scale and reasoning in molecular tasks, and directions for future work. 
+
+Trade-offs. The advantages of Logos in accuracy and interpretability introduce two primary trade-offs. First, there is a trade-off between inference latency and auditability. Traditional black-box generators, such as graph neural networks (GNNs) or diffusion models, as well as standard LLMs operating without a chain-of-thought, can generate molecular structures rapidly. In con-trast, Logos must autoregressively decode an explicit, often lengthy <think> reasoning trace before outputting a SMILES string. This generates significantly more tokens per request, trading raw single-pass generation speed for high physical consistency and human-verifiable logic. Consequently, Logos is exceptionally well-suited for precision-driven, human-in-the-loop workflows, but less opti-mal for massive high-throughput virtual screening where microsecond latency is critical. Second, achieving state-of-the-art molecular reasoning with a compact model (e.g., 4B parameters) necessi-11 tates a trade-off between domain specialization and general applicability. To match or exceed the chemical accuracy of massive general-purpose models, Logos allocates its limited parameter budget almost entirely to chemical syntax, spatial reasoning, and physicochemical alignment. Therefore, while it excels as a specialized domain expert, it inevitably sacrifices the broad, cross-disciplinary knowledge inherent to larger foundation models. 
+
+Limitations. Several limitations should be borne in mind. First, we evaluated on two caption-to-molecule benchmarks and one multi-parameter optimization protocol; performance on other tasks (e.g., retrosynthesis, reaction prediction, or other property targets) may differ. Second, the quality of the reasoning produced by the teacher in Cycle 1 and by Logos at inference time is not directly measured; we rely on validity and structural match as proxies. Third, the model is trained and evaluated in English; captions in other languages or mixed-language settings were filtered out and are not represented. Fourth, the bootstrapping step depends on the current model being able to generate correct molecules for some previously failed prompts; if the failure rate is very high, the gain from bootstrapping may be small. Fifth, we did not compare against all existing molecular generators (e.g., diffusion or VAE-based models[11, 38]) on the same benchmarks; our comparison is focused on general-purpose LLMs and on the Logos evolutionary series. Finally, the human-in-the-loop scenario was illustrated with one constraint set ( log D7.4, solubility, scaffold); behaviour under other constraints or with different numbers of feedback rounds has not been systematically varied. 
+
+Scale versus reasoning. A recurring question in scientific AI is whether scaling model size is necessary for strong performance or whether domain-specific training can compensate for smaller scale. On the caption-to-molecule benchmarks we report, the 4B Logos (final) outperforms the much larger general-purpose models on validity, exact match, and distributional realism. This suggests that for this task, molecule-focused training with chemical rewards can offset the advantage of scale. The result is consistent with the view that general-purpose models are not optimised for chemical validity and that injecting physical constraints via the reward signal narrows the gap. It does not imply that scale is irrelevant: the teacher model used for CoT distillation is larger (14B). Extending this comparison to other model sizes and to other scientific domains would clarify the generality of this trade-off. 
+
+Future work. Several directions follow naturally. (i) Scaling the student: training a larger student (e.g., 7B or 14B) with the same pipeline could show whether the gains from molecule-focused training persist at larger scale and whether multi-parameter task success improves. (ii) 
+
+Benchmarks and tasks: evaluating on additional caption-to-molecule datasets, on retrosynthesis or reaction prediction, and on property-based design with explicit objectives would strengthen the evidence for generalisation. (iii) Reasoning quality: developing metrics or human evaluations for the correctness and usefulness of the generated reasoning (rather than only the molecule) would allow the community to optimise and compare interpretability. (iv) Integration with experiments: 
+
+12 coupling Logos with synthesis planning or experimental feedback loops (e.g., closing the loop with assay or property data) would test its value in real discovery campaigns. (v) Bootstrapping and data: 
+
+scaling the bootstrapping phase, incorporating active learning, or curating higher-quality CoT from experts could improve data efficiency and final performance. (vi) Other modalities: extending the format to include spectra, reactions, or other chemical representations would broaden the scope of the approach. We hope that the pipeline and the results reported here provide a basis for these and related efforts. 
+
+## 4 Methods 
+
+We implement a multi-stage pipeline that first distils chain-of-thought (CoT) reasoning from a larger teacher into a compact student, then refines the student using reinforcement learning whose rewards explicitly encode chemical validity and consistency with ground-truth structures (Fig. 1). An optional bootstrapping step reuses the current model to generate high-quality reasoning for previously failed samples, expanding the training set without manual annotation. The three main stages, including data preparation and CoT distillation (Cycle 1), supervised reasoning training (Cycle 2), and molecule-focused policy optimization (Cycle 3), are summarised in Fig. 1b and Fig. 3. A central design principle is that a single, strict output format is used everywhere: data construction, supervised training, reward computation, and bootstrapping all assume the same structure, so that parsing and chemical validation can be applied uniformly and multiple reward terms can be combined in one reinforcement phase. Below we describe the task and output format, data construction, supervised training, the reinforcement phase with its reward design, and the bootstrapping loop; implementation details are given at the end. 
+
+Task and output format. 
+
+We consider the caption-to-molecule (C2M) task[7, 8]: given a natural-language description of a molecule (e.g., physicochemical properties, functional role, or structural hints), the model must output the corresponding SMILES string[41]. This setting is representative of inverse design and knowledge-guided generation in drug and chemical discovery[12, 31]. A central design choice is to require the model to emit a reasoning trace before the answer: the model first produces text inside a dedicated block delimited by <think> and </think> , then a single JSON object containing the key molecule with the SMILES. Formally, let y denote the raw model completion. The parsing process is defined as a sequential extraction pipeline: 
+
+ˆs = Φ( Eregex (a)) where y = [ r; d; a] (1) Here, y is first split at the reasoning delimiter d (e.g., </think>\n\n ) to separate the reasoning trace r from the raw answer segment a. The function Eregex isolates the JSON payload via regular expression matching, and Φ serves as a robust string parser that yields the predicted SMILES 
+
+ˆs. To ensure fault tolerance against formatting hallucinations, Φ incorporates format correction 13 heuristics (e.g., brace and quote removal) and fallback key routing (checking molecule , smiles ,etc.). Finally, ˆs is mapped to a computational molecular graph ˆm:
+
+ˆm = V(ˆ s) (2) where V represents the strict chemical validation function powered by RDKit [3]. If ˆs violates chemical valency rules, V rejects it ( ˆm = ∅). The successfully parsed graph ˆm is subsequently used for downstream programmatic evaluations, including InChI-based [14] exact matching and struc-tural fingerprint comparisons. This separation allows the same pipeline to (i) train and evaluate interpretable, step-by-step reasoning, and (ii) apply programmatic chemical checks and multi-term rewards to the parsed molecule. The format is used consistently in data construction, supervised fine-tuning, reward computation, and distillation, so that no separate parsing logic is needed for each stage. Using a single, strict format across the pipeline also makes it possible to combine many reward terms in the reinforcement phase: each term receives the same parsed molecule and can call the same validation and fingerprint routines, which simplifies implementation and keeps reward definitions aligned with the data contract. 
+
+Data preparation. 
+
+We start from an existing dataset of molecule–caption pairs D = {(ci, m ∗ 
+
+> i
+
+)}Ni=1 drawn from chem-ical databases [8, 13], where ci represents the natural-language caption and m∗ 
+
+> i
+
+is the ground-truth SMILES string. Each record optionally includes a set of K in-context (few-shot) examples 
+
+Ei = {(ck, m k)}Kk=1 (where K ≥ 0) used to build the system prompt. For each sample, the full input prompt xi is assembled by concatenating a fixed task description T , the few-shot examples 
+
+Ei, and the target caption ci in the user message, which can be formalized as xi = [ T ; Ei; ci].This formulation inherently supports both zero-shot ( K = 0 ) and few-shot ( K > 0) training and evaluation. Furthermore, each record is assigned a success indicator qi ∈ { 0, 1} denoting whether a high-quality reasoning trace (CoT) and a correct molecule were previously generated for ci (e.g., from an earlier training run or distillation pass). The tuple (K, q i) serves as the condition variable for stratified sampling when constructing the reinforcement learning set later. For supervised reasoning training, we construct a highly curated dataset DSFT ⊆ D . Specifically, we retain only samples where the success indicator qi = 1 (i.e., possessing a high-quality CoT ri
+
+and the correct molecule m∗ 
+
+> i
+
+), and we apply a linguistic filter to discard reasoning traces containing non-English characters. Each training example is then structured as a conversational triple τi =(psys , p user , p asst ), defined as follows: 
+
+psys = [ T ; Ei], puser = ci, passt = [ ri; d; fJSON (m∗ 
+
+> i
+
+)] (3) where d is the structural delimiter (e.g., </think> ) and fJSON (·) denotes the function that wraps the ground-truth SMILES into the required JSON schema. This yields the final CoT dataset 
+
+DSFT = {τi}NSFT  
+
+> i=1
+
+used to train the student model via standard autoregressive language modeling. 14 For the reinforcement phase, we construct a separate training set DRL containing only the prompt contexts xi = ( psys , p user ), deliberately omitting the assistant’s completion passt . Each prompt xi
+
+is internally coupled with a reference context Ci = ( m∗ 
+
+> i
+
+, M Ei ), where MEi = {mk}Kk=1 denotes the set of target molecules from the in-context examples. During RL training, Ci is hidden from the model but passed to the reward environment to evaluate the generated molecule ˆm. Specifically, the reward function scores the completion based on chemical validity, exact structural match against 
+
+m∗ 
+
+> i
+
+, and generative novelty (i.e., ensuring ˆm / ∈ MEi ). Building the RL set from the same source as the SFT set (but with assistant answers omitted) keeps the two stages aligned: the model sees the same types of prompts and few-shot configurations in both supervised and reinforcement phases. To maintain a balanced distribution of difficulty and context length, we employ stratified sampling based on the previously defined criterion (K, q i). We partition the dataset into disjoint strata 
+
+SK,q = {xi ∈ D | | Ei| = K ∧ qi = q} and sample proportionally from each stratum. This explicit stratification ensures that the policy is trained across a diverse spectrum of easier ( qi = 1 ) and harder ( qi = 0 ) cases, as well as varying in-context settings ( K ≥ 0). We observe that without this partitioning, the RL phase tends to become biased toward already-solved or single-shot prompts. By enforcing this stratification, the model is exposed to a robust mixture that stabilizes the learning dynamics and strongly promotes few-shot-to-zero-shot generalization at test time. 
+
+Supervised reasoning training. 
+
+The student policy πθ, initialized with a 4B-parameter language model natively supporting the CoT reasoning block, undergoes full-parameter fine-tuning on DSFT . The training objective minimizes the autoregressive negative log-likelihood of the full assistant completion yi given the input prompt 
+
+xi:
+
+LSFT (θ) = −E(xi,y i)∼D SFT 
+
+
+
+> |yi|
+
+∑
+
+> t=1
+
+ωi log πθ(yi,t | yi,<t , x i)
+
+ (4) To encourage substantive rather than trivial reasoning, we introduce a sample-level weighting fac-tor wi. Specifically, we down-weight the loss ( wi < 1) for training instances where the extracted reasoning trace ri is empty or trivially short (i.e., |ri| < γ , where γ is a length threshold). For instances with valid and substantial reasoning blocks, we maintain wi = 1 . This formulation pre-vents the model from exploiting length shortcuts, consistent with training protocols for modern reasoning-oriented models. The maximum sequence length is set to 4096 tokens to accommodate extensive reasoning paths and large molecular graphs. Training runs for multiple epochs over the 
+
+DSFT set with a standard optimizer and learning rate schedule. We save checkpoints at regular intervals and use the optimal checkpoint as the initialization for the reinforcement phase. This su-pervised stage yields an intermediate model (Logos-0) that strictly follows instructions and outputs both a reasoning trace and a molecule in the required format. Supervised training alone, however, does not guarantee that generated molecules ˆm satisfy chemical valency constraints; we therefore cascade this with a reinforcement phase that directly rewards absolute validity and consistency with the ground truth. 15 Molecule-focused reinforcement learning. 
+
+To align the model with chemical validity and with generalization beyond in-context examples, we use group relative policy optimization (GRPO)[32] with rewards that are tailored to the C2M setting. For each prompt in the reinforcement set, we generate multiple completions (eight in our experiments) with the current policy at temperature 0.9. Each completion is parsed to obtain the reasoning block and the molecule field; the molecule is validated and compared to the ground truth using RDKit[3] and InChI[14]. A scalar reward is computed per completion and combined with a KL-divergence penalty against the initial policy; the policy is updated using the relative advantages within each group of completions, so that trajectories that achieve higher reward are favoured. The total reward function Rtotal is formulated as a weighted combination of several interpretable components, explicitly evaluating both the linguistic reasoning trace r and the chemically parsed molecule ˆm against the ground-truth m∗. Formally, for a given completion y = [ r; d; a] and a set of in-context examples ME , the total reward is defined as: 
+
+Rtotal (yi, ˆmi, m ∗ 
+
+> i
+
+, M Ei ) = ∑
+
+> k∈K lang
+
+λkRk(yi, M Ei ) + ∑
+
+> j∈K mol
+
+λj Rj ( ˆ mi, m ∗ 
+
+> i
+
+, M Ei ) (5) 
+
+Format and Behaviour ( Klang ): We construct several heuristic rewards to enforce format compliance and reasoning quality. Rformat rewards valid JSON outputs that successfully map the molecule 
+
+key. To elicit substantive deliberation, Rcot provides a step reward if the reasoning block length exceeds a minimum threshold (e.g., |r| > 100 ). Conversely, we introduce a soft length penalty 
+
+Rlen to prevent runaway reasoning or redundant text. To actively discourage the policy from memorising or citing the few-shot prompts, we introduce a unified penalty Rforbid . This term proportionally reduces the reward based on the occurrence frequency of reference keywords (e.g., “example”) within the reasoning trace, and strictly assigns a zero score if the generated molecule 
+
+ˆmi structurally matches any in-context example in MEi . This joint constraint directly targets few-shot-to-zero-shot generalization by forcing the model to synthesize novel structures and justify them via intrinsic chemical logic rather than prompt repetition. 
+
+Molecular Correctness and Similarity ( Kmol ): For the parsed molecular graph ˆm, if ˆm is chemically valid, we compute an Exact Match reward REM based on strict InChI equivalence, alongside a smooth exact match RSEM utilizing the Levenshtein ratio between the predicted and ground-truth InChI strings. Furthermore, to provide dense and continuous learning signals for near-correct structures, we incorporate structural similarity rewards: 
+
+Rsim = T (F( ˆ m), F(m∗)) (6) where F represents standard cheminformatics fingerprint extractors (MACCS, RDKit topological, and Morgan [3, 25]), and T denotes the Tanimoto similarity metric. The weight distribution λ is deliberately calibrated so that the model prioritizes structural precision 16 without neglecting formatting or reasoning integrity. In our configuration, we assign a higher weight of 0.2 to both the exact match ( REM ) and the smooth exact match ( RSEM ) rewards to strongly encourage convergence toward the ground-truth molecules. A uniform weight of 0.1 is assigned to all other components, including format compliance, length penalties, anti-cheating constraints (Rforbid ), and fingerprint-based similarities. This balanced formulation ensures that the policy improves monotonically on chemical correctness while strictly adhering to the required JSON format and CoT reasoning style. 
+
+Bootstrapping reasoning data from failed samples. 
+
+Many database samples lack a high-quality CoT (e.g., previous runs had not produced a correct molecule for that caption). Rather than discarding them, we use the current model to generate new completions for these prompts. We keep only completions whose molecule matches the ground truth (e.g., by InChI comparison) and write back the corresponding reasoning block and molecule to the dataset, so that the sample is then treated as having a valid CoT. The updated dataset is used again to build supervised and reinforcement batches. This bootstrapping loop enlarges the set of samples with valid CoT without manual annotation and supports the iterative improvement we observe across training turns (Fig. 3). It corresponds to a form of self-distillation: the model generates and filters its own reasoning for previously failed cases, turning them into positive training examples for the next round. In practice, we run this step when a non-empty set of failed samples exists and when we wish to expand the CoT set before another SFT or GRPO run. The write-back stores both the reasoning block and the JSON answer for each accepted completion, so that the record can be used as a full supervised example in the next data preparation pass. This closes the loop between training and data: the model improves the dataset, and the improved dataset is then used to train the model again. 
+
+Implementation. 
+
+Supervised fine-tuning and GRPO are implemented with the ms-swift framework; batch generation uses vLLM. Chemical validation and fingerprint computation use RDKit[3]. Reward terms are implemented as plugins that receive the ground-truth molecule and in-context example molecules from the dataset, so that each term can compute its contribution from the same parsed completion and data fields. No reward term requires a different parsing convention; all use the same split-on-reasoning-block and JSON extraction step, which keeps the pipeline maintainable and the reward weights comparable. For the supervised stage we use full fine-tuning with the reasoning-block loss scaling described above, maximum length 4096, and standard optimiser and learning-rate settings. For GRPO we use eight completions per prompt, temperature 0.9, and fixed weights for the reward components: roughly one-fifth for overlong penalty, one-third for format and generalisation terms, and one-half for molecular validity and match; the three fingerprint similarity terms receive equal weight. We apply an overlong filter so that excessively long generations are discarded before reward computation, and we use a KL penalty (epsilon in the GRPO update) to limit policy drift. Training is run on multi-GPU nodes in bfloat16 mixed precision. The same dataset schema (caption, ground-17 truth molecule, few-shot examples, and success/failure marking) is used for data preparation, SFT data export, RL data export, and bootstrapping, so that the entire pipeline can be run from a single data source and a small set of configuration parameters. The initial policy for GRPO is the checkpoint produced by the supervised stage (Logos-0), not the base language model; this ensures that the reinforcement phase starts from a model that already outputs the correct format and reasonable reasoning, and only adjusts the policy toward higher validity and match. 
+
+## References 
+
+[1] Camille Bilodeau, Wengong Jin, Tommi Jaakkola, Regina Barzilay, and Klavs F Jensen. Gener-ative models for molecular discovery: Recent advances and challenges. Wiley Interdisciplinary Reviews: Computational Molecular Science , 12(5):e1608, 2022. [2] Keith T Butler, Daniel W Davies, Hugh Cartwright, Olexandr Isayev, and Aron Walsh. Ma-chine learning for molecular and materials science. Nature , 559(7715):547–555, 2018. [3] RDKit contributors. RDKit: Open-source cheminformatics, 2023. URL https://www.rdkit. org . Version 2023.x; https://doi.org/10.5281/zenodo.591637 .[4] Matthew D Segall. Multi-parameter optimization: identifying high quality compounds with a balance of properties. Current pharmaceutical design , 18(9):1292–1310, 2012. [5] DeepSeek-AI. DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning. arXiv preprint arXiv:2501.12948 , 2025. URL https://arxiv.org/abs/2501.12948 .[6] Yiming Du, Tianfan Fu, Jimeng Sun, and Shengchao Liu. Mol-LLM: molecular property prediction and molecule design with large language models. arXiv preprint arXiv:2310.06866 ,2024. URL https://arxiv.org/abs/2310.06866 .[7] Carl Edwards, ChengXiang Zhai, and Heng Ji. Text2mol: cross-modal molecule retrieval with natural language queries. In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP) , pages 595–607. Association for Computational Linguistics, 2021. [8] Carl Edwards, Tuan Lai, Kevin Ros, Garrett Honke, Kyunghyun Cho, and Heng Ji. Translation between molecules and natural language. In Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing (EMNLP) , pages 375–413, Abu Dhabi, United Arab Emirates, 2022. Association for Computational Linguistics. URL https://aclanthology. org/2022.emnlp-main.26 .[9] Yin Fang, Xiaozhuan Liang, Ningyu Zhang, Kangwei Liu, Rui Huang, Zhuo Chen, Xiaohui Fan, and Huajun Chen. Mol-instructions: A large-scale biomolecular instruction dataset for large language models. arXiv preprint arXiv:2306.08018 , 2023. 18 [10] Justin Gilmer, Samuel S Schoenholz, Patrick F Riley, Oriol Vinyals, and George E Dahl. Neural message passing for quantum chemistry. In International Conference on Machine Learning ,pages 1263–1272. PMLR, 2017. [11] Rafael Gómez-Bombarelli, Jennifer N Wei, David Duvenaud, José Miguel Hernández-Lobato, Benjamín Sánchez-Lengeling, Dennis Sheberla, Jorge Aguilera-Iparraguirre, Timothy D Hirzel, Ryan P Adams, and Alán Aspuru-Guzik. Automatic chemical design using a data-driven continuous representation of molecules. ACS central science , 4(2):268–276, 2018. [12] Jiaqi Guan, Xiangzhe Zhou, Yuan Zhang, Yuchen Gu, Yang Liu, Jie Feng, Shengchao Zhang, Jian Liu, et al. A survey of generative AI for de novo drug design: new frontiers in molecule and protein generation. arXiv preprint arXiv:2402.08703 , 2024. URL https://arxiv.org/ abs/2402.08703 .[13] Janna Hastings, Gareth Owen, Adriano Dekker, Matthew Ennis, Neel Kale, Venkatesh Muthukrishnan, Steve Turner, Neil Swainston, Pedro Mendes, and Christoph Steinbeck. ChEBI in 2016: improved services and an expanding collection of metabolites. Nucleic Acids Research , 44(D1):D1214–D1219, 2016. doi: 10.1093/nar/gkv1031. [14] Stephen R Heller, Alan McNaught, Igor Pletnev, Stephen Stein, and Dmitrii Tchekhovskoi. Inchi, the IUPAC international chemical identifier. Journal of Cheminformatics , 7(1):23, 2015. doi: 10.1186/s13321-015-0068-4. [15] Joseph Horwood, Emmanuel Noutahi, Jerome Coussy, and François Gagnon. Molecule gener-ation using transformers and policy gradient reinforcement learning. Scientific Reports , 13(1): 5199, 2023. doi: 10.1038/s41598-023-35648-w. [16] Robert Irwin, Stavros Dimitriadis, Jie He, and Esben Jannik Bjerrum. Chemcrow: augmenting large-language models with chemistry tools. arXiv preprint arXiv:2304.05376 , 2023. URL 
+
+https://arxiv.org/abs/2304.05376 .[17] Thomas Jensen et al. Graph neural networks for molecular property prediction. arXiv preprint arXiv:1905.13177 , 2019. URL https://arxiv.org/abs/1905.13177 .[18] Rajendra P Joshi and Neeraj Kumar. Artificial intelligence for autonomous molecular design: A perspective. Molecules , 26(22):6761, 2021. [19] Seul Lee, Karsten Kreis, Srimukh Prasad Veccham, Meng Liu, Danny Reidenbach, Saee Pali-wal, Weili Nie, and Arash Vahdat. Rethinking molecule synthesizability with chain-of-reaction. 
+
+arXiv e-prints , pages arXiv–2509, 2025. [20] Yuyan Liu, Sirui Ding, Sheng Zhou, Wenqi Fan, and Qiaoyu Tan. Moleculargpt: Open large language model (llm) for few-shot molecular property prediction. arXiv preprint arXiv:2406.12950 , 2024. [21] Andres M. Bran, Sam Cox, Oliver Schilter, Carlo Baldassari, Andrew D White, and Philippe 19 Schwaller. Augmenting large language models with chemistry tools. Nature Machine Intelli-gence , 6(5):525–535, 2024. [22] Matthew O’Brien, Philippe Schwaller, Alain C Vaucher, Teerawat Kayastha, Zhitao Wang, and Teodoro Laino. Testing the limits of smiles-based de novo molecular generation with curriculum and deep reinforcement learning. Nature Machine Intelligence , 5(12):1446–1457, 2023. doi: 10.1038/s42256-023-00636-2. [23] Marcus Olivecrona, Thomas Blaschke, Ola Engkvist, and Hongming Chen. Molecular de novo design through deep reinforcement learning. Journal of Cheminformatics , 9(1):48, 2017. doi: 10.1186/s13321-017-0235-x. [24] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al. Training language models to follow instructions with human feedback. Advances in Neural Information Processing Systems ,35:27730–27744, 2022. [25] Kristina Preuer, Philipp Renz, Thomas Unterthiner, Sepp Hochreiter, and Günter Klambauer. Fréchet chemnet distance: a metric for generative models for molecules in drug discovery. 
+
+Journal of Chemical Information and Modeling , 58(9):1736–1741, 2018. doi: 10.1021/acs.jcim. 8b00234. [26] Jean-Louis Reymond. The chemical space project. Accounts of Chemical Research , 48(3): 722–730, 2015. doi: 10.1021/ar500432k. [27] Daniel Ronan, Stefana Baljak, Lauren Boldon, Charlotte Deane, Esther Heid, Peter Kutchukian, Daniel Merk, Miha Skalic, Willem van Hoorn, Andrea Volkamer, et al. Rein-vent 4: modern AI-driven generative molecule design. Journal of Cheminformatics , 16(1):28, 2024. doi: 10.1186/s13321-024-00812-5. [28] Lars Ruddigkeit, Ruud Van Deursen, Lorenz C Blum, and Jean-Louis Reymond. Enumeration of 166 billion organic small molecules in the chemical universe database GDB-17. Journal of Chemical Information and Modeling , 52(11):2864–2875, 2012. doi: 10.1021/ci300415d. [29] Benjamin Sanchez-Lengeling and Alán Aspuru-Guzik. Inverse molecular design using machine learning: Generative models for matter engineering. Science , 361(6400):360–365, 2018. [30] Daniel Schuster et al. Transfer learning for molecular property prediction. Journal of Chemical Information and Modeling , 59(9):3895–3904, 2019. [31] Marwin HS Segler, Mike Preuss, and Mark P Waller. Planning chemical synthesis with deep neural networks and symbolic AI. Nature , 555(7698):604–610, 2018. doi: 10.1038/nature25978. [32] Zhihong Shao, Zhitian Gong, Weihan Shen, Yifan Zhang, Ming Huang, Yujia Li, Delong Zhang, Bin Ma, and Weizhu Chen. Group relative policy optimization for reinforcement 20 learning based language model alignment. arXiv preprint arXiv:2402.03300 , 2024. URL https: //arxiv.org/abs/2402.03300 .[33] Jonathan M Stokes, Kevin Yang, Kyle Swanson, Wengong Jin, Andres Cubillos-Ruiz, Nina M Donghia, Craig R MacNair, Shawn French, Lindsey A Carfrae, Zohar Bloom-Ackermann, et al. A deep learning approach to antibiotic discovery. Cell , 180(4):688–702, 2020. doi: 10.1016/j.cell.2020.01.021. [34] Yuan Su, Tianfan Liu, Chao Yu, Jianan Lu, Bowen Zhang, Yeqin Liu, Yanyi Sun, Jian Gao, Shengyu Huang, et al. Multi-modal molecule structure-text model for text-based retrieval and editing. Nature Machine Intelligence , 5(12):1447–1457, 2023. doi: 10.1038/s42256-023-00759-6. [35] Daniel P Tabor, Loïc M Roch, Semion K Saikin, Christoph Kreisbeck, Dennis Sheberla, Joseph H Montoya, Shyam Dwaraknath, Muratahan Aykol, Carlos Ortiz, Hermann Tribukait, et al. Accelerating the discovery of materials for clean energy in the era of smart automation. 
+
+Nature reviews materials , 3(5):5–20, 2018. [36] Jessica Vamathevan, Dominic Clark, Paul Czodrowski, Ian Dunham, Edgardo Ferran, George Lee, Bin Li, Anant Madabhushi, Parantu Shah, Michaela Spitzer, et al. Applications of machine learning in drug discovery and development. Nature reviews Drug discovery , 18(6): 463–477, 2019. [37] Juraj Velcicky, Matthias R Bauer, Achim Schlapbach, Guillaume Lapointe, Arndt Meyer, Markus Vogtle, Ernst Blum, Estelle Ngo, Catherine Rolando, Pierre Nimsgern, et al. Discovery and in vivo exploration of 1, 3, 4-oxadiazole and α-fluoroacrylate containing il-17 inhibitors. 
+
+Journal of Medicinal Chemistry , 67(18):16692–16711, 2024. [38] Clement Vignac, Igor Krawczuk, Antoine Siraudin, Bohan Wang, Volkan Cevher, and Pas-cal Frossard. Digress: Discrete denoising diffusion for graph generation. arXiv preprint arXiv:2209.14734 , 2022. [39] Michael J Waring. Lipophilicity in drug discovery. Expert opinion on drug discovery , 5(3): 235–248, 2010. [40] Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed Chi, Quoc V Le, and Denny Zhou. Chain-of-thought prompting elicits reasoning in large language models. In Advances in Neural Information Processing Systems , volume 35, pages 24824–24837, 2022. URL https://arxiv.org/abs/2201.11903 .[41] David Weininger. Smiles, a chemical language and information system. 1. introduction to methodology and encoding rules. Journal of Chemical Information and Computer Sciences ,28(1):31–36, 1988. doi: 10.1021/ci00057a005. [42] Andrew D White, Glen M Hocky, Heta A Gandhi, Mehrad Ansari, Sam Cox, Geemi P Wellawatte, Subarna Sasmal, Ziyue Yang, Kangxin Liu, Yuvraj Singh, et al. Assessment 21 of chemistry knowledge in large language models that generate code. Digital Discovery , 2(2): 368–376, 2023. [43] An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. [44] Jiaxuan You et al. Graph transformer for molecular property prediction. arXiv preprint arXiv:2201.12431 , 2022. URL https://arxiv.org/abs/2201.12431 .[45] Hector Zenil, Jesper Tegnér, Felipe S Abrahão, Alexander Lavin, Vipin Kumar, Jeremy G Frey, Adrian Weller, Larisa Soldatova, Alan R Bundy, Nicholas R Jennings, et al. The future of fundamental science led by generative closed-loop artificial intelligence. Frontiers in Artificial Intelligence , 9:1678539, 2026. [46] Di Zhang, Wei Liu, Qian Tan, Jingdan Chen, Hang Yan, Yuliang Yan, Jiatong Li, Weiran Huang, Xiangyu Yue, Wanli Ouyang, et al. Chemllm: A chemical large language model. arXiv preprint arXiv:2402.06852 , 2024. 22
