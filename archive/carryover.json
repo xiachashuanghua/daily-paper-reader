@@ -1,6 +1,128 @@
 {
-  "generated_at": "2026-03-06T19:11:18.471356+00:00",
-  "updated_date": "20260306",
+  "generated_at": "2026-03-18T06:36:06.675407+00:00",
+  "updated_date": "20260309-20260318",
   "carryover_days": 9,
-  "items": []
+  "items": [
+    {
+      "id": "2603.14575v1",
+      "title": "CausalEvolve: Towards Open-Ended Discovery with Causal Scratchpad",
+      "abstract": "Evolve-based agent such as AlphaEvolve is one of the notable successes in using Large Language Models (LLMs) to build AI Scientists. These agents tackle open-ended scientific problems by iteratively improving and evolving programs, leveraging the prior knowledge and reasoning capabilities of LLMs. Despite the success, existing evolve-based agents lack targeted guidance for evolution and effective mechanisms for organizing and utilizing knowledge acquired from past evolutionary experience. Consequently, they suffer from decreasing evolution efficiency and exhibit oscillatory behavior when approaching known performance boundaries. To mitigate the gap, we develop CausalEvolve, equipped with a causal scratchpad that leverages LLMs to identify and reason about guiding factors for evolution. At the beginning, CausalEvolve first identifies outcome-level factors that offer complementary inspirations in improving the target objective. During the evolution, CausalEvolve also inspects surprise patterns during the evolution and abductive reasoning to hypothesize new factors, which in turn offer novel directions. Through comprehensive experiments, we show that CausalEvolve effectively improves the evolutionary efficiency and discovers better solutions in 4 challenging open-ended scientific tasks.",
+      "authors": [
+        "Yongqiang Chen",
+        "Chenxi Liu",
+        "Zhenhao Chen",
+        "Tongliang Liu",
+        "Bo Han",
+        "Kun Zhang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "stat.ML"
+      ],
+      "published": "2026-03-15T19:53:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.14575v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-based agents for open-ended scientific discovery",
+      "llm_evidence_cn": "基于大语言模型的开放式科学发现智能体",
+      "llm_evidence": "基于大语言模型的开放式科学发现智能体",
+      "canonical_evidence": "基于大语言模型的开放式科学发现智能体",
+      "llm_tldr_en": "Introduces CausalEvolve, an LLM agent using causal reasoning to improve efficiency in scientific discovery tasks.",
+      "llm_tldr_cn": "引入 CausalEvolve，一种利用因果推理提高科学发现任务效率的大语言模型智能体。",
+      "llm_tldr": "引入 CausalEvolve，一种利用因果推理提高科学发现任务效率的大语言模型智能体。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.14575v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2603.12808v1",
+      "title": "A Multi-task Large Reasoning Model for Molecular Science",
+      "abstract": "Advancements in artificial intelligence for molecular science are necessitating a paradigm shift from purely data-driven predictions to knowledge-guided computational reasoning. Existing molecular models are predominantly proprietary, lacking general molecular intelligence and generalizability. This underscores the necessity for computational methods that can effectively integrate scientific logic with deep learning architectures. Here we introduce a multi-task large reasoning model designed to emulate the cognitive processes of molecular scientists through structured reasoning and reflection. Our approach incorporates multi-specialist modules to provide versatile molecular expertise and a chain-of-thought (CoT) framework enhanced by reinforcement learning infused with molecular knowledge, enabling structured and reflective reasoning. Systematic evaluations across 10 molecular tasks and 47 metrics demonstrate that our model achieves an average 50.3% improvement over the base architecture, outperforming over 20 state-of-the-art baselines, including ultra-large-parameter foundation models, despite using significantly fewer training data and computational resources. This validates that embedding explicit reasoning mechanisms enables high-efficiency learning, allowing smaller-scale models to surpass massive counterparts in both efficacy and interpretability. The practical utility of this computational framework was validated through a case study on the design of central nervous system (CNS) drug candidates, illustrating its capacity to bridge data-driven and knowledge-integrated approaches for intelligent molecular design.",
+      "authors": [
+        "Pengfei Liu",
+        "Shuang Ge",
+        "Jun Tao",
+        "Zhixiang Ren"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-13T09:10:43+00:00",
+      "link": "https://arxiv.org/pdf/2603.12808v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Large reasoning model for molecular science and computational reasoning",
+      "llm_evidence_cn": "用于分子科学和计算推理的大型推理模型",
+      "llm_evidence": "用于分子科学和计算推理的大型推理模型",
+      "canonical_evidence": "用于分子科学和计算推理的大型推理模型",
+      "llm_tldr_en": "Introduces a multi-task large reasoning model for molecular science using CoT and reinforcement learning.",
+      "llm_tldr_cn": "引入了一种用于分子科学的多任务大型推理模型，利用思维链和强化学习进行科学逻辑推理。",
+      "llm_tldr": "引入了一种用于分子科学的多任务大型推理模型，利用思维链和强化学习进行科学逻辑推理。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.12808v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2603.14797v1",
+      "title": "Multi-Task Genetic Algorithm with Multi-Granularity Encoding for Protein-Nucleotide Binding Site Prediction",
+      "abstract": "Accurate identification of protein-nucleotide binding sites is fundamental to deciphering molecular mechanisms and accelerating drug discovery. However, current computational methods often struggle with suboptimal performance due to inadequate feature representation and rigid fusion mechanisms, which hinder the effective exploitation of cross-task information synergy. To bridge this gap, we propose MTGA-MGE, a framework that integrates a Multi-Task Genetic Algorithm with Multi-Granularity Encoding to enhance binding site prediction. Specifically, we develop a Multi-Granularity Encoding (MGE) network that synergizes multi-scale convolutions and self-attention mechanisms to distill discriminative signals from high-dimensional, redundant biological data. To overcome the constraints of static fusion, a genetic algorithm is employed to adaptively evolve task-specific fusion strategies, thereby effectively improving model generalization. Furthermore, to catalyze collaborative learning, we introduce an External-Neighborhood Mechanism (ENM) that leverages biological similarities to facilitate targeted information exchange across tasks. Extensive evaluations on fifteen nucleotide datasets demonstrate that MTGA-MGE not only establishes a new state-of-the-art in data-abundant, high-resource scenarios but also maintains a robust competitive edge in rare, low-resource regimes, presenting a highly adaptive scheme for decoding complex protein-ligand interactions in the post-genomic era.",
+      "authors": [
+        "Yiming Gao",
+        "Liuyi Xu",
+        "Pengshan Cui",
+        "Yining Qian",
+        "An-Yang Lu",
+        "Xianpeng Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-16T03:51:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.14797v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "computational method for protein-nucleotide binding site prediction",
+      "llm_evidence_cn": "蛋白质-核苷酸结合位点预测的计算方法",
+      "llm_evidence": "蛋白质-核苷酸结合位点预测的计算方法",
+      "canonical_evidence": "蛋白质-核苷酸结合位点预测的计算方法",
+      "llm_tldr_en": "A multi-task genetic algorithm framework for accurate protein-nucleotide binding site prediction.",
+      "llm_tldr_cn": "一种用于精确预测蛋白质-核苷酸结合位点的多任务遗传算法框架。",
+      "llm_tldr": "一种用于精确预测蛋白质-核苷酸结合位点的多任务遗传算法框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.14797v1",
+      "carry_days": 1
+    }
+  ]
 }

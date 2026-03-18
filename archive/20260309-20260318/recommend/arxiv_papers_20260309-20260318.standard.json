@@ -1,0 +1,887 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-18T06:36:06.673995+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 20,
+    "deep_cap": 6,
+    "deep_selected": 12,
+    "quick_candidates": 28,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.08913v1",
+      "title": "Quantifying Memorization and Privacy Risks in Genomic Language Models",
+      "abstract": "Genomic language models (GLMs) have emerged as powerful tools for learning representations of DNA sequences, enabling advances in variant prediction, regulatory element identification, and cross-task transfer learning. However, as these models are increasingly trained or fine-tuned on sensitive genomic cohorts, they risk memorizing specific sequences from their training data, raising serious concerns around privacy, data leakage, and regulatory compliance. Despite growing awareness of memorization risks in general-purpose language models, little systematic evaluation exists for these risks in the genomic domain, where data exhibit unique properties such as a fixed nucleotide alphabet, strong biological structure, and individual identifiability. We present a comprehensive, multi-vector privacy evaluation framework designed to quantify memorization risks in GLMs. Our approach integrates three complementary risk assessment methodologies: perplexity-based detection, canary sequence extraction, and membership inference. These are combined into a unified evaluation pipeline that produces a worst-case memorization risk score. To enable controlled evaluation, we plant canary sequences at varying repetition rates into both synthetic and real genomic datasets, allowing precise quantification of how repetition and training dynamics influence memorization. We evaluate our framework across multiple GLM architectures, examining the relationship between sequence repetition, model capacity, and memorization risk. Our results establish that GLMs exhibit measurable memorization and that the degree of memorization varies across architectures and training regimes. These findings reveal that no single attack vector captures the full scope of memorization risk, underscoring the need for multi-vector privacy auditing as a standard practice for genomic AI systems.",
+      "authors": [
+        "Alexander Nemecek",
+        "Wenbiao Li",
+        "Xiaoqian Jiang",
+        "Jaideep Vaidya",
+        "Erman Ayday"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CR",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-09T20:30:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.08913v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "privacy risks in genomic language models for DNA sequence analysis",
+      "llm_evidence_cn": "用于DNA序列分析的基因组语言模型的隐私风险",
+      "llm_evidence": "用于DNA序列分析的基因组语言模型的隐私风险",
+      "canonical_evidence": "用于DNA序列分析的基因组语言模型的隐私风险",
+      "llm_tldr_en": "A study quantifying memorization and privacy risks in language models specifically designed for genomic data.",
+      "llm_tldr_cn": "一项量化专门为基因组数据设计的语言模型中记忆和隐私风险的研究。",
+      "llm_tldr": "一项量化专门为基因组数据设计的语言模型中记忆和隐私风险的研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10161v1",
+      "title": "Omics Data Discovery Agents",
+      "abstract": "The biomedical literature contains a vast collection of omics studies, yet most published data remain functionally inaccessible for computational reuse. When raw data are deposited in public repositories, essential information for reproducing reported results is dispersed across main text, supplementary files, and code repositories. In rarer instances where intermediate data is made available (e.g. protein abundance files), its location is irregular. In this article, we present an agentic framework that fetches omics-related articles and transforms the unstructured information into searchable research objects. Our system employs large language model (LLM) agents with access to tools for fetching omics studies, extracting article metadata, identifying and downloading published data, executing containerized quantification pipelines, and running analyses to address novel question. We demonstrate automated metadata extraction from PubMed Central articles, achieving 80% precision for dataset identification from standard data repositories. Using model context protocol (MCP) servers to expose containerized analysis tools, our set of agents were able to identify a set of relevant articles, download the associated datasets, and re-quantify the proteomics data. The results had a 63% overlap in differentially expressed proteins when matching reported preprocessing methods. Furthermore, we show that agents can identify semantically similar studies, determine data compatibility, and perform cross-study comparisons, revealing consistent protein regulation patterns in liver fibrosis. This work establishes a foundation for converting the static biomedical literature into an executable, queryable resource that enables automated data reuse at scale.",
+      "authors": [
+        "Alexandre Hutton",
+        "Jesse G. Meyer"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-03-10T18:53:10+00:00",
+      "link": "https://arxiv.org/pdf/2603.10161v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM agents for omics data discovery and processing",
+      "llm_evidence_cn": "用于组学数据发现和处理的LLM智能体",
+      "llm_evidence": "用于组学数据发现和处理的LLM智能体",
+      "canonical_evidence": "用于组学数据发现和处理的LLM智能体",
+      "llm_tldr_en": "Presents an agentic framework using LLMs to fetch and transform unstructured omics data from literature.",
+      "llm_tldr_cn": "提出了一个利用LLM智能体从文献中获取并转换非结构化组学数据的框架。",
+      "llm_tldr": "提出了一个利用LLM智能体从文献中获取并转换非结构化组学数据的框架。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.11872v1",
+      "title": "ELISA: An Interpretable Hybrid Generative AI Agent for Expression-Grounded Discovery in Single-Cell Genomics",
+      "abstract": "Translating single-cell RNA sequencing (scRNA-seq) data into mechanistic biological hypotheses remains a critical bottleneck, as agentic AI systems lack direct access to transcriptomic representations while expression foundation models remain opaque to natural language. Here we introduce ELISA (Embedding-Linked Interactive Single-cell Agent), an interpretable framework that unifies scGPT expression embeddings with BioBERT-based semantic retrieval and LLM-mediated interpretation for interactive single-cell discovery. An automatic query classifier routes inputs to gene marker scoring, semantic matching, or reciprocal rank fusion pipelines depending on whether the query is a gene signature, natural language concept, or mixture of both. Integrated analytical modules perform pathway activity scoringacross 60+ gene sets, ligand--receptor interaction prediction using 280+ curated pairs, condition-aware comparative analysis, and cell-type proportion estimation all operating directly on embedded data without access to the original count matrix. Benchmarked across six diverse scRNA-seq datasets spanning inflammatory lung disease, pediatric and adult cancers, organoid models, healthy tissue, and neurodevelopment, ELISA significantly outperforms CellWhisperer in cell type retrieval (combined permutation test, $p < 0.001$), with particularly large gains on gene-signature queries (Cohen's $d = 5.98$ for MRR). ELISA replicates published biological findings (mean composite score 0.90) with near-perfect pathway alignment and theme coverage (0.98 each), and generates candidate hypotheses through grounded LLM reasoning, bridging the gap between transcriptomic data exploration and biological discovery. Code available at: https://github.com/omaruno/ELISA-An-AI-Agent-for-Expression-Grounded-Discovery-in-Single-Cell-Genomics.git (If you use ELISA in your research, please cite this work).",
+      "authors": [
+        "Omar Coser"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.AI"
+      ],
+      "published": "2026-03-12T12:46:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.11872v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Generative AI agent for single-cell genomics discovery",
+      "llm_evidence_cn": "用于单细胞基因组学发现的生成式AI智能体",
+      "llm_evidence": "用于单细胞基因组学发现的生成式AI智能体",
+      "canonical_evidence": "用于单细胞基因组学发现的生成式AI智能体",
+      "llm_tldr_en": "Introduces ELISA, an agentic framework unifying scGPT and LLMs for interactive single-cell RNA-seq analysis.",
+      "llm_tldr_cn": "引入了ELISA，这是一个结合了scGPT和LLM的智能体框架，用于交互式单细胞转录组分析。",
+      "llm_tldr": "引入了ELISA，这是一个结合了scGPT和LLM的智能体框架，用于交互式单细胞转录组分析。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.11872v2",
+      "title": "ELISA: An Interpretable Hybrid Generative AI Agent for Expression-Grounded Discovery in Single-Cell Genomics",
+      "abstract": "Translating single-cell RNA sequencing (scRNA-seq) data into mechanistic biological hypotheses remains a critical bottleneck, as agentic AI systems lack direct access to transcriptomic representations while expression foundation models remain opaque to natural language. Here we introduce ELISA (Embedding-Linked Interactive Single-cell Agent), an interpretable framework that unifies scGPT expression embeddings with BioBERT-based semantic retrieval and LLM-mediated interpretation for interactive single-cell discovery. An automatic query classifier routes inputs to gene marker scoring, semantic matching, or reciprocal rank fusion pipelines depending on whether the query is a gene signature, natural language concept, or mixture of both. Integrated analytical modules perform pathway activity scoringacross 60+ gene sets, ligand--receptor interaction prediction using 280+ curated pairs, condition-aware comparative analysis, and cell-type proportion estimation all operating directly on embedded data without access to the original count matrix. Benchmarked across six diverse scRNA-seq datasets spanning inflammatory lung disease, pediatric and adult cancers, organoid models, healthy tissue, and neurodevelopment, ELISA significantly outperforms CellWhisperer in cell type retrieval (combined permutation test, $p < 0.001$), with particularly large gains on gene-signature queries (Cohen's $d = 5.98$ for MRR). ELISA replicates published biological findings (mean composite score 0.90) with near-perfect pathway alignment and theme coverage (0.98 each), and generates candidate hypotheses through grounded LLM reasoning, bridging the gap between transcriptomic data exploration and biological discovery. Code available at: https://github.com/omaruno/ELISA-An-AI-Agent-for-Expression-Grounded-Discovery-in-Single-Cell-Genomics.git (If you use ELISA in your research, please cite this work).",
+      "authors": [
+        "Omar Coser"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.AI"
+      ],
+      "published": "2026-03-12T12:46:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.11872v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "AI agent for single-cell genomics analysis and transcriptomic interpretation",
+      "llm_evidence_cn": "用于单细胞基因组分析和转录组解释的AI智能体",
+      "llm_evidence": "用于单细胞基因组分析和转录组解释的AI智能体",
+      "canonical_evidence": "用于单细胞基因组分析和转录组解释的AI智能体",
+      "llm_tldr_en": "ELISA integrates scGPT and LLMs to provide an interpretable agent for single-cell RNA sequencing discovery.",
+      "llm_tldr_cn": "ELISA 结合了 scGPT 和大语言模型，为单细胞 RNA 测序发现提供了一个可解释的智能体。",
+      "llm_tldr": "ELISA 结合了 scGPT 和大语言模型，为单细胞 RNA 测序发现提供了一个可解释的智能体。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.15952v1",
+      "title": "Protein Design with Agent Rosetta: A Case Study for Specialized Scientific Agents",
+      "abstract": "Large language models (LLMs) are capable of emulating reasoning and using tools, creating opportunities for autonomous agents that execute complex scientific tasks. Protein design provides a natural testbed: although machine learning (ML) methods achieve strong results, these are largely restricted to canonical amino acids and narrow objectives, leaving unfilled need for a generalist tool for broad design pipelines. We introduce Agent Rosetta, an LLM agent paired with a structured environment for operating Rosetta, the leading physics-based heteropolymer design software, capable of modeling non-canonical building blocks and geometries. Agent Rosetta iteratively refines designs to achieve user-defined objectives, combining LLM reasoning with Rosetta's generality. We evaluate Agent Rosetta on design with canonical amino acids, matching specialized models and expert baselines, and with non-canonical residues -- where ML approaches fail -- achieving comparable performance. Critically, prompt engineering alone often fails to generate Rosetta actions, demonstrating that environment design is essential for integrating LLM agents with specialized software. Our results show that properly designed environments enable LLM agents to make scientific software accessible while matching specialized tools and human experts.",
+      "authors": [
+        "Jacopo Teneggi",
+        "S. M. Bargeen A. Turzo",
+        "Tanya Marwah",
+        "Alberto Bietti",
+        "P. Douglas Renfrew",
+        "Vikram Khipple Mulligan",
+        "Siavash Golkar"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-16T22:06:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.15952v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM agent for autonomous protein design and scientific tasks",
+      "llm_evidence_cn": "用于自主蛋白质设计和科学任务的LLM智能体",
+      "llm_evidence": "用于自主蛋白质设计和科学任务的LLM智能体",
+      "canonical_evidence": "用于自主蛋白质设计和科学任务的LLM智能体",
+      "llm_tldr_en": "Agent Rosetta uses LLMs to autonomously operate physics-based software for complex protein design tasks.",
+      "llm_tldr_cn": "Agent Rosetta利用LLM自主操作物理软件，实现复杂的蛋白质设计任务。",
+      "llm_tldr": "Agent Rosetta利用LLM自主操作物理软件，实现复杂的蛋白质设计任务。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10161v2",
+      "title": "Omics Data Discovery Agents",
+      "abstract": "The biomedical literature contains a vast collection of omics studies, yet most published data remain functionally inaccessible for computational reuse. When raw data are deposited in public repositories, essential information for reproducing reported results is dispersed across main text, supplementary files, and code repositories. In rarer instances where intermediate data is made available (e.g. protein abundance files), its location is irregular. In this article, we present an agentic framework that fetches omics-related articles and transforms the unstructured information into searchable research objects. Our system employs large language model (LLM) agents with access to tools for fetching omics studies, extracting article metadata, identifying and downloading published data, executing containerized quantification pipelines, and running analyses to address novel question. We demonstrate automated metadata extraction from PubMed Central articles, achieving 80% precision for dataset identification from standard data repositories. Using model context protocol (MCP) servers to expose containerized analysis tools, our set of agents were able to identify a set of relevant articles, download the associated datasets, and re-quantify the proteomics data. The results had a 63% overlap in differentially expressed proteins when matching reported preprocessing methods. Furthermore, we show that agents can identify semantically similar studies, determine data compatibility, and perform cross-study comparisons, revealing consistent protein regulation patterns in liver fibrosis. This work establishes a foundation for converting the static biomedical literature into an executable, queryable resource that enables automated data reuse at scale.",
+      "authors": [
+        "Alexandre Hutton",
+        "Jesse G. Meyer"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-03-10T18:53:10+00:00",
+      "link": "https://arxiv.org/pdf/2603.10161v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM agents for fetching and processing omics studies and biological data",
+      "llm_evidence_cn": "用于获取和处理组学研究及生物数据的大语言模型智能体",
+      "llm_evidence": "用于获取和处理组学研究及生物数据的大语言模型智能体",
+      "canonical_evidence": "用于获取和处理组学研究及生物数据的大语言模型智能体",
+      "llm_tldr_en": "An agentic framework that automates the discovery and extraction of omics data from biomedical literature.",
+      "llm_tldr_cn": "一种自动化从生物医学文献中发现和提取组学数据的智能体框架。",
+      "llm_tldr": "一种自动化从生物医学文献中发现和提取组学数据的智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.12344v1",
+      "title": "Generalist Large Language Models for Molecular Property Prediction: Distilling Knowledge from Specialist Models",
+      "abstract": "Molecular Property Prediction (MPP) is a central task in drug discovery. While Large Language Models (LLMs) show promise as generalist models for MPP, their current performance remains below the threshold for practical adoption. We propose TreeKD, a novel knowledge distillation method that transfers complementary knowledge from tree-based specialist models into LLMs. Our approach trains specialist decision trees on functional group features, then verbalizes their learned predictive rules as natural language to enable rule-augmented context learning. This enables LLMs to leverage structural insights that are difficult to extract from SMILES strings alone. We further introduce rule-consistency, a test-time scaling technique inspired by bagging that ensembles predictions across diverse rules from a Random Forest. Experiments on 22 ADMET properties from the TDC benchmark demonstrate that TreeKD substantially improves LLM performance, narrowing the gap with SOTA specialist models and advancing toward practical generalist models for molecular property prediction.",
+      "authors": [
+        "Khiem Le",
+        "Sreejata Dey",
+        "Marcos Martínez Galindo",
+        "Vanessa Lopez",
+        "Ting Hua",
+        "Nitesh V. Chawla",
+        "Hoang Thanh Lam"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-12T18:06:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.12344v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM applications in molecular property prediction and drug discovery",
+      "llm_evidence_cn": "大语言模型在分子性质预测和药物研发中的应用",
+      "llm_evidence": "大语言模型在分子性质预测和药物研发中的应用",
+      "canonical_evidence": "大语言模型在分子性质预测和药物研发中的应用",
+      "llm_tldr_en": "Distills knowledge from specialist models into LLMs to improve molecular property prediction in drug discovery.",
+      "llm_tldr_cn": "将专业模型的知识蒸馏到大语言模型中，以提升药物研发中的分子性质预测能力。",
+      "llm_tldr": "将专业模型的知识蒸馏到大语言模型中，以提升药物研发中的分子性质预测能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.13051v1",
+      "title": "Causal Cellular Context Transfer Learning (C3TL): An Efficient Architecture for Prediction of Unseen Perturbation Effects",
+      "abstract": "Predicting the effects of chemical and genetic perturbations on quantitative cell states is a central challenge in computational biology, molecular medicine and drug discovery. Recent work has leveraged large-scale single-cell data and massive foundation models to address this task. However, such computational resources and extensive datasets are not always accessible in academic or clinical settings, hence limiting utility. Here we propose a lightweight framework for perturbation effect prediction that exploits the structured nature of biological interventions and specific inductive biases/invariances. Our approach leverages available information concerning perturbation effects to allow generalization to novel contexts and requires only widely-available bulk molecular data. Extensive testing, comparing predictions of context-specific perturbation effects against real, large-scale interventional experiments, demonstrates accurate prediction in new contexts. The proposed approach is competitive with SOTA foundation models but requires simpler data, much smaller model sizes and less time. Focusing on robust bulk signals and efficient architectures, we show that accurate prediction of perturbation effects is possible without proprietary hardware or very large models, hence opening up ways to leverage causal learning approaches in biomedicine generally.",
+      "authors": [
+        "Michael Scholkemper",
+        "Sach Mukherjee"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-13T15:02:49+00:00",
+      "link": "https://arxiv.org/pdf/2603.13051v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "prediction of perturbation effects in computational biology",
+      "llm_evidence_cn": "计算生物学中的扰动效应预测",
+      "llm_evidence": "计算生物学中的扰动效应预测",
+      "canonical_evidence": "计算生物学中的扰动效应预测",
+      "llm_tldr_en": "A lightweight framework for predicting chemical and genetic perturbation effects on cell states.",
+      "llm_tldr_cn": "一种用于预测化学和遗传扰动对细胞状态影响的轻量级框架。",
+      "llm_tldr": "一种用于预测化学和遗传扰动对细胞状态影响的轻量级框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.14312v1",
+      "title": "Autonomous Agents Coordinating Distributed Discovery Through Emergent Artifact Exchange",
+      "abstract": "We present ScienceClaw + Infinite, a framework for autonomous scientific investigation in which independent agents conduct research without central coordination, and any contributor can deploy new agents into a shared ecosystem. The system is built around three components: an extensible registry of over 300 interoperable scientific skills, an artifact layer that preserves full computational lineage as a directed acyclic graph (DAG), and a structured platform for agent-based scientific discourse with provenance-aware governance. Agents select and chain tools based on their scientific profiles, produce immutable artifacts with typed metadata and parent lineage, and broadcast unsatisfied information needs to a shared global index. The ArtifactReactor enables plannerless coordination: peer agents discover and fulfill open needs through pressure-based scoring, while schema-overlap matching triggers multi-parent synthesis across independent analyses. An autonomous mutation layer actively prunes the expanding artifact DAG to resolve conflicting or redundant workflows, while persistent memory allows agents to continuously build upon complex epistemic states across multiple cycles. Infinite converts these outputs into auditable scientific records through structured posts, provenance views, and machine-readable discourse relations, with community feedback steering subsequent investigation cycles. Across four autonomous investigations, peptide design for the somatostatin receptor SSTR2, lightweight impact-resistant ceramic screening, cross-domain resonance bridging biology, materials, and music, and formal analogy construction between urban morphology and grain-boundary evolution, the framework demonstrates heterogeneous tool chaining, emergent convergence among independently operating agents, and traceable reasoning from raw computation to published finding.",
+      "authors": [
+        "Fiona Y. Wang",
+        "Lee Marom",
+        "Subhadeep Pal",
+        "Rachel K. Luu",
+        "Wei Lu",
+        "Jaime A. Berkovich",
+        "Markus J. Buehler"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cond-mat.dis-nn",
+        "cs.LG",
+        "cs.MA",
+        "q-bio.BM"
+      ],
+      "published": "2026-03-15T10:06:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.14312v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Autonomous agents for scientific investigation and discovery",
+      "llm_evidence_cn": "用于科学调查和发现的自主智能体",
+      "llm_evidence": "用于科学调查和发现的自主智能体",
+      "canonical_evidence": "用于科学调查和发现的自主智能体",
+      "llm_tldr_en": "ScienceClaw + Infinite enables autonomous scientific research through a decentralized multi-agent ecosystem.",
+      "llm_tldr_cn": "ScienceClaw + Infinite 通过去中心化的多智能体生态系统实现自主科学研究。",
+      "llm_tldr": "ScienceClaw + Infinite 通过去中心化的多智能体生态系统实现自主科学研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.14405v1",
+      "title": "ES-Merging: Biological MLLM Merging via Embedding Space Signals",
+      "abstract": "Biological multimodal large language models (MLLMs) have emerged as powerful foundation models for scientific discovery. However, existing models are specialized to a single modality, limiting their ability to solve inherently cross-modal scientific problems. While model merging is an efficient method to combine the different modalities into a unified MLLM, existing methods rely on input-agnostic parameter space heuristics that fail to faithfully capture modality specialization. To overcome this limitation, we propose a representation-aware merging framework that estimates merging coefficients from embedding space signals. We first design a probe input that consists of different modality tokens and forward it through each specialized MLLM to obtain layer-wise embedding responses that reflect modality-specific representation changes. We then estimate complementary merging coefficients at two granularities from the embedding space: layer-wise coefficients from coarse-grained signals and element-wise coefficients from fine-grained signals, which are jointly combined for robust coefficient estimation. Experiments on interactive effect prediction benchmarks show that our method outperforms existing merging methods and even surpasses task-specific fine-tuned models, establishing that embedding space signals provide a principled and effective foundation for cross-modal MLLM merging.",
+      "authors": [
+        "Wonbin Lee",
+        "Dongki Kim",
+        "Sung Ju Hwang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-15T14:38:32+00:00",
+      "link": "https://arxiv.org/pdf/2603.14405v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "merging biological multimodal large language models",
+      "llm_evidence_cn": "生物多模态大语言模型合并",
+      "llm_evidence": "生物多模态大语言模型合并",
+      "canonical_evidence": "生物多模态大语言模型合并",
+      "llm_tldr_en": "ES-Merging combines specialized biological MLLMs into a unified model using embedding space signals.",
+      "llm_tldr_cn": "ES-Merging利用嵌入空间信号将专门的生物多模态大模型合并为统一模型。",
+      "llm_tldr": "ES-Merging利用嵌入空间信号将专门的生物多模态大模型合并为统一模型。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.14870v1",
+      "title": "IgPose: A Generative Data-Augmented Pipeline for Robust Immunoglobulin-Antigen Binding Prediction",
+      "abstract": "Predicting immunoglobulin-antigen (Ig-Ag) binding remains a significant challenge due to the paucity of experimentally-resolved complexes and the limited accuracy of de novo Ig structure prediction. We introduce IgPose, a generalizable framework for Ig-Ag pose identification and scoring, built on a generative data-augmentation pipeline. To mitigate data scarcity, we constructed the Structural Immunoglobulin Decoy Database (SIDD), a comprehensive repository of high-fidelity synthetic decoys. IgPose integrates equivariant graph neural networks, ESM-2 embeddings, and gated recurrent units to synergistically capture both geometric and evolutionary features. We implemented interface-focused k-hop sampling with biologically guided pooling to enhance generalization across diverse interfaces. The framework comprises two sub-networks--IgPoseClassifier for binding pose discrimination and IgPoseScore for DockQ score estimation--and achieves robust performance on curated internal test sets and the CASP-16 benchmark compared to physics and deep learning baselines. IgPose serves as a versatile computational tool for high-throughput antibody discovery pipelines by providing accurate pose filtering and ranking. IgPose is available on GitHub (https://github.com/arontier/igpose).",
+      "authors": [
+        "Tien-Cuong Bui",
+        "Injae Chung",
+        "Wonjun Lee",
+        "Junsu Ko",
+        "Juyong Lee"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-16T06:16:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.14870v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "ESM-2 embeddings for protein-antigen binding prediction",
+      "llm_evidence_cn": "使用ESM-2嵌入进行蛋白质-抗原结合预测",
+      "llm_evidence": "使用ESM-2嵌入进行蛋白质-抗原结合预测",
+      "canonical_evidence": "使用ESM-2嵌入进行蛋白质-抗原结合预测",
+      "llm_tldr_en": "Introduces IgPose, a generative pipeline using protein LLM embeddings for robust antibody-antigen binding prediction.",
+      "llm_tldr_cn": "引入IgPose，一个利用蛋白质大模型嵌入进行抗体-抗原结合预测的生成式数据增强框架。",
+      "llm_tldr": "引入IgPose，一个利用蛋白质大模型嵌入进行抗体-抗原结合预测的生成式数据增强框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.15840v1",
+      "title": "When Stability Fails: Hidden Failure Modes Of LLMS in Data-Constrained Scientific Decision-Making",
+      "abstract": "Large language models (LLMs) are increasingly used as decision-support tools in data-constrained scientific workflows, where correctness and validity are critical. However, evaluation practices often emphasize stability or reproducibility across repeated runs. While these properties are desirable, stability alone does not guar- antee agreement with statistical ground truth when such references are available. We introduce a controlled behavioral evaluation framework that explicitly sep- arates four dimensions of LLM decision-making: stability, correctness, prompt sensitivity, and output validity under fixed statistical inputs. We evaluate multi- ple LLMs using a statistical gene prioritization task derived from differential ex- pression analysis across prompt regimes involving strict and relaxed significance thresholds, borderline ranking scenarios, and minor wording variations. Our ex- periments show that LLMs can exhibit near-perfect run-to-run stability while sys- tematically diverging from statistical ground truth, over-selecting under relaxed thresholds, responding sharply to minor prompt wording changes, or producing syntactically plausible gene identifiers absent from the input table. Although sta- bility reflects robustness across repeated runs, it does not guarantee agreement with statistical ground truth in structured scientific decision tasks. These findings highlight the importance of explicit ground-truth validation and output validity checks when deploying LLMs in automated or semi-automated scientific work- flows.",
+      "authors": [
+        "Nazia Riasat"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL",
+        "stat.ML"
+      ],
+      "published": "2026-03-16T19:17:09+00:00",
+      "link": "https://arxiv.org/pdf/2603.15840v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Evaluation of LLMs in statistical gene prioritization tasks",
+      "llm_evidence_cn": "在统计基因优先级排序任务中评估大语言模型",
+      "llm_evidence": "在统计基因优先级排序任务中评估大语言模型",
+      "canonical_evidence": "在统计基因优先级排序任务中评估大语言模型",
+      "llm_tldr_en": "Evaluates LLM decision-making stability and correctness using a statistical gene prioritization task.",
+      "llm_tldr_cn": "利用统计基因优先级排序任务评估了大语言模型决策的稳定性和准确性。",
+      "llm_tldr": "利用统计基因优先级排序任务评估了大语言模型决策的稳定性和准确性。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.08127v1",
+      "title": "EvoScientist: Towards Multi-Agent Evolving AI Scientists for End-to-End Scientific Discovery",
+      "abstract": "The increasing adoption of Large Language Models (LLMs) has enabled AI scientists to perform complex end-to-end scientific discovery tasks requiring coordination of specialized roles, including idea generation and experimental execution. However, most state-of-the-art AI scientist systems rely on static, hand-designed pipelines and fail to adapt based on accumulated interaction histories. As a result, these systems overlook promising research directions, repeat failed experiments, and pursue infeasible ideas. To address this, we introduce EvoScientist, an evolving multi-agent AI scientist framework that continuously improves research strategies through persistent memory and self-evolution. EvoScientist comprises three specialized agents: a Researcher Agent (RA) for scientific idea generation, an Engineer Agent (EA) for experiment implementation and execution, and an Evolution Manager Agent (EMA) that distills insights from prior interactions into reusable knowledge. EvoScientist contains two persistent memory modules: (i) an ideation memory, which summarizes feasible research directions from top-ranked ideas while recording previously unsuccessful directions; and (ii) an experimentation memory, which captures effective data processing and model training strategies derived from code search trajectories and best-performing implementations. These modules enable the RA and EA to retrieve relevant prior strategies, improving idea quality and code execution success rates over time. Experiments show that EvoScientist outperforms 7 open-source and commercial state-of-the-art systems in scientific idea generation, achieving higher novelty, feasibility, relevance, and clarity via automatic and human evaluation. EvoScientist also substantially improves code execution success rates through multi-agent evolution, demonstrating persistent memory's effectiveness for end-to-end scientific discovery.",
+      "authors": [
+        "Yougang Lyu",
+        "Xi Zhang",
+        "Xinhao Yi",
+        "Yuyue Zhao",
+        "Shuyu Guo",
+        "Wenxiang Hu",
+        "Jan Piotrowski",
+        "Jakub Kaliski",
+        "Jacopo Urbani",
+        "Zaiqiao Meng",
+        "Lun Zhou",
+        "Xiaohui Yan"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-09T09:07:19+00:00",
+      "link": "https://arxiv.org/pdf/2603.08127v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent AI scientist framework for end-to-end scientific discovery",
+      "llm_evidence_cn": "用于端到端科学发现的多智能体AI科学家框架",
+      "llm_evidence": "用于端到端科学发现的多智能体AI科学家框架",
+      "canonical_evidence": "用于端到端科学发现的多智能体AI科学家框架",
+      "llm_tldr_en": "EvoScientist is an evolving multi-agent framework that improves scientific research strategies via self-evolution.",
+      "llm_tldr_cn": "EvoScientist是一个通过自我进化不断改进科研策略的演化式多智能体框架。",
+      "llm_tldr": "EvoScientist是一个通过自我进化不断改进科研策略的演化式多智能体框架。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.11244v1",
+      "title": "A Standardized Framework For Evaluating Gene Expression Generative Models",
+      "abstract": "The rapid development of generative models for single-cell gene expression data has created an urgent need for standardised evaluation frameworks. Current evaluation practices suffer from inconsistent metric implementations, incomparable hyperparameter choices, and a lack of biologically-grounded metrics. We present Generated Genetic Expression Evaluator (GGE), an open-source Python framework that addresses these challenges by providing a comprehensive suite of distributional metrics with explicit computation space options and biologically-motivated evaluation through differentially expressed gene (DEG)-focused analysis and perturbation-effect correlation, enabling standardized reporting and reproducible benchmarking. Through extensive analysis of the single-cell generative modeling literature, we identify that no standardized evaluation protocol exists. Methods report incomparable metrics computed in different spaces with different hyperparameters. We demonstrate that metric values vary substantially depending on implementation choices, highlighting the critical need for standardization. GGE enables fair comparison across generative approaches and accelerates progress in perturbation response prediction, cellular identity modeling, and counterfactual inference.",
+      "authors": [
+        "Andrea Rubbi",
+        "Andrea Giuseppe Di Francesco",
+        "Mohammad Lotfollahi",
+        "Pietro Liò"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.LG"
+      ],
+      "published": "2026-03-11T19:11:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.11244v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "standardized evaluation for gene expression generative models",
+      "llm_evidence_cn": "基因表达生成模型的标准化评估框架",
+      "llm_evidence": "基因表达生成模型的标准化评估框架",
+      "canonical_evidence": "基因表达生成模型的标准化评估框架",
+      "llm_tldr_en": "GGE is a framework for standardized and biologically-grounded evaluation of gene expression generative models.",
+      "llm_tldr_cn": "GGE是一个用于基因表达生成模型标准化和生物学评估的开源框架。",
+      "llm_tldr": "GGE是一个用于基因表达生成模型标准化和生物学评估的开源框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.07972v1",
+      "title": "Adaptive Collaboration with Humans: Metacognitive Policy Optimization for Multi-Agent LLMs with Continual Learning",
+      "abstract": "While scaling individual Large Language Models (LLMs) has delivered remarkable progress, the next frontier lies in scaling collaboration through multi-agent systems (MAS). However, purely autonomous MAS remain ''closed-world'' systems, constrained by the static knowledge horizon of pre-trained models. This limitation makes them brittle on tasks requiring knowledge beyond training data, often leading to collective failure under novel challenges. To address this, we propose the Human-In-the-Loop Multi-Agent Collaboration (HILA) framework, a principled paradigm for human--agent collaboration. HILA trains agents to learn a metacognitive policy that governs when to solve problems autonomously and when to defer to a human expert. To operationalize this policy, we introduce Dual-Loop Policy Optimization, which disentangles immediate decision-making from long-term capability growth. The inner loop applies Group Relative Policy Optimization (GRPO) with a cost-aware reward to optimize deferral decisions, while the outer loop implements continual learning, transforming expert feedback into high-quality supervised signals that strengthen the agent's reasoning ability. Experiments on challenging mathematical and problem-solving benchmarks show that HILA, equipped with Dual-Loop Policy Optimization, consistently outperforms advanced MAS, establishing a principled foundation for collaborative and continually improving agentic systems.",
+      "authors": [
+        "Wei Yang",
+        "Defu Cao",
+        "Jiacheng Pang",
+        "Muyan Weng",
+        "Yan Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-09T05:18:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.07972v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent LLMs with human-in-the-loop collaboration",
+      "llm_evidence_cn": "人机协作的多智能体大语言模型系统",
+      "llm_evidence": "人机协作的多智能体大语言模型系统",
+      "canonical_evidence": "人机协作的多智能体大语言模型系统",
+      "llm_tldr_en": "Proposes a framework for human-agent collaboration to overcome the static knowledge limits of autonomous MAS.",
+      "llm_tldr_cn": "提出一种人机协作框架，旨在克服自主多智能体系统静态知识的局限性。",
+      "llm_tldr": "提出一种人机协作框架，旨在克服自主多智能体系统静态知识的局限性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.09909v1",
+      "title": "MedMASLab: A Unified Orchestration Framework for Benchmarking Multimodal Medical Multi-Agent Systems",
+      "abstract": "While Multi-Agent Systems (MAS) show potential for complex clinical decision support, the field remains hindered by architectural fragmentation and the lack of standardized multimodal integration. Current medical MAS research suffers from non-uniform data ingestion pipelines, inconsistent visual-reasoning evaluation, and a lack of cross-specialty benchmarking. To address these challenges, we present MedMASLab, a unified framework and benchmarking platform for multimodal medical multi-agent systems. MedMASLab introduces: (1) A standardized multimodal agent communication protocol that enables seamless integration of 11 heterogeneous MAS architectures across 24 medical modalities. (2) An automated clinical reasoning evaluator, a zero-shot semantic evaluation paradigm that overcomes the limitations of lexical string-matching by leveraging large vision-language models to verify diagnostic logic and visual grounding. (3) The most extensive benchmark to date, spanning 11 organ systems and 473 diseases, standardizing data from 11 clinical benchmarks. Our systematic evaluation reveals a critical domain-specific performance gap: while MAS improves reasoning depth, current architectures exhibit significant fragility when transitioning between specialized medical sub-domains. We provide a rigorous ablation of interaction mechanisms and cost-performance trade-offs, establishing a new technical baseline for future autonomous clinical systems. The source code and data is publicly available at: https://github.com/NUS-Project/MedMASLab/",
+      "authors": [
+        "Yunhang Qian",
+        "Xiaobin Hu",
+        "Jiaquan Yu",
+        "Siyang Xin",
+        "Xiaokun Chen",
+        "Jiangning Zhang",
+        "Peng-Tao Jiang",
+        "Jiawei Liu",
+        "Hongwei Bran Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-10T17:03:11+00:00",
+      "link": "https://arxiv.org/pdf/2603.09909v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Unified framework for multimodal medical multi-agent systems",
+      "llm_evidence_cn": "多模态医疗多智能体系统的统一框架",
+      "llm_evidence": "多模态医疗多智能体系统的统一框架",
+      "canonical_evidence": "多模态医疗多智能体系统的统一框架",
+      "llm_tldr_en": "A benchmarking platform and orchestration framework for multimodal medical multi-agent systems across 24 modalities.",
+      "llm_tldr_cn": "一个针对24种医疗模态的多模态医疗多智能体系统的基准测试平台和编排框架。",
+      "llm_tldr": "一个针对24种医疗模态的多模态医疗多智能体系统的基准测试平台和编排框架。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.13774v1",
+      "title": "AgenticScholar: Agentic Data Management with Pipeline Orchestration for Scholarly Corpora",
+      "abstract": "Managing the rapidly growing scholarly corpus poses significant challenges in representation, reasoning, and efficient analysis. An ideal system should unify structured knowledge management, agentic planning, and interpretable execution to support diverse scholarly queries - from retrieval to knowledge discovery and generation - at scale. Unfortunately, existing RAG and document analytics systems fail to achieve all query types simultaneously. To this end, we propose AgenticScholar, an agentic scholarly data management system that integrates a structure-aware knowledge representation layer, an LLM-centric hybrid query planning layer, and a unified execution layer with composable operators. AgenticScholar autonomously translates natural language queries into executable DAG plans, enabling end-to-end reasoning over multi-modal scholarly data. Extensive experiments demonstrate that AgenticScholar significantly outperforms existing systems in effectiveness, efficiency, and interpretability, offering a practical foundation for future research on agentic scholarly data management.",
+      "authors": [
+        "Hai Lan",
+        "Tingting Wang",
+        "Zhifeng Bao",
+        "Guoliang Li",
+        "Daomin Ji",
+        "Ge Lee",
+        "Feng Luo",
+        "Zi Huang",
+        "Hailang Qiu",
+        "Gang Hua"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB"
+      ],
+      "published": "2026-03-14T05:55:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.13774v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agentic data management for scholarly corpora and knowledge discovery",
+      "llm_evidence_cn": "用于学术语料库和知识发现的智能体数据管理",
+      "llm_evidence": "用于学术语料库和知识发现的智能体数据管理",
+      "canonical_evidence": "用于学术语料库和知识发现的智能体数据管理",
+      "llm_tldr_en": "An agentic system for managing scholarly data to support complex reasoning and knowledge discovery.",
+      "llm_tldr_cn": "一种用于管理学术数据以支持复杂推理和知识发现的智能体系统。",
+      "llm_tldr": "一种用于管理学术数据以支持复杂推理和知识发现的智能体系统。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.08181v1",
+      "title": "AutoAdapt: An Automated Domain Adaptation Framework for LLMs",
+      "abstract": "Large language models (LLMs) excel in open domains but struggle in specialized settings with limited data and evolving knowledge. Existing domain adaptation practices rely heavily on manual trial-and-error processes, incur significant hyperparameter complexity, and are highly sensitive to data and user preferences, all under the high cost of LLM training. Moreover, the interactions and transferability of hyperparameter choices across models/domains remain poorly understood, making adaptation gains uncertain even with substantial effort. To solve these challenges, we present AutoAdapt, a novel end-to-end automated framework for efficient and reliable LLM domain adaptation. AutoAdapt leverages curated knowledge bases from literature and open-source resources to reduce expert intervention. To narrow the search space, we design a novel multi-agent debating system in which proposal and critic agents iteratively interact to align user intent and incorporate data signals and best practices into the planning process. To optimize hyperparameters under tight budgets, we propose AutoRefine, a novel LLM-based surrogate that replaces costly black-box search. Across 10 tasks, AutoAdapt achieves a 25% average relative accuracy improvement over state-of-the-art Automated Machine Learning baselines with minimal overhead.",
+      "authors": [
+        "Sidharth Sinha",
+        "Anson Bastos",
+        "Xuchao Zhang",
+        "Akshay Nambi",
+        "Chetan Bansal",
+        "Saravan Rajmohan"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-09T10:03:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.08181v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Automated domain adaptation framework for LLMs in specialized settings",
+      "llm_evidence_cn": "专业设置下大语言模型的自动领域自适应框架",
+      "llm_evidence": "专业设置下大语言模型的自动领域自适应框架",
+      "canonical_evidence": "专业设置下大语言模型的自动领域自适应框架",
+      "llm_tldr_en": "Presents AutoAdapt, a framework for efficient LLM domain adaptation using curated knowledge bases.",
+      "llm_tldr_cn": "介绍了AutoAdapt，这是一个利用策划知识库进行高效大模型领域自适应的框架。",
+      "llm_tldr": "介绍了AutoAdapt，这是一个利用策划知识库进行高效大模型领域自适应的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.11133v1",
+      "title": "Higher-Order Modular Attention: Fusing Pairwise and Triadic Interactions for Protein Sequences",
+      "abstract": "Transformer self-attention computes pairwise token interactions, yet protein sequence to phenotype relationships often involve cooperative dependencies among three or more residues that dot product attention does not capture explicitly. We introduce Higher-Order Modular Attention, HOMA, a unified attention operator that fuses pairwise attention with an explicit triadic interaction pathway. To make triadic attention practical on long sequences, HOMA employs block-structured, windowed triadic attention. We evaluate on three TAPE benchmarks for Secondary Structure, Fluorescence, and Stability. Our attention mechanism yields consistent improvements across all tasks compared with standard self-attention and efficient variants including block-wise attention and Linformer. These results suggest that explicit triadic terms provide complementary representational capacity for protein sequence prediction at controllable additional computational cost.",
+      "authors": [
+        "Shirin Amiraslani",
+        "Xin Gao"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-11T16:07:56+00:00",
+      "link": "https://arxiv.org/pdf/2603.11133v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Higher-order attention for protein sequence analysis",
+      "llm_evidence_cn": "用于蛋白质序列分析的高阶注意力机制",
+      "llm_evidence": "用于蛋白质序列分析的高阶注意力机制",
+      "canonical_evidence": "用于蛋白质序列分析的高阶注意力机制",
+      "llm_tldr_en": "Develops HOMA, a modular attention mechanism that captures triadic interactions in protein sequences.",
+      "llm_tldr_cn": "开发了HOMA，一种能够捕捉蛋白质序列中三元相互作用的模块化注意力机制，提升表型预测性能。",
+      "llm_tldr": "开发了HOMA，一种能够捕捉蛋白质序列中三元相互作用的模块化注意力机制，提升表型预测性能。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.14629v1",
+      "title": "ResearchPilot: A Local-First Multi-Agent System for Literature Synthesis and Related Work Drafting",
+      "abstract": "ResearchPilot is an open-source, self-hostable multi-agent system for literature-review assistance. Given a natural-language research question, it retrieves papers from Semantic Scholar and arXiv, extracts structured findings from paper abstracts, synthesizes cross-paper patterns, and drafts a citation-aware related-work section. The system combines FastAPI, Next.js, DSPy, SQLite, and Qdrant in a local-first architecture that supports bring-your-own-key model access and remote-or-local embeddings. This paper describes the system design, typed agent interfaces, persistence and history-search mechanisms, and the engineering tradeoffs involved in building a transparent research assistant. Rather than claiming algorithmic novelty, we present ResearchPilot as a systems contribution and evaluate it through automated tests and end-to-end local runs. We discuss limitations including external API rate limits, abstract-only extraction, incomplete corpus coverage, and the lack of citation verification.",
+      "authors": [
+        "Peng Zhang"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI"
+      ],
+      "published": "2026-03-15T22:02:59+00:00",
+      "link": "https://arxiv.org/pdf/2603.14629v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent system for literature synthesis and research assistance",
+      "llm_evidence_cn": "用于文献综述和研究辅助的多智能体系统",
+      "llm_evidence": "用于文献综述和研究辅助的多智能体系统",
+      "canonical_evidence": "用于文献综述和研究辅助的多智能体系统",
+      "llm_tldr_en": "A local-first multi-agent system that automates literature retrieval and related-work drafting for researchers.",
+      "llm_tldr_cn": "一种本地优先的多智能体系统，可为研究人员自动执行文献检索和相关工作起草。",
+      "llm_tldr": "一种本地优先的多智能体系统，可为研究人员自动执行文献检索和相关工作起草。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.09002v1",
+      "title": "Security Considerations for Multi-agent Systems",
+      "abstract": "Multi-agent artificial intelligence systems or MAS are systems of autonomous agents that exercise delegated tool authority, share persistent memory, and coordinate via inter-agent communication. MAS introduces qualitatively distinct security vulnerabilities from those documented for singular AI models. Existing security and governance frameworks were not designed for these emerging attack surfaces. This study systematically characterizes the threat landscape of MAS and quantitatively evaluates 16 security frameworks for AI against it. A four-phase methodology is proposed: constructing a deep technical knowledge base of production multi-agent architectures; conducting generative AI-assisted threat modeling scoped to MAS cybersecurity risks and validated by domain experts; structuring survey plans at individual-threat granularity; and scoring each framework on a three-point scale against the cybersecurity risks. The risks were organized into 193 distinct main threat items across nine risk categories. The expected minimal average score is 2. No reviewed framework achieves majority coverage of any single category. Non-Determinism (mean score 1.231 across all 16 frameworks) and Data Leakage (1.340) are the most under-addressed domains. The OWASP Agentic Security Initiative leads overall at 65.3\\% coverage and in the design phase; the CDAO Generative AI Responsible AI Toolkit leads in development and operational coverage. These results provide the first empirical cross-framework comparison for MAS security and offer evidence-based guidance for framework selection.",
+      "authors": [
+        "Tam Nguyen",
+        "Moses Ndebugre",
+        "Dheeraj Arremsetty"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-03-09T22:46:27+00:00",
+      "link": "https://arxiv.org/pdf/2603.09002v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "security considerations for multi-agent systems",
+      "llm_evidence_cn": "多智能体系统的安全考量",
+      "llm_evidence": "多智能体系统的安全考量",
+      "canonical_evidence": "多智能体系统的安全考量",
+      "llm_tldr_en": "Systematically analyzes security vulnerabilities and governance frameworks for multi-agent AI architectures.",
+      "llm_tldr_cn": "系统地分析了多智能体人工智能架构的安全漏洞和治理框架。",
+      "llm_tldr": "系统地分析了多智能体人工智能架构的安全漏洞和治理框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.11141v1",
+      "title": "Cross-Species Antimicrobial Resistance Prediction from Genomic Foundation Models",
+      "abstract": "Cross-species antimicrobial resistance (AMR) prediction is fundamentally an out-of-distribution (OOD) generalization problem: models trained on one set of bacterial taxa must transfer to phylogenetically distinct genomes that may rely on different resistance mechanisms. Across species, resistance arises from a heterogeneous mixture of localized, horizontally transferred gene cassettes and diffuse species-specific genomic backgrounds, making successful transfer inherently mechanism-dependent. Using a strict species holdout protocol, we first establish an interpretable k-mer baseline with Kover and show that strong within-species performance collapses under true cross-species evaluation. This motivates representation-level approaches that preserve transferable biological signals rather than amplify phylogenetic shortcuts.  We investigate genomic foundation model embeddings derived from Evo-1-8k-base and introduce diagnostics for layer selection based on activation scale, isotropy, effective rank, and cross-seed stability under native bfloat16 inference. These analyses identify a stability boundary in deeper layers and reveal that embeddings extracted near this boundary provide more robust representations for downstream prediction. To preserve localized resistance signals, we treat per-window embeddings as an ordered multivariate signal and apply MiniRocket to summarize multi-scale local activation patterns instead of relying on global pooling. Our results show that aggregation strategy plays a central role in cross-species AMR prediction and that preserving local activation patterns substantially improves generalization when resistance mechanisms are localized.",
+      "authors": [
+        "Huilin Tai"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-03-11T16:40:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.11141v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Genomic foundation models for antimicrobial resistance prediction",
+      "llm_evidence_cn": "用于抗生素耐药性预测的基因组基础模型",
+      "llm_evidence": "用于抗生素耐药性预测的基因组基础模型",
+      "canonical_evidence": "用于抗生素耐药性预测的基因组基础模型",
+      "llm_tldr_en": "Evaluates genomic foundation models for cross-species antimicrobial resistance prediction and generalization.",
+      "llm_tldr_cn": "评估了基因组基础模型在跨物种抗生素耐药性预测和泛化中的应用。",
+      "llm_tldr": "评估了基因组基础模型在跨物种抗生素耐药性预测和泛化中的应用。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.12694v1",
+      "title": "RXNRECer Enables Fine-grained Enzymatic Function Annotation through Active Learning and Protein Language Models",
+      "abstract": "A key challenge in enzyme annotation is identifying the biochemical reactions catalyzed by proteins. Most existing methods rely on Enzyme Commission (EC) numbers as intermediaries: they first predict an EC number and then retrieve the associated reactions. This indirect strategy introduces ambiguity due to the complex many-to-many mappings among proteins, EC numbers, and reactions, and is further complicated by frequent updates to EC numbers and inconsistencies across databases. To address these challenges, we present RXNRECer, a transformer-based ensemble framework that directly predicts enzyme-catalyzed reactions without relying on EC numbers. It integrates protein language modeling and active learning to capture both high-level sequence semantics and fine-grained transformation patterns. Evaluations on curated cross-validation and temporal test sets demonstrate consistent improvements over six EC-based baselines, with gains of 16.54% in F1 score and 15.43% in accuracy. Beyond accuracy gains, the framework offers clear advantages for downstream applications, including scalable proteome-wide reaction annotation, enhanced specificity in refining generic reaction schemas, systematic annotation of previously uncurated proteins, and reliable identification of enzyme promiscuity. By incorporating large language models, it also provides interpretable rationales for predictions. These capabilities make RXNRECer a robust and versatile solution for EC-free, fine-grained enzyme function prediction, with potential applications across multiple areas of enzyme research and industrial applications.",
+      "authors": [
+        "Zhenkun Shi",
+        "Jun Zhu",
+        "Dehang Wang",
+        "BoYu Chen",
+        "Qianqian Yuan",
+        "Zhitao Mao",
+        "Fan Wei",
+        "Weining Wu",
+        "Xiaoping Liao",
+        "Hongwu Ma"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-13T06:20:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.12694v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "protein language models for enzymatic function annotation",
+      "llm_evidence_cn": "用于酶功能注释的蛋白质语言模型",
+      "llm_evidence": "用于酶功能注释的蛋白质语言模型",
+      "canonical_evidence": "用于酶功能注释的蛋白质语言模型",
+      "llm_tldr_en": "RXNRECer uses protein language models and active learning to directly predict enzyme-catalyzed reactions.",
+      "llm_tldr_cn": "RXNRECer结合蛋白质语言模型和主动学习，直接预测酶催化的生化反应。",
+      "llm_tldr": "RXNRECer结合蛋白质语言模型和主动学习，直接预测酶催化的生化反应。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
