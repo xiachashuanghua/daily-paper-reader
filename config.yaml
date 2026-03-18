@@ -25,3 +25,38 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: LLMAGT
+      description: 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文
+      enabled: true
+      keywords:
+        - keyword: Genomics
+          keyword_cn: 基因组学
+          query: LLM applications in genomic sequence analysis
+        - keyword: computational biology
+          keyword_cn: 计算生物学
+          query: computational biology
+        - keyword: Bioinformatics
+          keyword_cn: 生物信息学
+          query: Computational biology applications of LLMs
+        - keyword: AI Agent
+          keyword_cn: 人工智能智能体
+          query: Autonomous agents for biological research
+        - keyword: LLM
+          keyword_cn: 大语言模型
+          query: Large Language Models in bioinformatics
+        - keyword: Multi-agent systems
+          keyword_cn: 多智能体系统
+          query: Multi-agent systems in biological data analysis
+      intent_queries:
+        - query: Review of large language models and autonomous agents in bioinformatics
+          query_cn: 大语言模型与自主智能体在生物信息学中的综述
+          enabled: true
+          source: manual
+          note: ''
+        - query: Frameworks for multi agent systems in computational biology
+          query_cn: 计算生物学中的多智能体系统框架
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-03-18T06:29:40.794Z'
