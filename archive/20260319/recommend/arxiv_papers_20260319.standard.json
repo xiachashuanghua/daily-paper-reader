@@ -1,0 +1,438 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-19T19:41:39.718015+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 18,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2603.13605v1",
+      "title": "Orla: A Library for Serving LLM-Based Multi-Agent Systems",
+      "abstract": "We introduce Orla, a library for constructing and running LLM-based agentic systems. Modern agentic applications consist of workflows that combine multiple LLM inference steps, tool calls, and heterogeneous infrastructure. Today, developers typically build these systems by manually composing orchestration code with LLM serving engines and tool execution logic. Orla provides a general abstraction that separates request execution from workflow-level policy. It acts as a serving layer above existing LLM inference engines: developers define workflows composed of stages, while Orla manages how those stages are mapped, executed, and coordinated across models and backends. It provides agent-level control through three mechanisms: a stage mapper, which assigns each stage to an appropriate model and backend; a workflow orchestrator, which schedules stages and manages their resources and context; and a memory manager, which manages inference state such as the KV cache across workflow boundaries. We demonstrate Orla with a customer support workflow that exercises many of its capabilities. We evaluate Orla on two datasets, showing that stage mapping improves latency and cost compared to a single-model vLLM baseline, while workflow-level cache management reduces time-to-first-token.",
+      "authors": [
+        "Rana Shahout",
+        "Hayder Tirmazi",
+        "Minlan Yu",
+        "Michael Mitzenmacher"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-13T21:25:29+00:00",
+      "link": "https://arxiv.org/pdf/2603.13605v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Library for constructing and serving LLM-based multi-agent systems",
+      "llm_evidence_cn": "用于构建和提供基于LLM的多智能体系统的库",
+      "llm_evidence": "用于构建和提供基于LLM的多智能体系统的库",
+      "canonical_evidence": "用于构建和提供基于LLM的多智能体系统的库",
+      "llm_tldr_en": "Orla is a library for serving LLM-based multi-agent systems by separating execution from workflow policy.",
+      "llm_tldr_cn": "Orla是一个用于服务基于LLM的多智能体系统的库，通过分离执行与工作流策略实现控制。",
+      "llm_tldr": "Orla是一个用于服务基于LLM的多智能体系统的库，通过分离执行与工作流策略实现控制。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.10808v1",
+      "title": "Nurture-First Agent Development: Building Domain-Expert AI Agents Through Conversational Knowledge Crystallization",
+      "abstract": "The emergence of large language model (LLM)-based agent frameworks has shifted the primary challenge in building domain-expert AI agents from raw capability to effective encoding of domain expertise. Two dominant paradigms -- code-first development, which embeds expertise in deterministic pipelines, and prompt-first development, which captures expertise in static system prompts -- both treat agent construction as a discrete engineering phase preceding deployment. We argue that this sequential assumption creates a fundamental mismatch with the nature of domain expertise, which is substantially tacit, deeply personal, and continuously evolving. We propose Nurture-First Development (NFD), a paradigm in which agents are initialized with minimal scaffolding and progressively grown through structured conversational interaction with domain practitioners. The central mechanism is the Knowledge Crystallization Cycle, whereby fragmented knowledge embedded in operational dialogue is periodically consolidated into structured, reusable knowledge assets. We formalize NFD through: (1) a Three-Layer Cognitive Architecture organizing agent knowledge by volatility and personalization degree; (2) the Knowledge Crystallization Cycle with formal definitions of crystallization operations and efficiency metrics; and (3) an operational framework comprising a Dual-Workspace Pattern and Spiral Development Model. We illustrate the paradigm through a detailed case study on building a financial research agent for U.S. equity analysis and discuss the conditions, limitations, and broader implications of NFD for human-agent co-evolution.",
+      "authors": [
+        "Linghao Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.HC",
+        "cs.SE"
+      ],
+      "published": "2026-03-11T14:14:53+00:00",
+      "link": "https://arxiv.org/pdf/2603.10808v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "building domain-expert AI agents through knowledge crystallization",
+      "llm_evidence_cn": "通过知识结晶构建领域专家AI智能体",
+      "llm_evidence": "通过知识结晶构建领域专家AI智能体",
+      "canonical_evidence": "通过知识结晶构建领域专家AI智能体",
+      "llm_tldr_en": "A new paradigm for developing domain-expert agents by capturing tacit expertise through conversation.",
+      "llm_tldr_cn": "一种通过对话捕捉隐性专业知识来开发领域专家智能体的新范式。",
+      "llm_tldr": "一种通过对话捕捉隐性专业知识来开发领域专家智能体的新范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.13673v1",
+      "title": "LLM-MINE: Large Language Model based Alzheimer's Disease and Related Dementias Phenotypes Mining from Clinical Notes",
+      "abstract": "Accurate extraction of Alzheimer's Disease and Related Dementias (ADRD) phenotypes from electronic health records (EHR) is critical for early-stage detection and disease staging. However, this information is usually embedded in unstructured textual data rather than tabular data, making it difficult to be extracted accurately. We therefore propose LLM-MINE, a Large Language Model-based phenotype mining framework for automatic extraction of ADRD phenotypes from clinical notes. Using two expert-defined phenotype lists, we evaluate the extracted phenotypes by examining their statistical significance across cohorts and their utility for unsupervised disease staging. Chi-square analyses confirm statistically significant phenotype differences across cohorts, with memory impairment being the strongest discriminator. Few-shot prompting with the combined phenotype lists achieves the best clustering performance (ARI=0.290, NMI=0.232), substantially outperforming biomedical NER and dictionary-based baselines. Our results demonstrate that LLM-based phenotype extraction is a promising tool for discovering clinically meaningful ADRD signals from unstructured notes.",
+      "authors": [
+        "Mingchen Shao",
+        "Yuzhang Xie",
+        "Carl Yang",
+        "Jiaying Lu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-03-14T00:45:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.13673v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based phenotype mining from clinical notes for disease staging",
+      "llm_evidence_cn": "基于LLM的临床笔记表型挖掘，用于疾病分期",
+      "llm_evidence": "基于LLM的临床笔记表型挖掘，用于疾病分期",
+      "canonical_evidence": "基于LLM的临床笔记表型挖掘，用于疾病分期",
+      "llm_tldr_en": "Proposes LLM-MINE for extracting Alzheimer's phenotypes from unstructured clinical text to aid disease staging.",
+      "llm_tldr_cn": "提出LLM-MINE框架，从非结构化临床文本中提取阿尔茨海默症表型以辅助疾病分期。",
+      "llm_tldr": "提出LLM-MINE框架，从非结构化临床文本中提取阿尔茨海默症表型以辅助疾病分期。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.12458v1",
+      "title": "Shattering the Shortcut: A Topology-Regularized Benchmark for Multi-hop Medical Reasoning in LLMs",
+      "abstract": "While Large Language Models (LLMs) achieve expert-level performance on standard medical benchmarks through single-hop factual recall, they severely struggle with the complex, multi-hop diagnostic reasoning required in real-world clinical settings. A primary obstacle is \"shortcut learning\", where models exploit highly connected, generic hub nodes (e.g., \"inflammation\") in knowledge graphs to bypass authentic micro-pathological cascades. To address this, we introduce ShatterMed-QA, a bilingual benchmark of 10,558 multi-hop clinical questions designed to rigorously evaluate deep diagnostic reasoning. Our framework constructs a topology-regularized medical Knowledge Graph using a novel $k$-Shattering algorithm, which physically prunes generic hubs to explicitly sever logical shortcuts. We synthesize the evaluation vignettes by applying implicit bridge entity masking and topology-driven hard negative sampling, forcing models to navigate biologically plausible distractors without relying on superficial elimination. Comprehensive evaluations of 21 LLMs reveal massive performance degradation on our multi-hop tasks, particularly among domain-specific models. Crucially, restoring the masked evidence via Retrieval-Augmented Generation (RAG) triggers near-universal performance recovery, validating ShatterMed-QA's structural fidelity and proving its efficacy in diagnosing the fundamental reasoning deficits of current medical AI. Explore the dataset, interactive examples, and full leaderboards at our project website: https://shattermed-qa-web.vercel.app/",
+      "authors": [
+        "Xing Zi",
+        "Xinying Zhou",
+        "Jinghao Xiao",
+        "Catarina Moreira",
+        "Mukesh Prasad"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-03-12T21:19:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.12458v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM medical reasoning benchmark using topology-regularized knowledge graphs",
+      "llm_evidence_cn": "使用拓扑正则化知识图谱的LLM医学推理基准",
+      "llm_evidence": "使用拓扑正则化知识图谱的LLM医学推理基准",
+      "canonical_evidence": "使用拓扑正则化知识图谱的LLM医学推理基准",
+      "llm_tldr_en": "Introduces a benchmark to evaluate multi-hop medical reasoning in LLMs using a novel shattering algorithm.",
+      "llm_tldr_cn": "引入了一个基准，利用新型破碎算法评估LLM在医学领域的深层多步诊断推理能力。",
+      "llm_tldr": "引入了一个基准，利用新型破碎算法评估LLM在医学领域的深层多步诊断推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.15916v1",
+      "title": "Auto Researching, not hyperparameter tuning: Convergence Analysis of 10,000 Experiments",
+      "abstract": "When LLM agents autonomously design ML experiments, do they perform genuine architecture search -- or do they default to hyperparameter tuning within a narrow region of the design space? We answer this question by analyzing 10,469 experiments executed by two LLM agents (Claude Opus and Gemini 2.5 Pro) across a combinatorial configuration space of 108,000 discrete cells for dashcam collision detection over 27 days. Through ANOVA decomposition, we find that \\textbf{architectural choices explain 94\\% of performance variance} ($F = 1324$, $η^2 = 0.94$), while hyperparameter variation within a fixed architecture explains only 6\\%. Cross-task validation on a second collision dataset confirms this finding (75\\% architecture-explained variance) with a \\emph{different} winning backbone, confirming genuine architecture discovery. The agents' key contribution is discovering that V-JEPA\\,2 video features with Zipformer temporal encoders achieve 0.9245 AP -- a configuration no human proposed -- and concentrating search on productive architectural regions: at $N = 50$, LLM-guided search reaches AP $= 0.985$ versus $0.965$ for from-scratch random search. Post-bugfix convergence follows a power law ($c = 0.11$, $R^2 = 0.93$); the low exponent reflects the cost of broad exploration, not inefficiency, since the LLM discovers qualitatively better regions than random or Bayesian baselines. We characterize multi-agent search dynamics via entropy cycles and Jensen--Shannon specialization, providing the first large-scale empirical framework for LLM-guided combinatorial ML experiment design.",
+      "authors": [
+        "Xiaoyi Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-16T21:05:39+00:00",
+      "link": "https://arxiv.org/pdf/2603.15916v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agents autonomously designing and executing research experiments",
+      "llm_evidence_cn": "LLM智能体自主设计并执行研究实验",
+      "llm_evidence": "LLM智能体自主设计并执行研究实验",
+      "canonical_evidence": "LLM智能体自主设计并执行研究实验",
+      "llm_tldr_en": "Analyzes whether LLM agents perform genuine architecture search when autonomously designing experiments.",
+      "llm_tldr_cn": "分析了LLM智能体在自主设计实验时是否进行了真正的架构搜索。",
+      "llm_tldr": "分析了LLM智能体在自主设计实验时是否进行了真正的架构搜索。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.12933v1",
+      "title": "Efficient and Interpretable Multi-Agent LLM Routing via Ant Colony Optimization",
+      "abstract": "Large Language Model (LLM)-driven Multi-Agent Systems (MAS) have demonstrated strong capability in complex reasoning and tool use, and heterogeneous agent pools further broaden the quality--cost trade-off space. Despite these advances, real-world deployment is often constrained by high inference cost, latency, and limited transparency, which hinders scalable and efficient routing. Existing routing strategies typically rely on expensive LLM-based selectors or static policies, and offer limited controllability for semantic-aware routing under dynamic loads and mixed intents, often resulting in unstable performance and inefficient resource utilization. To address these limitations, we propose AMRO-S, an efficient and interpretable routing framework for Multi-Agent Systems (MAS). AMRO-S models MAS routing as a semantic-conditioned path selection problem, enhancing routing performance through three key mechanisms: First, it leverages a supervised fine-tuned (SFT) small language model for intent inference, providing a low-overhead semantic interface for each query; second, it decomposes routing memory into task-specific pheromone specialists, reducing cross-task interference and optimizing path selection under mixed workloads; finally, it employs a quality-gated asynchronous update mechanism to decouple inference from learning, optimizing routing without increasing latency. Extensive experiments on five public benchmarks and high-concurrency stress tests demonstrate that AMRO-S consistently improves the quality--cost trade-off over strong routing baselines, while providing traceable routing evidence through structured pheromone patterns.",
+      "authors": [
+        "Xudong Wang",
+        "Chaoning Zhang",
+        "Jiaquan Zhang",
+        "Chenghao Li",
+        "Qigan Sun",
+        "Sung-Ho Bae",
+        "Peng Wang",
+        "Ning Xie",
+        "Jie Zou",
+        "Yang Yang",
+        "Hengtao Shen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-13T12:26:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.12933v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent LLM routing framework for heterogeneous agent pools",
+      "llm_evidence_cn": "针对异构智能体池的多智能体LLM路由框架",
+      "llm_evidence": "针对异构智能体池的多智能体LLM路由框架",
+      "canonical_evidence": "针对异构智能体池的多智能体LLM路由框架",
+      "llm_tldr_en": "AMRO-S uses Ant Colony Optimization for efficient and interpretable routing in multi-agent LLM systems.",
+      "llm_tldr_cn": "AMRO-S利用蚁群算法实现多智能体LLM系统中高效且可解释的路由。",
+      "llm_tldr": "AMRO-S利用蚁群算法实现多智能体LLM系统中高效且可解释的路由。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.16104v1",
+      "title": "Efficient LLM Serving for Agentic Workflows: A Data Systems Perspective",
+      "abstract": "Agentic workflows are composed of sequences of interdependent Large Language Model (LLM) calls, and they have become a dominant workload in modern AI systems. These workflows exhibit extensive redundancy from overlapping prompts and intermediate results due to speculative and parallel exploration. Existing LLM serving systems, such as vLLM, focus on optimizing individual inference calls and overlook cross-call dependencies, leading to significant inefficiencies. This paper rethinks LLM and agent serving from a data systems perspective and introduces Helium, a workflow-aware serving framework that models agentic workloads as query plans and treats LLM invocations as first-class operators. Helium integrates proactive caching and cache-aware scheduling to maximize reuse across prompts, KV states, and workflows. Through these techniques, Helium bridges classic query optimization principles with LLM serving, achieving up to 1.56x speedup over state-of-the-art agent serving systems on various workloads. Our results demonstrate that end-to-end optimization across workflows is essential for scalable and efficient LLM-based agents.",
+      "authors": [
+        "Noppanat Wadlom",
+        "Junyi Shen",
+        "Yao Lu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.DB"
+      ],
+      "published": "2026-03-17T04:03:18+00:00",
+      "link": "https://arxiv.org/pdf/2603.16104v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Serving framework for agentic workflows and multi-LLM calls",
+      "llm_evidence_cn": "智能体工作流和多LLM调用的服务框架",
+      "llm_evidence": "智能体工作流和多LLM调用的服务框架",
+      "canonical_evidence": "智能体工作流和多LLM调用的服务框架",
+      "llm_tldr_en": "Helium is a workflow-aware serving framework that optimizes redundant LLM calls in agentic workloads.",
+      "llm_tldr_cn": "Helium是一个工作流感知服务框架，优化了智能体工作负载中冗余的LLM调用。",
+      "llm_tldr": "Helium是一个工作流感知服务框架，优化了智能体工作负载中冗余的LLM调用。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.13173v2",
+      "title": "Semantic Invariance in Agentic AI",
+      "abstract": "Large Language Models (LLMs) increasingly serve as autonomous reasoning agents in decision support, scientific problem-solving, and multi-agent coordination systems. However, deploying LLM agents in consequential applications requires assurance that their reasoning remains stable under semantically equivalent input variations, a property we term semantic invariance. Standard benchmark evaluations, which assess accuracy on fixed, canonical problem formulations, fail to capture this critical reliability dimension. To address this shortcoming, in this paper we present a metamorphic testing framework for systematically assessing the robustness of LLM reasoning agents, applying eight semantic-preserving transformations (identity, paraphrase, fact reordering, expansion, contraction, academic context, business context, and contrastive formulation) across seven foundation models spanning four distinct architectural families: Hermes (70B, 405B), Qwen3 (30B-A3B, 235B-A22B), DeepSeek-R1, and gpt-oss (20B, 120B). Our evaluation encompasses 19 multi-step reasoning problems across eight scientific domains. The results reveal that model scale does not predict robustness: the smaller Qwen3-30B-A3B achieves the highest stability (79.6% invariant responses, semantic similarity 0.91), while larger models exhibit greater fragility.",
+      "authors": [
+        "I. de Zarzà",
+        "J. de Curtò",
+        "Jordi Cabot",
+        "Pietro Manzoni",
+        "Carlos T. Calafate"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-13T17:08:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.13173v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Robustness of LLM agents in scientific problem-solving",
+      "llm_evidence_cn": "LLM智能体在科学问题解决中的鲁棒性",
+      "llm_evidence": "LLM智能体在科学问题解决中的鲁棒性",
+      "canonical_evidence": "LLM智能体在科学问题解决中的鲁棒性",
+      "llm_tldr_en": "Proposes a framework to test the semantic invariance and reliability of LLM reasoning agents.",
+      "llm_tldr_cn": "提出一个框架来测试LLM推理智能体的语义不变性和可靠性。",
+      "llm_tldr": "提出一个框架来测试LLM推理智能体的语义不变性和可靠性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17580v1",
+      "title": "Negation is Not Semantic: Diagnosing Dense Retrieval Failure Modes for Trade-offs in Contradiction-Aware Biomedical QA",
+      "abstract": "Large Language Models (LLMs) have demonstrated strong capabilities in biomedical question answering, yet their tendency to generate plausible but unverified claims poses serious risks in clinical settings. To mitigate these risks, the TREC 2025 BioGen track mandates grounded answers that explicitly surface contradictory evidence (Task A) and the generation of narrative driven, fully attributed responses (Task B). Addressing the absence of target ground truth, we present a proxy-based development framework using the SciFact dataset to systematically optimize retrieval architectures. Our iterative evaluation revealed a \"Simplicity Paradox\": complex adversarial dense retrieval strategies failed catastrophically at contradiction detection (MRR 0.023) due to Semantic Collapse, where negation signals become indistinguishable in vector space. We further identify a Retrieval Asymmetry: filtering dense embeddings improves contradiction detection but degrades support recall, compromising reliability. We resolve this via a Decoupled Lexical Architecture built on a unified BM25 backbone, balancing semantic support recall (0.810) with precise contradiction surfacing (0.750). This approach achieves the highest Weighted MRR (0.790) on the proxy benchmark while remaining the only viable strategy for scaling to the 30 million document PubMed corpus. For answer generation, we introduce Narrative Aware Reranking and One-Shot In-Context Learning, improving citation coverage from 50% (zero-shot) to 100%. Official TREC results confirm our findings: our system ranks 2nd on Task A contradiction F1 and 3rd out of 50 runs on Task B citation coverage (98.77%), achieving zero citation contradict rate. Our work transforms LLMs from stochastic generators into honest evidence synthesizers, showing that epistemic integrity in biomedical AI requires precision and architectural scalability isolated metric optimization.",
+      "authors": [
+        "Soumya Ranjan Sahoo",
+        "Gagan N.",
+        "Sanand Sasidharan",
+        "Divya Bharti"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR"
+      ],
+      "published": "2026-03-18T10:35:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.17580v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Contradiction-aware biomedical question answering using LLMs",
+      "llm_evidence_cn": "使用LLM的矛盾感知生物医学问答",
+      "llm_evidence": "使用LLM的矛盾感知生物医学问答",
+      "canonical_evidence": "使用LLM的矛盾感知生物医学问答",
+      "llm_tldr_en": "Diagnoses retrieval failures in biomedical QA to improve grounded and attributed LLM responses.",
+      "llm_tldr_cn": "诊断生物医学问答中的检索失败，以改进LLM生成的有据可查且归因明确的回答。",
+      "llm_tldr": "诊断生物医学问答中的检索失败，以改进LLM生成的有据可查且归因明确的回答。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.14730v1",
+      "title": "GNNVerifier: Graph-based Verifier for LLM Task Planning",
+      "abstract": "Large language models (LLMs) facilitate the development of autonomous agents. As a core component of such agents, task planning aims to decompose complex natural language requests into concrete, solvable sub-tasks. Since LLM-generated plans are frequently prone to hallucinations and sensitive to long-context prom-pts, recent research has introduced plan verifiers to identify and correct potential flaws. However, most existing approaches still rely on an LLM as the verifier via additional prompting for plan review or self-reflection. LLM-based verifiers can be misled by plausible narration and struggle to detect failures caused by structural relations across steps, such as type mismatches, missing intermediates, or broken dependencies. To address these limitations, we propose a graph-based verifier for LLM task planning. Specifically, the proposed method has four major components: Firstly, we represent a plan as a directed graph with enriched attributes, where nodes denote sub-tasks and edges encode execution order and dependency constraints. Secondly, a graph neural network (GNN) then performs structural evaluation and diagnosis, producing a graph-level plausibility score for plan acceptance as well as node/edge-level risk scores to localize erroneous regions. Thirdly, we construct controllable perturbations from ground truth plan graphs, and automatically generate training data with fine-grained annotations. Finally, guided by the feedback from our GNN verifier, we enable an LLM to conduct local edits (e.g., tool replacement or insertion) to correct the plan when the graph-level score is insufficient. Extensive experiments across diverse datasets, backbone LLMs, and planners demonstrate that our GNNVerifier achieves significant gains in improving plan quality. Our data and code is available at https://github.com/BUPT-GAMMA/GNNVerifier.",
+      "authors": [
+        "Yu Hao",
+        "Qiuyu Wang",
+        "Cheng Yang",
+        "Yawen Li",
+        "Zhiqiang Zhang",
+        "Chuan Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-16T02:05:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.14730v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Graph-based verifier for autonomous agent task planning",
+      "llm_evidence_cn": "用于自主智能体任务规划的图验证器",
+      "llm_evidence": "用于自主智能体任务规划的图验证器",
+      "canonical_evidence": "用于自主智能体任务规划的图验证器",
+      "llm_tldr_en": "Introduces a graph-based verifier to improve task planning for autonomous agents.",
+      "llm_tldr_cn": "引入一种基于图的验证器，以改进自主智能体的任务规划能力。",
+      "llm_tldr": "引入一种基于图的验证器，以改进自主智能体的任务规划能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17633v1",
+      "title": "Atomic Trajectory Modeling with State Space Models for Biomolecular Dynamics",
+      "abstract": "Understanding the dynamic behavior of biomolecules is fundamental to elucidating biological function and facilitating drug discovery. While Molecular Dynamics (MD) simulations provide a rigorous physical basis for studying these dynamics, they remain computationally expensive for long timescales. Conversely, recent deep generative models accelerate conformation generation but are typically either failing to model temporal relationship or built only for monomeric proteins. To bridge this gap, we introduce ATMOS, a novel generative framework based on State Space Models (SSM) designed to generate atom-level MD trajectories for biomolecular systems. ATMOS integrates a Pairformer-based state transition mechanism to capture long-range temporal dependencies, with a diffusion-based module to decode trajectory frames in an autoregressive manner. ATMOS is trained across crystal structures from PDB and conformation trajectory from large-scale MD simulation datasets including mdCATH and MISATO. We demonstrate that ATMOS achieves state-of-the-art performance in generating conformation trajectories for both protein monomers and complex protein-ligand systems. By enabling efficient inference of atomic trajectory of motions, this work establishes a promising foundation for modeling biomolecular dynamics.",
+      "authors": [
+        "Liang Shi",
+        "Jiarui Lu",
+        "Junqi Liu",
+        "Chence Shi",
+        "Zhi Yang",
+        "Jian Tang"
+      ],
+      "primary_category": "q-bio.BM",
+      "categories": [
+        "q-bio.BM",
+        "cs.LG"
+      ],
+      "published": "2026-03-18T11:53:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.17633v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Generative modeling for biomolecular dynamics and drug discovery",
+      "llm_evidence_cn": "生物分子动力学与药物研发的生成式建模",
+      "llm_evidence": "生物分子动力学与药物研发的生成式建模",
+      "canonical_evidence": "生物分子动力学与药物研发的生成式建模",
+      "llm_tldr_en": "Introduces ATMOS, a state space model for generating atom-level molecular dynamics trajectories.",
+      "llm_tldr_cn": "引入ATMOS，一种用于生成原子级分子动力学轨迹的状态空间模型。",
+      "llm_tldr": "引入ATMOS，一种用于生成原子级分子动力学轨迹的状态空间模型。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
