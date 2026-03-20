@@ -1,0 +1,560 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-20T19:57:57.401642+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 14,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.18256v1",
+      "title": "MolRGen: A Training and Evaluation Setting for De Novo Molecular Generation with Reasonning Models",
+      "abstract": "Recent advances in reasoning-based large language models (LLMs) have demonstrated substantial improvements in complex problem-solving tasks. Motivated by these advances, several works have explored the application of reasoning LLMs to drug discovery and molecular design. However, most existing approaches either focus on evaluation or rely on training setups that require ground-truth labels, such as molecule pairs with known property modifications. Such supervision is unavailable in \\textit{de novo} molecular generation, where the objective is to generate novel molecules that optimize a desirability score without prior knowledge of high-scoring candidates. To bridge this gap, we introduce MolRGen, a large-scale benchmark and dataset for training and evaluating reasoning-based LLMs on \\textit{de novo} molecular generation. Our contributions are threefold. First, we propose a setting to evaluate and train models for \\textit{de novo} molecular generation and property prediction. Second, we introduce a novel diversity-aware top-$k$ score that captures both the quality and diversity of generated molecules. Third, we show our setting can be used to train LLMs for molecular generation, training a 24B LLM with reinforcement learning, and we provide a detailed analysis of its performance and limitations.",
+      "authors": [
+        "Philippe Formont",
+        "Maxime Darrin",
+        "Ismail Ben Ayed",
+        "Pablo Piantanida"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-18T20:21:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.18256v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Reasoning LLMs for drug discovery",
+      "llm_evidence_cn": "用于药物发现的推理大模型",
+      "llm_evidence": "用于药物发现的推理大模型",
+      "canonical_evidence": "用于药物发现的推理大模型",
+      "llm_tldr_en": "MolRGen is a benchmark for de novo molecular generation using reasoning-based large language models.",
+      "llm_tldr_cn": "MolRGen是一个利用基于推理的大语言模型进行从头分子生成的基准测试。",
+      "llm_tldr": "MolRGen是一个利用基于推理的大语言模型进行从头分子生成的基准测试。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.11703v1",
+      "title": "EvoFlows: Evolutionary Edit-Based Flow-Matching for Protein Engineering",
+      "abstract": "We introduce EvoFlows, a variable-length sequence-to-sequence protein modeling approach uniquely suited to protein engineering. Unlike autoregressive and masked language models, EvoFlows perform a limited, controllable number of insertions, deletions, and substitutions on a template protein sequence. In other words, EvoFlows predict not only _which_ mutation to perform, but also _where_ it should occur. Our approach leverages edit flows to learn mutational trajectories between evolutionarily-related protein sequences, simultaneously modeling distributions of related natural proteins and the mutational paths connecting them. Through extensive _in silico_ evaluation on diverse protein communities from UNIREF and OAS, we demonstrate that EvoFlows capture protein sequence distributions with a quality comparable to leading masked language models commonly used in protein engineering, while showing improved ability to generate non-trivial yet natural-like mutants from a given template protein.",
+      "authors": [
+        "Nicolas Deutschmann",
+        "Constance Ferragu",
+        "Jonathan D. Ziegler",
+        "Shayan Aziznejad",
+        "Eli Bixby"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-12T09:10:36+00:00",
+      "link": "https://arxiv.org/pdf/2603.11703v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sequence-to-sequence protein modeling for protein engineering",
+      "llm_evidence_cn": "用于蛋白质工程的序列到序列蛋白质建模",
+      "llm_evidence": "用于蛋白质工程的序列到序列蛋白质建模",
+      "canonical_evidence": "用于蛋白质工程的序列到序列蛋白质建模",
+      "llm_tldr_en": "Introduces EvoFlows, a flow-matching approach for controllable protein sequence editing and engineering.",
+      "llm_tldr_cn": "引入EvoFlows，一种用于可控蛋白质序列编辑和工程的流匹配建模方法。",
+      "llm_tldr": "引入EvoFlows，一种用于可控蛋白质序列编辑和工程的流匹配建模方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.18235v1",
+      "title": "Toward Reliable, Safe, and Secure LLMs for Scientific Applications",
+      "abstract": "As large language models (LLMs) evolve into autonomous \"AI scientists,\" they promise transformative advances but introduce novel vulnerabilities, from potential \"biosafety risks\" to \"dangerous explosions.\" Ensuring trustworthy deployment in science requires a new paradigm centered on reliability (ensuring factual accuracy and reproducibility), safety (preventing unintentional physical or biological harm), and security (preventing malicious misuse). Existing general-purpose safety benchmarks are poorly suited for this purpose, suffering from a fundamental domain mismatch, limited threat coverage of science-specific vectors, and benchmark overfitting, which create a critical gap in vulnerability evaluation for scientific applications. This paper examines the unique security and safety landscape of LLM agents in science. We begin by synthesizing a detailed taxonomy of LLM threats contextualized for scientific research, to better understand the unique risks associated with LLMs in science. Next, we conceptualize a mechanism to address the evaluation gap by utilizing dedicated multi-agent systems for the automated generation of domain-specific adversarial security benchmarks. Based on our analysis, we outline how existing safety methods can be brought together and integrated into a conceptual multilayered defense framework designed to combine a red-teaming exercise and external boundary controls with a proactive internal Safety LLM Agent. Together, these conceptual elements provide a necessary structure for defining, evaluating, and creating comprehensive defense strategies for trustworthy LLM agent deployment in scientific disciplines.",
+      "authors": [
+        "Saket Sanjeev Chaturvedi",
+        "Joshua Bergerson",
+        "Tanwi Mallick"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "published": "2026-03-18T19:43:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.18235v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLMs as autonomous AI scientists with focus on biosafety risks",
+      "llm_evidence_cn": "作为自主AI科学家的LLM，重点关注生物安全风险",
+      "llm_evidence": "作为自主AI科学家的LLM，重点关注生物安全风险",
+      "canonical_evidence": "作为自主AI科学家的LLM，重点关注生物安全风险",
+      "llm_tldr_en": "Discusses reliability and safety for LLMs acting as autonomous agents in scientific and biological research.",
+      "llm_tldr_cn": "探讨了LLM作为科学和生物研究自主智能体时的可靠性、安全性和生物风险评估。",
+      "llm_tldr": "探讨了LLM作为科学和生物研究自主智能体时的可靠性、安全性和生物风险评估。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.14717v1",
+      "title": "Training-Free Generation of Protein Sequences from Small Family Alignments via Stochastic Attention",
+      "abstract": "Most protein families have fewer than 100 known members, a regime where deep generative models overfit or collapse. We propose stochastic attention (SA), a training-free sampler that treats the modern Hopfield energy over a protein alignment as a Boltzmann distribution and draws samples via Langevin dynamics. The score function is a closed-form softmax attention operation requiring no training, no pretraining data, and no GPU, with cost linear in alignment size. Across eight Pfam families, SA generates sequences with low amino acid compositional divergence, substantial novelty, and structural plausibility confirmed by ESMFold and AlphaFold2. Generated sequences fold more faithfully to canonical family structures than natural members in six of eight families. Against profile HMMs, EvoDiff, and the MSA Transformer, which produce sequences that drift far outside the family, SA maintains 51 to 66 percent identity while remaining novel, in seconds on a laptop. The critical temperature governing generation is predicted from PCA dimensionality alone, enabling fully automatic operation. Controls confirm SA encodes correlated substitution patterns, not just per-position amino acid frequencies.",
+      "authors": [
+        "Jeffrey D. Varner"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-16T01:42:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.14717v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Protein sequence generation and computational biology",
+      "llm_evidence_cn": "蛋白质序列生成与计算生物学",
+      "llm_evidence": "蛋白质序列生成与计算生物学",
+      "canonical_evidence": "蛋白质序列生成与计算生物学",
+      "llm_tldr_en": "A training-free method for generating protein sequences from small alignments using stochastic attention.",
+      "llm_tldr_cn": "一种利用随机注意力从少量比对中生成蛋白质序列的免训练方法。",
+      "llm_tldr": "一种利用随机注意力从少量比对中生成蛋白质序列的免训练方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.11781v1",
+      "title": "From Debate to Deliberation: Structured Collective Reasoning with Typed Epistemic Acts",
+      "abstract": "Multi-agent LLM systems increasingly tackle complex reasoning, yet their interaction patterns remain limited to voting, unstructured debate, or pipeline orchestration. None model deliberation: a phased process where differentiated participants exchange typed reasoning moves, preserve disagreements, and converge on accountable outcomes. We introduce Deliberative Collective Intelligence (DCI), specifying four reasoning archetypes, 14 typed epistemic acts, a shared workspace, and DCI-CF, a convergent flow algorithm that guarantees termination with a structured decision packet containing the selected option, residual objections, minority report, and reopen conditions. We evaluate on 45 tasks across seven domains using Gemini 2.5 Flash. On non-routine tasks (n=40), DCI significantly improves over unstructured debate (+0.95, 95% CI [+0.41, +1.54]). DCI excels on hidden-profile tasks requiring perspective integration (9.56, highest of any system on any domain) while failing on routine decisions (5.39), confirming task-dependence. DCI produces 100% structured decision packets and 98% minority reports, artifacts absent from all baselines. However, DCI consumes ~62x single-agent tokens, and single-agent generation outperforms DCI on overall quality. DCI's contribution is not that more agents are better, but that consequential decisions benefit from deliberative structure when process accountability justifies the cost.",
+      "authors": [
+        "Sunil Prakash"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-03-12T10:39:41+00:00",
+      "link": "https://arxiv.org/pdf/2603.11781v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Structured collective reasoning in multi-agent systems",
+      "llm_evidence_cn": "多智能体系统中的结构化集体推理",
+      "llm_evidence": "多智能体系统中的结构化集体推理",
+      "canonical_evidence": "多智能体系统中的结构化集体推理",
+      "llm_tldr_en": "DCI introduces a structured deliberation framework for multi-agent LLM systems to improve complex reasoning.",
+      "llm_tldr_cn": "DCI为多智能体LLM系统引入了一个结构化商议框架，以改进复杂推理过程。",
+      "llm_tldr": "DCI为多智能体LLM系统引入了一个结构化商议框架，以改进复杂推理过程。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.14797v1",
+      "title": "Multi-Task Genetic Algorithm with Multi-Granularity Encoding for Protein-Nucleotide Binding Site Prediction",
+      "abstract": "Accurate identification of protein-nucleotide binding sites is fundamental to deciphering molecular mechanisms and accelerating drug discovery. However, current computational methods often struggle with suboptimal performance due to inadequate feature representation and rigid fusion mechanisms, which hinder the effective exploitation of cross-task information synergy. To bridge this gap, we propose MTGA-MGE, a framework that integrates a Multi-Task Genetic Algorithm with Multi-Granularity Encoding to enhance binding site prediction. Specifically, we develop a Multi-Granularity Encoding (MGE) network that synergizes multi-scale convolutions and self-attention mechanisms to distill discriminative signals from high-dimensional, redundant biological data. To overcome the constraints of static fusion, a genetic algorithm is employed to adaptively evolve task-specific fusion strategies, thereby effectively improving model generalization. Furthermore, to catalyze collaborative learning, we introduce an External-Neighborhood Mechanism (ENM) that leverages biological similarities to facilitate targeted information exchange across tasks. Extensive evaluations on fifteen nucleotide datasets demonstrate that MTGA-MGE not only establishes a new state-of-the-art in data-abundant, high-resource scenarios but also maintains a robust competitive edge in rare, low-resource regimes, presenting a highly adaptive scheme for decoding complex protein-ligand interactions in the post-genomic era.",
+      "authors": [
+        "Yiming Gao",
+        "Liuyi Xu",
+        "Pengshan Cui",
+        "Yining Qian",
+        "An-Yang Lu",
+        "Xianpeng Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-16T03:51:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.14797v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Protein-nucleotide binding site prediction",
+      "llm_evidence_cn": "蛋白质-核苷酸结合位点预测",
+      "llm_evidence": "蛋白质-核苷酸结合位点预测",
+      "canonical_evidence": "蛋白质-核苷酸结合位点预测",
+      "llm_tldr_en": "A multi-task genetic algorithm framework for predicting protein-nucleotide binding sites.",
+      "llm_tldr_cn": "一种用于预测蛋白质-核苷酸结合位点的多任务遗传算法框架。",
+      "llm_tldr": "一种用于预测蛋白质-核苷酸结合位点的多任务遗传算法框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.12073v1",
+      "title": "A Multi-Label Temporal Convolutional Framework for Transcription Factor Binding Characterization",
+      "abstract": "Transcription factors (TFs) regulate gene expression through complex and co-operative mechanisms. While many TFs act together, the logic underlying TFs binding and their interactions is not fully understood yet. Most current approaches for TF binding site prediction focus on individual TFs and binary classification tasks, without a full analysis of the possible interactions among various TFs. In this paper we investigate DNA TF binding site recognition as a multi-label classification problem, achieving reliable predictions for multiple TFs on DNA sequences retrieved in public repositories. Our deep learning models are based on Temporal Convolutional Networks (TCNs), which are able to predict multiple TF binding profiles, capturing correlations among TFs andtheir cooperative regulatory mechanisms. Our results suggest that multi-label learning leading to reliable predictive performances can reveal biologically meaningful motifs and co-binding patterns consistent with known TF interactions, while also suggesting novel relationships and cooperation among TFs.",
+      "authors": [
+        "Pietro Demurtas",
+        "Ferdinando Zanchetta",
+        "Giovanni Perini",
+        "Rita Fioresi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-12T15:42:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.12073v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Deep learning for DNA transcription factor binding site recognition",
+      "llm_evidence_cn": "用于DNA转录因子结合位点识别的深度学习",
+      "llm_evidence": "用于DNA转录因子结合位点识别的深度学习",
+      "canonical_evidence": "用于DNA转录因子结合位点识别的深度学习",
+      "llm_tldr_en": "Uses Temporal Convolutional Networks for multi-label DNA transcription factor binding site prediction.",
+      "llm_tldr_cn": "利用时间卷积网络进行DNA转录因子结合位点的多标签预测。",
+      "llm_tldr": "利用时间卷积网络进行DNA转录因子结合位点的多标签预测。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.15183v1",
+      "title": "Token Coherence: Adapting MESI Cache Protocols to Minimize Synchronization Overhead in Multi-Agent LLM Systems",
+      "abstract": "Multi-agent LLM orchestration incurs synchronization costs scaling as O(n x S x |D|) in agents, steps, and artifact size under naive broadcast -- a regime I term broadcast-induced triply-multiplicative overhead. I argue this pathology is a structural residue of full-state rebroadcast, not an inherent property of multi-agent coordination.   The central claim: synchronization cost explosion in LLM multi-agent systems maps with formal precision onto the cache coherence problem in shared-memory multiprocessors, and MESI-protocol invalidation transfers to artifact synchronization under minimal structural modification.   I construct the Artifact Coherence System (ACS) and prove the Token Coherence Theorem: lazy invalidation attenuates cost by at least S/(n + W(d_i)) when S > n + W(d_i), converting O(n x S x |D|) to O((n + W) x |D|). A TLA+-verified protocol enforces single-writer safety, monotonic versioning, and bounded staleness across ~2,400 explored states.   Simulation across four workload configurations yields token savings of 95.0% +/- 1.3% at V=0.05, 92.3% +/- 1.4% at V=0.10, 88.3% +/- 1.5% at V=0.25, and 84.2% +/- 1.3% at V=0.50 -- each exceeding the theorem's conservative lower bounds. Savings of ~81% persist at V=0.9, contrary to the predicted collapse threshold.   Contributions: (1) formal MESI-to-artifact state mapping; (2) Token Coherence Theorem as savings lower bound; (3) TLA+-verified protocol with three proven invariants; (4) characterization of conditional artifact access semantics resolving the always-read objection; (5) reference Python implementation integrating with LangGraph, CrewAI, and AutoGen via thin adapter layers.",
+      "authors": [
+        "Vladyslav Parakhin"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-03-16T12:20:06+00:00",
+      "link": "https://arxiv.org/pdf/2603.15183v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Framework for multi-agent LLM synchronization and artifact coherence",
+      "llm_evidence_cn": "多智能体LLM同步和工件一致性框架",
+      "llm_evidence": "多智能体LLM同步和工件一致性框架",
+      "canonical_evidence": "多智能体LLM同步和工件一致性框架",
+      "llm_tldr_en": "Adapts cache protocols to minimize synchronization overhead in multi-agent LLM systems.",
+      "llm_tldr_cn": "借鉴缓存协议以最小化多智能体LLM系统中的同步开销。",
+      "llm_tldr": "借鉴缓存协议以最小化多智能体LLM系统中的同步开销。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.13173v1",
+      "title": "Semantic Invariance in Agentic AI",
+      "abstract": "Large Language Models (LLMs) increasingly serve as autonomous reasoning agents in decision support, scientific problem-solving, and multi-agent coordination systems. However, deploying LLM agents in consequential applications requires assurance that their reasoning remains stable under semantically equivalent input variations, a property we term semantic invariance.Standard benchmark evaluations, which assess accuracy on fixed, canonical problem formulations, fail to capture this critical reliability dimension. To address this shortcoming, in this paper we present a metamorphic testing framework for systematically assessing the robustness of LLM reasoning agents, applying eight semantic-preserving transformations (identity, paraphrase, fact reordering, expansion, contraction, academic context, business context, and contrastive formulation) across seven foundation models spanning four distinct architectural families: Hermes (70B, 405B), Qwen3 (30B-A3B, 235B-A22B), DeepSeek-R1, and gpt-oss (20B, 120B). Our evaluation encompasses 19 multi-step reasoning problems across eight scientific domains. The results reveal that model scale does not predict robustness: the smaller Qwen3-30B-A3B achieves the highest stability (79.6% invariant responses, semantic similarity 0.91), while larger models exhibit greater fragility.",
+      "authors": [
+        "I. de Zarzà",
+        "J. de Curtò",
+        "Jordi Cabot",
+        "Pietro Manzoni",
+        "Carlos T. Calafate"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-13T17:08:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.13173v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM agents in scientific problem-solving and metamorphic testing",
+      "llm_evidence_cn": "LLM智能体在科学问题解决和变态测试中的应用",
+      "llm_evidence": "LLM智能体在科学问题解决和变态测试中的应用",
+      "canonical_evidence": "LLM智能体在科学问题解决和变态测试中的应用",
+      "llm_tldr_en": "Presents a framework to assess the semantic invariance and robustness of LLM reasoning agents in scientific tasks.",
+      "llm_tldr_cn": "提出一个评估LLM推理智能体在科学任务中语义不变性和鲁棒性的框架。",
+      "llm_tldr": "提出一个评估LLM推理智能体在科学任务中语义不变性和鲁棒性的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.18461v1",
+      "title": "Cell-Type Prototype-Informed Neural Network for Gene Expression Estimation from Pathology Images",
+      "abstract": "Estimating slide- and patch-level gene expression profiles from pathology images enables rapid and low-cost molecular analysis with broad clinical impact. Despite strong results, existing approaches treat gene expression as a mere slide- or spot-level signal and do not incorporate the fact that the measured expression arises from the aggregation of underlying cell-level expression. To explicitly introduce this missing cell-resolved guidance, we propose a Cell-type Prototype-informed Neural Network (CPNN) that leverages publicly available single-cell RNA-sequencing datasets. Since single-cell measurements are noisy and not paired with histology images, we first estimate cell-type prototypes-mean expression profiles that reflect stable gene-gene co-variation patterns.CPNN then learns cell-type compositional weights directly from images and models the relationship between prototypes and observed bulk or spatial expression, providing a biologically grounded and structurally regularized prediction framework. We evaluate CPNN on three slide-level datasets and three patch-level spatial transcriptomics datasets. Across all settings, CPNN achieves the highest performance in terms of Spearman correlation. Moreover, by visualizing the inferred compositional weights, our framework provides interpretable insights into which cell types drive the predicted expression. Code is publicly available at https://github.com/naivete5656/CPNN.",
+      "authors": [
+        "Kazuya Nishimura",
+        "Ryoma Bise",
+        "Shinnosuke Matsuo",
+        "Haruka Hirose",
+        "Yasuhiro Kojima"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-19T03:42:11+00:00",
+      "link": "https://arxiv.org/pdf/2603.18461v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "gene expression estimation and single-cell RNA-sequencing",
+      "llm_evidence_cn": "基因表达估计和单细胞RNA测序",
+      "llm_evidence": "基因表达估计和单细胞RNA测序",
+      "canonical_evidence": "基因表达估计和单细胞RNA测序",
+      "llm_tldr_en": "Proposes a neural network using single-cell RNA-seq data to estimate gene expression from pathology images.",
+      "llm_tldr_cn": "提出一种利用单细胞RNA测序数据从病理图像中估计基因表达的神经网络。",
+      "llm_tldr": "提出一种利用单细胞RNA测序数据从病理图像中估计基因表达的神经网络。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.14730v2",
+      "title": "GNNVerifier: Graph-based Verifier for LLM Task Planning",
+      "abstract": "Large language models (LLMs) facilitate the development of autonomous agents. As a core component of such agents, task planning aims to decompose complex natural language requests into concrete, solvable sub-tasks. Since LLM-generated plans are frequently prone to hallucinations and sensitive to long-context prom-pts, recent research has introduced plan verifiers to identify and correct potential flaws. However, most existing approaches still rely on an LLM as the verifier via additional prompting for plan review or self-reflection. LLM-based verifiers can be misled by plausible narration and struggle to detect failures caused by structural relations across steps, such as type mismatches, missing intermediates, or broken dependencies. To address these limitations, we propose a graph-based verifier for LLM task planning. Specifically, the proposed method has four major components: Firstly, we represent a plan as a directed graph with enriched attributes, where nodes denote sub-tasks and edges encode execution order and dependency constraints. Secondly, a graph neural network (GNN) then performs structural evaluation and diagnosis, producing a graph-level plausibility score for plan acceptance as well as node/edge-level risk scores to localize erroneous regions. Thirdly, we construct controllable perturbations from ground truth plan graphs, and automatically generate training data with fine-grained annotations. Finally, guided by the feedback from our GNN verifier, we enable an LLM to conduct local edits (e.g., tool replacement or insertion) to correct the plan when the graph-level score is insufficient. Extensive experiments across diverse datasets, backbone LLMs, and planners demonstrate that our GNNVerifier achieves significant gains in improving plan quality. Our data and code is available at https://github.com/BUPT-GAMMA/GNNVerifier.",
+      "authors": [
+        "Yu Hao",
+        "Qiuyu Wang",
+        "Cheng Yang",
+        "Yawen Li",
+        "Zhiqiang Zhang",
+        "Chuan Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-16T02:05:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.14730v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Verifier for LLM autonomous agent task planning",
+      "llm_evidence_cn": "LLM自主智能体任务规划的验证器",
+      "llm_evidence": "LLM自主智能体任务规划的验证器",
+      "canonical_evidence": "LLM自主智能体任务规划的验证器",
+      "llm_tldr_en": "A graph-based verifier to improve the reliability of task planning in autonomous agents.",
+      "llm_tldr_cn": "一种基于图的验证器，用于提高自主智能体任务规划的可靠性。",
+      "llm_tldr": "一种基于图的验证器，用于提高自主智能体任务规划的可靠性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.18505v1",
+      "title": "From Snapshots to Symphonies: The Evolution of Protein Prediction from Static Structures to Generative Dynamics and Multimodal Interactions",
+      "abstract": "The protein folding problem has been fundamentally transformed by artificial intelligence, evolving from static structure prediction toward the modeling of dynamic conformational ensembles and complex biomolecular interactions. This review systematically examines the paradigm shift in AI driven protein science across five interconnected dimensions: unified multimodal representations that integrate sequences, geometries, and textual knowledge; refinement of static prediction through MSA free architectures and all atom complex modeling; generative frameworks, including diffusion models and flow matching, that capture conformational distributions consistent with thermodynamic ensembles; prediction of heterogeneous interactions spanning protein ligand, protein nucleic acid, and protein protein complexes; and functional inference of fitness landscapes, mutational effects, and text guided property prediction. We critically analyze current bottlenecks, including data distribution biases, limited mechanistic interpretability, and the disconnect between geometric metrics and biophysical reality, while identifying future directions toward physically consistent generative models, multimodal foundation architectures, and experimental closed loop systems. This methodological transformation marks artificial intelligence's transition from a structural analysis tool into a universal simulator capable of understanding and ultimately rewriting the dynamic language of life.",
+      "authors": [
+        "Jingzhi Chen",
+        "Lijian Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-19T05:25:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.18505v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Review of AI in protein science including sequences and textual knowledge",
+      "llm_evidence_cn": "蛋白质科学中AI应用的综述，涵盖序列和文本知识",
+      "llm_evidence": "蛋白质科学中AI应用的综述，涵盖序列和文本知识",
+      "canonical_evidence": "蛋白质科学中AI应用的综述，涵盖序列和文本知识",
+      "llm_tldr_en": "A systematic review of AI evolution in protein science, from static structure to generative dynamics.",
+      "llm_tldr_cn": "系统综述了蛋白质科学中AI从静态结构预测向生成动力学和多模态交互的演进。",
+      "llm_tldr": "系统综述了蛋白质科学中AI从静态结构预测向生成动力学和多模态交互的演进。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.15408v1",
+      "title": "TrinityGuard: A Unified Framework for Safeguarding Multi-Agent Systems",
+      "abstract": "With the rapid development of LLM-based multi-agent systems (MAS), their significant safety and security concerns have emerged, which introduce novel risks going beyond single agents or LLMs. Despite attempts to address these issues, the existing literature lacks a cohesive safeguarding system specialized for MAS risks. In this work, we introduce TrinityGuard, a comprehensive safety evaluation and monitoring framework for LLM-based MAS, grounded in the OWASP standards. Specifically, TrinityGuard encompasses a three-tier fine-grained risk taxonomy that identifies 20 risk types, covering single-agent vulnerabilities, inter-agent communication threats, and system-level emergent hazards. Designed for scalability across various MAS structures and platforms, TrinityGuard is organized in a trinity manner, involving an MAS abstraction layer that can be adapted to any MAS structures, an evaluation layer containing risk-specific test modules, alongside runtime monitor agents coordinated by a unified LLM Judge Factory. During Evaluation, TrinityGuard executes curated attack probes to generate detailed vulnerability reports for each risk type, where monitor agents analyze structured execution traces and issue real-time alerts, enabling both pre-development evaluation and runtime monitoring. We further formalize these safety metrics and present detailed case studies across various representative MAS examples, showcasing the versatility and reliability of TrinityGuard. Overall, TrinityGuard acts as a comprehensive framework for evaluating and monitoring various risks in MAS, paving the way for further research into their safety and security.",
+      "authors": [
+        "Kai Wang",
+        "Biaojie Zeng",
+        "Zeming Wei",
+        "Chang Jin",
+        "Hefeng Zhou",
+        "Xiangtian Li",
+        "Chao Yang",
+        "Jingjing Qu",
+        "Xingcheng Xu",
+        "Xia Hu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-03-16T15:20:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.15408v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for safeguarding multi-agent systems applicable to computational biology workflows",
+      "llm_evidence_cn": "适用于计算生物学工作流的多智能体系统安全保障框架",
+      "llm_evidence": "适用于计算生物学工作流的多智能体系统安全保障框架",
+      "canonical_evidence": "适用于计算生物学工作流的多智能体系统安全保障框架",
+      "llm_tldr_en": "A framework for evaluating and monitoring safety risks in LLM-based multi-agent systems.",
+      "llm_tldr_cn": "一个用于评估和监控基于大模型的多智能体系统安全风险的框架。",
+      "llm_tldr": "一个用于评估和监控基于大模型的多智能体系统安全风险的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.19005v1",
+      "title": "AgentDS Technical Report: Benchmarking the Future of Human-AI Collaboration in Domain-Specific Data Science",
+      "abstract": "Data science plays a critical role in transforming complex data into actionable insights across numerous domains. Recent developments in large language models (LLMs) and artificial intelligence (AI) agents have significantly automated data science workflow. However, it remains unclear to what extent AI agents can match the performance of human experts on domain-specific data science tasks, and in which aspects human expertise continues to provide advantages. We introduce AgentDS, a benchmark and competition designed to evaluate both AI agents and human-AI collaboration performance in domain-specific data science. AgentDS consists of 17 challenges across six industries: commerce, food production, healthcare, insurance, manufacturing, and retail banking. We conducted an open competition involving 29 teams and 80 participants, enabling systematic comparison between human-AI collaborative approaches and AI-only baselines. Our results show that current AI agents struggle with domain-specific reasoning. AI-only baselines perform near or below the median of competition participants, while the strongest solutions arise from human-AI collaboration. These findings challenge the narrative of complete automation by AI and underscore the enduring importance of human expertise in data science, while illuminating directions for the next generation of AI. Visit the AgentDS website here: https://agentds.org/ and open source datasets here: https://huggingface.co/datasets/lainmn/AgentDS .",
+      "authors": [
+        "An Luo",
+        "Jin Du",
+        "Xun Xian",
+        "Robert Specht",
+        "Fangqiao Tian",
+        "Ganghua Wang",
+        "Xuan Bi",
+        "Charles Fleming",
+        "Ashish Kundu",
+        "Jayanth Srinivasa",
+        "Mingyi Hong",
+        "Rui Zhang",
+        "Tianxi Li",
+        "Galin Jones",
+        "Jie Ding"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "stat.ME"
+      ],
+      "published": "2026-03-19T15:11:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.19005v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI agents in healthcare data science",
+      "llm_evidence_cn": "医疗保健数据科学中的AI智能体",
+      "llm_evidence": "医疗保健数据科学中的AI智能体",
+      "canonical_evidence": "医疗保健数据科学中的AI智能体",
+      "llm_tldr_en": "AgentDS benchmarks AI agents and human-AI collaboration across domain-specific data science tasks including healthcare.",
+      "llm_tldr_cn": "AgentDS是一个评估AI智能体在包括医疗在内的特定领域数据科学任务中表现的基准。",
+      "llm_tldr": "AgentDS是一个评估AI智能体在包括医疗在内的特定领域数据科学任务中表现的基准。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
