@@ -1,0 +1,498 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-21T19:35:29.385029+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2603.14097v1",
+      "title": "Hierarchical p-Adic Framework for Gene Regulatory Networks: Theory and Stability Analysis",
+      "abstract": "Gene regulatory networks exhibit hierarchical organization across scales; capturing this structure mathematically requires a metric that distinguishes regulatory influence at each level. We show that the ultrametric of the $p$-adic integers $\\mathbb{Z}_p$ -- whose self-similar nested-ball structure is a natural fractal encoding of multi-scale organization -- provides such a framework. Embedding the $N$-gene state space into $\\mathbb{Z}_p$ and working over the complete, algebraically closed field $\\mathbb{C}_p$, we prove the existence of rational functions that interpret the discrete dynamics and construct hierarchical approximations at each resolution level. These constructions yield a stability measure $μ$ -- aggregating how the dynamics contracts or expands across resolution levels -- and a ball-level classification of fixed points -- contracting, expanding, or isometric -- extending the attracting/repelling/indifferent trichotomy of non-Archimedean dynamics from points to balls. A key result is that $μ$ and the classification, although their definition and dynamical meaning require the analytical tools of $\\mathbb{C}_p$, are fully determined by the discrete data. Minimizing $μ$ over all $N!$ gene orderings defines an optimal regulatory hierarchy; for the Arabidopsis thaliana floral development network ($N=13$, $p=2$), a $μ$-minimizing ordering places known master regulators -- UFO, EMF1, LFY, TFL1 -- in the leading positions and recovers the accepted developmental hierarchy without biological input beyond the transition map.",
+      "authors": [
+        "J. R. Pérez-Buendía",
+        "Victor Nopal-Coello"
+      ],
+      "primary_category": "math.DS",
+      "categories": [
+        "math.DS",
+        "q-bio.MN"
+      ],
+      "published": "2026-03-14T19:49:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.14097v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Mathematical framework for gene regulatory networks",
+      "llm_evidence_cn": "基因调控网络的数学框架",
+      "llm_evidence": "基因调控网络的数学框架",
+      "canonical_evidence": "基因调控网络的数学框架",
+      "llm_tldr_en": "Proposes a p-adic mathematical framework to analyze the hierarchical stability of gene regulatory networks.",
+      "llm_tldr_cn": "提出了一种 p-adic 数学框架，用于分析基因调控网络的分层稳定性。",
+      "llm_tldr": "提出了一种 p-adic 数学框架，用于分析基因调控网络的分层稳定性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.16721v1",
+      "title": "Looking for (Genomic) Needles in a Haystack: Sparsity-Driven Search for Identifying Correlated Genetic Mutations in Cancer",
+      "abstract": "Cancer typically arises not from a single genetic mutation (i.e., hit) but from multi-hit combinations that accumulate within cells. However, enumerating multi-hit combinations becomes exponentially more expensive computationally as the number of candidate hit gene combinations grow, i.e. on the order of 20,000 choose h, where 20,000 is the number of genes in the human genome and h is the number of hits. To address this challenge, we present an algorithmic framework, called Pruned Depth-First Search (P-DFS) that leverages the high sparsity in tumor mutation data to prune large portions of the search space. Specifically, P-DFS (the main contribution of this paper) - a pruning technique that exploits sparsity to drastically reduce the otherwise exponential h-hit search space for candidate combinations used by Weighted Set Cover - which is grounded in a depth-first search backtracking technique, prunes infeasible gene subsets early, while a weighted set cover formulation systematically scores and selects the most discriminative combinations. By intertwining these ideas with optimized bitwise operations and a scalable distributed algorithm on high-performance computing clusters, our algorithm can achieve approximately 90 - 98% reduction in visited combinations for 4-hits, and roughly a 183x speedup over the exhaustive set cover approach(which is algorithmically NP-complete) measured on 147,456 ranks. In doing so, our method can feasibly handle four-hit and even higher-order gene hits, achieving both speed and resource efficiency.",
+      "authors": [
+        "Ritvik Prabhu",
+        "Emil Vatai",
+        "Bernard Moussad",
+        "Emmanuel Jeannot",
+        "Ramu Anandakrishnan",
+        "Wu-chun Feng",
+        "Mohamed Wahib"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC"
+      ],
+      "published": "2026-03-17T16:09:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.16721v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sparsity-driven search for identifying genomic mutations in cancer",
+      "llm_evidence_cn": "识别癌症基因突变的稀疏驱动搜索",
+      "llm_evidence": "识别癌症基因突变的稀疏驱动搜索",
+      "canonical_evidence": "识别癌症基因突变的稀疏驱动搜索",
+      "llm_tldr_en": "P-DFS leverages data sparsity to efficiently identify multi-hit genetic mutation combinations in cancer genomes.",
+      "llm_tldr_cn": "P-DFS 利用数据稀疏性高效识别癌症基因组中的多位点遗传突变组合。",
+      "llm_tldr": "P-DFS 利用数据稀疏性高效识别癌症基因组中的多位点遗传突变组合。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.18660v1",
+      "title": "Multimodal Model for Computational Pathology:Representation Learning and Image Compression",
+      "abstract": "Whole slide imaging (WSI) has transformed digital pathology by enabling computational analysis of gigapixel histopathology images. Recent foundation model advances have accelerated progress in computational pathology, facilitating joint reasoning across pathology images, clinical reports, and structured data. Despite this progress, challenges remain: the extreme resolution of WSIs creates computational hurdles for visual learning; limited expert annotations constrain supervised approaches; integrating multimodal information while preserving biological interpretability remains difficult; and the opacity of modeling ultra-long visual sequences hinders clinical transparency. This review comprehensively surveys recent advances in multimodal computational pathology. We systematically analyze four research directions: (1) self-supervised representation learning and structure-aware token compression for WSIs; (2) multimodal data generation and augmentation; (3) parameter-efficient adaptation and reasoning-enhanced few-shot learning; and (4) multi-agent collaborative reasoning for trustworthy diagnosis. We specifically examine how token compression enables cross-scale modeling and how multi-agent mechanisms simulate a pathologist's \"Chain of Thought\" across magnifications to achieve uncertainty-aware evidence fusion. Finally, we discuss open challenges and argue that future progress depends on unified multimodal frameworks integrating high-resolution visual data with clinical and biomedical knowledge to support interpretable and safe AI-assisted diagnosis.",
+      "authors": [
+        "Peihang Wu",
+        "Zehong Chen",
+        "Lijian Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-19T09:24:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.18660v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multimodal foundation models for computational pathology and histopathology",
+      "llm_evidence_cn": "用于计算病理学和组织病理学的多模态基础模型",
+      "llm_evidence": "用于计算病理学和组织病理学的多模态基础模型",
+      "canonical_evidence": "用于计算病理学和组织病理学的多模态基础模型",
+      "llm_tldr_en": "Surveys multimodal models for computational pathology, focusing on image compression and representation.",
+      "llm_tldr_cn": "综述了计算病理学的多模态模型，重点关注图像压缩和表征学习。",
+      "llm_tldr": "综述了计算病理学的多模态模型，重点关注图像压缩和表征学习。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.14257v1",
+      "title": "Automatic Inter-document Multi-hop Scientific QA Generation",
+      "abstract": "Existing automatic scientific question generation studies mainly focus on single-document factoid QA, overlooking the inter-document reasoning crucial for scientific understanding. We present AIM-SciQA, an automated framework for generating multi-document, multi-hop scientific QA datasets. AIM-SciQA extracts single-hop QAs using large language models (LLMs) with machine reading comprehension and constructs cross-document relations based on embedding-based semantic alignment while selectively leveraging citation information. Applied to 8,211 PubMed Central papers, it produced 411,409 single-hop and 13,672 multi-hop QAs, forming the IM-SciQA dataset. Human and automatic validation confirmed high factual consistency, and experimental results demonstrate that IM-SciQA effectively differentiates reasoning capabilities across retrieval and QA stages, providing a realistic and interpretable benchmark for retrieval-augmented scientific reasoning. We further extend this framework to construct CIM-SciQA, a citation-guided variant achieving comparable performance to the Oracle setting, reinforcing the dataset's validity and generality.",
+      "authors": [
+        "Seungmin Lee",
+        "Dongha Kim",
+        "Yuni Jeon",
+        "Junyoung Koh",
+        "Min Song"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-15T07:27:06+00:00",
+      "link": "https://arxiv.org/pdf/2603.14257v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based QA generation using PubMed Central papers",
+      "llm_evidence_cn": "基于PubMed文献的LLM问答生成",
+      "llm_evidence": "基于PubMed文献的LLM问答生成",
+      "canonical_evidence": "基于PubMed文献的LLM问答生成",
+      "llm_tldr_en": "Automates multi-hop scientific QA generation using LLMs and a large corpus of biomedical papers.",
+      "llm_tldr_cn": "利用LLM和大量生物医学论文自动化生成多跳科学问答数据集。",
+      "llm_tldr": "利用LLM和大量生物医学论文自动化生成多跳科学问答数据集。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.12932v1",
+      "title": "DS$^2$-Instruct: Domain-Specific Data Synthesis for Large Language Models Instruction Tuning",
+      "abstract": "Adapting Large Language Models (LLMs) to specialized domains requires high-quality instruction tuning datasets, which are expensive to create through human annotation. Existing data synthesis methods focus on general-purpose tasks and fail to capture domain-specific terminology and reasoning patterns. To address this, we introduce DS$^2$-Instruct, a zero-shot framework that generates domain-specific instruction datasets without human supervision. Our approach first generates task-informed keywords to ensure comprehensive domain coverage. It then creates diverse instructions by pairing these keywords with different cognitive levels from Bloom's Taxonomy. Finally, it uses self-consistency validation to ensure data quality. We apply this framework to generate datasets across seven challenging domains, such as mathematics, finance, and logical reasoning. Comprehensive evaluation demonstrates that models fine-tuned on our generated data achieve substantial improvements over existing data generation methods.",
+      "authors": [
+        "Ruiyao Xu",
+        "Noelle I. Samia",
+        "Han Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-13T12:25:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.12932v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Domain-specific instruction tuning for specialized terminology",
+      "llm_evidence_cn": "针对专业术语的领域特定指令微调",
+      "llm_evidence": "针对专业术语的领域特定指令微调",
+      "canonical_evidence": "针对专业术语的领域特定指令微调",
+      "llm_tldr_en": "A zero-shot framework for synthesizing domain-specific instruction data to adapt LLMs to specialized fields.",
+      "llm_tldr_cn": "一种零样本框架，用于合成领域特定指令数据，以帮助大模型适配专业领域。",
+      "llm_tldr": "一种零样本框架，用于合成领域特定指令数据，以帮助大模型适配专业领域。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.16330v1",
+      "title": "An Interpretable Machine Learning Framework for Non-Small Cell Lung Cancer Drug Response Analysis",
+      "abstract": "Lung cancer is a condition where there is abnormal growth of malignant cells that spread in an uncontrollable fashion in the lungs. Some common treatment strategies are surgery, chemotherapy, and radiation which aren't the best options due to the heterogeneous nature of cancer. In personalized medicine, treatments are tailored according to the individual's genetic information along with lifestyle aspects. In addition, AI-based deep learning methods can analyze large sets of data to find early signs of cancer, types of tumor, and prospects of treatment. The paper focuses on the development of personalized treatment plans using specific patient data focusing primarily on the genetic profile. Multi-Omics data from Genomics of Drug Sensitivity in Cancer have been used to build a predictive model along with machine learning techniques. The value of the target variable, LN-IC50, determines how sensitive or resistive a drug is. An XGBoost regressor is utilized to predict the drug response focusing on molecular and cellular features extracted from cancer datasets. Cross-validation and Randomized Search are performed for hyperparameter tuning to further optimize the model's predictive performance. For explanation purposes, SHAP (SHapley Additive exPlanations) was used. SHAP values measure each feature's impact on an individual prediction. Furthermore, interpreting feature relationships was performed using DeepSeek, a large language model trained to verify the biological validity of the features. Contextual explanations regarding the most important genes or pathways were provided by DeepSeek alongside the top SHAP value constituents, supporting the predictability of the model.",
+      "authors": [
+        "Ann Rachel",
+        "Pranav M Pawar",
+        "Mithun Mukharjee",
+        "Raja M",
+        "Tojo Mathew"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-03-17T10:01:26+00:00",
+      "link": "https://arxiv.org/pdf/2603.16330v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "computational analysis of genetic profiles and multi-omics data",
+      "llm_evidence_cn": "遗传图谱和多组学数据的计算分析",
+      "llm_evidence": "遗传图谱和多组学数据的计算分析",
+      "canonical_evidence": "遗传图谱和多组学数据的计算分析",
+      "llm_tldr_en": "An interpretable machine learning framework for personalized lung cancer treatment using genetic data.",
+      "llm_tldr_cn": "一种利用遗传数据进行非小细胞肺癌个性化治疗分析的可解释机器学习框架。",
+      "llm_tldr": "一种利用遗传数据进行非小细胞肺癌个性化治疗分析的可解释机器学习框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.14688v1",
+      "title": "AgentTrace: Causal Graph Tracing for Root Cause Analysis in Deployed Multi-Agent Systems",
+      "abstract": "As multi-agent AI systems are increasingly deployed in real-world settings - from automated customer support to DevOps remediation - failures become harder to diagnose due to cascading effects, hidden dependencies, and long execution traces. We present AgentTrace, a lightweight causal tracing framework for post-hoc failure diagnosis in deployed multi-agent workflows. AgentTrace reconstructs causal graphs from execution logs, traces backward from error manifestations, and ranks candidate root causes using interpretable structural and positional signals - without requiring LLM inference at debugging time. Across a diverse benchmark of multi-agent failure scenarios designed to reflect common deployment patterns, AgentTrace localizes root causes with high accuracy and sub-second latency, significantly outperforming both heuristic and LLM-based baselines. Our results suggest that causal tracing provides a practical foundation for improving the reliability and trustworthiness of agentic systems in the wild.",
+      "authors": [
+        "Zhaohui Geoffrey Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-03-16T00:46:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.14688v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "causal tracing framework for multi-agent systems",
+      "llm_evidence_cn": "多智能体系统的因果追踪框架",
+      "llm_evidence": "多智能体系统的因果追踪框架",
+      "canonical_evidence": "多智能体系统的因果追踪框架",
+      "llm_tldr_en": "AgentTrace uses causal graph tracing to diagnose failures in deployed multi-agent AI workflows.",
+      "llm_tldr_cn": "AgentTrace利用因果图追踪技术诊断已部署多智能体AI工作流中的故障。",
+      "llm_tldr": "AgentTrace利用因果图追踪技术诊断已部署多智能体AI工作流中的故障。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.16021v2",
+      "title": "Interpretable Context Methodology: Folder Structure as Agentic Architecture",
+      "abstract": "Current approaches to AI agent orchestration typically involve building multi-agent frameworks that manage context passing, memory, error handling, and step coordination through code. These frameworks work well for complex, concurrent systems. But for sequential workflows where a human reviews output at each step, they introduce engineering overhead that the problem does not require. This paper presents Model Workspace Protocol (MWP), a method that replaces framework-level orchestration with filesystem structure. Numbered folders represent stages. Plain markdown files carry the prompts and context that tell a single AI agent what role to play at each step. Local scripts handle the mechanical work that does not need AI at all. The result is a system where one agent, reading the right files at the right moment, does the work that would otherwise require a multi-agent framework. This approach applies ideas from Unix pipeline design, modular decomposition, multi-pass compilation, and literate programming to the specific problem of structuring context for AI agents. The protocol is open source under the MIT license.",
+      "authors": [
+        "Jake Van Clief",
+        "David McDermott"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.HC"
+      ],
+      "published": "2026-03-17T00:03:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.16021v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "filesystem structure as agentic architecture",
+      "llm_evidence_cn": "文件系统结构作为智能体架构",
+      "llm_evidence": "文件系统结构作为智能体架构",
+      "canonical_evidence": "文件系统结构作为智能体架构",
+      "llm_tldr_en": "The Model Workspace Protocol simplifies agent orchestration by using folder structures instead of complex code.",
+      "llm_tldr_cn": "模型工作区协议通过使用文件夹结构代替复杂的代码，简化了智能体编排。",
+      "llm_tldr": "模型工作区协议通过使用文件夹结构代替复杂的代码，简化了智能体编排。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17244v1",
+      "title": "Graph-Native Cognitive Memory for AI Agents: Formal Belief Revision Semantics for Versioned Memory Architectures",
+      "abstract": "While individual components for AI agent memory exist in prior systems, their architectural synthesis and formal grounding remain underexplored. We present Kumiho, a graph-native cognitive memory architecture grounded in formal belief revision semantics. The structural primitives required for cognitive memory -- immutable revisions, mutable tag pointers, typed dependency edges, URI-based addressing -- are identical to those required for managing agent-produced work as versionable assets, enabling a unified graph-native architecture that serves both purposes. The central formal contribution is a correspondence between the AGM belief revision framework and the operational semantics of a property graph memory system, proving satisfaction of the basic AGM postulates (K*2--K*6) and Hansson's belief base postulates (Relevance, Core-Retainment). The architecture implements a dual-store model (Redis working memory, Neo4j long-term graph) with hybrid fulltext and vector retrieval. On LoCoMo (token-level F1), Kumiho achieves 0.565 overall F1 (n=1,986) including 97.5% adversarial refusal accuracy. On LoCoMo-Plus, a Level-2 cognitive memory benchmark testing implicit constraint recall, Kumiho achieves 93.3% judge accuracy (n=401); independent reproduction by the benchmark authors yielded results in the mid-80% range, still substantially outperforming all published baselines (best: Gemini 2.5 Pro, 45.7%). Three architectural innovations drive the results: prospective indexing (LLM-generated future-scenario implications indexed at write time), event extraction (structured causal events preserved in summaries), and client-side LLM reranking. The architecture is model-decoupled: switching the answer model from GPT-4o-mini (~88%) to GPT-4o (93.3%) improves end-to-end accuracy without pipeline changes, at a total evaluation cost of ~$14 for 401 entries.",
+      "authors": [
+        "Young Bin Park"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.IR",
+        "cs.LO"
+      ],
+      "published": "2026-03-18T00:59:49+00:00",
+      "link": "https://arxiv.org/pdf/2603.17244v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "memory architecture for AI agents",
+      "llm_evidence_cn": "AI智能体的记忆架构",
+      "llm_evidence": "AI智能体的记忆架构",
+      "canonical_evidence": "AI智能体的记忆架构",
+      "llm_tldr_en": "Presents a graph-native cognitive memory architecture for managing AI agent work and reasoning.",
+      "llm_tldr_cn": "提出了一种用于管理AI智能体工作和推理的图原生认知记忆架构。",
+      "llm_tldr": "提出了一种用于管理AI智能体工作和推理的图原生认知记忆架构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17445v1",
+      "title": "When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution",
+      "abstract": "When a multi-agent system produces an incorrect or harmful answer, who is accountable if execution logs and agent identifiers are unavailable? Multi-agent language systems increasingly rely on structured interactions such as delegation and iterative refinement, yet the final output often obscures the underlying interaction topology and agent contributions. We introduce IET (Implicit Execution Tracing), a metadata-independent framework that enables token-level attribution directly from generated text and a simple mechanism for interaction topology reconstruction. During generation, agent-specific keyed signals are embedded into the token distribution, transforming the text into a self-describing execution trace detectable only with a secret key. At detection time, a transition-aware scoring method identifies agent handover points and reconstructs the interaction graph. Experiments show that IET recovers agent segments and coordination structure with high accuracy while preserving generation quality, enabling privacy-preserving auditing for multi-agent language systems.",
+      "authors": [
+        "Yi Nian",
+        "Haosen Cao",
+        "Shenzhe Zhu",
+        "Henry Peng Zou",
+        "Qingqing Luan",
+        "Yue Zhao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-18T07:34:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.17445v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for multi-agent attribution and interaction topology",
+      "llm_evidence_cn": "多智能体归因和交互拓扑框架",
+      "llm_evidence": "多智能体归因和交互拓扑框架",
+      "canonical_evidence": "多智能体归因和交互拓扑框架",
+      "llm_tldr_en": "A framework for attributing contributions in multi-agent systems directly from generated text.",
+      "llm_tldr_cn": "一种直接从生成的文本中对多智能体系统贡献进行归因的框架。",
+      "llm_tldr": "一种直接从生成的文本中对多智能体系统贡献进行归因的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17445v2",
+      "title": "When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution",
+      "abstract": "When a multi-agent system produces an incorrect or harmful answer, who is accountable if execution logs and agent identifiers are unavailable? Multi-agent language systems increasingly rely on structured interactions such as delegation and iterative refinement, yet the final output often obscures the underlying interaction topology and agent contributions. We introduce IET (Implicit Execution Tracing), a metadata-independent framework that enables token-level attribution directly from generated text and a simple mechanism for interaction topology reconstruction. During generation, agent-specific keyed signals are embedded into the token distribution, transforming the text into a self-describing execution trace detectable only with a secret key. At detection time, a transition-aware scoring method identifies agent handover points and reconstructs the interaction graph. Experiments show that IET recovers agent segments and coordination structure with high accuracy while preserving generation quality, enabling privacy-preserving auditing for multi-agent language systems.",
+      "authors": [
+        "Yi Nian",
+        "Haosen Cao",
+        "Shenzhe Zhu",
+        "Henry Peng Zou",
+        "Qingqing Luan",
+        "Yue Zhao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-18T07:34:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.17445v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent attribution and execution tracing framework",
+      "llm_evidence_cn": "多智能体归因与执行追踪框架",
+      "llm_evidence": "多智能体归因与执行追踪框架",
+      "canonical_evidence": "多智能体归因与执行追踪框架",
+      "llm_tldr_en": "Introduces a framework for attributing contributions and reconstructing topology in multi-agent language systems.",
+      "llm_tldr_cn": "介绍了一种在多智能体语言系统中归因贡献和重建拓扑结构的框架。",
+      "llm_tldr": "介绍了一种在多智能体语言系统中归因贡献和重建拓扑结构的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17787v1",
+      "title": "Governed Memory: A Production Architecture for Multi-Agent Workflows",
+      "abstract": "Enterprise AI deploys dozens of autonomous agent nodes across workflows, each acting on the same entities with no shared memory and no common governance. We identify five structural challenges arising from this memory governance gap: memory silos across agent workflows; governance fragmentation across teams and tools; unstructured memories unusable by downstream systems; redundant context delivery in autonomous multi-step executions; and silent quality degradation without feedback loops. We present Governed Memory, a shared memory and governance layer addressing this gap through four mechanisms: a dual memory model combining open-set atomic facts with schema-enforced typed properties; tiered governance routing with progressive context delivery; reflection-bounded retrieval with entity-scoped isolation; and a closed-loop schema lifecycle with AI-assisted authoring and automated per-property refinement. We validate each mechanism through controlled experiments (N=250, five content types): 99.6% fact recall with complementary dual-modality coverage; 92% governance routing precision; 50% token reduction from progressive delivery; zero cross-entity leakage across 500 adversarial queries; 100% adversarial governance compliance; and output quality saturation at approximately seven governed memories per entity. On the LoCoMo benchmark, the architecture achieves 74.8% overall accuracy, confirming that governance and schema enforcement impose no retrieval quality penalty. The system is in production at Personize.ai.",
+      "authors": [
+        "Hamed Taheri"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-03-18T14:49:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.17787v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "shared memory and governance layer for multi-agent workflows",
+      "llm_evidence_cn": "多智能体工作流的共享内存与治理层",
+      "llm_evidence": "多智能体工作流的共享内存与治理层",
+      "canonical_evidence": "多智能体工作流的共享内存与治理层",
+      "llm_tldr_en": "Governed Memory provides a production architecture for managing memory and governance in multi-agent systems.",
+      "llm_tldr_cn": "Governed Memory为多智能体系统中的内存管理和治理提供了一种生产级架构。",
+      "llm_tldr": "Governed Memory为多智能体系统中的内存管理和治理提供了一种生产级架构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.18631v1",
+      "title": "D-Mem: A Dual-Process Memory System for LLM Agents",
+      "abstract": "Driven by the development of persistent, self-adapting autonomous agents, equipping these systems with high-fidelity memory access for long-horizon reasoning has emerged as a critical requirement. However, prevalent retrieval-based memory frameworks often follow an incremental processing paradigm that continuously extracts and updates conversational memories into vector databases, relying on semantic retrieval when queried. While this approach is fast, it inherently relies on lossy abstraction, frequently missing contextually critical information and struggling to resolve queries that rely on fine-grained contextual understanding. To address this, we introduce D-Mem, a dual-process memory system. It retains lightweight vector retrieval for routine queries while establishing an exhaustive Full Deliberation module as a high-fidelity fallback. To achieve cognitive economy without sacrificing accuracy, D-Mem employs a Multi-dimensional Quality Gating policy to dynamically bridge these two processes. Experiments on the LoCoMo and RealTalk benchmarks using GPT-4o-mini and Qwen3-235B-Instruct demonstrate the efficacy of our approach. Notably, our Multi-dimensional Quality Gating policy achieves an F1 score of 53.5 on LoCoMo with GPT-4o-mini. This outperforms our static retrieval baseline, Mem0$^\\ast$ (51.2), and recovers 96.7\\% of the Full Deliberation's performance (55.3), while incurring significantly lower computational costs.",
+      "authors": [
+        "Zhixing You",
+        "Jiachen Yuan",
+        "Jason Cai"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-19T08:55:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.18631v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "dual-process memory system for LLM agents",
+      "llm_evidence_cn": "LLM智能体的双过程记忆系统",
+      "llm_evidence": "LLM智能体的双过程记忆系统",
+      "canonical_evidence": "LLM智能体的双过程记忆系统",
+      "llm_tldr_en": "Introduces D-Mem, a memory system combining vector retrieval and raw context for autonomous agents.",
+      "llm_tldr_cn": "引入D-Mem，一种为自主智能体结合向量检索与原始上下文的记忆系统。",
+      "llm_tldr": "引入D-Mem，一种为自主智能体结合向量检索与原始上下文的记忆系统。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

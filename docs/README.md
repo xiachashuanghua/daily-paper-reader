@@ -6,64 +6,60 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-20
-- 运行时间：2026-03-20 20:00:44 UTC
+- 最新运行日期：2026-03-21
+- 运行时间：2026-03-21 19:37:01 UTC
 - 运行状态：成功
-- 本次总论文数：14
+- 本次总论文数：13
 - 精读区：3
-- 速读区：11
+- 速读区：10
 
 ### 今日简报（AI）
-今日深度追踪 14 篇 AI for Science 前沿，重点聚焦推理模型在分子生成与蛋白质工程中的突破。
-评分 9.0 的 MolRGen 揭示了推理模型在分子设计中的巨大潜力，EvoFlows 则通过流匹配技术革新了蛋白质编辑效率。
-建议
-- 详情：[/202603/20/README](/202603/20/README)
+今日聚焦基因调控网络的数学建模与癌症突变精准搜索，深度研读了 13 篇生物信息与 AI 交叉前沿论文。
+核心突破在于利用 p-adic 层次框架分析基因稳定性，以及通过稀疏驱动算法
+- 详情：[/202603/21/README](/202603/21/README)
 
 ### 精读区论文标签
-1. [MolRGen: A Training and Evaluation Setting for De Novo Molecular Generation with Reasonning Models](/202603/20/2603.18256v1-molrgen-a-training-and-evaluation-setting-for-de-novo-molecular-generation-with-reasonning-models)  
-   标签：评分：9.0/10、query:llmagt
-   evidence：用于药物发现的推理大模型
-2. [EvoFlows: Evolutionary Edit-Based Flow-Matching for Protein Engineering](/202603/20/2603.11703v1-evoflows-evolutionary-edit-based-flow-matching-for-protein-engineering)  
+1. [Hierarchical p-Adic Framework for Gene Regulatory Networks: Theory and Stability Analysis](/202603/21/2603.14097v1-hierarchical-p-adic-framework-for-gene-regulatory-networks-theory-and-stability-analysis)  
    标签：评分：8.0/10、query:llmagt
-   evidence：用于蛋白质工程的序列到序列蛋白质建模
-3. [Toward Reliable, Safe, and Secure LLMs for Scientific Applications](/202603/20/2603.18235v1-toward-reliable-safe-and-secure-llms-for-scientific-applications)  
+   evidence：基因调控网络的数学框架
+2. [Looking for (Genomic) Needles in a Haystack: Sparsity-Driven Search for Identifying Correlated Genetic Mutations in Cancer](/202603/21/2603.16721v1-looking-for-genomic-needles-in-a-haystack-sparsity-driven-search-for-identifying-correlated-genetic-mutations-in-cancer)  
    标签：评分：8.0/10、query:llmagt
-   evidence：作为自主AI科学家的LLM，重点关注生物安全风险
+   evidence：识别癌症基因突变的稀疏驱动搜索
+3. [Multimodal Model for Computational Pathology:Representation Learning and Image Compression](/202603/21/2603.18660v1-multimodal-model-for-computational-pathologyrepresentation-learning-and-image-compression)  
+   标签：评分：8.0/10、query:llmagt
+   evidence：用于计算病理学和组织病理学的多模态基础模型
 
 ### 速读区论文标签
-1. [Training-Free Generation of Protein Sequences from Small Family Alignments via Stochastic Attention](/202603/20/2603.14717v1-training-free-generation-of-protein-sequences-from-small-family-alignments-via-stochastic-attention)  
+1. [Automatic Inter-document Multi-hop Scientific QA Generation](/202603/21/2603.14257v1-automatic-inter-document-multi-hop-scientific-qa-generation)  
    标签：评分：7.0/10、query:llmagt
-   evidence：蛋白质序列生成与计算生物学
-2. [Multi-Task Genetic Algorithm with Multi-Granularity Encoding for Protein-Nucleotide Binding Site Prediction](/202603/20/2603.14797v1-multi-task-genetic-algorithm-with-multi-granularity-encoding-for-protein-nucleotide-binding-site-prediction)  
+   evidence：基于PubMed文献的LLM问答生成
+2. [An Interpretable Machine Learning Framework for Non-Small Cell Lung Cancer Drug Response Analysis](/202603/21/2603.16330v1-an-interpretable-machine-learning-framework-for-non-small-cell-lung-cancer-drug-response-analysis)  
    标签：评分：7.0/10、query:llmagt
-   evidence：蛋白质-核苷酸结合位点预测
-3. [Token Coherence: Adapting MESI Cache Protocols to Minimize Synchronization Overhead in Multi-Agent LLM Systems](/202603/20/2603.15183v1-token-coherence-adapting-mesi-cache-protocols-to-minimize-synchronization-overhead-in-multi-agent-llm-systems)  
-   标签：评分：7.0/10、query:llmagt
-   evidence：多智能体LLM同步和工件一致性框架
-4. [Cell-Type Prototype-Informed Neural Network for Gene Expression Estimation from Pathology Images](/202603/20/2603.18461v1-cell-type-prototype-informed-neural-network-for-gene-expression-estimation-from-pathology-images)  
-   标签：评分：7.0/10、query:llmagt
-   evidence：基因表达估计和单细胞RNA测序
-5. [From Snapshots to Symphonies: The Evolution of Protein Prediction from Static Structures to Generative Dynamics and Multimodal Interactions](/202603/20/2603.18505v1-from-snapshots-to-symphonies-the-evolution-of-protein-prediction-from-static-structures-to-generative-dynamics-and-multimodal-interactions)  
-   标签：评分：7.0/10、query:llmagt
-   evidence：蛋白质科学中AI应用的综述，涵盖序列和文本知识
-6. [AgentDS Technical Report: Benchmarking the Future of Human-AI Collaboration in Domain-Specific Data Science](/202603/20/2603.19005v1-agentds-technical-report-benchmarking-the-future-of-human-ai-collaboration-in-domain-specific-data-science)  
-   标签：评分：7.0/10、query:llmagt
-   evidence：医疗保健数据科学中的AI智能体
-7. [From Debate to Deliberation: Structured Collective Reasoning with Typed Epistemic Acts](/202603/20/2603.11781v1-from-debate-to-deliberation-structured-collective-reasoning-with-typed-epistemic-acts)  
+   evidence：遗传图谱和多组学数据的计算分析
+3. [DS$^2$-Instruct: Domain-Specific Data Synthesis for Large Language Models Instruction Tuning](/202603/21/2603.12932v1-ds2-instruct-domain-specific-data-synthesis-for-large-language-models-instruction-tuning)  
    标签：评分：6.0/10、query:llmagt
-   evidence：多智能体系统中的结构化集体推理
-8. [A Multi-Label Temporal Convolutional Framework for Transcription Factor Binding Characterization](/202603/20/2603.12073v1-a-multi-label-temporal-convolutional-framework-for-transcription-factor-binding-characterization)  
+   evidence：针对专业术语的领域特定指令微调
+4. [AgentTrace: Causal Graph Tracing for Root Cause Analysis in Deployed Multi-Agent Systems](/202603/21/2603.14688v1-agenttrace-causal-graph-tracing-for-root-cause-analysis-in-deployed-multi-agent-systems)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于DNA转录因子结合位点识别的深度学习
-9. [Semantic Invariance in Agentic AI](/202603/20/2603.13173v1-semantic-invariance-in-agentic-ai)  
+   evidence：多智能体系统的因果追踪框架
+5. [Interpretable Context Methodology: Folder Structure as Agentic Architecture](/202603/21/2603.16021v2-interpretable-context-methodology-folder-structure-as-agentic-architecture)  
    标签：评分：6.0/10、query:llmagt
-   evidence：LLM智能体在科学问题解决和变态测试中的应用
-10. [GNNVerifier: Graph-based Verifier for LLM Task Planning](/202603/20/2603.14730v2-gnnverifier-graph-based-verifier-for-llm-task-planning)  
+   evidence：文件系统结构作为智能体架构
+6. [Graph-Native Cognitive Memory for AI Agents: Formal Belief Revision Semantics for Versioned Memory Architectures](/202603/21/2603.17244v1-graph-native-cognitive-memory-for-ai-agents-formal-belief-revision-semantics-for-versioned-memory-architectures)  
    标签：评分：6.0/10、query:llmagt
-   evidence：LLM自主智能体任务规划的验证器
-11. [TrinityGuard: A Unified Framework for Safeguarding Multi-Agent Systems](/202603/20/2603.15408v1-trinityguard-a-unified-framework-for-safeguarding-multi-agent-systems)  
+   evidence：AI智能体的记忆架构
+7. [When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution](/202603/21/2603.17445v1-when-only-the-final-text-survives-implicit-execution-tracing-for-multi-agent-attribution)  
    标签：评分：6.0/10、query:llmagt
-   evidence：适用于计算生物学工作流的多智能体系统安全保障框架
+   evidence：多智能体归因和交互拓扑框架
+8. [When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution](/202603/21/2603.17445v2-when-only-the-final-text-survives-implicit-execution-tracing-for-multi-agent-attribution)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：多智能体归因与执行追踪框架
+9. [Governed Memory: A Production Architecture for Multi-Agent Workflows](/202603/21/2603.17787v1-governed-memory-a-production-architecture-for-multi-agent-workflows)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：多智能体工作流的共享内存与治理层
+10. [D-Mem: A Dual-Process Memory System for LLM Agents](/202603/21/2603.18631v1-d-mem-a-dual-process-memory-system-for-llm-agents)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：LLM智能体的双过程记忆系统
 
 
 <div class="dpr-home-promo-card">
