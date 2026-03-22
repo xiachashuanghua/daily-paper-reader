@@ -1,0 +1,439 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-22T19:46:13.222947+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2603.15080v1",
+      "title": "Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database",
+      "abstract": "Biomedical knowledge is fragmented across siloed databases -- Reactome for pathways, STRING for protein interactions, Gene Ontology for functional annotations, ClinicalTrials.gov for study registries, and dozens more. Researchers routinely download flat files from each source and write bespoke scripts to cross-reference them, a process that is slow, error-prone, and not reproducible. We present two open-source biomedical knowledge graphs -- Pathways KG (118,686 nodes, 834,785 edges from 5 sources) and Clinical Trials KG (7,774,446 nodes, 26,973,997 edges from 5 sources) -- built on Samyama, a high-performance graph database written in Rust.   Our contributions are threefold. First, we describe a reproducible ETL pattern for constructing large-scale KGs from heterogeneous public data sources, with cross-source deduplication, batch Cypher loading, and portable snapshot export. Second, we demonstrate cross-KG federation: loading both snapshots into a single graph tenant enables property-based joins across datasets, answering questions like ``Which biological pathways are disrupted by drugs currently in Phase~3 trials for breast cancer?'' -- a query that neither KG can answer alone. Third, we introduce schema-driven MCP server generation: each KG automatically exposes typed tools for LLM agents via the Model Context Protocol, enabling natural-language access to graph queries without manual tool authoring.   All data sources are open-license (CC~BY~4.0, CC0, OBO). Snapshots, ETL code, and MCP configurations are publicly available. The combined federated graph (7.89M nodes, 27.8M edges) loads in 76 seconds on commodity hardware (Mac Mini M4, 16GB RAM), and the signature cross-KG query -- ``which pathways are disrupted by drugs in Phase~3 breast cancer trials?'' -- returns validated results in 2.1 seconds.",
+      "authors": [
+        "Madhulatha Mandarapu",
+        "Sandeep Kunkunuru"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-16T10:36:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.15080v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "AI agent access to biomedical knowledge graphs",
+      "llm_evidence_cn": "AI智能体访问生物医学知识图谱",
+      "llm_evidence": "AI智能体访问生物医学知识图谱",
+      "canonical_evidence": "AI智能体访问生物医学知识图谱",
+      "llm_tldr_en": "Presents biomedical knowledge graphs and a database designed for AI agent access and federation.",
+      "llm_tldr_cn": "介绍了专为AI智能体访问和联合设计的生物医学知识图谱及数据库。",
+      "llm_tldr": "介绍了专为AI智能体访问和联合设计的生物医学知识图谱及数据库。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.15080v3",
+      "title": "Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database",
+      "abstract": "Biomedical knowledge is fragmented across siloed databases -- Reactome for pathways, STRING for protein interactions, ClinicalTrials.gov for study registries, DrugBank for drug vocabularies, DGIdb for drug-gene interactions, SIDER for side effects. We present three open-source biomedical knowledge graphs -- Pathways KG (118,686 nodes, 834,785 edges from 5 sources), Clinical Trials KG (7,774,446 nodes, 26,973,997 edges from 5 sources), and Drug Interactions KG (32,726 nodes, 191,970 edges from 3 sources) -- built on Samyama, a high-performance graph database written in Rust.   Our contributions are threefold. First, we describe a reproducible ETL pattern for constructing large-scale KGs from heterogeneous public data sources, with cross-source deduplication, batch loading (Python Cypher and Rust native loaders), and portable snapshot export. Second, we demonstrate cross-KG federation: loading all three snapshots into a single graph tenant enables property-based joins across datasets. Third, we introduce schema-driven MCP server generation for LLM agent access, evaluated on a new BiomedQA benchmark (40 pharmacology questions): domain-specific MCP tools achieve 98% accuracy vs. 85% for schema-aware text-to-Cypher and 75% for standalone GPT-4o, with zero schema errors.   All data sources are open-license. The combined federated graph (7.9M nodes, 28M edges) loads in approximately 3 minutes on commodity cloud hardware, with single-KG queries completing in 80-100ms and cross-KG federation joins in 1-4s",
+      "authors": [
+        "Madhulatha Mandarapu",
+        "Sandeep Kunkunuru"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-16T10:36:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.15080v3",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "AI agent access to biomedical knowledge graphs",
+      "llm_evidence_cn": "AI智能体访问生物医学知识图谱",
+      "llm_evidence": "AI智能体访问生物医学知识图谱",
+      "canonical_evidence": "AI智能体访问生物医学知识图谱",
+      "llm_tldr_en": "Scalable biomedical knowledge graphs built for AI agent access to fragmented biological data.",
+      "llm_tldr_cn": "构建了可扩展的生物医学知识图谱，旨在支持AI智能体访问碎片化的生物数据。",
+      "llm_tldr": "构建了可扩展的生物医学知识图谱，旨在支持AI智能体访问碎片化的生物数据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.17179v1",
+      "title": "Ablation Study of a Fairness Auditing Agentic System for Bias Mitigation in Early-Onset Colorectal Cancer Detection",
+      "abstract": "Artificial intelligence (AI) is increasingly used in clinical settings, yet limited oversight and domain expertise can allow algorithmic bias and safety risks to persist. This study evaluates whether an agentic AI system can support auditing biomedical machine learning models for fairness in early-onset colorectal cancer (EO-CRC), a condition with documented demographic disparities. We implemented a two-agent architecture consisting of a Domain Expert Agent that synthesizes literature on EO-CRC disparities and a Fairness Consultant Agent that recommends sensitive attributes and fairness metrics for model evaluation. An ablation study compared three Ollama large language models (8B, 20B, and 120B parameters) across three configurations: pretrained LLM-only, Agent without Retrieval-Augmented Generation (RAG), and Agent with RAG. Across models, the Agent with RAG achieved the highest semantic similarity to expert-derived reference statements, particularly for disparity identification, suggesting agentic systems with retrieval may help scale fairness auditing in clinical AI.",
+      "authors": [
+        "Amalia Ionescu",
+        "Jose Guadalupe Hernandez",
+        "Jui-Hsuan Chang",
+        "Emily F. Wong",
+        "Paul Wang",
+        "Jason H. Moore",
+        "Tiffani J. Bright"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-03-17T22:13:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.17179v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "agentic AI system for auditing biomedical models in cancer detection",
+      "llm_evidence_cn": "用于癌症检测生物医学模型审计的智能体AI系统",
+      "llm_evidence": "用于癌症检测生物医学模型审计的智能体AI系统",
+      "canonical_evidence": "用于癌症检测生物医学模型审计的智能体AI系统",
+      "llm_tldr_en": "Evaluates a two-agent LLM system for fairness auditing in colorectal cancer detection models.",
+      "llm_tldr_cn": "评估了一个用于结直肠癌检测模型公平性审计的双智能体大语言模型系统。",
+      "llm_tldr": "评估了一个用于结直肠癌检测模型公平性审计的双智能体大语言模型系统。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.15047v1",
+      "title": "CrossADR: enhancing adverse drug reactions prediction for combination pharmacotherapy with cross-layer feature integration and cross-level associative learning",
+      "abstract": "Combination pharmacotherapy offers substantial therapeutic advantages but also poses substantial risks of adverse drug reactions (ADRs). The accurate prediction of ADRs with interpretable computational methods is crucial for clinical safety management, drug development, and precision medicine. However, managing ADRs remains a challenge due to the vast search space of drug combinations and the complexity of physiological responses. Current graph-based architectures often struggle to effectively integrate multi-scale biological information and frequently rely on fixed association matrices, which limits their ability to capture dynamic organ-level dependencies and generalize across diverse datasets. Here we propose CrossADR, a hierarchical framework for organ-level ADR prediction through cross-layer feature integration and cross-level associative learning. It incorporates a gated-residual-flow graph neural network to fuse multi-scale molecular features and utilizes a learnable ADR embedding space to dynamically capture latent biological correlations across 15 organ systems. Systematic evaluation on the newly constructed CrossADR-Dataset-covering 1,376 drugs and 946,000 unique combinations-demonstrates that CrossADR consistently achieves state-of-the-art performance across 80 distinct experimental scenarios and provides high-resolution insights into drug-related protein protein interactions and pathways. Overall, CrossADR represents a robust tool for cross-scale biomedical information integration, cross-layer feature integration as well as cross-level associative learning, and can be effectively utilized to prevent ADRs in clinical decision-making.",
+      "authors": [
+        "Y. Cheung"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "math.AG"
+      ],
+      "published": "2026-03-16T09:58:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.15047v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "computational method for adverse drug reactions prediction",
+      "llm_evidence_cn": "不良药物反应预测的计算方法",
+      "llm_evidence": "不良药物反应预测的计算方法",
+      "canonical_evidence": "不良药物反应预测的计算方法",
+      "llm_tldr_en": "Proposes CrossADR for predicting adverse drug reactions using cross-layer feature integration.",
+      "llm_tldr_cn": "提出了CrossADR，通过跨层特征融合来预测联合用药中的不良反应。",
+      "llm_tldr": "提出了CrossADR，通过跨层特征融合来预测联合用药中的不良反应。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.15080v2",
+      "title": "Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database",
+      "abstract": "Biomedical knowledge is fragmented across siloed databases -- Reactome for pathways, STRING for protein interactions, ClinicalTrials.gov for study registries, DrugBank for drug vocabularies, DGIdb for drug-gene interactions, SIDER for side effects. We present three open-source biomedical knowledge graphs -- Pathways KG (118,686 nodes, 834,785 edges from 5 sources), Clinical Trials KG (7,774,446 nodes, 26,973,997 edges from 5 sources), and Drug Interactions KG (32,726 nodes, 191,970 edges from 3 sources) -- built on Samyama, a high-performance graph database written in Rust.   Our contributions are threefold. First, we describe a reproducible ETL pattern for constructing large-scale KGs from heterogeneous public data sources, with cross-source deduplication, batch loading (Python Cypher and Rust native loaders), and portable snapshot export. Second, we demonstrate cross-KG federation: loading all three snapshots into a single graph tenant enables property-based joins across datasets. Third, we introduce schema-driven MCP server generation for LLM agent access, evaluated on a new BiomedQA benchmark (40 pharmacology questions): domain-specific MCP tools achieve 98% accuracy vs. 0% for text-to-Cypher and 75% for standalone GPT-4o.   All data sources are open-license. The combined federated graph (7.9M nodes, 28M edges) loads in approximately 3 minutes on commodity cloud hardware, and cross-KG queries complete in 80ms-4s.",
+      "authors": [
+        "Madhulatha Mandarapu",
+        "Sandeep Kunkunuru"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-16T10:36:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.15080v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "biomedical knowledge graphs and AI agent access",
+      "llm_evidence_cn": "生物医学知识图谱与AI智能体访问",
+      "llm_evidence": "生物医学知识图谱与AI智能体访问",
+      "canonical_evidence": "生物医学知识图谱与AI智能体访问",
+      "llm_tldr_en": "Large-scale biomedical knowledge graphs designed for federation and AI agent accessibility.",
+      "llm_tldr_cn": "为联邦访问和 AI 智能体调用设计的大规模生物医学知识图谱。",
+      "llm_tldr": "为联邦访问和 AI 智能体调用设计的大规模生物医学知识图谱。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.14356v1",
+      "title": "Prediction-based Inference in Electronic Health Record (EHR)-linked Biobanks",
+      "abstract": "Electronic health record (EHR)-linked biobank data facilitate large-scale scientific discoveries such as genome-wide association study (GWAS) on a multitude of phenotypic traits and biomarkers routinely captured in EHR. However, heterogeneous missingness in biomarkers may bias analyses when used as phenotypes. Recently proposed prediction-based (PB) inference methods incorporate external machine ML models to impute missing biomarkers and thereby improve the statistical power and estimation precision in association analyses. Yet, it remains unclear that if these methods are still preferable when the outcome $Y$ is generated under a clinically informative observation process. A comprehensive comparative evaluations and theoretical understanding of the existing PB methods under such realistic EHR missingness mechanisms are lacking. In this paper, we conduct a structured review of 8 recently developed PB methods and categorize them based on their frameworks. We systematically evaluate 9 methods, including 4 PB methods and 5 baseline methods from the traditional missing-data approaches, under 10 different outcome observation process models across different missing assumptions for continuous and binary outcomes. Our results show that PB methods can substantially improve statistical power and estimation efficiency when their missingness assumptions hold, but they may require stronger assumptions than CCA to control type I error. We provide theoretical results to characterize the scenarios under which CCA or PB methods may remain valid. Finally, we apply CCA, weighted CCA, and two PB methods to perform GWAS of six laboratory biomarkers in the All of Us data. The results demonstrate that PB methods can replicate known genetic associations while improving efficiency relative to (weighted) CCA. Furthermore, they extend inferential results to a more representative study population.",
+      "authors": [
+        "Xingran Chen",
+        "Cheng-Han Yang",
+        "Zhenke Wu",
+        "Bhramar Mukherjee"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP"
+      ],
+      "published": "2026-03-15T12:46:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.14356v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "computational biology and GWAS in EHR-linked biobanks",
+      "llm_evidence_cn": "电子健康档案关联生物样本库中的计算生物学与全基因组关联分析",
+      "llm_evidence": "电子健康档案关联生物样本库中的计算生物学与全基因组关联分析",
+      "canonical_evidence": "电子健康档案关联生物样本库中的计算生物学与全基因组关联分析",
+      "llm_tldr_en": "Evaluates prediction-based inference methods for missing biomarkers in large-scale biobank studies.",
+      "llm_tldr_cn": "评估了大规模生物样本库研究中缺失生物标志物的预测推理方法。",
+      "llm_tldr": "评估了大规模生物样本库研究中缺失生物标志物的预测推理方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.15255v1",
+      "title": "SAGE: Multi-Agent Self-Evolution for LLM Reasoning",
+      "abstract": "Reinforcement learning with verifiable rewards improves reasoning in large language models (LLMs), but many methods still rely on large human-labeled datasets. While self-play reduces this dependency, it often lacks explicit planning and strong quality control, limiting stability in long-horizon multi-step reasoning. We present SAGE (Self-evolving Agents for Generalized reasoning Evolution), a closed-loop framework where four agents: Challenger, Planner, Solver, and Critic, co-evolve from a shared LLM backbone using only a small seed set. The Challenger continuously generates increasingly difficult tasks; the Planner converts each task into a structured multi-step plan; and the Solver follows the plan to produce an answer, whose correctness is determined by external verifiers. The Critic scores and filters both generated questions and plans to prevent curriculum drift and maintain training signal quality, enabling stable self-training. Across mathematics and code-generation benchmarks, SAGE delivers consistent gains across model scales, improving the Qwen-2.5-7B model by 8.9% on LiveCodeBench and 10.7% on OlympiadBench.",
+      "authors": [
+        "Yulin Peng",
+        "Xinxin Zhu",
+        "Chenxing Wei",
+        "Nianbo Zeng",
+        "Leilei Wang",
+        "Ying Tiffany He",
+        "F. Richard Yu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-16T13:24:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.15255v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent framework for complex reasoning tasks",
+      "llm_evidence_cn": "用于复杂推理任务的多智能体框架",
+      "llm_evidence": "用于复杂推理任务的多智能体框架",
+      "canonical_evidence": "用于复杂推理任务的多智能体框架",
+      "llm_tldr_en": "Introduces SAGE, a multi-agent framework that improves LLM reasoning through self-evolution and planning.",
+      "llm_tldr_cn": "提出SAGE框架，通过多智能体协作与自我演化提升大模型的复杂推理能力。",
+      "llm_tldr": "提出SAGE框架，通过多智能体协作与自我演化提升大模型的复杂推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.15726v1",
+      "title": "MiroThinker-1.7 & H1: Towards Heavy-Duty Research Agents via Verification",
+      "abstract": "We present MiroThinker-1.7, a new research agent designed for complex long-horizon reasoning tasks. Building on this foundation, we further introduce MiroThinker-H1, which extends the agent with heavy-duty reasoning capabilities for more reliable multi-step problem solving. In particular, MiroThinker-1.7 improves the reliability of each interaction step through an agentic mid-training stage that emphasizes structured planning, contextual reasoning, and tool interaction. This enables more effective multi-step interaction and sustained reasoning across complex tasks. MiroThinker-H1 further incorporates verification directly into the reasoning process at both local and global levels. Intermediate reasoning decisions can be evaluated and refined during inference, while the overall reasoning trajectory is audited to ensure that final answers are supported by coherent chains of evidence. Across benchmarks covering open-web research, scientific reasoning, and financial analysis, MiroThinker-H1 achieves state-of-the-art performance on deep research tasks while maintaining strong results on specialized domains. We also release MiroThinker-1.7 and MiroThinker-1.7-mini as open-source models, providing competitive research-agent capabilities with significantly improved efficiency.",
+      "authors": [
+        "MiroMind Team",
+        "S. Bai",
+        "L. Bing",
+        "L. Lei",
+        "R. Li",
+        "X. Li",
+        "X. Lin",
+        "E. Min",
+        "L. Su",
+        "B. Wang",
+        "L. Wang",
+        "L. Wang",
+        "S. Wang",
+        "X. Wang",
+        "Y. Zhang",
+        "Z. Zhang",
+        "G. Chen",
+        "L. Chen",
+        "Z. Cheng",
+        "Y. Deng",
+        "Z. Huang",
+        "D. Ng",
+        "J. Ni",
+        "Q. Ren",
+        "X. Tang",
+        "B. L. Wang",
+        "H. Wang",
+        "N. Wang",
+        "C. Wei",
+        "Q. Wu",
+        "J. Xia",
+        "Y. Xiao",
+        "H. Xu",
+        "X. Xu",
+        "C. Xue",
+        "Z. Yang",
+        "Z. Yang",
+        "F. Ye",
+        "H. Ye",
+        "J. Yu",
+        "C. Zhang",
+        "W. Zhang",
+        "H. Zhao",
+        "P. Zhu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.IR",
+        "cs.LG"
+      ],
+      "published": "2026-03-16T17:55:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.15726v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Research agents for complex long-horizon reasoning",
+      "llm_evidence_cn": "用于复杂长程推理的研究智能体",
+      "llm_evidence": "用于复杂长程推理的研究智能体",
+      "canonical_evidence": "用于复杂长程推理的研究智能体",
+      "llm_tldr_en": "Develops MiroThinker agents designed for sustained reasoning and verification in research tasks.",
+      "llm_tldr_cn": "开发了MiroThinker智能体，旨在研究任务中进行持续推理与验证。",
+      "llm_tldr": "开发了MiroThinker智能体，旨在研究任务中进行持续推理与验证。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.15280v1",
+      "title": "Advancing Multimodal Agent Reasoning with Long-Term Neuro-Symbolic Memory",
+      "abstract": "Recent advances in large language models have driven the emergence of intelligent agents operating in open-world, multimodal environments. To support long-term reasoning, such agents are typically equipped with external memory systems. However, most existing multimodal agent memories rely primarily on neural representations and vector-based retrieval, which are well-suited for inductive, intuitive reasoning but fundamentally limited in supporting analytical, deductive reasoning critical for real-world decision making. To address this limitation, we propose NS-Mem, a long-term neuro-symbolic memory framework designed to advance multimodal agent reasoning by integrating neural memory with explicit symbolic structures and rules. Specifically, NS-Mem is operated around three core components of a memory system: (1) a three-layer memory architecture that consists episodic layer, semantic layer and logic rule layer, (2) a memory construction and maintenance mechanism implemented by SK-Gen that automatically consolidates structured knowledge from accumulated multimodal experiences and incrementally updates both neural representations and symbolic rules, and (3) a hybrid memory retrieval mechanism that combines similarity-based search with deterministic symbolic query functions to support structured reasoning. Experiments on real-world multimodal reasoning benchmarks demonstrate that Neural-Symbolic Memory achieves an average 4.35% improvement in overall reasoning accuracy over pure neural memory systems, with gains of up to 12.5% on constrained reasoning queries, validating the effectiveness of NS-Mem.",
+      "authors": [
+        "Rongjie Jiang",
+        "Jianwei Wang",
+        "Gengda Zhao",
+        "Chengyang Luo",
+        "Kai Wang",
+        "Wenjie Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-16T13:43:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.15280v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Neuro-symbolic memory for multimodal agent reasoning",
+      "llm_evidence_cn": "用于多模态智能体推理的神经常规符号记忆",
+      "llm_evidence": "用于多模态智能体推理的神经常规符号记忆",
+      "canonical_evidence": "用于多模态智能体推理的神经常规符号记忆",
+      "llm_tldr_en": "Develops NS-Mem to enhance multimodal agent reasoning by integrating neural and symbolic memory systems.",
+      "llm_tldr_cn": "开发NS-Mem框架，通过整合神经和符号记忆系统来增强多模态智能体的推理能力。",
+      "llm_tldr": "开发NS-Mem框架，通过整合神经和符号记忆系统来增强多模态智能体的推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.17191v1",
+      "title": "Tabular LLMs for Interpretable Few-Shot Alzheimer's Disease Prediction with Multimodal Biomedical Data",
+      "abstract": "Accurate diagnosis of Alzheimer's disease (AD) requires handling tabular biomarker data, yet such data are often small and incomplete, where deep learning models frequently fail to outperform classical methods. Pretrained large language models (LLMs) offer few-shot generalization, structured reasoning, and interpretable outputs, providing a powerful paradigm shift for clinical prediction. We propose TAP-GPT Tabular Alzheimer's Prediction GPT, a domain-adapted tabular LLM framework built on TableGPT2 and fine-tuned for few-shot AD classification using tabular prompts rather than plain texts. We evaluate TAP-GPT across four ADNI-derived datasets, including QT-PAD biomarkers and region-level structural MRI, amyloid PET, and tau PET for binary AD classification. Across multimodal and unimodal settings, TAP-GPT improves upon its backbone models and outperforms traditional machine learning baselines in the few-shot setting while remaining competitive with state-of-the-art general-purpose LLMs. We show that feature selection mitigates degradation in high-dimensional inputs and that TAP-GPT maintains stable performance under simulated and real-world missingness without imputation. Additionally, TAP-GPT produces structured, modality-aware reasoning aligned with established AD biology and shows greater stability under self-reflection, supporting its use in iterative multi-agent systems. To our knowledge, this is the first systematic application of a tabular-specialized LLM to multimodal biomarker-based AD prediction, demonstrating that such pretrained models can effectively address structured clinical prediction tasks and laying the foundation for tabular LLM-driven multi-agent clinical decision-support systems. The source code is publicly available on GitHub: https://github.com/sophie-kearney/TAP-GPT.",
+      "authors": [
+        "Sophie Kearney",
+        "Shu Yang",
+        "Zixuan Wen",
+        "Weimin Lyu",
+        "Bojian Hou",
+        "Duy Duong-Tran",
+        "Tianlong Chen",
+        "Jason H. Moore",
+        "Marylyn D. Ritchie",
+        "Chao Chen",
+        "Li Shen"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.LG",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-17T22:43:50+00:00",
+      "link": "https://arxiv.org/pdf/2603.17191v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM framework for Alzheimer's prediction using biomedical data",
+      "llm_evidence_cn": "用于阿尔茨海默病预测和生物医学数据处理的LLM框架",
+      "llm_evidence": "用于阿尔茨海默病预测和生物医学数据处理的LLM框架",
+      "canonical_evidence": "用于阿尔茨海默病预测和生物医学数据处理的LLM框架",
+      "llm_tldr_en": "Proposes TAP-GPT, a domain-adapted LLM for interpretable Alzheimer's disease prediction using tabular biomarkers.",
+      "llm_tldr_cn": "提出TAP-GPT，一种用于阿尔茨海默病预测的领域自适应LLM，支持表格生物标志物解释。",
+      "llm_tldr": "提出TAP-GPT，一种用于阿尔茨海默病预测的领域自适应LLM，支持表格生物标志物解释。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

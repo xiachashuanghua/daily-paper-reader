@@ -6,60 +6,52 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-21
-- 运行时间：2026-03-21 19:37:01 UTC
+- 最新运行日期：2026-03-22
+- 运行时间：2026-03-22 19:48:00 UTC
 - 运行状态：成功
-- 本次总论文数：13
-- 精读区：3
-- 速读区：10
+- 本次总论文数：10
+- 精读区：5
+- 速读区：5
 
 ### 今日简报（AI）
-今日聚焦基因调控网络的数学建模与癌症突变精准搜索，深度研读了 13 篇生物信息与 AI 交叉前沿论文。
-核心突破在于利用 p-adic 层次框架分析基因稳定性，以及通过稀疏驱动算法
-- 详情：[/202603/21/README](/202603/21/README)
+今日聚焦生物医学知识图谱的规模化构建与 AI Agent 接入，深度解析 Samyama 数据库等 10 篇前沿成果。
+重点推荐 Samyama 框架实现的联邦图谱访问，以及利用 Tabular LLM 在少样本下实现可解释的阿尔茨海默症预测。
+建议关注 AI Agent 如何通过验证机制提升科研深度，并探索多模态数据在精准医疗中的落地应用。
+- 详情：[/202603/22/README](/202603/22/README)
 
 ### 精读区论文标签
-1. [Hierarchical p-Adic Framework for Gene Regulatory Networks: Theory and Stability Analysis](/202603/21/2603.14097v1-hierarchical-p-adic-framework-for-gene-regulatory-networks-theory-and-stability-analysis)  
+1. [Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database](/202603/22/2603.15080v1-open-biomedical-knowledge-graphs-at-scale-construction-federation-and-ai-agent-access-with-samyama-graph-database)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：AI智能体访问生物医学知识图谱
+2. [Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database](/202603/22/2603.15080v3-open-biomedical-knowledge-graphs-at-scale-construction-federation-and-ai-agent-access-with-samyama-graph-database)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：AI智能体访问生物医学知识图谱
+3. [Ablation Study of a Fairness Auditing Agentic System for Bias Mitigation in Early-Onset Colorectal Cancer Detection](/202603/22/2603.17179v1-ablation-study-of-a-fairness-auditing-agentic-system-for-bias-mitigation-in-early-onset-colorectal-cancer-detection)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：用于癌症检测生物医学模型审计的智能体AI系统
+4. [CrossADR: enhancing adverse drug reactions prediction for combination pharmacotherapy with cross-layer feature integration and cross-level associative learning](/202603/22/2603.15047v1-crossadr-enhancing-adverse-drug-reactions-prediction-for-combination-pharmacotherapy-with-cross-layer-feature-integration-and-cross-level-associative-learning)  
    标签：评分：8.0/10、query:llmagt
-   evidence：基因调控网络的数学框架
-2. [Looking for (Genomic) Needles in a Haystack: Sparsity-Driven Search for Identifying Correlated Genetic Mutations in Cancer](/202603/21/2603.16721v1-looking-for-genomic-needles-in-a-haystack-sparsity-driven-search-for-identifying-correlated-genetic-mutations-in-cancer)  
+   evidence：不良药物反应预测的计算方法
+5. [Open Biomedical Knowledge Graphs at Scale: Construction, Federation, and AI Agent Access with Samyama Graph Database](/202603/22/2603.15080v2-open-biomedical-knowledge-graphs-at-scale-construction-federation-and-ai-agent-access-with-samyama-graph-database)  
    标签：评分：8.0/10、query:llmagt
-   evidence：识别癌症基因突变的稀疏驱动搜索
-3. [Multimodal Model for Computational Pathology:Representation Learning and Image Compression](/202603/21/2603.18660v1-multimodal-model-for-computational-pathologyrepresentation-learning-and-image-compression)  
-   标签：评分：8.0/10、query:llmagt
-   evidence：用于计算病理学和组织病理学的多模态基础模型
+   evidence：生物医学知识图谱与AI智能体访问
 
 ### 速读区论文标签
-1. [Automatic Inter-document Multi-hop Scientific QA Generation](/202603/21/2603.14257v1-automatic-inter-document-multi-hop-scientific-qa-generation)  
+1. [Prediction-based Inference in Electronic Health Record (EHR)-linked Biobanks](/202603/22/2603.14356v1-prediction-based-inference-in-electronic-health-record-ehr-linked-biobanks)  
    标签：评分：7.0/10、query:llmagt
-   evidence：基于PubMed文献的LLM问答生成
-2. [An Interpretable Machine Learning Framework for Non-Small Cell Lung Cancer Drug Response Analysis](/202603/21/2603.16330v1-an-interpretable-machine-learning-framework-for-non-small-cell-lung-cancer-drug-response-analysis)  
+   evidence：电子健康档案关联生物样本库中的计算生物学与全基因组关联分析
+2. [MiroThinker-1.7 & H1: Towards Heavy-Duty Research Agents via Verification](/202603/22/2603.15726v1-mirothinker-17--h1-towards-heavy-duty-research-agents-via-verification)  
    标签：评分：7.0/10、query:llmagt
-   evidence：遗传图谱和多组学数据的计算分析
-3. [DS$^2$-Instruct: Domain-Specific Data Synthesis for Large Language Models Instruction Tuning](/202603/21/2603.12932v1-ds2-instruct-domain-specific-data-synthesis-for-large-language-models-instruction-tuning)  
+   evidence：用于复杂长程推理的研究智能体
+3. [Tabular LLMs for Interpretable Few-Shot Alzheimer's Disease Prediction with Multimodal Biomedical Data](/202603/22/2603.17191v1-tabular-llms-for-interpretable-few-shot-alzheimers-disease-prediction-with-multimodal-biomedical-data)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于阿尔茨海默病预测和生物医学数据处理的LLM框架
+4. [SAGE: Multi-Agent Self-Evolution for LLM Reasoning](/202603/22/2603.15255v1-sage-multi-agent-self-evolution-for-llm-reasoning)  
    标签：评分：6.0/10、query:llmagt
-   evidence：针对专业术语的领域特定指令微调
-4. [AgentTrace: Causal Graph Tracing for Root Cause Analysis in Deployed Multi-Agent Systems](/202603/21/2603.14688v1-agenttrace-causal-graph-tracing-for-root-cause-analysis-in-deployed-multi-agent-systems)  
+   evidence：用于复杂推理任务的多智能体框架
+5. [Advancing Multimodal Agent Reasoning with Long-Term Neuro-Symbolic Memory](/202603/22/2603.15280v1-advancing-multimodal-agent-reasoning-with-long-term-neuro-symbolic-memory)  
    标签：评分：6.0/10、query:llmagt
-   evidence：多智能体系统的因果追踪框架
-5. [Interpretable Context Methodology: Folder Structure as Agentic Architecture](/202603/21/2603.16021v2-interpretable-context-methodology-folder-structure-as-agentic-architecture)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：文件系统结构作为智能体架构
-6. [Graph-Native Cognitive Memory for AI Agents: Formal Belief Revision Semantics for Versioned Memory Architectures](/202603/21/2603.17244v1-graph-native-cognitive-memory-for-ai-agents-formal-belief-revision-semantics-for-versioned-memory-architectures)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：AI智能体的记忆架构
-7. [When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution](/202603/21/2603.17445v1-when-only-the-final-text-survives-implicit-execution-tracing-for-multi-agent-attribution)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：多智能体归因和交互拓扑框架
-8. [When Only the Final Text Survives: Implicit Execution Tracing for Multi-Agent Attribution](/202603/21/2603.17445v2-when-only-the-final-text-survives-implicit-execution-tracing-for-multi-agent-attribution)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：多智能体归因与执行追踪框架
-9. [Governed Memory: A Production Architecture for Multi-Agent Workflows](/202603/21/2603.17787v1-governed-memory-a-production-architecture-for-multi-agent-workflows)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：多智能体工作流的共享内存与治理层
-10. [D-Mem: A Dual-Process Memory System for LLM Agents](/202603/21/2603.18631v1-d-mem-a-dual-process-memory-system-for-llm-agents)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：LLM智能体的双过程记忆系统
+   evidence：用于多模态智能体推理的神经常规符号记忆
 
 
 <div class="dpr-home-promo-card">
