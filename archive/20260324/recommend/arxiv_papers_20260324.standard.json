@@ -1,0 +1,627 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-24T20:05:32.393791+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2603.20321v1",
+      "title": "GIP-RAG: An Evidence-Grounded Retrieval-Augmented Framework for Interpretable Gene Interaction and Pathway Impact Analysis",
+      "abstract": "Understanding mechanistic relationships among genes and their impacts on biological pathways is essential for elucidating disease mechanisms and advancing precision medicine. Despite the availability of extensive molecular interaction and pathway data in public databases, integrating heterogeneous knowledge sources and enabling interpretable multi-step reasoning across biological networks remain challenging.   We present GIP-RAG (Gene Interaction Prediction through Retrieval-Augmented Generation), a computational framework that combines biomedical knowledge graphs with large language models (LLMs) to infer and interpret gene interactions. The framework constructs a unified gene interaction knowledge graph by integrating curated data from KEGG, WikiPathways, SIGNOR, Pathway Commons, and PubChem. Given user-specified genes, a query-driven module retrieves relevant subgraphs, which are incorporated into structured prompts to guide LLM-based stepwise reasoning. This enables identification of direct and indirect regulatory relationships and generation of mechanistic explanations supported by biological evidence.   Beyond pairwise interactions, GIP-RAG includes a pathway-level functional impact module that simulates propagation of gene perturbations through signaling networks and evaluates potential pathway state changes. Evaluation across diverse biological scenarios demonstrates that the framework generates consistent, interpretable, and evidence-supported insights into gene regulatory mechanisms.   Overall, GIP-RAG provides a general and interpretable approach for integrating knowledge graphs with retrieval-augmented LLMs to support mechanistic reasoning in complex molecular systems.",
+      "authors": [
+        "Fujian Jia",
+        "Jiwen Gu",
+        "Cheng Lu",
+        "Dezhi Zhao",
+        "Mengjiang Huang",
+        "Yuanzhi Lu",
+        "Xin Liu",
+        "Kang Liu"
+      ],
+      "primary_category": "q-bio.MN",
+      "categories": [
+        "q-bio.MN",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-19T23:36:26+00:00",
+      "link": "https://arxiv.org/pdf/2603.20321v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM framework for gene interaction and pathway analysis",
+      "llm_evidence_cn": "用于基因相互作用和通路分析的 LLM 框架",
+      "llm_evidence": "用于基因相互作用和通路分析的 LLM 框架",
+      "canonical_evidence": "用于基因相互作用和通路分析的 LLM 框架",
+      "llm_tldr_en": "GIP-RAG combines knowledge graphs with LLMs to interpret gene interactions and biological pathways.",
+      "llm_tldr_cn": "GIP-RAG 将知识图谱与 LLM 结合，以解释基因相互作用和生物通路。",
+      "llm_tldr": "GIP-RAG 将知识图谱与 LLM 结合，以解释基因相互作用和生物通路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.20825v1",
+      "title": "Cross-Granularity Representations for Biological Sequences: Insights from ESM and BiGCARP",
+      "abstract": "Recent advances in general-purpose foundation models have stimulated the development of large biological sequence models. While natural language shows symbolic granularity (characters, words, sentences), biological sequences exhibit hierarchical granularity whose levels (nucleotides, amino acids, protein domains, genes) further encode biologically functional information. In this paper, we investigate the integration of cross-granularity knowledge from models through a case study of BiGCARP, a Pfam domain-level model for biosynthetic gene clusters, and ESM, an amino acid-level protein language model. Using representation analysis tools and a set of probe tasks, we first explain why a straightforward cross-model embedding initialization fails to improve downstream performance in BiGCARP, and show that deeper-layer embeddings capture a more contextual and faithful representation of the model's learned knowledge. Furthermore, we demonstrate that representations at different granularities encode complementary biological knowledge, and that combining them yields measurable performance gains in intermediate-level prediction tasks. Our findings highlight cross-granularity integration as a promising strategy for improving both the performance and interpretability of biological foundation models.",
+      "authors": [
+        "Hanlin Xiao",
+        "Rainer Breitling",
+        "Eriko Takano",
+        "Mauricio A. Álvarez"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-21T13:57:24+00:00",
+      "link": "https://arxiv.org/pdf/2603.20825v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "large biological sequence models and cross-granularity knowledge integration",
+      "llm_evidence_cn": "大型生物序列模型与跨粒度知识整合",
+      "llm_evidence": "大型生物序列模型与跨粒度知识整合",
+      "canonical_evidence": "大型生物序列模型与跨粒度知识整合",
+      "llm_tldr_en": "Investigates integrating hierarchical biological sequence data into foundation models like ESM and BiGCARP.",
+      "llm_tldr_cn": "研究了将分层生物序列数据整合到 ESM 和 BiGCARP 等基础模型中的方法。",
+      "llm_tldr": "研究了将分层生物序列数据整合到 ESM 和 BiGCARP 等基础模型中的方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.21494v1",
+      "title": "Agentic Automation of BT-RADS Scoring: End-to-End Multi-Agent System for Standardized Brain Tumor Follow-up Assessment",
+      "abstract": "The Brain Tumor Reporting and Data System (BT-RADS) standardizes post-treatment MRI response assessment in patients with diffuse gliomas but requires complex integration of imaging trends, medication effects, and radiation timing. This study evaluates an end-to-end multi-agent large language model (LLM) and convolutional neural network (CNN) system for automated BT-RADS classification. A multi-agent LLM system combined with automated CNN-based tumor segmentation was retrospectively evaluated on 509 consecutive post-treatment glioma MRI examinations from a single high-volume center. An extractor agent identified clinical variables (steroid status, bevacizumab status, radiation date) from unstructured clinical notes, while a scorer agent applied BT-RADS decision logic integrating extracted variables with volumetric measurements. Expert reference standard classifications were established by an independent board-certified neuroradiologist. Of 509 examinations, 492 met inclusion criteria. The system achieved 374/492 (76.0%; 95% CI, 72.1%-79.6%) accuracy versus 283/492 (57.5%; 95% CI, 53.1%-61.8%) for initial clinical assessments (+18.5 percentage points; P<.001). Context-dependent categories showed high sensitivity (BT-1b 100%, BT-1a 92.7%, BT-3a 87.5%), while threshold-dependent categories showed moderate sensitivity (BT-3c 74.8%, BT-2 69.2%, BT-4 69.3%, BT-3b 57.1%). For BT-4, positive predictive value was 92.9%. The multi-agent LLM system achieved higher BT-RADS classification agreement with expert reference standard compared to initial clinical scoring, with high accuracy for context-dependent scores and high positive predictive value for BT-4 detection.",
+      "authors": [
+        "Mohamed Sobhi Jabal",
+        "Jikai Zhang",
+        "Dominic LaBella",
+        "Jessica L. Houk",
+        "Dylan Zhang",
+        "Jeffrey D. Rudie",
+        "Kirti Magudia",
+        "Maciej A. Mazurowski",
+        "Evan Calabrese"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-03-23T02:31:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.21494v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "multi-agent LLM system for standardized brain tumor assessment",
+      "llm_evidence_cn": "用于标准化脑肿瘤评估的多智能体大语言模型系统",
+      "llm_evidence": "用于标准化脑肿瘤评估的多智能体大语言模型系统",
+      "canonical_evidence": "用于标准化脑肿瘤评估的多智能体大语言模型系统",
+      "llm_tldr_en": "Evaluates an end-to-end multi-agent LLM system for automated clinical scoring in neuro-oncology.",
+      "llm_tldr_cn": "评估了一种用于神经肿瘤学临床自动评分的端到端多智能体LLM系统。",
+      "llm_tldr": "评估了一种用于神经肿瘤学临床自动评分的端到端多智能体LLM系统。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.22158v1",
+      "title": "Multimodal Survival Analysis with Locally Deployable Large Language Models",
+      "abstract": "We study multimodal survival analysis integrating clinical text, tabular covariates, and genomic profiles using locally deployable large language models (LLMs). As many institutions face tight computational and privacy constraints, this setting motivates the use of lightweight, on-premises models. Our approach jointly estimates calibrated survival probabilities and generates concise, evidence-grounded prognosis text via teacher-student distillation and principled multimodal fusion. On a TCGA cohort, it outperforms standard baselines, avoids reliance on cloud services and associated privacy concerns, and reduces the risk of hallucinated or miscalibrated estimates that can be observed in base LLMs.",
+      "authors": [
+        "Moritz Gögl",
+        "Christopher Yau"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T16:21:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.22158v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLMs for multimodal survival analysis integrating genomic profiles",
+      "llm_evidence_cn": "利用LLM进行整合基因组数据的多模态生存分析",
+      "llm_evidence": "利用LLM进行整合基因组数据的多模态生存分析",
+      "canonical_evidence": "利用LLM进行整合基因组数据的多模态生存分析",
+      "llm_tldr_en": "Integrates LLMs with genomic and clinical data for survival analysis in bioinformatics.",
+      "llm_tldr_cn": "在生物信息学中结合LLM与基因组及临床数据进行生存分析。",
+      "llm_tldr": "在生物信息学中结合LLM与基因组及临床数据进行生存分析。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.20435v1",
+      "title": "Deep reflective reasoning in interdependence constrained structured data extraction from clinical notes for digital health",
+      "abstract": "Extracting structured information from clinical notes requires navigating a dense web of interdependent variables where the value of one attribute logically constrains others. Existing Large Language Model (LLM)-based extraction pipelines often struggle to capture these dependencies, leading to clinically inconsistent outputs. We propose deep reflective reasoning, a large language model agent framework that iteratively self-critiques and revises structured outputs by checking consistency among variables, the input text, and retrieved domain knowledge, stopping when outputs converge. We extensively evaluate the proposed method in three diverse oncology applications: (1) On colorectal cancer synoptic reporting from gross descriptions (n=217), reflective reasoning improved average F1 across eight categorical synoptic variables from 0.828 to 0.911 and increased mean correct rate across four numeric variables from 0.806 to 0.895; (2) On Ewing sarcoma CD99 immunostaining pattern identification (n=200), the accuracy improved from 0.870 to 0.927; (3) On lung cancer tumor staging (n=100), tumor stage accuracy improved from 0.680 to 0.833 (pT: 0.842 -> 0.884; pN: 0.885 -> 0.948). The results demonstrate that deep reflective reasoning can systematically improve the reliability of LLM-based structured data extraction under interdependence constraints, enabling more consistent machine-operable clinical datasets and facilitating knowledge discovery with machine learning and data science towards digital health.",
+      "authors": [
+        "Jingwei Huang",
+        "Kuroush Nezafati",
+        "Zhikai Chi",
+        "Ruichen Rong",
+        "Colin Treager",
+        "Tingyi Wanyan",
+        "Yueshuang Xu",
+        "Xiaowei Zhan",
+        "Patrick Leavey",
+        "Guanghua Xiao",
+        "Wenqi Shi",
+        "Yang Xie"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-20T19:05:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.20435v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM agent framework for oncology data extraction",
+      "llm_evidence_cn": "用于肿瘤数据提取的 LLM 智能体框架",
+      "llm_evidence": "用于肿瘤数据提取的 LLM 智能体框架",
+      "canonical_evidence": "用于肿瘤数据提取的 LLM 智能体框架",
+      "llm_tldr_en": "A reflective LLM agent framework improves structured data extraction from clinical oncology notes.",
+      "llm_tldr_cn": "一种反思型 LLM 智能体框架改进了临床肿瘤笔记中的结构化数据提取。",
+      "llm_tldr": "一种反思型 LLM 智能体框架改进了临床肿瘤笔记中的结构化数据提取。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.20630v1",
+      "title": "Evaluating LLM-generated code for domain-specific languages: molecular dynamics with LAMMPS",
+      "abstract": "Large language models (LLMs) are changing the way researchers interact with code and data in scientific computing. While their ability to generate general-purpose code is well established, their effectiveness in producing scientifically valid code/input scripting for domain-specific languages (DSLs) remains largely unexplored. We propose an evaluation procedure that enables domain experts (who may not be experts in the DSL) to assess the validity of LLM-generated input files for LAMMPS, a widely used molecular dynamics (MD) code, and to use those assessments to evaluate the performance of state-of-the-art LLMs and identify common issues. Key to the evaluation procedure are a normalization step to generate canonical files and an extensible parser for syntax analysis. The following steps isolate common errors without incurring costly tests (in time and computational resources). Once a working input file is generated, LLMs can accelerate verification tests. Our findings highlight limitations of LLMs in generating scientific DSLs and a practical path forward for their integration into domain-specific computational ecosystems by domain experts.",
+      "authors": [
+        "Ethan Holbrook",
+        "Juan C. Verduzco",
+        "Alejandro Strachan"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-03-21T03:58:40+00:00",
+      "link": "https://arxiv.org/pdf/2603.20630v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Evaluating LLM-generated code for molecular dynamics simulations",
+      "llm_evidence_cn": "评估LLM生成的分子动力学模拟代码",
+      "llm_evidence": "评估LLM生成的分子动力学模拟代码",
+      "canonical_evidence": "评估LLM生成的分子动力学模拟代码",
+      "llm_tldr_en": "Assesses the validity of LLM-generated input scripts for LAMMPS in scientific computing and molecular dynamics.",
+      "llm_tldr_cn": "评估LLM生成的LAMMPS输入脚本在科学计算和分子动力学中的有效性。",
+      "llm_tldr": "评估LLM生成的LAMMPS输入脚本在科学计算和分子动力学中的有效性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.21344v1",
+      "title": "The AI Scientific Community: Agentic Virtual Lab Swarms",
+      "abstract": "In this short note we propose using agentic swarms of virtual labs as a model of an AI Science Community. In this paradigm, each particle in the swarm represents a complete virtual laboratory instance, enabling collective scientific exploration that mirrors real-world research communities. The framework leverages the inherent properties of swarm intelligence - decentralized coordination, balanced exploration-exploitation trade-offs, and emergent collective behavior - to simulate the behavior of a scientific community and potentially accelerate scientific discovery. We discuss architectural considerations, inter-laboratory communication and influence mechanisms including citation-analogous voting systems, fitness function design for quantifying scientific success, anticipated emergent behaviors, mechanisms for preventing lab dominance and preserving diversity, and computational efficiency strategies to enable large swarms exhibiting complex emergent behavior analogous to real-world scientific communities. A working instance of the AI Science Community is currently under development.",
+      "authors": [
+        "Ulisses Braga-Neto"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-22T18:04:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.21344v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agentic virtual lab swarms for collective scientific exploration",
+      "llm_evidence_cn": "用于集体科学探索的智能体虚拟实验室群",
+      "llm_evidence": "用于集体科学探索的智能体虚拟实验室群",
+      "canonical_evidence": "用于集体科学探索的智能体虚拟实验室群",
+      "llm_tldr_en": "Proposes using agentic swarms of virtual labs to simulate scientific communities and accelerate discovery.",
+      "llm_tldr_cn": "建议使用虚拟实验室的智能体集群来模拟科学共同体并加速科学发现。",
+      "llm_tldr": "建议使用虚拟实验室的智能体集群来模拟科学共同体并加速科学发现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.15486v1",
+      "title": "Cuckoo-GPU: Accelerating Cuckoo Filters on Modern GPUs",
+      "abstract": "Approximate Membership Query (AMQ) structures are essential for high-throughput systems in databases, networking, and bioinformatics. While Bloom filters offer speed, they lack support for deletions. Existing GPU-based dynamic alternatives, such as the Two-Choice Filter (TCF) and GPU Quotient Filter (GQF), enable deletions but incur severe performance penalties. We present Cuckoo-GPU, an open-source, high-performance Cuckoo filter library for GPUs. Instead of prioritizing cache locality, Cuckoo-GPU embraces the inherently random access pattern of Cuckoo hashing to fully saturate global memory bandwidth. Our design features a lock-free architecture built on atomic compare-and-swap operations, paired with a novel breadth-first search-based eviction heuristic that minimizes thread divergence and bounds sequential memory accesses during high-load insertions. Evaluated on NVIDIA GH200 (HBM3) and RTX PRO 6000 Blackwell (GDDR7) systems, Cuckoo-GPU closes the performance gap between append-only and dynamic AMQ structures. It achieves insertion, query, and deletion throughputs up to 378x (4.1x), 6x (34.7x), and 258x (107x) higher than GQF (TCF) on the same hardware, respectively, and delivers up to a 350x speedup over the fastest available multi-threaded CPU-based Cuckoo filter implementation. Moreover, its query throughput rivals that of the append-only GPU-based Blocked Bloom filter - demonstrating that dynamic AMQ structures can be deployed on modern accelerators without sacrificing performance.",
+      "authors": [
+        "Tim Dortmann",
+        "Markus Vieth",
+        "Bertil Schmidt"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.DB"
+      ],
+      "published": "2026-03-16T16:15:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.15486v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "High-throughput AMQ structures for bioinformatics",
+      "llm_evidence_cn": "用于生物信息学的高吞吐量近似成员查询结构",
+      "llm_evidence": "用于生物信息学的高吞吐量近似成员查询结构",
+      "canonical_evidence": "用于生物信息学的高吞吐量近似成员查询结构",
+      "llm_tldr_en": "Presents Cuckoo-GPU, a high-performance filter library for databases and bioinformatics.",
+      "llm_tldr_cn": "推出Cuckoo-GPU，一种适用于数据库和生物信息学的高性能过滤器库。",
+      "llm_tldr": "推出Cuckoo-GPU，一种适用于数据库和生物信息学的高性能过滤器库。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.16744v1",
+      "title": "Nonstandard Errors in AI Agents",
+      "abstract": "We study whether state-of-the-art AI coding agents, given the same data and research question, produce the same empirical results. Deploying 150 autonomous Claude Code agents to independently test six hypotheses about market quality trends in NYSE TAQ data for SPY (2015--2024), we find that AI agents exhibit sizable \\textit{nonstandard errors} (NSEs), that is, uncertainty from agent-to-agent variation in analytical choices, analogous to those documented among human researchers. AI agents diverge substantially on measure choice (e.g., autocorrelation vs.\\ variance ratio, dollar vs.\\ share volume). Different model families (Sonnet 4.6 vs.\\ Opus 4.6) exhibit stable ``empirical styles,'' reflecting systematic differences in methodological preferences. In a three-stage feedback protocol, AI peer review (written critiques) has minimal effect on dispersion, whereas exposure to top-rated exemplar papers reduces the interquartile range of estimates by 80--99\\% within \\textit{converging} measure families. Convergence occurs both through within-family estimation tightening and through agents switching measure families entirely, but convergence reflects imitation rather than understanding. These findings have implications for the growing use of AI in automated policy evaluation and empirical research.",
+      "authors": [
+        "Ruijiang Gao",
+        "Steven Chong Xiao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SI"
+      ],
+      "published": "2026-03-17T16:21:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.16744v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Autonomous AI agents for empirical research analysis",
+      "llm_evidence_cn": "用于实证研究分析的自主 AI 智能体",
+      "llm_evidence": "用于实证研究分析的自主 AI 智能体",
+      "canonical_evidence": "用于实证研究分析的自主 AI 智能体",
+      "llm_tldr_en": "This study evaluates the consistency and errors of autonomous AI agents in performing empirical research tasks.",
+      "llm_tldr_cn": "本研究评估了自主 AI 智能体在执行实证研究任务时的连贯性和误差。",
+      "llm_tldr": "本研究评估了自主 AI 智能体在执行实证研究任务时的连贯性和误差。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20955v1",
+      "title": "Beyond Expression Similarity: Contrastive Learning Recovers Functional Gene Associations from Protein Interaction Structure",
+      "abstract": "The Predictive Associative Memory (PAM) framework posits that useful relationships often connect items that co-occur in shared contexts rather than items that appear similar in embedding space. A contrastive MLP trained on co-occurrence annotations--Contrastive Association Learning (CAL)--has improved multi-hop passage retrieval and discovered narrative function at corpus scale in text. We test whether this principle transfers to molecular biology, where protein-protein interactions provide functional associations distinct from gene expression similarity. Four experiments across two biological domains map the operating envelope. On gene perturbation data (Replogle K562 CRISPRi, 2,285 genes), CAL trained on STRING protein interactions achieves cross-boundary AUC of 0.908 where expression similarity scores 0.518. A second gene dataset (DepMap, 17,725 genes) confirms the result after negative sampling correction, reaching cross-boundary AUC of 0.947. Two drug sensitivity experiments produce informative negatives that sharpen boundary conditions. Three cross-domain findings emerge: (1) inductive transfer succeeds in biology--a node-disjoint split with unseen genes yields AUC 0.826 (Delta +0.127)--where it fails in text (+/-0.10), suggesting physically grounded associations are more transferable than contingent co-occurrences; (2) CAL scores anti-correlate with interaction degree (Spearman r = -0.590), with gains concentrating on understudied genes with focused interaction profiles; (3) tighter association quality outperforms larger but noisier training sets, reversing the text pattern. Results are stable across training seeds (SD < 0.001) and cross-boundary threshold choices.",
+      "authors": [
+        "Jason Dury"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-21T21:36:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.20955v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Computational biology and gene association analysis",
+      "llm_evidence_cn": "计算生物学与基因关联分析",
+      "llm_evidence": "计算生物学与基因关联分析",
+      "canonical_evidence": "计算生物学与基因关联分析",
+      "llm_tldr_en": "Applying contrastive learning to recover functional gene associations from protein interaction structures.",
+      "llm_tldr_cn": "应用对比学习从蛋白质相互作用结构中恢复功能性基因关联。",
+      "llm_tldr": "应用对比学习从蛋白质相互作用结构中恢复功能性基因关联。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.19677v1",
+      "title": "GoAgent: Group-of-Agents Communication Topology Generation for LLM-based Multi-Agent Systems",
+      "abstract": "Large language model (LLM)-based multi-agent systems (MAS) have demonstrated exceptional capabilities in solving complex tasks, yet their effectiveness depends heavily on the underlying communication topology that coordinates agent interactions. Within these systems, successful problem-solving often necessitates task-specific group structures to divide and conquer subtasks. However, most existing approaches generate communication topologies in a node-centric manner, leaving group structures to emerge implicitly from local connectivity decisions rather than modeling them explicitly, often leading to suboptimal coordination and unnecessary communication overhead. To address this limitation, we propose GoAgent (Group-of-Agents), a communication topology generation method that explicitly treats collaborative groups as the atomic units of MAS construction. Specifically, GoAgent first enumerates task-relevant candidate groups through an LLM and then autoregressively selects and connects these groups as atomic units to construct the final communication graph, jointly capturing intra-group cohesion and inter-group coordination. To mitigate communication redundancy and noise propagation inherent in expanding topologies, we further introduce a conditional information bottleneck (CIB) objective that compresses inter-group communication, preserving task-relevant signals while filtering out redundant historical noise. Extensive experiments on six benchmarks demonstrate the state-of-the-art performance of GoAgent with 93.84% average accuracy while reducing token consumption by about 17%.",
+      "authors": [
+        "Hongjiang Chen",
+        "Xin Zheng",
+        "Yixin Liu",
+        "Pengfei Jiao",
+        "Shiyuan Li",
+        "Huan Liu",
+        "Zhidong Zhao",
+        "Ziqi Xu",
+        "Ibrahim Khalil",
+        "Shirui Pan"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-20T06:21:32+00:00",
+      "link": "https://arxiv.org/pdf/2603.19677v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Communication topology generation for LLM-based multi-agent systems",
+      "llm_evidence_cn": "基于大语言模型的多智能体系统通信拓扑生成",
+      "llm_evidence": "基于大语言模型的多智能体系统通信拓扑生成",
+      "canonical_evidence": "基于大语言模型的多智能体系统通信拓扑生成",
+      "llm_tldr_en": "Proposes GoAgent to optimize communication structures in LLM-based multi-agent systems.",
+      "llm_tldr_cn": "提出GoAgent框架，旨在优化基于大语言模型的多智能体系统中的通信结构。",
+      "llm_tldr": "提出GoAgent框架，旨在优化基于大语言模型的多智能体系统中的通信结构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21321v1",
+      "title": "Improving Coherence and Persistence in Agentic AI for System Optimization",
+      "abstract": "Designing high-performance system heuristics is a creative, iterative process requiring experts to form hypotheses and execute multi-step conceptual shifts. While Large Language Models (LLMs) show promise in automating this loop, they struggle with complex system problems due to two critical failure modes: evolutionary neighborhood bias and the coherence ceiling. Evolutionary methods often remain trapped in local optima by relying on scalar benchmark scores, failing when coordinated multi-step changes are required. Conversely, existing agentic frameworks suffer from context degradation over long horizons or fail to accumulate knowledge across independent runs.   We present Engram, an agentic researcher architecture that addresses these limitations by decoupling long-horizon exploration from the constraints of a single context window. Engram organizes exploration into a sequence of agents that iteratively design, test, and analyze mechanisms. At the conclusion of each run, an agent stores code snapshots, logs, and results in a persistent Archive and distills high-level modeling insights into a compact, persistent Research Digest. Subsequent agents then begin with a fresh context window, reading the Research Digest to build on prior discoveries.   We find that Engram exhibits superior performance across diverse domains including multi-cloud multicast, LLM inference request routing, and optimizing KV cache reuse in databases with natural language queries.",
+      "authors": [
+        "Pantea Karimi",
+        "Kimia Noorbakhsh",
+        "Mohammad Alizadeh",
+        "Hari Balakrishnan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-22T17:04:50+00:00",
+      "link": "https://arxiv.org/pdf/2603.21321v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Agentic researcher architecture for complex system optimization",
+      "llm_evidence_cn": "用于复杂系统优化的智能体研究员架构",
+      "llm_evidence": "用于复杂系统优化的智能体研究员架构",
+      "canonical_evidence": "用于复杂系统优化的智能体研究员架构",
+      "llm_tldr_en": "Presents Engram, an agentic architecture that improves coherence and knowledge accumulation in automated research.",
+      "llm_tldr_cn": "提出Engram架构，通过增强连贯性和知识积累来改进自动化科研中的智能体表现。",
+      "llm_tldr": "提出Engram架构，通过增强连贯性和知识积累来改进自动化科研中的智能体表现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20380v1",
+      "title": "ALARA for Agents: Least-Privilege Context Engineering Through Portable Composable Multi-Agent Teams",
+      "abstract": "Industry practitioners and academic researchers regularly use multi-agent systems to accelerate their work, yet the frameworks through which these systems operate do not provide a simple, unified mechanism for scalably managing the critical aspects of the agent harness, impacting both the quality of individual human-agent interactions and the capacity for practitioners to coordinate toward common goals through shared agent infrastructure. Agent frameworks have enabled increasingly sophisticated multi-agent systems, but the behavioral specifications that define what these agents can do remain fragmented across prose instruction files, framework-internal configuration, and mechanisms like MCP servers that operate separately from individual agent definitions, making these specifications difficult to share, version, or collaboratively maintain across teams and projects. Applying the ALARA principle from radiation safety (exposures kept as low as reasonably achievable) to agent context, we introduce a declarative context-agent-tool (CAT) data layer expressed through interrelated files that scope each agent's tool access and context to the minimum its role requires, and \\texttt{npcsh}, a command-line shell for executing it. Because the system parses and enforces these files structurally, modifying an agent's tool list produces a guaranteed behavioral change rather than a suggestion the model may or may not follow. We evaluate 22 locally-hosted models from 0.6B to 35B parameters across 115 practical tasks spanning file operations, web search, multi-step scripting, tool chaining, and multi-agent delegation, characterizing which model families succeed at which task categories and where they break down across $\\sim$2500 total executions.",
+      "authors": [
+        "Christopher J. Agostino",
+        "Nayan D'Souza"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.HC"
+      ],
+      "published": "2026-03-20T18:00:09+00:00",
+      "link": "https://arxiv.org/pdf/2603.20380v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for portable composable multi-agent teams and context engineering",
+      "llm_evidence_cn": "便携式可组合多智能体团队与上下文工程框架",
+      "llm_evidence": "便携式可组合多智能体团队与上下文工程框架",
+      "canonical_evidence": "便携式可组合多智能体团队与上下文工程框架",
+      "llm_tldr_en": "Proposes a unified mechanism for managing multi-agent systems and shared infrastructure for coordination.",
+      "llm_tldr_cn": "提出了一种统一机制，用于管理多智能体系统和共享基础设施以实现协作。",
+      "llm_tldr": "提出了一种统一机制，用于管理多智能体系统和共享基础设施以实现协作。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20640v1",
+      "title": "Hear Both Sides: Efficient Multi-Agent Debate via Diversity-Aware Message Retention",
+      "abstract": "Multi-Agent Debate has emerged as a promising framework for improving the reasoning quality of large language models through iterative inter-agent communication. However, broadcasting all agent messages at every round introduces noise and redundancy that can degrade debate quality and waste computational resources. Current approaches rely on uncertainty estimation to filter low-confidence responses before broadcasting, but this approach is unreliable due to miscalibrated confidence scores and sensitivity to threshold selection. To address this, we propose Diversity-Aware Retention (DAR), a lightweight debate framework that, at each debate round, selects the subset of agent responses that maximally disagree with each other and with the majority vote before broadcasting. Through an explicit index-based retention mechanism, DAR preserves the original messages without modification, ensuring that retained disagreements remain authentic. Experiments on diverse reasoning and question answering benchmarks demonstrate that our selective message propagation consistently improves debate performance, particularly as the number of agents scales, where noise accumulation is most severe. Our results highlight that what agents hear is as important as what agents say in multi-agent reasoning systems.",
+      "authors": [
+        "Manh Nguyen",
+        "Anh Nguyen",
+        "Dung Nguyen",
+        "Svetha Venkatesh",
+        "Hung Le"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-21T04:27:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.20640v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent debate framework for improving reasoning quality",
+      "llm_evidence_cn": "提升推理质量的多智能体辩论框架",
+      "llm_evidence": "提升推理质量的多智能体辩论框架",
+      "canonical_evidence": "提升推理质量的多智能体辩论框架",
+      "llm_tldr_en": "Proposes a diversity-aware retention framework to optimize multi-agent debate efficiency.",
+      "llm_tldr_cn": "提出一种多样性感知保留框架，以优化多智能体辩论的效率和质量。",
+      "llm_tldr": "提出一种多样性感知保留框架，以优化多智能体辩论的效率和质量。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20975v1",
+      "title": "DiscoUQ: Structured Disagreement Analysis for Uncertainty Quantification in LLM Agent Ensembles",
+      "abstract": "Multi-agent LLM systems, where multiple prompted instances of a language model independently answer questions, are increasingly used for complex reasoning tasks. However, existing methods for quantifying the uncertainty of their collective outputs rely on shallow voting statistics that discard the rich semantic information in agents' reasoning. We introduce DiscoUQ, a framework that extracts and leverages the structure of inter-agent disagreement -- both linguistic properties (evidence overlap, argument strength, divergence depth) and embedding geometry (cluster distances, dispersion, cohesion) -- to produce well-calibrated confidence estimates. We propose three methods of increasing complexity: DiscoUQ-LLM (logistic regression on LLM-extracted structure features), DiscoUQ-Embed (logistic regression on embedding geometry), and DiscoUQ-Learn (a neural network combining all features). Evaluated on four diverse benchmarks (StrategyQA, MMLU, TruthfulQA, ARC-Challenge) with a 5-agent system using Qwen3.5-27B, DiscoUQ-LLM achieves an average AUROC of 0.802, outperforming the best baseline (LLM Aggregator, 0.791) while being substantially better calibrated (ECE 0.036 vs. 0.098). The learned features generalize across benchmarks with near-zero performance degradation and provide the largest improvements where they are most needed: in the ambiguous \"weak disagreement\" tier where simple vote counting fails.",
+      "authors": [
+        "Bo Jiang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-03-21T23:24:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.20975v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for uncertainty quantification in multi-agent LLM ensembles",
+      "llm_evidence_cn": "多智能体大语言模型集成中的不确定性量化框架",
+      "llm_evidence": "多智能体大语言模型集成中的不确定性量化框架",
+      "canonical_evidence": "多智能体大语言模型集成中的不确定性量化框架",
+      "llm_tldr_en": "Introduces DiscoUQ to quantify uncertainty in multi-agent LLM systems via disagreement analysis.",
+      "llm_tldr_cn": "引入DiscoUQ框架，通过分析智能体间的分歧来量化多智能体系统的置信度。",
+      "llm_tldr": "引入DiscoUQ框架，通过分析智能体间的分歧来量化多智能体系统的置信度。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21475v1",
+      "title": "Unified-MAS: Universally Generating Domain-Specific Nodes for Empowering Automatic Multi-Agent Systems",
+      "abstract": "Automatic Multi-Agent Systems (MAS) generation has emerged as a promising paradigm for solving complex reasoning tasks. However, existing frameworks are fundamentally bottlenecked when applied to knowledge-intensive domains (e.g., healthcare and law). They either rely on a static library of general nodes like Chain-of-Thought, which lack specialized expertise, or attempt to generate nodes on the fly. In the latter case, the orchestrator is not only bound by its internal knowledge limits but must also simultaneously generate domain-specific logic and optimize high-level topology, leading to a severe architectural coupling that degrades overall system efficacy. To bridge this gap, we propose Unified-MAS that decouples granular node implementation from topological orchestration via offline node synthesis. Unified-MAS operates in two stages: (1) Search-Based Node Generation retrieves external open-world knowledge to synthesize specialized node blueprints, overcoming the internal knowledge limits of LLMs; and (2) Reward-Based Node Optimization utilizes a perplexity-guided reward to iteratively enhance the internal logic of bottleneck nodes. Extensive experiments across four specialized domains demonstrate that integrating Unified-MAS into four Automatic-MAS baselines yields a better performance-cost trade-off, achieving up to a 14.2% gain while significantly reducing costs. Further analysis reveals its robustness across different designer LLMs and its effectiveness on conventional tasks such as mathematical reasoning.",
+      "authors": [
+        "Hehai Lin",
+        "Yu Yan",
+        "Zixuan Wang",
+        "Bo Xu",
+        "Sudong Wang",
+        "Weiquan Huang",
+        "Ruochen Zhao",
+        "Minzhi Li",
+        "Chengwei Qin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-23T01:36:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.21475v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for generating domain-specific nodes in multi-agent systems",
+      "llm_evidence_cn": "多智能体系统中生成特定领域节点的框架",
+      "llm_evidence": "多智能体系统中生成特定领域节点的框架",
+      "canonical_evidence": "多智能体系统中生成特定领域节点的框架",
+      "llm_tldr_en": "Proposes Unified-MAS to decouple domain logic from topology for better multi-agent system performance.",
+      "llm_tldr_cn": "提出 Unified-MAS 框架，通过解耦领域逻辑与拓扑结构来提升多智能体系统性能。",
+      "llm_tldr": "提出 Unified-MAS 框架，通过解耦领域逻辑与拓扑结构来提升多智能体系统性能。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
