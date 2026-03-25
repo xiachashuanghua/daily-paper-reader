@@ -6,70 +6,55 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-24
-- 运行时间：2026-03-24 20:07:55 UTC
+- 最新运行日期：2026-03-25
+- 运行时间：2026-03-25 20:07:19 UTC
 - 运行状态：成功
-- 本次总论文数：16
-- 精读区：6
-- 速读区：10
+- 本次总论文数：11
+- 精读区：4
+- 速读区：7
 
 ### 今日简报（AI）
-今日深度解析 16 篇前沿文献，重点攻克 AI 在基因交互分析与生物序列建模中的核心挑战。
-GIP-RAG 框架显著提升了基因路径分析的可解释性，而 ESM 与 BiGCARP 的结合则揭示了生物序列跨粒度表示的新潜力。
-推荐关注“虚拟实验室集群”等科研自动化新范式，把握 AI 驱动生命科学发现的最新趋势。
-- 详情：[/202603/24/README](/202603/24/README)
+今日聚焦 AI 与生命科学的前沿交汇，深度解析了生物大模型安全防护与跨分子可解释性建模。
+重点推荐 BioShield 生物防火墙技术及 Central Dogma Transformer III 在 DNA、RNA 与蛋白质协同建模上的突破。
+建议关注生物 AI 的安全边界与多智能体协作机制，把握医疗与科研领域的智能化新趋势。
+- 详情：[/202603/25/README](/202603/25/README)
 
 ### 精读区论文标签
-1. [GIP-RAG: An Evidence-Grounded Retrieval-Augmented Framework for Interpretable Gene Interaction and Pathway Impact Analysis](/202603/24/2603.20321v1-gip-rag-an-evidence-grounded-retrieval-augmented-framework-for-interpretable-gene-interaction-and-pathway-impact-analysis)  
-   标签：评分：10.0/10、query:llmagt
-   evidence：用于基因相互作用和通路分析的 LLM 框架
-2. [Cross-Granularity Representations for Biological Sequences: Insights from ESM and BiGCARP](/202603/24/2603.20825v1-cross-granularity-representations-for-biological-sequences-insights-from-esm-and-bigcarp)  
-   标签：评分：10.0/10、query:llmagt
-   evidence：大型生物序列模型与跨粒度知识整合
-3. [Agentic Automation of BT-RADS Scoring: End-to-End Multi-Agent System for Standardized Brain Tumor Follow-up Assessment](/202603/24/2603.21494v1-agentic-automation-of-bt-rads-scoring-end-to-end-multi-agent-system-for-standardized-brain-tumor-follow-up-assessment)  
-   标签：评分：10.0/10、query:llmagt
-   evidence：用于标准化脑肿瘤评估的多智能体大语言模型系统
-4. [Multimodal Survival Analysis with Locally Deployable Large Language Models](/202603/24/2603.22158v1-multimodal-survival-analysis-with-locally-deployable-large-language-models)  
+1. [BioShield: A Context-Aware Firewall for Securing Bio-LLMs](/202603/25/2603.22612v1-bioshield-a-context-aware-firewall-for-securing-bio-llms)  
    标签：评分：9.0/10、query:llmagt
-   evidence：利用LLM进行整合基因组数据的多模态生存分析
-5. [Deep reflective reasoning in interdependence constrained structured data extraction from clinical notes for digital health](/202603/24/2603.20435v1-deep-reflective-reasoning-in-interdependence-constrained-structured-data-extraction-from-clinical-notes-for-digital-health)  
+   evidence：在生物信息学工作流中保护生物大语言模型
+2. [Central Dogma Transformer III: Interpretable AI Across DNA, RNA, and Protein](/202603/25/2603.23361v1-central-dogma-transformer-iii-interpretable-ai-across-dna-rna-and-protein)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：跨DNA、RNA和蛋白质序列的可解释人工智能
+3. [AgentSLR: Automating Systematic Literature Reviews in Epidemiology with Agentic AI](/202603/25/2603.22327v1-agentslr-automating-systematic-literature-reviews-in-epidemiology-with-agentic-ai)  
    标签：评分：8.0/10、query:llmagt
-   evidence：用于肿瘤数据提取的 LLM 智能体框架
-6. [Evaluating LLM-generated code for domain-specific languages: molecular dynamics with LAMMPS](/202603/24/2603.20630v1-evaluating-llm-generated-code-for-domain-specific-languages-molecular-dynamics-with-lammps)  
+   evidence：利用智能体AI自动化流行病学系统文献综述
+4. [MIOFlow 2.0: A unified framework for inferring cellular stochastic dynamics from single cell and spatial transcriptomics data](/202603/25/2603.22564v1-mioflow-20-a-unified-framework-for-inferring-cellular-stochastic-dynamics-from-single-cell-and-spatial-transcriptomics-data)  
    标签：评分：8.0/10、query:llmagt
-   evidence：评估LLM生成的分子动力学模拟代码
+   evidence：从转录组数据推断细胞动力学的框架
 
 ### 速读区论文标签
-1. [The AI Scientific Community: Agentic Virtual Lab Swarms](/202603/24/2603.21344v1-the-ai-scientific-community-agentic-virtual-lab-swarms)  
-   标签：评分：8.0/10、query:llmagt
-   evidence：用于集体科学探索的智能体虚拟实验室群
-2. [Cuckoo-GPU: Accelerating Cuckoo Filters on Modern GPUs](/202603/24/2603.15486v1-cuckoo-gpu-accelerating-cuckoo-filters-on-modern-gpus)  
+1. [Position: Multi-Agent Algorithmic Care Systems Demand Contestability for Trustworthy AI](/202603/25/2603.20595v1-position-multi-agent-algorithmic-care-systems-demand-contestability-for-trustworthy-ai)  
    标签：评分：7.0/10、query:llmagt
-   evidence：用于生物信息学的高吞吐量近似成员查询结构
-3. [Beyond Expression Similarity: Contrastive Learning Recovers Functional Gene Associations from Protein Interaction Structure](/202603/24/2603.20955v1-beyond-expression-similarity-contrastive-learning-recovers-functional-gene-associations-from-protein-interaction-structure)  
+   evidence：医疗保健中用于复杂决策的多智能体系统
+2. [MemCollab: Cross-Agent Memory Collaboration via Contrastive Trajectory Distillation](/202603/25/2603.23234v1-memcollab-cross-agent-memory-collaboration-via-contrastive-trajectory-distillation)  
    标签：评分：7.0/10、query:llmagt
-   evidence：计算生物学与基因关联分析
-4. [Improving Coherence and Persistence in Agentic AI for System Optimization](/202603/24/2603.21321v1-improving-coherence-and-persistence-in-agentic-ai-for-system-optimization)  
-   标签：评分：7.0/10、query:llmagt
-   evidence：用于复杂系统优化的智能体研究员架构
-5. [Nonstandard Errors in AI Agents](/202603/24/2603.16744v1-nonstandard-errors-in-ai-agents)  
+   evidence：跨智能体记忆协作框架
+3. [Helix: A Dual-Helix Co-Evolutionary Multi-Agent System for Prompt Optimization and Question Reformulation](/202603/25/2603.19732v1-helix-a-dual-helix-co-evolutionary-multi-agent-system-for-prompt-optimization-and-question-reformulation)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于实证研究分析的自主 AI 智能体
-6. [GoAgent: Group-of-Agents Communication Topology Generation for LLM-based Multi-Agent Systems](/202603/24/2603.19677v1-goagent-group-of-agents-communication-topology-generation-for-llm-based-multi-agent-systems)  
+   evidence：用于提示词优化的多智能体系统
+4. [LLM-ODE: Data-driven Discovery of Dynamical Systems with Large Language Models](/202603/25/2603.20910v1-llm-ode-data-driven-discovery-of-dynamical-systems-with-large-language-models)  
    标签：评分：6.0/10、query:llmagt
-   evidence：基于大语言模型的多智能体系统通信拓扑生成
-7. [ALARA for Agents: Least-Privilege Context Engineering Through Portable Composable Multi-Agent Teams](/202603/24/2603.20380v1-alara-for-agents-least-privilege-context-engineering-through-portable-composable-multi-agent-teams)  
+   evidence：科学学科中动力系统的数据驱动发现
+5. [The Library Theorem: How External Organization Governs Agentic Reasoning Capacity](/202603/25/2603.21272v1-the-library-theorem-how-external-organization-governs-agentic-reasoning-capacity)  
    标签：评分：6.0/10、query:llmagt
-   evidence：便携式可组合多智能体团队与上下文工程框架
-8. [Hear Both Sides: Efficient Multi-Agent Debate via Diversity-Aware Message Retention](/202603/24/2603.20640v1-hear-both-sides-efficient-multi-agent-debate-via-diversity-aware-message-retention)  
+   evidence：智能体推理能力与外部记忆组织
+6. [Reasoner-Executor-Synthesizer: Scalable Agentic Architecture with Static O(1) Context Window](/202603/25/2603.22367v1-reasoner-executor-synthesizer-scalable-agentic-architecture-with-static-o1-context-window)  
    标签：评分：6.0/10、query:llmagt
-   evidence：提升推理质量的多智能体辩论框架
-9. [DiscoUQ: Structured Disagreement Analysis for Uncertainty Quantification in LLM Agent Ensembles](/202603/24/2603.20975v1-discouq-structured-disagreement-analysis-for-uncertainty-quantification-in-llm-agent-ensembles)  
+   evidence：自主智能体的可扩展架构
+7. [From Static Templates to Dynamic Runtime Graphs: A Survey of Workflow Optimization for LLM Agents](/202603/25/2603.22386v1-from-static-templates-to-dynamic-runtime-graphs-a-survey-of-workflow-optimization-for-llm-agents)  
    标签：评分：6.0/10、query:llmagt
-   evidence：多智能体大语言模型集成中的不确定性量化框架
-10. [Unified-MAS: Universally Generating Domain-Specific Nodes for Empowering Automatic Multi-Agent Systems](/202603/24/2603.21475v1-unified-mas-universally-generating-domain-specific-nodes-for-empowering-automatic-multi-agent-systems)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：多智能体系统中生成特定领域节点的框架
+   evidence：LLM智能体工作流优化与智能体计算图综述
 
 
 <div class="dpr-home-promo-card">

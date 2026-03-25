@@ -1,0 +1,457 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-25T20:04:58.850662+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2603.22612v1",
+      "title": "BioShield: A Context-Aware Firewall for Securing Bio-LLMs",
+      "abstract": "The rapid advancement of Large Language Models (LLMs) in biological research has significantly lowered the barrier to accessing complex bioinformatics knowledge, ex perimental design strategies, and analytical workflows. While these capabilities accelerate innovation, they also introduce serious dual-use risks, as Bio-LLMs can be exploited to generate harmful biological insights under the guise of legitimate research queries. Existing safeguards, such as static prompt filtering and policy-based restrictions, are insufficient when LLMs are embedded within dynamic biological workflows and application-layer systems. In this paper, we present BioShield, a context-aware application-level firewall designed to secure Bio LLMs against dual-use attacks. At the core of BioShield is a domain-specific prompt scanner that performs contextual risk analysis of incoming queries. The scanner leverages a harmful scoring mechanism tailored to biological dual-use threat cat egories to identify prompts that attempt to conceal malicious intent within seemingly benign research requests. Queries ex ceeding a predefined risk threshold are blocked before reaching the model, effectively preventing unsafe knowledge generation at the source. In addition to pre-generation protection, BioShield deploys a post-generation output verification module that inspects model responses for actionable or weaponizable biological content. If an unsafe response is detected, the system triggers controlled regeneration under strengthened safety constraints. By combining contextual prompt scanning with response-level validation, BioShield provides a layered defense framework specifically designed for bio-domain LLM deployments. Our framework advances cyberbiosecurity by formalizing dual-use threat detection in Bio-LLMs and proposing a structured mitigation strategy for secure, responsible AI driven biological research.",
+      "authors": [
+        "Protiva Das",
+        "Sovon Chakraborty",
+        "Sidhant Narula",
+        "Lucas Potter",
+        "Xavier-Lewis Palmer",
+        "Pratip Rana",
+        "Daniel Takabi",
+        "Mohammad Ghasemigol"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.HC"
+      ],
+      "published": "2026-03-23T22:18:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.22612v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "securing Bio-LLMs in bioinformatics workflows",
+      "llm_evidence_cn": "在生物信息学工作流中保护生物大语言模型",
+      "llm_evidence": "在生物信息学工作流中保护生物大语言模型",
+      "canonical_evidence": "在生物信息学工作流中保护生物大语言模型",
+      "llm_tldr_en": "Introduces BioShield, a firewall to prevent dual-use risks in LLMs used for biological research.",
+      "llm_tldr_cn": "介绍了BioShield，一种旨在防止生物研究大模型双重用途风险的防火墙。",
+      "llm_tldr": "介绍了BioShield，一种旨在防止生物研究大模型双重用途风险的防火墙。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23361v1",
+      "title": "Central Dogma Transformer III: Interpretable AI Across DNA, RNA, and Protein",
+      "abstract": "Biological AI models increasingly predict complex cellular responses, yet their learned representations remain disconnected from the molecular processes they aim to capture. We present CDT-III, which extends mechanism-oriented AI across the full central dogma: DNA, RNA, and protein. Its two-stage Virtual Cell Embedder architecture mirrors the spatial compartmentalization of the cell: VCE-N models transcription in the nucleus and VCE-C models translation in the cytosol. On five held-out genes, CDT-III achieves per-gene RNA r=0.843 and protein r=0.969. Adding protein prediction improves RNA performance (r=0.804 to 0.843), demonstrating that downstream tasks regularize upstream representations. Protein supervision sharpens DNA-level interpretability, increasing CTCF enrichment by 30%. Applied to in silico CD52 knockdown approximating Alemtuzumab, the model predicts 29/29 protein changes correctly and rediscovers 5 of 7 known clinical side effects without clinical data. Gradient-based side effect profiling requires only unperturbed baseline data (r=0.939), enabling screening of all 2,361 genes without new experiments.",
+      "authors": [
+        "Nobuyuki Ota"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-24T15:57:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.23361v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Interpretable AI across DNA, RNA, and protein sequences",
+      "llm_evidence_cn": "跨DNA、RNA和蛋白质序列的可解释人工智能",
+      "llm_evidence": "跨DNA、RNA和蛋白质序列的可解释人工智能",
+      "canonical_evidence": "跨DNA、RNA和蛋白质序列的可解释人工智能",
+      "llm_tldr_en": "CDT-III uses a transformer architecture to model the central dogma, improving genomic sequence analysis.",
+      "llm_tldr_cn": "CDT-III利用Transformer架构模拟中心法则，提升了基因组序列分析的性能和可解释性。",
+      "llm_tldr": "CDT-III利用Transformer架构模拟中心法则，提升了基因组序列分析的性能和可解释性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.22327v1",
+      "title": "AgentSLR: Automating Systematic Literature Reviews in Epidemiology with Agentic AI",
+      "abstract": "Systematic literature reviews are essential for synthesizing scientific evidence but are costly, difficult to scale and time-intensive, creating bottlenecks for evidence-based policy. We study whether large language models can automate the complete systematic review workflow, from article retrieval, article screening, data extraction to report synthesis. Applied to epidemiological reviews of nine WHO-designated priority pathogens and validated against expert-curated ground truth, our open-source agentic pipeline (AgentSLR) achieves performance comparable to human researchers while reducing review time from approximately 7 weeks to 20 hours (a 58x speed-up). Our comparison of five frontier models reveals that performance on SLR is driven less by model size or inference cost than by each model's distinctive capabilities. Through human-in-the-loop validation, we identify key failure modes. Our results demonstrate that agentic AI can substantially accelerate scientific evidence synthesis in specialised domains.",
+      "authors": [
+        "Shreyansh Padarha",
+        "Ryan Othniel Kearns",
+        "Tristan Naidoo",
+        "Lingyi Yang",
+        "Łukasz Borchmann",
+        "Piotr BŁaszczyk",
+        "Christian Morgenstern",
+        "Ruth McCabe",
+        "Sangeeta Bhatia",
+        "Philip H. Torr",
+        "Jakob Foerster",
+        "Scott A. Hale",
+        "Thomas Rawson",
+        "Anne Cori",
+        "Elizaveta Semenova",
+        "Adam Mahdi"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI",
+        "cs.DL"
+      ],
+      "published": "2026-03-20T17:11:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.22327v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "automating systematic literature reviews in epidemiology with agentic AI",
+      "llm_evidence_cn": "利用智能体AI自动化流行病学系统文献综述",
+      "llm_evidence": "利用智能体AI自动化流行病学系统文献综述",
+      "canonical_evidence": "利用智能体AI自动化流行病学系统文献综述",
+      "llm_tldr_en": "Develops an agentic pipeline to automate systematic literature reviews for epidemiological research.",
+      "llm_tldr_cn": "开发了一个智能体流水线，用于自动化流行病学研究中的系统文献综述过程。",
+      "llm_tldr": "开发了一个智能体流水线，用于自动化流行病学研究中的系统文献综述过程。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.22564v1",
+      "title": "MIOFlow 2.0: A unified framework for inferring cellular stochastic dynamics from single cell and spatial transcriptomics data",
+      "abstract": "Understanding cellular trajectories via time-resolved single-cell transcriptomics is vital for studying development, regeneration, and disease. A key challenge is inferring continuous trajectories from discrete snapshots. Biological complexity stems from stochastic cell fate decisions, temporal proliferation changes, and spatial environmental influences. Current methods often use deterministic interpolations treating cells in isolation, failing to capture the probabilistic branching, population shifts, and niche-dependent signaling driving real biological processes.   We introduce Manifold Interpolating Optimal-Transport Flow (MIOFlow) 2.0. This framework learns biologically informed cellular trajectories by integrating manifold learning, optimal transport, and neural differential equations. It models three core processes: (1) stochasticity and branching via Neural Stochastic Differential Equations; (2) non-conservative population changes using a learned growth-rate model initialized with unbalanced optimal transport; and (3) environmental influence through a joint latent space unifying gene expression with spatial features like local cell type composition and signaling.   By operating in a PHATE-distance matching autoencoder latent space, MIOFlow 2.0 ensures trajectories respect the data's intrinsic geometry. Empirical comparisons show expressive trajectory learning via neural differential equations outperforms existing generative models, including simulation-free flow matching. Validated on synthetic datasets, embryoid body differentiation, and spatially resolved axolotl brain regeneration, MIOFlow 2.0 improves trajectory accuracy and reveals hidden drivers of cellular transitions, like specific signaling niches. MIOFlow 2.0 thus bridges single-cell and spatial transcriptomics to uncover tissue-scale trajectories.",
+      "authors": [
+        "Xingzhi Sun",
+        "João Felipe Rocha",
+        "Brett Phelan",
+        "Dhananjay Bhaskar",
+        "Guillaume Huguet",
+        "Yanlei Zhang",
+        "D. S. Magruder",
+        "Alexander Tong",
+        "Ke Xu",
+        "Oluwadamilola Fasina",
+        "Mark Gerstein",
+        "Guy Wolf",
+        "Natalia Ivanova",
+        "Christine L. Chaffer",
+        "Smita Krishnaswamy"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-23T20:49:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.22564v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Framework for inferring cellular dynamics from transcriptomics data",
+      "llm_evidence_cn": "从转录组数据推断细胞动力学的框架",
+      "llm_evidence": "从转录组数据推断细胞动力学的框架",
+      "canonical_evidence": "从转录组数据推断细胞动力学的框架",
+      "llm_tldr_en": "MIOFlow 2.0 infers cellular trajectories and stochastic dynamics from single-cell and spatial data.",
+      "llm_tldr_cn": "MIOFlow 2.0 从单细胞和空间数据中推断细胞轨迹和随机动力学。",
+      "llm_tldr": "MIOFlow 2.0 从单细胞和空间数据中推断细胞轨迹和随机动力学。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.20595v1",
+      "title": "Position: Multi-Agent Algorithmic Care Systems Demand Contestability for Trustworthy AI",
+      "abstract": "Multi-agent systems (MAS) are increasingly used in healthcare to support complex decision-making through collaboration among specialized agents. Because these systems act as collective decision-makers, they raise challenges for trust, accountability, and human oversight. Existing approaches to trustworthy AI largely rely on explainability, but explainability alone is insufficient in multi-agent settings, as it does not enable care partners to challenge or correct system outputs. To address this limitation, Contestable AI (CAI) characterizes systems that support effective human challenge throughout the decision-making lifecycle by providing transparency, structured opportunities for intervention, and mechanisms for review, correction, or override. This position paper argues that contestability is a necessary design requirement for trustworthy multi-agent algorithmic care systems. We identify key limitations in current MAS and Explainable AI (XAI) research and present a human-in-the-loop framework that integrates structured argumentation and role-based contestation to preserve human agency, clinical responsibility, and trust in high-stakes care contexts.",
+      "authors": [
+        "Truong Thanh Hung Nguyen",
+        "Hélène Fournier",
+        "Piper Jackson",
+        "Makoto Itoh",
+        "Shannon Freeman",
+        "Rene Richard",
+        "Hung Cao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-21T01:47:26+00:00",
+      "link": "https://arxiv.org/pdf/2603.20595v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent systems in healthcare for complex decision-making",
+      "llm_evidence_cn": "医疗保健中用于复杂决策的多智能体系统",
+      "llm_evidence": "医疗保健中用于复杂决策的多智能体系统",
+      "canonical_evidence": "医疗保健中用于复杂决策的多智能体系统",
+      "llm_tldr_en": "This paper discusses contestability and trust in multi-agent systems used for healthcare decision support.",
+      "llm_tldr_cn": "本文探讨了医疗决策支持中多智能体系统的可争辩性与信任问题。",
+      "llm_tldr": "本文探讨了医疗决策支持中多智能体系统的可争辩性与信任问题。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.19732v1",
+      "title": "Helix: A Dual-Helix Co-Evolutionary Multi-Agent System for Prompt Optimization and Question Reformulation",
+      "abstract": "Automated prompt optimization (APO) aims to improve large language model performance by refining prompt instructions. However, existing methods are largely constrained by fixed prompt templates, limited search spaces, or single-sided optimization that treats user questions as immutable inputs. In practice, question formulation and prompt design are inherently interdependent: clearer question structures facilitate focused reasoning and task understanding, while effective prompts reveal better ways to organize and restate queries. Ignoring this coupling fundamentally limits the effectiveness and adaptability of current APO approaches. We propose a unified multi-agent system (Helix) that jointly optimizes question reformulation and prompt instructions through a structured three-stage co-evolutionary framework. Helix integrates (1) planner-guided decomposition that breaks optimization into coupled question-prompt objectives, (2) dual-track co-evolution where specialized agents iteratively refine and critique each other to produce complementary improvements, and (3) strategy-driven question generation that instantiates high-quality reformulations for robust inference. Extensive experiments on 12 benchmarks against 6 strong baselines demonstrate the effectiveness of Helix, achieving up to 3.95% performance improvements across tasks with favorable optimization efficiency.",
+      "authors": [
+        "Kewen Zhu",
+        "Liping Yi",
+        "Zhiming Zhao",
+        "Xiang Li",
+        "Qinghua Hu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-03-20T08:16:09+00:00",
+      "link": "https://arxiv.org/pdf/2603.19732v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent system for prompt optimization",
+      "llm_evidence_cn": "用于提示词优化的多智能体系统",
+      "llm_evidence": "用于提示词优化的多智能体系统",
+      "canonical_evidence": "用于提示词优化的多智能体系统",
+      "llm_tldr_en": "Proposes a multi-agent system for joint optimization of prompts and question reformulation.",
+      "llm_tldr_cn": "提出了一种用于联合优化提示词和问题重构的统一多智能体系统。",
+      "llm_tldr": "提出了一种用于联合优化提示词和问题重构的统一多智能体系统。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23234v1",
+      "title": "MemCollab: Cross-Agent Memory Collaboration via Contrastive Trajectory Distillation",
+      "abstract": "Large language model (LLM)-based agents rely on memory mechanisms to reuse knowledge from past problem-solving experiences. Existing approaches typically construct memory in a per-agent manner, tightly coupling stored knowledge to a single model's reasoning style. In modern deployments with heterogeneous agents, a natural question arises: can a single memory system be shared across different models? We found that naively transferring memory between agents often degrades performance, as such memory entangles task-relevant knowledge with agent-specific biases. To address this challenge, we propose MemCollab, a collaborative memory framework that constructs agent-agnostic memory by contrasting reasoning trajectories generated by different agents on the same task. This contrastive process distills abstract reasoning constraints that capture shared task-level invariants while suppressing agent-specific artifacts. We further introduce a task-aware retrieval mechanism that conditions memory access on task category, ensuring that only relevant constraints are used at inference time. Experiments on mathematical reasoning and code generation benchmarks demonstrate that MemCollab consistently improves both accuracy and inference-time efficiency across diverse agents, including cross-modal-family settings. Our results show that the collaboratively constructed memory can function as a shared reasoning resource for diverse LLM-based agents.",
+      "authors": [
+        "Yurui Chang",
+        "Yiran Wu",
+        "Qingyun Wu",
+        "Lu Lin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-03-24T14:05:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.23234v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "framework for cross-agent memory collaboration",
+      "llm_evidence_cn": "跨智能体记忆协作框架",
+      "llm_evidence": "跨智能体记忆协作框架",
+      "canonical_evidence": "跨智能体记忆协作框架",
+      "llm_tldr_en": "Proposes MemCollab for agent-agnostic memory sharing across different LLM-based agents.",
+      "llm_tldr_cn": "提出了MemCollab，用于在不同的基于大模型的智能体之间共享通用记忆。",
+      "llm_tldr": "提出了MemCollab，用于在不同的基于大模型的智能体之间共享通用记忆。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20910v1",
+      "title": "LLM-ODE: Data-driven Discovery of Dynamical Systems with Large Language Models",
+      "abstract": "Discovering the governing equations of dynamical systems is a central problem across many scientific disciplines. As experimental data become increasingly available, automated equation discovery methods offer a promising data-driven approach to accelerate scientific discovery. Among these methods, genetic programming (GP) has been widely adopted due to its flexibility and interpretability. However, GP-based approaches often suffer from inefficient exploration of the symbolic search space, leading to slow convergence and suboptimal solutions. To address these limitations, we propose LLM-ODE, a large language model-aided model discovery framework that guides symbolic evolution using patterns extracted from elite candidate equations. By leveraging the generative prior of large language models, LLM-ODE produces more informed search trajectories while preserving the exploratory strengths of evolutionary algorithms. Empirical results on 91 dynamical systems show that LLM-ODE variants consistently outperform classical GP methods in terms of search efficiency and Pareto-front quality. Overall, our results demonstrate that LLM-ODE improves both efficiency and accuracy over traditional GP-based discovery and offers greater scalability to higher-dimensional systems compared to linear and Transformer-only model discovery methods.",
+      "authors": [
+        "Amirmohammad Ziaei Bideh",
+        "Jonathan Gryak"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-21T18:46:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.20910v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Data-driven discovery of dynamical systems in scientific disciplines",
+      "llm_evidence_cn": "科学学科中动力系统的数据驱动发现",
+      "llm_evidence": "科学学科中动力系统的数据驱动发现",
+      "canonical_evidence": "科学学科中动力系统的数据驱动发现",
+      "llm_tldr_en": "LLM-ODE uses LLMs to guide the discovery of governing equations for dynamical systems in science.",
+      "llm_tldr_cn": "LLM-ODE利用大语言模型引导科学发现中动力系统控制方程的自动搜索。",
+      "llm_tldr": "LLM-ODE利用大语言模型引导科学发现中动力系统控制方程的自动搜索。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21272v1",
+      "title": "The Library Theorem: How External Organization Governs Agentic Reasoning Capacity",
+      "abstract": "Externalized reasoning is already exploited by transformer-based agents through chain-of-thought, but structured retrieval -- indexing over one's own reasoning state -- remains underexplored. We formalize the transformer context window as an I/O page and prove that tool-augmented agents with indexed external memory achieve exponentially lower retrieval cost than agents restricted to sequential scanning: $O(\\log_b N)$ versus $Ω(N)$ page reads per query, and $O(T \\log_b T)$ versus $Θ(T^2)$ cumulative cost over $T$ reasoning steps -- a gap that widens as deliberation deepens. We test these predictions on a controlled lookup benchmark across three content types -- random hashes, ordered integers, and encyclopedia entries -- varying store size from 50 to 5,000 items, and replicate key conditions across two model generations (GPT-4o-mini and GPT-5.4). On abstract content, the indexed agent achieves median 1 page read regardless of store size, confirming the $O(1)$ prediction. Sorted pages without an index fail to close the gap: the weaker model cannot sustain binary search at scale, and the stronger model achieves near-optimal $\\log_2 N$ search but still loses to the index by $5\\times$. On familiar content (encyclopedia entries), a competing failure mode emerges: the model recognizes the domain, bypasses the retrieval protocol, and generates answers from parametric memory, producing catastrophic token expenditure even when the index is sound. This parametric memory competition dissociates the two cognitive operations that indexing combines: understanding content (where language models excel) and following navigational protocols (where they fail when understanding tempts them to shortcut). The result argues for a separation of concerns: use language models for index construction, where semantic understanding helps, and deterministic algorithms for index traversal, where it hurts.",
+      "authors": [
+        "Zachary F. Mainen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.DS",
+        "cs.LG"
+      ],
+      "published": "2026-03-22T15:02:56+00:00",
+      "link": "https://arxiv.org/pdf/2603.21272v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "agentic reasoning capacity and external memory organization",
+      "llm_evidence_cn": "智能体推理能力与外部记忆组织",
+      "llm_evidence": "智能体推理能力与外部记忆组织",
+      "canonical_evidence": "智能体推理能力与外部记忆组织",
+      "llm_tldr_en": "Formalizes how structured external memory improves the reasoning efficiency of transformer-based agents.",
+      "llm_tldr_cn": "形式化证明了结构化外部记忆如何提高基于Transformer的智能体的推理效率。",
+      "llm_tldr": "形式化证明了结构化外部记忆如何提高基于Transformer的智能体的推理效率。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22367v1",
+      "title": "Reasoner-Executor-Synthesizer: Scalable Agentic Architecture with Static O(1) Context Window",
+      "abstract": "Large Language Models (LLMs) deployed as autonomous agents commonly use Retrieval-Augmented Generation (RAG), feeding retrieved documents into the context window, which creates two problems: the risk of hallucination grows with context length, and token cost scales linearly with dataset size. We propose the Reasoner-Executor-Synthesizer (RES) architecture, a three-layer design that strictly separates intent parsing (Reasoner), deterministic data retrieval and aggregation (Executor), and narrative generation (Synthesizer). The Executor uses zero LLM tokens and passes only fixed-size statistical summaries to the Synthesizer. We formally prove that RES achieves O(1) token complexity with respect to dataset size, and validate this on ScholarSearch, a scholarly research assistant backed by the Crossref API (130M+ articles). Across 100 benchmark runs, RES achieves a mean token cost of 1,574 tokens regardless of whether the dataset contains 42,000 or 16.3 million articles. The architecture eliminates data hallucination by construction: the LLM never sees raw records. KEYWORDS LLM agents; agentic architecture; hallucination elimination; token optimization; context window; retrieval-augmented generation; deterministic execution; scholarly metadata; Crossref API; O(1) complexity.",
+      "authors": [
+        "Ivan Dobrovolskyi"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T05:16:55+00:00",
+      "link": "https://arxiv.org/pdf/2603.22367v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Scalable agentic architecture for autonomous agents",
+      "llm_evidence_cn": "自主智能体的可扩展架构",
+      "llm_evidence": "自主智能体的可扩展架构",
+      "canonical_evidence": "自主智能体的可扩展架构",
+      "llm_tldr_en": "Proposes a three-layer agentic architecture to reduce context window costs and hallucinations.",
+      "llm_tldr_cn": "提出了一种三层智能体架构，旨在降低上下文窗口成本并减少幻觉。",
+      "llm_tldr": "提出了一种三层智能体架构，旨在降低上下文窗口成本并减少幻觉。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22386v1",
+      "title": "From Static Templates to Dynamic Runtime Graphs: A Survey of Workflow Optimization for LLM Agents",
+      "abstract": "Large language model (LLM)-based systems are becoming increasingly popular for solving tasks by constructing executable workflows that interleave LLM calls, information retrieval, tool use, code execution, memory updates, and verification. This survey reviews recent methods for designing and optimizing such workflows, which we treat as agentic computation graphs (ACGs). We organize the literature based on when workflow structure is determined, where structure refers to which components or agents are present, how they depend on each other, and how information flows between them. This lens distinguishes static methods, which fix a reusable workflow scaffold before deployment, from dynamic methods, which select, generate, or revise the workflow for a particular run before or during execution. We further organize prior work along three dimensions: when structure is determined, what part of the workflow is optimized, and which evaluation signals guide optimization (e.g., task metrics, verifier signals, preferences, or trace-derived feedback). We also distinguish reusable workflow templates, run-specific realized graphs, and execution traces, separating reusable design choices from the structures actually deployed in a given run and from realized runtime behavior. Finally, we outline a structure-aware evaluation perspective that complements downstream task metrics with graph-level properties, execution cost, robustness, and structural variation across inputs. Our goal is to provide a clear vocabulary, a unified framework for positioning new methods, a more comparable view of existing body of literature, and a more reproducible evaluation standard for future work in workflow optimizations for LLM agents.",
+      "authors": [
+        "Ling Yue",
+        "Kushal Raj Bhandari",
+        "Ching-Yun Ko",
+        "Dhaval Patel",
+        "Shuxin Lin",
+        "Nianjun Zhou",
+        "Jianxi Gao",
+        "Pin-Yu Chen",
+        "Shaowu Pan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-03-23T17:42:59+00:00",
+      "link": "https://arxiv.org/pdf/2603.22386v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Survey of workflow optimization for LLM agents and agentic computation graphs",
+      "llm_evidence_cn": "LLM智能体工作流优化与智能体计算图综述",
+      "llm_evidence": "LLM智能体工作流优化与智能体计算图综述",
+      "canonical_evidence": "LLM智能体工作流优化与智能体计算图综述",
+      "llm_tldr_en": "A survey on optimizing LLM agent workflows, providing architectural insights for multi-agent systems.",
+      "llm_tldr_cn": "综述了LLM智能体工作流的优化方法，为构建多智能体系统提供了架构参考。",
+      "llm_tldr": "综述了LLM智能体工作流的优化方法，为构建多智能体系统提供了架构参考。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
