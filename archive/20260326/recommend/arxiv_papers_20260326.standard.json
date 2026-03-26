@@ -1,0 +1,324 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-26T20:38:53.706912+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2603.21494v2",
+      "title": "Agentic Automation of BT-RADS Scoring: End-to-End Multi-Agent System for Standardized Brain Tumor Follow-up Assessment",
+      "abstract": "The Brain Tumor Reporting and Data System (BT-RADS) standardizes post-treatment MRI response assessment in patients with diffuse gliomas but requires complex integration of imaging trends, medication effects, and radiation timing. This study evaluates an end-to-end multi-agent large language model (LLM) and convolutional neural network (CNN) system for automated BT-RADS classification. A multi-agent LLM system combined with automated CNN-based tumor segmentation was retrospectively evaluated on 509 consecutive post-treatment glioma MRI examinations from a single high-volume center. An extractor agent identified clinical variables (steroid status, bevacizumab status, radiation date) from unstructured clinical notes, while a scorer agent applied BT-RADS decision logic integrating extracted variables with volumetric measurements. Expert reference standard classifications were established by an independent board-certified neuroradiologist. Of 509 examinations, 492 met inclusion criteria. The system achieved 374/492 (76.0%; 95% CI, 72.1%-79.6%) accuracy versus 283/492 (57.5%; 95% CI, 53.1%-61.8%) for initial clinical assessments (+18.5 percentage points; P<.001). Context-dependent categories showed high sensitivity (BT-1b 100%, BT-1a 92.7%, BT-3a 87.5%), while threshold-dependent categories showed moderate sensitivity (BT-3c 74.8%, BT-2 69.2%, BT-4 69.3%, BT-3b 57.1%). For BT-4, positive predictive value was 92.9%. The multi-agent LLM system achieved higher BT-RADS classification agreement with expert reference standard compared to initial clinical scoring, with high accuracy for context-dependent scores and high positive predictive value for BT-4 detection.",
+      "authors": [
+        "Mohamed Sobhi Jabal",
+        "Jikai Zhang",
+        "Dominic LaBella",
+        "Jessica L. Houk",
+        "Dylan Zhang",
+        "Jeffrey D. Rudie",
+        "Kirti Magudia",
+        "Maciej A. Mazurowski",
+        "Evan Calabrese"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-03-23T02:31:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.21494v2",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-agent LLM system for brain tumor follow-up assessment",
+      "llm_evidence_cn": "用于脑肿瘤随访评估的多智能体LLM系统",
+      "llm_evidence": "用于脑肿瘤随访评估的多智能体LLM系统",
+      "canonical_evidence": "用于脑肿瘤随访评估的多智能体LLM系统",
+      "llm_tldr_en": "Evaluates a multi-agent LLM and CNN system for automated brain tumor reporting and data standardization.",
+      "llm_tldr_cn": "评估用于自动化脑肿瘤报告和数据标准化的多智能体LLM与CNN系统。",
+      "llm_tldr": "评估用于自动化脑肿瘤报告和数据标准化的多智能体LLM与CNN系统。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.17864v1",
+      "title": "Bivariate deconvolution for cancer detection after surgery",
+      "abstract": "Detection of minimal residual disease (MRD) in cancer patients after surgery can provide an early marker for disease recurrence and guide subsequent treatment decisions. Accurate and sensitive estimation of tumour burden after cancer surgery may be obtained through liq- uid biopsies, measuring circulating tumour DNA (ctDNA) using, for example, mutation-based Variant Allele Frequency (VAF) values. However, to be applicable to all patients this ei- ther requires tumour-informed, patient-specific mutation panels or sensitive, tumour-agnostic genome-wide measurements. We propose a solution that accounts for patient-specific charac- teristics in genome-wide screens. For that, we introduce a bivariate deconvolution model to estimate tumour proportion from circulating cell-free DNA (cfDNA) methylation profiles of patients before and after surgery. The observations are modelled as a convolution of two bivariate latent variables, corresponding to tumour and background signals, mixed by the tumour proportion at each measurement. This bivariate approach links pre- and post-surgery measurements improving estimation of the tumour proportion after surgery, when the tumour signal is potentially very weak, or absent. We approximate likelihood of the convolution through a discretisation of the bivariate density for each latent variable into a two-dimensional grid for each pair of observations which allows for fast maximum likelihood estimation. We evaluate the predictive performance of the estimated post-surgery tumour proportions based on cfDNA methylation against available mutation-based VAF values in one-year recurrence-free survival.",
+      "authors": [
+        "Nuria Senar",
+        "Stavros Makrodimitris",
+        "Michel H. Hof",
+        "Cornelis Verhoef",
+        "Saskia M. Wilting",
+        "Mark A. van de Wiel"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-03-18T15:52:28+00:00",
+      "link": "https://arxiv.org/pdf/2603.17864v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Computational model for cancer detection using ctDNA",
+      "llm_evidence_cn": "利用ctDNA进行癌症检测的计算模型",
+      "llm_evidence": "利用ctDNA进行癌症检测的计算模型",
+      "canonical_evidence": "利用ctDNA进行癌症检测的计算模型",
+      "llm_tldr_en": "A bivariate deconvolution model to estimate tumor burden from genome-wide liquid biopsy data.",
+      "llm_tldr_cn": "一种通过全基因组液体活检数据估计肿瘤负荷的二元反卷积模型。",
+      "llm_tldr": "一种通过全基因组液体活检数据估计肿瘤负荷的二元反卷积模型。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22376v1",
+      "title": "AI Co-Scientist for Ranking: Discovering Novel Search Ranking Models alongside LLM-based AI Agents with Cloud Computing Access",
+      "abstract": "Recent advances in AI agents for software engineering and scientific discovery have demonstrated remarkable capabilities, yet their application to developing novel ranking models in commercial search engines remains unexplored. In this paper, we present an AI Co-Scientist framework that automates the full search ranking research pipeline: from idea generation to code implementation and GPU training job scheduling with expert in the loop. Our approach strategically employs single-LLM agents for routine tasks while leveraging multi-LLM consensus agents (GPT 5.2, Gemini Pro 3, and Claude Opus 4.5) for challenging phases such as results analysis and idea generation. To our knowledge, this is the first study in the ranking community to utilize an AI Co-Scientist framework for algorithmic research. We demonstrate that this framework discovered a novel technique for handling sequence features, with all model enhancements produced automatically, yielding substantial offline performance improvements. Our findings suggest that AI systems can discover ranking architectures comparable to those developed by human experts while significantly reducing routine research workloads.",
+      "authors": [
+        "Liwei Wu",
+        "Cho-Jui Hsieh"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T09:29:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.22376v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "AI agents for scientific discovery and research pipeline automation",
+      "llm_evidence_cn": "用于科学发现和研究流程自动化的AI智能体",
+      "llm_evidence": "用于科学发现和研究流程自动化的AI智能体",
+      "canonical_evidence": "用于科学发现和研究流程自动化的AI智能体",
+      "llm_tldr_en": "Presents an AI Co-Scientist framework using multi-LLM agents to automate research pipelines.",
+      "llm_tldr_cn": "提出了一个AI联合科学家框架，利用多LLM智能体自动化研究流程。",
+      "llm_tldr": "提出了一个AI联合科学家框架，利用多LLM智能体自动化研究流程。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20420v1",
+      "title": "CERN: Correcting Errors in Raw Nanopore Signals Using Hidden Markov Models",
+      "abstract": "Nanopore sequencing can read substantially longer sequences of nucleic acid molecules than other sequencing methods, which has led to advances in genomic analysis such as the gapless human genome assembly. By analyzing the raw electrical signal reads that nanopore sequencing generates from molecules, existing works can map these reads without translating them into DNA characters (i.e., basecalling), allowing for quick and efficient analysis of sequencing data. However, raw signals often contain errors due to noise and mistakes when processing them, which limits the overall accuracy of raw signal analysis.   Our goal in this work is to detect and correct errors in raw signals to improve the accuracy of raw signal analyses. To this end, we propose CERN, a mechanism that trains and utilizes a Hidden Markov Model (HMM) to accurately correct signal errors. Our extensive evaluation on various datasets including E. coli, Fruit Fly, and Human genomes shows that CERN 1) consistently improves the overall mapping accuracy of the underlying raw signal analysis tools, 2) minimizes the burden on segmentation algorithm optimization with newer nanopore chemistries, and 3) functions without causing substantial computational overhead. We conclude that CERN provides an effective mechanism to systematically identify and correct the errors in raw nanopore signals before further analysis, which can enable the development of a new class of error correction mechanisms purely designed for raw nanopore signals.   CERN is available at https://github.com/STORMgroup/CERN. We also provide the scripts to fully reproduce our results on our GitHub page.",
+      "authors": [
+        "Simon Ambrozak",
+        "Ulysse McConnell",
+        "Bhargav Srinivasan",
+        "Burak Ozkan",
+        "Can Firtina"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.LG",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-20T18:41:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.20420v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Correcting errors in raw nanopore signals for genomic analysis",
+      "llm_evidence_cn": "纠正用于基因组分析的原始纳米孔信号错误",
+      "llm_evidence": "纠正用于基因组分析的原始纳米孔信号错误",
+      "canonical_evidence": "纠正用于基因组分析的原始纳米孔信号错误",
+      "llm_tldr_en": "Proposes a Hidden Markov Model approach to improve the accuracy of raw nanopore sequencing signal analysis.",
+      "llm_tldr_cn": "提出了一种隐马尔可夫模型方法，以提高原始纳米孔测序信号分析的准确性。",
+      "llm_tldr": "提出了一种隐马尔可夫模型方法，以提高原始纳米孔测序信号分析的准确性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22791v1",
+      "title": "ABSTRAL: Automatic Design of Multi-Agent Systems Through Iterative Refinement and Topology Optimization",
+      "abstract": "How should multi-agent systems be designed, and can that design knowledge be captured in a form that is inspectable, revisable, and transferable? We introduce ABSTRAL, a framework that treats MAS architecture as an evolving natural-language document, an artifact refined through contrastive trace analysis. Three findings emerge. First, we provide a precise measurement of the multi-agent coordination tax: under fixed turn budgets, ensembles achieve only 26% turn efficiency, with 66% of tasks exhausting the limit, yet still improve over single-agent baselines by discovering parallelizable task decompositions. Second, design knowledge encoded in documents transfers: topology reasoning and role templates learned on one domain provide a head start on new domains, with transferred seeds matching coldstart iteration 3 performance in a single iteration. Third, contrastive trace analysis discovers specialist roles absent from any initial design, a capability no prior system demonstrates. On SOPBench (134 bank tasks, deterministic oracle), ABSTRAL reaches 70% validation / 65.96% test pass rate with a GPT-4o backbone. We release the converged documents as inspectable design rationale.",
+      "authors": [
+        "Weijia Song",
+        "Jiashu Yue",
+        "Zhe Pang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-24T04:28:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.22791v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for automatic design and optimization of multi-agent systems",
+      "llm_evidence_cn": "多智能体系统自动设计与优化的框架",
+      "llm_evidence": "多智能体系统自动设计与优化的框架",
+      "canonical_evidence": "多智能体系统自动设计与优化的框架",
+      "llm_tldr_en": "Presents ABSTRAL, a framework for designing and optimizing multi-agent systems through iterative refinement.",
+      "llm_tldr_cn": "提出ABSTRAL，一个通过迭代细化和拓扑优化来设计多智能体系统的框架。",
+      "llm_tldr": "提出ABSTRAL，一个通过迭代细化和拓扑优化来设计多智能体系统的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23849v1",
+      "title": "VILLA: Versatile Information Retrieval From Scientific Literature Using Large LAnguage Models",
+      "abstract": "The lack of high-quality ground truth datasets to train machine learning (ML) models impedes the potential of artificial intelligence (AI) for science research. Scientific information extraction (SIE) from the literature using LLMs is emerging as a powerful approach to automate the creation of these datasets. However, existing LLM-based approaches and benchmarking studies for SIE focus on broad topics such as biomedicine and chemistry, are limited to choice-based tasks, and focus on extracting information from short and well-formatted text. The potential of SIE methods in complex, open-ended tasks is considerably under-explored. In this study, we used a domain that has been virtually ignored in SIE, namely virology, to address these research gaps. We design a unique, open-ended SIE task of extracting mutations in a given virus that modify its interaction with the host. We develop a new, multi-step retrieval augmented generation (RAG) framework called VILLA for SIE. In parallel, we curate a novel dataset of 629 mutations in ten influenza A virus proteins obtained from 239 scientific publications to serve as ground truth for the mutation extraction task. Finally, we demonstrate VILLA's superior performance using a novel and comprehensive evaluation and comparison with vanilla RAG and other state-of-the art RAG- and agent-based tools for SIE.",
+      "authors": [
+        "Blessy Antony",
+        "Amartya Dutta",
+        "Sneha Aggarwal",
+        "Vasu Gatne",
+        "Ozan Gökdemir",
+        "Samantha Grimes",
+        "Adam Lauring",
+        "Brian R. Wasik",
+        "Anuj Karpatne",
+        "T. M. Murali"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR"
+      ],
+      "published": "2026-03-25T02:15:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.23849v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "scientific information extraction in virology",
+      "llm_evidence_cn": "病毒学领域的科学信息提取",
+      "llm_evidence": "病毒学领域的科学信息提取",
+      "canonical_evidence": "病毒学领域的科学信息提取",
+      "llm_tldr_en": "Uses LLMs for scientific information extraction in virology to automate high-quality dataset creation.",
+      "llm_tldr_cn": "利用大语言模型在病毒学领域进行科学信息提取，自动化构建高质量科研数据集。",
+      "llm_tldr": "利用大语言模型在病毒学领域进行科学信息提取，自动化构建高质量科研数据集。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24265v1",
+      "title": "DeepDTF: Dual-Branch Transformer Fusion for Multi-Omics Anticancer Drug Response Prediction",
+      "abstract": "Cancer drug response varies widely across tumors due to multi-layer molecular heterogeneity, motivating computational decision support for precision oncology. Despite recent progress in deep CDR models, robust alignment between high-dimensional multi-omics and chemically structured drugs remains challenging due to cross-modal misalignment and limited inductive bias. We present DeepDTF, an end-to-end dual-branch Transformer fusion framework for joint log(IC50) regression and drug sensitivity classification. The cell-line branch uses modality-specific encoders for multi-omics profiles with Transformer blocks to capture long-range dependencies, while the drug branch represents compounds as molecular graphs and encodes them with a GNN-Transformer to integrate local topology with global context. Omics and drug representations are fused by a Transformer-based module that models cross-modal interactions and mitigates feature misalignment. On public pharmacogenomic benchmarks under 5-fold cold-start cell-line evaluation, DeepDTF consistently outperforms strong baselines across omics settings, achieving up to RMSE=1.248, R^2=0.875, and AUC=0.987 with full multi-omics inputs, while reducing classification error (1-ACC) by 9.5%. Beyond accuracy, DeepDTF provides biologically grounded explanations via SHAP-based gene attributions and pathway enrichment with pre-ranked GSEA.",
+      "authors": [
+        "Yuhan Zhao",
+        "Jacob Tennant",
+        "James Yang",
+        "Zhishan Guo",
+        "Young Whang",
+        "Ning Sui"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-25T12:58:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.24265v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Transformer fusion for multi-omics anticancer drug response prediction",
+      "llm_evidence_cn": "用于多组学抗癌药物反应预测的Transformer融合",
+      "llm_evidence": "用于多组学抗癌药物反应预测的Transformer融合",
+      "canonical_evidence": "用于多组学抗癌药物反应预测的Transformer融合",
+      "llm_tldr_en": "DeepDTF uses dual-branch Transformers to predict drug responses from multi-omics and chemical data.",
+      "llm_tldr_cn": "DeepDTF利用双分支Transformer根据多组学和化学数据预测药物反应。",
+      "llm_tldr": "DeepDTF利用双分支Transformer根据多组学和化学数据预测药物反应。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24402v1",
+      "title": "AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model",
+      "abstract": "Existing automated research systems operate as stateless, linear pipelines, generating outputs without maintaining a persistent understanding of the research landscape. They process papers sequentially, propose ideas without structured gap analysis, and lack mechanisms for agents to verify or refine each other's findings. We present AutoProf (Autonomous Professor), a multi-agent orchestration framework where specialized agents provide end-to-end AI research supervision driven by human interests, from literature review through gap discovery, method development, evaluation, and paper writing, via autonomous exploration and self-correcting updates. Unlike sequential pipelines, AutoProf maintains a continuously evolving Research World Model implemented as a Knowledge Graph, capturing methods, benchmarks, limitations, and unexplored gaps as shared memory across agents. The framework introduces three contributions: first, structured gap discovery that decomposes methods into modules, evaluates them across benchmarks, and identifies module-level gaps; second, self-correcting discovery loops that analyze why modules succeed or fail, detect benchmark biases, and assess evaluation adequacy; third, self-improving development loops using cross-domain mechanism search to iteratively address failing components. All agents operate under a consensus mechanism where findings are validated before being committed to the shared model. The framework is model-agnostic, supports mainstream large language models, and scales elastically with token budget from lightweight exploration to full-scale investigation.",
+      "authors": [
+        "Yunbo Long"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-25T15:16:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.24402v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent orchestration for autonomous AI research supervision",
+      "llm_evidence_cn": "自主AI研究监督的多智能体编排",
+      "llm_evidence": "自主AI研究监督的多智能体编排",
+      "canonical_evidence": "自主AI研究监督的多智能体编排",
+      "llm_tldr_en": "A multi-agent framework for end-to-end research supervision, applicable to biological literature and discovery.",
+      "llm_tldr_cn": "一种用于端到端研究监督的多智能体框架，适用于生物文献和发现。",
+      "llm_tldr": "一种用于端到端研究监督的多智能体框架，适用于生物文献和发现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

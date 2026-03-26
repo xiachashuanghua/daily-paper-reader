@@ -1,0 +1,1076 @@
+Title: Bivariate deconvolution for cancer detection after surgery
+
+URL Source: https://arxiv.org/pdf/2603.17864v1
+
+Published Time: Thu, 19 Mar 2026 01:36:40 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Bivariate deconvolution for cancer detection after surgery 
+
+Nuria Senar 1, ∗, Stavros Makrodimitris 2,4 , Michel H. Hof 1, Cornelis Verhoef 3, Saskia M. Wilting 4, and Mark A. van de Wiel 11Epidemiology & Data Science, Amsterdam UMC 
+
+> 2
+
+Swammerdam Institute for Life Sciences, Universiteit van Amsterdam 
+
+> 4
+
+Department of Medical Oncology, Erasmus MC Cancer Institute, UMC Rotterdam 
+
+> 3
+
+Department of Surgical Oncology and Gastrointestinal Surgery, Erasmus MC Cancer Institute, UMC Rotterdam March 19, 2026 
+
+Abstract 
+
+Detection of minimal residual disease (MRD) in cancer patients after surgery can provide an early marker for disease recurrence and guide subsequent treatment decisions. Accurate and sensitive estimation of tumour burden after cancer surgery may be obtained through liq-uid biopsies, measuring circulating tumour DNA (ctDNA) using, for example, mutation-based Variant Allele Frequency (VAF) values. However, to be applicable to all patients this ei-ther requires tumour-informed, patient-specific mutation panels or sensitive, tumour-agnostic genome-wide measurements. We propose a solution that accounts for patient-specific charac-teristics in genome-wide screens. For that, we introduce a bivariate deconvolution model to estimate tumour proportion from circulating cell-free DNA (cfDNA) methylation profiles of patients before and after surgery. The observations are modelled as a convolution of two bi-variate latent variables, corresponding to tumour and background signals, mixed by the tumour proportion at each measurement. This bivariate approach links pre- and post-surgery measure-ments improving estimation of the tumour proportion after surgery, when the tumour signal is potentially very weak, or absent. We approximate likelihood of the convolution through a discretisation of the bivariate density for each latent variable into a two-dimensional grid for each pair of observations which allows for fast maximum likelihood estimation. We evaluate the predictive performance of the estimated post-surgery tumour proportions based on cfDNA methylation against available mutation-based VAF values in one-year recurrence-free survival. 
+
+# 1 Introduction 
+
+After cancer surgery with curative intent, undetected cancer cells may remain in patients which could eventually grow and lead to recurrence, months or even years after the procedure. Identifying patients’ risk of recurrence due to residual disease directly following surgery is crucial to assess the need for post-surgical treatment for every individual patient, as early detection and subsequent adjuvant treatment have better outcomes (Henriksen, Demuth, et al., 2025). Liquid biopsies offer 1
+
+> arXiv:2603.17864v1 [stat.ME] 18 Mar 2026
+
+a fast and minimally invasive strategy for evaluating patients during follow up. These can detect molecular biomarkers linked to the presence of cancerous cells, thereby enabling rapid screening for the presence of residual disease. Improvements in measuring techniques have increased the fidelity of tests on liquid biopsies, making less invasive metrics more reliable for clinical practice. Mutational profiling of the tumour tissue can be used to design highly accurate personalised assays for circulating tumour DNA (ctDNA) detection in liquid biopsies of that patient (Black, Karasaki, et al., 2025; Nakamura, Watanabe, et al., 2024). Hence, notwithstanding promising results, development of these patient-specific mutation panels is complicated, expensive and requires the availability of tumour tissue. Tumour-agnostic approaches are available investigating for example copy number variations and cfDNA fragmentation features. However, the former require enough tumour signal to be present in order to be detected (Adalsteinsson, Ha, et al., 2017), while recent evidence suggest that cfDNA fragmentation features might not be tumour-specific (Curtis, Liu, et al., 2025). On the other hand, circulating cell-free DNA (cfDNA) methylation profiling to estimate the circulating tumour frac-tion is considered a promising alterative (Øgaard, Reinert, et al., 2022), although standardisation is currently lacking and its clinical utility is yet to be generally validated, especially for patients whose disease burden is small (Galant, Nico´ s, et al., 2024; Zhong, Jiang, et al., 2024). Methylation profiles capture cell-type specific DNA methylation patterns, enabling the discrimination of cir-culating tumour DNA (ctDNA) from background cfDNA derived from healthy tissues. Moreover, methylation analyses have been shown to be more sensitive for detection of cancer cells in early stages (Kwon, Shin, et al., 2023; Ma, Guo, et al., 2024). Several deconvolution methods have been developed to separate the tumour from background signals. Ahn, Yuan, et al., 2013 used absolute gene expression levels for this, where they assume the background component is known. Kang, Li, et al., 2017 deconvoluted methylation signals by using beta distributions for cancer detection as well as for predicting the tissue-of-origin of the primary tumour. More recently, deconvolution models have been used on methylation data to estimate the proportions of different cell types in circulating cfDNA (Caggiano, Celona, et al., 2021; Loyfer, Magenheim, et al., 2023). Notably, the latter three methylation-based methods operate on relative methylation values, unlike our method which uses the absolute values to respect that the actual convolution takes place on that level. Furthermore, all of the aforementioned models are univariate unlike ours. Identifying minimal residual disease (MRD) after surgical tumour removal requires very high sensitivity due to the low tumour signal. The available deconvolution methods treat the pre-and post-operative cfDNA methylation profiles as independent. Linking pre- and post-surgery measurements, however, likely aids in the estimation of the presence of residual tumour for each individual. Our main focus is on the post-surgery estimate, yet the pre-surgery one is likely richer in tumour signal. To better estimate the the former, we introduce a bivariate deconvolution model with two latent components, background and tumour, weighted by each patient’s respective tumour fraction. The latent variables are each assumed to be bivariate log-normally distributed, linking both measurements through a feature-wise correlation parameter. This structure allows for the baseline estimates to inform the tumour proportion estimates post surgery. We use a three-stage likelihood-based estimation process for the various parameters. We assessed the model’s performance on simulations as well as real data and found the bivariate tumour fraction estimates more accurate than their univariate counterpart in the simulations and better linked to clinical outcomes compared to VAF-based values as well as the univariate estimates. We use pre- and post-surgical cfDNA methylation profiles from 112 patients with colorectal liver 2metastases who underwent surgery with curative intent generated using the MeD-seq assay, which generates methylated fragment counts per CpG site (Deger, Boers, et al., 2021). Blood samples were taken right before surgery and 3 weeks after. Patients did not receive any peri-operative chemotherapy. We used 31 cfDNA samples from healthy controls to 30 samples from tumour tissue biopsies to preselect differentially methylated samples. Last, clinical outcome data on 1 year recurrence-free survival (RFS) as well as overall survival (OS) is available for all patients. 
+
+# 2 Model Specification 
+
+Suppose we observe methylated read counts of p molecular features for N individuals, measured immediately before and after surgical intervention. Let 
+
+Y = (Y 0 
+
+> ij
+
+, Y 1 
+
+> ij
+
+) : i = 1 , . . . , N ; j = 1 , . . . , p ,
+
+where Y 0 
+
+> ij
+
+and Y 1 
+
+> ij
+
+denote the expression levels of feature j for individual i, measured pre- and post-surgery, respectively. Each observed expression level is modelled as a convolution of two inde-pendent latent components: a tumour-specific component and a background component, weighted by individual specific tumour fractions. Specifically, for each individual i = 1 , . . . , N , we obtain 
+
+Y 0 
+
+> ij
+
+= π0 
+
+> i
+
+T 0 
+
+> ij
+
++ (1 − π0 
+
+> i
+
+) B0 
+
+> ij
+
+,Y 1 
+
+> ij
+
+= π1 
+
+> i
+
+T 1 
+
+> ij
+
++ (1 − π1 
+
+> i
+
+) B1 
+
+> ij
+
+, (1) where T 0 
+
+> ij
+
+and T 1 
+
+> ij
+
+represent the unknown tumour-specific expression levels before and after surgery, and B0 
+
+> ij
+
+and B1 
+
+> ij
+
+denote the corresponding background expression levels. The parameters π0 
+
+> i
+
+and 
+
+π1 
+
+> i
+
+represent the proportion of tumour tissue in the sample before and after surgery, respectively. To reduce model complexity, we adopt a pseudo-likelihood approach assuming independence across the p molecular features. While this simplification might introduce bias when strong feature correlations exist, prior work suggests that the bias is often negligible when the latent components are well-separated. Thus, the pseudo-likelihood yields consistent and computationally efficient estimators under mild conditions, justifying its use in this context (Allman, Matias, et al., 2009; Kangro, Kuljus, et al., 2025). This assumption of independence between features allows us to model ( T 0 
+
+> ij
+
+, T 1 
+
+> ij
+
+) and ( B0 
+
+> ij
+
+, B 1 
+
+> ij
+
+)for each molecular feature j = 1 , . . . , p using separate bivariate log-normal distributions. Since expression levels are strictly positive and often exhibit right-skewed distributions, the (bivariate) log-normal distribution is a plausible choice for modelling molecular feature expressions (Ahn, Yuan, et al., 2013; Andrade Barbosa, van Asten, et al., 2021). The log-normal distribution has the property that multiplying a log-normal random variable by a positive scalar results in another log-normal variable, with its mean scaled by the same factor. This enables us to model the weighted background component ( ˜B0 
+
+> ij
+
+, ˜B1 
+
+> ij
+
+), where ˜B0 
+
+> ij
+
+= (1 − π0 
+
+> i
+
+)B0 
+
+> ij
+
+, ˜B1 
+
+> ij
+
+= (1 − π1 
+
+> i
+
+)B1 
+
+> ij
+
+,
+
+with the following bivariate log-normal distribution 
+
+log( ˜B0 
+
+> ij
+
+)log( ˜B1 
+
+> ij
+
+)
+
+
+
+∼ N μ0,b j + log(1 − π0 
+
+> i
+
+)
+
+μ1,b j + log(1 − π1 
+
+> i
+
+)
+
+!
+
+,
+
+τ 0,b j τ 01 ,b j
+
+τ 01 ,b j τ 1,b j
+
+!! 
+
+,
+
+(2) 3where μ0,b j and μ1,b j denote the mean log-expression levels of feature j in background tissue be-fore and after surgery, respectively. The parameters τ 0,b j and τ 1,b j represent the marginal variances and covariance τ 01 ,b j , with corresponding correlation ρbj = τ 01 ,b j /
+
+q
+
+τ 0,b j
+
+q
+
+τ 1,b j . Then, the correla-tion parameter ρbj captures the feature-wise correlation in background expression levels between measurements. Similar to equation (2), the weighted tumour component follows a bivariate log-normal distribu-tion with means μ0,t j + log( π0 
+
+> i
+
+) and μ1,t j + log( π1 
+
+> i
+
+) and marginal variances τ 0,t j , τ 1,t j , and covariance 
+
+τ 01 ,t j . Last, the feature-wise correlation parameter is given by parameter ρtj .
+
+2.1 Maximum likelihood estimation 
+
+To estimate the parameters if interest for all individuals, π1 
+
+> i
+
+, together with all the nuisance pa-rameters, we maximise the log-pseudo-likelihood ℓ(Π , Θ; Y ) = Pni=1 
+
+Ppj=1 ℓ(πi, θj ; yij ). Here, 
+
+ℓ(πi, θj ; yij ) = log L(πi, θj ; yij ). Let θj = {θbj , θtj } be the distribution parameters described above for both components, with θbj = {μ0,b j , μ 1,b j , τ 0,b j , τ 1,b j , ρ bj } and equivalent for θtj . Following (1), 
+
+L(πi, θj ; yij ) is a convolution of two bivariate log-normal random variables. Such a convolution is not analytical and available approximations have limited accuracy (Andrade Barbosa, van As-ten, et al., 2021). It could, in principle, be computed by numerical integration, but this is likely time-consuming given that it needs to be repeated for all j = 1 , . . . , p , all i = 1 , . . . , n and all proposals of the parameters (Π , Θ) when optimizing ℓ(Π , Θ; Y ). Therefore, we resort to a discrete approximation of the convolution. 
+
+2.1.1 Discrete approximation of convolution 
+
+Below we develop a discrete approximation of ℓ(πi, θj ; yij ) that allows very fast evaluation for any proposal (by the optimization algorithm) of ( πi, θj ). For this we discretise the bivariate den-sity for each pair ( Y 0 
+
+> ij
+
+, Y 1 
+
+> ij
+
+) with realizations ( y0 
+
+> ij
+
+, y 1 
+
+> ij
+
+) onto a two-dimensional grid defined by all combinations of m equally spaced intervals ranging from 0 to y0 = y0 
+
+> ij
+
+and from 0 to y1 = y1 
+
+> ij
+
+.Denote these intervals by ( C0 
+
+> r
+
+)mr=1 and ( C1 
+
+> s
+
+)ms=1 , with C0 
+
+> r
+
+= [ l0 
+
+> r
+
+, u 0 
+
+> r
+
+] = [( r − 1) y0/m, ry 0/m ] and 
+
+C1 
+
+> s
+
+= [ l1 
+
+> s
+
+, u 1
+
+> s
+
+] = [( s − 1) y1/m, sy 1/m ]. Here, the last intervals, C0 
+
+> m
+
+and C1 
+
+> m
+
+correspond to realiza-tions y0 and y1, respectively. We then create the same grids for both pairs ( ˜T 1, ˜T 2) and ( ˜B1, ˜B2), with ˜T k = ˜T kij , ˜Bk = ˜Bkij . These grids are depicted in Figure 1. Then, we have for π = πi and 
+
+θ = θj :
+
+p(π,θ)(Y 0 ∈ C0
+
+> m
+
+, Y 1 ∈ C1
+
+> m
+
+)
+
+≈
+
+> m
+
+X
+
+> r=1
+> m
+
+X
+
+> s=1
+
+
+
+p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+)
+
+× p(π,θ)( ˜B0 ∈ C0 
+
+> m+1 −r
+
+, ˜B1 ∈ C1
+
+> m+1 −s
+
+)
+
+
+
+,
+
+(3) which uses the independence of ˜T and ˜B.Then, applying equation (3) to all ( i, j )n,p i=1 ,j =1 defines a discrete log-likelihood ℓd(Π , Θ; Y ) that approximates ℓ(Π , Θ; Y ). Here, the accuracy of the approximation depends on the number of bins, 4C1 
+
+> s=1
+
+C1
+
+> m
+
+C0
+
+> r=1
+
+C0
+
+> m
+
+0 y1 = 30 
+
+y0 = 40 
+
+˜T 1
+
+˜T 0
+
+C11 C1
+
+> m
+
+C01
+
+C0
+
+> m
+
+0 y1 = 30 
+
+y0 = 40 
+
+˜B1
+
+˜B0
+
+Figure 1: Example of discretisation for y1 = 40 and y0 = 30 with m = 8 bins. The midpoints of C0 
+
+> r
+
+(C1 
+
+> s
+
+) are represented by centred dots in each cell. For the left grid, the first row ( r = 1) and column ( s = 1) represent the intervals for which values of ˜T 0 and ˜T 1 are very small. The density displayed in cell C04 (C11 ) is the marginal density for ˜T 0 when ( s = 1 ∧ ˜μ1,t < log(mid 1(s)). For cases such as this one, we approximate the bivariate distribution via equation (A.1). The shaded and striped cells belong to the same pair of proposals of ( ˜T , ˜B). 
+
+m, and on how p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+), and, equivalently, its counterpart for B, are evaluated. First, we introduce a simple midpoint approximation:            
+
+> p(π,θ)( ˜T0∈C0
+> r ,˜T1∈C1
+> s)≈S0S1f(π,θ)(mid 0(r),mid 1(s)) ,
+
+where S0 and S1 are the interval lengths, f is the bivariate log-normal in equation for the weighted tumour component, and mid 0(r) (mid 1(s)) is the midpoint of C0 
+
+> r
+
+(C1 
+
+> s
+
+), formally defined as: mid 0(r) = (l0 
+
+> r
+
++ u0 
+
+> r
+
+)/2, mid 1(s) = ( l1 
+
+> s
+
++ u1
+
+> s
+
+)/2. For some of these bins and some parameter proposals the midpoint approximation may be inaccurate. Figure A.1a illustrates such a case: the density resulting from a parameter proposal is (almost) completely captured by one single bin. In Appendix A we define a criterion to identify such parameter settings and extreme bins, and propose a more accurate approximation based on cumulative distributions for these cases. Such an approximation is more time-consuming than the midpoint one. As our algorithm needs to evaluate many instances of p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+) we propose this hybrid solution to balance computational efficiency and accuracy. 
+
+2.2 Estimation 
+
+We perform the maximisation of the discrete approximation of the log-likelihood, ℓd(Π , Θ; Y ), by block coordinate ascent, alternatively estimating the tumour proportions and the distribution pa-rameters for a number of iterations. Specifically, we divide the optimisation into three steps: (1) estimating πi given the distribution parameters, (2) estimating ρtj and ρbj , and (3) updating the re-maining distribution parameters, μj = ( μ0,t j , μ 1,t j , μ 0,b j , μ 1,b j ) and τ j = ( τ 0,t j , τ 1,t j , τ 0,b j , τ 1,b j ), for both 5Figure 1: Example of discretisation for y1 = 40 and y0 = 30 with m = 8 bins. The midpoints of C0 
+
+> r
+
+(C1 
+
+> s
+
+) are represented by centred dots in each cell. For the left grid, the first row ( r = 1) and column ( s = 1) represent the intervals for which values of ˜T 0 and ˜T 1 are very small. The density displayed in cell C04 (C11 ) is the marginal density for ˜T 0 and illustrates a case for which the midpoint approximation is likely inaccurate.. The shaded and striped cells belong to the same pair of proposals of ( ˜T , ˜B). 
+
+m, and on how p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+), and, equivalently, its counterpart for B, are evaluated. First, we introduce a simple midpoint approximation:            
+
+> p(π,θ)( ˜T0∈C0
+> r ,˜T1∈C1
+> s)≈S0S1f(π,θ)(mid 0(r),mid 1(s)) ,
+
+where S0 and S1 are the interval lengths, f is the bivariate log-normal in equation for the weighted tumour component, and mid 0(r) (mid 1(s)) is the midpoint of C0 
+
+> r
+
+(C1 
+
+> s
+
+), formally defined as: mid 0(r) = (l0 
+
+> r
+
++ u0 
+
+> r
+
+)/2, mid 1(s) = ( l1 
+
+> s
+
++ u1
+
+> s
+
+)/2. For some of these bins and some parameter proposals the midpoint approximation may be inaccurate. Figure A.1a illustrates such a case: the density resulting from a parameter proposal is (almost) completely captured by one single bin. In Appendix A we define a criterion to identify such parameter settings and extreme bins, and propose a more accurate approximation based on cumulative distributions for these cases. Such an approximation is more time-consuming than the midpoint one. As our algorithm needs to evaluate many instances of p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+) we propose this hybrid solution to balance computational efficiency and accuracy. 
+
+2.2 Estimation 
+
+We perform the maximisation of the discrete approximation of the log-likelihood, ℓd(Π , Θ; Y ), by block coordinate ascent, alternatively estimating the tumour proportions and the distribution pa-rameters for a number of iterations. Specifically, we divide the optimisation into three steps: (1) estimating πi given the distribution parameters, (2) estimating ρtj and ρbj , and (3) updating the re-maining distribution parameters, μj = ( μ0,t j , μ 1,t j , μ 0,b j , μ 1,b j ) and τ j = ( τ 0,t j , τ 1,t j , τ 0,b j , τ 1,b j ), for both components given the correlation coefficients and tumour proportions. For identifiability we impose the plausible constraints π0 
+
+> i
+
+> π 1 
+
+> i
+
+∀i. The initial values for μj and τ j are given by methylation 5profiles generated from tumour tissues and healthy cfDNA respectively, while ρbj and ρtj may be initialised randomly. 
+
+# 3 Results 
+
+3.1 Simulations 
+
+We simulated our data for 100 patients and 600 features following equation (1). For each latent variable, we draw the distribution parameters from densities based on real tumour and background methylation profiles from tissue biopsies and healthy cfDNA, respectively. We kept μtj equal for both measurements but allow μl0 
+
+> j
+
+to differ from μl1 
+
+> j
+
+and τ l0 from τ l1 to make the simulated data more realistic. This differences may appear since interventions such as surgery are associated with changes in DNA methylation, particularly those linked to immune regulation (Sadahiro, Knight, et al., 2020). We used available data on the expected ctDNA levels to simulate π0 and π1 (Wullaert, Jansen, et al., 2025), then setting half of the latter to zero (Figure B.1b). Last, the correlation values were drawn from uniform distributions ρtj ∼ U (0 .9, 1) and ρlj ∼ U (0 .5, 1). The rationale behind the choices of lower bounds is that tumour methylation profiles are expected to remain relatively stable with respect to their baseline values, whereas the background signal may become more heterogeneous as a result of the surgical intervention. We estimated the tumour distribution parameters and the proportions at both measurements using the scheme described in section 2 over 10 iterations. To evaluate the benefits of including the correlation parameter, we estimated two additional specifications, one with assumed shared correlation estimates for the latent variables, ρtj = ρlj and another one where ρtj = ρlj = 0 ∀j. The association between estimated tumour proportions, (ˆ π0 
+
+> i
+
+, ˆπ1 
+
+> i
+
+), and the true proportions are collected in Table 1 and displayed in Figure B.2 in the Appendix. For all three specifications, we initialised Θ
+
+using the true parameter values from the tissue biopsy, and correlations of 0 .8 for the ones using the correlation parameter. As expected, the association for ˆ π0 
+
+> i
+
+is similar for all specifications with the one including separate correlation coefficients having a lower Root Mean Squared Error (RMSE), compared to the other two. However, for the post-surgery tumour proportions, π1 
+
+> i
+
+, for which the tumour signal is likely weaker or not present, the benefits from incorporation ρbj and ρtj are clearer, with both associations with the true proportions as well as RMSE showing improvements compared to the specification assuming no correlation. ˆπ0 ˆπ1
+
+(A) (B) (C) (A) (B) (C) 
+
+Assoc. 0.991 0.988 0.990 0.951 0.952 0.885 RMSE 0.020 0.025 0.024 0.011 0.012 0.017              
+
+> Table 1: Association (Assoc.) of true and estimated tumour proportions for each specification. Column
+> (A) collects the results forˆ ρtj̸= ˆ ρlj, column (B) for ˆ ρtj= ˆ ρlj, and column (C) for the univariate case, ˆρtj= ˆ ρlj= 0.
+
+We performed two different robustness checks to validate our model. First, we obtained our estimates given different initial values to analyse their effect on the estimated tumour proportions and evaluate convergence of distribution parameters estimates to their true values. Even though 6initial values for μj and τ j are usually available, factors such as measurement error may influence the reported quantities, hindering their accuracy. Hence, we further assessed our model using dif-ferent initialisation values, setting μbj = 1 .5 and μtj = 3, for all features in both measurements. The former is approximately the average of the background feature means and the latter is slightly below the tumour average of all means. Second, we simulated data with uncorrelated measurements to determine if including said correlation coefficients hamper the overall performance of the model. Overall, including correlation estimates showed better adherence to the true tumour proportions when the initial values did not match the true distribution values and did not disrupt the perfor-mance under the uncorrelated measurement scenario. Results on the RMSE and the association between the estimated and the true tumour proportions post-surgery for these checks are collected in Figures B.4 and B.5 in Appendix B.2. Altogether, the bivariate specification performed better under constant initial values and did not show loss of power if the measured data was uncorrelated. Last, we validate the convergence of the estimated parameters under the aforementioned initial values over 100 iterations (Figure B.3 in Appendix B.1). Altogether, the bivariate deconvolution approach outperformed its univariate counterpart particularly estimating the post-surgery tumour proportions, without losing accuracy when the latent variables are not correlated between measure-ments. 
+
+3.2 Real data 
+
+We then applied our model on a real dataset of 112 patients with colorectal liver metastases (CRLM) undergoing liver resection (Wullaert, Jansen, et al., 2025) profiled using the MeD-seq assay. We used TPM-normalised methylation counts from 1069 CpG islands that we had previously iden-tified as differentially methylated between CRLM tissue and healthy cfDNA. The samples were collected directly before surgery and 3 weeks after the intervention, and none of the patients re-ceived peri-operative systemic treatment. We preselected the 832 regions that were significantly hypermethylated in the tumours with log fold change larger than 1 a common cut-off strategy (da Mota, Carvalho, et al., 2026; Willems, Guerrero-Bosagna, et al., 2016). Additionally, we used available MeD-seq data from 31 healthy cfDNA and 30 tumour tissues (Makrodimitris, Wullaert, et al., 2026?) to initialise μj and τ j . We used one-year RFS outcomes to assess our tumour fraction estimates’ link to patient relapse against the mutation-based tumour fractions. The distribution of the post-surgery VAF-based values, denoted by ˆ π1VAF , and estimated tumour proportions are displayed in Figure 2. The former were available for 71 of the 112 patients while we estimated the latter for all individuals. Of the 112 patients, half experienced a recurrence event within one year. Among the patients with available ˆ π1VAF , 33 did not relapse in the year following the intervention, versus 38 who did. For the sake of comparison, we use data from patients for whom both VAF and methylation data are available. We analysed the link between ˆ π1VAF and estimated tumour fractions and one-year RFS, which is a binary outcome, as censoring did not occur within one year. Figure 2 shows that ˆ π1VAF were largely concentrated near zero, regardless of the outcome, while the post-surgery tumour proportion estimates displayed more contrast between groups. We performed a logistic regression for both predictors to evaluate their link with the one-year RFS outcomes. Due to the zero-inflated values of the predictors, particularly ˆ π1VAF , we dichotomised them at the median, categorising the values as either above or below this threshold. For consistency, we dichotomise both ˆ π1VAF as well as our estimates. For the logistic regression, the VAF predictor was not significantly associated with the outcome. Conversely, the estimated tumour proportions 70.00  0.02  0.04  0.06  0.08 value Relapse No relapse Figure 2: ˆ π1VAF and ˆ π1.
+
+showed a significant link, with patients with above median values having three time higher odds of experiencing a relapse within the first year after surgery, compared to their counterparts. Although significant, the small sample size limits precision assertions on the magnitude of the association between the tumour fraction estimated and the clinical outcome ( OR = 3 .429, 95%CI [1 .314 , 9.404]). The Wilcoxon and Fisher tests corroborated these findings for the respective associations with the outcome. ROC analysis further supported the improved predictive ability of our model’s tumour proportion estimate to separate between the relapsed and the recurrence-free patients (see Table 2). We extended this analysis to all patients to comparing the estimated tumour fractions from the bivariate deconvolution to their univariate counterparts. Supplementary Table C.1 shows the latter was not significantly linked to RFS outcomes while the bivariate estimate was ( OR = 2 .388, 95%CI [1 .128 , 5.164]). These results were confirmed by the Wilcoxon and Fisher tests. In line with the results from the simulations, we observe the bivariate model estimate as a reliable predictor for relapse. Furthermore, these estimates show a clearer distinction between groups, particularly when compared to the univariate estimates. ˆπ1VAF ˆπ1
+
+Wilcoxon ( p-value) 0.034 0.005 Fisher ( p-value) 0.150 0.017 Logistic ( β) 0.77 1.23* AUC 0.618 0.693  
+
+> Table 2: Comparing ˆ π1VAF to ˆ π1.
+
+Last, we calculated the Kaplan-Meier curves for the RFS and OS for ˆ π1VAF and ˆ π1 are shown in Figure 3. Once more, our estimate is able to separate the trajectories for each group trough time in both cases better than ˆ π1VAF . Altogether, these results show the improvements in accuracy of our tumour fraction estimates’ association to clinical outcomes. 80.00 0.25 0.50 0.75 1.00 0 500 1000 1500 2000 Time Survival Probability (a) RFS curves for VAF values. 0.00 0.25 0.50 0.75 1.00 0 500 1000 1500 2000 Time Survival Probability (b) RFS curves for ˆπ1.0.00 0.25 0.50 0.75 1.00 0 500 1000 1500 2000 2500 Time Survival Probability 
+
+(c) OS curves for VAF values. 0.00 0.25 0.50 0.75 1.00 0 500 1000 1500 2000 2500 Time Survival Probability (d) OS curves for ˆπ1Above Below 
+
+(e) OS curves for ˆπ1
+
+Figure 3: Kaplan-Meier curves for OS, in days. 
+
+# 4 Discussion 
+
+Monitoring cancer patients after surgery is required to assess risk of recurrence and determine their treatment needs, as timely detection in order to provide adequate treatment is crucial. However, early detection of MRD remains difficult, as tumour signal is hard to detect under quick diagnostic tools or requires procedures too invasive for continuous screenings. Moreover, sensitivity is essential in the MRD setting, where ctDNA load is very low, due to the main bulk of the tumour having been removed and surgical trauma further diluting the signal. We introduced a bivariate deconvolution model to estimate the residual disease from post-surgical cfDNA methylation profiles. This approach links the pre- and post-surgery measurements via feature-wise correlation of the two latent components. The simulation study and the real data analysis confirmed the benefits from linking both measurements with a feature-wise correlation parameter when compared to the results from a univariate deconvolution as well as available ˆ π1VAF 
+
+for the real data. Moreover, when the simulated data was uncorrelated, the bivariate specification did not result in meaningful decrease in accuracy. This correlation structure is a reasonable one, as treatment is absent between measurements in our setting. As this may not be the case in many cancer monitoring scenarios, the model can account for a global treatment effect by allowing a 9possible difference in means per methylation site, for each measurement. This may require larger sample sizes or additional parameter constraints to yield reliable estimates. In this paper we focused on methylation data obtained using the MeD-seq assay, which only generates methylated read counts, as opposed to whole genome bisulphite sequencing (WGBS), where the number of unmethylated fragments is also known. In order to adapt this method to such data, one could potentially extend this bivariate approach into a four-variate model. Finally, incorporating identification of cell-type heterogeneity could further detail tumour and background compositions and improve current understanding of how treatment may affect the tumour and background components at different levels. 
+
+# References 
+
+Adalsteinsson, V. A., Ha, G., et al. (2017). Scalable whole-exome sequencing of cell-free DNA reveals high concordance with metastatic tumors. Nat. Commun. , 8 (1). Ahn, J., Yuan, Y., et al. (2013). Demix: Deconvolution for mixed cancer transcriptomes using raw measured data. Bioinformatics , 29 (15), 1865–1871. https://doi.org/10.1093/bioinformatics/ btt301 Allman, E. S., Matias, C., et al. (2009). Identifiability of parameters in latent structure models with many observed variables. The Annals of Statistics , 37 (6A), 3099–3132. Retrieved October 1, 2025, from http://www.jstor.org/stable/25662188 Andrade Barbosa, B., van Asten, S. D., et al. (2021). Bayesian log-normal deconvolution for en-hanced in silico microdissection of bulk gene expression data. Nature Communications ,
+
+12 (1). https://doi.org/10.1038/s41467-021-26328-2 Black, J. R. M., Karasaki, T., et al. (2025). Longitudinal ultrasensitive ctDNA monitoring for high-resolution lung cancer risk prediction. Cell , 188 (25), 7083–7098.e18. Caggiano, C., Celona, B., et al. (2021). Comprehensive cell type decomposition of circulating cell-free DNA with CelFiE. Nat. Commun. , 12 (1), 2717. Curtis, S. D., Liu, T., et al. (2025). Fragmentation signatures in cancer patients resemble those of patients with vascular or autoimmune diseases. Proc. Natl. Acad. Sci. U. S. A. , 122 (34), e2426890122. da Mota, J., Carvalho, L., et al. (2026). Nutritional status-dependent DNA methylation modifi-cations on adipose tissue in systemic lupus erythematosus women following folic acid and vitamin B12 supplementation: A randomized double-blind placebo-controlled trial. Clin. Epigenetics , 18 (1), 21. Deger, T., Boers, R. G., et al. (2021). High-throughput and affordable genome-wide methylation profiling of circulating cell-free DNA by methylated DNA sequencing (MeD-seq) of LpnPI digested fragments. Clin. Epigenetics , 13 (1), 196. Galant, N., Nico´ s, M., et al. (2024). Variant allele frequency analysis of circulating tumor DNA as a promising tool in assessing the effectiveness of treatment in non-small cell lung carcinoma patients. Cancers (Basel) , 16 (4), 782. Henriksen, T. V., Demuth, C., et al. (2025). Timing of ctDNA analysis aimed at guiding adjuvant treatment in colorectal cancer. Clin. Cancer Res. , 31 (9), 1676–1685. Kang, S., Li, Q., et al. (2017). Cancerlocator: Non-invasive cancer diagnosis and tissue-of-origin prediction using methylation profiles of cell-free dna. Genome Biology , 18 (1). https://doi. org/10.1186/s13059-017-1191-5 10 Kangro, R., Kuljus, K., et al. (2025). Pseudo-likelihood approach for parameter estimation in uni-variate normal mixture models. Stat. Pap. (Berl) , 66 (1). Kwon, H.-J., Shin, S. H., et al. (2023). Advances in methylation analysis of liquid biopsy in early cancer detection of colorectal and lung cancer. Scientific Reports , 13 (1). https://doi.org/ 10.1038/s41598-023-40611-w Loyfer, N., Magenheim, J., et al. (2023). A DNA methylation atlas of normal human cell types. 
+
+Nature , 613 (7943), 355–364. Ma, L., Guo, H., et al. (2024). Liquid biopsy in cancer: Current status, challenges and future prospects. Signal Transduction and Targeted Therapy , 9 (1). https : / / doi . org / 10 . 1038 / s41392-024-02021-w Makrodimitris, S., Wullaert, L., et al. (2026?). Prediction of recurrence after local treatment in patients with colorectal liver metastases by means of cell-free dna methylation. Under Review .Nakamura, Y., Watanabe, J., et al. (2024). ctDNA-based molecular residual disease and survival in resectable colorectal cancer. Nat. Med. , 30 (11), 3272–3283. Øgaard, N., Reinert, T., et al. (2022). Tumour-agnostic circulating tumour DNA analysis for im-proved recurrence surveillance after resection of colorectal liver metastases: A prospective cohort study. Eur. J. Cancer , 163 , 163–176. Sadahiro, R., Knight, B., et al. (2020). Major surgery induces acute changes in measured dna methylation associated with immune response pathways. Scientific Reports , 10 (1). https: //doi.org/10.1038/s41598-020-62262-x Willems, E., Guerrero-Bosagna, C., et al. (2016). Differential expression of genes and DNA methy-lation associated with prenatal protein undernutrition by albumen removal in an avian model. Sci. Rep. , 6 (1), 20837. Wullaert, L., Jansen, M. P., et al. (2025). Circulating tumour cells & circulating tumour dna in patients with resectable colorectal liver metastases (miracle): A prospective, observational biomarker study. EClinicalMedicine , 87 .Zhong, J., Jiang, H., et al. (2024). Variant allele frequency in circulating tumor DNA correlated with tumor disease burden and predicted outcomes in patients with advanced breast cancer. 
+
+Breast Cancer Res. Treat. , 204 (3), 617–629. 11 A Estimation of edge cells 
+
+For tumour fraction π1 that is very small (which is not unlikely for some samples) and y1 is fairly large. Then, much of the probability mass of ˜T 1 is likely captured by bins for which s = 1, which renders the midpoint approximation to be rather inferior. Denote the mean of log( ˜T k) by ˜μk,t = μk,t + log( πk). Formally, we identify such bins by the following criterion: (r = 1 ∧ ˜μ0,t < log( mid 1(r))) ∨ (s = 1 ∧ ˜μ1,t < log( mid 1(s))) .
+
+As these bins capture a large part of ˜T ’s distribution, we evaluate them by 
+
+p(π,θ)( ˜T 0 ∈ C0 
+
+> r
+
+, ˜T 1 ∈ C1 
+
+> s
+
+) = 
+
+Z u0
+
+> r
+> l0
+> r
+
+Z u1
+
+> s
+> l1
+> s
+
+f(π,θ)(t0, t 1)dt 0dt 1
+
+= F(π,θ)(u0 
+
+> r
+
+, u 1
+
+> s
+
+)
+
+| {z }
+
+> 1
+
+− F(π,θ)(l0 
+
+> r
+
+, u 1
+
+> s
+
+)
+
+| {z }
+
+> 2
+
+− F(π,θ)(u0 
+
+> r
+
+, l 1 
+
+> s
+
+)
+
+| {z }
+
+> 3
+
++ F(π,θ)(l0 
+
+> r
+
+, l 1 
+
+> s
+
+)
+
+| {z }
+
+> 4
+
+. (A.1) instead, with F denoting the bivariate log-normal CDF. Such CDFs are more tedious to compute than the PDFs required for the mid-point approximation. For our algorithm the number of eval-uations of such probabilities equals 2 × m2 × n × p × I, with I the number of proposals by the optimizer. As this number tends to be very large, we only employ the CDFs for the extreme bins. For bins with r > 1 or s > 1 it is very unlikely that a very large part of the marginal distribution is captured by the bin, so therefore the midpoint approximation suffices for these bins. See Figure A.1 for an example. These are the bins corresponding to r = 1 or s = 1, which reduces the second and fourth terms of the above approximation to zero, as shown in Figure A.1b. Figures A.1a and A.1b represent the evaluation of the weighted components at bins for which the midpoint approximation may be inaccurate, due to, most likely, the tumour fraction being close to zero. These figures match the evaluation described in equation (A.1) in the main text. 
+
+# B Additional simulations results 
+
+We simulated our data in Section 3.1 following equation (B.1), where ϵ0 
+
+> ij
+
+and ϵ1 
+
+> ij
+
+represent noise terms. The latent components are modelled based on the feature means and standard deviations from tissue biopsies from each component, as seen in Figure B.1a. The tumour proportions in Figure B.1b are based of the pre- and post-surgery ˆ π1VAF . Figure B.2 displays de scatter plot for the association and RMSE values shown in Table 1. log y0 
+
+> ij
+
+= log  π0 
+
+> i
+
+T 0 
+
+> ij
+
++ (1 − π0 
+
+> i
+
+)B0
+
+> ij
+
+ + ϵ0
+
+> ij
+
+log y1 
+
+> ij
+
+= log  π1 
+
+> i
+
+T 1 
+
+> ij
+
++ (1 − π1 
+
+> i
+
+)B1
+
+> ij
+
+ + ϵ1 
+
+> ij
+
+. (B.1) Figure B.1a displays the tumour tissue and cfDNA background means and standard deviations used to simulated the data. The background means have noise added to increase distortion that may come from surgery or other treatments. The simulated tumour fractions are in Figure B.1b. Last, Figure B.2 shows the association plots for the simulations described in Section 3.1 and collected in Table 2. 12 0 y1
+
+y0
+
+u1
+
+> s
+
+u0
+
+> r
+
+l1
+
+> s
+
+l0
+
+> r
+
+= 1 – 2 – 3 + 4
+
+(a) General approximation. 
+
+0 u15
+
+u05
+
+u11l10
+
+l04
+
+˜T 1
+
+˜T 0
+
+= 1 – 2
+
+(b) Approximation for Figure 1 
+
+Figure A.1: Evaluation of small values of the weighted latent component with p(π,θ )( ˜T 0 ∈ C1 
+
+> r
+
+, ˜T 1 ∈ C0 
+
+> s
+
+), where the numberes refer to the numbered elements in equation (A.1). Figure A.1a represents the general example for computing equation (A.1). Figure A.1b does the same for our case, where we only check the first row and columns of the grid ( s = 1), leaving elements 3 and 4 in equation (A.1) equal to zero. 050 100 0 1 2 3 4 5value count      
+
+> 050 100 0.4 0.8 1.2 1.6 value background t=0 background t=1 tumour
+
+(a) Means (left) and variances (right) for the latent variables. 020 40 60 0.0 0.2 0.4 0.6 value     
+
+> p0p1
+
+(b) Before and after surgery tumour proportions. 
+
+Figure B.1: Distribution of simulation means, standard deviations and tumour proportions. 
+
+B.1 Convergence plots 
+
+For initial values of μtj = 3 and τ tj = 1 ∀j ∈ Rp and both measurements, we compute 100 iterations for the bivariate and the univariate specifications. Within the scope of this application, there are several constraints that aid the estimation: first, we know the latent variables take non-negative values and, since we are focusing on hypermethylated regions μtj > μ lj for all j. Additionally, we established that the tumour proportions post-surgery are, at most, as large as the pre-surgery proportion, π0 
+
+> i
+
+≥ π1 
+
+> i
+
+∀i.Therefore, given the distributional assumptions and that π0 
+
+> i
+
+and π1 
+
+> i
+
+are identified through feature-wise aggregation, their estimation is mainly contingent on the convergence of the aver-ages of the latent variable’s distribution parameters, in particular, the mean. Figure B.3 displays 13 (a) General Approximation 0 y1
+
+y0
+
+u1
+
+> s
+
+u0
+
+> r
+
+l1
+
+> s
+
+l0
+
+> r
+
+= 1 – 2 – 3 + 4
+
+(a) General approximation. 
+
+0 u15
+
+u05
+
+u11l10
+
+l04
+
+˜T 1
+
+˜T 0
+
+= 1 – 2
+
+(b) Approximation for Figure 1 
+
+Figure A.1: Evaluation of small values of the weighted latent component with p(π,θ )( ˜T 0 ∈ C1 
+
+> r
+
+, ˜T 1 ∈ C0 
+
+> s
+
+), where the numberes refer to the numbered elements in equation (A.1). Figure A.1a represents the general example for computing equation (A.1). Figure A.1b does the same for our case, where we only check the first row and columns of the grid ( s = 1), leaving elements 3 and 4 in equation (A.1) equal to zero. 050 100 0 1 2 3 4 5value count      
+
+> 050 100 0.4 0.8 1.2 1.6 value background t=0 background t=1 tumour
+
+(a) Means (left) and variances (right) for the latent variables. 020 40 60 0.0 0.2 0.4 0.6 value     
+
+> p0p1
+
+(b) Before and after surgery tumour proportions. 
+
+Figure B.1: Distribution of simulation means, standard deviations and tumour proportions. 
+
+B.1 Convergence plots 
+
+For initial values of μtj = 3 and τ tj = 1 ∀j ∈ Rp and both measurements, we compute 100 iterations for the bivariate and the univariate specifications. Within the scope of this application, there are several constraints that aid the estimation: first, we know the latent variables take non-negative values and, since we are focusing on hypermethylated regions μtj > μ lj for all j. Additionally, we established that the tumour proportions post-surgery are, at most, as large as the pre-surgery proportion, π0 
+
+> i
+
+≥ π1 
+
+> i
+
+∀i.Therefore, given the distributional assumptions and that π0 
+
+> i
+
+and π1 
+
+> i
+
+are identified through feature-wise aggregation, their estimation is mainly contingent on the convergence of the aver-ages of the latent variable’s distribution parameters, in particular, the mean. Figure B.3 displays 13 (b) Approximation for Figure 1 
+
+Figure A.1: Evaluation of small values of the weighted latent component with p(π,θ )( ˜T 0 ∈ C1 
+
+> r
+
+, ˜T 1 ∈ C0 
+
+> s
+
+), where the numbers refer to the numbered elements in equation (A.1). Figure A.1a represents the general example for computing equation (A.1). Figure A.1b does the same for our case, where we only check the first row and columns of the grid ( s = 1), leaving elements 3 and 4 in equation (A.1) equal to zero. 050 100 0 1 2 3 4 5value count      
+
+> 050 100 0.4 0.8 1.2 1.6 value background t=0 background t=1 tumour
+
+(a) Means (left) and variances (right) for the latent variables. 020 40 60 0.0 0.2 0.4 0.6 value     
+
+> p0p1
+
+(b) Before and after surgery tumour proportions. 
+
+Figure B.1: Distribution of simulation means, standard deviations and tumour proportions. 
+
+B.1 Convergence plots 
+
+For initial values of μtj = 3 and τ tj = 1 ∀j ∈ Rp and both measurements, we compute 100 iterations for the bivariate and the univariate specifications. Within the scope of this application, there are several constraints that aid the estimation: first, we know the latent variables take non-negative values and, since we are focusing on hypermethylated regions μtj > μ lj for all j. Additionally, we established that the tumour proportions post-surgery are, at most, as large as the pre-surgery proportion, π0 
+
+> i
+
+≥ π1 
+
+> i
+
+∀i.Therefore, given the distributional assumptions and that π0 
+
+> i
+
+and π1 
+
+> i
+
+are identified through feature-wise aggregation, their estimation is mainly contingent on the convergence of the aver-ages of the latent variable’s distribution parameters, in particular, the mean. Figure B.3 displays 13 Cor = 0.991 | RMSE=0.020          
+
+> Estimated 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.951 | RMSE=0.011
+> True Estimated 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(a) ˆ ρtj̸ = ˆ ρljCor = 0.988 | RMSE=0.025           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.952 | RMSE=0.012
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(b) ˆ ρtj = ˆ ρljCor = 0.990 | RMSE=0.024           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.885 | RMSE=0.017
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(c) ˆ ρtj = ˆ ρlj = 0 
+
+Figure B.2: Association of true and estimated tumour proportions, ˆπ0 (top) and ˆπ1 (bottom). 0 20 40 60 80 100 2.9  3.0  3.1  3.2  3.3  3.4  3.5 iteration value 
+
+(a) ˆ ρtj̸ = ˆ ρlj0 20 40 60 80 100 2.9  3.0  3.1  3.2  3.3  3.4  3.5 iteration value (b) ˆ ρtj = ˆ ρlj
+
+Figure B.3: Tumour means convergence plot. Average convergence of the tumour means for the bivariate and univariate specifications, respectively. The blue horizontal line represents the true average mean. 
+
+the average convergence of the tumour means for the bivariate (left) and the univariate (right) spec-ifications when the data are correlated. Keeping all other factors equal, the bivariate specification shows convergence on average of the tumour means while the univariate counterpart stays close to the initial values. 14 B.2 Robustness checks 
+
+The association plots for the estimated tumour fractions under constant initial values are displayed in Figure B.4. Again, starting values for the tumour means were set to μtj = 3 for all features. As a sanity check we repeated the analysis with data that with no correlation between measurements. The association results for the univariate data are plotted in Figure B.5. As stated in the main text, these checks show how the bivariate approach performs better under constant initial values and does not result in meaningfully worse estimates when the data is not bivariate. Given this constant starting values for the latent variables’ distribution parameters, both bi-variate specifications have a better performance estimating the tumour fractions compared to the univariate one when the data are correlated between the pre- and post-surgery measurements. When the data are actually univariate, the bivariate specification does not seem to hamper the estimation, as the correlation parameter is estimated to be close to zero within the first couple of iterations. Cor = 0.985 | RMSE=0.068          
+
+> Estimated 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.944 | RMSE=0.011
+> True Estimated 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(a) ˆ ρtj̸ = ˆ ρljCor = 0.989 | RMSE=0.068           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.956 | RMSE=0.010
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(b) ˆ ρtj = ˆ ρljCor = 0.962 | RMSE=0.156           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.928 | RMSE=0.016
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(c) ˆ ρtj = ˆ ρlj = 0 
+
+Figure B.4: Association of estimated and true tumour proportions when initialisation values of tumour means and variances are not exact. 
+
+# C Extended real data analysis: bivariate vs. univariate de-convolution 
+
+In this section, we provide results for the estimated post-surgery tumour fractions under both the univariate ( π1
+
+> A
+
+) and the bivariate ( π1 
+
+> B
+
+) deconvolution models, computed for all 112 patients. These estimates are displayed in Figure C.1. As stated in the main text, there no substantial differences between the distributions of the estimated tumour fractions from the subset of patients with available ˆ π1VAF , add those from the full cohort. 15 Cor = 0.994 | RMSE=0.018          
+
+> Estimated 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.914 | RMSE=0.017
+> True Estimated 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(a) ˆ ρtj̸ = ˆ ρljCor = 0.991 | RMSE=0.019           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.915 | RMSE=0.017
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(b) ˆ ρtj = ˆ ρljCor = 0.993 | RMSE=0.019           
+
+> 0.0 0.2 0.4 0.6 0.8 0.0  0.2  0.4  0.6  0.8
+> Cor = 0.908 | RMSE=0.018
+> True 0.00 0.02 0.04 0.06 0.08 0.10 0.00  0.04  0.08
+
+(c) ˆ ρtj = ˆ ρlj = 0 
+
+Figure B.5: Association of estimated and true tumour proportions when initialisation values of background and tumour means and variances are not exact and the data are not correlated between measurements. 
+
+ˆπ1
+
+A BWilcoxon ( p-value) 0.227 0.012 Fisher ( p-value) 0.571 0.037 Logistic ( β) 0.286 0.871* AUC 0.6 0.63 
+
+Table C.1: Comparison between the post-surgery tumour fraction estimates for ρbj = ρtj = 0, column A, and ρbj̸ = ρtj , in column B for all 112 patients. 
+
+The estimated tumour proportions under the bivariate model align closely with those presented in figure 2. Similarly, the performance metrics in Figure C.2 and in table C.1 exhibit consistent patterns with the results discussed in the main text. This correspondence in the analysis between subsets under the bivariate model contrast to that of the univariate model. In particular, results for the latter show no significant distinction between the relapse and the no relapse groups, no significant link to said recurrence outcome and a lower AUC. Altogether, the bivariate deconvolution model showed a stronger and more robust link to the clinical outcomes compared to its univariate counterpart. 16 0.00  0.02  0.04  0.06  0.08 value 
+
+p 1A p 1B
+
+Relapse No relapse Figure C.1: Estimated tumour proportions with respect to relapse status for the univariate ( π1
+
+A)and the bivariate ( π1
+
+B ) specifications for all 112 patients. Specificity Sensitivity 1.2 1.0 0.8 0.6 0.4 0.2 0.0 -0.2 0.0  0.2  0.4  0.6  0.8  1.0 
+
+p
+
+^ 1A
+
+p
+
+^ 1B
+
+Figure C.2: Estimated tumour proportions with re-spect to relapse status for the univariate ( π1
+
+A) and the bivariate ( π1
+
+B ) specifications for all 112 patients. 0.00 0.25 0.50 0.75 1.00 0 1000 2000 Time Survival Probability Above Below 
+
+(a) RFS curves for VAF values. 0.00 0.25 0.50 0.75 1.00 0 1000 2000 Time Survival Probability Above Below (b) RFS curves for ˆπ1.0.4 0.6 0.8 1.0 0 1000 2000 3000 Time Survival Probability Above Below 
+
+(c) OS curves for VAF values. 0.4 0.6 0.8 1.0 0 1000 2000 3000 Time Survival Probability Above Below (d) OS curves for ˆπ1
+
+Figure C.3: Kaplan-Meier curves for OS, in days. 
+
+17
