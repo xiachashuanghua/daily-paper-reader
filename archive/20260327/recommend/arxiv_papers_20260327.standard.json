@@ -1,0 +1,510 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-27T19:43:09.663358+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2603.22330v1",
+      "title": "Fair splits flip the leaderboard: CHANRG reveals limited generalization in RNA secondary-structure prediction",
+      "abstract": "Accurate prediction of RNA secondary structure underpins transcriptome annotation, mechanistic analysis of non-coding RNAs, and RNA therapeutic design. Recent gains from deep learning and RNA foundation models are difficult to interpret because current benchmarks may overestimate generalization across RNA families. We present the Comprehensive Hierarchical Annotation of Non-coding RNA Groups (CHANRG), a benchmark of 170{,}083 structurally non-redundant RNAs curated from more than 10 million sequences in Rfam~15.0 using structure-aware deduplication, genome-aware split design and multiscale structural evaluation. Across 29 predictors, foundation-model methods achieved the highest held-out accuracy but lost most of that advantage out of distribution, whereas structured decoders and direct neural predictors remained markedly more robust. This gap persisted after controlling for sequence length and reflected both loss of structural coverage and incorrect higher-order wiring. Together, CHANRG and a padding-free, symmetry-aware evaluation stack provide a stricter and batch-invariant framework for developing RNA structure predictors with demonstrable out-of-distribution robustness.",
+      "authors": [
+        "Zhiyuan Chen",
+        "Zhenfeng Deng",
+        "Pan Deng",
+        "Yue Liao",
+        "Xiu Su",
+        "Peng Ye",
+        "Xihui Liu"
+      ],
+      "primary_category": "q-bio.BM",
+      "categories": [
+        "q-bio.BM",
+        "cs.LG"
+      ],
+      "published": "2026-03-20T20:18:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.22330v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "RNA secondary-structure prediction and foundation models",
+      "llm_evidence_cn": "RNA二级结构预测与基础模型",
+      "llm_evidence": "RNA二级结构预测与基础模型",
+      "canonical_evidence": "RNA二级结构预测与基础模型",
+      "llm_tldr_en": "A new benchmark for RNA secondary-structure prediction to evaluate the generalization of foundation models.",
+      "llm_tldr_cn": "一个用于评估基础模型在RNA二级结构预测中泛化能力的全新基准。",
+      "llm_tldr": "一个用于评估基础模型在RNA二级结构预测中泛化能力的全新基准。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23361v2",
+      "title": "Central Dogma Transformer III: Interpretable AI Across DNA, RNA, and Protein",
+      "abstract": "Biological AI models increasingly predict complex cellular responses, yet their learned representations remain disconnected from the   molecular processes they aim to capture. We present CDT-III, which extends mechanism-oriented AI across the full central dogma: DNA, RNA, and   protein. Its two-stage Virtual Cell Embedder architecture mirrors the spatial compartmentalization of the cell: VCE-N models transcription in   the nucleus and VCE-C models translation in the cytosol. On five held-out genes, CDT-III achieves per-gene RNA r=0.843 and protein r=0.969.   Adding protein prediction improves RNA performance (r=0.804 to 0.843), demonstrating that downstream tasks regularize upstream   representations. Protein supervision sharpens DNA-level interpretability, increasing CTCF enrichment by 30%. Analysis of experimentally   measured mRNA and protein responses reveals that the majority of genes with observable mRNA changes show opposite protein-level changes (66.7%   at |log2FC|>0.01, rising to 87.5% at |log2FC|>0.02), exposing a fundamental limitation of RNA-only perturbation models. Despite this   pervasive direction discordance, CDT-III correctly predicts both mRNA and protein responses. Applied to in silico CD52 knockdown approximating   Alemtuzumab, the model predicts 29/29 protein changes correctly and rediscovers 5 of 7 known clinical side effects without clinical data.   Gradient-based side effect profiling requires only unperturbed baseline data (r=0.939), enabling screening of all 2,361 genes without new   experiments.",
+      "authors": [
+        "Nobuyuki Ota"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-24T15:57:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.23361v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Interpretable AI across DNA, RNA, and protein sequences",
+      "llm_evidence_cn": "跨DNA、RNA和蛋白质序列的可解释AI",
+      "llm_evidence": "跨DNA、RNA和蛋白质序列的可解释AI",
+      "canonical_evidence": "跨DNA、RNA和蛋白质序列的可解释AI",
+      "llm_tldr_en": "CDT-III is a transformer model that mirrors the central dogma to predict cellular responses from genetic sequences.",
+      "llm_tldr_cn": "CDT-III是一个模拟中心法则的Transformer模型，实现了跨DNA、RNA和蛋白质的可解释预测。",
+      "llm_tldr": "CDT-III是一个模拟中心法则的Transformer模型，实现了跨DNA、RNA和蛋白质的可解释预测。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25240v1",
+      "title": "Lingshu-Cell: A generative cellular world model for transcriptome modeling toward virtual cells",
+      "abstract": "Modeling cellular states and predicting their responses to perturbations are central challenges in computational biology and the development of virtual cells. Existing foundation models for single-cell transcriptomics provide powerful static representations, but they do not explicitly model the distribution of cellular states for generative simulation. Here, we introduce Lingshu-Cell, a masked discrete diffusion model that learns transcriptomic state distributions and supports conditional simulation under perturbation. By operating directly in a discrete token space that is compatible with the sparse, non-sequential nature of single-cell transcriptomic data, Lingshu-Cell captures complex transcriptome-wide expression dependencies across approximately 18,000 genes without relying on prior gene selection, such as filtering by high variability or ranking by expression level. Across diverse tissues and species, Lingshu-Cell accurately reproduces transcriptomic distributions, marker-gene expression patterns and cell-subtype proportions, demonstrating its ability to capture complex cellular heterogeneity. Moreover, by jointly embedding cell type or donor identity with perturbation, Lingshu-Cell can predict whole-transcriptome expression changes for novel combinations of identity and perturbation. It achieves leading performance on the Virtual Cell Challenge H1 genetic perturbation benchmark and in predicting cytokine-induced responses in human PBMCs. Together, these results establish Lingshu-Cell as a flexible cellular world model for in silico simulation of cell states and perturbation responses, laying the foundation for a new paradigm in biological discovery and perturbation screening.",
+      "authors": [
+        "Han Zhang",
+        "Guo-Hua Yuan",
+        "Chaohao Yuan",
+        "Tingyang Xu",
+        "Tian Bian",
+        "Hong Cheng",
+        "Wenbing Huang",
+        "Deli Zhao",
+        "Yu Rong"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM"
+      ],
+      "published": "2026-03-26T09:46:27+00:00",
+      "link": "https://arxiv.org/pdf/2603.25240v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Generative cellular world model for transcriptome modeling",
+      "llm_evidence_cn": "用于转录组建模的生成式细胞世界模型",
+      "llm_evidence": "用于转录组建模的生成式细胞世界模型",
+      "canonical_evidence": "用于转录组建模的生成式细胞世界模型",
+      "llm_tldr_en": "Introduces a diffusion model for simulating transcriptomic states and cellular responses.",
+      "llm_tldr_cn": "引入了一种扩散模型，用于模拟转录组状态和细胞对扰动的响应。",
+      "llm_tldr": "引入了一种扩散模型，用于模拟转录组状态和细胞对扰动的响应。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.24402v2",
+      "title": "AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model",
+      "abstract": "Existing automated research systems operate as stateless, linear pipelines -- generating outputs without maintaining any persistent understanding of the research landscape they navigate. They process papers sequentially, propose ideas without structured gap analysis, and lack mechanisms for agents to verify, challenge, or refine each other's findings. We present \\textbf{AI-Supervisor}, a multi-agent orchestration framework where specialized agents provide end-to-end AI research supervision driven by human interests -- from literature review through gap discovery, method development, evaluation, and paper writing -- through autonomous exploration and self-correcting updates of research knowledge. Unlike sequential pipelines, AI-Supervisor maintains a continuously evolving \\emph{Research World Model}, implemented as a Knowledge Graph, that captures methods, benchmarks, known limitations, and unexplored gaps, serving as shared memory across all agents and enabling agents to explore and build upon a structured understanding of the research landscape. The framework introduces three architectural contributions: (1) \\emph{structured gap discovery} that decomposes methods into core modules, validates their performance across benchmarks, and maps the specific gaps each module creates; (2) \\emph{self-correcting discovery loops} that probe why modules succeed on certain problems and fail on others, whether benchmarks carry hidden biases, and whether evaluation protocols remain adequate for emerging challenges; and (3) \\emph{self-improving development loops} governed by cross-domain mechanism search that iteratively targets failing modules by finding solutions from other scientific fields. All agents operate under a \\emph{consensus mechanism} where independent findings are corroborated before being committed to the Research World Model.",
+      "authors": [
+        "Yunbo Long"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-25T15:16:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.24402v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Autonomous AI research supervision via multi-agent orchestration",
+      "llm_evidence_cn": "通过多智能体编排实现自主AI研究监督",
+      "llm_evidence": "通过多智能体编排实现自主AI研究监督",
+      "canonical_evidence": "通过多智能体编排实现自主AI研究监督",
+      "llm_tldr_en": "A multi-agent framework that maintains a persistent world model for end-to-end research automation.",
+      "llm_tldr_cn": "一个通过持久化世界模型实现端到端研究自动化的多智能体框架。",
+      "llm_tldr": "一个通过持久化世界模型实现端到端研究自动化的多智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.18718v1",
+      "title": "MemMA: Coordinating the Memory Cycle through Multi-Agent Reasoning and In-Situ Self-Evolution",
+      "abstract": "Memory-augmented LLM agents maintain external memory banks to support long-horizon interaction, yet most existing systems treat construction, retrieval, and utilization as isolated subroutines. This creates two coupled challenges: strategic blindness on the forward path of the memory cycle, where construction and retrieval are driven by local heuristics rather than explicit strategic reasoning, and sparse, delayed supervision on the backward path, where downstream failures rarely translate into direct repairs of the memory bank. To address these challenges, we propose MemMA, a plug-and-play multi-agent framework that coordinates the memory cycle along both the forward and backward paths. On the forward path, a Meta-Thinker produces structured guidance that steers a Memory Manager during construction and directs a Query Reasoner during iterative retrieval. On the backward path, MemMA introduces in-situ self-evolving memory construction, which synthesizes probe QA pairs, verifies the current memory, and converts failures into repair actions before the memory is finalized. Extensive experiments on LoCoMo show that MemMA consistently outperforms existing baselines across multiple LLM backbones and improves three different storage backends in a plug-and-play manner. Our code is publicly available at https://github.com/ventr1c/memma.",
+      "authors": [
+        "Minhua Lin",
+        "Zhiwei Zhang",
+        "Hanqing Lu",
+        "Hui Liu",
+        "Xianfeng Tang",
+        "Qi He",
+        "Xiang Zhang",
+        "Suhang Wang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-19T10:15:59+00:00",
+      "link": "https://arxiv.org/pdf/2603.18718v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent framework for coordinating memory in LLM agents",
+      "llm_evidence_cn": "协调LLM智能体记忆的多智能体框架",
+      "llm_evidence": "协调LLM智能体记忆的多智能体框架",
+      "canonical_evidence": "协调LLM智能体记忆的多智能体框架",
+      "llm_tldr_en": "Introduces a multi-agent framework to optimize memory cycles for long-horizon LLM agent interactions.",
+      "llm_tldr_cn": "引入了一种多智能体框架，用于优化长程LLM智能体交互中的记忆循环。",
+      "llm_tldr": "引入了一种多智能体框架，用于优化长程LLM智能体交互中的记忆循环。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25062v1",
+      "title": "SIGMA: Structure-Invariant Generative Molecular Alignment for Chemical Language Models via Autoregressive Contrastive Learning",
+      "abstract": "Linearized string representations serve as the foundation of scalable autoregressive molecular generation; however, they introduce a fundamental modality mismatch where a single molecular graph maps to multiple distinct sequences. This ambiguity leads to \\textit{trajectory divergence}, where the latent representations of structurally equivalent partial graphs drift apart due to differences in linearization history. To resolve this without abandoning the efficient string formulation, we propose Structure-Invariant Generative Molecular Alignment (SIGMA). Rather than altering the linear representation, SIGMA enables the model to strictly recognize geometric symmetries via a token-level contrastive objective, which explicitly aligns the latent states of prefixes that share identical suffixes. Furthermore, we introduce Isomorphic Beam Search (IsoBeam) to eliminate isomorphic redundancy during inference by dynamically pruning equivalent paths. Empirical evaluations on standard benchmarks demonstrate that SIGMA bridges the gap between sequence scalability and graph fidelity, yielding superior sample efficiency and structural diversity in multi-parameter optimization compared to strong baselines.",
+      "authors": [
+        "Xinyu Wang",
+        "Fei Dou",
+        "Jinbo Bi",
+        "Minghu Song"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-26T05:55:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.25062v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Chemical language models for molecular generation",
+      "llm_evidence_cn": "用于分子生成的化学语言模型",
+      "llm_evidence": "用于分子生成的化学语言模型",
+      "canonical_evidence": "用于分子生成的化学语言模型",
+      "llm_tldr_en": "SIGMA improves chemical language models by ensuring structural invariance in molecular string representations.",
+      "llm_tldr_cn": "SIGMA通过确保分子字符串表示的结构不变性，改进了化学语言模型。",
+      "llm_tldr": "SIGMA通过确保分子字符串表示的结构不变性，改进了化学语言模型。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20536v1",
+      "title": "Towards Practical Multimodal Hospital Outbreak Detection",
+      "abstract": "Rapid identification of outbreaks in hospitals is essential for controlling pathogens with epidemic potential. Although whole genome sequencing (WGS) remains the gold standard in outbreak investigations, its substantial costs and turnaround times limit its feasibility for routine surveillance, especially in less-equipped facilities. We explore three modalities as rapid alternatives: matrix-assisted laser desorption ionization-time of flight (MALDI-TOF) mass spectrometry, antimicrobial resistance (AR) patterns, and electronic health records (EHR). We present a machine learning approach that learns discriminative features from these modalities to support outbreak detection. Multi-species evaluation shows that the integration of these modalities can boost outbreak detection performance. We also propose a tiered surveillance paradigm that can reduce the need for WGS through these alternative modalities. Further analysis of EHR information identifies potentially high-risk contamination routes linked to specific clinical procedures, notably those involving invasive equipment and high-frequency workflows, providing infection prevention teams with actionable targets for proactive risk mitigation",
+      "authors": [
+        "Chang Liu",
+        "Jieshi Chen",
+        "Alexander J. Sundermann",
+        "Kathleen Shutt",
+        "Marissa P. Griffith",
+        "Lora Lee Pless",
+        "Lee H. Harrison",
+        "Artur W. Dubrawski"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-20T22:14:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.20536v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Machine learning for hospital outbreak detection using genomic data",
+      "llm_evidence_cn": "利用基因组数据进行医院爆发检测的机器学习",
+      "llm_evidence": "利用基因组数据进行医院爆发检测的机器学习",
+      "canonical_evidence": "利用基因组数据进行医院爆发检测的机器学习",
+      "llm_tldr_en": "Explores multimodal machine learning, including WGS, for rapid hospital pathogen outbreak detection.",
+      "llm_tldr_cn": "探索包括全基因组测序在内的多模态机器学习，用于快速检测医院病原体爆发。",
+      "llm_tldr": "探索包括全基因组测序在内的多模态机器学习，用于快速检测医院病原体爆发。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25111v1",
+      "title": "SEVerA: Verified Synthesis of Self-Evolving Agents",
+      "abstract": "Recent advances have shown the effectiveness of self-evolving LLM agents on tasks such as program repair and scientific discovery. In this paradigm, a planner LLM synthesizes an agent program that invokes parametric models, including LLMs, which are then tuned per task to improve performance. However, existing self-evolving agent frameworks provide no formal guarantees of safety or correctness. Because such programs are often executed autonomously on unseen inputs, this lack of guarantees raises reliability and security concerns. We formulate agentic code generation as a constrained learning problem, combining hard formal specifications with soft objectives capturing task utility. We introduce Formally Guarded Generative Models (FGGM), which allow the planner LLM to specify a formal output contract for each generative model call using first-order logic. Each FGGM call wraps the underlying model in a rejection sampler with a verified fallback, ensuring every returned output satisfies the contract for any input and parameter setting. Building on FGGM, we present SEVerA (Self-Evolving Verified Agents), a three-stage framework: Search synthesizes candidate parametric programs containing FGGM calls; Verification proves correctness with respect to hard constraints for all parameter values, reducing the problem to unconstrained learning; and Learning applies scalable gradient-based optimization, including GRPO-style fine-tuning, to improve the soft objective while preserving correctness. We evaluate SEVerA on Dafny program verification, symbolic math synthesis, and policy-compliant agentic tool use ($τ^2$-bench). Across tasks, SEVerA achieves zero constraint violations while improving performance over unconstrained and SOTA baselines, showing that formal behavioral constraints not only guarantee correctness but also steer synthesis toward higher-quality agents.",
+      "authors": [
+        "Debangshu Banerjee",
+        "Changming Xu",
+        "Gagandeep Singh"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.PL",
+        "cs.SE"
+      ],
+      "published": "2026-03-26T07:32:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.25111v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Self-evolving LLM agents for scientific discovery",
+      "llm_evidence_cn": "用于科学发现的自进化LLM智能体",
+      "llm_evidence": "用于科学发现的自进化LLM智能体",
+      "canonical_evidence": "用于科学发现的自进化LLM智能体",
+      "llm_tldr_en": "SEVerA provides a framework for verified synthesis of self-evolving agents applicable to scientific discovery.",
+      "llm_tldr_cn": "SEVerA提供了一个经过验证的自进化智能体合成框架，可应用于科学发现任务。",
+      "llm_tldr": "SEVerA提供了一个经过验证的自进化智能体合成框架，可应用于科学发现任务。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20940v1",
+      "title": "Fast and Scalable Cellwise-Robust Ensembles for High-Dimensional Data",
+      "abstract": "The analysis of high-dimensional data, ubiquitous in fields such as genomics, is frequently complicated by the presence of cellwise contamination, where individual cells rather than entire rows are corrupted. This contamination poses a significant challenge to standard variable selection techniques. While recent ensemble methods have introduced deterministic frameworks that partition the predictor space to manage high collinearity, these modern architectures were not designed to handle cellwise contamination, leaving a critical methodological gap. To bridge this gap, we propose the Fast and Scalable Cellwise-Robust Ensemble (FSCRE) algorithm, a novel, multi-stage framework integrating three key statistical stages. First, the algorithm establishes a robust foundation by deriving a cleaned data matrix and a reliable, cellwise-robust covariance structure. Variable selection then proceeds via a competitive ensemble: a robust, correlation-based formulation of the Least-Angle Regression (LARS) algorithm proposes candidates for multiple sub-models, and a cross-validation criterion arbitrates their final assignment. Despite its architectural complexity, the proposed method possesses fundamental theoretical properties, including invariance to data scaling and equivariance to predictor permutation, which establish its objectivity. Through extensive simulations and a bioinformatics application, we demonstrate FSCRE's superior performance in variable selection precision, recall, and predictive accuracy across various contamination scenarios. This work provides a unified framework connecting cellwise-robust estimation with high-performance ensemble learning, with an implementation available on CRAN.",
+      "authors": [
+        "Anthony Christidis",
+        "Jeyshinee Pyneeandee",
+        "Gabriela Cohen-Freue"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-03-21T20:44:46+00:00",
+      "link": "https://arxiv.org/pdf/2603.20940v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Analysis of high-dimensional data in genomics",
+      "llm_evidence_cn": "基因组学中的高维数据分析",
+      "llm_evidence": "基因组学中的高维数据分析",
+      "canonical_evidence": "基因组学中的高维数据分析",
+      "llm_tldr_en": "A robust ensemble algorithm for high-dimensional data analysis in fields like genomics.",
+      "llm_tldr_cn": "一种用于基因组学等领域高维数据分析的鲁棒集成算法。",
+      "llm_tldr": "一种用于基因组学等领域高维数据分析的鲁棒集成算法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25561v1",
+      "title": "An Integrative Genome-Scale Metabolic Modeling and Machine Learning Framework for Predicting and Optimizing Biofuel-Relevant Biomass Production in Saccharomyces cerevisiae",
+      "abstract": "Saccharomyces cerevisiae is a cornerstone organism in industrial biotechnology, valued for its genetic tractability and robust fermentative capacity. Accurately predicting biomass flux across diverse environmental and genetic perturbations remains a significant challenge for rational strain design. We present a computational framework combining the Yeast9 genome-scale metabolic model with machine learning and optimization to predict, interpret, and enhance biomass flux. Flux balance analysis generated 2,000 flux profiles by varying glucose, oxygen, and ammonium uptake rates. Random Forest and XGBoost regressors achieved R2 of 0.99989 and 0.9990, respectively. A variational autoencoder revealed four distinct metabolic clusters, and SHAP analysis identified glycolysis, the TCA cycle, and lipid biosynthesis as key biomass determinants. In silico overexpression achieved a biomass flux of 0.979 gDW/hr, while Bayesian optimization of nutrient constraints produced a 12-fold increase (0.0858 to 1.041 gDW/hr). A generative adversarial network proposed stoichiometrically feasible novel flux configurations. This framework demonstrates how genome-scale simulation, interpretable ML, and generative modeling can advance yeast metabolic engineering.",
+      "authors": [
+        "Neha K. Nair",
+        "Aaron D'Souza"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-26T15:32:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.25561v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Computational framework for metabolic modeling and biomass prediction in yeast",
+      "llm_evidence_cn": "用于酵母代谢建模和生物量预测的计算框架",
+      "llm_evidence": "用于酵母代谢建模和生物量预测的计算框架",
+      "canonical_evidence": "用于酵母代谢建模和生物量预测的计算框架",
+      "llm_tldr_en": "Integrates genome-scale metabolic models with machine learning to optimize biomass production.",
+      "llm_tldr_cn": "结合全基因组代谢模型与机器学习，优化工业酵母的生物量生产。",
+      "llm_tldr": "结合全基因组代谢模型与机器学习，优化工业酵母的生物量生产。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21522v1",
+      "title": "Efficient Failure Management for Multi-Agent Systems with Reasoning Trace Representation",
+      "abstract": "Large Language Models (LLM)-based Multi-Agent Systems (MASs) have emerged as a new paradigm in software system design, increasingly demonstrating strong reasoning and collaboration capabilities. As these systems become more complex and autonomous, effective failure management is essential to ensure reliability and availability. However, existing approaches often rely on per-trace reasoning, which leads to low efficiency, and neglect historical failure patterns, limiting diagnostic accuracy. In this paper, we conduct a preliminary empirical study to demonstrate the necessity, potential, and challenges of leveraging historical failure patterns to enhance failure management in MASs. Building on this insight, we propose \\textbf{EAGER}, an efficient failure management framework for multi-agent systems based on reasoning trace representation. EAGER employs unsupervised reasoning-scoped contrastive learning to encode both intra-agent reasoning and inter-agent coordination, enabling real-time step-wise failure detection, diagnosis, and reflexive mitigation guided by historical failure knowledge. Preliminary evaluations on three open-source MASs demonstrate the effectiveness of EAGER and highlight promising directions for future research in reliable multi-agent system operations.",
+      "authors": [
+        "Lingzhe Zhang",
+        "Tong Jia",
+        "Mingyu Wang",
+        "Weijie Hong",
+        "Chiming Duan",
+        "Minghua He",
+        "Rongqian Wang",
+        "Xi Peng",
+        "Meiling Wang",
+        "Gong Zhang",
+        "Renhai Chen",
+        "Ying Li"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T03:31:41+00:00",
+      "link": "https://arxiv.org/pdf/2603.21522v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for failure management in LLM-based multi-agent systems",
+      "llm_evidence_cn": "基于LLM的多智能体系统故障管理框架",
+      "llm_evidence": "基于LLM的多智能体系统故障管理框架",
+      "canonical_evidence": "基于LLM的多智能体系统故障管理框架",
+      "llm_tldr_en": "Proposes a framework to improve reliability in complex LLM-based multi-agent systems through failure reasoning.",
+      "llm_tldr_cn": "提出了一种通过故障推理提高复杂LLM多智能体系统可靠性的框架。",
+      "llm_tldr": "提出了一种通过故障推理提高复杂LLM多智能体系统可靠性的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21692v1",
+      "title": "Reasoning Provenance for Autonomous AI Agents: Structured Behavioral Analytics Beyond State Checkpoints and Execution Traces",
+      "abstract": "As AI agents transition from human-supervised copilots to autonomous platform infrastructure, the ability to analyze their reasoning behavior across populations of investigations becomes a pressing infrastructure requirement. Existing operational tooling addresses adjacent needs effectively: state checkpoint systems enable fault tolerance; observability platforms provide execution traces for debugging; telemetry standards ensure interoperability. What current systems do not natively provide as a first-class, schema-level primitive is structured reasoning provenance -- normalized, queryable records of why the agent chose each action, what it concluded from each observation, how each conclusion shaped its strategy, and which evidence supports its final verdict. This paper introduces the Agent Execution Record (AER), a structured reasoning provenance primitive that captures intent, observation, and inference as first-class queryable fields on every step, alongside versioned plans with revision rationale, evidence chains, structured verdicts with confidence scores, and delegation authority chains. We formalize the distinction between computational state persistence and reasoning provenance, argue that the latter cannot in general be faithfully reconstructed from the former, and show how AERs enable population-level behavioral analytics: reasoning pattern mining, confidence calibration, cross-agent comparison, and counterfactual regression testing via mock replay. We present a domain-agnostic model with extensible domain profiles, a reference implementation and SDK, and outline an evaluation methodology informed by preliminary deployment on a production platformized root cause analysis agent.",
+      "authors": [
+        "Neelmani Vispute"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.DC",
+        "cs.SE"
+      ],
+      "published": "2026-03-23T08:27:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.21692v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Reasoning provenance for autonomous AI agents",
+      "llm_evidence_cn": "自主 AI 智能体的推理溯源",
+      "llm_evidence": "自主 AI 智能体的推理溯源",
+      "canonical_evidence": "自主 AI 智能体的推理溯源",
+      "llm_tldr_en": "Introduces a schema for structured reasoning provenance to analyze the behavior of autonomous AI agents.",
+      "llm_tldr_cn": "引入了一种结构化推理溯源模式，用于分析自主 AI 智能体的行为。",
+      "llm_tldr": "引入了一种结构化推理溯源模式，用于分析自主 AI 智能体的行为。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22359v1",
+      "title": "STEM Agent: A Self-Adapting, Tool-Enabled, Extensible Architecture for Multi-Protocol AI Agent Systems",
+      "abstract": "Current AI agent frameworks commit early to a single interaction protocol, a fixed tool integration strategy, and static user models, limiting their deployment across diverse interaction paradigms. To address these constraints, we introduce STEM Agent (Self-adapting, Tool-enabled, Extensible, Multi-agent), a modular architecture inspired by biological pluripotency in which an undifferentiated agent core differentiates into specialized protocol handlers, tool bindings, and memory subsystems that compose into a fully functioning AI system. The framework unifies five interoperability protocols (A2A, AG-UI, A2UI, UCP, and AP2) behind a single gateway, introduces a Caller Profiler that continuously learns user preferences across more than twenty behavioral dimensions, externalizes all domain capabilities through the Model Context Protocol (MCP), and implements a biologically inspired skills acquisition system in which recurring interaction patterns crystallize into reusable agent skills through a maturation lifecycle analogous to cell differentiation. Complementing these capabilities, the memory system incorporates consolidation mechanisms, including episodic pruning, semantic deduplication, and pattern extraction, designed for sub-linear growth under sustained interaction. A comprehensive 413-test suite validates protocol handler behavior and component integration across all five architectural layers, completing in under three seconds.",
+      "authors": [
+        "Alfred Shen",
+        "Aaron Shen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-22T20:50:53+00:00",
+      "link": "https://arxiv.org/pdf/2603.22359v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Modular architecture for multi-protocol AI agent systems inspired by biology",
+      "llm_evidence_cn": "受生物学启发的多协议AI智能体系统模块化架构",
+      "llm_evidence": "受生物学启发的多协议AI智能体系统模块化架构",
+      "canonical_evidence": "受生物学启发的多协议AI智能体系统模块化架构",
+      "llm_tldr_en": "Presents a self-adapting agent architecture inspired by biological pluripotency for tool use.",
+      "llm_tldr_cn": "提出了一种受生物多能性启发、支持多种协议的自适应智能体架构。",
+      "llm_tldr": "提出了一种受生物多能性启发、支持多种协议的自适应智能体架构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

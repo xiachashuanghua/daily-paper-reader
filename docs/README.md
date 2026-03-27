@@ -6,46 +6,61 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-26
-- 运行时间：2026-03-26 20:40:14 UTC
+- 最新运行日期：2026-03-27
+- 运行时间：2026-03-27 19:45:21 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：1
-- 速读区：7
+- 本次总论文数：13
+- 精读区：3
+- 速读区：10
 
 ### 今日简报（AI）
-今日聚焦 8 篇前沿进展，重点展示了多智能体系统在脑肿瘤随访评估中的端到端自动化突破。
-最值得关注 BT-RADS 评分的标准化智能体方案，以及针对纳米孔测序纠错和 LLM 文献检索的效能提升。
-建议深入了解 AI 智能体如何重塑复杂医疗工作流，以实现更精准的临床决策支持。
-- 详情：[/202603/26/README](/202603/26/README)
+今日聚焦生物大模型与科研范式革新，深度剖析了跨分子可解释 AI 及 RNA 预测的泛化性挑战。
+Central Dogma Transformer III 实现了生命中心法则的统一建模，而 CHANRG 揭示了公平数据划分正重塑 RNA 结构预测的基准排名。
+建议重点关注生物 AI 评估体系的严谨性，并探索自主科研监督（AI-Supervisor）对未来研究流程的潜在影响。
+- 详情：[/202603/27/README](/202603/27/README)
 
 ### 精读区论文标签
-1. [Agentic Automation of BT-RADS Scoring: End-to-End Multi-Agent System for Standardized Brain Tumor Follow-up Assessment](/202603/26/2603.21494v2-agentic-automation-of-bt-rads-scoring-end-to-end-multi-agent-system-for-standardized-brain-tumor-follow-up-assessment)  
+1. [Fair splits flip the leaderboard: CHANRG reveals limited generalization in RNA secondary-structure prediction](/202603/27/2603.22330v1-fair-splits-flip-the-leaderboard-chanrg-reveals-limited-generalization-in-rna-secondary-structure-prediction)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：RNA二级结构预测与基础模型
+2. [Central Dogma Transformer III: Interpretable AI Across DNA, RNA, and Protein](/202603/27/2603.23361v2-central-dogma-transformer-iii-interpretable-ai-across-dna-rna-and-protein)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：跨DNA、RNA和蛋白质序列的可解释AI
+3. [Lingshu-Cell: A generative cellular world model for transcriptome modeling toward virtual cells](/202603/27/2603.25240v1-lingshu-cell-a-generative-cellular-world-model-for-transcriptome-modeling-toward-virtual-cells)  
    标签：评分：8.0/10、query:llmagt
-   evidence：用于脑肿瘤随访评估的多智能体LLM系统
+   evidence：用于转录组建模的生成式细胞世界模型
 
 ### 速读区论文标签
-1. [Bivariate deconvolution for cancer detection after surgery](/202603/26/2603.17864v1-bivariate-deconvolution-for-cancer-detection-after-surgery)  
+1. [AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model](/202603/27/2603.24402v2-ai-supervisor-autonomous-ai-research-supervision-via-a-persistent-research-world-model)  
    标签：评分：7.0/10、query:llmagt
-   evidence：利用ctDNA进行癌症检测的计算模型
-2. [CERN: Correcting Errors in Raw Nanopore Signals Using Hidden Markov Models](/202603/26/2603.20420v1-cern-correcting-errors-in-raw-nanopore-signals-using-hidden-markov-models)  
+   evidence：通过多智能体编排实现自主AI研究监督
+2. [SIGMA: Structure-Invariant Generative Molecular Alignment for Chemical Language Models via Autoregressive Contrastive Learning](/202603/27/2603.25062v1-sigma-structure-invariant-generative-molecular-alignment-for-chemical-language-models-via-autoregressive-contrastive-learning)  
    标签：评分：7.0/10、query:llmagt
-   evidence：纠正用于基因组分析的原始纳米孔信号错误
-3. [VILLA: Versatile Information Retrieval From Scientific Literature Using Large LAnguage Models](/202603/26/2603.23849v1-villa-versatile-information-retrieval-from-scientific-literature-using-large-language-models)  
+   evidence：用于分子生成的化学语言模型
+3. [SEVerA: Verified Synthesis of Self-Evolving Agents](/202603/27/2603.25111v1-severa-verified-synthesis-of-self-evolving-agents)  
    标签：评分：7.0/10、query:llmagt
-   evidence：病毒学领域的科学信息提取
-4. [AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model](/202603/26/2603.24402v1-ai-supervisor-autonomous-ai-research-supervision-via-a-persistent-research-world-model)  
+   evidence：用于科学发现的自进化LLM智能体
+4. [An Integrative Genome-Scale Metabolic Modeling and Machine Learning Framework for Predicting and Optimizing Biofuel-Relevant Biomass Production in Saccharomyces cerevisiae](/202603/27/2603.25561v1-an-integrative-genome-scale-metabolic-modeling-and-machine-learning-framework-for-predicting-and-optimizing-biofuel-relevant-biomass-production-in-saccharomyces-cerevisiae)  
    标签：评分：7.0/10、query:llmagt
-   evidence：自主AI研究监督的多智能体编排
-5. [AI Co-Scientist for Ranking: Discovering Novel Search Ranking Models alongside LLM-based AI Agents with Cloud Computing Access](/202603/26/2603.22376v1-ai-co-scientist-for-ranking-discovering-novel-search-ranking-models-alongside-llm-based-ai-agents-with-cloud-computing-access)  
+   evidence：用于酵母代谢建模和生物量预测的计算框架
+5. [MemMA: Coordinating the Memory Cycle through Multi-Agent Reasoning and In-Situ Self-Evolution](/202603/27/2603.18718v1-memma-coordinating-the-memory-cycle-through-multi-agent-reasoning-and-in-situ-self-evolution)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于科学发现和研究流程自动化的AI智能体
-6. [ABSTRAL: Automatic Design of Multi-Agent Systems Through Iterative Refinement and Topology Optimization](/202603/26/2603.22791v1-abstral-automatic-design-of-multi-agent-systems-through-iterative-refinement-and-topology-optimization)  
+   evidence：协调LLM智能体记忆的多智能体框架
+6. [Towards Practical Multimodal Hospital Outbreak Detection](/202603/27/2603.20536v1-towards-practical-multimodal-hospital-outbreak-detection)  
    标签：评分：6.0/10、query:llmagt
-   evidence：多智能体系统自动设计与优化的框架
-7. [DeepDTF: Dual-Branch Transformer Fusion for Multi-Omics Anticancer Drug Response Prediction](/202603/26/2603.24265v1-deepdtf-dual-branch-transformer-fusion-for-multi-omics-anticancer-drug-response-prediction)  
+   evidence：利用基因组数据进行医院爆发检测的机器学习
+7. [Fast and Scalable Cellwise-Robust Ensembles for High-Dimensional Data](/202603/27/2603.20940v1-fast-and-scalable-cellwise-robust-ensembles-for-high-dimensional-data)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于多组学抗癌药物反应预测的Transformer融合
+   evidence：基因组学中的高维数据分析
+8. [Efficient Failure Management for Multi-Agent Systems with Reasoning Trace Representation](/202603/27/2603.21522v1-efficient-failure-management-for-multi-agent-systems-with-reasoning-trace-representation)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：基于LLM的多智能体系统故障管理框架
+9. [Reasoning Provenance for Autonomous AI Agents: Structured Behavioral Analytics Beyond State Checkpoints and Execution Traces](/202603/27/2603.21692v1-reasoning-provenance-for-autonomous-ai-agents-structured-behavioral-analytics-beyond-state-checkpoints-and-execution-traces)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：自主 AI 智能体的推理溯源
+10. [STEM Agent: A Self-Adapting, Tool-Enabled, Extensible Architecture for Multi-Protocol AI Agent Systems](/202603/27/2603.22359v1-stem-agent-a-self-adapting-tool-enabled-extensible-architecture-for-multi-protocol-ai-agent-systems)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：受生物学启发的多协议AI智能体系统模块化架构
 
 
 <div class="dpr-home-promo-card">
