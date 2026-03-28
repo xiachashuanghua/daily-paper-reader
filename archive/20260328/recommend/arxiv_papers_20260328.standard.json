@@ -1,0 +1,92 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-28T19:34:18.721169+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2603.22633v1",
+      "title": "Graph-Aware Late Chunking for Retrieval-Augmented Generation in Biomedical Literature",
+      "abstract": "Retrieval-Augmented Generation (RAG) systems for biomedical literature are typically evaluated using ranking metrics like Mean Reciprocal Rank (MRR), which measure how well the system identifies the single most relevant chunk. We argue that for full-text scientific documents, this paradigm is incomplete: it rewards retrieval precision while ignoring retrieval breadth -- the ability to surface evidence from across a document's structural sections. We propose GraLC-RAG, a framework that unifies late chunking with graph-aware structural intelligence, introducing structure-aware chunk boundary detection, UMLS knowledge graph infusion, and graph-guided hybrid retrieval. We evaluate six strategies on 2,359 IMRaD-filtered PubMed Central articles using 2,033 cross-section questions and two metric families: standard ranking metrics (MRR, Recall@k) and structural coverage metrics (SecCov@k, CS Recall). Our results expose a sharp divergence: content-similarity methods achieve the highest MRR (0.517) but always retrieve from a single section, while structure-aware methods retrieve from up to 15.6x more sections. Generation experiments show that KG-infused retrieval narrows the answer-quality gap to delta-F1 = 0.009 while maintaining 4.6x section diversity. These findings demonstrate that standard metrics systematically undervalue structural retrieval and that closing the multi-section synthesis gap is a key open problem for biomedical RAG.",
+      "authors": [
+        "Pouria Mortezaagha",
+        "Arya Rahgozar"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.IR"
+      ],
+      "published": "2026-03-23T23:22:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.22633v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RAG for biomedical literature retrieval",
+      "llm_evidence_cn": "用于生物医学文献检索的 RAG 技术",
+      "llm_evidence": "用于生物医学文献检索的 RAG 技术",
+      "canonical_evidence": "用于生物医学文献检索的 RAG 技术",
+      "llm_tldr_en": "GraLC-RAG improves biomedical literature retrieval by combining late chunking with graph-aware intelligence.",
+      "llm_tldr_cn": "GraLC-RAG 通过结合延迟分块与图感知智能，改进了生物医学文献的检索效果。",
+      "llm_tldr": "GraLC-RAG 通过结合延迟分块与图感知智能，改进了生物医学文献的检索效果。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22206v1",
+      "title": "Chimera: Latency- and Performance-Aware Multi-agent Serving for Heterogeneous LLMs",
+      "abstract": "Multi-agent applications often execute complex tasks as multi-stage workflows, where each stage is an LLM call whose output becomes part of context for subsequent steps. Existing LLM serving systems largely assume homogeneous clusters with identical model replicas. This design overlooks the potential of heterogeneous deployments, where models of different sizes and capabilities enable finer trade-offs between latency and performance. However, heterogeneity introduces new challenges in scheduling across models with diverse throughput and performance. We present Chimera, a predictive scheduling system for multi-agent workflow serving on heterogeneous LLM clusters that jointly improves end-to-end latency and task performance. Chimera applies semantic routing to estimate per-model confidence scores for each request, predicts the total remaining output length of the workflow, and estimates per-model congestion using in-flight predicted token volumes for load balancing. We evaluate Chimera on representative agentic workflows for code generation and math reasoning using multiple heterogeneous LLM configurations. Across comparable settings, Chimera traces the best latency-performance frontier, reducing end-to-end latency by 1.2--2.4$\\times$ and improving task performance by 8.0-9.5 percentage points on average over competitive baselines including vLLM.",
+      "authors": [
+        "Kangqi Ni",
+        "Wenyue Hua",
+        "Xiaoxiang Shi",
+        "Jiang Guo",
+        "Shiyu Chang",
+        "Tianlong Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-23T17:01:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.22206v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent serving framework for LLMs",
+      "llm_evidence_cn": "大语言模型多智能体服务框架",
+      "llm_evidence": "大语言模型多智能体服务框架",
+      "canonical_evidence": "大语言模型多智能体服务框架",
+      "llm_tldr_en": "Chimera optimizes multi-agent LLM workflows on heterogeneous clusters for better latency and performance.",
+      "llm_tldr_cn": "Chimera 优化了异构集群上的多智能体 LLM 工作流，提高了延迟和性能表现。",
+      "llm_tldr": "Chimera 优化了异构集群上的多智能体 LLM 工作流，提高了延迟和性能表现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
