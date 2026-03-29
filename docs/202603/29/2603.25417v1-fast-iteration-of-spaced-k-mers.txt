@@ -1,0 +1,353 @@
+Title: Fast Iteration of Spaced k-mers
+
+URL Source: https://arxiv.org/pdf/2603.25417v1
+
+Published Time: Fri, 27 Mar 2026 01:03:33 GMT
+
+Number of Pages: 23
+
+Markdown Content:
+# Fast Iteration of Spaced k-mers 
+
+Lucas Czech 
+
+> Section for GeoGenetics, Globe Institute, University of Copenhagen, Denmark; lucas.czech@sund.ku.dk
+
+We present efficient approaches for extracting spaced k -mers from nucleotide sequences. They are based on bit manipulation instruc-tions at CPU level, making them both simpler to implement and up to an order of magnitude faster than existing methods. We further evaluate common pitfalls in k -mer processing, which can cause ma-jor inefficiencies. Combined, our approaches allow the utilization of spaced k -mers in high-performance bioinformatics applications without major performance degradation, offering a throughput of up to 750MB of sequence data per second per core. Availability: The implementation in C++20 is published under the MIT license, and freely available at github.com/lczech/fisk 
+
+1. Introduction 
+
+A k-mer is a contiguous substring of length k extracted from a biological sequence such as DNA nucleotides or amino acids. Due to their simplicity and efficiency, k-mers are a fundamental building block in computational genomics and bioinformatics ( 1, 2 ), with applications ranging from genome assembly and read mapping to metagenomic clas-sification and alignment-free sequence comparison ( 3). For the nucleotide alphabet {A, C, G, T} of DNA sequences, an example is shown in Fig. 1(a-b). Although contiguous k-mers are computationally efficient, they are sensitive to mismatches. Many methods expect exact matches of k-mers, for instance, to index and search genomic sequences. Thus, a single nucleotide substitution dis-rupts all k-mers spanning the mismatching position. To im-prove robustness to mutations and sequencing errors, spaced 
+
+k-mers were introduced ( 4, 5 ), where a fixed mask (or pat-tern) of length k is applied to select a subset of positions in a k-mer, as shown in Fig. 1(c-d). The resulting subsequence captures a context of span k, while tolerating mismatches at masked positions. Carefully designed and optimized patterns can substantially improve sensitivity in homology search and sequence comparison compared to contiguous k-mers ( 5 –8 ). Spaced k-mers have since been adopted in a broad range of bioinformatics applications. They achieve a favorable balance between sensitivity and specificity, but also introduce computational challenges; previous work has hence been conducted on algorithms for efficient spaced k-mer extraction (9–13). Here, we present methods to extract spaced k-mers for the case of k ≤ 32 ; extension to larger values of k is possible. Compared to existing methods, our approaches are both simpler and faster. 
+
+2. Problem Statement 
+
+DNA sequences consist of four nucleotides from the alphabet 
+
+N = {A, C, G, T}. Here, a k-mer s is a sequence of length 
+
+k of characters from this alphabet, i. e., s ∈ Nk . This is often represented in a compact 2-bit encoding, where A = 00 , C = 01 , G = 10 , T = 11 . This allows up to 32-mers to be stored in a single 64-bit machine word, thus enabling efficient storage and fast processing of k-mers via simple bit-wise operations on modern computer hardware. We here focus on this nucleotide alphabet and encoding; application to other alphabets is straightforward. A spaced k-mer is defined by a binary mask m ∈ { 0, 1}k
+
+of length k to select certain positions of an underlying k-mer (1s), while skipping others (0s), see Fig. 1(c-d). We call k
+
+the span of the mask, and w its weight, with w = ∑ 
+
+> i
+
+mi the number of positions in the mask that are 1. The resulting spaced k-mer is here called a w-mer (as it has length w), to distinguish it from the underlying k-mer it was extracted from. The problem can then be stated as follows. Given a nu-cleotide sequence r of length n over the alphabet N, slide a window of size k across r, yielding n − k + 1 windows; in each window, apply the mask, by extracting the corresponding bases where m is set to 1 to construct a w-mer. As evident from Fig. 1(d), the resulting w-mers thus only share short sub-strings with each other, namely where runs of consec-utive 1s overlap in m when shifted. This makes it difficult to “re-use” information across w-mers, which motivates the development of efficient techniques for this task. Remarks on terminology: In the existing literature, the mask m and the extracted w-mer are both called “seed” or “spaced seed”. This is however overloaded and ambiguous, as the term “seed” usually refers to some initial value. Thus, the (a) Input sequence 
+
+1 0 1 1 0 11G T A C A G CA TAG T A C A G CAT A C A G CA AT A C A G C TAG C A CA
+
+1 0 1 1 0 11
+
+T A GA A
+
+1 0 1 1 0 11
+
+T A G C TG C A CAT A GA AT A G C T
+
+(d) Spaced k-mers (b) Extraction of k-mers (c) Application of the mask 
+
+000
+
+Fig. 1. Spaced k -mer extraction. (a) An input sequence of nucleotide characters. (b) Three consecutive k-mers of length 8 are extracted from the sequence, each overlapping by k − 1 = 7 characters, forming a sliding window of length k over the sequence. (c) 
+
+A fixed mask m of span k = 8 and weight w = 5 is applied to each k-mer, to select characters where the mask is 1, while leaving out characters where the mask is 0. (d) The final spaced k-mers, which we here call w-mers for clarity.   
+
+> March 27, 2026 |1
+> arXiv:2603.25417v1 [q-bio.GN] 26 Mar 2026
+
+name “seed” makes sense when k-mers are used in a seed-and-extend approach, but not in the general case. Further names for the mask m include “pattern”, “shape”, and “template”. Existing methods also often use (spaced) k-mers as keys in lookup hash tables; hence, the term “ k-mer hash” has been used, where the encoded k-mer is a perfect hash value of itself. However, a “hash” is usually the result of a hash function, which takes arbitrary-length input instead of a fixed size k. We thus refer to the 2-bit representation as the “encoding” of the k-mer instead. 
+
+3. Results 
+
+We here present an overview of the algorithms and their benchmarks; for details, see the Supplementary Text. All benchmarks are based on a sequence of randomly generated nucleotide data, using the same set of masks as MISSH (12 ). The implementation is concise and well documented, in order to be easily adaptable; for a more complete suite of k-mer-related and other genomics functionality, see our C++ library genesis (14).   
+
+> 3.1. Encoding and k-mer Extraction
+
+The initial steps are to traverse the input sequence, en-code the ASCII-encoded nucleotides into 2-bit encoding, and construct and iterate the k-mers. There are several pitfalls in these steps that lead to major performance bottle-necks; unfortunately, they occasionally appear in published code. Firstly, the encoding can be implemented as a switch-statement or series of if-statements, checking for the four nucleotides in N. The latter in particular, however, all but guarantees several CPU branch predictor misses per input character. Secondly, each k-mer can be fully re-extracted based on the underlying sequence, by applying the encoding 
+
+k times per k-mer, which is suboptimal. The more optimized approach is to use a branchless en-coding function, and to apply bit shifts between consecutive 
+
+k-mers, thus re-using all overlapping bits from the previous 
+
+k-mer in the sequence, and only encoding one new character in each iteration. We tested two variants of branchless character encoding. The first is based on bit operations on the input character, and exploits a serendipity in the ASCII code to obtain the 2-bit encoding; the technique was recently independently dis-covered and utilized for bit-compressing genomic sequences (15 ). The second is a simple lookup table containing the 2-bit codes for each single-byte character; this was more performant in our benchmarks, and thus used henceforth. Unless the input has previously been sanitized, there is one unavoidable branch in the hot loop, to check if the current k-mer consists only of valid characters. However, in typical data with few invalid characters not in N, the branch prediction mostly eliminates the overhead for this. This yields a performance of ≈1ns per extracted k-mer, or 
+
+≈1GB of sequence data per second. We also tested a SIMD-accelerated implementation based on encoding 32 nucleotides at once with the ASCII exploit, using the AVX2 instruction set, which yielded a performance of ≈0.8ns per k-mer. Note that we limited our implementation to k ≤ 32 , for both the initial and the extracted spaced k-mer. For most applications, this is the typically sufficient limit anyway, and allows us to leverage rolling encoding, as a k-mer fits into a 64-bit word. Larger values of k are however possible with additional bit operations or adaptation to, e. g., 128-bit registers, but left as future work.   
+
+> 3.2. Spaced k-mer Extraction
+
+The main step then is the extraction of the spaced k-mers, i. e., the construction of the w-mers, at each position along the sequence. The “naive” extraction of a w-mer simply loops over the set of positions in the mask, and encodes each character from the input anew. Obviously, this is equally as inefficient as the corresponding re-extraction approach for 
+
+k-mers, as it uses a loop with w iterations per w-mer. The more efficient approach is to leverage the shift-based traversal of k-mers, and extract the w-mers directly from there. That is, given a k-mer in 2-bit encoding, and stored in a 64-bit word, we need to extract the pairs of bits cor-responding to the positions set in the mask. Each bit pair then needs to be shifted according to the number of “gaps” in the mask between its position in the k-mer and the end of the mask, as in Fig. 1(c-d). This operation is called bit extract , which gathers all bits denoted in the mask towards one side of the word and zeros out the rest. This is also known as bit compression, bit gathering, or bit packing, and is a well-understood opera-tion with several implementations in software and hardware, which we are exploiting here. On Intel CPUs (since Q2/2013), as well as recent AMD CPUs (since Q4/2020), the PEXT intrinsic allows bit extrac-tion with high throughput, and is the most performant way to extract w-mers with only a few cycles of overhead com-pared to regular k-mer iteration. Older AMD CPUs (since Q2/2015) also offer the intrinsic, but implement it in slow microcode. On ARM architecture (Apple CPUs), it is not available. To mitigate this, we tested several algorithms to perform bit extraction in software; see the Supplementary Text for details. In our benchmarks, with no significant exceptions, the most efficient implementation is an existing algorithm that works in log 2(b) stages for b bits, e. g., 6 stages for 64-bit words. In each stage, bits of the input are shifted in increasing powers of two, such that any gap length in the mask can be expressed as a combination of such shifts. For instance, a bit with 42 gaps (unset bits) towards the end of the mask is shifted in stages 2, 4, and 6, corresponding to shifts of 2, 8, and 32 bits, respectively. These shifts are solely dependent on the mask, and can be pre-computed in a small table. Here, we call this the “Butterfly” algorithm, inspired by bit manipulation techniques that move bits across a machine word, where the pattern of movement resembles the wings of a butterfly. As the stages of the Butterfly algorithm are fixed for a given mask, they can be applied to several k-mers in parallel. We thus implemented SIMD-accelerated variants of this for the SSE2, AVX2, AVX512, and ARM Neon intrinsics, each computing one consecutive 
+
+w-mer per 64-bit lane. Moreover, in many applications of spaced k-mers, multiple masks are applied, e. g., to increase the sensitivity of sequence searches ( 6 , 16 ). In that case, the encoding and k-mer iteration only need to be executed once, and the w-mers for each mask can be extracted from that k-mer. We also implemented this with the above SIMD acceleration. The availability of an inefficient PEXT on older AMD CPUs unfortunately prohibits us from simply testing for it at compile time. We hence implemented dynamic selection mechanisms at run time, where for a given mask, a short benchmark is run to select the fastest available algorithm. Using C++ templates (or Rust generics, if ported), this mechanism can be used to switch between algorithms without overhead for function indirection.       
+
+> March 27, 2026 |2Fig. 2. Extracting spaced k-mers from a sequence. (a) Single mask. The time per
+
+w-mer is shown, i. e., total time divided by number of w-mers in the sequence, averaged across runs with distinct masks, for different hardware and compilers. The naive algorithm loops over the mask for each w-mer; the PEXT intrinsic is the fastest where available as a dedicated hardware instruction; the Butterfly algorithm and its SIMD-accelerated variants offer a performant alternative otherwise. (b) Multiple masks (here, 9 distinct masks). The resulting time per distinct w-mer is shown. Compared to a single mask, this amortizes the cost for iterating over the underlying k-mers in the sequence, which only needs to be performed once, followed by separate bit extractions for each mask. 
+
+> 3.3. Benchmarks
+
+Results for several CPU architectures are shown in Fig. 2; extended results are presented in the Supplementary Text. In short, both the Intel Xeon and the AMD Epyc offer fast 
+
+PEXT , while the AMD Ryzen and Apple M1 do not. For every hardware architecture tested, at least one of the im-plementations has a throughput of one spaced k-mer per 1.3–1.8ns per core, equivalent to 520MB to 750MB per sec-ond for traversing a sequence and constructing its w-mers. Compared to the baseline of ≈ 1ns for regular (contiguous) 
+
+k-mer extraction from a sequence, this is likely fast enough for most applications, which usually incur a more significant overhead on top for their downstream computations. 
+
+> 3.4. Comparison to Existing Approaches
+
+CLARK-S ( 16 ) is an early tool that uses spaced k-mers for sensitivity. It reported a ≈17-fold increase in runtime compared to its previous variant CLARK with non-spaced 
+
+k-mers ( 17 ), in contrast to an expected factor of 3 due to the tool querying spaced k-mers with 3 distinct masks to increase sensitivity. Inspecting the CLARK-S code, we found several bottlenecks: It fully re-extracts k-mers repeatedly for each of its three masks, and uses string comparisons and branching with guaranteed branch predictor misses in the hot path (i. e., per character of input). Eliminating these bottlenecks lead to an average 21-fold speedup in our tests. On the other hand, the extraction of spaced k-mers itself is implemented using an efficient hard-coded approach equivalent to our Block table algorithm (see Supplementary Text). The apparent slowness of CLARK-S has motivated the development of several optimized methods, namely FSH ( 10 ), FISH ( 9 ), ISSH ( 11 ), MISSH ( 12 ), and DuoHash ( 13 ). FSH, ISSH, and MISSH are based on the observation that typical spaced masks still do share some positions that are present in overlapping k-mers. They exploit the auto-correlation be-tween these overlaps when sliding the mask along a sequence, to “rescue” bits that were already extracted. This however requires to store previous w-mers, thus adding overhead. FISH and DuoHash instead use blocks of consecutive 1s in the mask to accelerate spaced k-mer extraction via large lookup tables. Distinct from all other methods examined here, this allows them to compute actual k-mer hashes, which DuoHash showcases via the ntHash method ( 18 , 19 ). The overhead for overlap bookkeeping and lookup tables in these methods is however significant. Across different hardware architectures, our approaches are 3.4–4.2 times faster for single masks, and up to 9.5 faster per w-mer when comput-ing multiple masks; details in the Supplementary Text. At the same time, our overall approach is much simpler (with added complexity for SIMD acceleration though), and does not need to keep previous k-mers in memory. Lastly, the more recent MaskJelly tool ( 20 ) uses a loop over mask positions to extract each w-mer, thus incurring w
+
+operations per w-mer. Implementing our approaches can at least double the performance. 
+
+4. Conclusion 
+
+We tackled the problem of spaced k-mer extraction from a sequence of nucleotides, and presented highly efficient hardware-accelerated implementations for this task, yielding a throughput of 520MB to 750MB of sequence data per sec-ond per core, significantly outpacing all existing techniques by at least a factor of 3.2. With the presented optimizations, we remove a bottleneck for methods utilizing spaced k-mers. We thus conclude that the extraction of spaced k-mers does generally not pose a substantial barrier for high-performance computational genomics methods. 
+
+Appendices 
+
+> Code Availability
+
+The code for this project is freely available under the MIT License at github.com/lczech/fisk, which contains C++ im-plementations of all methods and benchmarks presented. 
+
+> Supplementary Text
+
+We provide details on the algorithms, their implementation, and their benchmarks in the Supplementary Text. 
+
+> Acknowledgments
+
+This work was supported by the International Balzan Founda-tion through the Balzan research project of Eske Willerslev. Personal thanks to Pierre Barbera for donating compute time on his Apple M1 Pro. 
+
+> Competing Interests
+
+The authors declare that they have no competing interests.   
+
+> March 27, 2026 |3
+
+References 
+
+1. Marchet C (2024) Advances in colored k-mer sets: essentials for the curious. arXiv [q-bio.GN] .2. Marchet C (2024) Advances in practical k-mer sets: essentials for the curious. arXiv [q-bio.GN] .3. Moeckel C, et al. (2024) A survey of k-mer methods and applications in bioinformatics. 
+
+Computational and structural biotechnology journal 23:2289–2303. 4. Burkhardt S, Kärkkäinen J (2001) Better filtering with gapped q-grams in Combinatorial Pattern Matching , Lecture Notes in Computer Science. (Springer Berlin Heidelberg, Berlin, Heidelberg), pp. 73–85. 5. Ma B, Tromp J, Li M (2002) PatternHunter: faster and more sensitive homology search. 
+
+Bioinformatics (Oxford, England) 18(3):440–445. 6. Hahn L, Leimeister CA, Ounit R, Lonardi S, Morgenstern B (2016) Rasbhari: Optimiz-ing spaced seeds for database searching, read mapping and alignment-free sequence comparison. PLoS computational biology 12(10):e1005107. 7. Kucherov G, Noé L, Roytberg M (2006) A unifying framework for seed sensitivity and its application to subset seeds. Journal of Bioinformatics and Computational Biology 
+
+4(2):553–569. 8. Noé L (2017) Best hits of 11110110111: model-free selection and parameter-free sensitivity calculation of spaced seeds. Algorithms for Molecular Biology 12(1):1. 9. Girotto S, Comin M, Pizzi C (2018) Efficient computation of spaced seed hashing with block indexing. BMC bioinformatics 19(Suppl 15):441. 10. Girotto S, Comin M, Pizzi C (2018) FSH: fast spaced seed hashing exploiting adjacent hashes. Algorithms for molecular biology: AMB 13(1):8. 11. Petrucci E, Noé L, Pizzi C, Comin M (2020) Iterative Spaced Seed Hashing: Closing the gap between spaced seed hashing and k-mer hashing. Journal of computational biology: a journal of computational molecular cell biology 27(2):223–233. 12. Mian E, Petrucci E, Pizzi C, Comin M (2024) MISSH: Fast hashing of multiple spaced seeds. 
+
+IEEE/ACM transactions on computational biology and bioinformatics 21(6):2330–2339. 13. Gemin L, Pizzi C, Comin M (2026) DuoHash: Fast hashing of spaced seeds with application to spaced K-mers counting in Lecture Notes in Computer Science , Lecture Notes in Computer Science. (Springer Nature Switzerland, Cham), pp. 28–39. 14. Czech L, Barbera P, Stamatakis A (2020) Genesis and Gappa: processing, analyzing and visualizing phylogenetic (placement) data. Bioinformatics p. 647958. 15. Corontzos C, Frachtenberg E (2024) Direct-coding DNA with multilevel parallelism. IEEE computer architecture letters 23(1):21–24. 16. Ounit R, Lonardi S (2016) Higher classification sensitivity of short metagenomic reads with CLARK-S. Bioinformatics (Oxford, England) 32(24):3823–3825. 17. Ounit R, et al. (2015) CLARK: fast and accurate classification of metagenomic and genomic sequences using discriminative k-mers. BMC genomics 16(1):236. 18. Mohamadi H, Chu J, Vandervalk BP, Birol I (2016) ntHash: recursive nucleotide hashing. 
+
+Bioinformatics 32(22):3492–3494. 19. Kazemi P, et al. (2022) ntHash2: recursive spaced seed hashing for nucleotide sequences. 
+
+Bioinformatics 38(20):4812–4813. 20. Häntze H, Horton P (2023) Effects of spaced k-mers on alignment-free genotyping. Bioin-formatics (Oxford, England) 39(39 Suppl 1):i213–i221. 
+
+March 27, 2026 | 4Supplementary Text: Fast Iteration of Spaced k-mers 
+
+## Lucas Czech 
+
+Section for GeoGenetics, Globe Institute, University of Copenhagen, Denmark. 
+
+## Contents 
+
+1 Overview 2
+
+1.1 Notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21.2 Benchmarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21.3 Hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+2 Encoding and Iteration of k-mers 3
+
+2.1 Nucleotide Encoding . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32.2 Consecutive k -mer Iteration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+3 Bit Extract 5
+
+3.1 Hardware implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63.2 Software Implementations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+
+4 Spaced k-mer Extraction 12 
+
+4.1 Single Mask . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 4.2 Multiple Masks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 4.3 SIMD Acceleration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13 4.4 Dynamic Algorithm Selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 4.5 Differences between compilers . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16 4.6 Comparison with existing methods . . . . . . . . . . . . . . . . . . . . . . . . . 16 
+
+5 References 19 
+
+11 Overview 
+
+This supplement elaborates on the bit extract algorithms and their application to spaced k-mer extraction, and presents detailed benchmarks of the implementations for different hardware architectures. Our C++ implementation of all presented methods, as well as all benchmarks, are freely available under the MIT license at github.com/lczech/fisk 
+
+1.1 Notation 
+
+For ease of reading, we briefly repeat the notation here. 
+
+• N = {A, C, G, T} is the nucleotide alphabet. 
+
+• r ∈ Nn is an input sequence of length n over the alphabet N, encoded as ASCII characters. 
+
+• A k-mer ∈ Nk is a sub-sequence of r of length k, for which we use 2-bit encoding, where A = 00 , C = 01 , G = 10 , T = 11. 
+
+• m ∈ { 0, 1}k is a binary mask of length k to select positions of an underlying k-mer (1s), while skipping others (0s). We call k the span of the mask, and w its weight, with 
+
+w = P 
+
+> i
+
+mi the number of positions in the mask that are 1. 
+
+• A w-mer ∈ Nw is a spaced k-mer, i. e., a k-mer from which positions have been extracted according to m.Our goal then is to extract all consecutive w-mers while traversing the input sequence r.Typically, applications will then use those w-mers to, e. g., perform sequence searches or other relevant tasks. Here, we focus only on the extraction itself. 
+
+1.2 Benchmarks 
+
+Benchmarks of the bit extraction functionality were run on randomly generated 64-bit values and masks. Benchmarks of the (spaced) k-mer processing were run on randomly generated sequences of one million nucleotides, with a fraction of 0.001 of them randomly changed into invalid characters not in N, which can occur in real-world data. Each benchmark was run in at least 4 repetitions, to reduce measurement noise. The masks are the same as those used in the MISSH approach [1]. For single-mask benchmarks, we used a set of 9 masks with k = 31 and w = 22, marked as “default” in MISSH. For multi-mask benchmarks, each benchmark used a set of 9 masks, all applied at once to the same sequence, i. e., extracting 9 w-mers per k-mer. We used 5 such sets of masks, of increasing weight, with ( k, w ) ∈ { (15 , 10) , (31 , 14) , (31 , 18) , (31 , 22) , (31 , 26) }. We left out one set of masks with k = 45, as our approach is currently limited to k ≤ 32. 21.3 Hardware 
+
+We benchmarked the code with the following CPUs and compilers: 
+
+• AMD Epyc 7763, 64 cores, Zen 3 x86-64, released Q1/2021, tested via GitHub Actions with Clang 18.1.3 and GCC 13.3.0. 
+
+• AMD Epyz 9684X, 96 cores, Zen 4 x86-64, released Q2/2023, tested with Clang 17.0.0 and GCC 15.2.0. 
+
+• AMD Ryzen 7 PRO 4750U, 8 cores, Zen 2 x86-64, released Q2/2020, tested with Clang 17.0.6 and GCC 14.2.0. 
+
+• Apple M1, 8 cores, ARM, released Q4/2020, tested virtually via GitHub Actions with Apple Clang 17.0.0. 
+
+• Apple M1 Pro, 8 cores, ARM, released Q4/2020, tested with Apple Clang 17.0.0. 
+
+• Intel Xeon Platinum 8568Y+, 48 cores, x86-64, released Q4/2023, tested with Clang 17.0.0 and GCC 15.2.0. In this document, we only show the most relevant and distinct of those benchmarks; see github.com/lczech/fisk for the full set of plots. In particular, we are leaving out the two CPUs tested via GitHub actions, and mostly focus on Clang, which has shown better performance in most of our benchmarks. 
+
+## 2 Encoding and Iteration of k-mers 
+
+We encode k-mers using 2-bit encoding in a 64-bit word such that: (i) The least significant (right-most) 2 k bits are used, while the remaining most significant (left-most) 64 − 2k bits are zero; (ii) Bit order is the same as in the input sequence: The most significant used bits represent the first character of the k-mer, and the least significant bits its last character. This allows us to use regular integer comparison to get the lexicographical ordering of k-mers; this is not relevant here, but can be useful in other contexts. Note that not all existing implementations follow this convention. 
+
+2.1 Nucleotide Encoding 
+
+First, we need a function enc (c) that produces the 2-bit encoding for an input character c ∈ Nfrom ASCII encoding, or signals an invalid character if c / ∈ N. 
+
+Explicit checking. The most simplistic approach for this encoding is a switch statement or series of if statements, taking a character and returning its 2-bit code, applied to each character of input. For a (more or less) random input sequence, this has on average 1.5 false 3conditional checks, inducing a high amount of CPU pipeline flushing due to failed branch predictions. This is highly inefficient, but unfortunately often used in practice. The switch statement approach takes 5.9–8.2ns per character on Clang, and 0.42–0.58ns on GCC, which seems to implement this as a lookup (jump) table. It however cannot be relied on for the compiler to emit this. The if statement chain performs similar, with 5.1–8.1ns per character across architectures. 
+
+ASCII exploit. A lesser-known low-level technique is to exploit the byte representation of the characters: The second and third least-significant bits of the ASCII code of the characters in N (and their lower-case equivalents) can be mangled via bit operations to obtain the desired 2-bit code. This is possible completely by chance, and was recently independently discovered and utilized for bit-compressing genomic sequences [2]. This has the slight downside that an explicit check needs to be performed to verify the characters to be in N, which however can also be done via some bit operations. We refer to our implementation for details. All operations are branchless, and can be very efficiently computed. We also implemented a SIMD-accelerated approach for AVX2, with 32 characters encoded at a time. Across the tested CPUs, applying this encoding takes 0.14–0.52ns per character (the lower value is how-ever likely due to auto-vectorization, which cannot always applied by the compiler in more complex circumstances outside of this simple test). The approach is particularly fast when input validation can be skipped; this is usually not the case for real-world data, but could be applied if input is preprocessed in some form already, such that invalid characters cannot occur. 
+
+Lookup table. Lastly, a common technique is a simple lookup table with 256 entries, one for each possible value of the input byte, giving either the 2-bit code or an error value to indicate invalid characters. This is branchless and has the error check already built-in. As the table only consumes 256 bytes, it is likely to live in an efficient cache level when used in the hot loop over characters, and hence is very fast. The lookup table has the most predictable and fastest runtime, with 0.21–0.37ns per character, and is hence our recommended approach for single-character encoding, only slightly outpaced by the SIMD-accelerated ASCII exploit in some situations. The effects of the encoding performance on k-mer extraction are shown in Figure S1. 
+
+2.2 Consecutive k-mer Iteration 
+
+Next, we traverse the input sequence to compute consecutive k-mers. 
+
+Re-extraction. The naive approach is to apply the above 2-bit encoding for each k-mer anew. However, this is rather inefficient, as every input character is encoded k times, in a loop with 
+
+k iterations for each k-mer. The approach is also straightforward to apply to w-mers, by only 4extracting the positions as given in the mask. This at least avoids extracting a full k-mer, only to then extract the w-mer from it, but still needs w iterations per w-mer. 
+
+Shifting. A more efficient approach is to exploit that consecutive k-mers share k − 1 of their characters. Thus, almost all encodings can be re-used between iterations, by simply bit-shifting the previous value, and erasing the surplus 2 bits remaining from the previous iteration. This rolling traversal has constant speed independent of k, but cannot directly be used for spaced 
+
+k-mers, as the spaces in the mask are affecting different positions of the input sequence in each iteration. Thus, the w-mer needs to be extracted from the k-mer in a subsequent step. The two approaches for k-mer extraction, combined with the above variants of character en-codings, are shown in Figure S1. For obvious reasons, the second approach is the predominant one in high-performance k-mer methods. We mention both, as the first approach is still occa-sionally used in practice, likely because it is easiest to implement, as it does not need to keep track of k-mers across iterations. 
+
+## 3 Bit Extract 
+
+We now have an efficient loop over all k-mers, extracting (unspaced) k-mers sliding along the input sequence. For each k-mer, we then need to apply the mask m and extract the positions set in m to construct the desired w-mer. As mentioned above, one “naive” way to do this is to skip the construction of ther k-mer altogether, and instead re-extract the w-mer by directly encoding the characters set in the mask from the input sequence, with a loop with w iterations per w-mer. This is the baseline which the family of methods of FSH [3], FISH [4], ISSH [5], MISSH [1], and DuoHash [6] improves upon. We also use this as the baseline here. In our improved approaches, we instead we process the k-mers, which allows fast iteration with bit shifting, and apply a generic bit extraction function to the k-mer to get the w-mer, see Figure S2(a) for an example. In other words, we keep only the positions from a given k-mer that are set in the mask m, and pack them densely into the lower bits of the resulting w-mer, i. e., close the gaps left in the mask. The problem of bit extraction from machine words is more general and useful in other ap-plications. Interestingly, optimized code for the operation has been developed in the chess community. In chess software, 64-bit words are used to succinctly represent the 64 squares on a chess board; thus, bit extraction can be used to test positions and potential moves. Compared to chess and other applications, we here usually have the advantage of having a fixed mask (or small set of masks) across the runtime of our code. That is, masks are given once initially, but then do not change throughout the program, as this would induce a different spacing pattern. We can exploit this to pre-compute a representation of the mask(s) that allows fast application to incoming values (the k-mers). In the following, we describe different bit extraction implementations; their benchmarks are shown in Figure S3–S5. 5Figure S1: Extracting k-mers from a sequence. For different values of k ∈ [0 , 32], time per k-mer on two server CPUs is shown, with different compilers. Line colors correspond to the function used for converting input ASCII characters into 2-bit encoding; line styles are dashed for the approach of extracting the k-mer at each position anew (“re-extract”), and solid for the shifting updates of consecutive k-mers between iterations. This shows two important observations: (i) The costs for re-extracting each k-mer quickly become devastating even for smaller values of k. (ii) Compilers behave differently in their optimizations of the encoding function, even on the same architecture. The most efficient way of iterating k-mers is hence to use the branch-less encoding function via lookup table, and shifting k-mer traversal, as shown in the bottom green line in all sub-figures, which is near the mark of 1ns per k-mer. 
+
+3.1 Hardware implementation 
+
+Modern x86 hardware supports the PEXT (parallel bit extract) intrinsic 1 of BMI2 (Bit Manip-ulation Instruction Set 2). The name “parallel” indicates how it is implemented in hardware; it is however a single operation on a 64-bit word. On Intel CPUs, it is available since the Haswell architecture (Q2/2013) with a latency of 3 cycles, and a throughput of 1 instruction per cycle. On AMD CPUs, the instruction is available since the Excavator architecutre (Q2/2015), but implemented in slow microcode, with a runtime dependent on the weight of the mask, typically 18-20 cycles at least. Only since the Zen 3 architecture (Q4/2020) have AMD CPUs implemented PEXT in actual hardware. On ARM hardware (such as the Apple M series of CPUs), it is not available. Our benchmarks include CPU models testing all these different architectures. 
+
+> 1intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=pext&ig expand=5088
+
+6value mask result abcdefgh
+
+## 1 0 1 1 0 1
+
+## 00
+
+## 1
+
+> (a) Bit extract operation
+
+## 00acdghmask 1 0 1 1 0 11
+
+## 0 01
+
+## 01 1 0
+
+## 1
+
+## 0 0
+
+## 1
+
+## 00000 000000>> 2 >> 1 >> 4 
+
+> (d) Butter �y table
+
+## 00
+
+## 1
+
+> mask
+
+## 1 0 1 1 0 11
+
+## 0 0 1
+
+## 0 1 1 0
+
+## 1 0 01
+
+## 000 000 000000>> 1 >> 0 >> 3 
+
+> (b) Block table
+
+## 00>> 2 >> 1 >> 4 h c00 dg a0
+
+> (c) Butter �y network
+
+## e bgh d af c0h0 0g d c ah c00 dg a0Figure S2: Bit extraction from words. (a) The bit extract operation. Bits from a value are “extracted” according to a binary mask, and transferred to the lower bits of the resulting word. In other words, the “gaps” caused by 0s in the mask are closed. For simplicity, we here only show 8 bits worth of data; the actual instruction applies to 64-bit words. (b) The block table is a decomposition of the mask into blocks of consecutive 1s, accompanied by the respective amount of shifting the block needs to receive to move to the target positions. It has as many rows as blocks of 1s in the mask. (c) The butterfly network connects each input bit to each output bit right of it (solid black arrows), or to itself (dashed gray arrows), via a decomposition into shifts of increasing powers of two. This allows any input value bit to be shifted to any relevant output bit. (d) The butterfly network for a particular mask consists of a table, which indicates for each input bit which path it takes through the network, i. e., which of the shifts are applied in each step. For instance, the two bits in positions c and d need to be shifted by 1, and hence only occur in the first row of the table. The bits in positions g and h need to be shifted by 3 = 1 + 2 in total; the first row of the table marks them for a shift by 1, after which row two then marks them for a shift by 2. For this 8-bit word, only the first three powers of two are needed; generally, for b-bit words, the table has log 2(b) entries, i. e., 6 entries for 64-bit words. Note: For generality, we show the examples here with individual bits. In our use case however, a k -mer is typically represented with 2 bits per nucleotide. Thus, in practice, for each symbol of the spaced mask, 2 consecutive bits need to be set in the masks here to extract a nucleotide. This has no effect on efficiency. 73.2 Software Implementations 
+
+Bit loop. A first naive approach is to loop over the bits set in the mask, keeping track of their position in the mask and the positions already extracted. This has runtime dependent on the weight of the mask; for our spaced k-mer approach, it is even worse than re-extracting 
+
+w-mers from the input sequence, as we need two bits per nucleotide here. 
+
+Byte table. In this approach, we pre-compute a lookup table for each byte of input and byte of the mask, i. e., a 256 × 256 sized table, denoting the extracted bits for each combination, as well as a smaller table with the corresponding bit weight of the mask byte. Then, to extract a value, the extracted value of each corresponding pair of bytes of the value and mask is retrieved from the table, and shifted according to the mask bit count. This approach is a reasonably fast drop-in software equivalent of PEXT , with constant speed independent of the mask, always using exactly 8 iterations (one per byte of the 64-bit word). However, for a fixed mask, further speed can be gained via pre-processing of the mask. 
+
+Block table. The insight we exploit in this approach is that typical masks for spaced k-mers have longer runs (blocks) of consecutive 1s in the mask (all tested masks have at most 8 such blocks). We can thus pre-process the mask into a table containing a row for each block, keeping track of a mask to extract that block (an and operation) and a value to shift (a >> operation) it to the desired position in the output. Applying this to an input word then is a simple loop over the rows, performing both operations for each row, as shown in Figure S2(b). At most, this needs 32 active rows in the table, which happens with an alternating pattern of 1s and 0s in the mask. It can be implemented with a fixed-sized table, stopping at the first mask that only contains zeros (as a sentinel), in order to enable compiler optimizations. As each row is independent, it is well suited for CPU instruction pipelining, which can be further increased through loop unrolling. For instance, with a typical spaced k-mer mask with 8 blocks of 1s, extraction with 8-fold unrolling is a single loop iteration. The approach is used by CLARK-S [7], albeit for a set of three hard-coded masks only. This allows them to operate without any loop, eliminating a conditional brach on the hot path. Our implementation allows arbitrary masks. The idea is furthermore similar to the FISH method [4], in that it exploits the block structure of consecutive 1s in the mask. However, FISH constructs a data structure with distinct lookup tables separated by the run lengths of blocks, which introduces overhead for pointer chasing in those tables. 
+
+Butterfly network. The most efficient approach in our tests is to pre-processes the mask as follows: For every bit set in the mask, we get the number of unset bits right of it, which is the amount by which the corresponding input value bit at this position needs to be shifted to its target position towards the lower end of the word. This amount is decomposed into its sum of powers of two, such that the respective shifts can be consecutively applied. This way, any input bit can be right-shifted to any relevant output bit, as shown in Figure S2(c). We call this the Butterfly network, inspired by similar bit-mixing techniques from the literature [8]; 8admittedly, our right-shifting network only resembles one wing of the butterfly. For a given mask, the network is applied to an input value in a series of steps, applying the powers-of-two shifts to each bit as needed. The steps are pre-processed into rows of a table, indicating which bits need to be shifted at this step; see Figure S2(d) for an example. For b-bit words, the table has log 2(b) entries, each of size b bits itself, i. e., 6 entries for 64-bit words, corresponding to shifts 1, 2, 4, 8, 16, 32. As the number of stages is fixed for a given bit width, there is no loop. However, as the stages depend on each other in their execution order, parallelism through instruction pipelining is somewhat limited. Still, this is generally the most efficient software implementation we tested, see Figure S3–S5. 
+
+Figure S3: Bit extraction performance for different weights (number of set bits) of the mask. The hardware PEXT is by far the most performant where available as a dedicated intrinsic; note however that on the older AMD Ryzen 7, where it is implemented in CPU microcode instead, performance is dependent on the mask weight (number of bits set in the mask), and performs worse even than our naive bitloop implementation in software. The block table implementation has as many steps as runs of consecutive 1s in the mask; for the randomly generated inputs used here, this thus has a bell shape. Generally, this implementation benefits from loop unrolling. The most consistently fast software implementation is however the Butterfly network, with performance independent of the mask weight. 9Figure S4: Bit extraction performance for different number of runs of consecutive 1s (blocks) in the mask. Here, instead of increasing the weight of the mask, we tested different number of runs of 1s, each with a random length (within the constraints of a 64-bit word). The maximum number of runs is 32, corresponding to an alternating pattern of 1s and 0s. The bit extract implementations whose runtime depends on the weight of the mask (bitloop and PEXT on the older AMD Ryzen 7) hence exhibit a similar runtime across masks, as the number of bits set is on average half the mask. The effect of loop unrolling in the block table approach is clearly visible here in form of “steps” at each level of unrolling; with 8-fold unrolling, the approach is competitive with the butterfly network for the runs of 1s that are most relevant for spaced k-mers (up to 8 blocks). Again though, across all masks, the fast hardware PEXT as well as the butterfly network implementation dominate performance here, and are thus the two preferred approaches. 10 Figure S5: Bit extraction performance for different weights (top), and for different number of blocks (bottom), across architectures and compilers. This shows the same underlying data as Figure S3 and Figure S4, but as a summary of all tested architectures and compilers. It shows the averages across all cases, i. e., all weights of the mask and all number of blocks, respectively. Here, the advantage of the PEXT hardware instruction is clearly visible, while the Butterfly network table is the most performant software implementation. 11 4 Spaced k-mer Extraction 
+
+We can now apply the generic bit extraction to the input k-mers to obtain w-mers. Note that the generic functions operate on individual bits; our 2-bit encoding requires pairs of bits to be used instead. This has however no effect on the performance of the relevant algorithms (block table and butterfly network). 
+
+Input character validity. One of the main goals of spaced k-mers is to be able to skip invalid characters in the input, if they fall into one of the spaces of the mask, without having to skip the whole k-mer. To achieve this, we need to adapt our above k-mer iteration to track valid bases while traversing the input. This can be implemented efficiently with a second 64-bit word, shifted in sync with the k-mer, and setting two bits to indicate character validity at the respective positions in the k-mer. A simple bit comparison with the mask then reveals if all non-masked nucleotides are valid for any given k-mer. The overhead for this check did not significantly influence performance in our tests: Assuming that most input characters are valid (from N), the branch predictor can easily avoid slowdown in most cases. Note that this is in principle similar to the desired property of spaced k-mers to be able to tolerate mismatches with a reference genome; here however, we are solely operating based on input character validity. 
+
+4.1 Single Mask 
+
+Benchmarks are shown in Figure S6; these are detailed variants of Figure 2(a) from the main manuscript, for a representative selection of hardware architectures. In all cases, there is at least one implementation that achieves processing one w-mer per 1.3–1.8ns. Note that the plots include SIMD accelerations as explained below. 
+
+4.2 Multiple Masks 
+
+Many applications of spaced k-mers use a set of distinct masks in order to increase sensitivity. With multiple masks, the bit extraction is simply applied to each k-mer and for each mask individually, leading to a general increase in runtime per additional mask. However, the nu-cleotide encoding and k-mer iteration only has to be performed once then, which amortizes the fraction of runtime for these tasks, and leading to an increase in performance when measuring throughput per distinct mask and w-mer. For ease of comparison with the single mask case, we report this time per w-mer here; note though that the runtime per k-mer thus needs to be multiplied by the number of masks used (here, 9 masks). Benchmarks for 5 distinct sets of 9 masks each are shown in Figure S7. In the best case, on Intel Xeon, we achieve 0.58ns per w-mer using the PEXT instruction. The plots again include SIMD accelerations as explained next. 12 Figure S6: Extraction speed of spaced k-mers for single masks. This shows the time needed per w-mer to traverse an input sequence, including the k-mer processing and bit extraction to obtain the w-mer. Bars are the average across 9 distinct masks with weight 
+
+w = 22 and span k = 31, and whiskers show the minimum and maximum across these masks. 
+
+4.3 SIMD Acceleration 
+
+The generic algorithms for the bit extract operation as introduced above were so far applied independently on each k-mer to extract the w-mer. However, in our typical use case, we are traversing a sequence, applying an extraction with the same mask to consecutive k-mers. To accelerate this, we can exploit SIMD (single instruction, multiple data) intrinsics. The two most performant implementations, block table and butterfly network, are particularly suitable for SIMD parallelization: They only need a small set of pre-computed values per mask, and can efficiently apply them in parallel across multiple 64-bit lanes. We have implemented both approaches for several SIMD instruction sets. These operate on different underlying register sizes, and hence differ in the number of lanes they can process at once. In particular, we implemented both algorithms for SSE2 (128-bit; 2 lanes), AVX2 (256-bit; 4 lanes), AVX512 (512-bit, 8 lanes), and ARM Neon (128-bit, 2 lanes). The main loop over the input sequence then extracts as many consecutive k-mers as available lanes, and extracts w-mers in the lanes in parallel. Exemplary benchmarks are included in the previously described Figure S6 and Figure S7; a summary across all architectures and compilers is provided in Figure S8 and in Table S1. 13 Figure S7: Extraction speed of spaced k-mers for multiple masks. This shows the average time needed per w-mer to traverse an input sequence, including the k-mer pro-cessing and bit extraction to obtain all w-mers for the given set of masks. Bars are the average across 5 distinct mask sets with 9 masks each, with span and weight ( k, w ) ∈{(15 , 10) , (31 , 14) , (31 , 18) , (31 , 22) , (31 , 26) } for the sets, and whiskers show the minimum and maximum across the mask sets. Note that for comparability with the single mask case above, this shows the average time per w-mer; for the complete time to extract all 9 w-mers for a given mask set, values have hence to be multiplied by 9. 
+
+4.4 Dynamic Algorithm Selection 
+
+Except for the basic implementations, our accelerations depend on hardware availability of CPU intrinsics: PEXT for the fastest bit extraction, as well as SSE2, AVX2, AVX512, and ARM Neon for our SIMD implementations of the block table and butterfly network algorithms. While these give significant speed improvements, not all instruction sets are available on different hardware architectures. Hence, typically, for full optimization, code needs to be compiled per architecture. Unfortunately, however, the PEXT instruction is available on older AMD CPUs, but very inefficient, as shown above. Hence, simply testing for the underlying BMI2 instruction set at compile time could lead to significant performance degradation. Thus, we need to use a runtime dispatch between the different algorithms, and switch to the fastest available implementation. To facilitate this, and ease usage for developers, we offer a mechanism for dynamically selecting between algorithms, by running a short benchmark with 14 Figure S8: Extraction speed of spaced k-mers for single (top) and multiple (bot-tom) masks. This shows the same underlying data as Figure S6 and Figure S7, but sum-marized across all architectures and compilers. It is an extension of Figure 2 in the main manuscript, containing benchmarks of all implementations presented here. randomly generated data. This is executed for a fixed mask, which is sufficient for most typical use cases for spaced k-mers. The mechanism can be readily implemented in applications that wish to use our code base. For completeness, we offer a similar dynamic selection for the generic bit extract functionality. These mechanisms have the additional advantage of allowing cross compilation. As the al-gorithm is selected once dynamically at the beginning of the program runtime, an additional check can be performed to test if any given intrinsic is actually available on the current CPU, thus avoiding to crash the program with invalid instructions. We implemented this in our selection mechanism. This is particularly useful to compile a program for platforms such as conda, where a single binary can then serve any hardware architecture. To minimize overhead due to the dispatch in hot loops over k-mers, and to allow function inlining by the compiler, we recommend to use the result of the dynamic selection to dispatch once in an outer context, using a switch and C++ templates for the inner function. We provide exemplary code for this. 15 Single mask Multiple masks CPU / Compiler Fastest algorithm Time Speed Fastest algorithm Time Total Speed Epyc / Clang Butterfly AVX2 1.27 750 PEXT 0.64 5.72 167 Epyc / GCC PEXT 1.47 648 Butterfly AVX512 1.41 12.68 75 Ryzen / Clang Butterfly AVX2 1.71 557 Butterfly AVX2 1.04 9.38 102 Ryzen / GCC Butterfly SSE2 1.84 517 Butterfly SSE2 2.18 19.59 49 Xeon / Clang PEXT 1.28 747 PEXT 0.58 5.21 183 Xeon / GCC PEXT 1.51 631 PEXT 1.08 9.71 98 M1 / Clang Butterfly Neon 1.39 687 Butterfly Neon 1.26 11.30 84 
+
+Table S1: Performance of the fastest algorithm across hardware architectures. The table summarizes the above benchmarks, showing the time (ns per w-mer) and speed (MB/s) for the single mask case, as well as for the multiple mask case the total time per input position (ns per k-mer) for all 9 masks combined and the resulting speed. Note that typical applications usually use fewer masks; the speed here is thus exemplary only. 
+
+4.5 Differences between compilers 
+
+As can be seen in the benchmarks above, the performance in some cases has significant dif-ferences between compilers, even on the same hardware architecture. This is not surprising, as Clang and GCC tend to inline and optimize code differently. It is however out of scope of this manuscript to explore this in more detail. In any practical application of the presented methods, the spaced k-mer extration is typically followed by some downstream work anyway, which will cause compilers to optimize loops and functions in unpredictable ways. We thus recommend to test performance of applications under different compilers. 
+
+4.6 Comparison with existing methods 
+
+We compare our approach to the existing methods FSH [3], FISH [4], ISSH [5], MISSH [1], and DuoHash [6]. We here call these approaches the Comin & Pizzi family of methods. FSH, ISSH, and MISSH are build on the idea of re-using information across w-mers of previous positions along the input sequence. Using the auto-correlation of the bits in the mask with its shifted self, the methods find overlapping unmasked blocks of nucleotides of the underlying sequence. These are then re-used to fill the current w-mer based on previously observed ones, thus avoiding to re-extract information from the underlying sequence. The methods are based on the assumption that encoding the characters into their 2-bit representation is expensive. In their original implementation, this was indeed the case, as they used an expensive series of 
+
+if -statements, as explained in Section 2.1. They have since updated this, with consequences as explained below. FISH and DuoHash on the other hand use blocks of consecutive 1s in the mask to accelerate spaced k-mer extraction via lookup tables. FISH has some conceptual similarity with our block table algorithm, but instead of simply shifting blocks, it uses a set of lookup tables for different block sizes. DuoHash similarly uses large lookup tables to re-use previously observed blocks of the input sequence. This makes DuoHash more general than simple encoding of 16 Figure S9: Processing speed of spaced k-mers with existing methods of the Comin & Pizzi family. We implemented a benchmark program using the suite of existing approaches, following our benchmarks above. The figure shows average time for processing a spaced k-mer on randomly generated data, as before. Across most architectures, the fastest method is ISSH, which is however still significantly slower than our fastest algorithm on the same architecture, respectively, and only about twice as fast as the naive baseline implementation. the k-mers, as it can be used for computing actual hash values of spaced k-mers, which they showcase via the ntHash method [9, 10]. We however did not test the DuoHash method here, as the code repository at github.com/CominLab/DuoHash does not seem to contain an actual implementation of the method (at the time of writing), and instead contains a concise interface for all other methods of the family. These methods require a large amount of bookkeeping to manage block overlaps and lookup tables, which also introduces pointer indirections to access their data structures. Furthermore, the overlap-based methods require to keep a list of previous w-mers during iteration, causing some slowdown due to allocations and memory accesses. In fact, DuoHash [6] states that “the speed-up generally tends to decrease slightly as the length of the reads increases”, which can be explained by this. In their current implementation, they store the previous w-mers for the whole sequence, despite a short window sufficing; this could hence be optimized. To compare our presented algorithms with the Comin & Pizzi family of methods, we imple-mented a benchmark for their methods in our fork of their DuoHash repository at github.com/ lczech/DuoHash. There, we added a simple program to the original code that runs compara-ble benchmarks to the ones we showed above, measuring the time per k-mer for a randomly generated input string. Note that the DuoHash code repository seems to have re-implemented their benchmarking harness compared to the original one used in MISSH at github.com/CominLab/MISSH. This update has one particular change that significantly improved the performance of their methods: Previously, as mentioned, they used a series of if -statements to encode the input characters into 2-bit encoding, while in their update this is implemented as a fast lookup table. This thus eliminates the bottleneck due to the encoding, diminishing the gains achieved with these methods compared to the naive baseline implementation, as shown in Figure S9. Across almost all tested architectures, ISSH is the fastest of the Comin & Pizzi methods, ex-cept on the Apple M1, where MISSH row is relatively the fastest (but absolutely, slower than 17 on the x86 architecture). In the best case, the methods reached a throughput of 5.0ns per extracted w-mer. Out of our algorithms presented here, PEXT is the fastest where available in hardware, and one of the SIMD Butterfly implementations otherwise. Across hardware ar-chitectures, our algorithms for a single mask are 3.4–4.2 times faster, and for multiple masks 3.2–9.5 times faster, than the best out of the Comin & Pizzi methods on the respective ar-chitecture. Additionally, our basic algorithms are also significantly easier to implement (the SIMD acceleration adds some complexity though), and do not need to keep the list of previous 
+
+k-mers in memory during the iteration. 18 5 References 
+
+[1] Mian E, Petrucci E, Pizzi C, Comin M (2024) MISSH: Fast hashing of multiple spaced seeds. IEEE/ACM transactions on computational biology and bioinformatics 21(6):2330– 2339. [2] Corontzos C, Frachtenberg E (2024) Direct-coding DNA with multilevel parallelism. IEEE computer architecture letters 23(1):21–24. [3] Girotto S, Comin M, Pizzi C (2018) FSH: fast spaced seed hashing exploiting adjacent hashes. Algorithms for molecular biology: AMB 13(1):8. [4] Girotto S, Comin M, Pizzi C (2018) Efficient computation of spaced seed hashing with block indexing. BMC bioinformatics 19(Suppl 15):441. [5] Petrucci E, No´ e L, Pizzi C, Comin M (2020) Iterative Spaced Seed Hashing: Closing the gap between spaced seed hashing and k-mer hashing. Journal of computational biology: a journal of computational molecular cell biology 27(2):223–233. [6] Gemin L, Pizzi C, Comin M (2026) DuoHash: Fast hashing of spaced seeds with applica-tion to spaced K-mers counting in Lecture Notes in Computer Science , Lecture Notes in Computer Science. (Springer Nature Switzerland, Cham), pp. 28–39. [7] Ounit R, Lonardi S (2016) Higher classification sensitivity of short metagenomic reads with CLARK-S. Bioinformatics (Oxford, England) 32(24):3823–3825. [8] Weinstein CJ (1969) Quantization effects in digital filters, Technical report. [9] Mohamadi H, Chu J, Vandervalk BP, Birol I (2016) ntHash: recursive nucleotide hashing. 
+
+Bioinformatics 32(22):3492–3494. [10] Kazemi P, et al. (2022) ntHash2: recursive spaced seed hashing for nucleotide sequences. 
+
+Bioinformatics 38(20):4812–4813. 19

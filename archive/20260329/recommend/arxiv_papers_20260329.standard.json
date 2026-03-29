@@ -1,0 +1,440 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-29T19:53:45.016771+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2603.24382v1",
+      "title": "MolEvolve: LLM-Guided Evolutionary Search for Interpretable Molecular Optimization",
+      "abstract": "Despite deep learning's success in chemistry, its impact is hindered by a lack of interpretability and an inability to resolve activity cliffs, where minor structural nuances trigger drastic property shifts. Current representation learning, bound by the similarity principle, often fails to capture these structural-activity discontinuities. To address this, we introduce MolEvolve, an evolutionary framework that reformulates molecular discovery as an autonomous, look-ahead planning problem. Unlike traditional methods that depend on human-engineered features or rigid prior knowledge, MolEvolve leverages a Large Language Model (LLM) to actively explore and evolve a library of executable chemical symbolic operations. By utilizing the LLM to cold start and an Monte Carlo Tree Search (MCTS) engine for test-time planning with external tools (e.g. RDKit), the system self-discovers optimal trajectories autonomously. This process evolves transparent reasoning chains that translate complex structural transformations into actionable, human-readable chemical insights. Experimental results demonstrate that MolEvolve's autonomous search not only evolves transparent, human-readable chemical insights, but also outperforms baselines in both property prediction and molecule optimization tasks.",
+      "authors": [
+        "Xiangsen Chen",
+        "Ruilong Wu",
+        "Yanyan Lan",
+        "Ting Ma",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-03-25T15:01:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.24382v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-guided autonomous molecular optimization",
+      "llm_evidence_cn": "LLM引导的自主分子优化",
+      "llm_evidence": "LLM引导的自主分子优化",
+      "canonical_evidence": "LLM引导的自主分子优化",
+      "llm_tldr_en": "MolEvolve uses LLMs for autonomous evolutionary search in molecular discovery and optimization.",
+      "llm_tldr_cn": "MolEvolve利用大语言模型在分子发现和优化中进行自主进化搜索。",
+      "llm_tldr": "MolEvolve利用大语言模型在分子发现和优化中进行自主进化搜索。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.24882v1",
+      "title": "AutoCSF: Provably Space-Efficient Indexing of Skewed Key-Value Workloads via Filter-Augmented Compressed Static Functions",
+      "abstract": "We study the problem of building space-efficient, in-memory indexes for massive key-value datasets with highly skewed value distributions. This challenge arises in many data-intensive domains and is particularly acute in computational genomics, where $k$-mer count tables can contain billions of entries dominated by a single frequent value. While recent work has proposed to address this problem by augmenting compressed static functions (CSFs) with pre-filters, existing approaches rely on complex heuristics and lack formal guarantees. In this paper, we introduce a principled algorithm, called AutoCSF, for combining CSFs with pre-filtering to provably handle skewed distributions with near-optimal space usage. We improve upon prior CSF pre-filtering constructions by (1) deriving a mathematically rigorous decision criterion for when filter augmentation is beneficial; (2) presenting a general algorithmic framework for integrating CSFs with modern set membership data structures beyond the classic Bloom filter; and (3) establishing theoretical guarantees on the overall space usage of the resulting indexes. Our open-source implementation of AutoCSF demonstrates space savings over baseline methods while maintaining low query latency.",
+      "authors": [
+        "David Torres Ramos",
+        "Vihan Lakshman",
+        "Chen Luo",
+        "Todd Treangen",
+        "Benjamin Coleman"
+      ],
+      "primary_category": "cs.DS",
+      "categories": [
+        "cs.DS",
+        "cs.DB"
+      ],
+      "published": "2026-03-25T23:55:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.24882v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "space-efficient indexing for k-mer count tables in computational genomics",
+      "llm_evidence_cn": "计算基因组学中 k-mer 计数表的高空间效率索引",
+      "llm_evidence": "计算基因组学中 k-mer 计数表的高空间效率索引",
+      "canonical_evidence": "计算基因组学中 k-mer 计数表的高空间效率索引",
+      "llm_tldr_en": "Presents AutoCSF for space-efficient indexing of skewed genomic data like k-mer tables.",
+      "llm_tldr_cn": "提出 AutoCSF，用于对 k-mer 表等偏斜基因组数据进行高效空间索引。",
+      "llm_tldr": "提出 AutoCSF，用于对 k-mer 表等偏斜基因组数据进行高效空间索引。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25253v1",
+      "title": "MolQuest: A Benchmark for Agentic Evaluation of Abductive Reasoning in Chemical Structure Elucidation",
+      "abstract": "Large language models (LLMs) hold considerable potential for advancing scientific discovery, yet systematic assessment of their dynamic reasoning in real-world research remains limited. Current scientific evaluation benchmarks predominantly rely on static, single-turn Question Answering (QA) formats, which are inadequate for measuring model performance in complex scientific tasks that require multi-step iteration and experimental interaction. To address this gap, we introduce MolQuest, a novel agent-based evaluation framework for molecular structure elucidation built upon authentic chemical experimental data. Unlike existing datasets, MolQuest formalizes molecular structure elucidation as a multi-turn interactive task, requiring models to proactively plan experimental steps, integrate heterogeneous spectral sources (e.g., NMR, MS), and iteratively refine structural hypotheses. This framework systematically evaluates LLMs' abductive reasoning and strategic decision-making abilities within a vast and complex chemical space. Empirical results reveal that contemporary frontier models exhibit significant limitations in authentic scientific scenarios: notably, even state-of-the-art (SOTA) models achieve an accuracy of only approximately 50%, while the performance of most other models remains below the 30% threshold. This work provides a reproducible and extensible framework for science-oriented LLM evaluation, our findings highlight the critical gap in current LLMs' strategic scientific reasoning, setting a clear direction for future research toward AI that can actively participate in the scientific process.",
+      "authors": [
+        "Taolin Han",
+        "Shuang Wu",
+        "Jinghang Wang",
+        "Yuhao Zhou",
+        "Renquan Lv",
+        "Bing Zhao",
+        "Wei Hu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-03-26T09:57:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.25253v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agentic evaluation for molecular structure elucidation",
+      "llm_evidence_cn": "分子结构阐明的智能体评估",
+      "llm_evidence": "分子结构阐明的智能体评估",
+      "canonical_evidence": "分子结构阐明的智能体评估",
+      "llm_tldr_en": "MolQuest is a benchmark for evaluating LLM agents in complex chemical research and molecular analysis.",
+      "llm_tldr_cn": "MolQuest 是一个用于评估 LLM 智能体在复杂化学研究和分子分析中表现的基准。",
+      "llm_tldr": "MolQuest 是一个用于评估 LLM 智能体在复杂化学研究和分子分析中表现的基准。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.25417v1",
+      "title": "Fast Iteration of Spaced k-mers",
+      "abstract": "We present efficient approaches for extracting spaced k-mers from nucleotide sequences. They are based on bit manipulation instructions at CPU level, making them both simpler to implement and up to an order of magnitude faster than existing methods. We further evaluate common pitfalls in k-mer processing, which can cause major inefficiencies. Combined, our approaches allow the utilization of spaced k-mers in high-performance bioinformatics applications without major performance degradation, offering a throughput of up to 750MB of sequence data per second per core.   Availability: The implementation in C++20 is published under the MIT license, and freely available at https://github.com/lczech/fisk",
+      "authors": [
+        "Lucas Czech"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.DS"
+      ],
+      "published": "2026-03-26T13:10:41+00:00",
+      "link": "https://arxiv.org/pdf/2603.25417v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "extracting k-mers from nucleotide sequences",
+      "llm_evidence_cn": "从核苷酸序列中提取 k-mers",
+      "llm_evidence": "从核苷酸序列中提取 k-mers",
+      "canonical_evidence": "从核苷酸序列中提取 k-mers",
+      "llm_tldr_en": "Presents high-performance CPU-level bit manipulation for fast k-mer extraction in bioinformatics.",
+      "llm_tldr_cn": "提出了一种高性能 CPU 级位操作方法，用于生物信息学中的快速 k-mer 提取。",
+      "llm_tldr": "提出了一种高性能 CPU 级位操作方法，用于生物信息学中的快速 k-mer 提取。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20589v1",
+      "title": "Generating from Discrete Distributions Using Diffusions: Insights from Random Constraint Satisfaction Problems",
+      "abstract": "Generating data from discrete distributions is important for a number of application domains including text, tabular data, and genomic data. Several groups have recently used random $k$-satisfiability ($k$-SAT) as a synthetic benchmark for new generative techniques. In this paper, we show that fundamental insights from the theory of random constraint satisfaction problems have observable implications (sometime contradicting intuition) on the behavior of generative techniques on such benchmarks. More precisely, we study the problem of generating a uniformly random solution of a given (random) $k$-SAT or $k$-XORSAT formula. Among other findings, we observe that: $(i)$~Continuous diffusions outperform masked discrete diffusions; $(ii)$~Learned diffusions can match the theoretical `ideal' accuracy; $(iii)$~Smart ordering of the variables can significantly improve accuracy, although not following popular heuristics.",
+      "authors": [
+        "Alankrita Bhatt",
+        "Mukur Gupta",
+        "Germain Kolossov",
+        "Andrea Montanari"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-21T01:16:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.20589v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generating genomic data using diffusion models",
+      "llm_evidence_cn": "使用扩散模型生成基因组数据",
+      "llm_evidence": "使用扩散模型生成基因组数据",
+      "canonical_evidence": "使用扩散模型生成基因组数据",
+      "llm_tldr_en": "Explores using diffusion models to generate data from discrete distributions, including genomic sequences.",
+      "llm_tldr_cn": "探讨了使用扩散模型从离散分布（包括基因组序列）中生成数据的方法。",
+      "llm_tldr": "探讨了使用扩散模型从离散分布（包括基因组序列）中生成数据的方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25628v1",
+      "title": "Modeling the mutational dynamics of very short tandem repeats",
+      "abstract": "Short tandem repeats (STRs) are low-entropy regions in the genome, consisting of a short (1-6 bp) unit that is consecutively repeated multiple times. They are known for high mutational instability, due to so-called stutter-mutations, in which the number of units in the run increases or descreases. In particular, STRs with repeat unit length of 1-2 bp are prone to mutate even within several cell divisions. The extremely rapid accumulation of variation makes them interesting phylogenetic markers for retrospective single-cell lineage reconstruction. Here we model their mutational dynamics at the level of individual repeat unit type and then aggregate length variations over many STR loci with the aim of obtaining a very fast ``molecular clock''. We calibrate our model based on several datasets with known lineage structure prepared from cultured cells. We find that the mutational dynamics of STRs are reasonably consistent for a given cell line, but vary among different ones. This suggests that the dynamics are not entirely explained by mutations in caretaker genes, rather, various other factors play a role -- possibly tissue origin and differentiation state. Further data and research is necessary to asses their relative effects.",
+      "authors": [
+        "Amos Onn",
+        "Tzipy Marx",
+        "Liming Tao",
+        "Tamir Biezuner",
+        "Ehud Shapiro",
+        "Christoph A. Klein",
+        "Peter F. Stadler"
+      ],
+      "primary_category": "q-bio.PE",
+      "categories": [
+        "q-bio.PE",
+        "q-bio.GN"
+      ],
+      "published": "2026-03-26T16:40:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.25628v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "modeling mutational dynamics in the genome",
+      "llm_evidence_cn": "对基因组中的突变动力学进行建模",
+      "llm_evidence": "对基因组中的突变动力学进行建模",
+      "canonical_evidence": "对基因组中的突变动力学进行建模",
+      "llm_tldr_en": "Models short tandem repeat mutations for single-cell lineage reconstruction and molecular clocks.",
+      "llm_tldr_cn": "对短串联重复序列突变建模，用于单细胞谱系重建和分子钟研究。",
+      "llm_tldr": "对短串联重复序列突变建模，用于单细胞谱系重建和分子钟研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22018v1",
+      "title": "Do Papers Match Code? A Benchmark and Framework for Paper-Code Consistency Detection in Bioinformatics Software",
+      "abstract": "Ensuring consistency between research papers and their corresponding software implementations is fundamental to software reliability and scientific reproducibility. However, this problem remains underexplored, particularly in the domain of bioinformatics, where discrepancies between methodological descriptions in papers and their actual code implementations are prevalent. To address this gap, this paper introduces a new task, namely paper-code consistency detection, and curates a collection of 48 bioinformatics software projects along with their associated publications. We systematically align sentence-level algorithmic descriptions from papers with function-level code snippets. Combined with expert annotations and a hybrid negative sampling strategy, we construct the first benchmark dataset in the bioinformatics domain tailored to this task, termed BioCon. Based on this benchmark, we further propose a cross-modal consistency detection framework designed to model the semantic relationships between natural language descriptions and code implementations. The framework adopts a unified input representation and leverages pre-trained models to capture deep semantic alignment between papers and code. To mitigate the effects of class imbalance and hard samples, we incorporate a weighted focal loss to enhance model robustness. Experimental results demonstrate that our framework effectively identifies consistency between papers and code in bioinformatics, achieving an accuracy of 0.9056 and an F1 score of 0.8011. Overall, this study opens a new research direction for paper-code consistency analysis and lays the foundation for automated reproducibility assessment and cross-modal understanding in scientific software.",
+      "authors": [
+        "Tianxiang Xu",
+        "Xiaoyan Zhu",
+        "Xin Lai",
+        "Sizhe Dang",
+        "Xin Lian",
+        "Hangyu Cheng",
+        "Jiayin Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.SE"
+      ],
+      "published": "2026-03-23T14:28:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.22018v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "consistency detection in bioinformatics software",
+      "llm_evidence_cn": "生物信息学软件的一致性检测",
+      "llm_evidence": "生物信息学软件的一致性检测",
+      "canonical_evidence": "生物信息学软件的一致性检测",
+      "llm_tldr_en": "A benchmark for detecting consistency between bioinformatics research papers and their code implementations.",
+      "llm_tldr_cn": "一个用于检测生物信息学研究论文与其代码实现之间一致性的基准框架。",
+      "llm_tldr": "一个用于检测生物信息学研究论文与其代码实现之间一致性的基准框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22928v1",
+      "title": "SoK: The Attack Surface of Agentic AI -- Tools, and Autonomy",
+      "abstract": "Recent AI systems combine large language models with tools, external knowledge via retrieval-augmented generation (RAG), and even autonomous multi-agent decision loops. This agentic AI paradigm greatly expands capabilities - but also vastly enlarges the attack surface. In this systematization, we map out the trust boundaries and security risks of agentic LLM-based systems. We develop a comprehensive taxonomy of attacks spanning prompt-level injections, knowledge-base poisoning, tool/plug-in exploits, and multi-agent emergent threats. Through a detailed literature review, we synthesize evidence from 2023-2025, including more than 20 peer-reviewed and archival studies, industry reports, and standards. We find that agentic systems introduce new vectors for indirect prompt injection, code execution exploits, RAG index poisoning, and cross-agent manipulation that go beyond traditional AI threats. We define attacker models and threat scenarios, and propose metrics (e.g., Unsafe Action Rate, Privilege Escalation Distance) to evaluate security posture. Our survey examines defenses such as input sanitization, retrieval filters, sandboxes, access control, and \"AI guardrails,\" assessing their effectiveness and pointing out the areas where protection is still lacking. To assist practitioners, we outline defensive controls and provide a phased security checklist for deploying agentic AI (covering design-time hardening, runtime monitoring, and incident response). Finally, we outline open research challenges in secure autonomous AI (robust tool APIs, verifiable agent behavior, supply-chain safeguards) and discuss ethical and responsible disclosure practices. We systematize recent findings to help researchers and engineers understand and mitigate security risks in agentic AI.",
+      "authors": [
+        "Ali Dehghantanha",
+        "Sajad Homayoun"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-03-24T08:21:51+00:00",
+      "link": "https://arxiv.org/pdf/2603.22928v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Security risks of agentic AI and multi-agent loops",
+      "llm_evidence_cn": "智能体AI与多智能体循环的安全风险",
+      "llm_evidence": "智能体AI与多智能体循环的安全风险",
+      "canonical_evidence": "智能体AI与多智能体循环的安全风险",
+      "llm_tldr_en": "Systematizes the attack surface of agentic AI, including multi-agent emergent threats.",
+      "llm_tldr_cn": "系统化分析了智能体AI的攻击面，包括多智能体系统中的涌现威胁。",
+      "llm_tldr": "系统化分析了智能体AI的攻击面，包括多智能体系统中的涌现威胁。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Review of large language models and autonomous agents in bioinformatics",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23951v1",
+      "title": "From AI Assistant to AI Scientist: Autonomous Discovery of LLM-RL Algorithms with LLM Agents",
+      "abstract": "Discovering improved policy optimization algorithms for language models remains a costly manual process requiring repeated mechanism-level modification and validation. Unlike simple combinatorial code search, this problem requires searching over algorithmic mechanisms tightly coupled with training dynamics while reusing empirical evidence across iterations. We propose POISE, a closed-loop framework for automated discovery of policy optimization algorithms for language models. POISE maintains a structured, genealogically linked archive linking proposals, executable implementations, standardized evaluations, and natural-language reflections to support evidence-driven iteration. In mathematical reasoning experiments starting from GRPO, POISE evaluates 64 candidate algorithms and discovers improved mechanisms, including analytic-variance scaling and validity masking. The best variant improves weighted Overall from 47.8 to 52.5 (+4.6) and increases AIME25 pass@32 from 26.7% to 43.3%, demonstrating the feasibility of automated policy optimization discovery while supporting interpretable design principles.",
+      "authors": [
+        "Sirui Xia",
+        "Yikai Zhang",
+        "Aili Chen",
+        "Siye Wu",
+        "Siyu Yuan",
+        "Yanghua Xiao"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-25T05:19:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.23951v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Autonomous discovery of algorithms using LLM agents",
+      "llm_evidence_cn": "使用 LLM 智能体自主发现算法",
+      "llm_evidence": "使用 LLM 智能体自主发现算法",
+      "canonical_evidence": "使用 LLM 智能体自主发现算法",
+      "llm_tldr_en": "A closed-loop framework for the autonomous discovery and iteration of policy optimization algorithms.",
+      "llm_tldr_cn": "一种用于自主发现和迭代策略优化算法的闭环框架。",
+      "llm_tldr": "一种用于自主发现和迭代策略优化算法的闭环框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24858v1",
+      "title": "Context-Mediated Domain Adaptation in Multi-Agent Sensemaking Systems",
+      "abstract": "Domain experts possess tacit knowledge that they cannot easily articulate through explicit specifications. When experts modify AI-generated artifacts by correcting terminology, restructuring arguments, and adjusting emphasis, these edits reveal domain understanding that remains latent in traditional prompt-based interactions. Current systems treat such modifications as endpoint corrections rather than as implicit specifications that could reshape subsequent reasoning. We propose context-mediated domain adaptation, a paradigm where user modifications to system-generated artifacts serve as implicit domain specification that reshapes LLM-powered multi-agent reasoning behavior. Through our system Seedentia, a web-based multi-agent framework for sense-making, we demonstrate bidirectional semantic links between generated artifacts and system reasoning. Our approach enables specification bootstrapping where vague initial prompts evolve into precise domain specifications through iterative human-AI collaboration, implicit knowledge transfer through reverse-engineered user edits, and in-context learning where agent behavior adapts based on observed correction patterns. We present results from an evaluation with domain experts who generated and modified research questions from academic papers. Our system extracted 46 domain knowledge entries from user modifications, demonstrating the feasibility of capturing implicit expertise through edit patterns, though the limited sample size constrains conclusions about systematic quality improvements.",
+      "authors": [
+        "Anton Wolter",
+        "Leon Haag",
+        "Vaishali Dhanoa",
+        "Niklas Elmqvist"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.MA"
+      ],
+      "published": "2026-03-25T22:57:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.24858v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for domain-specific reasoning",
+      "llm_evidence_cn": "用于特定领域推理的多智能体框架",
+      "llm_evidence": "用于特定领域推理的多智能体框架",
+      "canonical_evidence": "用于特定领域推理的多智能体框架",
+      "llm_tldr_en": "A framework where user modifications serve as implicit domain specifications for multi-agent reasoning.",
+      "llm_tldr_cn": "一种将用户修改作为隐式领域规范以重塑多智能体推理行为的框架。",
+      "llm_tldr": "一种将用户修改作为隐式领域规范以重塑多智能体推理行为的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25158v1",
+      "title": "Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills",
+      "abstract": "Equipping Large Language Model (LLM) agents with domain-specific skills is critical for tackling complex tasks. Yet, manual authoring creates a severe scalability bottleneck. Conversely, automated skill generation often yields fragile or fragmented results because it either relies on shallow parametric knowledge or sequentially overfits to non-generalizable trajectory-local lessons. To overcome this, we introduce Trace2Skill, a framework that mirrors how human experts author skills: by holistically analyzing broad execution experience before distilling it into a single, comprehensive guide. Instead of reacting sequentially to individual trajectories, Trace2Skill dispatches a parallel fleet of sub-agents to analyze a diverse pool of executions. It extracts trajectory-specific lessons and hierarchically consolidates them into a unified, conflict-free skill directory via inductive reasoning. Trace2Skill supports both deepening existing human-written skills and creating new ones from scratch. Experiments in challenging domains, such as spreadsheet, VisionQA and math reasoning, show that Trace2Skill significantly improves upon strong baselines, including Anthropic's official xlsx skills. Crucially, this trajectory-grounded evolution does not merely memorize task instances or model-specific quirks: evolved skills transfer across LLM scales and generalize to OOD settings. For example, skills evolved by Qwen3.5-35B on its own trajectories improved a Qwen3.5-122B agent by up to 57.65 absolute percentage points on WikiTableQuestions. Ultimately, our results demonstrate that complex agent experience can be packaged into highly transferable, declarative skills -- requiring no parameter updates, no external retrieval modules, and utilizing open-source models as small as 35B parameters.",
+      "authors": [
+        "Jingwei Ni",
+        "Yihao Liu",
+        "Xinpeng Liu",
+        "Yutao Sun",
+        "Mengyu Zhou",
+        "Pengyu Cheng",
+        "Dexin Wang",
+        "Xiaoxi Jiang",
+        "Guanjun Jiang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-26T08:26:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.25158v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for distilling transferable skills in LLM agents",
+      "llm_evidence_cn": "在 LLM 智能体中提取可迁移技能的框架",
+      "llm_evidence": "在 LLM 智能体中提取可迁移技能的框架",
+      "canonical_evidence": "在 LLM 智能体中提取可迁移技能的框架",
+      "llm_tldr_en": "Automates domain-specific skill generation for LLM agents by analyzing diverse execution trajectories.",
+      "llm_tldr_cn": "通过分析多样化的执行轨迹，为 LLM 智能体自动生成特定领域的技能。",
+      "llm_tldr": "通过分析多样化的执行轨迹，为 LLM 智能体自动生成特定领域的技能。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
