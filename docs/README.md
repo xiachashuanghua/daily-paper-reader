@@ -6,55 +6,61 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-29
-- 运行时间：2026-03-29 19:54:56 UTC
+- 最新运行日期：2026-03-30
+- 运行时间：2026-03-30 20:06:56 UTC
 - 运行状态：成功
-- 本次总论文数：11
-- 精读区：3
-- 速读区：8
+- 本次总论文数：13
+- 精读区：2
+- 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 11 篇前沿成果，重点攻克 LLM 驱动的分子设计与超高效数据索引难题。
-推荐关注 MolEvolve 的可解释分子进化搜索及 AutoCSF 对倾斜负载的索引优化，两项研究均获 9.0 高分。
-建议深入了解 AI 如何重塑生物医药研发与底层存储架构，把握跨学科技术融合趋势。
-- 详情：[/202603/29/README](/202603/29/README)
+今日深度解析蛋白质语言模型的高效量化与 AI 科学家闭环实验，涵盖 13 篇生物医药 AI 前沿进展。
+重点推荐 TurboESM 实现的 3-bit 极低比特量化突破，以及 AI Agent 结合实验室反馈进行迭代科研的新范式。
+建议关注 AI 如何通过图神经网络与多模态学习，重塑从流行病预测到空间基因表达的科研全链路。
+- 详情：[/202603/30/README](/202603/30/README)
 
 ### 精读区论文标签
-1. [MolEvolve: LLM-Guided Evolutionary Search for Interpretable Molecular Optimization](/202603/29/2603.24382v1-molevolve-llm-guided-evolutionary-search-for-interpretable-molecular-optimization)  
+1. [TurboESM: Ultra-Efficient 3-Bit KV Cache Quantization for Protein Language Models with Orthogonal Rotation and QJL Correction](/202603/30/2603.26110v1-turboesm-ultra-efficient-3-bit-kv-cache-quantization-for-protein-language-models-with-orthogonal-rotation-and-qjl-correction)  
    标签：评分：9.0/10、query:llmagt
-   evidence：LLM引导的自主分子优化
-2. [AutoCSF: Provably Space-Efficient Indexing of Skewed Key-Value Workloads via Filter-Augmented Compressed Static Functions](/202603/29/2603.24882v1-autocsf-provably-space-efficient-indexing-of-skewed-key-value-workloads-via-filter-augmented-compressed-static-functions)  
+   evidence：针对高通量生成的蛋白质语言模型优化
+2. [Can AI Scientist Agents Learn from Lab-in-the-Loop Feedback? Evidence from Iterative Perturbation Discovery](/202603/30/2603.26177v1-can-ai-scientist-agents-learn-from-lab-in-the-loop-feedback-evidence-from-iterative-perturbation-discovery)  
    标签：评分：9.0/10、query:llmagt
-   evidence：计算基因组学中 k-mer 计数表的高空间效率索引
-3. [MolQuest: A Benchmark for Agentic Evaluation of Abductive Reasoning in Chemical Structure Elucidation](/202603/29/2603.25253v1-molquest-a-benchmark-for-agentic-evaluation-of-abductive-reasoning-in-chemical-structure-elucidation)  
-   标签：评分：8.0/10、query:llmagt
-   evidence：分子结构阐明的智能体评估
+   evidence：用于细胞绘画高内涵筛选中迭代扰动发现的LLM智能体
 
 ### 速读区论文标签
-1. [Fast Iteration of Spaced k-mers](/202603/29/2603.25417v1-fast-iteration-of-spaced-k-mers)  
+1. [Vision-based Deep Learning Analysis of Unordered Biomedical Tabular Datasets via Optimal Spatial Cartography](/202603/30/2603.22675v1-vision-based-deep-learning-analysis-of-unordered-biomedical-tabular-datasets-via-optimal-spatial-cartography)  
    标签：评分：7.0/10、query:llmagt
-   evidence：从核苷酸序列中提取 k-mers
-2. [Modeling the mutational dynamics of very short tandem repeats](/202603/29/2603.25628v1-modeling-the-mutational-dynamics-of-very-short-tandem-repeats)  
+   evidence：生物医学表格数据集的深度学习分析
+2. [Cross-Slice Knowledge Transfer via Masked Multi-Modal Heterogeneous Graph Contrastive Learning for Spatial Gene Expression Inference](/202603/30/2603.22821v1-cross-slice-knowledge-transfer-via-masked-multi-modal-heterogeneous-graph-contrastive-learning-for-spatial-gene-expression-inference)  
    标签：评分：7.0/10、query:llmagt
-   evidence：对基因组中的突变动力学进行建模
-3. [Generating from Discrete Distributions Using Diffusions: Insights from Random Constraint Satisfaction Problems](/202603/29/2603.20589v1-generating-from-discrete-distributions-using-diffusions-insights-from-random-constraint-satisfaction-problems)  
+   evidence：计算生物学中的空间基因表达推断
+3. [Learning relationships in epidemiological data using graph neural networks](/202603/30/2603.24745v1-learning-relationships-in-epidemiological-data-using-graph-neural-networks)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于流行病学分析的病原体全基因组测序数据
+4. [From Intent to Evidence: A Categorical Approach for Structural Evaluation of Deep Research Agents](/202603/30/2603.25342v1-from-intent-to-evidence-a-categorical-approach-for-structural-evaluation-of-deep-research-agents)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：深度研究智能体的结构化评估
+5. [SkinGPT-X: A Self-Evolving Collaborative Multi-Agent System for Transparent and Trustworthy Dermatological Diagnosis](/202603/30/2603.26122v1-skingpt-x-a-self-evolving-collaborative-multi-agent-system-for-transparent-and-trustworthy-dermatological-diagnosis)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于皮肤病诊断和临床推理的多智能体系统
+6. [Multi-scale Metabolic Modeling and Simulation](/202603/30/2603.26370v1-multi-scale-metabolic-modeling-and-simulation)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：基因组规模代谢模型与动态模拟的整合
+7. [Empirical Comparison of Agent Communication Protocols for Task Orchestration](/202603/30/2603.22823v1-empirical-comparison-of-agent-communication-protocols-for-task-orchestration)  
    标签：评分：6.0/10、query:llmagt
-   evidence：使用扩散模型生成基因组数据
-4. [Do Papers Match Code? A Benchmark and Framework for Paper-Code Consistency Detection in Bioinformatics Software](/202603/29/2603.22018v1-do-papers-match-code-a-benchmark-and-framework-for-paper-code-consistency-detection-in-bioinformatics-software)  
+   evidence：任务编排中智能体通信协议的比较
+8. [When Is Collective Intelligence a Lottery? Multi-Agent Scaling Laws for Memetic Drift in LLMs](/202603/30/2603.24676v1-when-is-collective-intelligence-a-lottery-multi-agent-scaling-laws-for-memetic-drift-in-llms)  
    标签：评分：6.0/10、query:llmagt
-   evidence：生物信息学软件的一致性检测
-5. [SoK: The Attack Surface of Agentic AI -- Tools, and Autonomy](/202603/29/2603.22928v1-sok-the-attack-surface-of-agentic-ai----tools-and-autonomy)  
+   evidence：多智能体LLM系统中的扩展定律与集体智能
+9. [Supervising Ralph Wiggum: Exploring a Metacognitive Co-Regulation Agentic AI Loop for Engineering Design](/202603/30/2603.24768v1-supervising-ralph-wiggum-exploring-a-metacognitive-co-regulation-agentic-ai-loop-for-engineering-design)  
    标签：评分：6.0/10、query:llmagt
-   evidence：智能体AI与多智能体循环的安全风险
-6. [From AI Assistant to AI Scientist: Autonomous Discovery of LLM-RL Algorithms with LLM Agents](/202603/29/2603.23951v1-from-ai-assistant-to-ai-scientist-autonomous-discovery-of-llm-rl-algorithms-with-llm-agents)  
+   evidence：用于工程设计自动化的元认知智能体循环
+10. [AgentCollab: A Self-Evaluation-Driven Collaboration Paradigm for Efficient LLM Agents](/202603/30/2603.26034v1-agentcollab-a-self-evaluation-driven-collaboration-paradigm-for-efficient-llm-agents)  
    标签：评分：6.0/10、query:llmagt
-   evidence：使用 LLM 智能体自主发现算法
-7. [Context-Mediated Domain Adaptation in Multi-Agent Sensemaking Systems](/202603/29/2603.24858v1-context-mediated-domain-adaptation-in-multi-agent-sensemaking-systems)  
+   evidence：LLM智能体的自我评估驱动协作范式
+11. [ClinicalAgents: Multi-Agent Orchestration for Clinical Decision Making with Dual-Memory](/202603/30/2603.26182v1-clinicalagents-multi-agent-orchestration-for-clinical-decision-making-with-dual-memory)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于特定领域推理的多智能体框架
-8. [Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills](/202603/29/2603.25158v1-trace2skill-distill-trajectory-local-lessons-into-transferable-agent-skills)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：在 LLM 智能体中提取可迁移技能的框架
+   evidence：用于临床决策的多智能体框架
 
 
 <div class="dpr-home-promo-card">

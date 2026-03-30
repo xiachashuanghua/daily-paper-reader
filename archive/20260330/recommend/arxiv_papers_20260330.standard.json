@@ -1,0 +1,519 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-30T20:05:21.399143+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 13,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.26110v1",
+      "title": "TurboESM: Ultra-Efficient 3-Bit KV Cache Quantization for Protein Language Models with Orthogonal Rotation and QJL Correction",
+      "abstract": "The rapid scaling of Protein Language Models (PLMs) has unlocked unprecedented accuracy in protein structure prediction and design, but the quadratic memory growth of the Key-Value (KV) cache during inference remains a prohibitive barrier for single-GPU deployment and high-throughput generation. While 8-bit quantization is now standard, 3-bit quantization remains elusive due to severe numerical outliers in activations. This paper presents TurboESM, an adaptation of Google's TurboQuant to the PLM domain. We solve the fundamental incompatibility between Rotary Position Embeddings (RoPE) and orthogonal transformations by deriving a RoPE-first rotation pipeline. We introduce a head-wise SVD calibration method tailored to the amino acid activation manifold, a dual look-up table (LUT) strategy for asymmetric K/V distributions, and a 1-bit Quantized Johnson-Lindenstrauss (QJL) residual correction. All experiments are conducted on ESM-2 650M, where our implementation achieves a 7.1x memory reduction (330 MB to 47 MB) while maintaining cosine similarity > 0.96 in autoregressive decoding across diverse protein families, including short peptides, transmembrane helices, enzyme active site fragments, and intrinsically disordered regions. We further implement a Triton-based fused decode attention kernel that eliminates intermediate dequantization memory allocations, achieving a 1.96x speedup over the PyTorch two-step path for the KV fetch operation alone; however, TurboESM incurs a prefill overhead of 21-27 ms relative to the original model due to KV quantization and packing, making it most suitable for memory-bound scenarios rather than latency-critical short-sequence workloads. Analysis reveals that PLMs exhibit sharper outlier profiles than large language models (LLMs) due to amino acid vocabulary sparsity, and our method effectively addresses these distributions.",
+      "authors": [
+        "Yue Hu",
+        "Junqing Wang",
+        "Yingchao Liu"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM"
+      ],
+      "published": "2026-03-27T06:42:56+00:00",
+      "link": "https://arxiv.org/pdf/2603.26110v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Optimization of Protein Language Models for high-throughput generation",
+      "llm_evidence_cn": "针对高通量生成的蛋白质语言模型优化",
+      "llm_evidence": "针对高通量生成的蛋白质语言模型优化",
+      "canonical_evidence": "针对高通量生成的蛋白质语言模型优化",
+      "llm_tldr_en": "TurboESM enables efficient 3-bit quantization for Protein Language Models to reduce memory during inference.",
+      "llm_tldr_cn": "TurboESM通过3比特量化技术显著降低蛋白质语言模型推理时的显存占用。",
+      "llm_tldr": "TurboESM通过3比特量化技术显著降低蛋白质语言模型推理时的显存占用。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.26177v1",
+      "title": "Can AI Scientist Agents Learn from Lab-in-the-Loop Feedback? Evidence from Iterative Perturbation Discovery",
+      "abstract": "Recent work has questioned whether large language models (LLMs) can perform genuine in-context learning (ICL) for scientific experimental design, with prior studies suggesting that LLM-based agents exhibit no sensitivity to experimental feedback. We shed new light on this question by carrying out 800 independently replicated experiments on iterative perturbation discovery in Cell Painting high-content screening. We compare an LLM agent that iteratively updates its hypotheses using experimental feedback to a zero-shot baseline that relies solely on pretraining knowledge retrieval. Access to feedback yields a $+53.4\\%$ increase in discoveries per feature on average ($p = 0.003$). To test whether this improvement arises from genuine feedback-driven learning rather than prompt-induced recall of pretraining knowledge, we introduce a random feedback control in which hit/miss labels are permuted. Under this control, the performance gain disappears, indicating that the observed improvement depends on the structure of the feedback signal ($+13.0$ hits, $p = 0.003$). We further examine how model capability affects feedback utilization. Upgrading from Claude Sonnet 4.5 to 4.6 reduces gene hallucination rates from ${\\sim}33\\%$--$45\\%$ to ${\\sim}3$--$9\\%$, converting a non-significant ICL effect ($+0.8$, $p = 0.32$) into a large and highly significant improvement ($+11.0$, $p=0.003$) for the best ICL strategy. These results suggest that effective in-context learning from experimental feedback emerges only once models reach a sufficient capability threshold.",
+      "authors": [
+        "Gilles Wainrib",
+        "Barbara Bodinier",
+        "Haitem Dakhli",
+        "Josep Monserrat",
+        "Almudena Espin Perez",
+        "Sabrina Carpentier",
+        "Roberta Codato",
+        "John Klein"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-27T08:48:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.26177v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM agents for iterative perturbation discovery in Cell Painting screening",
+      "llm_evidence_cn": "用于细胞绘画高内涵筛选中迭代扰动发现的LLM智能体",
+      "llm_evidence": "用于细胞绘画高内涵筛选中迭代扰动发现的LLM智能体",
+      "canonical_evidence": "用于细胞绘画高内涵筛选中迭代扰动发现的LLM智能体",
+      "llm_tldr_en": "Evaluates LLM agents in scientific experimental design using lab-in-the-loop feedback for biological discovery.",
+      "llm_tldr_cn": "评估了LLM智能体在科学实验设计中利用实验室闭环反馈进行生物发现的能力。",
+      "llm_tldr": "评估了LLM智能体在科学实验设计中利用实验室闭环反馈进行生物发现的能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.22675v1",
+      "title": "Vision-based Deep Learning Analysis of Unordered Biomedical Tabular Datasets via Optimal Spatial Cartography",
+      "abstract": "Tabular data are central to biomedical research, from liquid biopsy and bulk and single-cell transcriptomics to electronic health records and phenotypic profiling. Unlike images or sequences, however, tabular datasets lack intrinsic spatial organization: features are treated as unordered dimensions, and their relationships must be inferred implicitly by the model. This limits the ability of vision architectures to exploit local structure and higher-order feature interactions in non-spatial biomedical data. Here we introduce Dynamic Feature Mapping (Dynomap), an end-to-end deep learning framework that learns a task-optimized spatial topology of features directly from data. Dynomap jointly optimizes feature placement and prediction through a fully differentiable rendering mechanism, without relying on heuristics, predefined groupings, or external priors. By transforming high-dimensional tabular vectors into learned feature maps, Dynomap enables vision-based models to operate effectively on unordered biomedical inputs. Across multiple clinical and biological datasets, Dynomap consistently outperformed classical machine learning, modern deep tabular models, and existing vector-to-image approaches. In liquid biopsy data, Dynomap organized clinically relevant gene signatures into coherent spatial patterns and improved multiclass cancer subtype prediction accuracy by up to 18%. In a Parkinson disease voice dataset, it clustered disease-associated acoustic descriptors and improved accuracy by up to 8%. Similar gains and interpretable feature organization were observed in additional biomedical datasets. These results establish Dynomap as a general strategy for bridging tabular and vision-based deep learning and for uncovering structured, clinically relevant patterns in high-dimensional biomedical data.",
+      "authors": [
+        "Sakib Mostafa",
+        "Tarik Massoud",
+        "Maximilian Diehn",
+        "Lei Xing",
+        "Md Tauhidul Islam"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-24T00:49:55+00:00",
+      "link": "https://arxiv.org/pdf/2603.22675v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep learning analysis of biomedical tabular datasets",
+      "llm_evidence_cn": "生物医学表格数据集的深度学习分析",
+      "llm_evidence": "生物医学表格数据集的深度学习分析",
+      "canonical_evidence": "生物医学表格数据集的深度学习分析",
+      "llm_tldr_en": "Introduces Dynomap to learn spatial topologies for unordered biomedical tabular data like transcriptomics.",
+      "llm_tldr_cn": "引入Dynomap为转录组学等无序生物医学表格数据学习空间拓扑结构。",
+      "llm_tldr": "引入Dynomap为转录组学等无序生物医学表格数据学习空间拓扑结构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22823v1",
+      "title": "Empirical Comparison of Agent Communication Protocols for Task Orchestration",
+      "abstract": "Context. Nowadays, artificial intelligence agent systems are transforming from single-tool interactions to complex multi-agent orchestrations. As a result, two competing communication protocols have emerged: a tool integration protocol that standardizes how agents invoke external tools, and an inter-agent delegation protocol that enables autonomous agents to discover and delegate tasks to one another. Despite widespread industry adoption by dozens of enterprise partners, no empirical comparison of these protocols exists in the literature. Objective. The goal of this work is to develop the first systematic benchmark comparing tool-integration-only, multi-agent delegation, and hybrid architectures across standardized queries at three complexity levels, and to quantify the trade-offs in response time, context window consumption, monetary cost, error recovery, and implementation complexity.",
+      "authors": [
+        "Ivan Dobrovolskyi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-24T05:50:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.22823v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Comparison of agent communication protocols for task orchestration",
+      "llm_evidence_cn": "任务编排中智能体通信协议的比较",
+      "llm_evidence": "任务编排中智能体通信协议的比较",
+      "canonical_evidence": "任务编排中智能体通信协议的比较",
+      "llm_tldr_en": "This study benchmarks different communication protocols for multi-agent task delegation and orchestration.",
+      "llm_tldr_cn": "本研究对多智能体任务委派和编排的不同通信协议进行了基准测试。",
+      "llm_tldr": "本研究对多智能体任务委派和编排的不同通信协议进行了基准测试。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22821v1",
+      "title": "Cross-Slice Knowledge Transfer via Masked Multi-Modal Heterogeneous Graph Contrastive Learning for Spatial Gene Expression Inference",
+      "abstract": "While spatial transcriptomics (ST) has advanced our understanding of gene expression in tissue context, its high experimental cost limits its large-scale application. Predicting ST from pathology images is a promising, cost-effective alternative, but existing methods struggle to capture complex cross-slide spatial relationships. To address the challenge, we propose SpaHGC, a multi-modal heterogeneous graph-based model that captures both intra-slice and inter-slice spot-spot relationships from histology images. It integrates local spatial context within the target slide and cross-slide similarities computed from image embeddings extracted by a pathology foundation model. These embeddings enable inter-slice knowledge transfer, and SpaHGC further incorporates Masked Graph Contrastive Learning to enhance feature representation and transfer spatial gene expression knowledge from reference to target slides, enabling it to model complex spatial dependencies and significantly improve prediction accuracy. We conducted comprehensive benchmarking on seven matched histology-ST datasets from different platforms, tissues, and cancer subtypes. The results demonstrate that SpaHGC significantly outperforms the existing nine state-of-the-art methods across all evaluation metrics. Additionally, the predictions are significantly enriched in multiple cancer-related pathways, thereby highlighting its strong biological relevance and application potential.",
+      "authors": [
+        "Zhiceng Shi",
+        "Changmiao Wang",
+        "Jun Wan",
+        "Wenwen Min"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T05:49:00+00:00",
+      "link": "https://arxiv.org/pdf/2603.22821v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "spatial gene expression inference in computational biology",
+      "llm_evidence_cn": "计算生物学中的空间基因表达推断",
+      "llm_evidence": "计算生物学中的空间基因表达推断",
+      "canonical_evidence": "计算生物学中的空间基因表达推断",
+      "llm_tldr_en": "Uses multi-modal graph contrastive learning to predict spatial transcriptomics from pathology images.",
+      "llm_tldr_cn": "利用多模态图对比学习，通过病理图像预测空间转录组数据。",
+      "llm_tldr": "利用多模态图对比学习，通过病理图像预测空间转录组数据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24676v1",
+      "title": "When Is Collective Intelligence a Lottery? Multi-Agent Scaling Laws for Memetic Drift in LLMs",
+      "abstract": "Multi-agent systems powered by large language models (LLMs) are increasingly deployed in settings that shape consequential decisions, both directly and indirectly. Yet it remains unclear whether their outcomes reflect collective reasoning, systematic bias, or mere chance. Recent work has sharpened this question with naming games, showing that even when no individual agent favors any label a priori, populations rapidly break symmetry and reach consensus. Here, we reveal the mechanism by introducing a minimal model, Quantized Simplex Gossip (QSG), and trace the microscopic origin of this agreement to mutual in-context learning. In QSG, agents maintain internal belief states but learn from one another's sampled outputs, so one agent's arbitrary choice becomes the next agent's evidence and can compound toward agreement. By analogy with neutral evolution, we call this sampling-driven regime memetic drift. QSG predicts a crossover from a drift-dominated regime, where consensus is effectively a lottery, to a selection regime, where weak biases are amplified and shape the outcome. We derive scaling laws for drift-induced polarization as a function of population size, communication bandwidth, in-context adaptation rate, and agents' internal uncertainty, and we validate them in both QSG simulations and naming-game experiments with LLM populations. Together, these results provide a framework for studying the collective mechanisms of social representation formation in multi-agent systems.",
+      "authors": [
+        "Hidenori Tanaka"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cond-mat.dis-nn",
+        "cond-mat.stat-mech",
+        "physics.bio-ph",
+        "physics.soc-ph"
+      ],
+      "published": "2026-03-25T18:00:29+00:00",
+      "link": "https://arxiv.org/pdf/2603.24676v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Scaling laws and collective intelligence in multi-agent LLM systems",
+      "llm_evidence_cn": "多智能体LLM系统中的扩展定律与集体智能",
+      "llm_evidence": "多智能体LLM系统中的扩展定律与集体智能",
+      "canonical_evidence": "多智能体LLM系统中的扩展定律与集体智能",
+      "llm_tldr_en": "Explores how multi-agent LLM populations reach consensus through mutual in-context learning.",
+      "llm_tldr_cn": "探讨了多LLM智能体群体如何通过相互上下文学习达成共识的机制。",
+      "llm_tldr": "探讨了多LLM智能体群体如何通过相互上下文学习达成共识的机制。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24745v1",
+      "title": "Learning relationships in epidemiological data using graph neural networks",
+      "abstract": "When designing control strategies for an infectious disease it is critical to identify the key pathways of transmission. Data on infected hosts - when they were born, where they lived and with whom they interacted - can help infer sources of infection and transmission clusters. However such data are generally not powerful enough to identify infector-infectee pairs with any certainty.   Whole-genome sequencing data of the underlying pathogen, on the other hand, can serve as a powerful adjoint to these data as they can be used to estimate a time to a most recent common ancestor between two infected hosts. and in turn their relative proximity in the transmission tree. A statistical model that explains the genetic distance between different host pathogens and associated risk factors can therefore inform key risk factors for transmission itself.   We show how graph neural networks (GNNs) are a powerful and natural modelling architecture for such a problem. By treating the epidemiological dataset as a graph where infected hosts are nodes and edges are weighted by the genetic distance between different host pairs, we show how a GNN can be fit to predict the genetic distance between known hosts and new, unsequenced hosts. Comparisons with other established approaches show that GNNs have useful performance advantages albeit with greater computational cost.",
+      "authors": [
+        "Anthony J Wood",
+        "Aeron R Sanchez",
+        "Rowland R Kao"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM"
+      ],
+      "published": "2026-03-25T19:09:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.24745v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "whole-genome sequencing data of pathogens for epidemiological analysis",
+      "llm_evidence_cn": "用于流行病学分析的病原体全基因组测序数据",
+      "llm_evidence": "用于流行病学分析的病原体全基因组测序数据",
+      "canonical_evidence": "用于流行病学分析的病原体全基因组测序数据",
+      "llm_tldr_en": "Uses graph neural networks and genomic sequencing to infer transmission pathways in epidemiological data.",
+      "llm_tldr_cn": "利用图神经网络和基因组测序技术推断流行病学数据中的传播路径。",
+      "llm_tldr": "利用图神经网络和基因组测序技术推断流行病学数据中的传播路径。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24768v1",
+      "title": "Supervising Ralph Wiggum: Exploring a Metacognitive Co-Regulation Agentic AI Loop for Engineering Design",
+      "abstract": "The engineering design research community has studied agentic AI systems that use Large Language Model (LLM) agents to automate the engineering design process. However, these systems are prone to some of the same pathologies that plague humans. Just as human designers, LLM design agents can fixate on existing paradigms and fail to explore alternatives when solving design challenges, potentially leading to suboptimal solutions. In this work, we propose (1) a novel Self-Regulation Loop (SRL), in which the Design Agent self-regulates and explicitly monitors its own metacognition, and (2) a novel Co-Regulation Design Agentic Loop (CRDAL), in which a Metacognitive Co-Regulation Agent assists the Design Agent in metacognition to mitigate design fixation, thereby improving system performance for engineering design tasks. In the battery pack design problem examined here, we found that the novel CRDAL system generates designs with better performance, without significantly increasing the computational cost, compared to a plain Ralph Wiggum Loop (RWL) and the metacognitively self-assessing Self-Regulation Loop (SRL). Also, we found that the CRDAL system navigated through the latent design space more effectively than both SRL and RWL. However, the SRL did not generate designs with significantly better performance than RWL, even though it explored a different region of the design space. The proposed system architectures and findings of this work provide practical implications for future development of agentic AI systems for engineering design.",
+      "authors": [
+        "Zeda Xu",
+        "Nikolas Martelaro",
+        "Christopher McComb"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-25T19:39:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.24768v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Metacognitive agentic loop for engineering design automation",
+      "llm_evidence_cn": "用于工程设计自动化的元认知智能体循环",
+      "llm_evidence": "用于工程设计自动化的元认知智能体循环",
+      "canonical_evidence": "用于工程设计自动化的元认知智能体循环",
+      "llm_tldr_en": "This paper explores metacognitive loops to improve the autonomy and reasoning of LLM agents in design tasks.",
+      "llm_tldr_cn": "本文探讨了元认知循环，以提高LLM智能体在设计任务中的自主性和推理能力。",
+      "llm_tldr": "本文探讨了元认知循环，以提高LLM智能体在设计任务中的自主性和推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25342v1",
+      "title": "From Intent to Evidence: A Categorical Approach for Structural Evaluation of Deep Research Agents",
+      "abstract": "Although deep research agents (DRAs) have emerged as a promising paradigm for complex information synthesis, their evaluation remains constrained by ad hoc empirical benchmarks. These heuristic approaches do not rigorously model agent behavior or adequately stress-test long-horizon synthesis and ambiguity resolution. To bridge this gap, we formalize DRA behavior through the lens of category theory, modeling deep research workflow as a composition of structure-preserving maps (functors). Grounded in this theoretical framework, we introduce a novel mechanism-aware benchmark with 296 questions designed to stress-test agents along four interpretable axes: traversing sequential connectivity chains, verifying intersections within V-structure pullbacks, imposing topological ordering on retrieved substructures, and performing ontological falsification via the Yoneda Probe. Our rigorous evaluation of 11 leading models establishes a persistently low baseline, with the state-of-the-art achieving only a 19.9\\% average accuracy, exposing the difficulty of formal structural stress-testing. Furthermore, our findings reveal a stark dichotomy in the current AI capabilities. While advanced deep research pipelines successfully redefine dynamic topological re-ordering and exhibit robust ontological verification -- matching pure reasoning models in falsifying hallucinated premises -- they almost universally collapse on multi-hop structural synthesis. Crucially, massive performance variance across tasks exposes a lingering reliance on brittle heuristics rather than a systemic understanding. Ultimately, this work demonstrates that while top-tier autonomous agents can now organically unify search and reasoning, achieving a generalized mastery over complex structural information remains a formidable open challenge.\\footnote{Our implementation will be available at https://github.com/tzq1999/CDR.",
+      "authors": [
+        "Shuoling Liu",
+        "Zhiquan Tan",
+        "Kun Yi",
+        "Hui Wu",
+        "Yihan Li",
+        "Jiangpeng Yan",
+        "Liyuan Chen",
+        "Kai Chen",
+        "Qiang Yang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-26T11:37:26+00:00",
+      "link": "https://arxiv.org/pdf/2603.25342v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "structural evaluation of deep research agents",
+      "llm_evidence_cn": "深度研究智能体的结构化评估",
+      "llm_evidence": "深度研究智能体的结构化评估",
+      "canonical_evidence": "深度研究智能体的结构化评估",
+      "llm_tldr_en": "Formalizes research agent behavior using category theory to create a mechanism-aware evaluation benchmark.",
+      "llm_tldr_cn": "利用范畴论将研究智能体行为正式化，建立机制感知的评估基准。",
+      "llm_tldr": "利用范畴论将研究智能体行为正式化，建立机制感知的评估基准。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.26034v1",
+      "title": "AgentCollab: A Self-Evaluation-Driven Collaboration Paradigm for Efficient LLM Agents",
+      "abstract": "Autonomous agents powered by large language models (LLMs) perform complex tasks through long-horizon reasoning and tool interaction, where a fundamental trade-off arises between execution efficiency and reasoning robustness. Models at different capability-cost levels offer complementary advantages: lower-cost models enable fast execution but may struggle on difficult reasoning segments, while stronger models provide more robust reasoning at higher computational cost. We present AgentCollab, a self-driven collaborative inference framework that dynamically coordinates models with different reasoning capacities during agent execution. Instead of relying on external routing modules, the framework uses the agent's own self-reflection signal to determine whether the current reasoning trajectory is making meaningful progress, and escalates control to a stronger reasoning tier only when necessary. To further stabilize long-horizon execution, we introduce a difficulty-aware cumulative escalation strategy that allocates additional reasoning budget based on recent failure signals. In our experiments, we instantiate this framework using a two-level small-large model setting. Experiments on diverse multi-step agent benchmarks show that AgentCollab consistently improves the accuracy-efficiency Pareto frontier of LLM agents.",
+      "authors": [
+        "Wenbo Gao",
+        "Renxi Liu",
+        "Xian Wang",
+        "Fang Guo",
+        "Shuai Yang",
+        "Xi Chen",
+        "Hui-Ling Zhen",
+        "Hanting Chen",
+        "Weizhe Lin",
+        "Xiaosong Li",
+        "Yaoyuan Wang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-27T03:07:34+00:00",
+      "link": "https://arxiv.org/pdf/2603.26034v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Self-evaluation-driven collaboration paradigm for LLM agents",
+      "llm_evidence_cn": "LLM智能体的自我评估驱动协作范式",
+      "llm_evidence": "LLM智能体的自我评估驱动协作范式",
+      "canonical_evidence": "LLM智能体的自我评估驱动协作范式",
+      "llm_tldr_en": "A framework for coordinating multiple LLM models with different capacities to improve agent efficiency.",
+      "llm_tldr_cn": "一种协调具有不同能力的多个LLM模型以提高智能体效率的框架。",
+      "llm_tldr": "一种协调具有不同能力的多个LLM模型以提高智能体效率的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.26122v1",
+      "title": "SkinGPT-X: A Self-Evolving Collaborative Multi-Agent System for Transparent and Trustworthy Dermatological Diagnosis",
+      "abstract": "While recent advancements in Large Language Models have significantly advanced dermatological diagnosis, monolithic LLMs frequently struggle with fine-grained, large-scale multi-class diagnostic tasks and rare skin disease diagnosis owing to training data sparsity, while also lacking the interpretability and traceability essential for clinical reasoning. Although multi-agent systems can offer more transparent and explainable diagnostics, existing frameworks are primarily concentrated on Visual Question Answering and conversational tasks, and their heavy reliance on static knowledge bases restricts adaptability in complex real-world clinical settings. Here, we present SkinGPT-X, a multimodal collaborative multi-agent system for dermatological diagnosis integrated with a self-evolving dermatological memory mechanism. By simulating the diagnostic workflow of dermatologists and enabling continuous memory evolution, SkinGPT-X delivers transparent and trustworthy diagnostics for the management of complex and rare dermatological cases. To validate the robustness of SkinGPT-X, we design a three-tier comparative experiment. First, we benchmark SkinGPT-X against four state-of-the-art LLMs across four public datasets, demonstrating its state-of-the-art performance with a +9.6% accuracy improvement on DDI31 and +13% weighted F1 gain on Dermnet over the state-of-the-art model. Second, we construct a large-scale multi-class dataset covering 498 distinct dermatological categories to evaluate its fine-grained classification capabilities. Finally, we curate the rare skin disease dataset, the first benchmark to address the scarcity of clinical rare skin diseases which contains 564 clinical samples with eight rare dermatological diseases. On this dataset, SkinGPT-X achieves a +9.8% accuracy improvement, a +7.1% weighted F1 improvement, a +10% Cohen's Kappa improvement.",
+      "authors": [
+        "Zhangtianyi Chen",
+        "Yuhao Shen",
+        "Florensia Widjaja",
+        "Yan Xu",
+        "Liyuan Sun",
+        "Zijian Wang",
+        "Hongyi Chen",
+        "Wufei Dai",
+        "Juexiao Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-27T07:14:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.26122v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent system for dermatological diagnosis and clinical reasoning",
+      "llm_evidence_cn": "用于皮肤病诊断和临床推理的多智能体系统",
+      "llm_evidence": "用于皮肤病诊断和临床推理的多智能体系统",
+      "canonical_evidence": "用于皮肤病诊断和临床推理的多智能体系统",
+      "llm_tldr_en": "SkinGPT-X uses a collaborative multi-agent system to improve transparency and accuracy in medical diagnosis.",
+      "llm_tldr_cn": "SkinGPT-X利用协作多智能体系统提高了医疗诊断的透明度和准确性。",
+      "llm_tldr": "SkinGPT-X利用协作多智能体系统提高了医疗诊断的透明度和准确性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.26182v1",
+      "title": "ClinicalAgents: Multi-Agent Orchestration for Clinical Decision Making with Dual-Memory",
+      "abstract": "While Large Language Models (LLMs) have demonstrated potential in healthcare, they often struggle with the complex, non-linear reasoning required for accurate clinical diagnosis. Existing methods typically rely on static, linear mappings from symptoms to diagnoses, failing to capture the iterative, hypothesis-driven reasoning inherent to human clinicians. To bridge this gap, we introduce ClinicalAgents, a novel multi-agent framework designed to simulate the cognitive workflow of expert clinicians. Unlike rigid sequential chains, ClinicalAgents employs a dynamic orchestration mechanism modeled as a Monte Carlo Tree Search (MCTS) process. This allows an Orchestrator to iteratively generate hypotheses, actively verify evidence, and trigger backtracking when critical information is missing. Central to this framework is a Dual-Memory architecture: a mutable Working Memory that maintains the evolving patient state for context-aware reasoning, and a static Experience Memory that retrieves clinical guidelines and historical cases via an active feedback loop. Extensive experiments demonstrate that ClinicalAgents achieves state-of-the-art performance, significantly enhancing both diagnostic accuracy and explainability compared to strong single-agent and multi-agent baselines.",
+      "authors": [
+        "Zhuohan Ge",
+        "Haoyang Li",
+        "Yubo Wang",
+        "Nicole Hu",
+        "Chen Jason Zhang",
+        "Qing Li"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-27T08:52:19+00:00",
+      "link": "https://arxiv.org/pdf/2603.26182v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for clinical decision making",
+      "llm_evidence_cn": "用于临床决策的多智能体框架",
+      "llm_evidence": "用于临床决策的多智能体框架",
+      "canonical_evidence": "用于临床决策的多智能体框架",
+      "llm_tldr_en": "Introduces ClinicalAgents, a multi-agent framework using MCTS to simulate expert clinical reasoning.",
+      "llm_tldr_cn": "引入ClinicalAgents，一种利用蒙特卡洛树搜索模拟专家临床推理的多智能体框架。",
+      "llm_tldr": "引入ClinicalAgents，一种利用蒙特卡洛树搜索模拟专家临床推理的多智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.26370v1",
+      "title": "Multi-scale Metabolic Modeling and Simulation",
+      "abstract": "Biological systems are governed by coupled interactions between intracellular metabolism and bioreactor operation that span multiple time scales. Constraint-based metabolic models are widely used to describe intracellular metabolism, but repeatedly solving the optimization problem at each time step in dynamic models introduces numerical challenges related to infeasibility and computational efficiency. This work presents a multi-scale modeling framework that integrates genome-scale, constraint-based metabolic models with dynamic bioreactor simulations. Intracellular metabolism is described using positive flux variables in a parsimonious flux balance analysis, and the resulting embedded optimization problem is replaced by a neural network surrogate. The surrogate provides a smooth approximation of the embedded optimization mapping and eliminates repeated linear program solves during simulation. The approach is demonstrated for fed-batch fermentation of Escherichia coli, in which the surrogate model yields intracellular fluxes under substrate-limited conditions, whereas the underlying linear program would otherwise be infeasible. The framework provides a continuous representation of intracellular metabolism suitable for dynamic simulation of genome-scale models in bioreactor configurations.",
+      "authors": [
+        "Peter E. Carstensen",
+        "Teddy Groves",
+        "Lars K. Nielsen",
+        "Ulrich Krühne",
+        "Krist V. Gernaey",
+        "John B. Jørgensen"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "math.DS",
+        "math.OC"
+      ],
+      "published": "2026-03-27T12:55:35+00:00",
+      "link": "https://arxiv.org/pdf/2603.26370v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Integration of genome-scale metabolic models with dynamic simulations",
+      "llm_evidence_cn": "基因组规模代谢模型与动态模拟的整合",
+      "llm_evidence": "基因组规模代谢模型与动态模拟的整合",
+      "canonical_evidence": "基因组规模代谢模型与动态模拟的整合",
+      "llm_tldr_en": "A multi-scale framework integrating metabolic models with neural networks for bioreactor simulation.",
+      "llm_tldr_cn": "一种将代谢模型与神经网络结合的用于生物反应器模拟的多尺度框架。",
+      "llm_tldr": "一种将代谢模型与神经网络结合的用于生物反应器模拟的多尺度框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
