@@ -1,0 +1,278 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-31T20:25:44.586267+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2603.27104v1",
+      "title": "Autonomous Agent-Orchestrated Digital Twins (AADT): Leveraging the OpenClaw Framework for State Synchronization in Rare Genetic Disorders",
+      "abstract": "Background: Medical Digital Twins (MDTs) are computational representations of individual patients that integrate clinical, genomic, and physiological data to support diagnosis, treatment planning, and outcome prediction. However, most MDTs remain static or passively updated, creating a critical synchronization gap, especially in rare genetic disorders where phenotypes, genomic interpretations, and care guidelines evolve over time.   Methods: We propose an agent-orchestrated digital twin framework using OpenClaw's proactive \"heartbeat\" mechanism and modular Agent Skills. This Autonomous Agent-orchestrated Digital Twin (AADT) system continuously monitors local and external data streams (e.g., patient-reported phenotypes and updates in variant classification databases) and executes automated workflows for data ingestion, normalization, state updates, and trigger-based analysis.   Results: A prototype implementation demonstrates that agent orchestration can continuously synchronize MDT states with both longitudinal phenotype updates and evolving genomic knowledge. In rare disease settings, this enables earlier diagnosis and more accurate modeling of disease progression. We present two case studies, including variant reinterpretation and longitudinal phenotype tracking, highlighting how AADTs support timely, auditable updates for both research and clinical care.   Conclusion: The AADT framework addresses the key bottleneck of real-time synchronization in MDTs, enabling scalable and continuously updated patient models. We also discuss data security considerations and mitigation strategies through human-in-the-loop system design.",
+      "authors": [
+        "Hongzhuo Chen",
+        "Zhanliang Wang",
+        "Quan M. Nguyen",
+        "Gongbo Zhang",
+        "Chunhua Weng",
+        "Kai Wang"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI",
+        "cs.IR"
+      ],
+      "published": "2026-03-28T03:18:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.27104v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "agent-orchestrated digital twins for genomic interpretations in rare genetic disorders",
+      "llm_evidence_cn": "用于罕见遗传病基因组解释的智能体编排数字孪生",
+      "llm_evidence": "用于罕见遗传病基因组解释的智能体编排数字孪生",
+      "canonical_evidence": "用于罕见遗传病基因组解释的智能体编排数字孪生",
+      "llm_tldr_en": "Uses LLM agents to synchronize genomic and clinical data for medical digital twins in rare diseases.",
+      "llm_tldr_cn": "利用LLM智能体同步罕见病的基因组与临床数据，构建动态医疗数字孪生系统。",
+      "llm_tldr": "利用LLM智能体同步罕见病的基因组与临床数据，构建动态医疗数字孪生系统。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27303v1",
+      "title": "Self-evolving AI agents for protein discovery and directed evolution",
+      "abstract": "Protein scientific discovery is bottlenecked by the manual orchestration of information and algorithms, while general agents are insufficient in complex domain projects. VenusFactory2 provides an autonomous framework that shifts from static tool usage to dynamic workflow synthesis via a self-evolving multi-agent infrastructure to address protein-related demands. It outperforms a set of well-known agents on the VenusAgentEval benchmark, and autonomously organizes the discovery and optimization of proteins from a single natural language prompt.",
+      "authors": [
+        "Yang Tan",
+        "Lingrong Zhang",
+        "Mingchen Li",
+        "Yuanxi Yu",
+        "Bozitao Zhong",
+        "Bingxin Zhou",
+        "Nanqing Dong",
+        "Liang Hong"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-28T15:16:49+00:00",
+      "link": "https://arxiv.org/pdf/2603.27303v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "self-evolving AI agents for protein discovery and evolution",
+      "llm_evidence_cn": "用于蛋白质发现和定向进化的自进化AI智能体",
+      "llm_evidence": "用于蛋白质发现和定向进化的自进化AI智能体",
+      "canonical_evidence": "用于蛋白质发现和定向进化的自进化AI智能体",
+      "llm_tldr_en": "An autonomous multi-agent infrastructure for protein discovery and optimization via dynamic workflow synthesis.",
+      "llm_tldr_cn": "一种通过动态工作流合成进行蛋白质发现和优化的自主多智能体基础设施。",
+      "llm_tldr": "一种通过动态工作流合成进行蛋白质发现和优化的自主多智能体基础设施。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27465v1",
+      "title": "Poisoning the Genome: Targeted Backdoor Attacks on DNA Foundation Models",
+      "abstract": "Genomic foundation models trained on DNA sequences have demonstrated remarkable capabilities across diverse biological tasks, from variant effect prediction to genome design. These models are typically trained on massive, publicly sourced genomic datasets comprising trillions of nucleotide tokens, which renders them intrinsically susceptible to errors, artifacts, and adversarial issues embedded in the training data. Unlike natural language, DNA sequences lack the semantic transparency that might allow model makers to filter out corrupted entries, making genomic training corpora particularly susceptible to undetected manipulation. While training data poisoning has been established as a credible threat to large language models, its implications for genomic foundation models remain unexplored. Here, we present the first systematic investigation of training data poisoning in genomic language models. We demonstrate two complementary attack vectors. First, we show that adversarially crafted sequences can selectively degrade generative behavior on targeted genomic contexts, with backdoor activation following a sigmoidal dose-response relationship and full implantation achieved at 1 percent cumulative poison exposure. Second, targeted label corruption of downstream training data can selectively compromise clinically relevant variant classification, demonstrated using BRCA1 variant effect prediction. Our results reveal that genomic foundation models are vulnerable to targeted data poisoning attacks, underscoring the need for data provenance tracking, integrity verification, and adversarial robustness evaluation in the genomic foundation model development pipeline.",
+      "authors": [
+        "Charalampos Koilakos",
+        "Ioannis Mouratidis",
+        "Ilias Georgakopoulos-Soares"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-03-29T00:59:10+00:00",
+      "link": "https://arxiv.org/pdf/2603.27465v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Backdoor attacks on DNA foundation models trained on genomic sequences",
+      "llm_evidence_cn": "针对基因组序列训练的DNA基础模型的后门攻击",
+      "llm_evidence": "针对基因组序列训练的DNA基础模型的后门攻击",
+      "canonical_evidence": "针对基因组序列训练的DNA基础模型的后门攻击",
+      "llm_tldr_en": "Investigates targeted backdoor attacks on genomic foundation models and their security implications.",
+      "llm_tldr_cn": "研究了针对基因组基础模型的定向后门攻击及其安全性影响。",
+      "llm_tldr": "研究了针对基因组基础模型的定向后门攻击及其安全性影响。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.28015v1",
+      "title": "What an Autonomous Agent Discovers About Molecular Transformer Design: Does It Transfer?",
+      "abstract": "Deep learning models for drug-like molecules and proteins overwhelmingly reuse transformer architectures designed for natural language, yet whether molecular sequences benefit from different designs has not been systematically tested. We deploy autonomous architecture search via an agent across three sequence types (SMILES, protein, and English text as control), running 3,106 experiments on a single GPU. For SMILES, architecture search is counterproductive: tuning learning rates and schedules alone outperforms the full search (p = 0.001). For natural language, architecture changes drive 81% of improvement (p = 0.009). Proteins fall between the two. Surprisingly, although the agent discovers distinct architectures per domain (p = 0.004), every innovation transfers across all three domains with <1% degradation, indicating that the differences reflect search-path dependence rather than fundamental biological requirements. We release a decision framework and open-source toolkit for molecular modeling teams to choose between autonomous architecture search and simple hyperparameter tuning.",
+      "authors": [
+        "Edward Wijaya"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-30T04:08:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.28015v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autonomous agent for protein and molecular sequence architecture search",
+      "llm_evidence_cn": "用于蛋白质和分子序列架构搜索的自主智能体",
+      "llm_evidence": "用于蛋白质和分子序列架构搜索的自主智能体",
+      "canonical_evidence": "用于蛋白质和分子序列架构搜索的自主智能体",
+      "llm_tldr_en": "Uses an autonomous agent to discover optimal transformer architectures for protein and molecular sequences.",
+      "llm_tldr_cn": "利用自主智能体探索蛋白质和分子序列的最优Transformer架构。",
+      "llm_tldr": "利用自主智能体探索蛋白质和分子序列的最优Transformer架构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27335v1",
+      "title": "PubMed Reasoner: Dynamic Reasoning-based Retrieval for Evidence-Grounded Biomedical Question Answering",
+      "abstract": "Trustworthy biomedical question answering (QA) systems must not only provide accurate answers but also justify them with current, verifiable evidence. Retrieval-augmented approaches partially address this gap but lack mechanisms to iteratively refine poor queries, whereas self-reflection methods kick in only after full retrieval is completed. In this context, we introduce PubMed Reasoner, a biomedical QA agent composed of three stages: self-critic query refinement evaluates MeSH terms for coverage, alignment, and redundancy to enhance PubMed queries based on partial (metadata) retrieval; reflective retrieval processes articles in batches until sufficient evidence is gathered; and evidence-grounded response generation produces answers with explicit citations. PubMed Reasoner with a GPT-4o backbone achieves 78.32% accuracy on PubMedQA, slightly surpassing human experts, and showing consistent gains on MMLU Clinical Knowledge. Moreover, LLM-as-judge evaluations prefer our responses across: reasoning soundness, evidence grounding, clinical relevance, and trustworthiness. By orchestrating retrieval-first reasoning over authoritative sources, our approach provides practical assistance to clinicians and biomedical researchers while controlling compute and token costs.",
+      "authors": [
+        "Yiqing Zhang",
+        "Xiaozhong Liu",
+        "Fabricio Murai"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-03-28T16:41:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.27335v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Biomedical QA agent using PubMed for evidence-grounded reasoning",
+      "llm_evidence_cn": "使用PubMed进行证据推理的生物医学问答智能体",
+      "llm_evidence": "使用PubMed进行证据推理的生物医学问答智能体",
+      "canonical_evidence": "使用PubMed进行证据推理的生物医学问答智能体",
+      "llm_tldr_en": "Introduces PubMed Reasoner, an agent for accurate and verifiable biomedical question answering.",
+      "llm_tldr_cn": "引入PubMed Reasoner，一种用于准确且可验证的生物医学问答的智能体。",
+      "llm_tldr": "引入PubMed Reasoner，一种用于准确且可验证的生物医学问答的智能体。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Review of large language models and autonomous agents in bioinformatics",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.26827v1",
+      "title": "Central-to-Local Adaptive Generative Diffusion Framework for Improving Gene Expression Prediction in Data-Limited Spatial Transcriptomics",
+      "abstract": "Spatial Transcriptomics (ST) provides spatially resolved gene expression profiles within intact tissue architecture, enabling molecular analysis in histological context. However, the high cost, limited throughput, and restricted data sharing of ST experiments result in severe data scarcity, constraining the development of robust computational models. To address this limitation, we present a Central-to-Local adaptive generative diffusion framework for ST (C2L-ST) that integrates large-scale morphological priors with limited molecular guidance. A global central model is first pretrained on extensive histopathology datasets to learn transferable morphological representations, and institution-specific local models are then adapted through lightweight gene-conditioned modulation using a small number of paired image-gene spots. This strategy enables the synthesis of realistic and molecularly consistent histology patches under data-limited conditions. The generated images exhibit high visual and structural fidelity, reproduce cellular composition, and show strong embedding overlap with real data across multiple organs, reflecting both realism and diversity. When incorporated into downstream training, synthetic image-gene pairs improve gene expression prediction accuracy and spatial coherence, achieving performance comparable to real data while requiring only a fraction of sampled spots. C2L-ST provides a scalable and data-efficient framework for molecular-level data augmentation, offering a domain-adaptive and generalizable approach for integrating histology and transcriptomics in spatial biology and related fields.",
+      "authors": [
+        "Yaoyu Fang",
+        "Jiahe Qian",
+        "Xinkun Wang",
+        "Lee A. Cooper",
+        "Bo Zhou"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-03-27T02:32:00+00:00",
+      "link": "https://arxiv.org/pdf/2603.26827v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Computational models for gene expression prediction in spatial transcriptomics",
+      "llm_evidence_cn": "空间转录组学中基因表达预测的计算模型",
+      "llm_evidence": "空间转录组学中基因表达预测的计算模型",
+      "canonical_evidence": "空间转录组学中基因表达预测的计算模型",
+      "llm_tldr_en": "A diffusion framework for improving gene expression prediction in data-limited spatial transcriptomics.",
+      "llm_tldr_cn": "一种用于在数据受限的空间转录组学中改进基因表达预测的扩散框架。",
+      "llm_tldr": "一种用于在数据受限的空间转录组学中改进基因表达预测的扩散框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27150v1",
+      "title": "MediHive: A Decentralized Agent Collective for Medical Reasoning",
+      "abstract": "Large language models (LLMs) have revolutionized medical reasoning tasks, yet single-agent systems often falter on complex, interdisciplinary problems requiring robust handling of uncertainty and conflicting evidence. Multi-agent systems (MAS) leveraging LLMs enable collaborative intelligence, but prevailing centralized architectures suffer from scalability bottlenecks, single points of failure, and role confusion in resource-constrained environments. Decentralized MAS (D-MAS) promise enhanced autonomy and resilience via peer-to-peer interactions, but their application to high-stakes healthcare domains remains underexplored. We introduce MediHive, a novel decentralized multi-agent framework for medical question answering that integrates a shared memory pool with iterative fusion mechanisms. MediHive deploys LLM-based agents that autonomously self-assign specialized roles, conduct initial analyses, detect divergences through conditional evidence-based debates, and locally fuse peer insights over multiple rounds to achieve consensus. Empirically, MediHive outperforms single-LLM and centralized baselines on MedQA and PubMedQA datasets, attaining accuracies of 84.3% and 78.4%, respectively. Our work advances scalable, fault-tolerant D-MAS for medical AI, addressing key limitations of centralized designs while demonstrating superior performance in reasoning-intensive tasks.",
+      "authors": [
+        "Xiaoyang Wang",
+        "Christopher C. Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-28T05:57:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.27150v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Decentralized multi-agent framework for medical reasoning",
+      "llm_evidence_cn": "用于医学推理的去中心化多智能体框架",
+      "llm_evidence": "用于医学推理的去中心化多智能体框架",
+      "canonical_evidence": "用于医学推理的去中心化多智能体框架",
+      "llm_tldr_en": "MediHive is a decentralized multi-agent framework designed for complex medical question answering.",
+      "llm_tldr_cn": "MediHive是一个专为复杂医学问答设计的去中心化多智能体框架。",
+      "llm_tldr": "MediHive是一个专为复杂医学问答设计的去中心化多智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
