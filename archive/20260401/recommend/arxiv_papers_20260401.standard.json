@@ -1,0 +1,258 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-01T19:41:05.556862+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2603.29727v1",
+      "title": "Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design",
+      "abstract": "Drug discovery relies on iterative expert workflows that are slow to parallelize and difficult to scale. Here we introduce Latent-Y, an AI agent that autonomously executes complete antibody design campaigns from text prompts, covering literature review, target analysis, epitope identification, candidate design, computational validation, and selection of lab-ready sequences. Latent-Y is integrated into the Latent Labs Platform, where it operates in the same environment as drug-discovery experts with access to bioinformatics tools, biological databases, and scientific literature. The agent can run fully autonomously end-to-end, or collaboratively, where researchers review progress, provide feedback, and direct subsequent steps. Candidate antibodies are generated using Latent-X2, our frontier generative model for drug-like antibody design. We demonstrate the agent's capability across three distinct campaign types: epitope discovery guided by therapeutic specifications, cross-species binder design, and autonomous design from a scientific publication targeting human transferrin receptor for blood-brain barrier crossing. Across nine targets, Latent-Y produced lab-confirmed nanobody binders against six, achieving a 67% target-level success rate with binding affinities reaching the single-digit nanomolar range, without human filtering or intervention. In user studies, experts working with Latent-Y completed design campaigns 56 times faster than independent expert time estimates, compressing weeks of work into hours. Because Latent-X2 is a general-purpose atomic-level model for biologics design, the same agent architecture naturally extends to macrocyclic peptide and mini-binder design campaigns, broadening autonomous discovery across therapeutic modalities. Latent-Y is available to selected partners at https://platform.latentlabs.com.",
+      "authors": [
+        "Latent Labs Team",
+        "Sebastian M. Schmon",
+        "Daniella Pretorius",
+        "Simon Mathis",
+        "Rebecca Bartke-Croughan",
+        "Aishaini Puvanendran",
+        "James Vuckovic",
+        "Henry Kenlay",
+        "Mária Vlachynská",
+        "Alex Bridgland",
+        "Ivan Grishin",
+        "Sven Over",
+        "David Li",
+        "Bridget Li",
+        "Jonathan Crabbé",
+        "Agrin Hilmkil",
+        "Alexander W. R. Nelson",
+        "David Yuan",
+        "Annette Obika",
+        "Simon A. A. Kohl"
+      ],
+      "primary_category": "q-bio.BM",
+      "categories": [
+        "q-bio.BM"
+      ],
+      "published": "2026-03-31T13:26:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.29727v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "autonomous agent for antibody design and bioinformatics tools",
+      "llm_evidence_cn": "用于抗体设计和生物信息学工具的自主智能体",
+      "llm_evidence": "用于抗体设计和生物信息学工具的自主智能体",
+      "canonical_evidence": "用于抗体设计和生物信息学工具的自主智能体",
+      "llm_tldr_en": "Latent-Y is an autonomous AI agent that executes end-to-end antibody design using bioinformatics tools.",
+      "llm_tldr_cn": "Latent-Y是一个能自主执行抗体设计全流程的AI智能体，集成了生物信息学工具和数据库。",
+      "llm_tldr": "Latent-Y是一个能自主执行抗体设计全流程的AI智能体，集成了生物信息学工具和数据库。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.28986v1",
+      "title": "Mimosa Framework: Toward Evolving Multi-Agent Systems for Scientific Research",
+      "abstract": "Current Autonomous Scientific Research (ASR) systems, despite leveraging large language models (LLMs) and agentic architectures, remain constrained by fixed workflows and toolsets that prevent adaptation to evolving tasks and environments. We introduce Mimosa, an evolving multi-agent framework that automatically synthesizes task-specific multi-agent workflows and iteratively refines them through experimental feedback. Mimosa leverages the Model Context Protocol (MCP) for dynamic tool discovery, generates workflow topologies via a meta-orchestrator, executes subtasks through code-generating agents that invoke available tools and scientific software libraries, and scores executions with an LLM-based judge whose feedback drives workflow refinement. On ScienceAgentBench, Mimosa achieves a success rate of 43.1% with DeepSeek-V3.2, surpassing both single-agent baselines and static multi-agent configurations. Our results further reveal that models respond heterogeneously to multi-agent decomposition and iterative learning, indicating that the benefits of workflow evolution depend on the capabilities of the underlying execution model. Beyond these benchmarks, Mimosa modular architecture and tool-agnostic design make it readily extensible, and its fully logged execution traces and archived workflows support auditability by preserving every analytical step for inspection and potential replication. Combined with domain-expert guidance, the framework has the potential to automate a broad range of computationally accessible scientific tasks across disciplines. Released as a fully open-source platform, Mimosa aims to provide an open foundation for community-driven ASR.",
+      "authors": [
+        "Martin Legrand",
+        "Tao Jiang",
+        "Matthieu Feraud",
+        "Benjamin Navet",
+        "Yousouf Taghzouti",
+        "Fabien Gandon",
+        "Elise Dumont",
+        "Louis-Félix Nothias"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-03-30T20:35:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.28986v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evolving multi-agent framework for autonomous scientific research",
+      "llm_evidence_cn": "用于自主科学研究的演化多智能体框架",
+      "llm_evidence": "用于自主科学研究的演化多智能体框架",
+      "canonical_evidence": "用于自主科学研究的演化多智能体框架",
+      "llm_tldr_en": "A framework that synthesizes and refines multi-agent workflows for scientific research using experimental feedback.",
+      "llm_tldr_cn": "一种利用实验反馈自动合成并优化科学研究多智能体工作流的框架。",
+      "llm_tldr": "一种利用实验反馈自动合成并优化科学研究多智能体工作流的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22823v2",
+      "title": "Empirical Comparison of Agent Communication Protocols for Task Orchestration",
+      "abstract": "Context. Nowadays, artificial intelligence agent systems are transforming from single-tool interactions to complex multi-agent orchestrations. As a result, two competing communication protocols have emerged: a tool integration protocol that standardizes how agents invoke external tools, and an inter-agent delegation protocol that enables autonomous agents to discover and delegate tasks to one another. Despite widespread industry adoption by dozens of enterprise partners, no empirical comparison of these protocols exists in the literature. Objective. The goal of this work is to develop the first systematic benchmark comparing tool-integration-only, multi-agent delegation, and hybrid architectures across standardized queries at three complexity levels, and to quantify the trade-offs in response time, context window consumption, monetary cost, error recovery, and implementation complexity.",
+      "authors": [
+        "Ivan Dobrovolskyi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-24T05:50:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.22823v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "comparison of agent communication protocols for task orchestration",
+      "llm_evidence_cn": "任务编排中智能体通信协议的比较",
+      "llm_evidence": "任务编排中智能体通信协议的比较",
+      "canonical_evidence": "任务编排中智能体通信协议的比较",
+      "llm_tldr_en": "Benchmarks tool-integration and inter-agent delegation protocols for multi-agent system orchestration.",
+      "llm_tldr_cn": "系统性基准测试并比较了多智能体系统中工具集成与智能体间委派的通信协议。",
+      "llm_tldr": "系统性基准测试并比较了多智能体系统中工具集成与智能体间委派的通信协议。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.29152v1",
+      "title": "SimMOF: AI agent for Automated MOF Simulations",
+      "abstract": "Metal-organic frameworks (MOFs) offer a vast design space, and as such, computational simulations play a critical role in predicting their structural and physicochemical properties. However, MOF simulations remain difficult to access because reliable analysis require expert decisions for workflow construction, parameter selection, tool interoperability, and the preparation of computational ready structures. Here, we introduce SimMOF, a large language model based multi agent framework that automates end-to-end MOF simulation workflows from natural language queries. SimMOF translates user requests into dependency aware plans, generates runnable inputs, orchestrates multiple agents to execute simulations, and summarizes results with analysis aligned to the user query. Through representative case studies, we show that SimMOF enables adaptive and cognitively autonomous workflows that reflect the iterative and decision driven behavior of human researchers and as such provides a scalable foundation for data driven MOF research.",
+      "authors": [
+        "Jaewoong Lee",
+        "Taeun Bae",
+        "Jihan Kim"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-31T02:08:50+00:00",
+      "link": "https://arxiv.org/pdf/2603.29152v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based multi-agent framework for automated MOF simulations",
+      "llm_evidence_cn": "基于LLM的多智能体框架，用于自动化金属有机框架模拟",
+      "llm_evidence": "基于LLM的多智能体框架，用于自动化金属有机框架模拟",
+      "canonical_evidence": "基于LLM的多智能体框架，用于自动化金属有机框架模拟",
+      "llm_tldr_en": "An AI agent framework that automates end-to-end computational simulations for metal-organic frameworks.",
+      "llm_tldr_cn": "一种自动化金属有机框架（MOF）端到端计算模拟的AI智能体框架。",
+      "llm_tldr": "一种自动化金属有机框架（MOF）端到端计算模拟的AI智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.26530v1",
+      "title": "Control of genes by self-organizing multicellular interaction networks",
+      "abstract": "Multicellular self-organization drives development in biological organisms, yet a comprehensive theory is lacking as basic properties of cells can complicate common approaches. Framing such properties by dynamic graphs led to new theoretical propositions for multicellular self-organization in Escherichia coli. Here, corresponding ideas are developed from biologically-general first principles. The resulting perspective could aid both experimental and computational approaches to multicellular biology as well as efforts to control and engineer it.",
+      "authors": [
+        "Kyle R. Allison"
+      ],
+      "primary_category": "q-bio.MN",
+      "categories": [
+        "q-bio.MN"
+      ],
+      "published": "2026-03-27T15:44:27+00:00",
+      "link": "https://arxiv.org/pdf/2603.26530v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Computational approaches to multicellular biology and gene control",
+      "llm_evidence_cn": "多细胞生物学和基因控制的计算方法",
+      "llm_evidence": "多细胞生物学和基因控制的计算方法",
+      "canonical_evidence": "多细胞生物学和基因控制的计算方法",
+      "llm_tldr_en": "This paper develops a theoretical framework for multicellular self-organization using dynamic graphs.",
+      "llm_tldr_cn": "该论文利用动态图构建了多细胞自组织的理论框架，辅助计算生物学研究。",
+      "llm_tldr": "该论文利用动态图构建了多细胞自组织的理论框架，辅助计算生物学研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.29632v1",
+      "title": "An Empirical Study of Multi-Agent Collaboration for Automated Research",
+      "abstract": "As AI agents evolve, the community is rapidly shifting from single Large Language Models (LLMs) to Multi-Agent Systems (MAS) to overcome cognitive bottlenecks in automated research. However, the optimal multi-agent coordination framework for these autonomous agents remains largely unexplored. In this paper, we present a systematic empirical study investigating the comparative efficacy of distinct multi-agent structures for automated machine learning optimization. Utilizing a rigorously controlled, execution-based testbed equipped with Git worktree isolation and explicit global memory, we benchmark a single-agent baseline against two multi-agent paradigms: a subagent architecture (parallel exploration with post-hoc consolidation) and an agent team architecture (experts with pre-execution handoffs). By evaluating these systems under strictly fixed computational time budgets, our findings reveal a fundamental trade-off between operational stability and theoretical deliberation. The subagent mode functions as a highly resilient, high-throughput search engine optimal for broad, shallow optimizations under strict time constraints. Conversely, the agent team topology exhibits higher operational fragility due to multi-author code generation but achieves the deep theoretical alignment necessary for complex architectural refactoring given extended compute budgets. These empirical insights provide actionable guidelines for designing future autoresearch systems, advocating for dynamically routed architectures that adapt their collaborative structures to real-time task complexity.",
+      "authors": [
+        "Yang Shen",
+        "Zhenyi Yi",
+        "Ziyi Zhao",
+        "Lijun Sun",
+        "Dongyang Li",
+        "Chin-Teng Lin",
+        "Yuhui Shi"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-03-31T11:57:00+00:00",
+      "link": "https://arxiv.org/pdf/2603.29632v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent systems for automated research and cognitive bottlenecks",
+      "llm_evidence_cn": "用于自动化研究和克服认知瓶颈的多智能体系统",
+      "llm_evidence": "用于自动化研究和克服认知瓶颈的多智能体系统",
+      "canonical_evidence": "用于自动化研究和克服认知瓶颈的多智能体系统",
+      "llm_tldr_en": "Evaluates multi-agent collaboration structures for automated research tasks.",
+      "llm_tldr_cn": "研究了用于自动化研究任务的不同多智能体协作结构的有效性。",
+      "llm_tldr": "研究了用于自动化研究任务的不同多智能体协作结构的有效性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
