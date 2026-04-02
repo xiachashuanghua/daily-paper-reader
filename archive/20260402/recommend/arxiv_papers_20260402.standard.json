@@ -1,0 +1,535 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-02T19:37:15.482339+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2603.29727v2",
+      "title": "Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design",
+      "abstract": "Drug discovery relies on iterative expert workflows that are slow to parallelize and difficult to scale. Here we introduce Latent-Y, an AI agent that autonomously executes complete antibody design campaigns from text prompts, covering literature review, target analysis, epitope identification, candidate design, computational validation, and selection of lab-ready sequences. Latent-Y is integrated into the Latent Labs Platform, where it operates in the same environment as drug-discovery experts with access to bioinformatics tools, biological databases, and scientific literature. The agent can run fully autonomously end-to-end, or collaboratively, where researchers review progress, provide feedback, and direct subsequent steps. Candidate antibodies are generated using Latent-X2, our frontier generative model for drug-like antibody design. We demonstrate the agent's capability across three distinct campaign types: epitope discovery guided by therapeutic specifications, cross-species binder design, and autonomous design from a scientific publication targeting human transferrin receptor for blood-brain barrier crossing. Across nine targets, Latent-Y produced lab-confirmed nanobody binders against six, achieving a 67% target-level success rate with binding affinities reaching the single-digit nanomolar range, without human filtering or intervention. In user studies, experts working with Latent-Y completed design campaigns 56 times faster than independent expert time estimates, compressing weeks of work into hours. Because Latent-X2 is a general-purpose atomic-level model for biologics design, the same agent architecture naturally extends to macrocyclic peptide and mini-binder design campaigns, broadening autonomous discovery across therapeutic modalities. Latent-Y is available to selected partners at https://platform.latentlabs.com.",
+      "authors": [
+        "Latent Labs Team",
+        "Sebastian M. Schmon",
+        "Daniella Pretorius",
+        "Simon Mathis",
+        "Rebecca Bartke-Croughan",
+        "Aishaini Puvanendran",
+        "James Vuckovic",
+        "Henry Kenlay",
+        "Mária Vlachynská",
+        "Alex Bridgland",
+        "Ivan Grishin",
+        "Sven Over",
+        "David Li",
+        "Bridget Li",
+        "Jonathan Crabbé",
+        "Agrin Hilmkil",
+        "Alexander W. R. Nelson",
+        "David Yuan",
+        "Annette Obika",
+        "Simon A. A. Kohl"
+      ],
+      "primary_category": "q-bio.BM",
+      "categories": [
+        "q-bio.BM"
+      ],
+      "published": "2026-03-31T13:26:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.29727v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Autonomous agent for de novo drug design and bioinformatics",
+      "llm_evidence_cn": "用于从头药物设计和生物信息学的自主智能体",
+      "llm_evidence": "用于从头药物设计和生物信息学的自主智能体",
+      "canonical_evidence": "用于从头药物设计和生物信息学的自主智能体",
+      "llm_tldr_en": "Presents Latent-Y, an autonomous agent that uses bioinformatics tools for end-to-end antibody design.",
+      "llm_tldr_cn": "介绍了Latent-Y，一个利用生物信息学工具进行端到端抗体设计的自主智能体。",
+      "llm_tldr": "介绍了Latent-Y，一个利用生物信息学工具进行端到端抗体设计的自主智能体。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.00058v1",
+      "title": "GenoBERT: A Language Model for Accurate Genotype Imputation",
+      "abstract": "Genotype imputation enables dense variant coverage for genome-wide association and risk-prediction studies, yet conventional reference-panel methods remain limited by ancestry bias and reduced rare-variant accuracy. We present Genotype Bidirectional Encoder Representations from Transformers (GenoBERT), a transformer-based, reference-free framework that tokenizes phased genotypes and uses a self-attention mechanism to capture both short- and long-range linkage disequilibrium (LD) dependencies. Benchmarking on two independent datasets including the Louisiana Osteoporosis Study (LOS) and the 1000 Genomes Project (1KGP) across ancestry groups and multiple genotype missingness levels (5-50%) shows that GenoBERT achieves the highest overall accuracy compared to four baseline methods (Beagle5.4, SCDA, BiU-Net, and STICI). At practical sparsity levels (up to 25% missing), GenoBERT attains high overall imputation accuracy ($r^2 approx 0.98$) across datasets, and maintains robust performance ($r^2 > 0.90$) even at 50% missingness. Experimental results across different ancestries confirm consistent gains across datasets, with resilience to small sample sizes and weak LD. A 128-SNP (single-nucleotide polymorphism) context window (approximately 100 Kb) is validated through LD-decay analyses as sufficient to capture local correlation structures. By eliminating reference-panel dependence while preserving high accuracy, GenoBERT provides a scalable and robust solution for genotype imputation and a foundation for downstream genomic modeling.",
+      "authors": [
+        "Lei Huang",
+        "Chuan Qiu",
+        "Kuan-Jui Su",
+        "Anqi Liu",
+        "Yun Gong",
+        "Weiqiang Lin",
+        "Lindong Jiang",
+        "Chen Zhao",
+        "Meng Song",
+        "Jeffrey Deng",
+        "Qing Tian",
+        "Zhe Luo",
+        "Ping Gong",
+        "Hui Shen",
+        "Chaoyang Zhang",
+        "Hong-Wen Deng"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-03-31T04:16:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.00058v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "transformer-based framework for genotype imputation",
+      "llm_evidence_cn": "基于Transformer的基因型填充框架",
+      "llm_evidence": "基于Transformer的基因型填充框架",
+      "canonical_evidence": "基于Transformer的基因型填充框架",
+      "llm_tldr_en": "Presents GenoBERT, a language model framework for accurate, reference-free genotype imputation in genomics.",
+      "llm_tldr_cn": "提出GenoBERT，一种用于基因组学中准确、无参考基因型填充的语言模型框架。",
+      "llm_tldr": "提出GenoBERT，一种用于基因组学中准确、无参考基因型填充的语言模型框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.26465v1",
+      "title": "A Boltzmann-machine-enhanced Transformer For DNA Sequence Classification",
+      "abstract": "DNA sequence classification requires not only high predictive accuracy but also the ability to uncover latent site interactions, combinatorial regulation, and epistasis-like higher-order dependencies. Although the standard Transformer provides strong global modeling capacity, its softmax attention is continuous, dense, and weakly constrained, making it better suited for information routing than explicit structure discovery. In this paper, we propose a Boltzmann-machine-enhanced Transformer for DNA sequence classification. Built on multi-head attention, the model introduces structured binary gating variables to represent latent query-key connections and constrains them with a Boltzmann-style energy function. Query-key similarity defines local bias terms, learnable pairwise interactions capture synergy and competition between edges, and latent hidden units model higher-order combinatorial dependencies. Since exact posterior inference over discrete gating graphs is intractable, we use mean-field variational inference to estimate edge activation probabilities and combine it with Gumbel-Softmax to progressively compress continuous probabilities into near-discrete gates while preserving end-to-end differentiability. During training, we jointly optimize classification and energy losses, encouraging the model to achieve accurate prediction while favoring low-energy, stable, and interpretable structures. We further derive the framework from the energy function and variational free energy to the mean-field fixed-point equations, Gumbel-Softmax relaxation, and the final joint objective. The proposed framework provides a unified view of integrating Boltzmann machines, differentiable discrete optimization, and Transformers for structured learning on biological sequences.",
+      "authors": [
+        "Zhixuan Cao",
+        "Yishu Xu",
+        "Xuang WU"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-27T14:32:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.26465v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "DNA sequence classification using enhanced Transformer models",
+      "llm_evidence_cn": "使用增强型Transformer模型进行DNA序列分类",
+      "llm_evidence": "使用增强型Transformer模型进行DNA序列分类",
+      "canonical_evidence": "使用增强型Transformer模型进行DNA序列分类",
+      "llm_tldr_en": "Introduces a Boltzmann-machine-enhanced Transformer for improved DNA sequence classification and structure discovery.",
+      "llm_tldr_cn": "引入玻尔兹曼机增强的Transformer，用于改进DNA序列分类和结构发现。",
+      "llm_tldr": "引入玻尔兹曼机增强的Transformer，用于改进DNA序列分类和结构发现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.00075v1",
+      "title": "Large Language Models for Variant-Centric Functional Evidence Mining",
+      "abstract": "Functional evidence is essential for clinical interpretation of genomic variants, but identifying relevant studies and translating experimental results into structured evidence remains labor intensive. We developed a benchmark based on ClinGen curated annotations to evaluate two large language models (LLMs), a non reasoning model (gpt-4o-mini) and a reasoning model (o4-mini), on tasks relevant to functional evidence curation: (1) abstract screening to determine whether a study reports functional experiments directly testing specific variants, and (2) full text evidence extraction and classification from matched variant-paper pairs, including interpretation of evidence direction and generation of evidence summaries. Starting from ClinGen variants annotated with functional evidence, we processed curator comments with an LLM to extract PubMed identifiers, evidence labels, and narrative, and retrieved titles, abstracts, and open access PDFs to construct variant-paper pairs. In abstract screening, both models achieved high recall (0.88-0.90) with moderate specificity (0.59-0.65). For full text evidence classification under an explicit variant matching gate, o4-mini achieved 96% accuracy and higher specificity (0.83 vs. 0.37) while maintaining high F1 (0.98 vs. 0.96) compared with gpt-4o-mini. We also used an LLM-as-judge protocol to compare model generated evidence summaries with expert curator comments. Finally, we developed AcmGENTIC, an end to end pipeline that expands variant identifiers, retrieves literature via LitVar2, filters abstracts with LLMs, acquires PDFs, performs multimodal evidence extraction, and generates evidence reports for curator review, with optional agentic parsing of figures and tables. Together, this benchmark and pipeline provide a practical framework for scaling functional evidence curation with human in the loop LLM assistance.",
+      "authors": [
+        "Ali Saadat",
+        "Jacques Fellay"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-03-31T15:08:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.00075v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLMs for genomic variant functional evidence mining",
+      "llm_evidence_cn": "大语言模型用于基因变异功能证据挖掘",
+      "llm_evidence": "大语言模型用于基因变异功能证据挖掘",
+      "canonical_evidence": "大语言模型用于基因变异功能证据挖掘",
+      "llm_tldr_en": "Evaluates LLMs on extracting and classifying functional evidence for clinical interpretation of genomic variants.",
+      "llm_tldr_cn": "评估大语言模型在基因变异临床解释中提取和分类功能证据的能力。",
+      "llm_tldr": "评估大语言模型在基因变异临床解释中提取和分类功能证据的能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.00550v1",
+      "title": "BloClaw: An Omniscient, Multi-Modal Agentic Workspace for Next-Generation Scientific Discovery",
+      "abstract": "The integration of Large Language Models (LLMs) into life sciences has catalyzed the development of \"AI Scientists.\" However, translating these theoretical capabilities into deployment-ready research environments exposes profound infrastructural vulnerabilities. Current frameworks are bottlenecked by fragile JSON-based tool-calling protocols, easily disrupted execution sandboxes that lose graphical outputs, and rigid conversational interfaces inherently ill-suited for high-dimensional scientific data.We introduce BloClaw, a unified, multi-modal operating system designed for Artificial Intelligence for Science (AI4S). BloClaw reconstructs the Agent-Computer Interaction (ACI) paradigm through three architectural innovations: (1) An XML-Regex Dual-Track Routing Protocol that statistically eliminates serialization failures (0.2% error rate vs. 17.6% in JSON); (2) A Runtime State Interception Sandbox that utilizes Python monkey-patching to autonomously capture and compile dynamic data visualizations (Plotly/Matplotlib), circumventing browser CORS policies; and (3) A State-Driven Dynamic Viewport UI that morphs seamlessly between a minimalist command deck and an interactive spatial rendering engine. We comprehensively benchmark BloClaw across cheminformatics (RDKit), de novo 3D protein folding via ESMFold, molecular docking, and autonomous Retrieval-Augmented Generation (RAG), establishing a highly robust, self-evolving paradigm for computational research assistants. The open-source repository is available at https://github.com/qinheming/BloClaw.",
+      "authors": [
+        "Yao Qin",
+        "Yangyang Yan",
+        "Jinhua Pang",
+        "Xiaoming Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-01T06:47:40+00:00",
+      "link": "https://arxiv.org/pdf/2604.00550v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-modal agentic workspace for life sciences",
+      "llm_evidence_cn": "生命科学的多模态智能体工作空间",
+      "llm_evidence": "生命科学的多模态智能体工作空间",
+      "canonical_evidence": "生命科学的多模态智能体工作空间",
+      "llm_tldr_en": "BloClaw is an agentic operating system designed to support LLM-driven scientific discovery in life sciences.",
+      "llm_tldr_cn": "BloClaw是一个旨在支持生命科学中大模型驱动科学发现的智能体操作系统。",
+      "llm_tldr": "BloClaw是一个旨在支持生命科学中大模型驱动科学发现的智能体操作系统。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23883v1",
+      "title": "BioVITA: Biological Dataset, Model, and Benchmark for Visual-Textual-Acoustic Alignment",
+      "abstract": "Understanding animal species from multimodal data poses an emerging challenge at the intersection of computer vision and ecology. While recent biological models, such as BioCLIP, have demonstrated strong alignment between images and textual taxonomic information for species identification, the integration of the audio modality remains an open problem. We propose BioVITA, a novel visual-textual-acoustic alignment framework for biological applications. BioVITA involves (i) a training dataset, (ii) a representation model, and (iii) a retrieval benchmark. First, we construct a large-scale training dataset comprising 1.3 million audio clips and 2.3 million images, covering 14,133 species annotated with 34 ecological trait labels. Second, building upon BioCLIP2, we introduce a two-stage training framework to effectively align audio representations with visual and textual representations. Third, we develop a cross-modal retrieval benchmark that covers all possible directional retrieval across the three modalities (i.e., image-to-audio, audio-to-text, text-to-image, and their reverse directions), with three taxonomic levels: Family, Genus, and Species. Extensive experiments demonstrate that our model learns a unified representation space that captures species-level semantics beyond taxonomy, advancing multimodal biodiversity understanding. The project page is available at: https://dahlian00.github.io/BioVITA_Page/",
+      "authors": [
+        "Risa Shinoda",
+        "Kaede Shiohara",
+        "Nakamasa Inoue",
+        "Kuniaki Saito",
+        "Hiroaki Santo",
+        "Fumio Okura"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T03:15:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.23883v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multimodal alignment framework for biological species identification",
+      "llm_evidence_cn": "用于生物物种识别的多模态对齐框架",
+      "llm_evidence": "用于生物物种识别的多模态对齐框架",
+      "canonical_evidence": "用于生物物种识别的多模态对齐框架",
+      "llm_tldr_en": "BioVITA aligns visual, textual, and acoustic data for species identification and ecological trait analysis.",
+      "llm_tldr_cn": "BioVITA 对齐视觉、文本和音频数据，用于物种识别和生态特征分析。",
+      "llm_tldr": "BioVITA 对齐视觉、文本和音频数据，用于物种识别和生态特征分析。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.25857v1",
+      "title": "In-Context Molecular Property Prediction with LLMs: A Blinding Study on Memorization and Knowledge Conflicts",
+      "abstract": "The capabilities of large language models (LLMs) have expanded beyond natural language processing to scientific prediction tasks, including molecular property prediction. However, their effectiveness in in-context learning remains ambiguous, particularly given the potential for training data contamination in widely used benchmarks. This paper investigates whether LLMs perform genuine in-context regression on molecular properties or rely primarily on memorized values. Furthermore, we analyze the interplay between pre-trained knowledge and in-context information through a series of progressively blinded experiments. We evaluate nine LLM variants across three families (GPT-4.1, GPT-5, Gemini 2.5) on three MoleculeNet datasets (Delaney solubility, Lipophilicity, QM7 atomization energy) using a systematic blinding approach that iteratively reduces available information. Complementing this, we utilize varying in-context sample sizes (0-, 60-, and 1000-shot) as an additional control for information access. This work provides a principled framework for evaluating molecular property prediction under controlled information access, addressing concerns regarding memorization and exposing conflicts between pre-trained knowledge and in-context information.",
+      "authors": [
+        "Matthias Busch",
+        "Marius Tacke",
+        "Sviatlana V. Lamaka",
+        "Mikhail L. Zheludkevich",
+        "Christian J. Cyron",
+        "Christian Feiler",
+        "Roland C. Aydin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-03-26T19:27:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.25857v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM molecular property prediction in bioinformatics",
+      "llm_evidence_cn": "生物信息学中的LLM分子性质预测",
+      "llm_evidence": "生物信息学中的LLM分子性质预测",
+      "canonical_evidence": "生物信息学中的LLM分子性质预测",
+      "llm_tldr_en": "Investigates LLM performance and memorization in in-context molecular property prediction tasks.",
+      "llm_tldr_cn": "研究了大语言模型在上下文分子性质预测任务中的表现和记忆问题。",
+      "llm_tldr": "研究了大语言模型在上下文分子性质预测任务中的表现和记忆问题。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.00533v1",
+      "title": "Learning from Many and Adapting to the Unknown in Open-set Test Streams",
+      "abstract": "Large Language Models (LLMs) generalize across tasks via reusable representations and flexible reasoning, yet remain brittle in real deployment under evolving tasks and continual distribution shift. A common approach is Test-Time Adaptation (TTA), existing ones of which updates models with hand-designed unsupervised objectives over the full parameter space and mostly overlook preserving shared source knowledge and the reliability of adaptation signals. Drawing on molecular signaling cascades of memory updating in Drosophila, we propose Synapse Consolidation (SyCo), a parameter-efficient LLM adaptation method that updates low-rank adapters through Rac1 and MAPK pathways under the guidance of a structured TTA objective driven by problem understanding, process understanding, and source-domain guardrail. Rac1 confines plasticity to a tail-gradient subspace that is less critical for source knowledge, enabling rapid specialization while preserving source representations. MAPK uses a tiered controller to suppress noisy updates and consolidate useful adaptations under non-stationary streams. To model real deployments with multiple sources and continually emerging tasks, we introduce Multi-source Open-set Adaptation (MOA) setting, where a model is trained on multiple labeled source tasks and then adapts on open, non-stationary unlabeled test streams that mix seen and unseen tasks with partial overlap in label and intent space. Across 18 NLP datasets and the MOA setting, SyCo consistently outperforms strong baselines, achieving 78.31\\% on unseen-task adaptation and 85.37\\% on unseen-data shifts.",
+      "authors": [
+        "Xiao Zhang",
+        "Juntao Lyu",
+        "Tianyu Hu",
+        "Qianchuan Zhao",
+        "Huimin Ma"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.IT"
+      ],
+      "published": "2026-04-01T06:23:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.00533v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM adaptation inspired by Drosophila molecular signaling",
+      "llm_evidence_cn": "受果蝇分子信号传导启发的LLM自适应",
+      "llm_evidence": "受果蝇分子信号传导启发的LLM自适应",
+      "canonical_evidence": "受果蝇分子信号传导启发的LLM自适应",
+      "llm_tldr_en": "Proposes a parameter-efficient LLM adaptation method inspired by biological molecular signaling pathways.",
+      "llm_tldr_cn": "受生物分子信号通路启发，提出一种参数高效的LLM自适应方法。",
+      "llm_tldr": "受生物分子信号通路启发，提出一种参数高效的LLM自适应方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25097v1",
+      "title": "ElephantBroker: A Knowledge-Grounded Cognitive Runtime for Trustworthy AI Agents",
+      "abstract": "Large Language Model based agents increasingly operate in high stakes, multi turn settings where factual grounding is critical, yet their memory systems typically rely on flat key value stores or plain vector retrieval with no mechanism to track the provenance or trustworthiness of stored knowledge. We present ElephantBroker, an open source cognitive runtime that unifies a Neo4j knowledge graph with a Qdrant vector store through the Cognee SDK to provide durable, verifiable agent memory. The system implements a complete cognitive loop (store, retrieve, score, compose, protect, learn) comprising a hybrid five source retrieval pipeline, an eleven dimension competitive scoring engine for budget constrained context assembly, a four state evidence verification model, a five stage context lifecycle with goal aware assembly and continuous compaction, a six layer cheap first guard pipeline for safety enforcement, an AI firewall providing enforceable tool call interception and multi tier safety scanning, a nine stage consolidation engine that strengthens useful patterns while decaying noise, and a numeric authority model governing multi organization identity with hierarchical access control. Architectural validation through a comprehensive test suite of over 2,200 tests spanning unit, integration, and end to end levels confirms subsystem correctness. The modular design supports three deployment tiers, five profile presets with inheritance, multi gateway isolation, and a management dashboard for human oversight, enabling configurations from lightweight memory only agents to full cognitive runtimes with enterprise grade safety and auditability.",
+      "authors": [
+        "Cristian Lupascu",
+        "Alexandru Lupascu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-26T07:03:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.25097v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Cognitive runtime for trustworthy AI agents with verifiable memory",
+      "llm_evidence_cn": "具有可验证记忆的可信 AI 智能体认知运行时",
+      "llm_evidence": "具有可验证记忆的可信 AI 智能体认知运行时",
+      "canonical_evidence": "具有可验证记忆的可信 AI 智能体认知运行时",
+      "llm_tldr_en": "ElephantBroker provides a knowledge-grounded cognitive runtime for building trustworthy and durable AI agents.",
+      "llm_tldr_cn": "ElephantBroker 为构建可信且持久的 AI 智能体提供了一个基于知识落地的认知运行时。",
+      "llm_tldr": "ElephantBroker 为构建可信且持久的 AI 智能体提供了一个基于知识落地的认知运行时。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.27539v1",
+      "title": "Toward Reliable Evaluation of LLM-Based Financial Multi-Agent Systems: Taxonomy, Coordination Primacy, and Cost Awareness",
+      "abstract": "Multi-agent systems based on large language models (LLMs) for financial trading have grown rapidly since 2023, yet the field lacks a shared framework for understanding what drives performance or for evaluating claims credibly. This survey makes three contributions. First, we introduce a four-dimensional taxonomy, covering architecture pattern, coordination mechanism, memory architecture, and tool integration; applied to 12 multi-agent systems and two single-agent baselines. Second, we formulate the Coordination Primacy Hypothesis (CPH): inter-agent coordination protocol design is a primary driver of trading decision quality, often exerting greater influence than model scaling. CPH is presented as a falsifiable research hypothesis supported by tiered structural evidence rather than as an empirically validated conclusion; its definitive validation requires evaluation infrastructure that does not yet exist in the field. Third, we document five pervasive evaluation failures (look-ahead bias, survivorship bias, backtesting overfitting, transaction cost neglect, and regime-shift blindness) and show that these can reverse the sign of reported returns. Building on the CPH and the evaluation critique, we introduce the Coordination Breakeven Spread (CBS), a metric for determining whether multi-agent coordination adds genuine value net of transaction costs, and propose minimum evaluation standards as prerequisites for validating the CPH.",
+      "authors": [
+        "Phat Nguyen",
+        "Thang Pham"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-03-29T06:35:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.27539v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for evaluating multi-agent systems",
+      "llm_evidence_cn": "多智能体系统评估框架",
+      "llm_evidence": "多智能体系统评估框架",
+      "canonical_evidence": "多智能体系统评估框架",
+      "llm_tldr_en": "Provides a taxonomy and evaluation framework for LLM-based multi-agent systems, focused on finance.",
+      "llm_tldr_cn": "为基于LLM的多智能体系统提供分类法和评估框架，侧重于金融领域。",
+      "llm_tldr": "为基于LLM的多智能体系统提供分类法和评估框架，侧重于金融领域。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.28959v1",
+      "title": "Multi-Agent LLMs for Adaptive Acquisition in Bayesian Optimization",
+      "abstract": "The exploration-exploitation trade-off is central to sequential decision-making and black-box optimization, yet how Large Language Models (LLMs) reason about and manage this trade-off remains poorly understood. Unlike Bayesian Optimization, where exploration and exploitation are explicitly encoded through acquisition functions, LLM-based optimization relies on implicit, prompt-based reasoning over historical evaluations, making search behavior difficult to analyze or control. In this work, we present a metric-level study of LLM-mediated search policy learning, studying how LLMs construct and adapt exploration-exploitation strategies under multiple operational definitions of exploration, including informativeness, diversity, and representativeness. We show that single-agent LLM approaches, which jointly perform strategy selection and candidate generation within a single prompt, suffer from cognitive overload, leading to unstable search dynamics and premature convergence. To address this limitation, we propose a multi-agent framework that decomposes exploration-exploitation control into strategic policy mediation and tactical candidate generation. A strategy agent assigns interpretable weights to multiple search criteria, while a generation agent produces candidates conditioned on the resulting search policy defined as weights. This decomposition renders exploration-exploitation decisions explicit, observable, and adjustable. Empirical results across various continuous optimization benchmarks indicate that separating strategic control from candidate generation substantially improves the effectiveness of LLM-mediated search.",
+      "authors": [
+        "Andrea Carbonati",
+        "Mohammadsina Almasi",
+        "Hadis Anahideh"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-03-30T20:05:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.28959v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based optimization and search policy learning",
+      "llm_evidence_cn": "基于LLM的优化和搜索策略学习",
+      "llm_evidence": "基于LLM的优化和搜索策略学习",
+      "canonical_evidence": "基于LLM的优化和搜索策略学习",
+      "llm_tldr_en": "Studies how multi-agent LLMs manage exploration-exploitation trade-offs in Bayesian optimization.",
+      "llm_tldr_cn": "研究多智能体LLM如何在贝叶斯优化中管理探索与利用的权衡。",
+      "llm_tldr": "研究多智能体LLM如何在贝叶斯优化中管理探索与利用的权衡。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00344v1",
+      "title": "Agent Q-Mix: Selecting the Right Action for LLM Multi-Agent Systems through Reinforcement Learning",
+      "abstract": "Large Language Models (LLMs) have shown remarkable performance in completing various tasks. However, solving complex problems often requires the coordination of multiple agents, raising a fundamental question: how to effectively select and interconnect these agents. In this paper, we propose \\textbf{Agent Q-Mix}, a reinforcement learning framework that reformulates topology selection as a cooperative Multi-Agent Reinforcement Learning (MARL) problem. Our method learns decentralized communication decisions using QMIX value factorization, where each agent selects from a set of communication actions that jointly induce a round-wise communication graph. At its core, Agent Q-Mix combines a topology-aware GNN encoder, GRU memory, and per-agent Q-heads under a Centralized Training with Decentralized Execution (CTDE) paradigm. The framework optimizes a reward function that balances task accuracy with token cost. Across seven core benchmarks in coding, reasoning, and mathematics, Agent Q-Mix achieves the highest average accuracy compared to existing methods while demonstrating superior token efficiency and robustness against agent failure. Notably, on the challenging Humanity's Last Exam (HLE) using Gemini-3.1-Flash-Lite as a backbone, Agent Q-Mix achieves 20.8\\% accuracy, outperforming Microsoft Agent Framework (19.2\\%) and LangGraph (19.2\\%), followed by AutoGen and Lobster by OpenClaw. These results underscore the effectiveness of learned, decentralized topology optimization in pushing the boundaries of multi-agent reasoning.",
+      "authors": [
+        "Eric Hanchen Jiang",
+        "Levina Li",
+        "Rui Sun",
+        "Xiao Liang",
+        "Yubei Li",
+        "Yuchen Wu",
+        "Haozheng Luo",
+        "Hengli Li",
+        "Zhi Zhang",
+        "Zhaolu Kang",
+        "Kai-Wei Chang",
+        "Ying Nian Wu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "stat.AP"
+      ],
+      "published": "2026-04-01T00:38:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.00344v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for LLM multi-agent system coordination",
+      "llm_evidence_cn": "大语言模型多智能体系统协作框架",
+      "llm_evidence": "大语言模型多智能体系统协作框架",
+      "canonical_evidence": "大语言模型多智能体系统协作框架",
+      "llm_tldr_en": "A reinforcement learning framework for optimizing communication and topology in LLM-based multi-agent systems.",
+      "llm_tldr_cn": "一种用于优化基于大语言模型的多智能体系统通信和拓扑的强化学习框架。",
+      "llm_tldr": "一种用于优化基于大语言模型的多智能体系统通信和拓扑的强化学习框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01020v1",
+      "title": "OrgAgent: Organize Your Multi-Agent System like a Company",
+      "abstract": "While large language model-based multi-agent systems have shown strong potential for complex reasoning, how to effectively organize multiple agents remains an open question. In this paper, we introduce OrgAgent, a company-style hierarchical multi-agent framework that separates collaboration into governance, execution, and compliance layers. OrgAgent decomposes multi-agent reasoning into three layers: a governance layer for planning and resource allocation, an execution layer for task solving and review, and a compliance layer for final answer control. By evaluating the framework across reasoning tasks, LLMs, execution modes, and execution policies, we find that multi-agent systems organized in a company-style hierarchy generally outperform other organizational structures. Besides, hierarchical coordination also reduces token consumption relative to flat collaboration in most settings. For example, for GPT-OSS-120B, the hierarchical setting improves performance over flat multi-agent system by 102.73% while reducing token usage by 74.52% on SQuAD 2.0. Further analysis shows that hierarchy helps most when tasks benefit from stable skill assignment, controlled information flow, and layered verification. Overall, our findings highlight organizational structure as an important factor in multi-agent reasoning, shaping not only effectiveness and cost, but also coordination behavior.",
+      "authors": [
+        "Yiru Wang",
+        "Xinyue Shen",
+        "Yaohui Han",
+        "Michael Backes",
+        "Pin-Yu Chen",
+        "Tsung-Yi Ho"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-04-01T15:21:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.01020v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Hierarchical multi-agent framework for complex reasoning tasks",
+      "llm_evidence_cn": "用于复杂推理任务的分层多智能体框架",
+      "llm_evidence": "用于复杂推理任务的分层多智能体框架",
+      "canonical_evidence": "用于复杂推理任务的分层多智能体框架",
+      "llm_tldr_en": "OrgAgent introduces a company-style hierarchical organization for multi-agent systems to improve reasoning.",
+      "llm_tldr_cn": "OrgAgent 引入了一种公司式的分层多智能体组织架构，以提升推理性能。",
+      "llm_tldr": "OrgAgent 引入了一种公司式的分层多智能体组织架构，以提升推理性能。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
