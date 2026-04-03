@@ -1,0 +1,1054 @@
+Title: SynDe: Syndrome-guided Decoding of Raw Nanopore Reads
+
+URL Source: https://arxiv.org/pdf/2604.01054v1
+
+Published Time: Thu, 02 Apr 2026 01:27:22 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+# SynDe: Syndrome–guided Decoding of Raw Nanopore Reads 
+
+## Anisha Banerjee 1* , Roman Sokolovskii 2,3 , Thomas Heinis 2,Antonia Wachter-Zeh 1, Eirik Rosnes 4, Alexandre Graell i Amat 5 
+
+> 1
+
+Institute for Communications Engineering; Technical University of Munich (TUM), Munich, Germany. 
+
+> 2
+
+Department of Computing, Imperial College London, UK. 
+
+> 3
+
+European Molecular Biology Laboratory, European Bioinformatics Institute (EMBL-EBI), Wellcome Genome Campus, Hinxton, UK. 
+
+> 4
+
+Simula UiB, Bergen, Norway. 
+
+> 5
+
+Department of Electrical Engineering, Chalmers University of Technology, Gothenburg, Sweden. *Corresponding author. E-mail: anisha.banerjee@tum.de; 
+
+Abstract 
+
+Nanopore sequencing technology remains highly error-prone, making efficient error correction essential in DNA-based data storage. Prior work addressed high error rates using convolutional codes with their decoder coupled with the base-caller, but such approaches only accommodate a limited number of code classes and incur significant decoding complexity. To overcome these limitations, we pro-pose two algorithms: PrimerSeeker , which efficiently detects primer sequences in raw nanopore sequencing reads, and SynDe , a decoder that operates on the same raw reads and supports any linear error correction code with a low-complexity graphical representation. 
+
+PrimerSeeker provides primer location estimates close to those of existing approaches while being better suited for real-time primer detection during sequencing. SynDe performs well with convolutional codes augmented with periodic markers, often approaching or exceeding the performance of existing algorithms with a lower time complexity. Remarkably, the confidence scores produced by SynDe reliably identify which of its outputs should be discarded. 
+
+Keywords: DNA data storage, Nanopore sequencing, Convolutional codes, basecaller-decoder integration 
+
+1
+
+> arXiv:2604.01054v1 [cs.IT] 1 Apr 2026
+
+# 1 Introduction 
+
+The promise of DNA-based data storage is unprecedented density, durability, and low storage maintenance costs. However, despite the existence of high-performance end-to-end solutions [1–3], the high costs of DNA synthesis and sequencing with current technology remain a significant barrier to its widespread adoption. At the reading end, robust information recovery typically requires sequencing several copies of the same synthesized DNA sequence (a parameter referred to as coverage), which both decreases the physical information density and increases the computational cost of decoding. This problem is especially relevant in the case of relatively error-prone nanopore sequencing [4–6], which has gained increased prominence due to its falling costs, the ability to perform on-the-fly data analysis and decoding, and the potential to support a wide range of throughput targets from portable solutions [7] to large-scale deployments. However, it suffers from higher basecalling error rates than Illumina or PacBio sequencing [8]. A promising approach to addressing the high error rates and computational cost of nanopore sequencing in DNA storage pipelines is to integrate error correction decoding directly into the basecalling process, leveraging the rich features of raw reads from the nanopore device. (Or, as in [9], bypassing basecalling altogether.) The pioneering work by Chandak et al. [10] presented a decoding framework, referred to as BeamTrellis in [11] and in this work, that integrates list decoding of convolutional codes into the Flappie basecaller (an extension to the Bonito basecaller has also been provided in [1]). Volkel et al. [11] continued this line of research by proposing AlignmentMatrix , which adapts the convolutional decoding of HEDGES [12]—a constrained 1 convolutional code—into the Bonito basecaller. The error correction capability of both frameworks is determined by the memory 
+
+of their underlying convolutional codes, i.e., the number of memory elements (delay units) in the encoder, which determines how many past message symbols influence each codeword symbol. Typically, a code with higher memory is more resilient to errors, but at the cost of a higher decoding complexity. This trade-off exposes a key limitation of the works [10, 11]: both decoders operate on the full graphical represen-tation of the convolutional codes to perform an exhaustive search for the most likely codeword. Consequently, their computational complexity grows exponentially with the memory. The second problem is related to the fact that a basecaller-integrated decoder needs to know the starting position of the codeword in the raw read. To that end, both approaches basecall the entire read first (without decoder integration) and then attempt to identify predetermined flanking sequences that are incorporated in the synthesized strand. (These sequences are often used for amplification via polymerase chain reaction for random access [14]; therefore, here we refer to them as primers.) This means that in their pipelines, basecalling has to be performed twice: once on the full read to find the primers, and the second time, in conjunction with error correction decoding, to recover the stored data. Besides incurring an additional computational cost, this also prevents these decoding schemes from potentially being used on-the-fly during the sequencing run itself. 
+
+> 1Relatedly, the integration of biologically-motivated constraints, such as homopolymer runs or GC-balance, into basecalling has been investigated in [13].
+
+2In this work, we advance research on basecaller-decoder integration by directly addressing the two challenges above. First, we propose a sequential decoding scheme, named SynDe , that relies on the syndrome trellis representation of convolutional codes [15–18] and incorporates it into the beam search algorithm, which underpins most basecalling pipelines [19–21]. The main advantage of the proposed scheme is that its complexity is independent of the memory of the convolutional code and linear in its length; in Section 2, we show how the use of higher-memory codes allows us to approach the frame error rate (FER) performance of BeamTrellis with lower complex-ity. In addition to lower complexity, our decoding scheme is more universal than the existing alternatives, in the sense that unlike BeamTrellis and AlignmentMatrix , it can flexibly incorporate any linear error correction code with a compact syndrome trellis and is easily adapted to the inclusion of markers or other coding-theoretic techniques, such as puncturing, without bespoke modification of the decoding scheme for each setup. Second, we propose a dedicated algorithm that locates the start of the flanking sequences in the raw read. We refer to this as PrimerSeeker , and unlike alternative solutions, it does not require basecalling the entire raw signal. Its computational com-plexity is nearly identical to that of full basecalling, thus making it very well-suited for online decoding workflows. In essence, PrimerSeeker is a modified beam search where the beams are restricted to the targeted primer sequence and are well-separated in their starting positions (see Section 2). Our complete decoding workflow is shown in Fig. 1. Taken together, these contributions pave the way for computationally efficient integration of decoding and basecalling in future DNA storage systems. 
+
+# 2 Results 
+
+## 2.1 Efficient Localization of Primer Sequences in Raw Reads 
+
+Existing approaches to basecaller-decoder integration rely on full basecalling for identi-fying the beginning of the codeword. This is a computational bottleneck that prevents on-the-fly decoding. Here, we develop PrimerSeeker , an algorithm that efficiently detects and localizes a given target sequence directly in raw nanopore signals (Fig. 2, Methods 4.3). On the R9.4.1 chemistry dataset by Volkel et al. [11], PrimerSeeker-Lokatt , an implementation of PrimerSeeker based on the Lokatt basecaller [22] (Methods 4.2), achieves 78 .9% agreement within 50 samples ( ∼ 5 nucleotides) with the standard approach based on full Guppy basecalling [23] (Fig. 3A). We also evaluate a variant of PrimerSeeker based on the Bonito basecaller [24], referred to as PrimerSeeker-CTC .This method demonstrates 97% agreement within 50 samples ( ∼ 5 nucleotides) when compared with the more stringent “localization-by-basecalling” approach in [1, 10], which attempts to locate both flanking sequences (Fig. 3B). 2 This performance is achieved with a computational complexity nearly identical to that of basecalling     
+
+> 2We remark that the probability matrices generated by the CTC-based neural network only account for a part of the raw read. Therefore, it is not possible to compare PrimerSeeker-CTC with PrimerSeeker-Lokatt directly.
+
+3Neural Network PrimerSeeker   
+
+> 1N
+> S1
+> SM
+> S2
+> ...
+> Crop
+> nP
+> Start Primer ACGT..
+> SynDe
+> nPN
+> S1
+> SM
+> S2
+> ...
+> Primer Pair (ACGT..., TCGG...)
+> Decoded Sequence
+> CACGTA..
+
+Fig. 1 Overview of our decoding workflow. A raw signal is first processed by a neural network that generates a probability matrix over all possible states (for instance k-mers or CTC tokens). This matrix is fed to our PrimerSeeker algorithm, which estimates the position at which the primer sequence starts in the raw read, say nP. The columns preceding the nP-th column are cropped and the trimmed probability matrix is passed to SynDe , which leverages the syndrome trellis of the adopted convolutional codes and incorporates knowledge of any included marker symbols to perform “code-aware” basecalling, ultimately generating the decoded DNA sequence. 
+
+(Supplementary S3.1). Moreover, unlike conventional approaches that require basecall-ing the complete signal, PrimerSeeker-CTC enables reliable online detection of target sequences. 
+
+## 2.2 Low-complexity Integration of Basecalling and Decoding 
+
+The main basecaller-decoder integration approaches in the literature, namely, 
+
+BeamTrellis [1, 10] and AlignmentMatrix [11], achieve high decoding accuracy but their complexity scales exponentially with the memory (Supplementary S3.2), limiting their practical application. Here, we propose SynDe (Methods 4.4), a decoding algorithm that relies on the syndrome trellis of a linear code (Methods 4.1). SynDe ’s time com-plexity is linear in the length of the raw read and independent of the memory of the code (Supplementary S3.2). Decoding via the syndrome trellis allows us to use error correction codes with larger memory than in existing schemes and allows a greater flexibility in the choice of the code family. We opt for a combination of convolutional and marker codes (Methods 4.1)—marker codes provide a synchronisation mechanism against inser-tion/deletion errors, whereas convolutional codes correct substitutions. On the R9.4.1 dataset by Volkel et al. [11], SynDe-CTC (our Bonito-based implementation of SynDe )outperforms BeamTrellis across multiple configurations (Fig. 4). For instance, at 65% reads discarded and code rate ∼ 0.7, SynDe-CTC achieves a FER of 0 .5% against 
+
+BeamTrellis ’s 1 .5% FER at code rate ∼ 0.68—a 3-fold improvement in accuracy at lower 4start = a                                               
+
+> start = b
+> start = a
+> CA
+> start = b
+> CA
+> start = a
+> CA
+> start = a
+> AC
+> start = b
+> CA
+> start = b
+> AC
+> dwell at
+> sample xa+1
+> extend at
+> sample xa+1
+> dwell at
+> sample xb+1
+> extend at
+> sample xb+1
+> start = a
+> CA
+> start = a
+> AC
+> start = b
+> CA
+> start = b
+> AC
+> start = a
+> CA
+> start = a
+> AC
+> dwell at
+> sample xa+2
+> extend at
+> sample xa+2
+> start = a
+> AC
+> start = a
+> CG
+> dwell at
+> sample xa+2
+> extend at
+> sample xa+2
+> start = b
+> CA
+> start = b
+> AC
+> dwell at
+> sample xb+2
+> extend at
+> sample xb+2
+> start = b
+> AC
+> start = b
+> CG
+> dwell at
+> sample xb+2
+> extend at
+> sample xb+2
+> start = a
+> CA
+> start = a
+> CG
+> start = b
+> CA
+> start = b
+> CG
+> start = a
+> AC
+> start = b
+> AC
+> current beams extended beams current beams extended beams
+> extend by first k-mer at sample xstart
+> initial empty beams
+> merge identical beams
+> merge identical beams
+> t=at=b
+> xa
+> xbNeural Network PrimerSeeker
+
+nP      
+
+> Target k-mer sequence: CA ,AC ,CG ,GT ,GG Target primer: CACGTAGG
+> 1N
+> AA
+> TT
+> AC
+> ...
+
+Fig. 2 Illustration of PrimerSeeker-Lokatt . This example considers CACGTAGG as the primer and 
+
+k = 2. A neural network takes the raw signal as input and returns a probability matrix, say P , where the ( i, j )-th entry denotes the probability that the i-th sample resulted from the presence of the j-th 
+
+k-mer in the pore, for all possible k-mers. This matrix is used by the primer search algorithm, which, for instance, considers two candidate starting positions in the raw read, a and b. Starting with two initial beams, one for each candidate, the algorithm extends each by the first k-mer CA and scores them according to P . Each beam is subsequently propagated through the upcoming samples through either (i) a dwell event, where the current k-mer remains in the pore for an additional sample; or (ii) an extension event, where the next nucleotide translocates into the pore, thus transitioning to the next k-mer state. At each iteration, the algorithm propagates all beams into two child beams, which are assigned likelihood scores using P , and merging any beams that share identical starting and ending positions and represent the same sequence of k-mers. Whenever a beam has traversed all 
+
+k-mers corresponding to the target primer sequence, its final score is considered to be the probability that the primer sequence began at its starting position. The algorithm outputs the start position associated with the beam having the highest score. 
+
+50 10 20 30 40 50 60 
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+∆               
+
+> Fraction of reads with distance exceeding ∆
+> A: PrimerSeeker-CTC v/s Chandak et al. [10]
+> B: PrimerSeeker-Lokatt v/s Guppy
+> Fig. 3 Performance of the primer search algorithm on the dataset from Volkel et al. [25]. In both curves A and B, two methods of locating a target sequence in raw reads are compared. For each positive integer ∆ (x-axis), the y-axis shows the fraction of raw reads for which the position esti-mates from the competing methods lie within ∆ samples of each other. A:PrimerSeeker-CTC when compared against estimates obtained by the method used by BeamTrellis .B: Comparison between
+> PrimerSeeker-Lokatt and estimates obtained using the Guppy basecaller. The Guppy basecaller gener-ates an erroneous sequence along with the raw signal positions of the corresponding base transitions. The starting position of the primer is considered to be the raw read sample that corresponds to the transition into the first base of the basecalled sequence, which matches the primer sequence most closely.
+
+redundancy cost and considerably lower computational complexity. Further results can be found in Supplementary S2.3. 
+
+# 3 Discussion 
+
+This work proposes an on-the-fly decoding pipeline that operates directly on raw reads from nanopore sequencers. As depicted in Fig. 1, this pipeline consists of two major components. The first component, named PrimerSeeker , focuses on efficiently detecting and locating target sequences within the raw reads, while the second, referred to as 
+
+SynDe , achieves basecaller-decoder integration with a sequential algorithm based on beam search. Detection of target sequences in raw reads is a critical task in DNA-based data storage. However, to the best of our knowledge, no prior work has attempted this detection directly in the raw signal—i.e., without resorting to full basecalling prior to detection. The current state-of-the-art relies on full basecalling, followed by searching the basecalled sequence for regions that are similar to the target sequence, typically using metrics such as edit distance. This approach incurs the computational burden of both basecalling and subsequent sequence alignment or edit distance computations. 60 20 40 60 80 100 
+
+10 −3
+
+10 −2
+
+10 −1
+
+10 0
+
+Percentage of reads discarded (%) 
+
+> Frame Error Rate
+> BeamTrellis , CC8-3, rate=0 .678
+> SynDe-CTC , CCM10-6, rate=0 .744
+> SynDe-CTC , CCM9-5, rate=0 .702
+
+Fig. 4 Comparison of the decoding performance of SynDe-CTC with BeamTrellis [10] on the dataset from Volkel et al. [25]. The x-axis values indicate the percentage of raw reads that were discarded, while the corresponding y-axis values indicate the FER, i.e., the fraction of the remaining reads that were decoded incorrectly. We observe that for the same fraction of discarded reads, SynDe-CTC achieves a better FER than BeamTrellis despite using codes of slightly higher rates. The identifier of each code CC(M)x-y suggests that the associated memory is x. More details on the codes can be found in Supplementary S2 (Table S1 and Table S2). 
+
+We demonstrate on the dataset by Lau et al. that an optimized version of PrimerSeeker-CTC achieves a computational complexity nearly identical to that of basecalling (see Supplementary S3.1) while closely matching the results of the primer localization technique employed by Chandak et al. 3, despite PrimerSeeker-CTC not exploiting the primer sequence at the other end as an anchor, or the knowledge of the length of the payload. This suggests that PrimerSeeker is uniquely well-suited for use in online readout pipelines for DNA data storage. Once the starting position of the primer sequence is detected, SynDe focuses on the part of the raw read associated with the payload and its surrounding primers, and starts performing a constrained form of basecalling, which exclusively looks for codewords instead of all possible DNA sequences. It does so by conducting a sequen-tial exploration of the syndrome tree of the encoder, in a manner similar to that of basecalling, implying that the decoding complexity of SynDe is independent of the encoder’s memory (Supplementary S3.2). In other words, the computational complex-ity of SynDe only scales linearly with the length of the payload. As a result, SynDe is able to recover the information content of the payload at significant complexity gains   
+
+> 3On Lau et al. ’s dataset, which contains reads of short DNA strands ( ∼150 nts), this comparison involves both approaches seeking the length-23 suffix of the 25-nts primer. The first 2 nucleotides are ignored to prevent any false detections arising from boundary effects or potential cropping in the nanopore raw signal.
+
+7over BeamTrellis and AlignmentMatrix , both of which have complexities that scale expo-nentially with memory (see Supplementary S3.2). Therefore, SynDe is the first solution for basecaller-decoder integration that enables the use of high-memory convolutional codes, which are known to offer improved error-correction performance. Another drawback of BeamTrellis is that it is restricted to convolutional codes with parameters (2 , 1), i.e., encoders that produce two codeword symbols per message symbol. To obtain convolutional codes of higher rates, BeamTrellis applies punctur-ing to a mother (2 , 1) convolutional code, i.e., it periodically deletes selected output symbols. This is not ideal, as high-rate convolutional codes obtained via punctur-ing are generally known to exhibit inferior error-correction performance compared to native high-rate convolutional codes. SynDe addresses this limitation by providing a versatile decoding framework applicable to any linear error correction code admitting an efficient syndrome trellis representation, including native higher-rate convolutional codes 4(Supplementary S2) as well as more general linear codes. Thus, SynDe is capable of accommodating a much broader class of linear codes than BeamTrellis . Further-more, by additionally incorporating marker symbols that help synchronize with the raw read, SynDe is usually able to avoid errors arising from dwell time mispredictions (Supplementary S2). Indeed, this flexibility enables us to easily and cleverly tune the trade-off between redundancy allocated to synchronization (via marker symbols) and redundancy allocated to correcting substitution errors (via the convolutional code). It is also worth mentioning that although we left the processing of reverse-complemented reads outside the scope of the paper, they can be straightforwardly accommodated using the same technique as in [1, 10]. An interesting direction for future work is to incorporate into SynDe ideas from Fano’s decoding algorithm [26], which operates on a similar graphical representation of convolutional codes but employs a more sophisticated (and costly) beam scoring method: it not only considers the likelihood of past observations matching the beam’s codeword symbols, but also accounts for the probability of future observations aligning with a valid codeword. The task of tailoring popular iterative decoding schemes from coding theory to exploit the soft information in raw reads, as done here, is also an open problem that deserves attention. Overall, SynDe is the first basecaller-decoder integration algorithm with time com-plexity scaling linearly in the code length and comparable-to-superior performance relative to existing approaches. In conjunction with PrimerSeeker , the two algorithms developed here provide an efficient readout pipeline for DNA-based data storage. 
+
+# 4 Methods 
+
+## 4.1 Convolutional & Marker Codes 
+
+Our error correction scheme uses convolutional codes, a class of linear codes with encoders that involve memory. Specifically, the encoder of a ( c, b, ν ) convolutional code    
+
+> 4To ensure that the storage complexity of the syndrome trellis does not exceed the capacity of the cache memory (say 32MB), our implementation of SynDe can only simulate a convolutional code of memory at most 18. Similar arguments lead us to conclude that any linear code with at most 120 quaternary symbols and rate at least 0 .93, can be used with SynDe .
+
+8can be implemented as a circuit of ν shift registers, which for every b message symbols, produces c > b encoded symbols. Each block of c output symbols depends not only on the current b inputs, but also the past ν message symbols. For this reason, ν is referred to as the memory of the code. Convolutional codes are widely used due to their structural properties, which enables efficient maximum-likelihood decoding. In this work, we focus on the syndrome trellis representation of these codes, which exploits the fact that every codeword of a linear code C is orthogonal to every codeword of the dual code, the basis of which is known. More specifically, each codeword c of a convolutional code satisfies the equation 
+
+cH T = 0, where the rows of the matrix H, also known as the parity-check matrix ,specify the basis of the dual code. This phenomenon allows us to represent all code-words as paths through a syndrome trellis . Such a graph comprises multiple nodes, each representing a specific syndrome state , distributed across N + 1 levels, where N
+
+is the code length. In particular, the codeword c traces a path of syndrome states, starting with s0(c) = 0 at the 0-th level and subsequently passing through the states 
+
+st(c) = c1h1 + · · · + ctht for the levels t = 1 , . . . , N , where hi denotes the i-th column of H. By definition, the path terminates at the syndrome state sN (c) = 0.To exemplify these concepts, we consider a binary convolutional code from [18] of length N = 10 with c = 4, b = 2, ν = 3, and the parity-check matrix 
+
+H =
+
+
+
+1 1 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 1 0 1 0 1 1 1 0 0 0 0 1 1 1 1 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0 1 1 0 1 
+
+
+
+. (1) As is common with convolutional codes, we observe that H is composed of repeated instances of a smaller submatrix (indicated in blue in (1)), which implies that for any integer t ranging from 1 to N , st(c) is a binary vector that typically has at most 
+
+ν + c − b = 5 non-zero entries. Consequently, the memory of a code directly influences the complexity of the syndrome trellis, i.e., the number of possible realizations of the syndrome state st(c) for any t in the range from 1 to N .The syndrome trellis corresponding to our example code is illustrated in Fig. 5. Each node in the trellis represents a specific syndrome state st(c) ∈ { 0, 1}8, the decimal representation of which is indicated in the node labels. A convenient feature of such binary syndrome trellises is that they can be effortlessly transformed into a syndrome trellis over the quaternary alphabet, as necessitated by DNA sequences, by simply merging two consecutive trellis sections into one. For instance, if we assume the mapping 00 −→ A, 11 −→ T, and so on, then the green path through the syndrome trellis in Fig. 5 corresponds to the DNA sequence ATTTA, that traces a path through the nodes 0, 0, 16, 4, 0, and 0 in the quaternary syndrome trellis. 90 0                  
+
+> 160
+> 0
+> 80
+> 0
+> 80
+> 100
+> 52
+> 0
+> 16
+> 36
+> 52
+> 0
+> 56
+> 36
+> 28
+> 0
+> 24
+> 4
+> 28
+> 0
+> 24
+> 29
+> 5
+> 0
+> 20
+> 0
+> 60
+> 0
+> Fig. 5 Syndrome trellis of a binary convolutional code of length N= 10 with parity-check matrix given by Eq. (1). Every codeword of this code, say c, corresponds to a specific path from the starting node to the terminating node. If the i-th edge of the path traced by cis dashed, ci= 0, and ci= 1 otherwise. Each node represents a specific syndrome state, the (compressed) decimal representation of which indicated by the labels of the nodes. For instance, the path marked in green corresponds to the codeword c= 0011111100. Note that we draw the binary trellis here for illustrative purposes; the quaternary trellis can be straightforwardly obtained by merging every two consecutive trellis sections. In such a quaternary trellis, we may apply the mapping 00 −→A, 11 −→T to transform the codeword
+> cinto the DNA codeword ATTTA.
+
+Indeed, for the purpose of adapting beam search algorithms to exclusively look for codewords, we leverage the tree representation of a quaternary syndrome trellis. This approach of achieving basecaller-decoder integration clearly offers greater flexibility, since it can be used with a broader class of codes—the codes with compact syndrome trellises. In contrast, the scheme proposed by Chandak et al. only permits the use of a narrow subclass of punctured convolutional codes, which potentially excludes codes that are better suited to the nanopore sequencing channel, as discussed in Section 3. Using convolutional codes alone for correcting synchronization errors, especially in conjunction with sequential algorithms like beam search, is generally a precarious endeavor, for the following reason. Assume k = 2 and that the true codeword contained in a raw read is given by ATTTA, prefaced by the primer sequence CGAA. Then 
+
+SynDe-Lokatt would propagate beams through the raw read samples as in Fig. 6, hoping to have at least one beam that traverses the k-mer sequence CG , GA , AA , AA , AT , . . . ,that passes through the states S0 = 0 , S 1 = 0 , S 2 = 16 , . . . in the quaternary syndrome trellis. It might just happen that during this search, the beam corresponding to the (incomplete) k-mer sequence CG , GA , AA , AA , AA (through the syndrome states S0 =0, S 2 = 0 , S 3 = 0) survives the beam pruning step, while that corresponding to the sequence CG , GA , AA , AA , AT does not due to inaccurate dwell time predictions. In this unfortunate event, our decoder has essentially fallen out of step with the syndrome trellis and this misalignment is catastrophic since the quaternary syndrome trellis will force this mis-synchronized beam to the codeword sequence AAAAA, even if the input probability matrix (which is agnostic to the convolutional code) might suggest that the DNA sequence AATTTA is more likely than the codeword AAAAA. Such errors are likely to be corrected by the standard decoding pipelines, where the decoder of a code works on the basecalled sequence. To mitigate the possibility of falling out of step with the syndrome trellis, we employ marker codes [27], which offer a simple and elegant solution to correct syn-chronization errors. Essentially, this involves inserting a short marker sequence in the 10 CA                       
+
+> CA
+> AT
+> S0= 0
+> CA
+> AT
+> S0= 0
+> AT
+> S0= 0
+> TA
+> S1= 0
+> TT
+> S1= 20
+> Merge identical beams and keep W= 2 top-scoring ones
+> AT
+> S0= 0
+> TT
+> S1= 20
+> AT
+> S0= 0
+> TA
+> S1= 0
+> TT
+> S1= 20
+> TT
+> S1= 20
+> TC
+> S2= 36
+> TG
+> S2= 52
+> Merge identical beams and keep W= 2 top-scoring ones
+> TT
+> S1= 20
+> TC
+> S2= 36
+> propagate beams through sample xn
+> propagate beams through sample xn+1
+> propagate beams through sample xn+2
+
+Fig. 6 Illustration of SynDe-Lokatt on a raw read x = (x1, x 2, . . . ) for the convolutional code described in Fig. 5. We assume k = 2 and the primer sequence p = CAT, which is estimated to start from the n-th sample of x. SynDe-Lokatt thus begins with a single beam corresponding to CA, the initial k-mer of p, and propagates it through the upcoming samples in x. As in Fig. 2, every beam is propagated either by dwelling or by transitioning to the next permitted nucleotide, indicated by dashed and solid edges, respectively. So long as a beam has not covered the complete k-mer sequence of p, which is (CA , AT), the beam is said to be in the ‘primer region’ and the associated event edges are marked in red. Upon exiting the primer region, the beam enters the ‘payload region’, where it is guided through the most promising codeword sequences by only examining those paths that are per-mitted by the quaternary syndrome trellis (the binary trellis is presented in Fig. 5). In the payload region, each beam tracks the syndrome states traced by its hypothesized codeword in the quaternary syndrome trellis, indicated by the random variables S0, . . . , S i, where i refers to the number of code-word symbols covered by the beam so far. 
+
+codeword of a convolutional code after every 4–7 symbols. This change is reflected in the syndrome trellis of the convolutional code by inserting ‘constant’ edges corre-sponding to the marker sequence after each interval. Conducting the search over this modified trellis assists in discarding those beams, with high likelihood, that have lost synchronization with the syndrome trellis. Note that the presence of homopolymers in the codeword sequences also exac-erbates the risk of misalignment of beams with the syndrome trellis. Thus, it is advisable to always apply a pseudo-random offset [28, 29] to a codeword sequence before generating the payload sequence for the DNA strands to be synthesized. It is also worth noting that unlike Chandak et al. , we do not append an 8-bit cyclic redundancy check (CRC) to the message vector prior to convolutional encod-ing. While the CRC provides an integrity check by discarding codewords that fail validation, it naturally incurs a rate loss. In contrast, we exploit the likelihood scores provided by SynDe and check if they lie above a specific threshold. In this manner, we avoid the redundancy overhead incurred by CRCs. Across all encoding schemes, the FERs of SynDe-CTC decline as the threshold imposed on the output likelihood 11 scores is increased; we therefore conclude that the decoder’s likelihood score serves as an effective measure of the reliability of the decoder output. The specific code constructions that we assess in this work are listed in Table S1 and Table S2. 
+
+## 4.2 Basecalling and Beam Search 
+
+Since SynDe is formulated by repurposing existing basecalling pipelines, we recall the core principles of the two basecallers which we focus on in this work. 
+
+4.2.1 Lokatt Basecaller 
+
+The Lokatt basecaller, recently proposed by Xu et al. [22], models the process of nanopore sequencing as an explicit duration hidden Markov model (EDHMM). It assumes that the nanopore holds k > 1 nucleotides within itself at any given time and that the duration for which a particular k-mer dwells in the pore follows some statisti-cal distribution. Thus, the raw signal generated by the nanopore device can be seen as the output of an HMM that transitions between successive k-mers of the translocat-ing DNA strand, with the added caveat that every state persists for a random amount of time. A given raw read, say x = ( x1, . . . , x N ), after some preprocessing, is fed to a neural network that estimates, for each current sample xi, the probability that it resulted from the presence of a specific k-mer in the pore, for all possible k-mers. Thus, the network outputs a two-dimensional probability matrix, say P , of 4 k rows and N columns, that is used by the greedy marginalized beam search (GMBS) algo-rithm [30] to infer the most likely sequence of nucleotides that traversed the nanopore. Similar to the Viterbi and the beam search algorithms used by most basecallers, the GMBS algorithm estimates the most likely sequence of nucleotides by searching for the sequence of k-mers, say k, that maximizes an approximation to the conditional probability p(k|x) under the EDHMM. 
+
+4.2.2 CTC Basecallers 
+
+Most basecallers for nanopore sequencing used today employ Connectionist Tempo-ral Classification (CTC), a framework originally developed for sequence-to-sequence problems such as speech recognition. This technique obviates the need for segmenting the raw signal into the individual relatively stationary events, that correspond to the dwelling period of each k-mer. Under this setting, the raw signal is imagined to be the output of a state transition process, where the states are A, C, G, T, and ‘blank’. The role of the blank symbols is critical, since without them, a pair of identical base predictions could indicate either a genuine repeated nucleotide or simply an unusually long dwell time of the same base in the pore. The use of blank symbols helps resolve this ambiguity. Another useful consequence of their inclusion is that the length of the predicted nucleotide sequence can be much shorter than a raw read, which is usually the case. Thus, the probability matrix generated during CTC basecalling consists of a prob-ability vector over the 5 states, one for each of the samples in a raw read. As done in 12 case of the Lokatt basecaller, beam search exploits this probability matrix to explore the most likely state sequences that could have caused the observed raw signal. 
+
+## 4.3 Primer Localization via PrimerSeeker 
+
+Under the framework of the Lokatt basecaller, the task of detecting and localizing a specific target k-mer sequence k∗ = ( k1, . . . , k l) in a raw signal x requires the efficient computation of the likelihood that, starting from a specific sample in x, say xi, the nanopore encountered the k-mers in k∗. This likelihood can be formally expressed as PNj=i+l p(k∗, xji ), where the summation is over possible durations over which the target sequence might be expressed in the raw signal. Thus, the objective of PrimerSeeker-Lokatt is to directly estimate the location of k∗ in x, rather than basecalling x
+
+first, by adapting the GMBS algorithm to obtain an approximation of this likeli-hood. To accomplish this efficiently, PrimerSeeker-Lokatt parallelizes the computation of PNj=i+l p(k∗, xji ) over multiple candidate starting samples xi. Fig. 2 demonstrates how this is achieved, namely by initiating multiple beams, each starting from a unique sample, say xi, and propagating them to explore the most probable sequences of 
+
+k-mer dwelling and transition events that best explain the subsequent current sam-ples ( xi+1 , x i+2 , . . . ). Since there may be multiple equally-likely distinct sequences of dwelling and transition events for the observations ( xi, x i+1 , . . . ), their respective path likelihoods need to be aggregated to reliably approximate PNj=i+l p(k∗, xji ). This is addressed by merging two extended beams whenever they are found to indicate the same sequence of k-mers and correspond to the same number of raw samples, thereby performing a similar on-the-go marginalization that was employed by the original GMBS algorithm in [30]. We limit the computational complexity of this algorithm by constraining the maximum number of parent beams to a user-defined parameter W —whenever the number of parent beams exceeds W , only the W -highest scoring ones are preserved for the next round of beam extensions. Since a k-mer typically dwells in the nanopore for roughly 10 samples, 5 it is rea-sonable to expect that in addition to the sample where the target sequence actually began, say xi∗ , its immediately neighboring samples xi∗−1, x i∗+1 , x i∗+2 , . . . etc. will also be associated with high primer occurrence likelihoods. Moreover, constraining the number of parent beams to W creates competition among beams representing differ-ent starting samples—it would be suboptimal to jointly initiate beams corresponding to consecutive starting samples, since if they represent starting samples close to xi∗ ,they will compete strongly against each other, likely leading to a reduced exploration of good paths for all plausible starting samples and resulting in a poor approxima-tion of the desired likelihood. Therefore, we initiate beams from starting samples that are sufficiently far from each other to ensure that a promising beam is likely to com-pete against less plausible beams. In our simulations on raw reads from nanopore sequencers based on R9.4.1 chemistry, we found a minimum separation of 50 samples to be sufficient. 
+
+> 5Assuming the sampling rate of 4 kHz and the translocation speed of 400–450 bases per second of the R9 and R10 chemistries.
+
+13 Note that PrimerSeeker-Lokatt can also be straightforwardly adapted for use in the framework of CTC basecallers like Bonito by simply altering the probability com-putation to function over the state space of CTC basecallers. We implemented both Lokatt- and CTC-based versions of PrimerSeeker , as we discuss in Sec. 2.1. It is worth mentioning that although it makes intuitive sense that the task of detecting a target sequence in x should be easier than basecalling it, the procedure described above usually incurs a complexity that is at least 10 times higher than that of basecalling due to two major reasons. Firstly, as hinted earlier, multiple con-secutive samples of the raw signal qualify as valid starting positions of the target primer sequence, owing to the random dwell time of the first k-mer of k∗. Comput-ing PNj=i+l p(k∗, xji ) for each of these potential starting positions is very redundant, since their respective beams involve very similar computations, as one might infer from Fig. 2. Secondly, PrimerSeeker performs computations similar to a restricted form of basecalling on each window of the raw signal, say from sample i to sample i + D − 1, where i ranges from 1 to N (the length of the raw signal), and the window length D
+
+represents the maximum number of samples that the target sequence spans in x. As a consequence, for each raw sample PrimerSeeker performs significantly more compu-tations than basecalling, because a specific sample may be associated with any of the nucleotides in the target sequence. To address this additional computational burden, PrimerSeeker incorporates a fil-tering mechanism to eliminate redundant computations due to the examination of neighboring starting positions. Given an integer s, which we refer to as the ‘subsam-pling factor’, this technique selects the most promising candidate starting position from each window of s samples in x, thus reducing the time complexity of PrimerSeeker by approximately a factor of s. In this manner, adjusting s allows PrimerSeeker to be as efficient as basecalling at a negligible loss in performance (Supplementary S3.1). A complete description of this optimized version of PrimerSeeker can be found in Supplementary S1. 
+
+## 4.4 Decoding via SynDe 
+
+Our workflow, depicted in Fig. 1, begins by using PrimerSeeker to identify the position of the starting primer. We then crop the two-dimensional probability matrix P gen-erated by the neural network (see Sec. 4.2), ensuring that the first column of the new matrix aligns with the estimated primer position, and that the decoder of the con-volutional code only examines the part of the raw signal that contains the codeword and its surrounding primers. Subsequently, this cropped matrix is fed to SynDe , which deploys a beam search algorithm that permits transitions to multiple bases as dictated by the quaternary syndrome trellis (this is in contrast to PrimerSeeker , where only the transitions that correspond to the specified primer are allowed). Fig. 6 illustrates this workflow for SynDe-Lokatt ; SynDe-CTC operates along the same principles. Note that our complete decoding pipeline, as depicted in Fig. 1, can be seen as a modification of standard basecalling workflows. However, unlike traditional base-callers, SynDe operates in a smaller search space, focusing exclusively on sequences that correspond to valid codewords. 14 In addition to using syndrome trellises to integrate the basecaller and the decoder, our decoding workflow differs from BeamTrellis in that it incurs time and space com-plexities independent of encoder memory and linear in payload length. Furthermore, our decoder, SynDe , starts and terminates with the flanking primers instead of just processing the part of the raw signal that contains the payload. This helps reduce errors caused by noise at the primer-payload boundaries. 
+
+Supplementary information. A supplementary file is provided containing details of PrimerSeeker , our simulation methodology, the encoding schemes used, additional experimental results, and complexity analysis. 
+
+Data & Code Availability. The raw FAST5 data, simulation scripts, and results are collated in 10.5281/zenodo.19158795. The GitHub repositories contain-ing the source code for PrimerSeeker and SynDe , as well as a modified version of 
+
+BeamTrellis supporting evaluation over additional datasets, are also referenced therein. The raw FAST5 data used to generate the results in Fig. 3 and Fig. 4 was obtained from the dataset by Volkel et al. [11], which is available at 10.5281/zenodo.11985454. This dataset contains raw reads that were obtained by sequencing custom-designed oligos of length between 1250–5000 bases, using ONT nanopores of flow cell chemistry R9.4.1. We also present results on two additional datasets in Supplementary S2. 
+
+Acknowledgements. The authors gratefully acknowledge financial support from the European Union (DiDaX 101115134, DNAMIC 101115389, NEO 101115317). R.S. received financial support from the Theory@EMBL Transversal Theme visitor pro-gramme. A.G. was partially supported by the Swedish Research Council (VR) under grant 2023-05065. 
+
+# References 
+
+[1] Lau, B. et al. Magnetic DNA random access memory with nanopore readouts and exponentially-scaled combinatorial addressing. Scientific Reports 13 , 1–15 (2023). [2] Welter, L. et al. An end-to-end coding scheme for dna-based data storage with nanopore-sequenced reads. IEEE Journal on Selected Areas in Information Theory 7, 17–32 (2026). [3] Welzel, M. et al. DNA-Aeon provides flexible arithmetic coding for constraint adherence and error correction in DNA storage. Nature Communications 14 ,1–10 (2023). [4] Deamer, D., Akeson, M. & Branton, D. Three decades of nanopore sequencing. 
+
+Nature Biotechnology 34 , 518–524 (2016). [5] MacKenzie, M. & Argyropoulos, C. An introduction to nanopore sequencing: Past, present, and future considerations. Micromachines 14 , 1–22 (2023). 15 [6] Mao, W., Diggavi, S. N. & Kannan, S. Models and information-theoretic bounds for nanopore sequencing. IEEE Transactions on Information Theory 64 , 3216– 3236 (2018). [7] Yazdi, S. M. H. T., Gabrys, R. & Milenkovic, O. Portable and error-free DNA-based data storage. Scientific Reports 7, 1–6 (2017). [8] Delahaye, C. & Nicolas, J. Sequencing DNA with nanopores: Troubles and biases. 
+
+PLOS ONE 16 , 1–29 (2021). [9] Vidal, A., Wijekoon, V. B. & Viterbo, E. Concatenated nanopore DNA codes. 
+
+IEEE Transactions on NanoBioscience 23 , 310–318 (2024). [10] Chandak, S. et al. Overcoming high nanopore basecaller error rates for DNA storage via basecaller-decoder integration and convolutional codes . In Proceed-ings IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 8822–8826 (Barcelona, Spain, 2020). [11] Volkel, K. D., Hook, P. W., Keung, A., Timp, W. & Tuck, J. M. Nanopore decoding with speed and versatility for data storage. Bioinformatics 41 , 1–10 (2025). [12] Press, W. H., Hawkins, J. A., Jones Jr, S. K., Schaub, J. M. & Finkelstein, I. J. HEDGES error-correcting code for DNA storage corrects indels and allows sequence constraints. Proceedings of the National Academy of Sciences 117 ,18489–18496 (2020). [13] Menon, A., Brunmayr, S., Sella, O. & Heinis, T. Basecalling for DNA storage. 
+
+PLOS ONE (2025). Submitted. [14] Organick, L. et al. Random access in large-scale DNA data storage. Nature Biotechnology 36 , 242–248 (2018). [15] Wolf, J. K. Efficient maximum likelihood decoding of linear block codes using a trellis. IEEE Transactions on Information Theory 24 , 76–80 (1978). [16] Bahl, L. R., Cocke, J., Jelinek, F. & Raviv, J. Optimal decoding of linear codes for minimizing symbol error rate. IEEE Transactions on Information Theory 20 ,284–287 (1974). [17] Sidorenko, V. & Zyablov, V. Decoding of convolutional codes using a syndrome trellis. IEEE Transactions on Information Theory 40 , 1663–1666 (1994). [18] Rosnes, E. & Ytrehus, Ø. On maximum length convolutional codes under a trellis complexity constraint. Journal of Complexity 20 , 372–403 (2004). [19] Scheidl, H., Fiel, S. & Sablatnig, R. Word beam search: A connectionist temporal classification decoding algorithm . In Proceedings 16th International Conference 16 on Frontiers in Handwriting Recognition (ICFHR), 253–258 (Niagara Falls, NY, USA, 2018). [20] Graves, A., Fern´ andez, S., Gomez, F. & Schmidhuber, J. Connectionist tem-poral classification: Labelling unsegmented sequence data with recurrent neural networks . In Proceedings 23rd International Conference on Machine learning (ICML), 369–376 (Pittsburgh, PA, USA, 2006). [21] Freitag, M. & Al-Onaizan, Y. Beam search strategies for neural machine trans-lation . In Proceedings First Workshop on Neural Machine Translation, 56–60 (Vancouver, Canada, 2017). [22] Xu, X., Bhalla, N., St˚ ahl, P. & Jald´ en, J. Lokatt: a hybrid DNA nanopore basecaller with an explicit duration hidden Markov model and a residual LSTM network. BMC Bioinformatics 24 , 1–20 (2023). [23] Oxford Nanopore Technologies Ltd. Guppy basecalling software (2023). URL https://nanoporetech.com/document/Guppy-protocol. [24] Chris Seymour, Oxford Nanopore Technologies Ltd. Bonito: A PyTorch Basecaller for Oxford Nanopore Reads (2019). URL https://github.com/ nanoporetech/bonito. [25] Volkel, K. Nominal fast5/fastq evaluation data set (2024). URL https://zenodo. org/records/11985455. [26] Fano, R. A Heuristic Discussion of Probabilistic Decoding. IEEE Transactions on Information Theory 9, 64–74 (1963). [27] Ratzer, E. A. Marker codes for channels with insertions and deletions. Annales des T´ el´ ecommunications 60 , 29–44 (2005). [28] Buttigieg, V. & Briffa, J. A. Codebook and marker sequence design for synchronization-correcting codes . In Proceedings IEEE International Symposium on Information Theory (ISIT), 1579–1583 (St. Petersburg, Russia, 2011). [29] Davey, M. C. & MacKay, D. J. C. Reliable communication over channels with insertions, deletions, and substitutions. IEEE Transactions on Information Theory 47 , 687–698 (2001). [30] Xu, X. & Jald´ en, J. Marginalized beam search algorithms for hierarchical HMMs. 
+
+IEEE Transactions on Signal Processing 72 , 3013–3027 (2024). [31] Liva, G., Gaudio, L., Ninacs, T. & Jerkovits, T. Code design for short blocks: A survey (2016). ArXiv:1610.00873 [cs]. [32] Jelinek, F. Fast sequential decoding algorithm using a stack. IBM Journal of Research and Development 13 , 675–685 (1969). 17 Supplementary Materials for 
+
+# SynDe: Syndrome–guided Decoding of Raw Nanopore Reads 
+
+Anisha Banerjee 1, Roman Sokolovskii 2,3, Thomas Heinis 2, Antonia Wachter-Zeh 1, Eirik Rosnes 4, Alexandre Graell i Amat 5
+
+> 1
+
+Institute for Communications Engineering; Technical University of Munich (TUM), Munich, Germany. 
+
+> 2
+
+Department of Computing, Imperial College London, UK. 
+
+> 3
+
+European Molecular Biology Laboratory, European Bioinformatics Institute (EMBL-EBI), Wellcome Genome Campus, Hinxton, UK. 
+
+> 4
+
+Simula UiB, Bergen, Norway. 
+
+> 5
+
+Department of Electrical Engineering, Chalmers University of Technology, Gothenburg, Sweden. 
+
+Correspondence to: anisha.banerjee@tum.de 
+
+This PDF file includes: 
+
+Supplementary Text Supplementary Figures S1 to S5. Supplementary Tables S1 to S4. 
+
+Other Supplementary Materials for this manuscript include the following: 
+
+Source code and simulation scripts are available at: https://zenodo.org/records/19158795; https://github.com/anisha-ban/decoding-raw-nanopore-signals-dna-storage Supplementary Text 
+
+# S1 Description of PrimerSeeker 
+
+In this section, we provide an algorithmic description of PrimerSeeker , the pseudocode of which can be found in Algorithm 1. As Fig. 1 indicates, PrimerSeeker requires as input the probability matrix P produced by the neural network and the target sequence k to be sought in the raw signal (or more accurately, in the matrix P ). 
+
+Algorithm 1: PrimerSeeker 
+
+Input: Probability matrix P ∈ RQ×N , target sequence k
+
+Parameters: Subsampling factor s, number of beams W , extension depth d,maximum depth dmax , shift δ, and concentration threshold τ
+
+Output: Estimated starting position of k in raw signal t∗ 
+
+> 1
+
+t∗ ← − 1, p∗ ← 0 
+
+> 2
+
+N ← number of columns in P // Usually equals the length of the raw signal  
+
+> 3
+
+A ← min( W · δ · s, ⌈N/ 2⌉) 
+
+> 4
+
+tstart ← 1, tend ← tstart + A − 1       
+
+> /* Iterate over blocks of Acolumns of matrix P, continue until halfway through P*/
+> 5
+
+while tstart ≤ ⌈ N/ 2⌉ do  
+
+> 6
+
+B ← ∅ // set of parent beams  
+
+> 7
+
+for i = tstart to tend − 1 do  
+
+> 8
+
+b ← ⟨ prob = 0 , start pos = i, end pos = i, sequence length = 1 ⟩ 
+
+> 9
+
+b.prob ← probability that the i-th sample of the raw signal 6
+
+corresponds to the first unit of k 
+
+> 10
+
+B ← { b} ∪ B  
+
+> 11
+
+if s > 1 then  
+
+> 12
+
+B ← SubsamplingBeamSearch (B, P [: , t start : tend ], k, s, d ) 
+
+> 13
+
+B ← Prune (B, τ ) // Keep top beams comprising τ fraction of total probability  
+
+> 14
+
+t′, p ′ ← PrimerBeamSearch (B, P [: , t start : tend ], k, d max , δ ) 
+
+> 15
+
+if p′ > p ∗ then  
+
+> 16
+
+p∗ ← p′, t∗ ← t′ + tstart − 1 
+
+> 17
+
+tstart ← tend , tend ← min( tstart + A, ⌈N/ 2⌉) 
+
+> 18
+
+return t∗
+
+PrimerSeeker attempts to find the sample of the raw signal that maximizes the probability that the upcoming raw samples (columns of P ) correspond to the target sequence k. It does so by considering batches of A consecutive candidate starting positions, and performing a beam search operation on each of them. For our purposes, a beam is essentially a data structure that encapsulates the following variables: 2• start pos and end pos denote the starting and ending column indices spanned by the beam. 
+
+• sequence length refers to the length of the prefix of k that the beam has covered thus far. 
+
+• prob indicates the total probability of the beam, i.e., the probability that the sam-ples of the raw signal (or columns of P ) indexed from start pos to end pos ,correspond to the first sequence length units of k.For the list of candidate starting positions {t, t + 1, . . . , t + A − 1},
+
+PrimerSeeker begins by creating A beams, each of which represents a unique start-ing position from the list through the member variable start pos . Initially, end pos 
+
+is set equal to start pos and sequence length is set to 1, while prob is assigned 
+
+P [k[1] , start pos ], i.e., the probability that the start pos -th raw sample (or col-umn of P ) is associated with the first entry of k. Subsequently, this initial set of 
+
+A beams, say B, may be optionally subjected to a pruning step, based on the user-defined parameter s. This component of the algorithm, elaborated in Algorithm 2, effectively seeks to filter out the most promising candidate in each neighborhood of s
+
+starting positions, in an effort to address the issue of repeated computations discussed in Section 4.3. It involves splitting the set B into s different buckets, say B0, . . . , Bs−1,such that the j-th bucket Bj contains only the beams in B whose starting positions satisfy start pos mod s ≡ j. Following this, for a user-specified integer d > 1 and 
+
+j ∈ { 0, . . . , s − 1}, the beams in Bj undergoes s − j + d iterations of propagation, merging, sorting, and pruning, identically to Fig. 2. In each such iteration, the vari-able end pos of the involved beams is incremented by one. This means that after the completion of this staggered beam propagation process, the beams in bucket Bj will satisfy end pos = start pos + s − j + d, or equivalently, end pos mod s ≡ d, which is notably independent of j. In other words, we propagate beams from different start-ing positions to different depths such that their end positions become aligned, which allows subsequent merging, as described below. The beams in all buckets B0, . . . , Bs−1 are then combined into a new set B′ and subjected to a different kind of merging operation—namely, that if any two distinct beams b1, b2 ∈ B ′ match in their values of end pos and sequence length , respectively, then they are unified into a single beam b′, with prob set to b1.prob + b2.prob and 
+
+start pos is assigned the corresponding variable of the beam with higher probability. This merging step is followed by the usual sorting operation which orders the beams in B′ is descending order of their respective prob values, and the top A/s 
+
+number of beams of B′ are preserved, while the rest are discarded. Optionally, B′
+
+may be subjected to a further pruning round, the extent of which is controlled by the user-defined fraction τ , referred to as the concentration threshold. Specifically, this step involves only preserving the top Z < |B ′| beams of B′, such that the sum of probabilities of these surviving Z beams is at most τ times the sum of probabilities of the beams in the initial version B′.The final stage of PrimerSeeker constitutes subjecting B′ to the familiar beam propagation process explained in Fig. 2 and laid out more formally in Algorithm 3. 3Algorithm 2: SubsamplingBeamSearch 
+
+Input: Set of beams B, probability matrix P ∈ RQ×N , target sequence k,and subsampling factor s
+
+Parameters: Extension depth d
+
+Output: Pruned set of beams B′ 
+
+> 1
+
+W ← (number of beams in B)/s // Target number of beams  
+
+> 2
+
+N ← number of columns in P // Length of raw signal  
+
+> 3
+
+for i = 0 to s − 1 do  
+
+> 4
+
+Bi ← { b ∈ B : b.start pos mod s ≡ i} // i-th bucket  
+
+> 5
+
+nsteps ← s − i + d // Number of propagation steps for beams  
+
+> 6
+
+for t = 1 to nsteps do  
+
+> 7
+
+V ← ∅ // Initialize set of child beams  
+
+> 8
+
+foreach b ∈ B i such that b.end pos + 1 < N do  
+
+> 9
+
+p′ ← b.prob · P [k[b.sequence length ], b.end pos + 1]  
+
+> 10
+
+bdwell ← ⟨ prob = p′, start pos = b.start pos , end pos =
+
+b.end pos + 1 , sequence length = b.sequence length ⟩ 
+
+> 11
+
+ˆp ← b.prob · P [k[b.sequence length + 1] , b.end pos + 1]  
+
+> 12
+
+bext ← ⟨ prob = ˆ p, start pos = b.start pos , end pos =
+
+b.end pos + 1 , sequence length = b.sequence length + 1 ⟩ 
+
+> 13
+
+V ← V ∪ { bdwell , bext } 
+
+> 14
+
+Bi ← V  
+
+> 15
+
+if Bi = ∅ then  
+
+> 16
+
+break   
+
+> /* Merge beams with same starting position and sequence length */
+> 17
+
+foreach pair of distinct beams b1, b2 ∈ B i such that 
+
+b1.start pos = b2.start pos and 
+
+b1.sequence length = b2.sequence length do  
+
+> 18
+
+b1.prob ← b1.prob + b2.prob  
+
+> 19
+
+Bi ← B i \ { b2} 
+
+> 20
+
+Sort Bi in descending order of probability and only keep its top W
+
+beams  
+
+> 21
+
+B′ ← Ss−1 
+
+> i=0
+
+Bi    
+
+> /* Merge beams in B′that end at same sample and have same sequence length */
+> 22
+
+foreach pair of distinct beams (b1, b2) ∈ B ′ such that b1.end pos = b2.end pos 
+
+and b2.sequence length = b2.sequence length do  
+
+> 23
+
+b1.prob ← b1.prob + b2.prob  
+
+> 24
+
+B′ ← B ′ \ { b2} 
+
+> 25
+
+Sort B′ in descending order of probability and only keep its top W beams  
+
+> 26
+
+return B′
+
+4In our simulations on Lau et al. ’s dataset, we observed that as the subsampling factor s increases from 1, the runtime complexity of PrimerSeeker-CTC decreases lin-early at first. However, the rate of this decrease soon starts falling, before eventually reaching a plateau at s = 8. This speedup is usually accompanied by only a slight degradation in performance of PrimerSeeker —a less than 1% drop in the fraction of reads for which the estimates from PrimerSeeker-CTC and Chandak et al. ’s approach differ by no more than 50. By cleverly tuning the subsampling factor s, the number of beams W , and the concentration threshold τ , we demonstrate on the dataset by Lau 
+
+et al. that PrimerSeeker-CTC achieves a time complexity similar to that of basecalling (Supplementary S3.1). 
+
+# S2 Simulations 
+
+Recall from Section 4.1 that the parity-check matrix of a ( c, b, ν ) convolutional code of length N consists of repeated instances of a smaller submatrix of c columns. This means that the complete syndrome trellis (of N + 1 levels) can be derived from a smaller syndrome trellis (of c + 1 levels) corresponding to the aforementioned smaller parity-check matrix. Thus, for the purpose of our decoding simulations, we only need to store a representation of this smaller syndrome trellis in the cache memory. As mentioned earlier, this syndrome trellis usually has 2 c−b+ν syndrome states at each level. For fast access, we store the minimal syndrome trellis in cache memory by saving the numerical representation of each syndrome state as a 32-bit variable, in addition to using 4 extra bits for each of the 4 possible DNA symbols, whether or not it can succeed a specific syndrome state. Thus, the total space necessary to store the minimal trellis amounts to at most 2 c−b+ν · c · (32 + 4) bits. Assuming that the cache memory can hold up to 32MB and that c ≤ 20, this implies that convolutional codes with high rate (small value of c − b) and memory up to ν = 18 can be practically used with 
+
+SynDe . For a general linear code of 240 bits (equivalently, 120 quaternary symbols) and rate r, each level of the associated syndrome trellis has at most 2 (1 −r)·240 states. Using equivalent arguments as before, we conclude that SynDe can accommodate such codes provided that r ≥ 0.934. The codes we use in our simulations are listed in Table S1, while in Table S2 we list the codes used to evaluate BeamTrellis . While the syndrome trellis complexity of the codes in Table S1 is dictated by ν, BeamTrellis operates on a different kind of trellis where each state corresponds to the content of the ν shift registers in the encoder of a convolutional code. Thus, the number of states at each level is given by 2 ν , meaning that ν also dictates the trellis complexity in the case of BeamTrellis .To test these encoding schemes on raw nanopore sequencing reads, we first map every raw read to its reference sequence via basecalling and alignment. Subsequently, we conduct simulations (of PrimerSeeker and SynDe ) by assuming that a portion of the reference sequence corresponds to a random codeword, translated by a pseudo-random offset known to the decoder. We consider payload sequences that are between 105 and 130 bases in length, with primer sequences of 25 bases 7 on each side.  
+
+> 7The last 23 bases of the primers are considered on Lau et al. ’s dataset.
+
+5Algorithm 3: PrimerBeamSearch 
+
+Input: Set of beams B, probability matrix P ∈ RQ×N , target sequence k,and shift δ
+
+Output: Best starting position t∗, best score p∗ 
+
+> 1
+
+t∗ ← − 1, p∗ ← 0 
+
+> 2
+
+N ← number of columns in P 
+
+> 3
+
+Φ ← [0 .0, . . . , 0.0] of length N 
+
+> 4
+
+L ← length of k  
+
+> /* Distribute beams into buckets based on starting position */
+> 5
+
+for j = 0 to δ − 1 do  
+
+> 6
+
+Bj ← { b ∈ B : b.start pos mod δ ≡ j}, ϕj ← P 
+
+> b∈B j
+
+b.prob   
+
+> /* Start beam propagation process */
+> 7
+
+while max j ϕj > 0 do  
+
+> 8
+
+j∗ ← arg max j ϕj 
+
+> 9
+
+V ← ∅  
+
+> 10
+
+foreach b ∈ B j∗ such that b.prob ≥ p∗, b.sequence length ≤ L, and 
+
+b.end pos < N do  
+
+> 11
+
+tstart ← b.start pos , tend ← b.end pos  
+
+> 12
+
+ℓ ← b.sequence length  
+
+> 13
+
+p′ ← b.prob · P [k[ℓ], t end + 1] // Dwelling probability  
+
+> 14
+
+bdwell ← ⟨ prob = p′, start pos = tstart , end pos =
+
+tend + 1 , sequence length = ℓ + 1 ⟩ 
+
+> 15
+
+ˆp ← b.prob · P [k[ℓ + 1] , t end + 1] // Extension probability  
+
+> 16
+
+bext ← ⟨ prob = ˆ p, start pos = tstart , end pos =
+
+tend + 1 , sequence length = ℓ + 1 ⟩ 
+
+> 17
+
+V ← V ∪ { bdwell , bext } 
+
+> 18
+
+Bj∗ ← V  
+
+> 19
+
+if Bj∗ = ∅ then ϕj∗ ← 0, continue   
+
+> /* Merge beams with same starting position and sequence length */
+> 20
+
+foreach pair of distinct beams b1, b2 ∈ B j∗ such that 
+
+b1.start pos = b2.start pos and 
+
+b1.sequence length = b2.sequence length do  
+
+> 21
+
+b1.prob ← b1.prob + b2.prob  
+
+> 22
+
+Bj∗ ← B j∗ \ { b2} 
+
+> 23
+
+Sort Bj∗ in descending order of probability and only keep its top W beams  
+
+> 24
+
+ϕj∗ ← P 
+
+> b∈B j∗
+
+b.prob  
+
+> 25
+
+foreach beam b ∈ B j∗ such that b.sequence length = L do  
+
+> 26
+
+Φ[b.start pos ] ← Φ[b.start pos ] + b.prob  
+
+> 27
+
+if p∗ < Φ[b.start pos ] then  
+
+> 28
+
+t∗ ← b.start pos , p∗ ← Φ[b.start pos ] 
+
+> 29
+
+return t∗,p∗
+
+6Identifier Convolutional code (c, b, ν )Marker period Message length (bits) Payload length Rate Mean beam complexity of                                                               
+
+> SynDe-CTC on Lau et al. ’s dataset CCM10-7 (13 ,12 ,10) 7170 126 0.762 1.84 ×10 3
+> CCM10-6 (13 ,12 ,10) 6166 129 0.744 1.83 ×10 3
+> CCM10-5 (13 ,12 ,10) 5140 117 0.718 1.78 ×10 3
+> CCM9-5 (9 ,8,9) 5134 114 0.702 1.73 ×10 3
+> CCM10-4 (11 ,10 ,10) 4112 106 0.68 1.78 ×10 3
+> CCM9-14 (4 ,3,9) 14 150 113 0.664 2.05 ×10 3
+
+Table S1 Summary of coding schemes used for SynDe . The convolutional codes were designed in [18]. These combined schemes of convolutional codes and marker codes are assigned identifiers to indicate their respective marker periods and parameter value ν. Specifically, a code CCMx-y corresponds to a code construction where the convolutional code has ν = x and the marker code constitutes a single marker symbol inserted after every y symbols of the convolutional codeword. Identifier Convolutional code (c, b, ν )Message length (bits) Payload length Rate Mean beam complexity of                                                         
+
+> BeamTrellis on Lau et al. ’s dataset CC6-5 (6 ,5,6) 172 112 0.768 1.8×10 5
+> CC8-5 (6 ,5,8) 172 113 0.761 7.3×10 5
+> CC11-5 (6 ,5,11) 172 115 0.7478 5.7×10 6
+> CC6-3 (4 ,3,6) 157 114 0.688 1.7×10 5
+> CC8-3 (4 ,3,8) 156 115 0.678 6.8×10 5
+> CC11-3 (4 ,3,11) 156 117 0.666 5.2×10 6
+
+Table S2 Summary of coding schemes used in [1, 10]. These codes were designed in [31], and we assign them identifiers to indicate their respective parameter values ν and b, i.e., a code CCx-y has 
+
+ν = x and b = y. The rate values stated here account for the 8-bit CRC that is appended to the message vector prior to convolutional encoding in Chandak et al. ’s pipeline. 
+
+When using PrimerSeeker , we maintained a minimum separation of 100 samples (or 100 /σ if the accompanying neural network has a stride of σ samples.). In partic-ular, PrimerSeeker-Lokatt was run with W = 512 and did not employ any runtime optimization tricks, i.e., it was used with s = 1 and τ = 1 .0. On the contrary, 
+
+PrimerSeeker-CTC used the parameter values W = 8, s = 6, and τ = 0 .98. However, both implementations of SynDe were run with W = 512. SynDe-CTC is built on the Bonito basecaller (v0.1.2), and the neural network model used is dna r9.4.1 .When decoding with SynDe , the generated likelihood scores are used to judge the reliability of the decoding result. In particular, instead of using CRC checks as in 
+
+BeamTrellis , our decoding scheme utilizes a user-defined threshold to decide whether a specific decoding result should be accepted, i.e., if the likelihood score of the output codeword exceeds the threshold, it is accepted. To produce FER performance curves similar to Fig. 4, we vary this user-defined threshold, and for each specific threshold, we measure the percentage of raw reads for which SynDe ’s output scores exceeded the threshold, as well as the FER of these remaining reads. 
+
+## S2.1 Performance of PrimerSeeker 
+
+Similar to our results in Fig. 3, we present the performance of PrimerSeeker-CTC and 
+
+PrimerSeeker-Lokatt on the datasets from Lau et al. and Xu et al. (Table S3) in Fig. S1. 7Source Repository Description Volkel et al. [11] 10.5281/zenodo.11985454 Custom-designed oligos of length between 1250–5000 bases, each with a homopolymer length at most 3 and with GC content of 50% over 12 base-pair windows. Xu et al. [22] 10.5281/zenodo.7995806 Ecoli non-methylated genomic DNA (D5016, Zymo Research). Lau et al. [1] https://github.com/ shubhamchandak94/nanopore dna storage data/tree/bonito 15000 oligos, each carrying a payload of 108–119 bases, flanked by primers of 25 bases on both sides.  
+
+> Table S3 Nanopore sequencing datasets used for the simulations in this work. All used ONT MinION devices with flow cell chemistry R9.4.1.
+
+In particular, we consider 24300 raw nanopore signals from the dataset from Lau 
+
+et al. and observe that for 79.54% of these reads, PrimerSeeker-CTC offers estimates that are within 30 samples of the estimates generated by the method employed in Lau 
+
+et al. . Again, on 95 .31% of 9600 raw reads sampled from the dataset by Xu et al. ,the estimates offered by PrimerSeeker-CTC and Lau et al. ’s approach are within 30 samples of each other. While PrimerSeeker is tasked with detecting target sequences of 25 nucleotides on the datasets from Xu et al. and Volkel et al. , we choose to ignore the first 2 nucleotides of the true forward primer sequence on Lau et al. ’s dataset, i.e., the sought target sequence is the length-23 suffix of the actual flanking sequence. As mentioned in Section 3, doing so not only bypasses potential boundary artifacts in the raw signal but also provides robustness against neural network errors in this region. 
+
+## S2.2 Improvement with Marker Codes 
+
+Fig. S2 illustrates the performance of SynDe-CTC across four coding schemes. Two of these schemes just employ convolutional codes, while the other two incorporate con-stant marker symbols into the convolutional codes. Although the latter schemes have a higher rate than the convolutional codes, they provide a better trade-off between the fraction of discarded reads and the FER. This may seem counterintuitive at first, but it is important to consider that, unlike the binary symmetric channel, the varying dwell times of different k-mers in nanopore sequencers make it challenging to accu-rately determine the codeword position to which a specific sample in the raw signal corresponds, as discussed in Section 4.1. The addition of marker symbols helps mitigate this uncertainty to some extent, leading to an improved FER performance. 
+
+## S2.3 SynDe : Motivation and Performance 
+
+The primary idea behind SynDe is similar to the motivation behind sequential decod-ing of convolutional codes. That is, if the channel is perfectly noiseless, we need not use trellis-based decoders (Viterbi decoders) since a beam search decoder with a sin-gle beam ( W = 1) will offer an identical FER performance. On the other hand, when 80 10 20 30 40 50 60 
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+∆     
+
+> Fraction of reads with distance exceeding ∆
+> Xu et al. ’s dataset [22]
+> Lau et al. ’s dataset [1]
+> PrimerSeeker-CTC v/s Chandak et al. ’s method
+> PrimerSeeker-Lokatt v/s Guppy
+
+Fig. S1 Performance of the primer search algorithm on the datasets from Xu et al. and Lau et al. (see Table S3). Similar to Fig. 3, we observe that on both datasets, the estimates obtained from 
+
+PrimerSeeker-CTC and Chandak et al. ’s method are very close for most of the raw reads. The per-formance on the latter dataset is worse, especially so when we compare PrimerSeeker-Lokatt with the Guppy-based technique. This is most likely owed to the fact that Lau et al. ’s dataset involves much shorter reads, on which basecalling performance is usually poorer. 
+
+0 20 40 60 80 100 
+
+10 −3
+
+10 −2
+
+10 −1
+
+10 0
+
+Percentage of reads discarded (%) 
+
+> Frame Error Rate
+> CC4-6, rate=0 .643
+> CC5-7, rate=0 .675
+> CCM10-5, rate=0 .718
+> CCM10-4, rate=0 .68
+
+Fig. S2 Examination of how the decoding performance of SynDe-CTC changes with the incorpora-tion of marker symbols into convolutional codes on the dataset from Volkel et al. .
+
+9operating on practical channels plagued with noise, a beam search decoder employ-ing infinitely many beams is equivalent to Viterbi decoding 8, under the assumption that marker symbols guarantee the synchronization of the decoded sequence with the syndrome tree. Consequently, adjusting the number of beams allows us to explore intermediate FER regimes. Indeed, we strive to show that the performance of trellis-based decoders can be approached by SynDe despite the latter being linearly complex in the length of the payload sequences, since the nanopore sequencing channel offers a sufficient amount of soft information that can be intelligently leveraged, allowing us to correct errors in raw reads by adopting a faster sequential approach. Fig. S3, Fig. S4, and Fig. S5 present the results of decoding simulations on the datasets by Volkel et al. , Xu et al. , and Lau et al. , respectively. In all figures, the accuracies of BeamTrellis and SynDe are evaluated by examining how their respective FERs vary with the fraction of decoder outputs that are discarded on the basis of likelihood scores. We observe in Fig. S3 that on the dataset by Volkel et al. ,SynDe-CTC outperforms BeamTrellis . This may be attributed to the use of marker codes, which greatly mitigate the possibility of insertion and deletion errors that are so prevalent in traditional basecalling. Very interestingly, Fig. S3 also indicates that more redundancy is needed for synchronization than for substitution correction. 
+
+SynDe-Lokatt approaches the performance of BeamTrellis , but fails to outperform it, possibly owing to the inherent limitations of the Lokatt basecaller. However, it is worth noting that since both SynDe-CTC and BeamTrellis heavily rely on the architecture of CTC basecallers, a comparison between them is fairer than one between SynDe-Lokatt and BeamTrellis . In fact, in our simulations, SynDe-CTC and BeamTrellis receive soft information on the raw reads from the same neural network used by Bonito basecallers for flow cell chemistry R9.4.1. In Fig. S4, we observe that SynDe-Lokatt is able to match the performance of 
+
+BeamTrellis when both use codes of the same rate, while SynDe-CTC outperforms both. On the contrary, the results on the dataset by Lau et al. (Fig. S5) indicate that 
+
+SynDe-CTC does not outperform BeamTrellis as it did on the other two datasets, but remains comparable despite being significantly more efficient. 
+
+# S3 Complexity Analysis 
+
+In the following, we present the time complexity of our algorithms PrimerSeeker and 
+
+SynDe , both of which primarily involve many rounds of beam search operations. Recall from Fig. 2 and Fig. 6 that the process of beam search comprises M rounds of beam extensions, along with merging, pruning, and sorting operations, where M is pro-portional to the length of the raw read. Since the complexity of beam extensions comfortably dominate those of the sorting, merging, and pruning processes, we char-acterize the time complexity of both PrimerSeeker and SynDe in terms of the average number of beam extensions performed for each sample of the raw signal. Henceforth, we refer to this as the mean beam complexity .
+
+> 8This perspective is analogous to stack decoding of convolutional codes [32] with a sufficiently large stack.
+
+10 0 20 40 60 80 100 
+
+10 −3
+
+10 −2
+
+10 −1
+
+10 0
+
+Percentage of reads discarded (%) 
+
+> Frame Error Rate
+
+SynDe-Lokatt , CCM9-5, rate=0 .702 
+
+SynDe-Lokatt , CCM10-4, rate=0 .68 
+
+BeamTrellis , CC11-5, rate=0 .7478 
+
+BeamTrellis , CC8-3, rate=0 .678 
+
+SynDe-CTC , CCM10-6, rate=0 .744 
+
+SynDe-CTC , CCM9-5, rate=0 .702 
+
+Fig. S3 Comparison of the decoding performance of SynDe-CTC and SynDe-Lokatt with BeamTrel-lis [10] on the dataset from Volkel et al. . Extended version of Fig. 4. 
+
+0 20 40 60 80 100 
+
+10 −3
+
+10 −2
+
+10 −1
+
+10 0
+
+Percentage of reads discarded (%) 
+
+> Frame Error Rate
+> BeamTrellis , CC9-14, rate=0 .7478
+> SynDe-Lokatt , CCM10-6, rate=0 .744
+> BeamTrellis , CC10-6, rate=0 .678
+> SynDe-Lokatt , CCM10-4, rate=0 .68
+> SynDe-CTC , CCM10-6, rate=0 .744
+> SynDe-CTC , CCM10-4, rate=0 .684
+
+Fig. S4 Comparison of the decoding performance of SynDe-CTC and SynDe-Lokatt with BeamTrel-lis [10] on the dataset from Xu et al. , similar to Fig. 4. The FER performance of BeamTrellis is matched by SynDe-Lokatt and surpassed by SynDe-CTC .
+
+11 0 20 40 60 80 100 
+
+10 −4
+
+10 −3
+
+10 −2
+
+10 −1
+
+10 0
+
+Percentage of reads discarded (%) 
+
+> Frame Error Rate
+> SynDe-Lokatt , CCM10-7, rate=0 .75
+> BeamTrellis , CC6-5, rate=0 .768
+> BeamTrellis , CC8-5, rate=0 .761
+> BeamTrellis , CC11-3, rate=0 .666
+> SynDe-CTC , CCM10-7, rate=0 .75
+> SynDe-CTC , CCM9-14, rate=0 .664
+
+Fig. S5 Comparison of the decoding performance of SynDe-CTC and SynDe-Lokatt with BeamTrel-lis [10] on the dataset from Lau et al. , similar to Fig. 4. Unlike in Fig. 4 and Fig. S4, the FER performance of SynDe-CTC does not surpass that of BeamTrellis , but remains comparable despite the lower complexity of SynDe-CTC .
+
+## S3.1 PrimerSeeker 
+
+The notion of mean beam complexity is particularly useful for comparing with the primer localization approach adopted by Chandak et al. , since the complexity of the latter is primarily influenced by that of basecalling, the mean beam complexity of which can be measured. We conduct simulations on the dataset by Lau et al. to measure the mean beam complexity of PrimerSeeker-CTC as well as CTC basecalling. For the latter, we set 
+
+W = 5, which is the default number of beams used by the Bonito basecaller and in Chandak et al. ’s implementation, resulting in a mean beam complexity of 28 .9. On the other hand, running PrimerSeeker-CTC with W = 8, s = 6, and τ = 0 .98 yielded a mean beam complexity of 33 .28, such that for 82% of the reads, the primer location estimates from both methods are within 50 samples of each other. Notably, when using 
+
+W = 8, s = 1, and τ = 1 .0, the two methods produced estimates within 50 samples for 79 .4% of reads, but the mean beam complexity of PrimerSeeker-CTC increased to 112 .61. 
+
+## S3.2 SynDe 
+
+As we did for PrimerSeeker , we now seek to demonstrate the computational advantage of SynDe over BeamTrellis . Although the latter does not involve beam search, it requires computing the probabilities of nodes over an expanded form of the convolutional 12 code trellis [10]. These computations may be considered to be equivalent to the beam extensions used to define mean beam complexity. As a consequence, we adapt the definition of the mean beam complexity of BeamTrellis to be the average number of probability computations performed for each sample of the raw signal (or rather, the number of columns in the probability matrix P ). Essentially, this translates to the ratio of the number of edges in the expanded code trellis to the number of columns in P . SynDe-CTC is run with W = 512 and the mean beam complexity figures of 
+
+SynDe-CTC and BeamTrellis for different coding schemes on the dataset by Lau et al. 
+
+are stated in Table S1 and Table S2, respectively. Therein, we observe that for codes with nearly identical rates, SynDe-CTC offers a complexity reduction of at least two orders of magnitude compared to BeamTrellis . For instance, when the error correction scheme CCM9-14 (Table S1) with rate 0 .664 and codeword length 113 is used with 
+
+SynDe-CTC , the mean beam complexity is 2 .05 × 10 3, three orders of magnitude lower than the mean beam complexity of BeamTrellis when used to decode codewords from the code CC11-3 (Table S2) with rate 0 .666 and codeword length 117. To explicitly demonstrate how the time complexity of SynDe and BeamTrellis are influenced by different parameter choices and convolutional codes, we also present the following theoretical analysis. First, we recall that SynDe initiates a single beam from the raw sample from where the primer sequence is believed to have started, as depicted in Fig. 6. Subsequently, this beam is propagated through a ‘primer region’, then a ‘payload region’, and finally another primer region. While the number of extension events that every beam undergoes, i.e., child beams created per parent beam in the two primer regions is usually 2, corresponding to a dwelling event and an extension event, respectively, the payload region involves the creation of ρ + 1 child beams for each parent beam, where ρ refers to the average number of outgoing edges per level in the quaternary syndrome trellis of the convolutional code being used. Assuming the computational cost of a creating single child beam to be C1 and that at most W
+
+beams are employed in each iteration, we infer that the net mean beam complexity of 
+
+SynDe can be expressed as follows. Mean beam complexity of SynDe-Lokatt ∝ 2 · 2C1W dL + ( ρ + 1) C1W dM 
+
+= (4 L + ( ρ + 1) M )C1W d, 
+
+where d refers to the average dwell time of a single k-mer in the nanopore, while L
+
+and M refer to the lengths of the primer and the payload sequences, respectively. For CTC basecallers like Bonito which typically involve a stride parameter, this expression simply transforms into: Mean beam complexity of SynDe-CTC ∝ (4 L + ( ρ + 1) M )C1W d/σ, 
+
+since the number of columns in the associated neural network’s output probability matrix P is at most 1 /σ times the length of the raw signal. Note that for any linear error correction code, it holds that ρ < 4, since ρ = 4 implies that every parent beam may undergo extension to any of the 4 bases of the DNA alphabet, as in basecalling. Thus, the structural complexity of the tree explored 13 Time Complexity Storage Complexity                                    
+
+> SynDe O(W N )O(W M )
+> BeamTrellis [1, 10] O(M2N2ν)O(M22ν)
+> AlignmentMatrix [11] O(M N 2ν)O(N2ν)
+> Table S4 Comparison of time and storage complexities. Here Wdenotes the number of beams and νrefers to the memory of the convolutional code being used. L,M, and Ndenote the lengths of the primer sequence, the payload, and the raw read, respectively. Understandably, Nis proportional to M. In this summary, we have ignored the complexity of sorting Wbeams as it is comfortaby exceeded by that of the beam-hghgextension phase in beam search algorithms.
+
+by SynDe ’s beam search is strictly less than that of the tree traversed by a basecaller’s beam search. In contrast, the mean beam complexity of BeamTrellis [11] can be characterized as: Complexity of BeamTrellis ≈ C2M 2N 2ν /σ, (2) where N refers to the average length of the raw signal that corresponds exclusively to the payload (of length M ), C2 refers to the cost of a single score computation, and ν
+
+represents the memory of the convolutional code. Understandably, N is proportional to M , and the stride σ appears due to the use of the Bonito basecaller. Table S4 compares the time and storage complexities of SynDe , BeamTrellis , and another competing decoding algorithm called AlignmentMatrix [11]. Although Align-mentMatrix remarkably improves on BeamTrellis in terms of efficiency, its time and storage complexities still scale exponentially with ν. Thus it becomes evident that unlike BeamTrellis and AlignmentMatrix , SynDe is capable of accommodating codes of higher memory without incurring any significant increase in decoding latency, which we rely on in our performance comparisons in Section 2. 14

@@ -1,0 +1,439 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-03T20:02:34.830922+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 12,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2603.29546v1",
+      "title": "Sampling from the Solution Space and Metabolic Environments of Genome-Scale Metabolic Models",
+      "abstract": "Flux sampling is an analysis that, based on a distribution, picks randomly an efficient number of points from the solution space of a metabolic model. Unlike most constraint-based analyses, flux sampling does not require an objective function to optimize, allowing for the exploration of the whole spectrum of the phenotypes a species can exhibit. However, sampling can also be restricted to a subspace where a chosen objective reaches at least a specified fraction of its optimum. This targeted approach adds value when investigating phenotypes that are optimal for a specific function. Contrary to Flux Balance Analysis, which returns a single solution, sampling leverages statistical power to uncover phenotypes that otherwise would be masked. This can be especially useful when changing the conditions (medium) in which a species lives. Here, we highlight some state-of-the-art methods for applying flux sampling at Genome-Scale Metabolic Models in different scenarios, and we showcase flux sampling applications",
+      "authors": [
+        "Haris Zafeiropoulos",
+        "Daniel Rios Garza"
+      ],
+      "primary_category": "q-bio.MN",
+      "categories": [
+        "q-bio.MN",
+        "q-bio.QM"
+      ],
+      "published": "2026-03-31T10:28:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.29546v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Genome-scale metabolic models and computational biology",
+      "llm_evidence_cn": "全基因组代谢模型与计算生物学",
+      "llm_evidence": "全基因组代谢模型与计算生物学",
+      "canonical_evidence": "全基因组代谢模型与计算生物学",
+      "llm_tldr_en": "Explores metabolic phenotypes using flux sampling in genome-scale models without needing objective functions.",
+      "llm_tldr_cn": "利用通量采样技术在全基因组模型中探索代谢表型，无需预设目标函数。",
+      "llm_tldr": "利用通量采样技术在全基因组模型中探索代谢表型，无需预设目标函数。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25158v3",
+      "title": "Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills",
+      "abstract": "Equipping Large Language Model (LLM) agents with domain-specific skills is critical for tackling complex tasks. Yet, manual authoring creates a severe scalability bottleneck. Conversely, automated skill generation often yields fragile or fragmented results because it either relies on shallow parametric knowledge or sequentially overfits to non-generalizable trajectory-local lessons. To overcome this, we introduce Trace2Skill, a framework that mirrors how human experts author skills: by holistically analyzing broad execution experience before distilling it into a single, comprehensive guide. Instead of reacting sequentially to individual trajectories, Trace2Skill dispatches a parallel fleet of sub-agents to analyze a diverse pool of executions. It extracts trajectory-specific lessons and hierarchically consolidates them into a unified, conflict-free skill directory via inductive reasoning. Trace2Skill supports both deepening existing human-written skills and creating new ones from scratch. Experiments in challenging domains, such as spreadsheet, VisionQA and math reasoning, show that Trace2Skill significantly improves upon strong baselines, including Anthropic's official xlsx skills. Crucially, this trajectory-grounded evolution does not merely memorize task instances or model-specific quirks: evolved skills transfer across LLM scales and generalize to OOD settings. For example, skills evolved by Qwen3.5-35B on its own trajectories improved a Qwen3.5-122B agent by up to 57.65 absolute percentage points on WikiTableQuestions. Ultimately, our results demonstrate that complex agent experience can be packaged into highly transferable, declarative skills -- requiring no parameter updates, no external retrieval modules, and utilizing open-source models as small as 35B parameters.",
+      "authors": [
+        "Jingwei Ni",
+        "Yihao Liu",
+        "Xinpeng Liu",
+        "Yutao Sun",
+        "Mengyu Zhou",
+        "Pengyu Cheng",
+        "Dexin Wang",
+        "Erchao Zhao",
+        "Xiaoxi Jiang",
+        "Guanjun Jiang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-26T08:26:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.25158v3",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for distilling domain-specific skills for LLM agents",
+      "llm_evidence_cn": "为大语言模型智能体提取领域特定技能的框架",
+      "llm_evidence": "为大语言模型智能体提取领域特定技能的框架",
+      "canonical_evidence": "为大语言模型智能体提取领域特定技能的框架",
+      "llm_tldr_en": "Trace2Skill distills execution experience into transferable skills for LLM agents to tackle complex tasks.",
+      "llm_tldr_cn": "Trace2Skill 将执行经验提取为可迁移技能，帮助大语言模型智能体处理复杂任务。",
+      "llm_tldr": "Trace2Skill 将执行经验提取为可迁移技能，帮助大语言模型智能体处理复杂任务。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01054v1",
+      "title": "SynDe: Syndrome-guided Decoding of Raw Nanopore Reads",
+      "abstract": "Nanopore sequencing technology remains highly error-prone, making efficient error correction essential in DNA-based data storage. Prior work addressed high error rates using convolutional codes with their decoder coupled with the basecaller, but such approaches only accommodate a limited number of code classes and incur significant decoding complexity. To overcome these limitations, we propose two algorithms: PrimerSeeker, which efficiently detects primer sequences in raw nanopore sequencing reads, and SynDe, a decoder that operates on the same raw reads and supports any linear error correction code with a low-complexity graphical representation. PrimerSeeker provides primer location estimates close to those of existing approaches while being better suited for real-time primer detection during sequencing. SynDe performs well with convolutional codes augmented with periodic markers, often approaching or exceeding the performance of existing algorithms with a lower time complexity. Remarkably, the confidence scores produced by SynDe reliably identify which of its outputs should be discarded.",
+      "authors": [
+        "Anisha Banerjee",
+        "Roman Sokolovskii",
+        "Thomas Heinis",
+        "Antonia Wachter-Zeh",
+        "Eirik Rosnes",
+        "Alexandre Graell i Amat"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT"
+      ],
+      "published": "2026-04-01T15:57:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.01054v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "decoding raw nanopore sequencing reads",
+      "llm_evidence_cn": "原始纳米孔测序读取解码",
+      "llm_evidence": "原始纳米孔测序读取解码",
+      "canonical_evidence": "原始纳米孔测序读取解码",
+      "llm_tldr_en": "Proposes algorithms for efficient error correction and primer detection in raw nanopore sequencing reads.",
+      "llm_tldr_cn": "提出用于原始纳米孔测序读取中高效纠错和引物检测的算法。",
+      "llm_tldr": "提出用于原始纳米孔测序读取中高效纠错和引物检测的算法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.28200v1",
+      "title": "A Deep Reinforcement Learning Framework for Closed-loop Guidance of Fish Schools via Virtual Agents",
+      "abstract": "Guiding collective motion in biological groups is a fundamental challenge in understanding social interaction rules and developing automated systems for animal management. In this study, we propose a deep reinforcement learning (RL) framework for the closed-loop guidance of fish schools using virtual agents. These agents are controlled by policies trained via Proximal Policy Optimization (PPO) in simulation and deployed in physical experiments with rummy-nose tetras (Petitella bleheri), enabling real-time interaction between artificial agents and live individuals. To cope with the stochastic behavior of live individuals, we design a composite reward function to balance directional guidance with social cohesion. Our systematic evaluation of visual parameters shows that a white background and larger stimulus sizes maximize guidance efficacy in physical trials. Furthermore, evaluation across group sizes revealed that while the system demonstrates effective guidance for groups of five individuals, this capability markedly degrades as group size increases to eight. This study highlights the potential of deep RL for automated guidance of biological collectives and identifies challenges in maintaining artificial influence in larger groups.",
+      "authors": [
+        "Takato Shibayama",
+        "Hiroaki Kawashima"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG",
+        "q-bio.PE"
+      ],
+      "published": "2026-03-30T09:10:02+00:00",
+      "link": "https://arxiv.org/pdf/2603.28200v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Reinforcement learning for guiding biological groups (fish schools)",
+      "llm_evidence_cn": "用于引导生物群体（鱼群）的强化学习框架",
+      "llm_evidence": "用于引导生物群体（鱼群）的强化学习框架",
+      "canonical_evidence": "用于引导生物群体（鱼群）的强化学习框架",
+      "llm_tldr_en": "A deep RL framework using virtual agents to guide the collective motion of live fish schools in real-time.",
+      "llm_tldr_cn": "一种利用虚拟智能体通过深度强化学习实时引导真实鱼群集体运动的框架。",
+      "llm_tldr": "一种利用虚拟智能体通过深度强化学习实时引导真实鱼群集体运动的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01452v1",
+      "title": "A Multi-Agent Human-LLM Collaborative Framework for Closed-Loop Scientific Literature Summarization",
+      "abstract": "Scientific discovery is slowed by fragmented literature that requires excessive human effort to gather, analyze, and understand. AI tools, including autonomous summarization and question answering, have been developed to aid in understanding scientific literature. However, these tools lack the structured, multi-step approach necessary for extracting deep insights from scientific literature. Large Language Models (LLMs) offer new possibilities for literature analysis, but remain unreliable due to hallucinations and incomplete extraction. We introduce Elhuyar, a multi-agent, human-in-the-loop system that integrates LLMs, structured AI, and human scientists to extract, analyze, and iteratively refine insights from scientific literature. The framework distributes tasks among specialized agents for filtering papers, extracting data, fitting models, and summarizing findings, with human oversight ensuring reliability. The system generates structured reports with extracted data, visualizations, model equations, and text summaries, enabling deeper inquiry through iterative refinement. Deployed in materials science, it analyzed literature on tungsten under helium-ion irradiation, showing experimentally correlated exponential helium bubble growth with irradiation dose and temperature, offering insight for plasma-facing materials (PFMs) in fusion reactors. This demonstrates how AI-assisted literature review can uncover scientific patterns and accelerate discovery.",
+      "authors": [
+        "Maxwell J. Jacobson",
+        "Daniel Xie",
+        "Jackson Shen",
+        "Adil Wazeer",
+        "Haiyan Wang",
+        "Xinghang Zhang",
+        "Yexiang Xue"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-01T22:58:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.01452v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent LLM system for scientific literature analysis and discovery",
+      "llm_evidence_cn": "用于科学文献分析和发现的多智能体大语言模型系统",
+      "llm_evidence": "用于科学文献分析和发现的多智能体大语言模型系统",
+      "canonical_evidence": "用于科学文献分析和发现的多智能体大语言模型系统",
+      "llm_tldr_en": "A multi-agent framework integrating LLMs and humans to improve scientific literature analysis and insight extraction.",
+      "llm_tldr_cn": "一种集成大模型与人类专家的多智能体框架，旨在提升科学文献分析与见解提取的深度。",
+      "llm_tldr": "一种集成大模型与人类专家的多智能体框架，旨在提升科学文献分析与见解提取的深度。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.28990v1",
+      "title": "Drop the Hierarchy and Roles: How Self-Organizing LLM Agents Outperform Designed Structures",
+      "abstract": "How much autonomy can multi-agent LLM systems sustain -- and what enables it? We present a 25,000-task computational experiment spanning 8 models, 4--256 agents, and 8 coordination protocols ranging from externally imposed hierarchy to emergent self-organization. We observe that autonomous behavior already emerges in current LLM agents: given minimal structural scaffolding (fixed ordering), agents spontaneously invent specialized roles, voluntarily abstain from tasks outside their competence, and form shallow hierarchies -- without any pre-assigned roles or external design. A hybrid protocol (Sequential) that enables this autonomy outperforms centralized coordination by 14% (p<0.001), with a 44% quality spread between protocols (Cohen's d=1.86, p<0.0001). The degree of emergent autonomy scales with model capability: strong models self-organize effectively, while models below a capability threshold still benefit from rigid structure -- suggesting that as foundation models improve, the scope for autonomous coordination will expand. The system scales sub-linearly to 256 agents without quality degradation (p=0.61), producing 5,006 unique roles from just 8 agents. Results replicate across closed- and open-source models, with open-source achieving 95% of closed-source quality at 24x lower cost. The practical implication: give agents a mission, a protocol, and a capable model -- not a pre-assigned role.",
+      "authors": [
+        "Victoria Dochkina"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-03-30T20:44:53+00:00",
+      "link": "https://arxiv.org/pdf/2603.28990v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Study on self-organizing LLM agents and coordination protocols",
+      "llm_evidence_cn": "关于自组织大模型智能体与协调协议的研究",
+      "llm_evidence": "关于自组织大模型智能体与协调协议的研究",
+      "canonical_evidence": "关于自组织大模型智能体与协调协议的研究",
+      "llm_tldr_en": "Explores how self-organizing LLM agents can outperform pre-designed hierarchical structures in complex tasks.",
+      "llm_tldr_cn": "探讨了自组织大模型智能体在复杂任务中如何超越预设的层级结构。",
+      "llm_tldr": "探讨了自组织大模型智能体在复杂任务中如何超越预设的层级结构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01658v1",
+      "title": "CORAL: Towards Autonomous Multi-Agent Evolution for Open-Ended Discovery",
+      "abstract": "Large language model (LLM)-based evolution is a promising approach for open-ended discovery, where progress requires sustained search and knowledge accumulation. Existing methods still rely heavily on fixed heuristics and hard-coded exploration rules, which limit the autonomy of LLM agents. We present CORAL, the first framework for autonomous multi-agent evolution on open-ended problems. CORAL replaces rigid control with long-running agents that explore, reflect, and collaborate through shared persistent memory, asynchronous multi-agent execution, and heartbeat-based interventions. It also provides practical safeguards, including isolated workspaces, evaluator separation, resource management, and agent session and health management. Evaluated on diverse mathematical, algorithmic, and systems optimization tasks, CORAL sets new state-of-the-art results on 10 tasks, achieving 3-10 times higher improvement rates with far fewer evaluations than fixed evolutionary search baselines across tasks. On Anthropic's kernel engineering task, four co-evolving agents improve the best known score from 1363 to 1103 cycles. Mechanistic analyses further show how these gains arise from knowledge reuse and multi-agent exploration and communication. Together, these results suggest that greater agent autonomy and multi-agent evolution can substantially improve open-ended discovery. Code is available at https://github.com/Human-Agent-Society/CORAL.",
+      "authors": [
+        "Ao Qu",
+        "Han Zheng",
+        "Zijian Zhou",
+        "Yihao Yan",
+        "Yihong Tang",
+        "Shao Yong Ong",
+        "Fenglu Hong",
+        "Kaichen Zhou",
+        "Chonghe Jiang",
+        "Minwei Kong",
+        "Jiacheng Zhu",
+        "Xuan Jiang",
+        "Sirui Li",
+        "Cathy Wu",
+        "Bryan Kian Hsiang Low",
+        "Jinhua Zhao",
+        "Paul Pu Liang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-02T05:59:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.01658v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Autonomous multi-agent evolution framework for open-ended discovery",
+      "llm_evidence_cn": "用于开放式探索的自主多智能体进化框架",
+      "llm_evidence": "用于开放式探索的自主多智能体进化框架",
+      "canonical_evidence": "用于开放式探索的自主多智能体进化框架",
+      "llm_tldr_en": "CORAL is a framework for autonomous multi-agent evolution using shared memory for open-ended scientific discovery.",
+      "llm_tldr_cn": "CORAL 是一个利用共享内存进行开放式科学发现的自主多智能体进化框架。",
+      "llm_tldr": "CORAL 是一个利用共享内存进行开放式科学发现的自主多智能体进化框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.00248v1",
+      "title": "REM-CTX: Automated Peer Review via Reinforcement Learning with Auxiliary Context",
+      "abstract": "Most automated peer review systems rely on textual manuscript content alone, leaving visual elements such as figures and external scholarly signals underutilized. We introduce REM-CTX, a reinforcement-learning system that incorporates auxiliary context into the review generation process via correspondence-aware reward functions. REM-CTX trains an 8B-parameter language model with Group Relative Policy Optimization (GRPO) and combines a multi-aspect quality reward with two correspondence rewards that explicitly encourage alignment with auxiliary context. Experiments on manuscripts across Computer, Biological, and Physical Sciences show that REM-CTX achieves the highest overall review quality among six baselines, outperforming other systems with substantially larger commercial models, and surpassing the next-best RL baseline across both quality and contextual grounding metrics. Ablation studies confirm that the two correspondence rewards are complementary: each selectively improves its targeted correspondence reward while preserving all quality dimensions, and the full model outperforms all partial variants. Analysis of training dynamics reveals that the criticism aspect is negatively correlated with other metrics during training, suggesting that future studies should group multi-dimension rewards for review generation.",
+      "authors": [
+        "Pawin Taechoyotin",
+        "Daniel E. Acuna"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-03-31T21:19:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.00248v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Automated peer review for biological sciences using LLMs",
+      "llm_evidence_cn": "利用大语言模型进行生物科学自动化同行评审",
+      "llm_evidence": "利用大语言模型进行生物科学自动化同行评审",
+      "canonical_evidence": "利用大语言模型进行生物科学自动化同行评审",
+      "llm_tldr_en": "Uses reinforcement learning and auxiliary context to improve automated peer review for biological manuscripts.",
+      "llm_tldr_cn": "利用强化学习和辅助上下文改进生物学论文的自动化同行评审质量。",
+      "llm_tldr": "利用强化学习和辅助上下文改进生物学论文的自动化同行评审质量。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00835v1",
+      "title": "Agentic Tool Use in Large Language Models",
+      "abstract": "Large language models are increasingly being deployed as autonomous agents yet their real world effectiveness depends on reliable tools for information retrieval, computation and external action. Existing studies remain fragmented across tasks, tool types, and training settings, lacking a unified view of how tool-use methods differ and evolve. This paper organizes the literature into three paradigms: prompting as plug-and-play, supervised tool learning and reward-driven tool policy learning, analyzes their methods, strengths and failure modes, reviews the evaluation landscape and highlights key challenges, aiming to address this fragmentation and provide a more structured evolutionary view of agentic tool use.",
+      "authors": [
+        "Jinchao Hu",
+        "Meizhi Zhong",
+        "Kehai Chen",
+        "Xuefeng Bai",
+        "Min Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-01T12:46:51+00:00",
+      "link": "https://arxiv.org/pdf/2604.00835v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Review of agentic tool use in LLMs and autonomous agents",
+      "llm_evidence_cn": "大模型与自主智能体工具使用的综述",
+      "llm_evidence": "大模型与自主智能体工具使用的综述",
+      "canonical_evidence": "大模型与自主智能体工具使用的综述",
+      "llm_tldr_en": "Provides a structured review of how LLMs use tools to function as autonomous agents in various environments.",
+      "llm_tldr_cn": "系统综述了大语言模型如何利用工具在不同环境中作为自主智能体运行。",
+      "llm_tldr": "系统综述了大语言模型如何利用工具在不同环境中作为自主智能体运行。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Review of large language models and autonomous agents in bioinformatics",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00901v1",
+      "title": "Experience as a Compass: Multi-agent RAG with Evolving Orchestration and Agent Prompts",
+      "abstract": "Multi-agent Retrieval-Augmented Generation (RAG), wherein each agent takes on a specific role, supports hard queries that require multiple steps and sources, or complex reasoning. Existing approaches, however, rely on static agent behaviors and fixed orchestration strategies, leading to brittle performance on diverse, multi-hop tasks. We identify two key limitations: the lack of continuously adaptive orchestration mechanisms and the absence of behavior-level learning for individual agents. To this end, we propose HERA, a hierarchical framework that jointly evolves multi-agent orchestration and role-specific agent prompts. At the global level, HERA optimizes query-specific agent topologies through reward-guided sampling and experience accumulation. At the local level, Role-Aware Prompt Evolution refines agent behaviors via credit assignment and dual-axes adaptation along operational and behavioral principles, enabling targeted, role-conditioned improvements. On six knowledge-intensive benchmarks, HERA achieves an average improvement of 38.69\\% over recent baselines while maintaining robust generalization and token efficiency. Topological analyses reveal emergent self-organization, where sparse exploration yields compact, high-utility multi-agent networks, demonstrating both efficient coordination and robust reasoning.",
+      "authors": [
+        "Sha Li",
+        "Naren Ramakrishnan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-01T13:45:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.00901v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hierarchical framework for multi-agent orchestration and evolving prompts",
+      "llm_evidence_cn": "多智能体编排与演化提示词的分层框架",
+      "llm_evidence": "多智能体编排与演化提示词的分层框架",
+      "canonical_evidence": "多智能体编排与演化提示词的分层框架",
+      "llm_tldr_en": "Proposes HERA, a framework that evolves multi-agent orchestration and prompts to improve complex reasoning.",
+      "llm_tldr_cn": "提出HERA框架，通过演化多智能体编排和提示词来提升复杂推理能力。",
+      "llm_tldr": "提出HERA框架，通过演化多智能体编排和提示词来提升复杂推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01610v1",
+      "title": "GraphWalk: Enabling Reasoning in Large Language Models through Tool-Based Graph Navigation",
+      "abstract": "The use of knowledge graphs for grounding agents in real-world Q&A applications has become increasingly common. Answering complex queries often requires multi-hop reasoning and the ability to navigate vast relational structures. Standard approaches rely on prompting techniques that steer large language models to reason over raw graph context, or retrieval-augmented generation pipelines where relevant subgraphs are injected into the context. These, however, face severe limitations with enterprise-scale KGs that cannot fit in even the largest context windows available today. We present GraphWalk, a problem-agnostic, training-free, tool-based framework that allows off-the-shelf LLMs to reason through sequential graph navigation, dramatically increasing performance across different tasks. Unlike task-specific agent frameworks that encode domain knowledge into specialized tools, GraphWalk equips the LLM with a minimal set of orthogonal graph operations sufficient to traverse any graph structure. We evaluate whether models equipped with GraphWalk can compose these operations into correct multi-step reasoning chains, where each tool call represents a verifiable step creating a transparent execution trace. We first demonstrate our approach on maze traversal, a problem non-reasoning models are completely unable to solve, then present results on graphs resembling real-world enterprise knowledge graphs. To isolate structural reasoning from world knowledge, we evaluate on entirely synthetic graphs with random, non-semantic labels. Our benchmark spans 12 query templates from basic retrieval to compound first-order logic queries. Results show that tool-based traversal yields substantial and consistent gains over in-context baselines across all model families tested, with gains becoming more pronounced as scale increases, precisely where in-context approaches fail catastrophically.",
+      "authors": [
+        "Taraneh Ghandi",
+        "Hamidreza Mahyar",
+        "Shachar Klaiman"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-02T04:43:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.01610v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "tool-based framework for LLMs to reason through graph navigation",
+      "llm_evidence_cn": "大语言模型通过图导航进行推理的工具化框架",
+      "llm_evidence": "大语言模型通过图导航进行推理的工具化框架",
+      "canonical_evidence": "大语言模型通过图导航进行推理的工具化框架",
+      "llm_tldr_en": "Introduces GraphWalk, a framework enabling LLMs to reason over large knowledge graphs via navigation tools.",
+      "llm_tldr_cn": "引入GraphWalk框架，使LLM能够通过导航工具在大规模知识图谱上进行推理。",
+      "llm_tldr": "引入GraphWalk框架，使LLM能够通过导航工具在大规模知识图谱上进行推理。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

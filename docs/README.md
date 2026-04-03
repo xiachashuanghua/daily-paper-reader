@@ -6,61 +6,56 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-02
-- 运行时间：2026-04-02 19:39:13 UTC
+- 最新运行日期：2026-04-03
+- 运行时间：2026-04-03 20:03:26 UTC
 - 运行状态：成功
-- 本次总论文数：13
-- 精读区：6
-- 速读区：7
+- 本次总论文数：11
+- 精读区：0
+- 速读区：11
 
 ### 今日简报（AI）
-今日深度解析 13 篇前沿论文，聚焦实验室验证的药物设计智能体与高精度基因组大模型。
-重点推荐 Latent-Y 在从头药物设计中的闭环应用，以及 GenoBERT 在基因型填充任务上的突破性表现。
-建议关注 AI 智能体如何深入生物医药垂直领域，实现从理论预测到实验验证的科研全流程自动化。
-- 详情：[/202604/02/README](/202604/02/README)
+今日速览 11 篇前沿论文，重点聚焦基因组代谢建模、纳米孔测序解码及 AI 辅助科研总结。
+值得关注 SynDe 引导的原始序列解码技术，以及能实现闭环文献综述的人机协作多智能体框架。
+建议科研人员尝试利用 AI 智能体优化文献调研流程，并关注代谢空间采样在生物信息学中的新进展。
+- 详情：[/202604/03/README](/202604/03/README)
 
 ### 精读区论文标签
-1. [Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design](/202604/02/2603.29727v2-latent-y-a-lab-validated-autonomous-agent-for-de-novo-drug-design)  
-   标签：评分：10.0/10、query:llmagt
-   evidence：用于从头药物设计和生物信息学的自主智能体
-2. [GenoBERT: A Language Model for Accurate Genotype Imputation](/202604/02/2604.00058v1-genobert-a-language-model-for-accurate-genotype-imputation)  
-   标签：评分：10.0/10、query:llmagt
-   evidence：基于Transformer的基因型填充框架
-3. [A Boltzmann-machine-enhanced Transformer For DNA Sequence Classification](/202604/02/2603.26465v1-a-boltzmann-machine-enhanced-transformer-for-dna-sequence-classification)  
-   标签：评分：9.0/10、query:llmagt
-   evidence：使用增强型Transformer模型进行DNA序列分类
-4. [Large Language Models for Variant-Centric Functional Evidence Mining](/202604/02/2604.00075v1-large-language-models-for-variant-centric-functional-evidence-mining)  
-   标签：评分：9.0/10、query:llmagt
-   evidence：大语言模型用于基因变异功能证据挖掘
-5. [BloClaw: An Omniscient, Multi-Modal Agentic Workspace for Next-Generation Scientific Discovery](/202604/02/2604.00550v1-bloclaw-an-omniscient-multi-modal-agentic-workspace-for-next-generation-scientific-discovery)  
-   标签：评分：9.0/10、query:llmagt
-   evidence：生命科学的多模态智能体工作空间
-6. [BioVITA: Biological Dataset, Model, and Benchmark for Visual-Textual-Acoustic Alignment](/202604/02/2603.23883v1-biovita-biological-dataset-model-and-benchmark-for-visual-textual-acoustic-alignment)  
-   标签：评分：8.0/10、query:llmagt
-   evidence：用于生物物种识别的多模态对齐框架
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [In-Context Molecular Property Prediction with LLMs: A Blinding Study on Memorization and Knowledge Conflicts](/202604/02/2603.25857v1-in-context-molecular-property-prediction-with-llms-a-blinding-study-on-memorization-and-knowledge-conflicts)  
-   标签：评分：8.0/10、query:llmagt
-   evidence：生物信息学中的LLM分子性质预测
-2. [Learning from Many and Adapting to the Unknown in Open-set Test Streams](/202604/02/2604.00533v1-learning-from-many-and-adapting-to-the-unknown-in-open-set-test-streams)  
+1. [Sampling from the Solution Space and Metabolic Environments of Genome-Scale Metabolic Models](/202604/03/2603.29546v1-sampling-from-the-solution-space-and-metabolic-environments-of-genome-scale-metabolic-models)  
    标签：评分：7.0/10、query:llmagt
-   evidence：受果蝇分子信号传导启发的LLM自适应
-3. [ElephantBroker: A Knowledge-Grounded Cognitive Runtime for Trustworthy AI Agents](/202604/02/2603.25097v1-elephantbroker-a-knowledge-grounded-cognitive-runtime-for-trustworthy-ai-agents)  
+   evidence：全基因组代谢模型与计算生物学
+2. [SynDe: Syndrome-guided Decoding of Raw Nanopore Reads](/202604/03/2604.01054v1-synde-syndrome-guided-decoding-of-raw-nanopore-reads)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：原始纳米孔测序读取解码
+3. [A Multi-Agent Human-LLM Collaborative Framework for Closed-Loop Scientific Literature Summarization](/202604/03/2604.01452v1-a-multi-agent-human-llm-collaborative-framework-for-closed-loop-scientific-literature-summarization)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于科学文献分析和发现的多智能体大语言模型系统
+4. [CORAL: Towards Autonomous Multi-Agent Evolution for Open-Ended Discovery](/202604/03/2604.01658v1-coral-towards-autonomous-multi-agent-evolution-for-open-ended-discovery)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于开放式探索的自主多智能体进化框架
+5. [Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills](/202604/03/2603.25158v3-trace2skill-distill-trajectory-local-lessons-into-transferable-agent-skills)  
    标签：评分：6.0/10、query:llmagt
-   evidence：具有可验证记忆的可信 AI 智能体认知运行时
-4. [Toward Reliable Evaluation of LLM-Based Financial Multi-Agent Systems: Taxonomy, Coordination Primacy, and Cost Awareness](/202604/02/2603.27539v1-toward-reliable-evaluation-of-llm-based-financial-multi-agent-systems-taxonomy-coordination-primacy-and-cost-awareness)  
+   evidence：为大语言模型智能体提取领域特定技能的框架
+6. [A Deep Reinforcement Learning Framework for Closed-loop Guidance of Fish Schools via Virtual Agents](/202604/03/2603.28200v1-a-deep-reinforcement-learning-framework-for-closed-loop-guidance-of-fish-schools-via-virtual-agents)  
    标签：评分：6.0/10、query:llmagt
-   evidence：多智能体系统评估框架
-5. [Multi-Agent LLMs for Adaptive Acquisition in Bayesian Optimization](/202604/02/2603.28959v1-multi-agent-llms-for-adaptive-acquisition-in-bayesian-optimization)  
+   evidence：用于引导生物群体（鱼群）的强化学习框架
+7. [Drop the Hierarchy and Roles: How Self-Organizing LLM Agents Outperform Designed Structures](/202604/03/2603.28990v1-drop-the-hierarchy-and-roles-how-self-organizing-llm-agents-outperform-designed-structures)  
    标签：评分：6.0/10、query:llmagt
-   evidence：基于LLM的优化和搜索策略学习
-6. [Agent Q-Mix: Selecting the Right Action for LLM Multi-Agent Systems through Reinforcement Learning](/202604/02/2604.00344v1-agent-q-mix-selecting-the-right-action-for-llm-multi-agent-systems-through-reinforcement-learning)  
+   evidence：关于自组织大模型智能体与协调协议的研究
+8. [REM-CTX: Automated Peer Review via Reinforcement Learning with Auxiliary Context](/202604/03/2604.00248v1-rem-ctx-automated-peer-review-via-reinforcement-learning-with-auxiliary-context)  
    标签：评分：6.0/10、query:llmagt
-   evidence：大语言模型多智能体系统协作框架
-7. [OrgAgent: Organize Your Multi-Agent System like a Company](/202604/02/2604.01020v1-orgagent-organize-your-multi-agent-system-like-a-company)  
+   evidence：利用大语言模型进行生物科学自动化同行评审
+9. [Agentic Tool Use in Large Language Models](/202604/03/2604.00835v1-agentic-tool-use-in-large-language-models)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于复杂推理任务的分层多智能体框架
+   evidence：大模型与自主智能体工具使用的综述
+10. [Experience as a Compass: Multi-agent RAG with Evolving Orchestration and Agent Prompts](/202604/03/2604.00901v1-experience-as-a-compass-multi-agent-rag-with-evolving-orchestration-and-agent-prompts)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：多智能体编排与演化提示词的分层框架
+11. [GraphWalk: Enabling Reasoning in Large Language Models through Tool-Based Graph Navigation](/202604/03/2604.01610v1-graphwalk-enabling-reasoning-in-large-language-models-through-tool-based-graph-navigation)  
+   标签：评分：6.0/10、query:llmagt
+   evidence：大语言模型通过图导航进行推理的工具化框架
 
 
 <div class="dpr-home-promo-card">
