@@ -1,0 +1,37 @@
+{
+  "label": "2026-04-05",
+  "date": "2026-04-05",
+  "generated_at": "2026-04-05T19:26:42",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202604/05/2604.00137v1-open-reliable-and-collective-a-community-driven-framework-for-tool-using-ai-agents",
+      "section": "quick",
+      "title_en": "Open, Reliable, and Collective: A Community-Driven Framework for Tool-Using AI Agents",
+      "authors": "Hy Dang, Quang Dao, Meng Jiang",
+      "date": "2026-03-31",
+      "pdf": "https://arxiv.org/pdf/2604.00137v1",
+      "score": "6.0",
+      "evidence": "适用于计算生物学工具的工具使用型AI智能体框架",
+      "tldr": "OpenTools是一个社区驱动的框架，旨在解决大模型工具调用中的可靠性瓶颈。研究指出，失败不仅源于模型调用准确性，还源于工具本身的内在准确性。该框架通过标准化Schema、轻量级封装、自动化测试和持续监控，提升了工具的质量。实验表明，相比现有工具箱，OpenTools在下游任务中实现了6%-22%的性能提升，强调了高质量工具对智能体性能的重要性。",
+      "tags": "query:llmagt",
+      "abstract_en": "Tool-integrated LLMs can retrieve, compute, and take real-world actions via external tools, but reliability remains a key bottleneck. We argue that failures stem from both tool-use accuracy (how well an agent invokes a tool) and intrinsic tool accuracy (the tool's own correctness), while most prior work emphasizes the former. We introduce OpenTools, a community-driven toolbox that standardizes tool schemas, provides lightweight plug-and-play wrappers, and evaluates tools with automated test suites and continuous monitoring. We also release a public web demo where users can run predefined agents and tools and contribute test cases, enabling reliability reports to evolve as tools change. OpenTools includes the core framework, an initial tool set, evaluation pipelines, and a contribution protocol. Experiments and evaluations show improved end-to-end reproducibility and task performance; community-contributed, higher-quality task-specific tools deliver 6%-22% relative gains over an existing toolbox across multiple agent architectures on downstream tasks and benchmarks, highlighting the importance of intrinsic tool accuracy.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/05/2604.01965v1-do-we-need-bigger-models-for-science-task-aware-retrieval-with-small-language-models",
+      "section": "quick",
+      "title_en": "Do We Need Bigger Models for Science? Task-Aware Retrieval with Small Language Models",
+      "authors": "Florian Kelber, Matthias Jobst, Yuni Susanti, Michael Färber",
+      "date": "2026-04-02",
+      "pdf": "https://arxiv.org/pdf/2604.01965v1",
+      "score": "6.0",
+      "evidence": "用于科学知识发现的检索增强框架",
+      "tldr": "本研究探讨了在科学领域是否必须使用超大规模模型。针对现有学术助手依赖闭源大模型导致的可重复性差等问题，提出一种轻量级检索增强（RAG）框架。该框架通过任务感知路由选择检索策略，整合全文与元数据，并利用指令微调的小模型生成带引用的回答。实验表明，精心设计的检索能显著提升小模型性能，虽然模型规模在复杂推理中仍具优势，但检索与规模具有互补性，为构建高效、可复现的学术助手提供了新路径。",
+      "tags": "query:llmagt",
+      "abstract_en": "Scientific knowledge discovery increasingly relies on large language models, yet many existing scholarly assistants depend on proprietary systems with tens or hundreds of billions of parameters. Such reliance limits reproducibility and accessibility for the research community. In this work, we ask a simple question: do we need bigger models for scientific applications? Specifically, we investigate to what extent carefully designed retrieval pipelines can compensate for reduced model scale in scientific applications. We design a lightweight retrieval-augmented framework that performs task-aware routing to select specialized retrieval strategies based on the input query. The system further integrates evidence from full-text scientific papers and structured scholarly metadata, and employs compact instruction-tuned language models to generate responses with citations. We evaluate the framework across several scholarly tasks, focusing on scholarly question answering (QA), including single- and multi-document scenarios, as well as biomedical QA under domain shift and scientific text compression. Our findings demonstrate that retrieval and model scale are complementary rather than interchangeable. While retrieval design can partially compensate for smaller models, model capacity remains important for complex reasoning tasks. This work highlights retrieval and task-aware design as key factors for building practical and reproducible scholarly assistants.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

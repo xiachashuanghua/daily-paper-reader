@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-05T19:26:16.839751+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.00137v1",
+      "title": "Open, Reliable, and Collective: A Community-Driven Framework for Tool-Using AI Agents",
+      "abstract": "Tool-integrated LLMs can retrieve, compute, and take real-world actions via external tools, but reliability remains a key bottleneck. We argue that failures stem from both tool-use accuracy (how well an agent invokes a tool) and intrinsic tool accuracy (the tool's own correctness), while most prior work emphasizes the former. We introduce OpenTools, a community-driven toolbox that standardizes tool schemas, provides lightweight plug-and-play wrappers, and evaluates tools with automated test suites and continuous monitoring. We also release a public web demo where users can run predefined agents and tools and contribute test cases, enabling reliability reports to evolve as tools change. OpenTools includes the core framework, an initial tool set, evaluation pipelines, and a contribution protocol. Experiments and evaluations show improved end-to-end reproducibility and task performance; community-contributed, higher-quality task-specific tools deliver 6%-22% relative gains over an existing toolbox across multiple agent architectures on downstream tasks and benchmarks, highlighting the importance of intrinsic tool accuracy.",
+      "authors": [
+        "Hy Dang",
+        "Quang Dao",
+        "Meng Jiang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-03-31T18:42:36+00:00",
+      "link": "https://arxiv.org/pdf/2604.00137v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for tool-using AI agents applicable to computational biology tools",
+      "llm_evidence_cn": "适用于计算生物学工具的工具使用型AI智能体框架",
+      "llm_evidence": "适用于计算生物学工具的工具使用型AI智能体框架",
+      "canonical_evidence": "适用于计算生物学工具的工具使用型AI智能体框架",
+      "llm_tldr_en": "A community-driven framework to improve the reliability of tool-using AI agents through standardized schemas.",
+      "llm_tldr_cn": "一个通过标准化模式提高工具使用型AI智能体可靠性的社区驱动框架。",
+      "llm_tldr": "一个通过标准化模式提高工具使用型AI智能体可靠性的社区驱动框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.01965v1",
+      "title": "Do We Need Bigger Models for Science? Task-Aware Retrieval with Small Language Models",
+      "abstract": "Scientific knowledge discovery increasingly relies on large language models, yet many existing scholarly assistants depend on proprietary systems with tens or hundreds of billions of parameters. Such reliance limits reproducibility and accessibility for the research community. In this work, we ask a simple question: do we need bigger models for scientific applications? Specifically, we investigate to what extent carefully designed retrieval pipelines can compensate for reduced model scale in scientific applications. We design a lightweight retrieval-augmented framework that performs task-aware routing to select specialized retrieval strategies based on the input query. The system further integrates evidence from full-text scientific papers and structured scholarly metadata, and employs compact instruction-tuned language models to generate responses with citations. We evaluate the framework across several scholarly tasks, focusing on scholarly question answering (QA), including single- and multi-document scenarios, as well as biomedical QA under domain shift and scientific text compression. Our findings demonstrate that retrieval and model scale are complementary rather than interchangeable. While retrieval design can partially compensate for smaller models, model capacity remains important for complex reasoning tasks. This work highlights retrieval and task-aware design as key factors for building practical and reproducible scholarly assistants.",
+      "authors": [
+        "Florian Kelber",
+        "Matthias Jobst",
+        "Yuni Susanti",
+        "Michael Färber"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI",
+        "cs.CL",
+        "cs.DL"
+      ],
+      "published": "2026-04-02T12:28:51+00:00",
+      "link": "https://arxiv.org/pdf/2604.01965v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "retrieval-augmented framework for scientific knowledge discovery",
+      "llm_evidence_cn": "用于科学知识发现的检索增强框架",
+      "llm_evidence": "用于科学知识发现的检索增强框架",
+      "canonical_evidence": "用于科学知识发现的检索增强框架",
+      "llm_tldr_en": "Investigates task-aware retrieval pipelines to enable scientific discovery using smaller language models.",
+      "llm_tldr_cn": "研究任务感知检索流水线，使小型语言模型也能支持科学发现。",
+      "llm_tldr": "研究任务感知检索流水线，使小型语言模型也能支持科学发现。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
