@@ -1,0 +1,473 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-06T19:46:01.970005+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 12,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.00911v1",
+      "title": "Event Embedding of Protein Networks : Compositional Learning of Biological Function",
+      "abstract": "In this work, we study whether enforcing strict compositional structure in sequence embeddings yields meaningful geometric organization when applied to protein-protein interaction networks. Using Event2Vec, an additive sequence embedding model, we train 64-dimensional representations on random walks from the human STRING interactome, and compare against a DeepWalk baseline based on Word2Vec, trained on the same walks. We find that compositional structure substantially improves pathway coherence (30.2$\\times$ vs 2.9$\\times$ above random), functional analogy accuracy (mean similarity 0.966 vs 0.650), and hierarchical pathway organization, while geometric properties such as norm--degree anticorrelation are shared with or exceeded by the non-compositional baseline. These results indicate that enforced compositionality specifically benefits relational and compositional reasoning tasks in biological networks.",
+      "authors": [
+        "Antonin Sulc"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-04-01T13:53:35+00:00",
+      "link": "https://arxiv.org/pdf/2604.00911v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sequence embeddings for protein-protein interaction networks and biological function",
+      "llm_evidence_cn": "用于蛋白质相互作用网络和生物功能的序列嵌入",
+      "llm_evidence": "用于蛋白质相互作用网络和生物功能的序列嵌入",
+      "canonical_evidence": "用于蛋白质相互作用网络和生物功能的序列嵌入",
+      "llm_tldr_en": "Studies compositional sequence embeddings for improving functional analysis in protein networks.",
+      "llm_tldr_cn": "研究组合序列嵌入，以改进蛋白质网络中的功能分析和通路一致性。",
+      "llm_tldr": "研究组合序列嵌入，以改进蛋白质网络中的功能分析和通路一致性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.28361v1",
+      "title": "Deep Research of Deep Research: From Transformer to Agent, From AI to AI for Science",
+      "abstract": "With the advancement of large language models (LLMs) in their knowledge base and reasoning capabilities, their interactive modalities have evolved from pure text to multimodality and further to agentic tool use. Consequently, their applications have broadened from question answering to AI assistants and now to general-purpose agents. Deep research (DR) represents a prototypical vertical application for general-purpose agents, which represents an ideal approach for intelligent information processing and assisting humans in discovering and solving problems, with the goal of reaching or even surpassing the level of top human scientists. This paper provides a deep research of deep research. We articulate a clear and precise definition of deep research and unify perspectives from industry's deep research and academia's AI for Science (AI4S) within a developmental framework. We position LLMs and Stable Diffusion as the twin pillars of generative AI, and lay out a roadmap evolving from the Transformer to agents. We examine the progress of AI4S across various disciplines. We identify the predominant paradigms of human-AI interaction and prevailing system architectures, and discuss the major challenges and fundamental research issues that remain. AI supports scientific innovation, and science also can contribute to AI growth (Science for AI, S4AI). We hope this paper can help bridge the gap between the AI and AI4S communities.",
+      "authors": [
+        "Yipeng Yu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-03-30T12:29:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.28361v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI for Science and autonomous agents for research",
+      "llm_evidence_cn": "科学AI与用于研究的自主智能体",
+      "llm_evidence": "科学AI与用于研究的自主智能体",
+      "canonical_evidence": "科学AI与用于研究的自主智能体",
+      "llm_tldr_en": "Explores the evolution of LLMs into general-purpose agents for deep research and scientific problem-solving.",
+      "llm_tldr_cn": "探讨大模型演进为通用智能体以进行深度研究和解决科学问题的趋势。",
+      "llm_tldr": "探讨大模型演进为通用智能体以进行深度研究和解决科学问题的趋势。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.29493v3",
+      "title": "MemFactory: Unified Inference & Training Framework for Agent Memory",
+      "abstract": "Memory-augmented Large Language Models (LLMs) are essential for developing capable, long-term AI agents. Recently, applying Reinforcement Learning (RL) to optimize memory operations, such as extraction, updating, and retrieval, has emerged as a highly promising research direction. However, existing implementations remain highly fragmented and task-specific, lacking a unified infrastructure to streamline the integration, training, and evaluation of these complex pipelines. To address this gap, we present MemFactory, the first unified, highly modular training and inference framework specifically designed for memory-augmented agents. Inspired by the success of unified fine-tuning frameworks like LLaMA-Factory, MemFactory abstracts the memory lifecycle into atomic, plug-and-play components, enabling researchers to seamlessly construct custom memory agents via a \"Lego-like\" architecture. Furthermore, the framework natively integrates Group Relative Policy Optimization (GRPO) to fine-tune internal memory management policies driven by multi-dimensional environmental rewards. MemFactory provides out-of-the-box support for recent cutting-edge paradigms, including Memory-R1, RMM, and MemAgent. We empirically validate MemFactory on the open-source MemAgent architecture using its publicly available training and evaluation data. Across the evaluation sets, MemFactory improves performance over the corresponding base models on average, with relative gains of up to 14.8%. By providing a standardized, extensible, and easy-to-use infrastructure, MemFactory significantly lowers the barrier to entry, paving the way for future innovations in memory-driven AI agents.",
+      "authors": [
+        "Ziliang Guo",
+        "Ziheng Li",
+        "Bo Tang",
+        "Feiyu Xiong",
+        "Zhiyu Li"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-03-31T09:38:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.29493v3",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "unified framework for memory-augmented agents applicable to complex pipelines",
+      "llm_evidence_cn": "适用于复杂流程的记忆增强型智能体统一框架",
+      "llm_evidence": "适用于复杂流程的记忆增强型智能体统一框架",
+      "canonical_evidence": "适用于复杂流程的记忆增强型智能体统一框架",
+      "llm_tldr_en": "Presents MemFactory, a modular framework for training and evaluating memory-augmented AI agents.",
+      "llm_tldr_cn": "提出MemFactory，一个用于训练和评估记忆增强型AI智能体的模块化框架。",
+      "llm_tldr": "提出MemFactory，一个用于训练和评估记忆增强型AI智能体的模块化框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00763v1",
+      "title": "Non-ignorable fuzziness in granular counts: the case of RNA-seq data",
+      "abstract": "RNA-seq count data are often affected by read-to-gene alignment ambiguity, especially in high-dimensional transcriptomics. This type of ambiguity can be conveniently expressed through granular counts, namely fuzzy-valued observations of latent discrete quantities. We study a class of fuzzy-reporting mechanisms and show that, when reporting exploits graded membership, ignorability fails generically, leading to a coarsening-not-at-random structure. A hierarchical model is then introduced as a tractable instance of this construction and illustrated using RNA-seq data.",
+      "authors": [
+        "Antonio Calcagnì",
+        "Arianna Consiglio",
+        "Przemyslaw Grzegorzewski",
+        "Corrado Mencar"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "q-bio.GN",
+        "stat.AP"
+      ],
+      "published": "2026-04-01T11:26:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.00763v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RNA-seq data analysis and transcriptomics",
+      "llm_evidence_cn": "RNA-seq数据分析与转录组学",
+      "llm_evidence": "RNA-seq数据分析与转录组学",
+      "canonical_evidence": "RNA-seq数据分析与转录组学",
+      "llm_tldr_en": "Studies fuzzy-valued observations in RNA-seq count data to address read-to-gene alignment ambiguity.",
+      "llm_tldr_cn": "研究RNA-seq计数数据中的模糊观测值，以解决读段与基因比对的歧义问题。",
+      "llm_tldr": "研究RNA-seq计数数据中的模糊观测值，以解决读段与基因比对的歧义问题。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.00304v1",
+      "title": "Asymmetric Actor-Critic for Multi-turn LLM Agents",
+      "abstract": "Large language models (LLMs) exhibit strong reasoning and conversational abilities, but ensuring reliable behavior in multi-turn interactions remains challenging. In many real-world applications, agents must succeed in one-shot settings where retries are impossible. Existing approaches either rely on reflection or post-hoc evaluation, which require additional attempts, or assume fully trainable models that cannot leverage proprietary LLMs. We propose an asymmetric actor-critic framework for reliable conversational agents. A powerful proprietary LLM acts as the actor, while a smaller open-source critic provides runtime supervision, monitoring the actor's actions and intervening within the same interaction trajectory. Unlike training-based actor-critic methods, our framework supervises a fixed actor operating in open-ended conversational environments. The design leverages a generation-verification asymmetry: while high-quality generation requires large models, effective oversight can often be achieved by smaller ones. We further introduce a data generation pipeline that produces supervision signals for critic fine-tuning without modifying the actor. Experiments on $τ$-bench and UserBench show that our approach significantly improves reliability and task success over strong single-agent baselines. Moreover, lightweight open-source critics rival or surpass larger proprietary models in the critic role, and critic fine-tuning yields additional gains over several state-of-the-art methods.",
+      "authors": [
+        "Shuli Jiang",
+        "Zhaoyang Zhang",
+        "Yi Zhang",
+        "Shuo Yang",
+        "Wei Xia",
+        "Stefano Soatto"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-03-31T22:56:21+00:00",
+      "link": "https://arxiv.org/pdf/2604.00304v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Asymmetric actor-critic framework for reliable multi-turn LLM agents",
+      "llm_evidence_cn": "用于可靠多轮大语言模型智能体的不对称参与者-评论家框架",
+      "llm_evidence": "用于可靠多轮大语言模型智能体的不对称参与者-评论家框架",
+      "canonical_evidence": "用于可靠多轮大语言模型智能体的不对称参与者-评论家框架",
+      "llm_tldr_en": "Develops an actor-critic framework to ensure reliable behavior in multi-turn autonomous agents.",
+      "llm_tldr_cn": "开发了一种参与者-评论家框架，以确保自主智能体在多轮交互中的可靠行为。",
+      "llm_tldr": "开发了一种参与者-评论家框架，以确保自主智能体在多轮交互中的可靠行为。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.02842v1",
+      "title": "ViraHinter: a dual-modal artificial intelligence framework for predicting virus-host interactions",
+      "abstract": "Protein-protein interactions (PPIs) between a virus and its host govern infection, replication, and pathogenesis. While high-throughput mapping has identified thousands of virus-host associations, much of the virus-host interactome remains uncharacterized due to the labor-intensive nature of experimental screens, the inherent difficulty in capturing transient interactions, and the limited sequence homology across divergent viral families. Here, we introduce ViraHinter, a dual-modal deep learning framework for the precise prediction of virus-host interactions and large-scale inference of interaction landscapes. ViraHinter couples a structure-generation branch with a sequence-representation branch, integrating structure-informed pair representations with ESM-derived embeddings to learn generalizable interaction rules across unseen viruses. We benchmark ViraHinter on pathogenic coronaviruses and influenza A viruses and show that it consistently outperforms RoseTTAFold2-PPI, AlphaFold 3 and RoseTTAFold2-Lite in prioritizing high-confidence candidates even under severe class imbalance and across diverse interface regimes. Notably, it successfully identifies novel functionally relevant host factors and recapitulates the structural plasticity of the complex interfaces. By intersecting predictions across multiple influenza subtypes, ViraHinter reveals 33 shared host factors, offering a roadmap for broad-spectrum antiviral discovery. ViraHinter therefore serves as a robust computational approach for studying virus-host interactions, enabling systematic screening of host factors for all known human-infecting viruses, providing new insights into the shared mechanisms of viral pathogenesis, and accelerating the discovery of novel therapeutic targets and the development of broad-spectrum antivirals.",
+      "authors": [
+        "Weiqiang Bai",
+        "Fei Wang",
+        "Jialin Wang",
+        "Sheng Xu",
+        "Lifeng Qiao",
+        "Juan Li",
+        "Zhuyi Guo",
+        "Xiangyun Hou",
+        "Lei Bai",
+        "Bowen Zhou",
+        "Edward C. Holmes",
+        "Weifeng Shi",
+        "Siqi Sun"
+      ],
+      "primary_category": "q-bio.BM",
+      "categories": [
+        "q-bio.BM"
+      ],
+      "published": "2026-04-03T08:01:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.02842v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep learning for virus-host protein-protein interaction prediction",
+      "llm_evidence_cn": "用于预测病毒-宿主蛋白质相互作用的深度学习框架",
+      "llm_evidence": "用于预测病毒-宿主蛋白质相互作用的深度学习框架",
+      "canonical_evidence": "用于预测病毒-宿主蛋白质相互作用的深度学习框架",
+      "llm_tldr_en": "Introduces ViraHinter, a dual-modal framework for predicting virus-host interactions using sequence and structure.",
+      "llm_tldr_cn": "引入ViraHinter，一种结合序列和结构预测病毒与宿主相互作用的双模态框架。",
+      "llm_tldr": "引入ViraHinter，一种结合序列和结构预测病毒与宿主相互作用的双模态框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.00830v2",
+      "title": "Learning to Learn-at-Test-Time: Language Agents with Learnable Adaptation Policies",
+      "abstract": "Test-Time Learning (TTL) enables language agents to iteratively refine their performance through repeated interactions with the environment at inference time. At the core of TTL is an adaptation policy that updates the actor policy based on experience from previous episodes, thereby improving future behavior. Existing methods rely on fixed, hand-crafted adaptation policies rather than optimizing them for downstream improvement. We argue that optimal adaptation policies should be learned from task environments, not hand-engineered based on human intuition. To achieve this, we introduce Meta-TTL, a framework that formulates the discovery of effective adaptation policies as a bi-level optimization problem. Within this framework, the inner loop executes the standard TTL process, measuring how effectively a candidate adaptation policy helps an agent correct errors across sequential episodes. Guided by the agent's performance, the outer loop employs evolutionary search over a diverse distribution of training tasks to iteratively refine the adaptation policy. We evaluate Meta-TTL on Jericho and WebArena-Lite across both in-distribution (ID) and out-of-distribution (OOD) settings, using multiple meta-agent backbones. Results on both benchmarks show that Meta-TTL consistently outperforms hand-crafted baselines, suggesting that the optimized adaptation policy encodes transferable strategies that generalize beyond the training task distribution.",
+      "authors": [
+        "Zhanzhi Lou",
+        "Hui Chen",
+        "Yibo Li",
+        "Qian Wang",
+        "Bryan Hooi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-04-01T12:41:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.00830v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Language agents with learnable adaptation policies for environment interaction",
+      "llm_evidence_cn": "具有可学习自适应策略的语言智能体，用于环境交互",
+      "llm_evidence": "具有可学习自适应策略的语言智能体，用于环境交互",
+      "canonical_evidence": "具有可学习自适应策略的语言智能体，用于环境交互",
+      "llm_tldr_en": "Proposes Meta-TTL for language agents to learn optimal adaptation policies from task environments.",
+      "llm_tldr_cn": "提出Meta-TTL框架，使语言智能体能够从任务环境中学习最优的自适应策略。",
+      "llm_tldr": "提出Meta-TTL框架，使语言智能体能够从任务环境中学习最优的自适应策略。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00865v1",
+      "title": "Doctor-RAG: Failure-Aware Repair for Agentic Retrieval-Augmented Generation",
+      "abstract": "Agentic Retrieval-Augmented Generation (Agentic RAG) has become a widely adopted paradigm for multi-hop question answering and complex knowledge reasoning, where retrieval and reasoning are interleaved at inference time. As reasoning trajectories grow longer, failures become increasingly common. Existing approaches typically address such failures by either stopping at diagnostic analysis or rerunning the entire retrieval-reasoning pipeline, which leads to substantial computational overhead and redundant reasoning. In this paper, we propose Doctor-RAG (DR-RAG), a unified diagnose-and-repair framework that corrects failures in Agentic RAG through explicit error localization and prefix reuse, enabling minimal-cost intervention. DR-RAG decomposes failure handling into two consecutive stages: (i) trajectory-level failure diagnosis and localization, which attributes errors to a coverage-gated taxonomy and identifies the earliest failure point in the reasoning trajectory; and (ii) tool-conditioned local repair, which intervenes only at the diagnosed failure point while maximally reusing validated reasoning prefixes and retrieved evidence. By explicitly separating error attribution from correction, DR-RAG enables precise error localization, thereby avoiding expensive full-pipeline reruns and enabling targeted, efficient repair. We evaluate DR-RAG across three multi-hop question answering benchmarks, multiple agentic RAG baselines, and different backbone models. Experimental results demonstrate that DR-RAG substantially improves answer accuracy while significantly reducing reasoning token consumption compared to rerun-based repair strategies.",
+      "authors": [
+        "Shuguang Jiao",
+        "Chengkai Huang",
+        "Shuhan Qi",
+        "Xuan Wang",
+        "Yifan Li",
+        "Lina Yao"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR"
+      ],
+      "published": "2026-04-01T13:13:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.00865v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Agentic Retrieval-Augmented Generation for complex knowledge reasoning",
+      "llm_evidence_cn": "用于复杂知识推理的智能体检索增强生成",
+      "llm_evidence": "用于复杂知识推理的智能体检索增强生成",
+      "canonical_evidence": "用于复杂知识推理的智能体检索增强生成",
+      "llm_tldr_en": "Presents Doctor-RAG, a framework to diagnose and repair failures in agentic RAG pipelines.",
+      "llm_tldr_cn": "提出Doctor-RAG框架，用于诊断和修复智能体检索增强生成流程中的故障。",
+      "llm_tldr": "提出Doctor-RAG框架，用于诊断和修复智能体检索增强生成流程中的故障。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.00901v2",
+      "title": "Experience as a Compass: Multi-agent RAG with Evolving Orchestration and Agent Prompts",
+      "abstract": "Multi-agent Retrieval-Augmented Generation (RAG), wherein each agent takes on a specific role, supports hard queries that require multiple steps and sources, or complex reasoning. Existing approaches, however, rely on static agent behaviors and fixed orchestration strategies, leading to brittle performance on diverse, multi-hop tasks. We identify two key limitations: the lack of continuously adaptive orchestration mechanisms and the absence of behavior-level learning for individual agents. To this end, we propose HERA, a hierarchical framework that jointly evolves multi-agent orchestration and role-specific agent prompts. At the global level, HERA optimizes query-specific agent topologies through reward-guided sampling and experience accumulation. At the local level, Role-Aware Prompt Evolution refines agent behaviors via credit assignment and dual-axes adaptation along operational and behavioral principles, enabling targeted, role-conditioned improvements. On six knowledge-intensive benchmarks, HERA achieves an average improvement of 38.69\\% over recent baselines while maintaining robust generalization and token efficiency. Topological analyses reveal emergent self-organization, where sparse exploration yields compact, high-utility multi-agent networks, demonstrating both efficient coordination and robust reasoning.",
+      "authors": [
+        "Sha Li",
+        "Naren Ramakrishnan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-01T13:45:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.00901v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent RAG framework with evolving orchestration",
+      "llm_evidence_cn": "具有演化编排能力的多智能体RAG框架",
+      "llm_evidence": "具有演化编排能力的多智能体RAG框架",
+      "canonical_evidence": "具有演化编排能力的多智能体RAG框架",
+      "llm_tldr_en": "Proposes HERA, a framework for evolving multi-agent orchestration and prompts to improve complex reasoning.",
+      "llm_tldr_cn": "提出HERA框架，通过演化多智能体编排和提示词来增强复杂推理能力。",
+      "llm_tldr": "提出HERA框架，通过演化多智能体编排和提示词来增强复杂推理能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.02460v1",
+      "title": "Single-Agent LLMs Outperform Multi-Agent Systems on Multi-Hop Reasoning Under Equal Thinking Token Budgets",
+      "abstract": "Recent work reports strong performance from multi-agent LLM systems (MAS), but these gains are often confounded by increased test-time computation. When computation is normalized, single-agent systems (SAS) can match or outperform MAS, yet the theoretical basis and evaluation methodology behind this comparison remain unclear. We present an information-theoretic argument, grounded in the Data Processing Inequality, suggesting that under a fixed reasoning-token budget and with perfect context utilization, single-agent systems are more information-efficient. This perspective further predicts that multi-agent systems become competitive when a single agent's effective context utilization is degraded, or when more compute is expended. We test these predictions in a controlled empirical study across three model families (Qwen3, DeepSeek-R1-Distill-Llama, and Gemini 2.5), comparing SAS with multiple MAS architectures under matched budgets. We find that SAS consistently match or outperform MAS on multi-hop reasoning tasks when reasoning tokens are held constant. Beyond aggregate performance, we conduct a detailed diagnostic analysis of system behavior and evaluation methodology. We identify significant artifacts in API-based budget control (particularly in Gemini 2.5) and in standard benchmarks, both of which can inflate apparent gains from MAS. Overall, our results suggest that, for multi-hop reasoning tasks, many reported advantages of multi-agent systems are better explained by unaccounted computation and context effects rather than inherent architectural benefits, and highlight the importance of understanding and explicitly controlling the trade-offs between compute, context, and coordination in agentic systems.",
+      "authors": [
+        "Dat Tran",
+        "Douwe Kiela"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-04-02T18:47:48+00:00",
+      "link": "https://arxiv.org/pdf/2604.02460v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Comparison of single-agent and multi-agent LLM systems",
+      "llm_evidence_cn": "单智能体与多智能体大模型系统的比较",
+      "llm_evidence": "单智能体与多智能体大模型系统的比较",
+      "canonical_evidence": "单智能体与多智能体大模型系统的比较",
+      "llm_tldr_en": "Analyzes the efficiency of single-agent vs multi-agent LLM systems under fixed computation budgets.",
+      "llm_tldr_cn": "分析了在固定计算预算下，单智能体与多智能体大模型系统的效率对比。",
+      "llm_tldr": "分析了在固定计算预算下，单智能体与多智能体大模型系统的效率对比。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.02674v1",
+      "title": "Do Agent Societies Develop Intellectual Elites? The Hidden Power Laws of Collective Cognition in LLM Multi-Agent Systems",
+      "abstract": "Large Language Model (LLM) multi-agent systems are increasingly deployed as interacting agent societies, yet scaling these systems often yields diminishing or unstable returns, the causes of which remain poorly understood. We present the first large-scale empirical study of coordination dynamics in LLM-based multi-agent systems, introducing an atomic event-level formulation that reconstructs reasoning as cascades of coordination. Analyzing over 1.5 Million interactions across tasks, topologies, and scales, we uncover three coupled laws: coordination follows heavy-tailed cascades, concentrates via preferential attachment into intellectual elites, and produces increasingly frequent extreme events as system size grows. We show that these effects are coupled through a single structural mechanism: an integration bottleneck, in which coordination expansion scales with system size while consolidation does not, producing large but weakly integrated reasoning processes. To test this mechanism, we introduce Deficit-Triggered Integration (DTI), which selectively increases integration under imbalance. DTI improves performance precisely where coordination fails, without suppressing large-scale reasoning. Together, our results establish quantitative laws of collective cognition and identify coordination structure as a fundamental, previously unmeasured axis for understanding and improving scalable multi-agent intelligence.",
+      "authors": [
+        "Kavana Venkatesh",
+        "Jiaming Cui"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-04-03T03:08:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.02674v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "empirical study of coordination dynamics in LLM multi-agent systems",
+      "llm_evidence_cn": "大语言模型多智能体系统协作动态的实证研究",
+      "llm_evidence": "大语言模型多智能体系统协作动态的实证研究",
+      "canonical_evidence": "大语言模型多智能体系统协作动态的实证研究",
+      "llm_tldr_en": "Uncovers power laws and coordination patterns in large-scale LLM multi-agent societies.",
+      "llm_tldr_cn": "揭示了大语言模型多智能体社会中的幂律分布和协作模式。",
+      "llm_tldr": "揭示了大语言模型多智能体社会中的幂律分布和协作模式。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.02770v1",
+      "title": "Improving Role Consistency in Multi-Agent Collaboration via Quantitative Role Clarity",
+      "abstract": "In large language model (LLM)-driven multi-agent systems, disobey role specification (failure to adhere to the defined responsibilities and constraints of an assigned role, potentially leading to an agent behaving like another) is a major failure mode \\cite{DBLP:journals/corr/abs-2503-13657}. To address this issue, in the present paper, we propose a quantitative role clarity to improve role consistency. Firstly, we construct a role assignment matrix $S(φ)=[s_{ij}(φ)]$, where $s_{ij}(φ)$ is the semantic similarity between the $i$-th agent's behavior trajectory and the $j$-th agent's role description. Then we define role clarity matrix $M(φ)$ as $\\text{softmax}(S(φ))-I$, where $\\text{softmax}(S(φ))$ is a row-wise softmax of $S(φ)$ and $I$ is the identity matrix. The Frobenius norm of $M(φ)$ quantifies the alignment between agents' role descriptions and their behaviors trajectory. Moreover, we employ the role clarity matrix as a regularizer during lightweight fine-tuning to improve role consistency, thereby improving end-to-end task performance. Experiments on the ChatDev multi-agent system show that our method substantially improves role consistency and task performance: with Qwen and Llama, the role overstepping rate decreases from $46.4\\%$ to $8.4\\%$ and from $43.4\\%$ to $0.2\\%$, respectively, and the role clarity score increases from $0.5328$ to $0.9097$ and from $0.5007$ to $0.8530$, respectively, the task success rate increases from $0.6769$ to $0.6909$ and from $0.6174$ to $0.6763$, respectively.",
+      "authors": [
+        "Guoling Zhou",
+        "Wenpei Han",
+        "Fengqin Yang",
+        "Li Wang",
+        "Yingcong Zhou",
+        "Zhiguo Fu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-03T06:28:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.02770v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Improving role consistency in multi-agent collaboration",
+      "llm_evidence_cn": "提高多智能体协作中的角色一致性",
+      "llm_evidence": "提高多智能体协作中的角色一致性",
+      "canonical_evidence": "提高多智能体协作中的角色一致性",
+      "llm_tldr_en": "Proposes a quantitative role clarity metric to improve consistency in LLM-driven multi-agent systems.",
+      "llm_tldr_cn": "提出一种定量角色清晰度指标，以改善大模型驱动的多智能体系统中的角色一致性。",
+      "llm_tldr": "提出一种定量角色清晰度指标，以改善大模型驱动的多智能体系统中的角色一致性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
