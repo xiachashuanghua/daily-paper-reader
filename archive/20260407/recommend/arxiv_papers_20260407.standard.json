@@ -1,0 +1,597 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-07T20:18:54.642197+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 13,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.03361v1",
+      "title": "The limits of bio-molecular modeling with large language models : a cross-scale evaluation",
+      "abstract": "The modeling of bio-molecular system across molecular scales remains a central challenge in scientific research. Large language models (LLMs) are increasingly applied to bio-molecular discovery, yet systematic evaluation across multi-scale biological problems and rigorous assessment of their tool-augmented capabilities remain limited. We reveal a systematic gap between LLM performance and mechanistic understanding through the proposed cross-scale bio-molecular benchmark: BioMol-LLM-Bench, a unified framework comprising 26 downstream tasks that covers 4 distinct difficulty levels, and computational tools are integrated for a more comprehensive evaluation. Evaluation on 13 representative models reveals 4 main findings: chain-of-thought data provides limited benefit and may even reduce performance on biological tasks; hybrid mamba-attention architectures are more effective for long bio-molecular sequences; supervised fine-tuning improves specialization at the cost of generalization; and current LLMs perform well on classification tasks but remain weak on challenging regression tasks. Together, these findings provide practical guidance for future LLM-based modeling of molecular systems.",
+      "authors": [
+        "Yaxin Xu",
+        "Yue Zhou",
+        "Tianyu Zhao",
+        "Fengwei An",
+        "Zhixiang Ren"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.QM"
+      ],
+      "published": "2026-04-03T17:38:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.03361v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLMs for bio-molecular modeling and discovery",
+      "llm_evidence_cn": "大语言模型用于生物分子建模与发现",
+      "llm_evidence": "大语言模型用于生物分子建模与发现",
+      "canonical_evidence": "大语言模型用于生物分子建模与发现",
+      "llm_tldr_en": "Evaluates LLMs across multi-scale biological problems and tool-augmented capabilities in bio-molecular discovery.",
+      "llm_tldr_cn": "评估大语言模型在多尺度生物问题和工具增强生物分子发现中的表现。",
+      "llm_tldr": "评估大语言模型在多尺度生物问题和工具增强生物分子发现中的表现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.04287v1",
+      "title": "Entropy, Disagreement, and the Limits of Foundation Models in Genomics",
+      "abstract": "Foundation models in genomics have shown mixed success compared to their counterparts in natural language processing. Yet, the reasons for their limited effectiveness remain poorly understood. In this work, we investigate the role of entropy as a fundamental factor limiting the capacities of such models to learn from their training data and develop foundational capabilities. We train ensembles of models on text and DNA sequences and analyze their predictions, static embeddings, and empirical Fisher information flow. We show that the high entropy of genomic sequences -- from the point of view of unseen token prediction -- leads to near-uniform output distributions, disagreement across models, and unstable static embeddings, even for models that are matched in architecture, training and data. We then demonstrate that models trained on DNA concentrate Fisher information in embedding layers, seemingly failing to exploit inter-token relationships. Our results suggest that self-supervised training from sequences alone may not be applicable to genomic data, calling into question the assumptions underlying current methodologies for training genomic foundation models.",
+      "authors": [
+        "Maxime Rochkoulets",
+        "Lovro Vrček",
+        "Mile Šikić"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "q-bio.GN"
+      ],
+      "published": "2026-04-05T22:04:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.04287v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "foundation models in genomics and DNA sequences",
+      "llm_evidence_cn": "基因组学和DNA序列的基础模型",
+      "llm_evidence": "基因组学和DNA序列的基础模型",
+      "canonical_evidence": "基因组学和DNA序列的基础模型",
+      "llm_tldr_en": "Investigates why genomic foundation models struggle compared to NLP counterparts.",
+      "llm_tldr_cn": "研究了基因组基础模型在预测DNA序列时效果受限的根本原因。",
+      "llm_tldr": "研究了基因组基础模型在预测DNA序列时效果受限的根本原因。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.03506v1",
+      "title": "BioAlchemy: Distilling Biological Literature into Reasoning-Ready Reinforcement Learning Training Data",
+      "abstract": "Despite the large corpus of biology training text, the impact of reasoning models on biological research generally lags behind math and coding. In this work, we show that biology questions from current large-scale reasoning datasets do not align well with modern research topic distributions in biology, and that this topic imbalance may negatively affect performance. In addition, we find that methods for extracting challenging and verifiable research problems from biology research text are a critical yet underdeveloped ingredient in applying reinforcement learning for better performance on biology research tasks. We introduce BioAlchemy, a pipeline for sourcing a diverse set of verifiable question-and-answer pairs from a scientific corpus of biology research text. We curate BioAlchemy-345K, a training dataset containing over 345K scientific reasoning problems in biology. Then, we demonstrate how aligning our dataset to the topic distribution of modern scientific biology can be used with reinforcement learning to improve reasoning performance. Finally, we present BioAlchemist-8B, which improves over its base reasoning model by 9.12% on biology benchmarks. These results demonstrate the efficacy of our approach for developing stronger scientific reasoning capabilities in biology. The BioAlchemist-8B model is available at: https://huggingface.co/BioAlchemy.",
+      "authors": [
+        "Brian Hsu",
+        "Ozan Gökdemir",
+        "Carlo Siebenschuh",
+        "Bruce Parrello",
+        "Neil Getty",
+        "Thomas S. Brettin",
+        "Rick L. Stevens",
+        "Ian T. Foster",
+        "Nicholas Chia",
+        "Arvind Ramanathan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-03T23:06:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.03506v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Distilling biological literature for RL training in biological research tasks",
+      "llm_evidence_cn": "提取生物文献数据用于生物研究任务的强化学习训练",
+      "llm_evidence": "提取生物文献数据用于生物研究任务的强化学习训练",
+      "canonical_evidence": "提取生物文献数据用于生物研究任务的强化学习训练",
+      "llm_tldr_en": "BioAlchemy creates verifiable biology Q&A pairs from literature to improve reasoning in biological research.",
+      "llm_tldr_cn": "BioAlchemy通过从文献中提取可验证的问答对，提升生物研究中的推理模型性能。",
+      "llm_tldr": "BioAlchemy通过从文献中提取可验证的问答对，提升生物研究中的推理模型性能。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.04403v1",
+      "title": "MolDA: Molecular Understanding and Generation via Large Language Diffusion Model",
+      "abstract": "Large Language Models (LLMs) have significantly advanced molecular discovery, but existing multimodal molecular architectures fundamentally rely on autoregressive (AR) backbones. This strict left-to-right inductive bias is sub-optimal for generating chemically valid molecules, as it struggles to account for non-local global constraints (e.g., ring closures) and often accumulates structural errors during sequential generation. To address these limitations, we propose MolDA (Molecular language model with masked Diffusion with mAsking), a novel multimodal framework that replaces the conventional AR backbone with a discrete Large Language Diffusion Model. MolDA extracts comprehensive structural representations using a hybrid graph encoder, which captures both local and global topologies, and aligns them into the language token space via a Q-Former. Furthermore, we mathematically reformulate Molecular Structure Preference Optimization specifically for the masked diffusion. Through bidirectional iterative denoising, MolDA ensures global structural coherence, chemical validity, and robust reasoning across molecule generation, captioning, and property prediction.",
+      "authors": [
+        "Seohyeon Shin",
+        "HanJun Choi",
+        "Jun-Hyung Park",
+        "Hongkook Kim",
+        "Mansu Kim"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-06T04:04:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.04403v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM framework for molecular understanding and generation",
+      "llm_evidence_cn": "用于分子理解和生成的 LLM 框架",
+      "llm_evidence": "用于分子理解和生成的 LLM 框架",
+      "canonical_evidence": "用于分子理解和生成的 LLM 框架",
+      "llm_tldr_en": "Proposes MolDA, a diffusion-based LLM framework for improved molecular structural representation and generation.",
+      "llm_tldr_cn": "提出了 MolDA，一种基于扩散的 LLM 框架，用于改进分子结构表征和生成。",
+      "llm_tldr": "提出了 MolDA，一种基于扩散的 LLM 框架，用于改进分子结构表征和生成。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.03406v1",
+      "title": "SASAV: Self-Directed Agent for Scientific Analysis and Visualization",
+      "abstract": "With recent advances in frontier multimodal large language models (MLLMs) for data understanding and visual reasoning, the role of LLMs has evolved from passive LLM-as-an-interface to proactive LLM-as-a-judge, enabling deeper integration into the scientific data analysis and visualization pipelines. However, existing scientific visualization agents still rely on domain experts to provide prior knowledge for specific datasets or visualization-oriented objective functions to guide the workflow through iterative feedback. This reactive, data-dependent, human-in-the-loop (HITL) paradigm is time-consuming and does not scale effectively to large-scale scientific data. In this work, we propose a Self-Directed Agent for Scientific Analysis and Visualization (SASAV), the first fully autonomous AI agent to perform scientific data analysis and generate insightful visualizations without any external prompting or HITL feedback. SASAV is a multi-agent system that automatically orchestrates data exploration workflows through our proposed components, including automated data profiling, context-aware knowledge retrieval, and reasoning-driven visualization parameter exploration, while supporting downstream interactive visualization tasks. This work establishes a foundational building block for the future AI for Science to accelerate scientific discovery and innovation at scale.",
+      "authors": [
+        "Jianxin Sun",
+        "David Lenz",
+        "Tom Peterka",
+        "Hongfeng Yu"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-04-03T19:09:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.03406v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Self-directed agent for scientific data analysis and visualization",
+      "llm_evidence_cn": "用于科学数据分析和可视化的自主智能体",
+      "llm_evidence": "用于科学数据分析和可视化的自主智能体",
+      "canonical_evidence": "用于科学数据分析和可视化的自主智能体",
+      "llm_tldr_en": "Proposes a self-directed agent to automate scientific data analysis and visualization tasks.",
+      "llm_tldr_cn": "提出了一种自主智能体，用于自动化科学数据分析和可视化任务。",
+      "llm_tldr": "提出了一种自主智能体，用于自动化科学数据分析和可视化任务。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.01195v1",
+      "title": "ORBIT: Scalable and Verifiable Data Generation for Search Agents on a Tight Budget",
+      "abstract": "Search agents, which integrate language models (LMs) with web search, are becoming crucial for answering complex user queries. Constructing training datasets for deep research tasks, involving multi-step retrieval and reasoning, remains challenging due to expensive human annotation, or cumbersome prerequisites. In this work, we introduce ORBIT, a training dataset with 20K reasoning-intensive queries with short verifiable answers, generated using a frugal framework without relying on paid API services. The modular framework relies on four stages: seed creation, question--answer pair generation, and two stages of verification: self and external. ORBIT spans 15 domains and each training pair requires 4--5 reasoning steps, with external search verification required from the complete web. We train Qwen3-4B as the base model on ORBIT using GRPO and evaluate it on Wikipedia question answering tasks. Extensive experiment results demonstrate that ORBIT-4B achieves strong performance among sub-4B LLMs as search agents, proving the utility of synthetic datasets. Our framework, code and datasets are open-sourced and available publicly.",
+      "authors": [
+        "Nandan Thakur",
+        "Zijian Chen",
+        "Xueguang Ma",
+        "Jimmy Lin"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.IR"
+      ],
+      "published": "2026-04-01T17:42:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.01195v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Data generation for search agents in deep research tasks",
+      "llm_evidence_cn": "深度研究任务中搜索智能体的数据生成",
+      "llm_evidence": "深度研究任务中搜索智能体的数据生成",
+      "canonical_evidence": "深度研究任务中搜索智能体的数据生成",
+      "llm_tldr_en": "Introduces a framework for generating reasoning-intensive datasets to train search agents for complex research.",
+      "llm_tldr_cn": "介绍了一个生成推理密集型数据集的框架，用于训练处理复杂研究任务的搜索智能体。",
+      "llm_tldr": "介绍了一个生成推理密集型数据集的框架，用于训练处理复杂研究任务的搜索智能体。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.03964v1",
+      "title": "SKILLFOUNDRY: Building Self-Evolving Agent Skill Libraries from Heterogeneous Scientific Resources",
+      "abstract": "Modern scientific ecosystems are rich in procedural knowledge across repositories, APIs, scripts, notebooks, documentation, databases, and papers, yet much of this knowledge remains fragmented across heterogeneous artifacts that agents cannot readily operationalize. This gap between abundant scientific know-how and usable agent capabilities is a key bottleneck for building effective scientific agents. We present SkillFoundry, a self-evolving framework that converts such resources into validated agent skills, reusable packages that encode task scope, inputs and outputs, execution steps, environment assumptions, provenance, and tests. SkillFoundry organizes a target domain as a domain knowledge tree, mines resources from high-value branches, extracts operational contracts, compiles them into executable skill packages, and then iteratively expands, repairs, merges, or prunes the resulting library through a closed-loop validation process. SkillFoundry produces a substantially novel and internally valid skill library, with 71.1\\% of mined skills differing from existing skill libraries such as SkillHub and SkillSMP. We demonstrate that these mined skills improve coding agent performance on five of the six MoSciBench datasets. We further show that SkillFoundry can design new task-specific skills on demand for concrete scientific objectives, and that the resulting skills substantially improve performance on two challenging genomics tasks: cell type annotation and the scDRS workflow. Together, these results show that automatically mined skills improve agent performance on benchmarks and domain-specific tasks, expand coverage beyond hand-crafted skill libraries, and provide a practical foundation for more capable scientific agents.",
+      "authors": [
+        "Shuaike Shen",
+        "Wenduo Cheng",
+        "Mingqian Ma",
+        "Alistair Turcan",
+        "Martin Jinye Zhang",
+        "Jian Ma"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-05T05:02:18+00:00",
+      "link": "https://arxiv.org/pdf/2604.03964v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Framework for building scientific agent skills from heterogeneous resources",
+      "llm_evidence_cn": "从异构资源构建科学智能体技能的框架",
+      "llm_evidence": "从异构资源构建科学智能体技能的框架",
+      "canonical_evidence": "从异构资源构建科学智能体技能的框架",
+      "llm_tldr_en": "SkillFoundry builds reusable agent skills from scientific resources to bridge the gap in scientific know-how.",
+      "llm_tldr_cn": "SkillFoundry 从科学资源中构建可重用的智能体技能，填补了科学知识应用方面的空白。",
+      "llm_tldr": "SkillFoundry 从科学资源中构建可重用的智能体技能，填补了科学知识应用方面的空白。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.01437v1",
+      "title": "Reproducible, Explainable, and Effective Evaluations of Agentic AI for Software Engineering",
+      "abstract": "With the advancement of Agentic AI, researchers are increasingly leveraging autonomous agents to address challenges in software engineering (SE). However, the large language models (LLMs) that underpin these agents often function as black boxes, making it difficult to justify the superiority of Agentic AI approaches over baselines. Furthermore, missing information in the evaluation design description frequently renders the reproduction of results infeasible. To synthesize current evaluation practices for Agentic AI in SE, this study analyzes 18 papers on the topic, published or accepted by ICSE 2026, ICSE 2025, FSE 2025, ASE 2025, and ISSTA 2025. The analysis identifies prevailing approaches and their limitations in evaluating Agentic AI for SE, both in current research and potential future studies. To address these shortcomings, this position paper proposes a set of guidelines and recommendations designed to empower reproducible, explainable, and effective evaluations of Agentic AI in software engineering. In particular, we recommend that Agentic AI researchers make their Thought-Action-Result (TAR) trajectories and LLM interaction data, or summarized versions of these artifacts, publicly accessible. Doing so will enable subsequent studies to more effectively analyze the strengths and weaknesses of different Agentic AI approaches. To demonstrate the feasibility of such comparisons, we present a proof-of-concept case study that illustrates how TAR trajectories can support systematic analysis across approaches.",
+      "authors": [
+        "Jingyue Li",
+        "André Storhaug"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-04-01T22:24:08+00:00",
+      "link": "https://arxiv.org/pdf/2604.01437v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Evaluation of agentic AI for software engineering and research",
+      "llm_evidence_cn": "软件工程与研究中智能体AI的评估",
+      "llm_evidence": "软件工程与研究中智能体AI的评估",
+      "canonical_evidence": "软件工程与研究中智能体AI的评估",
+      "llm_tldr_en": "Analyzes evaluation practices for agentic AI, providing insights into reproducibility and explainability.",
+      "llm_tldr_cn": "分析了智能体AI的评估实践，为可重复性和可解释性提供了见解。",
+      "llm_tldr": "分析了智能体AI的评估实践，为可重复性和可解释性提供了见解。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04274v1",
+      "title": "InferenceEvolve: Towards Automated Causal Effect Estimators through Self-Evolving AI",
+      "abstract": "Causal inference is central to scientific discovery, yet choosing appropriate methods remains challenging because of the complexity of both statistical methodology and real-world data. Inspired by the success of artificial intelligence in accelerating scientific discovery, we introduce InferenceEvolve, an evolutionary framework that uses large language models to discover and iteratively refine causal methods. Across widely used benchmarks, InferenceEvolve yields estimators that consistently outperform established baselines: against 58 human submissions in a recent community competition, our best evolved estimator lay on the Pareto frontier across two evaluation metrics. We also developed robust proxy objectives for settings without semi-synthetic outcomes, with competitive results. Analysis of the evolutionary trajectories shows that agents progressively discover sophisticated strategies tailored to unrevealed data-generating mechanisms. These findings suggest that language-model-guided evolution can optimize structured scientific programs such as causal inference, even when outcomes are only partially observed.",
+      "authors": [
+        "Can Wang",
+        "Hongyu Zhao",
+        "Yiqun Chen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CE",
+        "cs.MS",
+        "stat.AP"
+      ],
+      "published": "2026-04-05T21:27:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.04274v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLMs for discovering and refining causal methods in scientific discovery",
+      "llm_evidence_cn": "大语言模型用于科学发现中的因果方法发现与改进",
+      "llm_evidence": "大语言模型用于科学发现中的因果方法发现与改进",
+      "canonical_evidence": "大语言模型用于科学发现中的因果方法发现与改进",
+      "llm_tldr_en": "Introduces an evolutionary framework using LLMs to automate the discovery of causal effect estimators.",
+      "llm_tldr_cn": "引入一种利用大语言模型自动发现因果效应估计器的进化框架。",
+      "llm_tldr": "引入一种利用大语言模型自动发现因果效应估计器的进化框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.02988v1",
+      "title": "Self-Optimizing Multi-Agent Systems for Deep Research",
+      "abstract": "Given a user's complex information need, a multi-agent Deep Research system iteratively plans, retrieves, and synthesizes evidence across hundreds of documents to produce a high-quality answer. In one possible architecture, an orchestrator agent coordinates the process, while parallel worker agents execute tasks. Current Deep Research systems, however, often rely on hand-engineered prompts and static architectures, making improvement brittle, expensive, and time-consuming. We therefore explore various multi-agent optimization methods to show that enabling agents to self-play and explore different prompt combinations can produce high-quality Deep Research systems that match or outperform expert-crafted prompts.",
+      "authors": [
+        "Arthur Câmara",
+        "Vincent Slot",
+        "Jakub Zavrel"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.AI"
+      ],
+      "published": "2026-04-03T11:48:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.02988v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent systems for deep research and evidence synthesis",
+      "llm_evidence_cn": "用于深度研究和证据合成的多智能体系统",
+      "llm_evidence": "用于深度研究和证据合成的多智能体系统",
+      "canonical_evidence": "用于深度研究和证据合成的多智能体系统",
+      "llm_tldr_en": "Explores self-optimizing multi-agent systems to improve complex information retrieval and research synthesis.",
+      "llm_tldr_cn": "探索自优化多智能体系统，以改进复杂的信息检索和研究综述合成。",
+      "llm_tldr": "探索自优化多智能体系统，以改进复杂的信息检索和研究综述合成。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04503v1",
+      "title": "Memory Intelligence Agent",
+      "abstract": "Deep research agents (DRAs) integrate LLM reasoning with external tools. Memory systems enable DRAs to leverage historical experiences, which are essential for efficient reasoning and autonomous evolution. Existing methods rely on retrieving similar trajectories from memory to aid reasoning, while suffering from key limitations of ineffective memory evolution and increasing storage and retrieval costs. To address these problems, we propose a novel Memory Intelligence Agent (MIA) framework, consisting of a Manager-Planner-Executor architecture. Memory Manager is a non-parametric memory system that can store compressed historical search trajectories. Planner is a parametric memory agent that can produce search plans for questions. Executor is another agent that can search and analyze information guided by the search plan. To build the MIA framework, we first adopt an alternating reinforcement learning paradigm to enhance cooperation between the Planner and the Executor. Furthermore, we enable the Planner to continuously evolve during test-time learning, with updates performed on-the-fly alongside inference without interrupting the reasoning process. Additionally, we establish a bidirectional conversion loop between parametric and non-parametric memories to achieve efficient memory evolution. Finally, we incorporate a reflection and an unsupervised judgment mechanisms to boost reasoning and self-evolution in the open world. Extensive experiments across eleven benchmarks demonstrate the superiority of MIA.",
+      "authors": [
+        "Jingyang Qiao",
+        "Weicheng Meng",
+        "Yu Cheng",
+        "Zhihang Lin",
+        "Zhizhong Zhang",
+        "Xin Tan",
+        "Jingyu Gong",
+        "Kun Shao",
+        "Yuan Xie"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-06T07:59:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.04503v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep research agents with memory systems for autonomous evolution",
+      "llm_evidence_cn": "具有记忆系统、可自主进化的深度研究智能体",
+      "llm_evidence": "具有记忆系统、可自主进化的深度研究智能体",
+      "canonical_evidence": "具有记忆系统、可自主进化的深度研究智能体",
+      "llm_tldr_en": "Develops a Memory Intelligence Agent framework to enhance reasoning and search capabilities in research agents.",
+      "llm_tldr_cn": "开发了记忆智能体框架，以增强研究智能体的推理和搜索能力。",
+      "llm_tldr": "开发了记忆智能体框架，以增强研究智能体的推理和搜索能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.03430v1",
+      "title": "Scaling Multi-agent Systems: A Smart Middleware for Improving Agent Interactions",
+      "abstract": "As Large Language Model (LLM) based Multi-Agent Systems (MAS) evolve from experimental pilots to complex, persistent ecosystems, the limitations of direct agent-to-agent communication have become increasingly apparent. Current architectures suffer from fragmented context, stochastic hallucinations, rigid security boundaries, and inefficient topology management. This paper introduces Cognitive Fabric Nodes (CFN), a novel middleware layer that creates an omnipresent \"Cognitive Fabric\" between agents. Unlike traditional message queues or service meshes, CFNs are not merely pass-through mechanisms; they are active, intelligent intermediaries.   Central to this architecture is the elevation of Memory from simple storage to an active functional substrate that informs four other critical capabilities: Topology Selection, Semantic Grounding, Security Policy Enforcement, and Prompt Transformation. We propose that each of these functions be governed by learning modules utilizing Reinforcement Learning (RL) and optimization algorithms to improve system performance dynamically. By intercepting, analyzing, and rewriting inter-agent communication, the Cognitive Fabric ensures that individual agents remain lightweight while the ecosystem achieves coherence, safety, and semantic alignment.   We evaluate the effectiveness of the CFN on the HotPotQA and MuSiQue datasets in a multi-agent environment and demonstrate that the CFN improves performance by more than 10\\% on both datasets over direct agent to agent communication.",
+      "authors": [
+        "Charles Fleming",
+        "Ramana Kompella",
+        "Peter Bosch",
+        "Vijoy Pandey"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.NI"
+      ],
+      "published": "2026-04-03T19:58:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.03430v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "middleware for LLM multi-agent systems",
+      "llm_evidence_cn": "大语言模型多智能体系统的中间件",
+      "llm_evidence": "大语言模型多智能体系统的中间件",
+      "canonical_evidence": "大语言模型多智能体系统的中间件",
+      "llm_tldr_en": "Introduces a middleware layer to improve communication and memory in LLM-based multi-agent systems.",
+      "llm_tldr_cn": "引入中间件层以改进基于大语言模型的多智能体系统中的通信和记忆。",
+      "llm_tldr": "引入中间件层以改进基于大语言模型的多智能体系统中的通信和记忆。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04871v1",
+      "title": "StatsClaw: An AI-Collaborative Workflow for Statistical Software Development",
+      "abstract": "Translating statistical methods into reliable software is a persistent bottleneck in quantitative research. Existing AI code-generation tools produce code quickly but cannot guarantee faithful implementation -- a critical requirement for statistical software. We introduce StatsClaw, a multi-agent architecture for Claude Code that enforces information barriers between code generation and validation. A planning agent produces independent specifications for implementation, simulation, and testing, dispatching them to separate agents that cannot see each other's instructions: the builder implements without knowing the ground-truth parameters, the simulator generates data without knowing the algorithm, and the tester validates using deterministic criteria. We describe the approach, demonstrate it end-to-end on a probit estimation package, and evaluate it across three applications to the authors' own R and Python packages. The results show that structured AI-assisted workflows can absorb the engineering overhead of the software lifecycle while preserving researcher control over every substantive methodological decision.",
+      "authors": [
+        "Tianzhu Qin",
+        "Yiqing Xu"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-04-06T17:18:53+00:00",
+      "link": "https://arxiv.org/pdf/2604.04871v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent architecture for statistical software development in research",
+      "llm_evidence_cn": "用于科研统计软件开发的多智能体架构",
+      "llm_evidence": "用于科研统计软件开发的多智能体架构",
+      "canonical_evidence": "用于科研统计软件开发的多智能体架构",
+      "llm_tldr_en": "A multi-agent system that ensures faithful implementation of statistical methods in research software.",
+      "llm_tldr_cn": "一种多智能体系统，确保在科研软件中准确实现统计方法。",
+      "llm_tldr": "一种多智能体系统，确保在科研软件中准确实现统计方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04131v1",
+      "title": "Profile-Then-Reason: Bounded Semantic Complexity for Tool-Augmented Language Agents",
+      "abstract": "Large language model agents that use external tools are often implemented through reactive execution, in which reasoning is repeatedly recomputed after each observation, increasing latency and sensitivity to error propagation. This work introduces Profile--Then--Reason (PTR), a bounded execution framework for structured tool-augmented reasoning, in which a language model first synthesizes an explicit workflow, deterministic or guarded operators execute that workflow, a verifier evaluates the resulting trace, and repair is invoked only when the original workflow is no longer reliable. A mathematical formulation is developed in which the full pipeline is expressed as a composition of profile, routing, execution, verification, repair, and reasoning operators; under bounded repair, the number of language-model calls is restricted to two in the nominal case and three in the worst case. Experiments against a ReAct baseline on six benchmarks and four language models show that PTR achieves the pairwise exact-match advantage in 16 of 24 configurations. The results indicate that PTR is particularly effective on retrieval-centered and decomposition-heavy tasks, whereas reactive execution remains preferable when success depends on substantial online adaptation.",
+      "authors": [
+        "Paulo Akira F. Enabe"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-05T14:27:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.04131v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "framework for tool-augmented language agents with structured workflows",
+      "llm_evidence_cn": "具有结构化工作流的工具增强型语言智能体框架",
+      "llm_evidence": "具有结构化工作流的工具增强型语言智能体框架",
+      "canonical_evidence": "具有结构化工作流的工具增强型语言智能体框架",
+      "llm_tldr_en": "Introduces a framework for structured tool-augmented reasoning in language agents to improve reliability.",
+      "llm_tldr_cn": "引入了一种用于语言智能体结构化工具增强推理的框架，以提高可靠性。",
+      "llm_tldr": "引入了一种用于语言智能体结构化工具增强推理的框架，以提高可靠性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04247v1",
+      "title": "Combee: Scaling Prompt Learning for Self-Improving Language Model Agents",
+      "abstract": "Recent advances in prompt learning allow large language model agents to acquire task-relevant knowledge from inference-time context without parameter changes. For example, existing methods (like ACE or GEPA) can learn system prompts to improve accuracy based on previous agent runs. However, these methods primarily focus on single-agent or low-parallelism settings. This fundamentally limits their ability to efficiently learn from a large set of collected agentic traces. It would be efficient and beneficial to run prompt learning in parallel to accommodate the growing trend of learning from many agentic traces or parallel agent executions. Yet without a principled strategy for scaling, current methods suffer from quality degradation with high parallelism. To improve both the efficiency and quality of prompt learning, we propose Combee, a novel framework to scale parallel prompt learning for self-improving agents. Combee speeds up learning and enables running many agents in parallel while learning from their aggregate traces without quality degradation. To achieve this, Combee leverages parallel scans and employs an augmented shuffle mechanism; Combee also introduces a dynamic batch size controller to balance quality and delay. Evaluations on AppWorld, Terminal-Bench, Formula, and FiNER demonstrate that Combee achieves up to 17x speedup over previous methods with comparable or better accuracy and equivalent cost.",
+      "authors": [
+        "Hanchen Li",
+        "Runyuan He",
+        "Qizheng Zhang",
+        "Changxiu Ji",
+        "Qiuyang Mang",
+        "Xiaokun Chen",
+        "Lakshya A Agrawal",
+        "Wei-Liang Liao",
+        "Eric Yang",
+        "Alvin Cheung",
+        "James Zou",
+        "Kunle Olukotun",
+        "Ion Stoica",
+        "Joseph E. Gonzalez"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-04-05T20:07:48+00:00",
+      "link": "https://arxiv.org/pdf/2604.04247v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Scaling prompt learning for self-improving language model agents",
+      "llm_evidence_cn": "为自我改进的语言模型智能体扩展提示学习",
+      "llm_evidence": "为自我改进的语言模型智能体扩展提示学习",
+      "canonical_evidence": "为自我改进的语言模型智能体扩展提示学习",
+      "llm_tldr_en": "A method to scale prompt learning for agents, enabling them to learn from large sets of execution traces.",
+      "llm_tldr_cn": "一种扩展智能体提示学习的方法，使其能够从大量的执行轨迹中学习并自我改进。",
+      "llm_tldr": "一种扩展智能体提示学习的方法，使其能够从大量的执行轨迹中学习并自我改进。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

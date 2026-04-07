@@ -6,58 +6,67 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-06
-- 运行时间：2026-04-06 19:47:54 UTC
+- 最新运行日期：2026-04-07
+- 运行时间：2026-04-07 20:20:19 UTC
 - 运行状态：成功
-- 本次总论文数：12
-- 精读区：1
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-聚焦 AI for Science 前沿，深度解析蛋白质网络嵌入与生物功能学习。
-重点关注通过组合学习捕捉蛋白质复杂功能，以及从 Transformer 演进至 Agent 的科研范式变革。
-建议关注双模态 AI 在病毒宿主预测中的应用，并探索高维生物数据中的模糊性处理。
-- 详情：[/202604/06/README](/202604/06/README)
+今日聚焦 15 篇 AI for Science 前沿进展，深度剖析了大语言模型在生物分子与基因组建模中的能力边界。
+两篇满分论文一致指出当前基础模型在跨尺度生物建模中的局限，并利用熵与分歧度量化了基因组预测的瓶颈。
+建议关注“自我进化智能体”如何通过自动化技能库和因果推断，填补复杂科学分析与可视化中的技术
+- 详情：[/202604/07/README](/202604/07/README)
 
 ### 精读区论文标签
-1. [Event Embedding of Protein Networks : Compositional Learning of Biological Function](/202604/06/2604.00911v1-event-embedding-of-protein-networks--compositional-learning-of-biological-function)  
+1. [The limits of bio-molecular modeling with large language models : a cross-scale evaluation](/202604/07/2604.03361v1-the-limits-of-bio-molecular-modeling-with-large-language-models--a-cross-scale-evaluation)  
+   标签：评分：10.0/10、query:llmagt
+   evidence：大语言模型用于生物分子建模与发现
+2. [Entropy, Disagreement, and the Limits of Foundation Models in Genomics](/202604/07/2604.04287v1-entropy-disagreement-and-the-limits-of-foundation-models-in-genomics)  
+   标签：评分：10.0/10、query:llmagt
+   evidence：基因组学和DNA序列的基础模型
+3. [BioAlchemy: Distilling Biological Literature into Reasoning-Ready Reinforcement Learning Training Data](/202604/07/2604.03506v1-bioalchemy-distilling-biological-literature-into-reasoning-ready-reinforcement-learning-training-data)  
+   标签：评分：9.0/10、query:llmagt
+   evidence：提取生物文献数据用于生物研究任务的强化学习训练
+4. [MolDA: Molecular Understanding and Generation via Large Language Diffusion Model](/202604/07/2604.04403v1-molda-molecular-understanding-and-generation-via-large-language-diffusion-model)  
    标签：评分：8.0/10、query:llmagt
-   evidence：用于蛋白质相互作用网络和生物功能的序列嵌入
+   evidence：用于分子理解和生成的 LLM 框架
 
 ### 速读区论文标签
-1. [Deep Research of Deep Research: From Transformer to Agent, From AI to AI for Science](/202604/06/2603.28361v1-deep-research-of-deep-research-from-transformer-to-agent-from-ai-to-ai-for-science)  
+1. [SASAV: Self-Directed Agent for Scientific Analysis and Visualization](/202604/07/2604.03406v1-sasav-self-directed-agent-for-scientific-analysis-and-visualization)  
    标签：评分：7.0/10、query:llmagt
-   evidence：科学AI与用于研究的自主智能体
-2. [Non-ignorable fuzziness in granular counts: the case of RNA-seq data](/202604/06/2604.00763v1-non-ignorable-fuzziness-in-granular-counts-the-case-of-rna-seq-data)  
+   evidence：用于科学数据分析和可视化的自主智能体
+2. [SKILLFOUNDRY: Building Self-Evolving Agent Skill Libraries from Heterogeneous Scientific Resources](/202604/07/2604.03964v1-skillfoundry-building-self-evolving-agent-skill-libraries-from-heterogeneous-scientific-resources)  
    标签：评分：7.0/10、query:llmagt
-   evidence：RNA-seq数据分析与转录组学
-3. [ViraHinter: a dual-modal artificial intelligence framework for predicting virus-host interactions](/202604/06/2604.02842v1-virahinter-a-dual-modal-artificial-intelligence-framework-for-predicting-virus-host-interactions)  
+   evidence：从异构资源构建科学智能体技能的框架
+3. [InferenceEvolve: Towards Automated Causal Effect Estimators through Self-Evolving AI](/202604/07/2604.04274v1-inferenceevolve-towards-automated-causal-effect-estimators-through-self-evolving-ai)  
    标签：评分：7.0/10、query:llmagt
-   evidence：用于预测病毒-宿主蛋白质相互作用的深度学习框架
-4. [MemFactory: Unified Inference & Training Framework for Agent Memory](/202604/06/2603.29493v3-memfactory-unified-inference--training-framework-for-agent-memory)  
+   evidence：大语言模型用于科学发现中的因果方法发现与改进
+4. [Memory Intelligence Agent](/202604/07/2604.04503v1-memory-intelligence-agent)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：具有记忆系统、可自主进化的深度研究智能体
+5. [StatsClaw: An AI-Collaborative Workflow for Statistical Software Development](/202604/07/2604.04871v1-statsclaw-an-ai-collaborative-workflow-for-statistical-software-development)  
+   标签：评分：7.0/10、query:llmagt
+   evidence：用于科研统计软件开发的多智能体架构
+6. [ORBIT: Scalable and Verifiable Data Generation for Search Agents on a Tight Budget](/202604/07/2604.01195v1-orbit-scalable-and-verifiable-data-generation-for-search-agents-on-a-tight-budget)  
    标签：评分：6.0/10、query:llmagt
-   evidence：适用于复杂流程的记忆增强型智能体统一框架
-5. [Asymmetric Actor-Critic for Multi-turn LLM Agents](/202604/06/2604.00304v1-asymmetric-actor-critic-for-multi-turn-llm-agents)  
+   evidence：深度研究任务中搜索智能体的数据生成
+7. [Reproducible, Explainable, and Effective Evaluations of Agentic AI for Software Engineering](/202604/07/2604.01437v1-reproducible-explainable-and-effective-evaluations-of-agentic-ai-for-software-engineering)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于可靠多轮大语言模型智能体的不对称参与者-评论家框架
-6. [Learning to Learn-at-Test-Time: Language Agents with Learnable Adaptation Policies](/202604/06/2604.00830v2-learning-to-learn-at-test-time-language-agents-with-learnable-adaptation-policies)  
+   evidence：软件工程与研究中智能体AI的评估
+8. [Self-Optimizing Multi-Agent Systems for Deep Research](/202604/07/2604.02988v1-self-optimizing-multi-agent-systems-for-deep-research)  
    标签：评分：6.0/10、query:llmagt
-   evidence：具有可学习自适应策略的语言智能体，用于环境交互
-7. [Doctor-RAG: Failure-Aware Repair for Agentic Retrieval-Augmented Generation](/202604/06/2604.00865v1-doctor-rag-failure-aware-repair-for-agentic-retrieval-augmented-generation)  
+   evidence：用于深度研究和证据合成的多智能体系统
+9. [Scaling Multi-agent Systems: A Smart Middleware for Improving Agent Interactions](/202604/07/2604.03430v1-scaling-multi-agent-systems-a-smart-middleware-for-improving-agent-interactions)  
    标签：评分：6.0/10、query:llmagt
-   evidence：用于复杂知识推理的智能体检索增强生成
-8. [Experience as a Compass: Multi-agent RAG with Evolving Orchestration and Agent Prompts](/202604/06/2604.00901v2-experience-as-a-compass-multi-agent-rag-with-evolving-orchestration-and-agent-prompts)  
+   evidence：大语言模型多智能体系统的中间件
+10. [Profile-Then-Reason: Bounded Semantic Complexity for Tool-Augmented Language Agents](/202604/07/2604.04131v1-profile-then-reason-bounded-semantic-complexity-for-tool-augmented-language-agents)  
    标签：评分：6.0/10、query:llmagt
-   evidence：具有演化编排能力的多智能体RAG框架
-9. [Single-Agent LLMs Outperform Multi-Agent Systems on Multi-Hop Reasoning Under Equal Thinking Token Budgets](/202604/06/2604.02460v1-single-agent-llms-outperform-multi-agent-systems-on-multi-hop-reasoning-under-equal-thinking-token-budgets)  
+   evidence：具有结构化工作流的工具增强型语言智能体框架
+11. [Combee: Scaling Prompt Learning for Self-Improving Language Model Agents](/202604/07/2604.04247v1-combee-scaling-prompt-learning-for-self-improving-language-model-agents)  
    标签：评分：6.0/10、query:llmagt
-   evidence：单智能体与多智能体大模型系统的比较
-10. [Do Agent Societies Develop Intellectual Elites? The Hidden Power Laws of Collective Cognition in LLM Multi-Agent Systems](/202604/06/2604.02674v1-do-agent-societies-develop-intellectual-elites-the-hidden-power-laws-of-collective-cognition-in-llm-multi-agent-systems)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：大语言模型多智能体系统协作动态的实证研究
-11. [Improving Role Consistency in Multi-Agent Collaboration via Quantitative Role Clarity](/202604/06/2604.02770v1-improving-role-consistency-in-multi-agent-collaboration-via-quantitative-role-clarity)  
-   标签：评分：6.0/10、query:llmagt
-   evidence：提高多智能体协作中的角色一致性
+   evidence：为自我改进的语言模型智能体扩展提示学习
 
 
 <div class="dpr-home-promo-card">

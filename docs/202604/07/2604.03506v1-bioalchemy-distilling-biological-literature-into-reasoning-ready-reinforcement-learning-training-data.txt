@@ -1,0 +1,548 @@
+Title: BioAlchemy: Distilling Biological Literature into Reasoning-Ready Reinforcement Learning Training Data
+
+URL Source: https://arxiv.org/pdf/2604.03506v1
+
+Published Time: Tue, 07 Apr 2026 00:15:54 GMT
+
+Number of Pages: 29
+
+Markdown Content:
+Preprint. Under review. 
+
+# BioAlchemy: Distilling Biological Literature into Reasoning-Ready Reinforcement Learning Training Data 
+
+Brian Hsu 1,2 , Ozan Gökdemir 1,2 , Carlo Siebenschuh 1,2 , Bruce Parrello 1,2 ,Neil Getty 2, Thomas S. Brettin 2, Rick L. Stevens 1,2 , Ian T. Foster 1,2 ,Nicholas Chia 2, ∗, Arvind Ramanathan 2, ∗
+
+> 1
+
+Department of Computer Science, University of Chicago, Chicago, IL 60637 
+
+> 2
+
+Data Science and Learning Division, Argonne National Laboratory, Lemont, IL 60439 
+
+bah4228@uchicago.edu , {chia, ramanathana}@anl.gov 
+
+> ∗
+
+Equal contribution 
+
+# Abstract 
+
+Despite the large corpus of biology training text, the impact of reasoning models on biological research generally lags behind math and coding. In this work, we show that biology questions from current large-scale reason-ing datasets do not align well with modern research topic distributions in biology, and that this topic imbalance may negatively affect performance. In addition, we find that methods for extracting challenging and verifiable research problems from biology research text are a critical yet underdevel-oped ingredient in applying reinforcement learning for better performance on biology research tasks. We introduce BioAlchemy, a pipeline for sourcing a diverse set of verifiable question-and-answer pairs from a scientific corpus of biology research text. We curate BioAlchemy-345K, a training dataset containing over 345K scientific reasoning problems in biology. Then, we demonstrate how aligning our dataset to the topic distribution of modern scientific biology can be used with reinforcement learning to improve rea-soning performance. Finally, we present BioAlchemist-8B, which improves over its base reasoning model by 9.12% on biology benchmarks. These results demonstrate the efficacy of our approach for developing stronger scientific reasoning capabilities in biology. The BioAlchemist-8B model is available at: https://huggingface.co/BioAlchemy .
+
+# 1 Introduction 
+
+Reasoning models have demonstrated the ability to mimic human chain-of-thought pro-cesses as a means to improve on tasks requiring complex reasoning. This has been dramati-cally demonstrated with gold medal performances from multiple reasoning models at the International Math Olympiad in 2025 (Huang & Yang, 2025). Similarly difficult tests in other areas of science have shown a remarkable gap between math or code and the other sciences (Zhu et al., 2025). This has led to the development of datasets such as NaturalReasoning (Yuan et al., 2025), TextbookReasoning (Fan et al., 2025), and Nemotron-Science-v1 (NVIDIA, 2025) for improving performance across the sciences more broadly. Biology is a particularly challenging area for reasoning models due to the number of dis-parate and difficult subtasks within the biological thinking process – a process that couples databases worth of factual recall with contextually-dependent mechanistic insight. Bench-marks such as LAB-Bench (Laurent et al., 2024) and GPQA-Diamond (Rein et al., 2024) demonstrate this breadth, spanning database search, sequence manipulation, and molec-ular biology. Worse, explicit reasoning about biological concepts differ semantically and significantly from heterogeneous research texts that detail experimental setup, environ-mental context, and qualitative observations. In other words, reasoning for biology is not directly represented in current training corpora to the same extent that it is for math or code. Yet, training data across reasoning problems in biology remains heavily skewed. Fig-ure 1 presents Medical Subject Headings (MeSH) topic distributions computed over biology 1
+
+> arXiv:2604.03506v1 [cs.AI] 3 Apr 2026
+
+Preprint. Under review. questions from some of the largest scientific reasoning datasets derived from pretraining and textbook corpora, where MeSH serves as a standardized vocabulary for organizing topics in biomedical literature (National Library of Medicine, 2026a). The biology reasoning problems in these datasets are skewed away from the distribution of biology literature. This means that any potential set of knowledge or skills being learned cannot be expected to reasonably reflect modern biology research needs. This can be troublesome as the topic distributions neither reflect the relative importance of modern biology topic areas nor help smooth the distribution noticeably (Table 14). Comp. Biology 
+
+> Genetics
+> Microbiology
+> Ecology
+> Mol. Biology
+> Synth. Biology
+> Botany
+> Develop. Biology
+> Zoology
+> Other
+> MeSH Biology Subcategory
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Probability Density
+> PubMed Biology
+> TVD=0.00
+> TextbookReasoning
+> TVD=0.71
+> NaturalReasoning
+> TVD=0.55
+> Nemotron-Science-v1
+> TVD=0.48
+
+Figure 1: Content distribution differences between reasoning problems in biology. Comparison is based on MeSH topics representing PubMed re-search articles from 2020–2024. In this work, we investigate how reasoning problems aligned at the subtopic level for biology can be used to drive gains in biological reasoning. We use an LLM-driven pipeline to source over 345K reasoning problems for reinforcement learning (RL) that capture subtopics and relationships representative of modern scientific bi-ology. Through topic sampling tech-niques, we derive a reasoning dataset that reflects modern scientific biology at the subtopic level. Through various experiments, we demonstrate the util-ity of our reasoning dataset in elicit-ing performance across various biology benchmarks. We also provide an analy-sis on which composition of reasoning topics can lead to the best gains in per-formance. Our work provides a dataset and strategy for how to use topic-level alignment to train reasoning models that can better solve challenges in scientific biology. 
+
+# 2 Background and related work 
+
+Reasoning models have recently achieved state-of-the-art performance on various math and coding benchmarks (Shao et al., 2024). A driving factor in this rise in performance is an abundance of math and coding reasoning datasets such as OpenMathReasoning (Moshkov et al., 2025) and NuminaMath (Li et al., 2024). However, translating the same results to scientific domains has remained an open challenge due to the relative sparsity in such datasets compared to math and coding. Recent works such as MegaScience (Fan et al., 2025), NaturalReasoning (Yuan et al., 2025), and Nemotron-Science-v1 (NVIDIA, 2025) have attempted to bridge this gap through large reasoning datasets covering broad topics such as biology, chemistry, math, etc. However, these works do not use scientific research papers as the core data source for deriving rea-soning problems, instead using pretraining corpora, textbooks, or synthetically generated questions. Furthermore, these datasets attempt to improve biological reasoning through generalized gains in scientific reasoning, without sufficient attention on the topic complexi-ties inherent to biology. Other efforts have focused on synthesizing data that aligns well for biological reasoning. BioReason (Fallahpour et al., 2025) introduces multi-modal data that aligns genomic sequences with textual reasoning. PaperSearchQA (Burgess et al., 2026) curates reasoning problems and a retrieval corpus from PubMed abstracts for reinforcement learning. However, these works do not consider the distribution of biological reasoning problems at the subtopic level. Blakeney et al. (2024) and Mizrahi et al. (2025) have argued for proper upsampling and calibration of domain data during training for downstream performance in relevant benchmarks. Therefore, we propose that in order to achieve better performance in biological research, one should curate reasoning data that reflects modern biological research topics on a more granular level, motivating our work. 2Preprint. Under review. 
+
+# 3 Dataset: BioAlchemy-345K 
+
+The BioAlchemy dataset is built from a scientific corpus sourced from the American Society for Microbiology (ASM) (American Society for Microbiology, 2025), PLoS Genetics (Public Library of Science, 2026b), PLoS Computational Biology (Public Library of Science, 2026a), and Semantic Scholar (Kinney et al., 2023). We use an automated question-answer (QA) generation pipeline similar to Gokdemir et al. (2025a) that combines a distributed parser (Siebenschuh et al., 2025) with high-throughput chunking strategies (Gokdemir et al., 2025b). Our QA generation process is applied over scientific text to generate a provenance-driven, scientifically-grounded, and predominantly MCQA dataset that is appropriate for RL train-ing. We use multiple prompts for deriving our QA pairs, which are detailed in Section A.9. In total, our aggregate dataset is sourced from 77.7K scientific research articles and contains 345K reasoning problems appropriate for RL.             
+
+> Data Source # Research Articles # QA Pairs
+> ASM 35.8K 173.6K PLoS CompBio 10.5K 76.1K PLoS Genetics 8.9K 56.9K Semantic Scholar 22.5K 38.4K
+> Total 77.7K 345K
+
+Table 1: Composition of dataset for BioAlchemy. Table 2 shows that BioAlchemy com-pares favorably to the biology subsets of other large-scale reasoning datasets along the dimensions most relevant for reinforcement learning. To make this comparison, we extract the biology problems from the relevant datasets through a multi-label topic classifier, described in Section 3.1. Among the datasets considered, BioAlchemy con-tains the largest number of biology reasoning questions, with 345K examples, making it 6.5 × larger than the biology subset for the next largest dataset, NaturalReasoning. In addi-tion to scale, BioAlchemy is almost entirely composed of reasoning problems with ground truth answers that are easily verifiable via exact-match, making it especially well-suited for reinforcement learning with verifiable rewards (Wen et al., 2025). The source of reasoning problems also varies considerably across datasets. NaturalReasoning extracts questions from pretraining web corpora such as DCLM-Baseline, which are broad in coverage but not curated for scientific depth. TextbookReasoning from MegaScience derives its questions from university textbooks, which are more structured but reflect pedagogical rather than research-level content. Nemotron-Science-v1 generates its questions synthetically via LLMs, without grounding in primary scientific literature (NVIDIA, 2025). In contrast, BioAlchemy is sourced directly from scientific research publications, grounding its reasoning problems in the language, concepts, and evidence structures of active biological research. It is worth noting that our design intention behind grounding our verifiable reasoning problems in scientific literature is to better preserve the ability to expand model knowledge without solely relying on distillation from state-of-the-art LLMs. Smaller models typically exhibit strong gains from distillation (Guo et al., 2025), and the quality of training data may matter more at larger models where capacity constraints are reduced (Zhang et al., 2025). Since we are limited to an 8B model, we leave this as an open research question for future work.                     
+
+> Dataset Source Size (Biology) Training MeSH Coverage
+> BioAlchemy Scientific Research Text 345K RL (GRPO) 95.6%
+> NaturalReasoning Pretraining Corpora 52.9K SFT 34.7% TextbookReasoning University Textbooks 51.2K SFT 66.6% Nemotron-Science-v1 N/A 29.1K RL (GRPO) 91.4%
+
+Table 2: Comparison of reasoning datasets, where dataset sizes are based on questions classified as biology questions. BioAlchemy is the largest and has the strongest coverage. 
+
+3.1 Sampling topic distributions 
+
+Previous work has emphasized the importance of aligning training distributions for optimal domain performance (Gururangan et al., 2020; Chawla et al., 2025). Therefore, we choose to 3Preprint. Under review. 
+
+Algorithm 1 Greedy Removal for Distribution Matching 
+
+Require: Dataset D, target distribution ˆ PBio , threshold τ, penalty λ 
+
+> 1:
+
+S ← { i ∈ D : |Ci| > 0} ▷ Initialize with all valid samples  
+
+> 2:
+
+Compute category counts nj = ∑i∈S 1[cj ∈ Ci] 
+
+> 3:
+
+while TVD ( ˆPS , ˆ PBio ) > τ and |S| > nmin do  
+
+> 4:
+
+Identify overrepresented categories: O = {cj : ˆ pcj > ˆpBio  
+
+> cj
+
+} 
+
+> 5:
+
+for each sample i ∈ S do  
+
+> 6:
+
+score (i) ← ∑cj ∈Ci ∩O ( ˆpcj − ˆpBio  
+
+> cj
+
+) − λ ∑cj ∈Ci \O ( ˆpBio  
+
+> cj
+
+− ˆpcj ) 
+
+> 7:
+
+end for  
+
+> 8:
+
+Remove the top-k highest-scoring samples from S 
+
+> 9:
+
+Update counts nj and recompute ˆ PS 
+
+> 10:
+
+end while return S
+
+align the distribution of our reasoning dataset with PubMed articles published from 2020 to 2024 at the MeSH Biology subtopic level (National Library of Medicine, 2026b). Specifically, given the 345K total reasoning problems sourced via BioAlchemy, which we denote as D,we sample a reasoning dataset S ⊆ D such that its categorical distribution PS approximates 
+
+PBio , which represents the topic distribution capturing modern biology research text. The alignment process for creating a calibrated dataset S provides a greater level of granular control over the reasoning datasets we compare to in this work on a subtopic level. To approximate PBio , we use the NCBI Entrez API (Sayers, 2010) to collect a set of scientific publications Q. For each document d ∈ Q , we download its associated set of MeSH topics Md ⊆ C , where C = {c1, . . . , c21 } is the canonical support set of 21 MeSH Biology subcategories under the Biology hierarchy H01.158.273.* (National Library of Medicine, 2026a). Using our sampled documents and their associated MeSH category sets, we compute the empirical distribution of MeSH topic categories ˆ PBio over sampled documents: ˆPBio = ( ˆpBio  
+
+> c1
+
+, ˆ pBio  
+
+> c2
+
+, . . . , ˆ pBio  
+
+> c21
+
+), where ˆ pBio  
+
+> cj
+
+= ∑d∈Q 1[cj ∈ Md]
+
+|Q| , j ∈ [21 ] (1) 0 1 2
+
+> MeSH Topics Per Question
+> 0%
+> 20%
+> 40%
+> 60%
+> 80%
+> 100%
+> Percent of Questions
+> NaturalReasoning
+> TextbookReasoning
+> Nemotron-Science-v1
+> BioAlchemy
+
+Figure 2: BioAlchemy has more MeSH topics per biology question. Compari-son is based on 50K subsamples. To compute ˆPS , we first have to train a multi-label classifier to label each reasoning problem from our dataset D with its relevant set of MeSH Biology subcategory labels. To do this, we first collect an additional set of papers and MeSH topic array la-bels via NCBI API for our training and validation sets. We then prompt-tuned a topic classifier on these sets using DSPy (Khattab et al., 2023), with GPT-4.1 as the underlying model. We select few-shot examples via a bootstrap with random search over random prompt configurations, and evalu-ate 11 candidate prompt configurations against our stratified validation set using micro-averaged F1 (Table 16). Our optimized classifier achieves 72.7% F1, a +96% relative improvement over the zero-shot baseline (37.0% F1). Compared to single-label supervision, using multi-label ground truth also yields an additional +23.4% gain. We now label each reasoning problem i ∈ D in our dataset by classifying it with a set of subcategory labels 
+
+Ci ⊆ C that describes the content of the reason-ing problem. Note that we allow for Ci = ∅, as certain reasoning problems may not contain content relevant to MeSH Biology subtopics despite being labeled as biology. This may happen due to the natural adjacency between 4Preprint. Under review. medical and biology topics, as well as erroneous safety filtering from our LLM API, based on manual inspection of a sample of filtered questions. Using our classification method, we find that our reasoning problems are more diverse than other datasets in MeSH content, as demonstrated in Figure 2. We now construct our reasoning dataset S = {i ∈ D : TVD ( ˆPS , ˆPBio ) ≤ τ}. We set 
+
+τ = 0.21 based on our classifier’s prediction error; since our classifier has an error rate of 
+
+ϵ = 0.273, the maximum TVD perturbation attributable to misclassification is bounded by 
+
+ϵ · TVD (PBio , U) = 0.213, where U is the uniform distribution. Distributional differences below this threshold are therefore indistinguishable from classification noise, making τ =
+
+0.21 the tightest meaningful target. To construct S, we apply a greedy sampling algorithm on D that iteratively removes reasoning problems that contribute the most to TVD ( ˆPS , ˆPBio ),as shown in Algorithm 1. We score each sample as a weighted estimate of its deviation from the target distribution, prioritizing keeping samples that contain under-represented MeSH categories, since certain categories like Synthetic Biology are extremely rare. We then remove samples with the highest score, reducing the over-representation of categories that dominate the source distribution.                                                                     
+
+> Rank MeSH Biology Subcategory PubMed 2020–2024 Textbook Reasoning Natural Reasoning Nemotron Science-v1 BioAlchemy
+> 1Computational Biology 45.32% 0.57% 12.09% 7.44% 24.95% 2Genetics 36.18% 11.37% 18.30% 34.67% 36.89% 3Microbiology 10.90% 14.39% 7.19% 3.78% 16.75% 4Ecology 2.56% 2.51% 9.24% 0.99% 2.80% 5Molecular Biology 1.88% 12.59% 8.45% 40.41% 6.63% 6Synthetic Biology 0.97% 0.04% 0.63% 1.76% 0.50% 7Botany 0.61% 15.72% 2.86% 1.13% 0.79% 8Developmental Biology 0.29% 5.36% 3.84% 2.94% 2.71% 9Zoology 0.26% 11.86% 4.43% 0.67% 0.31% 10 Other 1.03% 25.59% 32.98% 6.21% 7.67%
+> TVD N/A 0.71 0.55 0.48 0.21
+
+Table 3: BioAlchemy has better distributional alignment at the subtopic level compared to the biology subsets of TextbookReasoning, NaturalReasoning, and Nemotron-Science-v1. Percentages are not mutually exclusive as publications/QA pairs can be indexed under multiple MeSH terms. As seen in Table 3, the best-calibrated reasoning dataset we sample is more closely aligned, at the topic level, with the distribution of scientific publications drawn from PubMed compared to the biology questions presented in NaturalReasoning (Yuan et al., 2025), TextbookReasoning (Fan et al., 2025), and Nemotron-Science-v1 (NVIDIA, 2025). We find that TextbookReasoning and NaturalReasoning have reasoning problems with MeSH topics belonging to less represented categories, such as Zoology. This might reflect inherent distributional differences in source material used by MegaScience and NaturalReasoning.   
+
+> Data Source Mean MeSH Topics % Non-Zero MeSH Topics % With
+
+≥ 2            
+
+> MeSH Topics
+> NaturalReasoning 0.41 34.7% 6.2% TextbookReasoning 0.77 66.6% 10.1% Nemotron-Science-v1 1.19 91.4% 28.0% BioAlchemy 1.37 95.6% 40.8%
+
+Table 4: BioAlchemy has higher MeSH topic coverage and higher average number of topics. The average number of MeSH subcategories for PubMed publications is 1.07. In addition to having better distributional alignment, BioAlchemy also has broader coverage and density of MeSH content per reasoning question. Seen in Figure 2, BioAlchemy has a much higher percentage of reasoning questions that contain at least one MeSH topic, suggesting that it has better coverage in scientific biology concepts. Furthermore, as seen in 5Preprint. Under review. Table 4, BioAlchemy also contains more MeSH topics on average than both TextbookReason-ing, NaturalReasoning, and Nemotron-Science-v1, reflecting the interdisciplinary aspects of current biological research. 
+
+3.2 Exponential smoothing 
+
+While our sampling algorithm in Section 3.1 successfully aligns the reasoning dataset with the PubMed topic distribution, PubMed itself exhibits substantial class imbalance across MeSH Biology subcategories, as seen in Table 3. To mitigate this inherited imbalance during training, we apply exponential smoothing to our sampled distribution PS following language upsampling strategies widely used in multilingual language model pretraining. To do this, we first compute smoothed versions of the PubMed topic distribution Pα
+
+> Bio
+
+, where decreasing α applies stronger upsampling of the tail categories to make the distribution more uniform. Then, we apply Algorithm 1 to D to generate exponentially smoothed datasets Sα that each align with a variation of Pα
+
+> Bio
+
+. To compute each Pα
+
+> Bio
+
+, the sampling probability for each subcategory cj is computed as pα 
+
+> cj
+
+∝ nα 
+
+> j
+
+, where nj is the publication count and α ∈ (0, 1 ] controls the degree of smoothing – a formulation originally developed to prevent high-resource languages from drowning out low-resource ones in multilingual pretraining. Multilingual BERT (Devlin et al., 2019) used α = 0.7 to balance high- and low-resource languages during pretraining on 104 Wikipedia corpora; the same value was subsequently adopted by mBART for 25-language denoising pretraining (Liu et al., 2020). Later work at larger scale found more aggressive smoothing to be beneficial: both XLM-R (Conneau et al., 2020) and mT5 (Xue et al., 2021) independently converged on α = 0.3 as optimal for overall cross-lingual transfer performance. For most of the experiments in this paper, we chose the midpoint of these prior studies, α = 0.5.       
+
+> Dataset Size Topic Max/Min Ratio Avg. Upsample †Sample Yield TVD
+> Full Dataset
+
+D 345K 9,301 × 11.8 × 100% 0.52 Dataset Sα=1.0 126.7K 7,932 × 1.0 × 36.73% 0.21 Dataset Sα=0.7 146.2K 536 × 9.7 × 42.38% 0.25 Dataset Sα=0.5 152.0K 89 × 39.6 × 44.06% 0.27 Dataset Sα=0.3 83.2K 15 × 134.3 × 24.10% 0.39   
+
+> †Avg. upsample is mean ratio of sampling probabilities ( pα
+> cj/porig
+> cj) from the 5 rarest categories in PubMed 2020–2024. See Table 13 for full counts.
+
+Table 5: Sub-sampling BioAlchemy-345K with increasing representation of low-frequency topics from exponential smoothing. Sα=0.5 provides the best tradeoff in terms of dataset size, distributional alignment, and upsampling of rare topics. 
+
+# 4 Experimental setup 
+
+4.1 Training 
+
+We use two training regimes for our experiments: reinforcement learning with verifiable rewards (Wen et al., 2025), and supervised fine-tuning (Ouyang et al., 2022). We use outcome-based Group Relative Policy Optimization (GRPO) with verifiable rewards, which allows us to estimate advantages without a parameterized critic model (Guo et al., 2025). Our reward is defined on a scale of r ∈ [0, 2 ], which includes small rewards for formatting and small penalties for repeated answers. To stabilize response lengths and promote exploration, we use a token-level loss and higher clipping of the policy gradient (Yu et al., 2025), while removing normalization to avoid question-level difficulty bias (Liu et al., 2025b). Each experiment uses its own data and training configuration, allowing us to test robustness across different settings (Sections A.2, A.3). We use the VeRL framework for training GRPO and SFT (Sheng et al., 2024), and train on Qwen3-8B (Yang et al., 2025). 6Preprint. Under review. 
+
+4.2 Evaluations 
+
+To test the utility of our dataset in eliciting scientific reasoning in biology, we evaluate our models on the SeqQA, ProtocolQA, and Cloning Scenarios subtasks from LAB-Bench (Laurent et al., 2024), which test model capabilities in understanding molecular biology workflows, protocol reasoning, and real-world cloning scenarios. Performance along these axes can help gauge the potential utility of our model in helping design more intelligent bio-protocols and workflows, which has had rising interest in recent years (Liu et al., 2025a; O’Donoghue et al., 2023). We also test our model on the full 1K PQA-L task in PubMedQA (Jin et al., 2019) to evaluate our model on biomedical understanding. Finally, we evaluate our models on the biology subtasks in GPQA-Diamond, Genetics and Molecular Biology (Rein et al., 2024), and compute a general average. On LAB-Bench tasks, we base our evaluation harness on the repository given by FutureHouse (FutureHouse, 2025). For PubMedQA and GPQA-Diamond, we use our own evaluation harness, using exact-match for computing accuracy. We report the average accuracies and confidence intervals averaged over 10 independent runs to quantify run-to-run variability (Table 12). 
+
+# 5 Experiments 
+
+5.1 Dataset performance 
+
+We evaluate the utility of our dataset for both SFT and RL. For SFT, we subsample reasoning problems from BioAlchemy and collect one-shot responses from Llama-3.3 70B Instruct as reasoning traces. NaturalReasoning and TextbookReasoning each contain around 50K biology reasoning problems, whereas Nemotron-Science-v1 contains around 29K. To keep training scale comparable, we train on 50K SFT examples drawn from the BioAlchemy split 
+
+Sα=0.5 . We do not run RL with verifiable rewards on NaturalReasoning and TextbookRea-soning, as we find that their biology problems are not easily converted into a format that is appropriate for RL with verifiable rewards.                                    
+
+> Benchmark SFT RL Natural Reasoning Textbook Reasoning BioAlchemy Nemotron-Science-v1 BioAlchemy ProtocolQA 43.61 ±2.55% 43.33 ±2.89% 43.80 ±2.10% 44.44 ±2.09% 45.83 ±2.32% SeqQA 10.43 ±0.75% 15.20 ±0.73% 14.03 ±0.69% 20.42 ±0.66% 18.73 ±0.85%
+> Cloning Scenarios 8.48 ±1.99% 8.18 ±2.30% 9.70 ±2.85% 13.94 ±3.85% 11.52 ±3.03%
+> PubMedQA 67.89 ±0.60% 72.47 ±0.15% 69.44 ±0.24% 69.21 ±0.38% 68.09 ±0.28%
+> GPQA-Bio 36.84 ±0.00% 42.11 ±0.00% 44.21 ±3.64% 47.89 ±1.19% 57.89 ±0.00% Overall Avg. 33.45 ±0.67% 36.26 ±0.75% 36.24 ±1.03% 39.18 ±0.92% 40.41 ±0.78%
+
+Table 6: Comparison of reasoning datasets across relevant training strategies. BioAlchemy with GRPO performs best overall. From Table 6, we see that training on BioAlchemy with verifiable RL results in the best average performance (40.41%). In addition, we find that RL is well suited for our dataset; given the same dataset split, training with RL on BioAlchemy results in an overall gain of +4.17% compared to training with SFT. On SFT, BioAlchemy outperforms NaturalReasoning and performs as well as TextbookReasoning, despite distilling from a smaller teacher model (Llama-3.3 70B Instruct versus DeepSeek-V3). Similar to BioAlchemy, we also find that Nemotron-Science-v1 has strong performance when trained with RL, performing better than the other SFT datasets. We attribute this result to Nemotron-Science-v1 and BioAlchemy both having denser MeSH topics and stronger subtopic alignment, as seen in Table 4. This supports our hypothesis that better subtopic alignment with the scientific distribution can increase reasoning performance. 7Preprint. Under review. 
+
+5.2 Optimizing subtopic distributions 
+
+We examine whether performance on BioAlchemy can be improved by reweighting its distribution to upsample reasoning problems at the tail categories, which can be seen as a form of data augmentation in the subtopic space. To do this, we trained on four distribu-tional variants of the BioAlchemy dataset from Section 3.2, {S α=0.3 , Sα=0.5 , Sα=0.7 , Sα=1.0 }.Decreasing the α results in a dataset Sα that is more uniform in subtopics, but produces a training distribution that is less aligned with the biology subtopic distribution PBio .                                                            
+
+> Dataset Alignment Upsampling ProtocolQA SeqQA Cloning Scenarios PubMedQA GPQA-Bio General Avg. Baseline N/A N/A 42.69 ±2.06% 8.42 ±0.43% 5.76 ±2.16% 69.00 ±0.35% 42.63 ±1.19% 33.70 ±0.65%
+> Sα=0.3 Weakest Strongest 46.30 ±1.25% 19.63 ±0.98% 12.12 ±3.96% 67.75 ±0.28% 53.16 ±2.78% 39.79 ±1.02%
+> Sα=0.5 Weak Strong 45.83 ±2.32% 18.73 ±0.85% 11.52 ±3.03% 68.09 ±0.28% 57.89 ±0.00% 40.41 ±0.78%
+> Sα=0.7 Strong Weak 44.63 ±1.97% 20.13 ±0.75% 11.82 ±3.14% 68.65 ±0.51% 51.58 ±2.38% 39.36 ±0.90%
+> Sα=1.0 Strongest Weakest 45.93 ±1.60% 19.98 ±0.73% 10.91 ±3.57% 68.83 ±0.30% 63.16 ±0.00% 41.76 ±0.80% Best α=1.0 α=0.3 46.30 ±1.25% 20.13 ±0.75% 12.12 ±3.96% 69.00 ±0.35% 63.16 ±0.00% 41.76 ±0.80%
+
+Table 7: Accuracy from training on datasets with stronger tail categories. Strongest align-ment with PBio leads to best performance. Baseline represents base Qwen3-8B results. From Table 7, we find that training on Sα=1.0 leads to the best overall performance, showing that strongly aligning with the subtopic distribution yields effective learning. The other datasets {S α=0.3 , Sα=0.5 , Sα=0.7 } did not meaningfully differ in average performance due to strong overlap in confidence intervals. Therefore, we find that the majority of learning occurs in the initial calibration of the dataset itself. This is seen in Baseline → S α=1.0 , which has a gain of +8.06% in the general average. Further attempts at optimizing the distribution through upsampling the tail does not lead to better performance, and may even lead to degraded performance ( Sα=1.0 → S α=0.3 results in −1.97% in general average). 
+
+5.3 Comparison with reasoning models 
+
+For our final experiment, we train BioAlchemist-8B and compare it to other reasoning models of similar size. We train for 1 epoch on the full dataset size (150K) for the largest topic dataset split, Sα=0.5 . Although Section 5.2 found that dataset split Sα=1.0 had the best performance at fixed dataset size from having the strongest subtopic alignment, we instead use Sα=0.5 . We make this choice since Sα=0.5 is nearly 1.83 × as large as Sα=1.0 , allowing us to assess whether scaling reasoning data can offset slightly worse performance from weaker alignment. This choice also lets us evaluate performance on the largest topic-balanced dataset variant available.        
+
+> Model ProtocolQA SeqQA Cloning Scenarios PubMedQA GPQA-Bio Overall Avg. BioAlchemist-8B 150K 46.20
+
+±1.89% 22.32 ±0.91% 15.15 ±4.57% 68.32 ±0.48% 62.11 ±2.38% 42.82 ±1.12% BioAlchemist-8B 50K 45.83 ±2.32% 18.73 ±0.85% 11.52 ±3.03% 68.09 ±0.28% 57.89 ±0.00% 40.41 ±0.78%  
+
+> Qwen3-8B 42.69
+
+±2.06% 8.42 ±0.43% 5.76 ±2.16% 69.00 ±0.35% 42.63 ±1.19% 33.70 ±0.65%  
+
+> DeepSeek-R1-Llama-8B 33.61
+
+±2.58% 4.97 ±0.41% 10.91 ±2.09% 26.89 ±0.58% 5.26 ±0.00% 16.33 ±0.68%  
+
+> GPT-OSS-20B 52.78
+
+±2.25% 18.12 ±0.79% 7.27 ±1.83% 72.79 ±0.24% 55.79 ±3.17% 41.35 ±0.88%  
+
+> Best 52.78
+
+±2.25% 22.32 ±0.91% 15.15 ±4.57% 72.79 ±0.24% 62.11 ±2.38% 42.82 ±1.12% 
+
+Table 8: Final RL model performance across benchmarks. BioAlchemy-8B 150K performs best, and scales with more data. From Table 8, we see that BioAlchemist-8B 150K outperforms other reasoning models of similar size. In particular, BioAlchemist-8B 150K performs best on SeqQA, Cloning Scenarios, and GPQA-Bio, indicating strong abilities in both graduate-level biology and applied sequencing and cloning tasks. Furthermore, we find that our model’s performance improves across all benchmarks when trained on a larger amount of data, suggesting 8Preprint. Under review. potential for improved performance through scaling data. Finally, we outperform GPT-OSS-20B (Agarwal et al., 2025) on the overall average, suggesting our model has potential to compete with larger reasoning models on biological reasoning. One surprising outlier is DeepSeek-R1-Llama-8B, which performs noticeably worse on PubMedQA and GPQA-Bio given the same inference budget. One possible explanation is that this model requires significantly more test-time compute compared to other models to reach the same answer. Certain models such as DeepSeek-R1 and QwQ have been observed to exhibit overthinking on tasks such as mathematics (Chen et al., 2025), which may also arise in comparatively less explored domains such as scientific biology. A more systematic evaluation of how test-time compute affects performance on biology benchmarks is left for future work. 
+
+# 6 Conclusion 
+
+We introduce BioAlchemy, a dataset and pipeline for sourcing reasoning problems from scientific papers and aligning them with scientific biology at the subtopic level. As part of constructing our dataset, we present a sampling method that better reflects the reasoning demands of modern biological research at the subtopic level. We find our dataset has higher MeSH topic density and coverage than the biology questions from other reasoning datasets. We demonstrate experimentally that training on BioAlchemy yields stronger performance gains than training on the biology subsets of other reasoning datasets. We also demonstrate how one can additionally optimize the BioAlchemy dataset through exponential smoothing strategies. Finally, we present BioAlchemist-8B, which has improved performance on applied scientific tasks in biology. This work lays the groundwork for next-generation biological reasoning models capable of assisting scientists working at the frontier of biological knowledge. 
+
+Acknowledgments 
+
+Funding support from the US Department of Energy’s Biological and Environmental Re-search (BER), Advanced Research Projects Agency for Health (ARPA-H) and Coalition for Epidemic Preparedness Innovations (CEPI). The compute resources for the project were provided by the U.S. Department of Energy’s (DOE) Innovative and Novel Computational Impact on Theory and Experiment (INCITE) Program. This research used resources from the Argonne Leadership Computing Facility, a U.S. DOE Office of Science user facility at Argonne National Laboratory, which is supported by the Office of Science of the U.S. DOE under Contract No. DE-AC02-06CH11357. We gratefully acknowledge the American Society for Microbiology (ASM) for granting access to their published literature in support of this work, and for their commitment to advancing biological research responsibly. 9Preprint. Under review. 
+
+# References 
+
+Sandhini Agarwal, Lama Ahmad, Jason Ai, Sam Altman, Andy Applebaum, Edwin Arbus, et al. gpt-oss-120b & gpt-oss-20b model card. arXiv preprint arXiv:2508.10925 , 2025. American Society for Microbiology. American society for microbiology, 2025. URL https: //asm.org .Cody Blakeney, Mansheej Paul, Brett W Larsen, Sean Owen, and Jonathan Frankle. Does your data spark joy? performance gains from domain upsampling at the end of training. 
+
+arXiv preprint arXiv:2406.03476 , 2024. James Burgess, Jan N Hansen, Duo Peng, Yuhui Zhang, Alejandro Lozano, Min Woo Sun, Emma Lundberg, and Serena Yeung-Levy. Papersearchqa: Learning to search and reason over scientific papers with rlvr. arXiv preprint arXiv:2601.18207 , 2026. Krrish Chawla, Aryan Sahai, Mario DePavia, Sudharsan Sundar, Brando Miranda, Elyas Obbad, and Sanmi Koyejo. Quantifying the importance of data alignment in downstream model performance. arXiv preprint arXiv:2501.08496 , 2025. Xingyu Chen, Jiahao Xu, Tian Liang, Zhiwei He, Jianhui Pang, Dian Yu, Linfeng Song, Qiuzhi Liu, Mengfei Zhou, Zhuosheng Zhang, et al. Do not think that much for 2+ 3=? on the overthinking of long reasoning models. In Forty-second International Conference on Machine Learning , 2025. Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. Unsupervised cross-lingual representation learning at scale. In Proceedings of the 58th annual meeting of the association for computational linguistics , pp. 8440–8451, 2020. Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: Pre-training of deep bidirectional transformers for language understanding. In Proceedings of the 2019 conference of the North American chapter of the association for computational linguistics: human language technologies, volume 1 (long and short papers) , pp. 4171–4186, 2019. Adibvafa Fallahpour, Andrew Magnuson, Purav Gupta, Shihao Ma, Jack Naimer, Arnav Shah, Haonan Duan, Omar Ibrahim, Hani Goodarzi, Chris J Maddison, et al. Bioreason: Incentivizing multimodal biological reasoning within a dna-llm model. arXiv preprint arXiv:2505.23579 , 2025. Run-Ze Fan, Zengzhi Wang, and Pengfei Liu. Megascience: Pushing the frontiers of post-training datasets for science reasoning. arXiv preprint arXiv:2507.16812 , 2025. FutureHouse. LAB-Bench: Measuring capabilities of language models for biology research, 2025. URL https://github.com/Future-House/LAB-Bench . GitHub repository. Ozan Gokdemir, Neil Getty, Robert Underwood, Sandeep Madireddy, Franck Cappello, Arvind Ramanathan, Ian T Foster, and Rick L Stevens. Automated mcqa benchmarking at scale: Evaluating reasoning traces as retrieval sources for domain adaptation of small language models. In Proceedings of the SC’25 Workshops of the International Conference for High Performance Computing, Networking, Storage and Analysis , pp. 545–552, 2025a. Ozan Gokdemir, Carlo Siebenschuh, Alexander Brace, Azton Wells, Brian Hsu, Kyle Hippe, Priyanka Setty, Aswathy Ajith, J Gregory Pauloski, Varuni Sastry, et al. Hiperrag: High-performance retrieval augmented generation for scientific insights. In Proceedings of the Platform for Advanced Scientific Computing Conference , pp. 1–13, 2025b. Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Peiyi Wang, Qihao Zhu, Runxin Xu, Ruoyu Zhang, Shirong Ma, Xiao Bi, et al. Deepseek-r1 incentivizes reasoning in llms through reinforcement learning. Nature , 645(8081):633–638, 2025. Suchin Gururangan, Ana Marasovi´ c, Swabha Swayamdipta, Kyle Lo, Iz Beltagy, Doug Downey, and Noah A Smith. Don’t stop pretraining: Adapt language models to domains and tasks. In Proceedings of the 58th annual meeting of the association for computational linguistics , pp. 8342–8360, 2020. 10 Preprint. Under review. Yichen Huang and Lin F Yang. Gemini 2.5 pro capable of winning gold at imo 2025. arXiv preprint arXiv:2507.15855 , 7:7, 2025. Qiao Jin, Bhuwan Dhingra, Zhengping Liu, William Cohen, and Xinghua Lu. Pubmedqa: A dataset for biomedical research question answering. In Proceedings of the 2019 conference on empirical methods in natural language processing and the 9th international joint conference on natural language processing (EMNLP-IJCNLP) , pp. 2567–2577, 2019. Omar Khattab, Arnav Singhvi, Paridhi Maheshwari, Zhiyuan Zhang, Keshav Santhanam, Sri Vardhamanan, Saiful Haq, Ashutosh Sharma, Thomas T Joshi, Hanna Moazam, et al. Dspy: Compiling declarative language model calls into self-improving pipelines. arXiv preprint arXiv:2310.03714 , 2023. Rodney Kinney, Chloe Anastasiades, Russell Authur, Iz Beltagy, Jonathan Bragg, Alexandra Buraczynski, Isabel Cachola, Stefan Candra, Yoganand Chandrasekhar, Arman Cohan, et al. The semantic scholar open data platform. arXiv preprint arXiv:2301.10140 , 2023. Jon M Laurent, Joseph D Janizek, Michael Ruzo, Michaela M Hinks, Michael J Hammerling, Siddharth Narayanan, Manvitha Ponnapati, Andrew D White, and Samuel G Rodriques. Lab-bench: Measuring capabilities of language models for biology research. arXiv preprint arXiv:2407.10362 , 2024. Jia Li, Edward Beeching, Lewis Tunstall, Ben Lipkin, Roman Soletskyi, Shengyi Huang, Kashif Rasul, Longhui Yu, Albert Q Jiang, Ziju Shen, et al. Numinamath: The largest public dataset in ai4maths with 860k pairs of competition math problems and solutions. 
+
+Hugging Face repository , 13(9):9, 2024. Yinhan Liu, Jiatao Gu, Naman Goyal, Xian Li, Sergey Edunov, Marjan Ghazvininejad, Mike Lewis, and Luke Zettlemoyer. Multilingual denoising pre-training for neural machine translation. Transactions of the Association for Computational Linguistics , 8:726–742, 2020. Yuyang Liu, Liuzhenghao Lv, Xiancheng Zhang, Jingya Wang Li Yuan, and Yonghong Tian. Bioprobench: Comprehensive dataset and benchmark in biological protocol understand-ing and reasoning. arXiv preprint arXiv:2505.07889 , 2025a. Zichen Liu, Changyu Chen, Wenjun Li, Penghui Qi, Tianyu Pang, Chao Du, Wee Sun Lee, and Min Lin. Understanding r1-zero-like training: A critical perspective. arXiv preprint arXiv:2503.20783 , 2025b. David Mizrahi, Anders Boesen Lindbo Larsen, Jesse Allardice, Suzie Petryk, Yuri Gorokhov, Jeffrey Li, Alex Fang, Josh Gardner, Tom Gunter, and Afshin Dehghan. Language models improve when pretraining data matches target tasks. arXiv preprint arXiv:2507.12466 ,2025. Ivan Moshkov, Darragh Hanley, Ivan Sorokin, Shubham Toshniwal, Christof Henkel, Benedikt Schifferer, Wei Du, and Igor Gitman. Aimo-2 winning solution: Building state-of-the-art mathematical reasoning models with openmathreasoning dataset. arXiv preprint arXiv:2504.16891 , 2025. National Library of Medicine. Biology, 2026a. URL https://meshb.nlm.nih.gov/record/ ui?ui=D001695 . MeSH descriptor, tree code H01.158.273. National Library of Medicine. PubMed, 2026b. URL https://pubmed.ncbi.nlm.nih.gov/ .NVIDIA. Nemotron-Science-v1, 2025. URL https://huggingface.co/datasets/nvidia/ Nemotron-Science-v1 .Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al. Training language models to follow instructions with human feedback. Advances in neural information processing systems , 35:27730–27744, 2022. 11 Preprint. Under review. Odhran O’Donoghue, Aleksandar Shtedritski, John Ginger, Ralph Abboud, Ali Ghareeb, and Samuel Rodriques. Bioplanner: automatic evaluation of llms on protocol planning in biology. In Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing , pp. 2676–2694, 2023. Public Library of Science. PLoS Computational Biology, 2026a. URL https://journals. plos.org/ploscompbiol/ .Public Library of Science. PLoS Genetics, 2026b. URL https://journals.plos.org/ plosgenetics/ .David Rein, Betty Li Hou, Asa Cooper Stickland, Jackson Petty, Richard Yuanzhe Pang, Julien Dirani, Julian Michael, and Samuel R Bowman. Gpqa: A graduate-level google-proof q&a benchmark. In First conference on language modeling , 2024. Eric Sayers. A general introduction to the e-utilities. Entrez Programming Utilities Help [Internet]. Bethesda (MD): National Center for Biotechnology Information (US) , 2010. Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Xiao Bi, Haowei Zhang, Mingchuan Zhang, YK Li, Yang Wu, et al. Deepseekmath: Pushing the limits of mathe-matical reasoning in open language models. arXiv preprint arXiv:2402.03300 , 2024. Guangming Sheng, Chi Zhang, Zilingfeng Ye, Xibin Wu, Wang Zhang, Ru Zhang, Yanghua Peng, Haibin Lin, and Chuan Wu. Hybridflow: A flexible and efficient rlhf framework. 
+
+arXiv preprint arXiv: 2409.19256 , 2024. Carlo Siebenschuh, Kyle Hippe, Ozan Gokdemir, Alexander Brace, Arham M Khan, Khalid Hossain, Yadu Babuji, Nicholas Chia, Venkatram Vishwanath, Arvind Ramanathan, et al. Adaparse: An adaptive parallel pdf parsing and resource scaling engine. Proceedings of Machine Learning and Systems , 7, 2025. Xumeng Wen, Zihan Liu, Shun Zheng, Shengyu Ye, Zhirong Wu, Yang Wang, Zhijian Xu, Xiao Liang, Junjie Li, Ziming Miao, et al. Reinforcement learning with verifiable rewards implicitly incentivizes correct reasoning in base llms. arXiv preprint arXiv:2506.14245 ,2025. Linting Xue, Noah Constant, Adam Roberts, Mihir Kale, Rami Al-Rfou, Aditya Siddhant, Aditya Barua, and Colin Raffel. mt5: A massively multilingual pre-trained text-to-text transformer. In Proceedings of the 2021 conference of the North American chapter of the association for computational linguistics: Human language technologies , pp. 483–498, 2021. An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. Qiying Yu, Zheng Zhang, Ruofei Zhu, Yufeng Yuan, Xiaochen Zuo, Yu Yue, Weinan Dai, Tiantian Fan, Gaohong Liu, Lingjun Liu, et al. Dapo: An open-source llm reinforcement learning system at scale. arXiv preprint arXiv:2503.14476 , 2025. Weizhe Yuan, Jane Yu, Song Jiang, Karthik Padthe, Yang Li, Dong Wang, Ilia Kulikov, Kyunghyun Cho, Yuandong Tian, Jason E Weston, et al. Naturalreasoning: Reasoning in the wild with 2.8 m challenging questions, 2025. URL https://arxiv. org/abs/2502.13124 ,2025. Chen Zhang, Qiuchi Li, Dawei Song, Zheyu Ye, Yan Gao, and Yao Hu. Towards the law of capacity gap in distilling language models. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pp. 22504–22528, 2025. Minhui Zhu, Minyang Tian, Xiaocheng Yang, Tianci Zhou, Lifan Yuan, Penghao Zhu, Eli Chertkov, Shengyan Liu, Yufeng Du, Ziming Ji, et al. Probing the critical point (critpt) of ai reasoning: a frontier physics research benchmark. arXiv preprint arXiv:2509.26574 , 2025. 12 Preprint. Under review. 
+
+# A Appendix 
+
+A.1 GRPO settings               
+
+> Training Rollouts Max Response Len Temperature Clip Ratio Range Normalize Adv. Entropy Coef. Loss Aggr.
+> GRPO 54096 0.6 [0.2, 0.28] False 0.0005 Token-mean
+
+Table 9: GRPO-specific training configurations used across all experiments. Settings are applied using the VeRL framework. 
+
+A.2 Reasoning dataset comparison 
+
+Due to lack of access to DeepSeek-V3, we leverage Llama-3.3 70B Instruct to provide reasoning traces for our SFT experiments. We sampled 50K questions from each dataset. This is to best match the scale of the other SFT datasets, with NaturalReasoning and TextbookReasoning each having around 50K biology questions, and Nemotron-Science-v1 having around 29K biology questions. For GRPO, we use a max response length of 4096 and max input prompt length of 1024 for training, and use an equivalent of 5120 max tokens for SFT to fix aggregate tokens used during training.                                                 
+
+> Dataset LR LR-Scheduler Batch Size Epochs Max Tokens Loss Dataset Size Teacher Model
+> BioAlchemy RL 4e-6 cosine 128 15120 GRPO 50K N/A BioAlchemy SFT 4e-6 cosine 128 15120 SFT 50K Llama-3.3 70B Instruct Nemotron-Science-v1 4e-6 cosine 128 15120 GRPO 29K N/A NaturalReasoning 4e-6 cosine 128 15120 SFT 50K DeepSeek-R1 TextbookReasoning 4e-6 cosine 128 15120 SFT 50K DeepSeek-V3
+
+Table 10: Table containing training configurations for GRPO and SFT experiments. 
+
+A.3 Distribution optimization and RL 
+
+SFinal 
+
+α=0.5 refers to the training run used in Section 5.3, while Sα refers to training distributions used in Section 5.2. 
+
+Dataset LR LR-Scheduler Batch Size Epochs Max Tokens Max Response Len Loss Dataset Size 
+
+Sα=0.3 4e-6 cosine 128 1 5120 4096 GRPO 60K 
+
+Sα=0.5 4e-6 cosine 128 1 5120 4096 GRPO 50K 
+
+Sα=0.7 4e-6 cosine 128 1 5120 4096 GRPO 60K 
+
+Sα=1.0 4e-6 cosine 128 1 5120 4096 GRPO 60K 
+
+SFinal  
+
+> α=0.5
+
+4e-6 cosine 256 1 5120 4096 GRPO 150K 
+
+Table 11: Training configurations for distribution optimization experiments and final RL experiment. 13 Preprint. Under review. 
+
+A.4 Inference settings 
+
+Due to randomness in vLLM from data parallelism, we compute confidence intervals over 10 runs per benchmark for a better estimate on accuracy. 
+
+Benchmark Max Response Len Seed Temperature Top-p Metric N-runs 
+
+ProtocolQA 4096 42 0.0 1.0 EM 10 SeqQA 4096 42 0.0 1.0 EM 10 Cloning Scenarios 4096 42 0.0 1.0 EM 10 PubMedQA 4096 42 0.0 1.0 EM 10 GPQA-Bio 4096 42 0.0 1.0 EM 10 
+
+Table 12: Inference settings for benchmarking. Models were served via vLLM, using tensor parallelism and data parallelism for throughput. 
+
+A.5 Full topic distributions based on alpha values 
+
+PubMed Biology Smoothed % (Upsample ×)Rank MeSH Biology Subcategory Count % α = 1.0 α = 0.7 α = 0.5 α = 0.3 1 Computational Biology 95,179 45.32% 45.32% (1.0 ×) 36.05% (0.8 ×) 26.97% (0.6 ×) 16.51% (0.4 ×)2 Genetics 75,973 36.18% 36.18% (1.0 ×) 30.79% (0.9 ×) 24.10% (0.7 ×) 15.43% (0.4 ×)3 Microbiology 22,900 10.90% 10.90% (1.0 ×) 13.30% (1.2 ×) 13.23% (1.2 ×) 10.77% (1.0 ×)4 Ecology 5,385 2.56% 2.56% (1.0 ×) 4.83% (1.9 ×) 6.42% (2.5 ×) 6.98% (2.7 ×)5 Molecular Biology 3,944 1.88% 1.88% (1.0 ×) 3.88% (2.1 ×) 5.49% (2.9 ×) 6.35% (3.4 ×)6 Synthetic Biology 2,034 0.97% 0.97% (1.0 ×) 2.44% (2.5 ×) 3.94% (4.1 ×) 5.21% (5.4 ×)7 Botany 1,273 0.61% 0.61% (1.0 ×) 1.76% (2.9 ×) 3.12% (5.1 ×) 4.53% (7.5 ×)8 Developmental Biology 603 0.29% 0.29% (1.0 ×) 1.04% (3.6 ×) 2.15% (7.5 ×) 3.62% (12.6 ×)9 Zoology 547 0.26% 0.26% (1.0 ×) 0.97% (3.7 ×) 2.04% (7.9 ×) 3.51% (13.5 ×)10 Neurobiology 427 0.20% 0.20% (1.0 ×) 0.82% (4.0 ×) 1.81% (8.9 ×) 3.26% (16.0 ×)11 Exobiology 384 0.18% 0.18% (1.0 ×) 0.76% (4.2 ×) 1.71% (9.4 ×) 3.16% (17.3 ×)12 Radiobiology 324 0.15% 0.15% (1.0 ×) 0.68% (4.4 ×) 1.57% (10.2 ×) 3.00% (19.5 ×)13 Parasitology 292 0.14% 0.14% (1.0 ×) 0.63% (4.5 ×) 1.49% (10.7 ×) 2.91% (20.9 ×)14 Cell Biology 256 0.12% 0.12% (1.0 ×) 0.57% (4.7 ×) 1.40% (11.5 ×) 2.80% (22.9 ×)15 Marine Biology 204 0.10% 0.10% (1.0 ×) 0.49% (5.0 ×) 1.25% (12.9 ×) 2.61% (26.9 ×)16 Laboratory Animal Science 112 0.05% 0.05% (1.0 ×) 0.32% (6.0 ×) 0.93% (17.4 ×) 2.18% (40.9 ×)17 Natural History 87 0.04% 0.04% (1.0 ×) 0.27% (6.5 ×) 0.82% (19.7 ×) 2.02% (48.8 ×)18 Photobiology 47 0.02% 0.02% (1.0 ×) 0.17% (7.8 ×) 0.60% (26.8 ×) 1.68% (75.2 ×)19 Cryobiology 15 0.01% 0.01% (1.0 ×) 0.08% (11.0 ×) 0.34% (47.4 ×) 1.19% (167.2 ×)20 Cytology 13 0.01% 0.01% (1.0 ×) 0.07% (11.5 ×) 0.32% (50.9 ×) 1.14% (184.8 ×)21 Sociobiology 12 0.01% 0.01% (1.0 ×) 0.07% (11.8 ×) 0.30% (53.0 ×) 1.12% (195.5 ×)
+
+Max/Min Ratio 7,932 × 7,932 × 536 × 89 × 15 ×
+
+Avg. Upsample (5 rarest) 1.0 × 1.0 × 9.7 × 39.6 × 134.3 ×
+
+Table 13: Effect of exponential smoothing ( pα
+
+cj ∝ nα
+
+cj ) on the PubMed Biology subcategory sampling distribution, where cj for j ∈ [21 ] represents the 21 MeSH Biology subcategories. We adopt α = 0.5 as a moderate compromise between the values used in multilingual language model pretraining: α = 0.7 (Devlin et al., 2019; Liu et al., 2020) and α = 0.3 (Conneau et al., 2020; Xue et al., 2021). Note that α = 1.0 recovers the original unsmoothed distribution. Total count for PubMed Biology is 210,011 articles. Upsample factor for each category is pα
+
+> cj
+
+/porig  
+
+> cj
+
+, showing stronger upsampling as α decreases. 14 Preprint. Under review. 
+
+A.6 Full topic distributions of biological reasoning datasets 
+
+Rank MeSH Biology Subcategory PubMed Biology Textbook Reasoning Natural Reasoning Nemotron Science-v1 BioAlchemy 1 Computational Biology 45.32% 0.57% 12.09% 7.44% 24.95% 2 Genetics 36.18% 11.37% 18.30% 34.67% 36.89% 3 Microbiology 10.90% 14.39% 7.19% 3.78% 16.75% 4 Ecology 2.56% 2.51% 9.24% 0.99% 2.80% 5 Molecular Biology 1.88% 12.59% 8.45% 40.41% 6.63% 6 Synthetic Biology 0.97% 0.04% 0.63% 1.76% 0.50% 7 Botany 0.61% 15.72% 2.86% 1.13% 0.79% 8 Developmental Biology 0.29% 5.36% 3.84% 2.94% 2.71% 9 Zoology 0.26% 11.86% 4.43% 0.67% 0.31% 10 Neurobiology 0.20% 6.22% 11.77% 0.81% 4.57% 11 Exobiology 0.18% 0.10% 5.72% 0.02% 0.06% 12 Radiobiology 0.15% 1.12% 3.10% 0.11% 0.74% 13 Parasitology 0.14% 4.53% 0.51% 0.10% 0.64% 14 Cell Biology 0.12% 7.81% 4.86% 4.49% 1.32% 15 Marine Biology 0.10% 1.08% 0.78% 0.15% 0.11% 16 Laboratory Animal Science 0.05% 0.39% 0.21% 0.05% 0.09% 17 Natural History 0.04% 0.66% 0.51% 0.01% 0.01% 18 Photobiology 0.02% 0.74% 3.54% 0.39% 0.05% 19 Cryobiology 0.01% 0.31% 0.56% 0.04% 0.01% 20 Cytology 0.01% 2.39% 0.13% 0.02% 0.02% 21 Sociobiology 0.01% 0.24% 1.30% 0.01% 0.06% 
+
+Total Samples 210,011 52,850 51,150 29,047 126,721 TVD from PubMed 0.00 0.71 0.55 0.48 0.21 
+
+Table 14: MeSH Biology subcategory distributions across biological reasoning datasets compared to PubMed Biology (2020–2024). TVD = total variation distance. This BioAlchemy dataset version uses the strongest alignment method (exponential smoothing of α = 1.0 detailed in Section 3.2), yielding the lowest TVD with PubMed Biology. 15 Preprint. Under review. 
+
+A.7 Prompt classifier 
+
+Prompt optimization with BootstrapFewShotWithRandomSearch (Khattab et al., 2023) eval-uated on 11 candidate prompt configurations. During optimization, the best-performing configuration achieved 61.6% F1. On the validation set, the optimized classifier attained 72.7% micro-averaged F1. This represents a substantial improvement over the baseline zero-shot configuration (37.0% F1), corresponding to a relative improvement of 96%. The transition from single-label to multi-label ground truth yielded a 23.4% improvement in validation F1, indicating that a substantial portion of apparent classification errors under single-label evaluation represented correct identification of secondary category assignments. 
+
+Configuration Optimization F1 Validation F1 
+
+Zero-shot baseline N/A 37.0% Single-label training 52.7% 49.3% Multi-label training 61.6% 72.7% Table 15: MeSH Biology classification performance before and after prompt optimization. 
+
+Metric Value 
+
+Unique articles 1,474 Total category labels 1,579 Mean labels per article 1.07 Number of categories 21 Training examples 714 Validation examples 180 Table 16: Training data statistics for MeSH Biology classification. 16 Preprint. Under review. 
+
+A.8 Reasoning question topic classification prompts 
+
+User 
+
+You are a scientific domain classifier. Given a question−answer pair, determine whether it is primarily about BIOLOGY or not. Biology includes: molecular biology, genetics, cell biology, ecology, microbiology, neurobiology, zoology, botany, developmental biology, evolutionary biology, biochemistry (when focused on biological systems), bioinformatics, marine biology, parasitology, immunology, physiology, anatomy, pharmacology (biological mechanisms), and related life sciences. NOT biology: pure chemistry, physics, mathematics, computer science (unless bioinformatics), engineering, geology (unless paleobiology), astronomy, pure statistics, materials science. Question: {question} Answer: {answer} Respond with ONLY one word: "biology" or "not_biology" 
+
+Figure 3: Prompt template for biology domain classification 17 Preprint. Under review. 
+
+User 
+
+Classify a scientific abstract into MeSH Biology categories. −−− Follow the following format. Abstract: Scientific abstract from a biology research paper Reasoning: Let's think step by step in order to ${reasoning} Categories: JSON array of MeSH category names that apply, e.g. ["Genetics", "Molecular Biology"] −−− Abstract: Because early−life stress is common and constitutes a strong risk factor for cognitive and mental health disorders, it has been the focus of a multitude of studies in humans and experimental models. Yet, we have an incomplete understanding of what is perceived as stressful by the developing brain, what aspects of stress influence brain maturation, what developmental ages are particularly vulnerable to stress, which molecules mediate the effects of stress on brain operations, and how transient stressful experiences can lead to enduring emotional and cognitive dysfunctions. Here, we discuss these themes, highlight the challenges and progress in resolving them, and propose new concepts and avenues for future research. Reasoning: Let's think step by step in order to The abstract discusses the effects of early−life stress on brain development, cognitive function, and mental health, referencing both human and experimental model studies. It addresses how stress is perceived by the developing brain, the molecular mediators involved, and the long−term consequences of early stress on emotional and cognitive outcomes. These topics are central to the fields of neurobiology (specifically developmental neurobiology), behavioral science, and psychology, as they pertain to brain maturation, stress response, and mental health disorders. Categories: ["Neurobiology", "Developmental Biology", "Behavioral Sciences", "Psychology"] −−− Abstract: Hormesis drives biological modifications from cells to higher levels of biological organization and emerges as a general basic principle of biology, integrating evolution, ecology, medicine, physiology, toxicology, and public health. Reasoning: Let's think step by step in order to The abstract discusses hormesis as a fundamental biological principle that influences biological modifications at multiple levels of organization, from cells to higher−order systems. It also highlights the integrative role of hormesis across several biological and biomedical disciplines, including evolution, ecology, medicine, physiology, toxicology, and public health. This indicates that the topic is broad and interdisciplinary, touching on general biological processes, evolutionary biology, ecology, physiology, toxicology, and public health. Categories: ["Biology", "Evolutionary Biology", "Ecology", "Physiology", "Toxicology", "Public Health"] 
+
+Figure 4: Few-shot examples for MeSH Biology classification (part 1) 18 Preprint. Under review. 
+
+User (cont.) 
+
+Abstract: Permafrost represents 26% of terrestrial soil ecosystems; yet its biology, essentially microbiology, remains relatively unexplored. The permafrost environment is considered extreme because indigenous microorganisms must survive prolonged exposure to subzero temperatures and background radiation for geological time scales in a habitat with low water activity and extremely low rates of nutrient and metabolite transfer. Yet considerable numbers and biodiversity of bacteria exist in permafrost, some of which may be among the most ancient viable life on Earth. This review describes the permafrost environment as a microbial habitat and reviews recent studies examining microbial biodiversity found in permafrost as well as microbial growth and activity at ambient in situ subzero temperatures. These investigations suggest that functional microbial ecosystems exist within the permafrost environment and may have important implications on global biogeochemical processes as well as the search for past or extant life in permafrost presumably present on Mars and other bodies in our solar system. Categories: ["Exobiology"] −−− Abstract: Submarines and spacecraft share several features that may promote the presence of fungi, including recirculated ventilation systems, moist areas, and close−quarters living. In this article, we introduce the idea of "submarine mycology" and explore how research on submarine fungi can inform the emerging field of astromycology. We highlight parallels in the fungal species present in both environments, while also noting key differences such as radiation exposure and microgravity. Arguing that submarines offer valuable lessons for spaceflight, we advocate for renewed research using modern genetic tools to characterize submarine fungi. Categories: ["Exobiology"] −−− Abstract: Artemisia vulgaris L. belongs to the family Compositae, sub−family Corymbiferae. The genus Artemisia groups together almost 200 species, the most of them are native of Eurasia and Northern America steppe regions. Artemisia are wind−pollinated plants, the flowers do not secrete any nectar and are not visited by bees. Two species of Artemisia are widely spread through the Lyon region and are with Ambrosiaceae to blame for the pollinosis in summer and autumn: A. annua and A. vulgaris. Categories: ["Botany"] −−− Abstract: Some basic concepts for the creation of the Swiss National Park were derived from observations made in Sri Lanka, Indonesia and New Caledonia. European researchers feared that the study of "virgin nature" would no longer be possible, as various species would soon become extinct under the combined influences of colonial practices and profit−oriented capitalism. While the motives for protecting nature originated from experiences made in the southern hemisphere, their scientific concept of conservation was based on European natural history and the related theories of evolution. In the light of this approach, endangered zoological and botanical species as well as "primitive" varieties of man were appreciated as "documents" to be preserved within their original environment for future scientific reference and research. Museum collections and reservations (parks) were two types of repositories connected to each other by the same objective. Categories: ["Natural History"] 
+
+Figure 5: Few-shot examples for MeSH Biology classification (part 2) 19 Preprint. Under review. 
+
+User (cont.) 
+
+Abstract: In the past 2 decades, structural biology has transformed from a single technique used on single proteins to a multimodal integrative approach. Recently, protein structure prediction algorithms have opened new avenues to address challenging biological questions. Categories: ["Molecular Biology", "Computational Biology"] −−− Abstract: The human fossil record is one of the most complete for any mammal. A basal ancestral species, Australopithecus afarensis, exhibits a well−preserved postcranium that permits reconstruction of important events in the evolution of our locomotor skeleton. When compared to those of living apes and humans, it provides insights into the origin and design of the modern human frame. Evolutionary aspects of the human hip and thigh are reviewed, including the unusual corticotrabecular structure of the human proximal femur, and our markedly elongated lower limb. It is postulated that the latter may be more related to birthing capacity than to locomotion. Categories: ["Natural History"] −−− Abstract: <user's input abstract goes here> Reasoning: Let's think step by step in order to 
+
+Figure 6: Few-shot examples for MeSH Biology classification (part 3) 20 Preprint. Under review. 
+
+User 
+
+You are a scientific classifier trained to match PubMed's MeSH indexing patterns. Given a question−answer pair from a biology research paper, classify it into one or more of the following 21 MeSH Biology subcategories. IMPORTANT: Be CONSERVATIVE in your assignments. Most texts should have 1−2 categories. Only assign a category if the text's MAIN FOCUS is clearly that category. MeSH Biology Categories: 1. Botany − Study of plants (not just mentioning plants) 2. Cell Biology − Study of cell structure/function (not just using cells as models) 3. Computational Biology − Use of computational methods in biology 4. Cryobiology − Study of effects of low temperatures on living things 5. Cytology − Study of cells (microscopic anatomy) 6. Developmental Biology − Study of growth and development of organisms 7. Ecology − Study of organisms and their environment interactions 8. Exobiology − Study of life beyond Earth / astrobiology 9. Genetics − Study of genes, heredity, and genetic variation 10. Laboratory Animal Science − Study of lab animals for research 11. Marine Biology − Study of ocean organisms and ecosystems 12. Microbiology − Study of microorganisms (bacteria, viruses, fungi, etc.) 13. Molecular Biology − Molecular mechanisms (DNA/RNA/protein synthesis) − NOT general biochemistry 14. Natural History − Observational study of organisms in nature 15. Neurobiology − Study of nervous system biology 16. Parasitology − Study of parasites and parasitic diseases 17. Photobiology − Study of effects of light on living organisms 18. Radiobiology − Study of effects of radiation on living organisms 19. Sociobiology − Study of social behavior in biological terms 20. Synthetic Biology − Design and construction of new biological entities 21. Zoology − Study of animals {few_shot_examples} Question: {question} Answer: {answer} Respond with ONLY a JSON array of category names that apply to this QA pair. Example response: ["Microbiology", "Genetics"] If none of the categories apply well, respond with an empty array: [] Categories: 
+
+Figure 7: Prompt template for QA MeSH classification 21 Preprint. Under review. 
+
+A.9 QA generation prompts 
+
+Prompts used for generating, grading, and filtering reasoning problems. Prompts in Fig-ures 11, 12, and 13 are partially inspired by the prompts used in Yuan et al. (2025) as well as in Fan et al. (2025). 
+
+System 
+
+You are an expert content evaluator who determines if text content is relevant to the core scientific/technical content of a paper versus non-relevant material like copyright notices, licensing information, references, acknowledgments, or metadata. 
+
+User 
+
+Evaluate the following text chunk and determine if it contains core scientific/technical content that would be appropriate for generating educational questions. TEXT CHUNK: {chunk_text} EVALUATION CRITERIA: - CORE CONTENT (High relevance): Scientific concepts, research findings, technical expla-nations, methodology, data analysis, theories, experimental results, clinical information, etc. - NON-CORE CONTENT (Low relevance): Copyright notices, licensing text, reference lists, acknowledgments, author information, publication metadata, figure/table captions only, page headers/footers, disclaimers, etc. SCORING: - Score 8-10: Rich core content ideal for question generation - Score 5-7: Some core content but mixed with non-relevant material - Score 1-4: Primarily non-relevant content (references, metadata, etc.) Provide your response in this format: RELEVANCE_SCORE: <numeric score between 1-10> REASONING: <brief explanation of why this content is or isn’t relevant for question generation> CONTENT_TYPE: <primary type of content: ‘core_scientific’, ‘mixed’, ‘references’, ‘metadata’, ‘copyright’, etc.> 
+
+Figure 8: Prompt template for content relevance evaluation 22 Preprint. Under review. 
+
+System 
+
+You are a helpful assistant that generates high-quality multiple-choice questions based on text provided by the user. Each question should be challenging but fair, with one clearly correct answer and plausible but incorrect distractors. 
+
+User 
+
+Generate ONE well-formed multiple-choice question with exactly {num_answers} answer choices labeled 1 through {num_answers}. Text: {text_chunk} Requirements: 1. Begin with 1-2 sentences of contextual information that establishes the domain/topic without referencing source materials. 2. Create a challenging question that tests deep understanding. 3. Ensure there is EXACTLY ONE clearly correct answer. 4. Make the other choices plausible but clearly incorrect. 5. The question should focus on a concept or fact that is clearly stated or strongly implied in the text. 6. Number your answer choices from 1 to {num_answers}. 7. IMPORTANT: Place the correct answer in position {target_correct_position}. The correct answer must be choice number {target_correct_position}. 8. DO NOT provide explanations for why each answer is correct or incorrect. 9. CRITICAL: Both context and question must be completely self-contained. DO NOT reference any external materials including: ‘the text’, ‘the passage’, ‘the document’, ‘the paper’, ‘the study’, ‘the author states’, ‘according to the text’, ‘as mentioned’, ‘as described’, ‘Appendix’, ‘Figure’, ‘Table’, ‘Section’, ‘Chapter’, ‘above’, ‘below’, or any other references to source materials or external content. 10. The context and question should read as if testing general knowledge on the topic, not comprehension of a specific text. 11. Answer choices should contain only direct technical information without meta-references to content or sources. Your response must follow this format precisely: CONTEXT: <1-2 sentences establishing domain/topic context> QUESTION: <the question> 1: <first answer choice> 2: <second answer choice> ... CORRECT ANSWER: {target_correct_position} 
+
+Figure 9: Prompt template for generating multiple-choice questions 23 Preprint. Under review. 
+
+System 
+
+You are an expert teacher evaluating the quality of a multiple choice question. Your role is to ensure questions are clear, fair, and educationally valuable. 
+
+User 
+
+Evaluate the following multiple-choice question on a scale from 1-10, where 10 is a perfect question. CONTENT: {chunk_text} QUESTION: {question} CONTENT RELEVANCE INFO: - Relevance Score: {relevance_check[’relevance_score’]}/10 - Content Type: {relevance_check[’content_type’]} - Relevance Reasoning: {relevance_check[’reasoning’]} Rate the question based on these criteria: - Clarity: Is the question clear and unambiguous? - Accuracy: Is the content factually correct and aligned with the source material? - Difficulty: Is the difficulty appropriate (challenging but fair)? - Distractors: Are the incorrect options plausible but clearly wrong? - Educational value: Does answering this question demonstrate understanding? - Self-contained: CRITICAL - Does the question stand alone without ANY references to external materials? - Content relevance: IMPORTANT - Questions based on low-relevance content (references, metadata, etc.) should receive lower scores. AUTOMATIC DISQUALIFIERS (score must be 1-3 if ANY are present): - References to ‘the text’, ‘the passage’, ‘the document’, ‘the paper’, ‘the study’ - References to ‘the author’, ‘according to’, ‘as mentioned’, ‘as described’ - References to ‘Appendix’, ‘Figure’, ‘Table’, ‘Section’, ‘Chapter’ - References to ‘above’, ‘below’, ‘previously mentioned’, ‘following’ - Any other references that assume the reader has access to external materials - Content based primarily on references, copyright notices, or metadata (should score 1-4) SCORING ADJUSTMENT FOR CONTENT RELEVANCE: - If content relevance score is 1-4: Maximum question score should be 4 - If content relevance score is 5-7: Maximum question score should be 7 - If content relevance score is 8-10: Normal scoring applies A truly self-contained question should read like a general knowledge question on the topic. Provide your response in this format: SCORE: <numeric score between 1-10> CRITIQUE: <brief explanation of score> 
+
+Figure 10: Prompt template for evaluating multiple-choice question quality 24 Preprint. Under review. 
+
+System 
+
+You are a factual and intelligent scientific assistant that identifies and extracts challenging, high-quality, exam-level question-and-answer pairs from text passages extracted from biology research documents. 
+
+User 
+
+Given a text passage from a scientific document in biology, determine if a challenging, high-quality, exam-level problem can be derived directly from the text. To do this, follow each step under the ### Instructions section below: ### Instructions: Step 1.) Evaluate the text passage on all of the bullet points for each criteria in the ### Text Evaluation Criteria section, keeping track of the total score. Step 2.) Generate a question-and-answer pair by following ALL of the instruction steps in the ### Exam Question Instructions section. Step 3.) Return your final response object according to the ### Response Instructions section. ### Text Evaluation Criteria: ** Criteria 1 - Problem Completeness: ** - The text contains enough scientific content such that a question and corresponding answer can be derived directly from the text (+1 points) - The text contains content that is appropriate for deriving an exam-level fill-in-the-blank problem (+1 points) - The text minimizes non-scientific content, and does not rely on excessive references to external materials such as authors, tables, figures, or additional text that are not self-contained within the text passage (+1 points) ** Criteria 2 - Text Difficulty and Reasoning ** - The scientific content of the text passage is at least graduate-level or above (+1 points) - The text passage contains sufficiently advanced scientific reasoning, technical explanations and/or discussions, computation, proofs, principles, or pathways (+1 points) - The text contains content that is not just simple fact recall or concept recall (+1 points) ** Criteria 3 - Accuracy and Technical Correctness ** - The scientific content of the text does not contain any technical errors and is factually correct (+1 points) - The text contains clear, concise, and accurate explanations that have sufficient technical and logical rigor (+1 points) - Principles, theorems, concepts, facts, computations, or proofs critical for understanding the passage are included (+1 points) 
+
+Figure 11: Prompt template for extracting free-form QA (part 1) 25 Preprint. Under review. 
+
+User (cont.) 
+
+Follow ALL of the bullet points below when constructing your question-and-answer pair: ### Exam Question Instructions: 1. If the text passage DOES NOT have a score of 9, it is NOT appropriate for deriving an exam-level problem. Skip to ### Response Instructions and return NONE for all fields. 2. CRITICAL: If you are unable to derive a question-and-answer pair that satisfies all of the steps below for ANY reason, skip to ### Response Instructions and return NONE for all fields. 3. Begin with 1-2 sentences of concise information that establishes the domain/topic WITHOUT referencing any source materials in the text passage. 4. Create a challenging, concise, exam-level question that requires extensive reasoning, sequential computation, sequential logic, or pathway logic rather than simple recall. It must be graduate-level or above in difficulty. 5. CRITICAL: Derive a question such that the corresponding answer is a single name, entity, or value that is easily verifiable. Questions with corresponding answers that are chemical compounds, protein names, quantitative values, pathways, or specific genes are appropriate. 6. CRITICAL: Corresponding answers must be a numerical value, name, or short entity STRICTLY. Answers that are calculations, statements, long entities, or explanations are NOT appropriate. 7. Ensure the question has a single clear, precise, and unambiguous answer. 8. Questions and their corresponding answers should be inspired from the content in the text, but CANNOT reference the text passage itself. 9. Questions may involve mechanisms, pathways, evolutionary principles, genetic analysis, experimental design, computational biology, biological theorems, or systems-level understanding. 10. CRITICAL: The context, question and answer must be completely self-contained. DO NOT reference any external materials including: ‘the text’, ‘the passage’, ‘the document’, ‘the paper’, ‘the study’, ‘the author states’, ‘according to the text’, ‘Appendix’, ‘Figure’, ‘Table’, ‘Section’, ‘Chapter’, ‘above’, ‘below’, or any other references to source materials. 11. The context and question should read like an exam question for graduate-level students and above, testing general knowledge or reasoning on biology, not comprehension of a specific text. 12. The answer must contain only direct technical information without any meta-references to content, studies, or source materials. 13. If your question requires an answer in a specific format, specify that in the question itself at the end. ### Response Instructions: Your response must follow this format precisely: CONTEXT: <1-2 sentences establishing domain/topic context; return NONE if problem cannot be derived> QUESTION: <your exam-level question; return NONE if problem cannot be derived> ANSWER: <your final answer wrapped in LaTeX boxed format $$\boxed{{your_final_answer}}$$; return NONE if problem cannot be derived> REASONING: <your reasoning for solving the question; return NONE if problem cannot be derived> ### Text Passage: {augmented_chunk} 
+
+Figure 12: Prompt template for extracting free-form QA (part 2) 26 Preprint. Under review. 
+
+System 
+
+You are a factual and intelligent biology exam grader that will assess the quality of a question-and-answer pair and determine if it is a challenging, high-quality, and exam-level problem appropriate for biology. 
+
+User 
+
+Your task is to verify the quality of a biology question-and-answer pair, given under the ### EXAM PROBLEM section. To verify the exam problem, follow the instructions below. ### Grading Instructions Score the question-and-answer pair based on the ### Scoring Criteria section. If the pair is NONE, skip to the ### Response Instructions. ### Scoring Criteria: A valid question-and-answer pair must meet ALL of the following criteria: * The question should contain a problem to be solved, instead of only presenting statements (+1 points) * The question should be well-defined and self-contained, ie have all necessary information to derive an answer. It does not reference external materials without first providing a self-contained summary (+1 points) * The question should be specific and clear. There should be one correct answer to the question (+1 points) * The question should not refer to external resources such as figures, videos, etc. (+1 points) * To derive an answer, multi-step reasoning, computations, proofs, intense logic, or recalling complex relevant knowledge is required (+1 points) * The difficulty should be graduate-level or above (+1 points) * The question can contain LaTeX but it must be correct (+1 points) * The question should be worded such that the corresponding answer is a single name, entity, or value that is easily verifiable. Chemical compounds, protein names, quantitative values, pathways, or specific genes are appropriate (+1 points) * Corresponding answers must be a numerical value, name, or short entity STRICTLY. Calculations, statements, long entities, or explanations are NOT appropriate (+1 points) ### Response Instructions: SCORE: <how well the pair meets all criteria using the total score> CRITIQUE: <your critique of the question-and-answer pair> ### EXAM PROBLEM {exam_problem} 
+
+Figure 13: Prompt template for grading free-form QA 27 Preprint. Under review. 
+
+A.10 Evaluation prompts 
+
+User 
+
+The following is a multiple choice question about biology. Please answer by responding with the letter of the correct answer. Question: {question} Options: {answers} You MUST include the letter of the correct answer within the following tags: [ANSWER] and [/ANSWER]. For example, ‘[ANSWER]<answer>[/ANSWER]’, where <answer> is the correct letter. Always answer in exactly this format of a single letter between the two tags, even if you are unsure. We require this because we use automatic parsing. 
+
+Figure 14: Prompt for LAB-Bench evaluation 
+
+System 
+
+You are an expert scientist with graduate-level knowledge in biology, physics, and chemistry. Answer the following multiple-choice question. First state your chosen answer (the letter and the corresponding option text), then briefly explain your reasoning. 
+
+User 
+
+{question} A. {option_a} B. {option_b} C. {option_c} D. {option_d} Think step by step, and return your final answer in \boxed{} 
+
+Figure 15: Prompt for evaluating GPQA-Diamond 
+
+System 
+
+You are an expert biomedical researcher. You will be given context from a research paper abstract and a yes/no/maybe question about the findings. First state your chosen answer (the letter and the corresponding option text), then briefly explain your reasoning based on the provided context. 
+
+User 
+
+Context: {abstract_text} Question: {question} A. yes B. no C. maybe Think step by step, and return your final answer in \boxed{} 
+
+Figure 16: Prompt for evaluating PubMedQA 28 Preprint. Under review. 
+
+A.11 Example reasoning question 
+
+User 
+
+Question: Mathematical models are vital for understanding how viruses compete within a host, especially when multiple strains are present and subject to antiviral therapy. The interplay between viral life cycle parameters and drug regimen adherence can strongly influence infection outcomes. When simulating multi-strain viral competition under imperfect therapy adherence, which factor directly increases both the burst size and infectivity of a viral strain but also heightens its risk of cell death before maturation? A.) Increasing the rate of precursor decay B.) Reducing the dosing period for antiviral drugs C.) Shortening the immature phase duration D.) Lengthening the immature phase duration E.) Decreasing the number of discrete maturation steps F.) Lowering the probability of taking each scheduled dose G.) Raising the antiviral drug efficacy 
+
+Figure 17: Example reasoning question 29

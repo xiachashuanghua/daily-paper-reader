@@ -1,0 +1,368 @@
+Title: MolDA: Molecular Understanding and Generation via Large Language Diffusion Model
+
+URL Source: https://arxiv.org/pdf/2604.04403v1
+
+Published Time: Tue, 07 Apr 2026 01:40:36 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# MolDA: Molecular Understanding and Generation via Large Language Diffusion Model 
+
+Seohyeon Shin 1,∗, HanJun Choi 1,∗, Jun-Hyung Park 2, Hongkook Kim 1,†, and Mansu Kim 1,† 
+
+> 1
+
+Gwangju Institute of Science and Technology, Gwangju, South Korea 
+
+{ann4622.sin, gkswns1290}@gmail.com, {hongkook, mansu.kim}@gist.ac.kr  
+
+> 2
+
+Hankuk University of Foreign Studies, Seoul, South Korea 
+
+jhp@hufs.ac.kr 
+
+Abstract. Large Language Models (LLMs) have significantly advanced molecular discovery, but existing multimodal molecular architectures fun-damentally rely on autoregressive (AR) backbones. This strict left-to-right inductive bias is sub-optimal for generating chemically valid molecules, as it struggles to account for non-local global constraints (e.g., ring closures) and often accumulates structural errors during sequential generation. To address these limitations, we propose MolDA ( Mol ecular language model with masked Diffusion with m Asking), a novel multimodal frame-work that replaces the conventional AR backbone with a discrete Large Language Diffusion Model. MolDA extracts comprehensive structural representations using a hybrid graph encoder, which captures both local and global topologies, and aligns them into the language token space via a Q-Former. Furthermore, we mathematically reformulate Molecular Structure Preference Optimization specifically for the masked diffusion. Through bidirectional iterative denoising, MolDA ensures global struc-tural coherence, chemical validity, and robust reasoning across molecule generation, captioning, and property prediction. 
+
+Keywords: Molecular Language Model · Language Diffusion Model ·
+
+Multimodal Learning · Molecule Generation. 
+
+## 1 Introduction 
+
+Large Language Models (LLMs) have emerged as a strong foundation for building general-purpose intelligence, motivating their extension to the molecular domain for drug discovery and materials science [ 4]. Early molecular LLMs primarily represented molecules as one-dimensional strings (e.g., SMILES or SELFIES) and applied autoregressive (AR) generation to tasks like property prediction and molecule captioning [ 2, 21 , 20 ]. However, purely sequential representations obscure the native topological relationships that govern chemical interactions. To preserve this crucial structural information, recent multimodal architectures 
+
+> ∗
+
+Equal contribution. †Corresponding authors.  
+
+> arXiv:2604.04403v1 [cs.AI] 6 Apr 2026 2S. Shin and H. Choi et al.
+
+integrate graph neural network (GNN) encoders, aligning graph features with the LLM embedding space via cross-modal projectors [13,15]. Despite these architectural advances, current multimodal molecular LLMs still fundamentally rely on AR backbones [ 3,13 ]. This strict left-to-right inductive bias is sub-optimal for molecular generation, where chemical validity heavily depends on non-local, global constraints such as ring closures and valence satisfaction [ 10 ]. Because AR models lack access to future context during generation, early local decisions can invisibly accumulate errors, leading to invalid global structures [ 8]. Recently, discrete diffusion language models (DLM) have emerged as a compelling alternative, framing text generation as an iterative denoising process from a fully corrupted sequence [ 14 ,16 ]. By enabling non-AR, bidirectional generation, diffu-sion models allow for the continuous revision of tokens based on global consistency. While diffusion has shown promise in 3D conformation generation [ 17 , 19 ], its application to holistic, language-based molecular understanding remains largely underexplored [6,5]. To address this gap, we propose MolDA , a multimodal framework replacing the conventional AR backbone with a DLM, LLaDA-8B-Instruct [ 14 ]. Beyond this architectural shift, MolDA introduces two key methodological innovations. First, to mitigate modality imbalance (i.e., graph bypass), we mathematically reformulate Molecular Structure Preference Optimization (MolPO) by redefining implicit rewards based on the masked diffusion log-likelihood. Second, we design task-specific sampling strategies—full-sequence pure diffusion for molecule gen-eration and block diffusion with low-confidence remasking for text—to better capture non-local atomic constraints such as ring closures. This allows MolDA to attend to global structural coherence during generation, while leveraging the diffusion backbone for molecular understanding tasks. 
+
+## 2 Method 
+
+The overall workflow of the proposed model (i.e., MolDA) is illustrated in Fig. 1. Given a 2D molecular graph paired with a natural language instruction which contain question with a SELFIES [ 10 ], MolDA handles diverse tasks including property prediction, reaction prediction, retrosynthesis, molecule captioning, and text-guided molecule generation. 
+
+2.1 Architecture of MolDA 
+
+Hybrid Graph Encoder To capture both local substructures and global topol-ogy, we employ a hybrid encoder integrating GINE [ 7] and TokenGT [ 9 ]. Let 
+
+G = ( V, E) denote a molecular graph. The encoder consist of two parallel branches. First, the local branch utilizes GINE to encode neighborhood interactions, yielding graph-level hGINE  
+
+> g
+
+∈ R1×dg and node-level HGINE  
+
+> v
+
+∈ R|V|× dg embed-dings: hGINE  
+
+> g
+
+, HGINE  
+
+> v
+
+= fGINE (G). Simultaneously, the global branch employs TokenGT to capture long-range dependencies by using nodes and edges as tokens, producing graph-level hGT  
+
+> g
+
+, node-level HGT  
+
+> v
+
+, and edge-level HGT  
+
+> e
+
+embeddings: MolDA: Molecular Understanding and Generation via LLM Diffusion 3
+
+hGT  
+
+> g
+
+, HGT  
+
+> v
+
+, HGT  
+
+> e
+
+= fTokenGT (G). Here, dg denotes the embedding dimension (set to 1024). Finally, we concatenate outputs from both branches to form the unified representation Hhybrid ∈ R(2 |V| +|E| +2) ×dg :
+
+Hhybrid = [ hGINE  
+
+> g
+
+; HGINE  
+
+> v
+
+; hGT  
+
+> g
+
+; HGT  
+
+> v
+
+; HGT  
+
+> e
+
+]. (1) Subsequently, we utilize this hybrid graph embedding as the input for the Q-Former to align representation. 
+
+Cross-Modal Alignment Projector To bridge the representation gap between the graph encoder and the LLM backbone, we employ a Q-Former as a cross-modal projector. To efficiently transform the variable-length graph representation 
+
+Hhybrid into a fixed sequence of aligned features, we utilize Nq learnable query tokens Q ∈ RNq ×d (set to 32) to extract and compress structural features. The queries interact with the graph features via multi-head cross-attention, where 
+
+Q acts as queries and Hhybrid serves as keys and values. The aligned molecular embedding Haligned ∈ RNq ×d is computed as: 
+
+Haligned = Softmax 
+
+ Q(Hhybrid WK )T
+
+√dk
+
+
+
+(Hhybrid WV ), (2) where WK , WV are learnable projection matrices. These aligned tokens Haligned 
+
+are subsequently concatenated with task instructions and SELFIES tokens, forming the conditional input for the diffusion backbone. 
+
+Language model Backbone To overcome the sequential bias of AR framework, MolDA employs LLaDA-8B-Instruct [ 14 ], to generate text response through discrete diffusion process that iteratively refines the entire sequence. Unlike AR models that generate tokens xt conditioned solely on history x<t , LLaDA captures the joint probability of the entire sequence, enabling structural coherence. The training of MolDA involves a forward diffusion and a reverse denoising process. Let q denote the task-specific question tokens (e.g., “Please provide a 
+
+Fig. 1: MolDA architecture overview. A hybrid graph encoder (GINE + TokenGT) produces structural representations, the Q-Former maps them into the language model token space, and LLaDA generates the response through iterative denoising with low-confidence remasking. 4 S. Shin and H. Choi et al. 
+
+detailed description of the molecular structure”), s denote the SELFIES sequence of the input molecule, and x0 denote the clean target response sequence. Depend-ing on the downstream task, x0 takes various forms, such as a molecule caption, a target SELFIES string, a numerical value, or a boolean label. In the forward process, we gradually mask tokens in x0 based on a time step t ∈ (0 , 1] . Specifically, each token is independently replaced by a special 
+
+[MASK] token with probability t. Formally, the transition is defined as: q(xit|xi
+
+> 0
+
+) = (1 − t) · 1xit=xi 
+
+> 0
+
++ t · 1xit=[MASK] , where q(xit|xi
+
+> 0
+
+) denotes the conditional transition probability of the i-th token, and 1 is the indicator function. Eventually, at t = 1 ,the sequence becomes entirely masked. In the reverse process, we recover pθ (x0)
+
+starting from x1 (fully masked) and iteratively denoising over N steps. Finally, MolDA takes xt, q, s, and Haligned as inputs and predicts all masked tokens simultaneously. The training objective minimizes the variational lower bound, simplifying to the following weighted negative log-likelihood: 
+
+LDLM = −Et, x0
+
+"
+
+1
+
+t
+
+> L
+
+X
+
+> i=1
+
+1xit=[MASK] log pθ (xi 
+
+> 0
+
+| xt, q, s, Haligned )
+
+#
+
+, (3) where L denotes the sequence length of x0. Through this optimization, the model learns to infer missing tokens conditioned on the visible sequence and the global graph topology, ultimately achieving structural coherence. 
+
+2.2 Training process 
+
+Domain-Adaptive Tokenization. Before describing the multi-stage training process, we define our molecular representation. We represent molecules using SELFIES [ ?], as it provides built-in syntactic constraints. Because the original LLaDA tokenizer lacks dedicated tokens for SELFIES (e.g., [C] , [=N] , [Ring1] ), we expand its vocabulary by adding 2,944 SELFIES-specific tokens. The embed-dings for these new tokens are initialized by sampling from a normal distribution matching the mean and standard deviation of the pre-trained embeddings. 
+
+Hybrid Graph Encoder and DLM pretraining To learn comprehensive molecular representations, we initially pretrain the hybrid graph encoder. Specifi-cally, the graph encoder is optimized via two auxiliary tasks: functional group prediction and SELFIES reconstruction [ 11 ]. First, to capture local chemical properties, a three-layer MLP fθ predicts the presence of functional groups from the aligned features Haligned . This is optimized using a binary cross-entropy loss: 
+
+Lfunc = −
+
+> K
+
+X
+
+> k=1
+
+h
+
+y(k) log ˆ y(k) + (1 − y(k)) log(1 − ˆy(k))
+
+i
+
+, (4) where ˆy(k) = fθ (Haligned )(k) denotes the predicted probability for the k-th func-tional group, y(k) ∈ { 0, 1} is the ground-truth binary label, and K is the total number of functional groups. MolDA: Molecular Understanding and Generation via LLM Diffusion 5
+
+Second, to encode global structural semantics, we reconstruct the correspond-ing SELFIES sequence utilizing an AR GPT-2 decoder πGPT-2  
+
+> ϕ
+
+. Here, aligned features Haligned serve as the context to predict each SELFIES token si:
+
+Lrecon = −
+
+> Ls
+
+X
+
+> i=1
+
+log πGPT-2  
+
+> ϕ
+
+(si | Haligned , s<i ), (5) where s<i denotes the preceding tokens of the SELFIES sequence, and Ls is its sequence length. The overall pretraining objective for the graph encoder is formulated as LGNN = Lfunc + Lrecon .Prior to multimodal integration, we perform supervised fine-tuning (SFT) on the DLM backbone using our text-only instruction-tuning dataset. This step injects molecule-specific prior knowledge into the language model and significantly reduces the computational overhead during the subsequent multimodal training phase. Building upon the discrete diffusion framework described previously, we employ a text-only masked diffusion objective [ 14 ]. For a given target textual sequence x0 of length L and a uniformly sampled masking ratio t ∈ (0 , 1] , we obtain the partially masked sequence xt. The backbone is optimized to reconstruct the original tokens strictly at the masked positions: 
+
+LSFT = −Et, x0
+
+"
+
+1
+
+t
+
+> L
+
+X
+
+> i=1
+
+1xit=[MASK] log pθ (xi 
+
+> 0
+
+| xt, q, s)
+
+#
+
+, (6) where the normalization factor 1 
+
+> t
+
+balances the expected number of masked tokens across different time steps. This objective relies solely on the internal textual contexts ( q and s) without external graph conditioning. 
+
+Cross-Modal Alignment via Q-Former During the cross-modal alignment stage, we freeze the weights of both the pre-trained hybrid graph encoder and the DLM backbone, exclusively updating the parameters of the Q-Former projector. This targeted updating strategy prevents catastrophic forgetting of the pre-trained unimodal knowledge while efficiently establishing cross-modal connections. The Q-Former is trained for one epoch by optimizing LSFT , as formulated in Eq. 6. 
+
+Molecular Structure Preference Optimization In standard SFT of multi-modal molecular models, the language model backbone often suffers from modality imbalance. Specifically, the model heavily relies on the 1D textual sequence while largely ignoring the explicit topological features provided by the 2D molecular graph. To encourage the model to actively utilize structural information, we adopt Molecular Structure Preference Optimization (MolPO) [ 11 ], which opti-mizes the representation preference between an original (chosen) graph Gw and a structurally perturbed (rejected) graph Gℓ.To generate the rejected graph Gℓ, we strictly follow the perturbation strat-egy proposed in Mol-LLM [ 11 ]. Specifically, rather than relying on complex, task-specific heuristics, we adopt their MACCS keys-based functional group 6 S. Shin and H. Choi et al. 
+
+modification. By randomly replacing inherent substructures within the original graph Gw, this method efficiently disrupts the alignment between the graph topol-ogy and the target response. This provides a generalized and computationally lightweight mechanism for preference learning across diverse downstream tasks. While the original MolPO framework was designed for AR next-token pre-diction, we mathematically adapt it to our discrete diffusion framework. Let 
+
+Hw 
+
+> aligned
+
+and Hℓ 
+
+> aligned
+
+denote the cross-modal embeddings obtained by processing 
+
+Gw and Gℓ through the hybrid graph encoder and the Q-Former, respectively. We formulate the rewards rw = βNmask 
+
+PLi=1 1xit=[MASK] log pθ (xi 
+
+> 0
+
+| Hw
+
+> aligned
+
+, xt, q, s)
+
+and rℓ = βNmask 
+
+PLi=1 1xit=[MASK] log pθ (xi 
+
+> 0
+
+| Hℓ
+
+> aligned
+
+, xt, q, s), where β controls the reward scaling, and Nmask denotes the number of [MASK] tokens in the partially masked sequence xt as the average log-likelihoods over the masked tokens. The final MolPO objective optimizes the preference margin between the chosen and rejected graphs using a clipped log-sigmoid loss: 
+
+LMolPO = −Ex0,Hw
+
+> aligned ,Hℓ
+> aligned
+
+h
+
+log σ
+
+
+
+β · (min( rw − rℓ, λ clip |rw|) − γm)
+
+i 
+
+, (7) where σ(·) is the sigmoid function, λclip prevents excessive penalization of the rejected reward by clipping the margin, and γm serves as a task-adaptive target reward margin for the m-th molecular task. The overall multimodal training objective for MolDA is formulated as LTotal = LSFT + cLMolPO , where c is a balancing constant. 
+
+2.3 Inference 
+
+MolDA generates tokens via an iterative discrete diffusion process. Starting from a fully masked sequence of length L, the model progressively unmasks tokens over N denoising steps by predicting the distribution over all masked positions simultaneously: 
+
+ˆx0 = arg max pθ (x0 | xt, q, s, Haligned ). (8) To efficiently recover sequences, we adopt task-adaptive sampling strate-gies [ 14 ]. For standard natural language tasks (e.g., molecule captioning), we employ block diffusion with low-confidence remasking . This block-by-block gener-ation selectively retains high-confidence predictions while remasking uncertain ones, leveraging bidirectional context to resolve local ambiguities. Conversely, for molecule generation tasks (e.g., SELFIES), we utilize a full-sequence pure diffusion approach. Because molecular validity heavily relies on non-local atomic constraints like ring closures, block-wise inductive biases can disrupt structural coherence. By simultaneously predicting and remasking low-confidence tokens across the entire sequence, the model continuously attends to global molecular topology. Finally, across all strategies, the output is obtained by truncating the refined sequence at the first predicted [EOS] token. MolDA: Molecular Understanding and Generation via LLM Diffusion 7
+
+## 3 Experiments and results 
+
+3.1 Experimental setup 
+
+Data description We adopt the same four instruction-tuning datasets as Mol-LLM [ 11 ], SMolInstruct [ 20 ], Mol-Instructions [ 4], ChEBI-20 [ 1], and PubChem comprising approximately 3.3M instances across eight tasks, with all sequences capped at 512 tokens (response ≤ 256). 
+
+Implementation Details. MolDA uses LLaDA-8B-Instruct [ 14 ] ( ∼8B params) as the backbone, a hybrid graph encoder (GINE L=5 + TokenGT, 224M params, 
+
+dg = 1024 ), and a Q-Former with Nq = 32 queries. Training proceeds in three stages: Stage 1 pretrains the GNN (GINE 45 epochs, TokenGT 49 epochs, lr 1e-4) and the LLM via LoRA (15 epochs, lr 2.5e-4); Stage 2 trains the Q-Former only (1 epoch, lr 2.5e-5); Stage 3 jointly updates all components with MolPO (1 epoch, lr 4e-5). All experiments use 8 ×A100 40GB GPUs with bf16 mixed precision, and inference uses T =64 denoising steps. We compare against six 7B–8B AR baselines: Mol-LLM [ 11 ], ChemDFM [ 21 ], LlaSMol [ 20 ], Galactica [ 18 ], MolT5 [ 2], and 3D-MoLM [12]. 
+
+3.2 Molecular Understanding. 
+
+As shown in Table 1, MolDA performs relatively poorly on ChEBI-20 generation and captioning compared to autoregressive generalist models, but achieves com-paratively strong results on several property prediction benchmarks. In particular, MolDA attains the highest SIDER AUROC of 0.846 and reasonably strong HIV and HOMO scores, although LogD and most regression metrics are still domi-nated by Mol-LLM. Overall, this suggests that the diffusion backbone is more beneficial for structure- and property-centric tasks than for pure text generation. Table 1: Molecular understanding results on ChEBI-20 (Generation, Captioning) and MoleculeNet (Property Prediction). Best results are bolded , second best are underlined.                                                                     
+
+> Generation Captioning Regression Classification Model Exact ↑MACCS ↑R-1 ↑METEOR ↑LogD ↓HOMO ↓HIV ↑SIDER ↑
+> MolT5-Large .331 .868 .539 .480 ----Mol-LLM .415 .873 .570 .471 0.981 .004 .774 .743 Galactica .000 .178 .105 .065 2.534 .230 .550 .533 LlaSMol .253 .827 .494 .426 1.582 .982 .685 .622 ChemDFM .421 .891 .377 .301 5.886 .183 .551 .540 3D-MoLM --.222 .227 3.891 .031 .502 .552 MolDA .068 .589 .265 .239 1.923 .008 .761 .846 8S. Shin and H. Choi et al.
+
+Table 2: Reaction prediction results on Mol-Instructions. Best results are bolded ,second best are underlined.                                             
+
+> Forward Synthesis Retrosynthesis Reagent Prediction Model Exact ↑MACCS ↑Exact ↑MACCS ↑Exact ↑MACCS ↑
+> Mol-LLM .904 .985 .512 .887 .134 .535
+> Galactica .000 .215 .000 .283 .000 .134 LlaSMol .038 .676 .026 .650 .000 .200 ChemDFM .302 .808 .080 .769 .000 .229 3D-MoLM .000 .639 .000 .810 .000 .175 MolDA .662 .907 .236 .791 .027 .312
+
+Table 3: Effect of denoising steps T .                 
+
+> Forward Retro.
+> TExact ↑MACCS ↑Exact ↑MACCS ↑
+> 32 0.648 0.916 0.304 0.808 64 0.736 0.939 0.312 0.835 128 0.760 0.943 0.258 0.820
+
+3.3 Reaction Prediction. 
+
+As shown in Table 2, MolDA achieves the second-highest Exact Match across all three reaction prediction tasks on Mol-Instructions, and also attains the second-best MACCS scores for forward synthesis and reagent prediction. Most other generalist baselines obtain near-zero Exact Match, especially on forward synthesis. 
+
+3.4 Effect of Denoising Steps. 
+
+We analyze the effect of the number of denoising steps T on reaction prediction using the Stage 1 version of MolDA (semi-AR decoding before applying MolPO). As shown in Table 3, increasing T from 32 to 64 improves both Exact Match and MACCS across all three tasks, while further increasing T to 128 does not lead to consistent additional gains. Given the roughly linear increase in inference time with T , we use the more efficient setting with T =64 for all main MolDA results. 
+
+## 4 Conclusion 
+
+We proposed MolDA, a multimodal framework that replaces standard AR back-bones with a DLM. By generating molecular sequences through iterative bidi-rectional denoising, MolDA addresses the error accumulation and structural constraint violations inherent to unidirectional decoding. To address modality MolDA: Molecular Understanding and Generation via LLM Diffusion 9
+
+imbalance, we reformulated MolPO for the masked diffusion objective, enforcing active utilization of 2D graph inputs. Empirical results demonstrate that MolDA achieves the best SIDER AUROC and competitive scores on several property prediction benchmarks, and achieves highly competitive accuracy in reaction prediction tasks. While AR models maintain an advantage in fluent text gen-eration, this work demonstrates that discrete diffusion is a viable backbone for multimodal molecular modeling.  
+
+> Acknowledgments. This work was supported by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2024-00411137).
+
+10 S. Shin and H. Choi et al. 
+
+## References 
+
+1. Degtyarenko, K., De Matos, P., Ennis, M., Hastings, J., Zbinden, M., McNaught, A., Alcántara, R., Darsow, M., Guedj, M., Ashburner, M.: Chebi: a database and ontology for chemical entities of biological interest. Nucleic acids research 
+
+36 (suppl_1), D344–D350 (2007) 2. Edwards, C., Lai, T., Ros, K., Honke, G., Cho, K., Ji, H.: Translation between molecules and natural language. In: Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing. pp. 375–413 (2022) 3. Fang, J., Zhang, S., Wu, C., Yang, Z., Liu, Z., Li, S., Wang, K., Du, W., Wang, X.: Moltc: Towards molecular relational modeling in language models. In: Findings of the Association for Computational Linguistics: ACL 2024. pp. 1943–1958 (2024) 4. Fang, Y., Liang, X., Zhang, N., Liu, K., Huang, R., Chen, Z., Fan, X., Chen, H.: Mol-instructions: A large-scale biomolecular instruction dataset for large language models. arXiv preprint arXiv:2306.08018 (2023) 5. Gong, H., Liu, Q., Wu, S., Wang, L.: Text-guided molecule generation with diffusion language model. In: Proceedings of the AAAI Conference on Artificial Intelligence. vol. 38, pp. 109–117 (2024) 6. Han, Y., Wan, Z., Chen, L., Yu, K., Chen, X.: From generalist to specialist: A survey of large language models for chemistry. In: Proceedings of the 31st International Conference on Computational Linguistics. pp. 1106–1123 (2025) 7. Hu, W., Liu, B., Gomes, J., Zitnik, M., Liang, P., Pande, V., Leskovec, J.: Strategies for pre-training graph neural networks. arXiv preprint arXiv:1905.12265 (2019) 8. Jang, Y., Kim, J., Ahn, S.: Structural reasoning improves molecular understand-ing of llm. In: Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). pp. 21016–21036 (2025) 9. Kim, J., Nguyen, D., Min, S., Cho, S., Lee, M., Lee, H., Hong, S.: Pure transformers are powerful graph learners. Advances in Neural Information Processing Systems 
+
+35 , 14582–14595 (2022) 10. Krenn, M., Häse, F., Nigam, A., Friederich, P., Aspuru-Guzik, A.: Self-referencing embedded strings (selfies): A 100% robust molecular string representation. Machine Learning: Science and Technology 1(4), 045024 (2020) 11. Lee, C., Ko, H., Song, Y., Jeong, Y., Hormazabal, R., Han, S., Bae, K., Lim, S., Kim, S.: Mol-llm: Multimodal generalist molecular llm with improved graph utilization. arXiv preprint arXiv:2502.02810 (2025) 12. Li, S., Liu, Z., Luo, Y., Wang, X., He, X., Kawaguchi, K., Chua, T.S., Tian, Q.: Towards 3d molecule-text interpretation in language models. arXiv preprint arXiv:2401.13923 (2024) 13. Liu, Z., Li, S., Luo, Y., Fei, H., Cao, Y., Kawaguchi, K., Wang, X., Chua, T.S.: Molca: Molecular graph-language modeling with cross-modal projector and uni-modal adapter. In: Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing. pp. 15623–15638 (2023) 14. Nie, S., Zhu, F., You, Z., Zhang, X., Ou, J., Hu, J., Zhou, J., Lin, Y., Wen, J.R., Li, C.: Large language diffusion models. arXiv preprint arXiv:2502.09992 (2025) 15. Park, J., Bae, M., Ko, D., Kim, H.J.: Llamo: Large language model-based molecular graph assistant. Advances in Neural Information Processing Systems 37 , 131972– 132000 (2024) 16. Sahoo, S., Arriola, M., Schiff, Y., Gokaslan, A., Marroquin, E., Chiu, J., Rush, A., Kuleshov, V.: Simple and effective masked diffusion language models. Advances in Neural Information Processing Systems 37 , 130136–130184 (2024) MolDA: Molecular Understanding and Generation via LLM Diffusion 11 17. Schneuing, A., Harris, C., Du, Y., Didi, K., Jamasb, A., Igashov, I., Du, W., Gomes, C., Blundell, T.L., Lio, P., et al.: Structure-based drug design with equivariant diffusion models. Nature Computational Science 4(12), 899–909 (2024) 18. Taylor, R., Kardas, M., Cucurull, G., Scialom, T., Hartshorn, A., Saravia, E., Poulton, A., Kerkez, V., Stojnic, R.: Galactica: A large language model for science. arXiv preprint arXiv:2211.09085 (2022) 19. Xu, M., Yu, L., Song, Y., Shi, C., Ermon, S., Tang, J.: Geodiff: A geometric diffusion model for molecular conformation generation. arXiv preprint arXiv:2203.02923 (2022) 20. Yu, B., Baker, F.N., Chen, Z., Ning, X., Sun, H.: Llasmol: Advancing large language models for chemistry with a large-scale, comprehensive, high-quality instruction tuning dataset. arXiv preprint arXiv:2402.09391 (2024) 21. Zhao, Z., Ma, D., Chen, L., Sun, L., Li, Z., Xia, Y., Chen, B., Xu, H., Zhu, Z., Zhu, S., et al.: Developing chemdfm as a large language foundation model for chemistry. Cell Reports Physical Science 6(4) (2025)
