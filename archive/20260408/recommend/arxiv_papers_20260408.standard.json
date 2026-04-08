@@ -1,0 +1,292 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-08T20:34:14.747599+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2604.05774v1",
+      "title": "GenomeQA: Benchmarking General Large Language Models for Genome Sequence Understanding",
+      "abstract": "Large Language Models (LLMs) are increasingly adopted as conversational assistants in genomics, where they are mainly used to reason over biological knowledge, annotations, and analysis outputs through natural language interfaces. However, existing benchmarks either focus on specialized DNA models trained for sequence prediction or evaluate biological knowledge using text-only questions, leaving the behavior of general-purpose LLMs when directly exposed to raw genome sequences underexplored. We introduce GenomeQA, a benchmark designed to provide a controlled evaluation setting for general-purpose LLMs on sequence-based genome inference tasks. GenomeQA comprises 5,200 samples drawn from multiple biological databases, with sequence lengths ranging from 6 to 1,000 base pairs (bp), spanning six task families: Enhancer and Promoter Identification, Splice Site Identification, Taxonomic Classification, Histone Mark Prediction, Transcription Factor Binding Site Prediction, and TF Motif Prediction. Across six frontier LLMs, we find that models consistently outperform random baselines and can exploit local sequence signals such as GC content and short motifs, while performance degrades on tasks that require more indirect or multi-step inference over sequence patterns. GenomeQA establishes a diagnostic benchmark for studying and improving the use of general-purpose LLMs on raw genomic sequences.",
+      "authors": [
+        "Weicai Long",
+        "Yusen Hou",
+        "Junning Feng",
+        "Houcheng Su",
+        "Shuo Yang",
+        "Donglin Xie",
+        "Yanlin Zhang"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.CL"
+      ],
+      "published": "2026-04-07T12:14:20+00:00",
+      "link": "https://arxiv.org/pdf/2604.05774v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Benchmarking LLMs for raw genome sequence understanding",
+      "llm_evidence_cn": "评估大模型对原始基因组序列的理解能力",
+      "llm_evidence": "评估大模型对原始基因组序列的理解能力",
+      "canonical_evidence": "评估大模型对原始基因组序列的理解能力",
+      "llm_tldr_en": "Introduces GenomeQA to evaluate how general-purpose LLMs handle raw genome sequence inference tasks.",
+      "llm_tldr_cn": "推出GenomeQA基准，评估通用大模型在原始基因组序列推理任务中的表现。",
+      "llm_tldr": "推出GenomeQA基准，评估通用大模型在原始基因组序列推理任务中的表现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.05775v1",
+      "title": "PhageBench: Can LLMs Understand Raw Bacteriophage Genomes?",
+      "abstract": "Bacteriophages, often referred to as the dark matter of the biosphere, play a critical role in regulating microbial ecosystems and in antibiotic alternatives. Thus, accurate interpretation of their genomes holds significant scientific and practical value. While general-purpose Large Language Models (LLMs) excel at understanding biological texts, their ability to directly interpret raw nucleotide sequences and perform biological reasoning remains underexplored. To address this, we introduce PhageBench, the first benchmark designed to evaluate phage genome understanding by mirroring the workflow of bioinformatics experts. The dataset contains 5,600 high-quality samples covering five core tasks across three stages: Screening, Quality Control, and Phenotype Annotation. Our evaluation of eight LLMs reveals that general-purpose reasoning models significantly outperform random baselines in phage contig identification and host prediction, demonstrating promising potential for genomic understanding. However, they exhibit significant limitations in complex reasoning tasks involving long-range dependencies and fine-grained functional localization. These findings highlight the necessity of developing next-generation models with enhanced reasoning capabilities for biological sequences.",
+      "authors": [
+        "Yusen Hou",
+        "Weicai Long",
+        "Haitao Hu",
+        "Houcheng Su",
+        "Junning Feng",
+        "Yanlin Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "q-bio.GN"
+      ],
+      "published": "2026-04-07T12:14:23+00:00",
+      "link": "https://arxiv.org/pdf/2604.05775v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM interpretation of raw nucleotide sequences and phage genomes",
+      "llm_evidence_cn": "大语言模型对原始核苷酸序列和噬菌体基因组的解读",
+      "llm_evidence": "大语言模型对原始核苷酸序列和噬菌体基因组的解读",
+      "canonical_evidence": "大语言模型对原始核苷酸序列和噬菌体基因组的解读",
+      "llm_tldr_en": "PhageBench evaluates LLMs on interpreting raw bacteriophage genomes across various bioinformatics tasks.",
+      "llm_tldr_cn": "PhageBench评估了大语言模型在多种生物信息学任务中解读原始噬菌体基因组的能力。",
+      "llm_tldr": "PhageBench评估了大语言模型在多种生物信息学任务中解读原始噬菌体基因组的能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.04239v1",
+      "title": "Good Rankings, Wrong Probabilities: A Calibration Audit of Multimodal Cancer Survival Models",
+      "abstract": "Multimodal deep learning models that fuse whole-slide histopathology images with genomic data have achieved strong discriminative performance for cancer survival prediction, as measured by the concordance index. Yet whether the survival probabilities derived from these models - either directly from native outputs or via standard post-hoc reconstruction - are calibrated remains largely unexamined.   We conduct, to our knowledge, the first systematic fold-level 1-calibration audit of multimodal WSI-genomics survival architectures, evaluating native discrete-time survival outputs (Experiment A: 3 models on TCGA-BRCA) and Breslow-reconstructed survival curves from scalar risk scores (Experiment B: 11 architectures across 5 TCGA cancer types). In Experiment A, all three models fail 1-calibration on a majority of folds (12 of 15 fold-level tests reject after Benjamini-Hochberg correction). Across the full 290 fold-level tests, 166 reject the null of correct calibration at the median event time after Benjamini-Hochberg correction (FDR = 0.05). MCAT achieves C-index 0.817 on GBMLGG yet fails 1-calibration on all five folds.   Gating-based fusion is associated with better calibration; bilinear and concatenation fusion are not. Post-hoc Platt scaling reduces miscalibration at the evaluated horizon (e.g., MCAT: 5/5 folds failing to 2/5) without affecting discrimination. The concordance index alone is insufficient for evaluating survival models intended for clinical use.",
+      "authors": [
+        "Sajad Ghawami"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-04-05T19:47:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.04239v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multimodal models fusing histopathology images with genomic data for cancer survival",
+      "llm_evidence_cn": "融合组织病理图像与基因组数据用于癌症生存预测的多模态模型",
+      "llm_evidence": "融合组织病理图像与基因组数据用于癌症生存预测的多模态模型",
+      "canonical_evidence": "融合组织病理图像与基因组数据用于癌症生存预测的多模态模型",
+      "llm_tldr_en": "Audits the calibration of multimodal models combining pathology and genomics for cancer survival prediction.",
+      "llm_tldr_cn": "审计了结合病理学和基因组学进行癌症生存预测的多模态模型的校准情况。",
+      "llm_tldr": "审计了结合病理学和基因组学进行癌症生存预测的多模态模型的校准情况。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04347v1",
+      "title": "RoboPhD: Evolving Diverse Complex Agents Under Tight Evaluation Budgets",
+      "abstract": "2026 has brought an explosion of interest in LLM-guided evolution of agentic artifacts, with systems like GEPA and Autoresearch demonstrating that LLMs can iteratively improve prompts, code, and agent architectures across diverse domains. As adoption accelerates, a central question emerges: given the same information, the same seed agent, and the same objective, which optimization algorithm yields the best results under the same evaluation budget? This question becomes critical when evaluations are expensive, such as when they require human judgment or multiple LLM calls.   We present the first systematic comparison of three optimization paradigms -- Elo tournament selection (RoboPhD), Pareto-based selection (GEPA), and greedy hill-climbing (Autoresearch) -- across four benchmarks spanning abstract reasoning, cloud scheduling, SQL generation, and financial QA, all under a fixed budget of 1,500 evaluations. RoboPhD introduces validation-free evolution: instead of splitting the budget between training and validation, it uses Elo competition on training data to simultaneously evaluate agents and drive evolution. All three systems receive seed agents with diagnostic print() statements that evolution can grow, enabling self-instrumenting agents that develop increasingly informative diagnostics for the benefit of their evolutionary successors.   Using a single default configuration, RoboPhD outperforms both GEPA and Autoresearch on three of four benchmarks, losing only on the simplest task, where the winning solution (from our Autoresearch adaptation) required under 90 lines of code. On ARC-AGI, RoboPhD evolves a 22-line seed agent into a 1,013-line multi-strategy system, improving accuracy from 27.8% to 65.8% using Gemini 3.1 Flash Lite as the solver. We release RoboPhD as a versatile toolkit under the MIT license with a simple optimize_anything() API for evolving diverse complex agents.",
+      "authors": [
+        "Andrew Borthwick",
+        "Stephen Ash",
+        "Anthony Galczak"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-06T01:39:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.04347v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-guided evolution of agentic artifacts for research",
+      "llm_evidence_cn": "LLM引导的科研智能体演化",
+      "llm_evidence": "LLM引导的科研智能体演化",
+      "canonical_evidence": "LLM引导的科研智能体演化",
+      "llm_tldr_en": "Compares optimization paradigms for evolving complex LLM agents under tight evaluation budgets.",
+      "llm_tldr_cn": "比较了在有限评估预算下演化复杂大模型智能体的三种优化范式。",
+      "llm_tldr": "比较了在有限评估预算下演化复杂大模型智能体的三种优化范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04403v2",
+      "title": "MolDA: Molecular Understanding and Generation via Large Language Diffusion Model",
+      "abstract": "Large Language Models (LLMs) have significantly advanced molecular discovery, but existing multimodal molecular architectures fundamentally rely on autoregressive (AR) backbones. This strict left-to-right inductive bias is sub-optimal for generating chemically valid molecules, as it struggles to account for non-local global constraints (e.g., ring closures) and often accumulates structural errors during sequential generation. To address these limitations, we propose MolDA (Molecular language model with masked Diffusion with mAsking), a novel multimodal framework that replaces the conventional AR backbone with a discrete Large Language Diffusion Model. MolDA extracts comprehensive structural representations using a hybrid graph encoder, which captures both local and global topologies, and aligns them into the language token space via a Q-Former. Furthermore, we mathematically reformulate Molecular Structure Preference Optimization specifically for the masked diffusion. Through bidirectional iterative denoising, MolDA ensures global structural coherence, chemical validity, and robust reasoning across molecule generation, captioning, and property prediction.",
+      "authors": [
+        "Seohyeon Shin",
+        "HanJun Choi",
+        "Jun-Hyung Park",
+        "Hong Kook Kim",
+        "Mansu Kim"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-06T04:04:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.04403v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM framework for molecular understanding and generation",
+      "llm_evidence_cn": "用于分子理解与生成的 LLM 框架",
+      "llm_evidence": "用于分子理解与生成的 LLM 框架",
+      "canonical_evidence": "用于分子理解与生成的 LLM 框架",
+      "llm_tldr_en": "Proposes a diffusion-based LLM framework to improve the generation of chemically valid molecules.",
+      "llm_tldr_cn": "提出一种基于扩散的大模型框架，以改进化学有效分子的生成。",
+      "llm_tldr": "提出一种基于扩散的大模型框架，以改进化学有效分子的生成。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05289v1",
+      "title": "FLARE: Agentic Coverage-Guided Fuzzing for LLM-Based Multi-Agent Systems",
+      "abstract": "Multi-Agent LLM Systems (MAS) have been adopted to automate complex human workflows by breaking down tasks into subtasks. However, due to the non-deterministic behavior of LLM agents and the intricate interactions between agents, MAS applications frequently encounter failures, including infinite loops and failed tool invocations. Traditional software testing techniques are ineffective in detecting such failures due to the lack of LLM agent specification, the large behavioral space of MAS, and semantic-based correctness judgment.   This paper presents FLARE, a novel testing framework tailored for MAS. FLARE takes the source code of MAS as input and extracts specifications and behavioral spaces from agent definitions. Based on these specifications, FLARE builds test oracles and conducts coverage-guided fuzzing to expose failures. It then analyzes execution logs to judge whether each test has passed and generates failure reports. Our evaluation on 16 diverse open-source applications demonstrates that FLARE achieves 96.9% inter-agent coverage and 91.1% intra-agent coverage, outperforming baselines by 9.5% and 1.0%. FLARE also uncovers 56 previously unknown failures unique to MAS.",
+      "authors": [
+        "Mingxuan Hui",
+        "Xinyue Li",
+        "Lu Wang",
+        "Chengcheng Wan",
+        "Yifan Wang",
+        "Yimian Wang",
+        "Feiyue Song",
+        "Beining Shi",
+        "Yixi Li",
+        "Yaxiao Li"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-04-07T00:47:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.05289v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "testing framework for LLM-based multi-agent systems",
+      "llm_evidence_cn": "大模型多智能体系统的测试框架",
+      "llm_evidence": "大模型多智能体系统的测试框架",
+      "canonical_evidence": "大模型多智能体系统的测试框架",
+      "llm_tldr_en": "Introduces FLARE, a fuzzing framework to detect failures in complex multi-agent LLM workflows.",
+      "llm_tldr_cn": "引入 FLARE 模糊测试框架，用于检测复杂大模型多智能体工作流中的故障。",
+      "llm_tldr": "引入 FLARE 模糊测试框架，用于检测复杂大模型多智能体工作流中的故障。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04503v2",
+      "title": "Memory Intelligence Agent",
+      "abstract": "Deep research agents (DRAs) integrate LLM reasoning with external tools. Memory systems enable DRAs to leverage historical experiences, which are essential for efficient reasoning and autonomous evolution. Existing methods rely on retrieving similar trajectories from memory to aid reasoning, while suffering from key limitations of ineffective memory evolution and increasing storage and retrieval costs. To address these problems, we propose a novel Memory Intelligence Agent (MIA) framework, consisting of a Manager-Planner-Executor architecture. Memory Manager is a non-parametric memory system that can store compressed historical search trajectories. Planner is a parametric memory agent that can produce search plans for questions. Executor is another agent that can search and analyze information guided by the search plan. To build the MIA framework, we first adopt an alternating reinforcement learning paradigm to enhance cooperation between the Planner and the Executor. Furthermore, we enable the Planner to continuously evolve during test-time learning, with updates performed on-the-fly alongside inference without interrupting the reasoning process. Additionally, we establish a bidirectional conversion loop between parametric and non-parametric memories to achieve efficient memory evolution. Finally, we incorporate a reflection and an unsupervised judgment mechanisms to boost reasoning and self-evolution in the open world. Extensive experiments across eleven benchmarks demonstrate the superiority of MIA.",
+      "authors": [
+        "Jingyang Qiao",
+        "Weicheng Meng",
+        "Yu Cheng",
+        "Zhihang Lin",
+        "Zhizhong Zhang",
+        "Xin Tan",
+        "Jingyu Gong",
+        "Kun Shao",
+        "Yuan Xie"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-06T07:59:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.04503v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep research agents with LLM reasoning and memory",
+      "llm_evidence_cn": "具有LLM推理和记忆能力的深度研究智能体",
+      "llm_evidence": "具有LLM推理和记忆能力的深度研究智能体",
+      "canonical_evidence": "具有LLM推理和记忆能力的深度研究智能体",
+      "llm_tldr_en": "Proposes a memory-enhanced agent framework for efficient reasoning and autonomous evolution in research.",
+      "llm_tldr_cn": "提出了一种增强记忆的智能体框架，用于研究中的高效推理和自主进化。",
+      "llm_tldr": "提出了一种增强记忆的智能体框架，用于研究中的高效推理和自主进化。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
