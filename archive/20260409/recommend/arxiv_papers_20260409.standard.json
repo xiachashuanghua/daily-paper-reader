@@ -1,0 +1,324 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-09T20:06:28.672050+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2604.06269v1",
+      "title": "MAT-Cell: A Multi-Agent Tree-Structured Reasoning Framework for Batch-Level Single-Cell Annotation",
+      "abstract": "Automated cellular reasoning faces a core dichotomy: supervised methods fall into the Reference Trap and fail to generalize to out-of-distribution cell states, while large language models (LLMs), without grounded biological priors, suffer from a Signal-to-Noise Paradox that produces spurious associations. We propose MAT-Cell, a neuro-symbolic reasoning framework that reframes single-cell analysis from black-box classification into constructive, verifiable proof generation. MAT-Cell injects symbolic constraints through adaptive Retrieval-Augmented Generation (RAG) to ground neural reasoning in biological axioms and reduce transcriptomic noise. It further employs a dialectic verification process with homogeneous rebuttal agents to audit and prune reasoning paths, forming syllogistic derivation trees that enforce logical consistency.Across large-scale and cross-species benchmarks, MAT-Cell significantly outperforms state-of-the-art (SOTA) models and maintains robust per-formance in challenging scenarios where baselinemethods severely degrade. Code is available at https://gith ub.com/jiangliu91/MAT-Cell-A-Mul ti-Agent-Tree-Structured-Reasoni ng-Framework-for-Batch-Level-Sin gle-Cell-Annotation.",
+      "authors": [
+        "Yehui Yang",
+        "Zelin Zang",
+        "Changxi Chi",
+        "Jingbo Zhou",
+        "Xienan Zheng",
+        "Yuzhe Jia",
+        "Chang Yu",
+        "Jinlin Wu",
+        "Fuji Yang",
+        "Jiebo Luo",
+        "Zhen Lei",
+        "Stan Z. Li"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI"
+      ],
+      "published": "2026-04-07T04:56:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.06269v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "multi-agent framework for single-cell annotation",
+      "llm_evidence_cn": "用于单细胞注释的多智能体框架",
+      "llm_evidence": "用于单细胞注释的多智能体框架",
+      "canonical_evidence": "用于单细胞注释的多智能体框架",
+      "llm_tldr_en": "Proposes MAT-Cell, a multi-agent reasoning framework for verifiable and grounded single-cell transcriptomic analysis.",
+      "llm_tldr_cn": "提出了 MAT-Cell，一个用于可验证且有根据的单细胞转录组分析的多智能体推理框架。",
+      "llm_tldr": "提出了 MAT-Cell，一个用于可验证且有根据的单细胞转录组分析的多智能体推理框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.06549v1",
+      "title": "The Mechanistic Invariance Test: Genomic Language Models Fail to Learn Positional Regulatory Logic",
+      "abstract": "Genomic language models (gLMs) have transformed computational biology, achieving state-of-the-art performance across genomic tasks. Yet a fundamental question threatens the foundation of this success: do these models learn the mechanistic principles governing gene regulation, or do they merely exploit statistical shortcuts? We introduce the Mechanistic Invariance Test (MIT), a rigorous 650-sequence benchmark across 8 classes with scrambled controls that enables clean discrimination between compositional sensitivity and genuine positional understanding. We evaluate five gLMs spanning all major architectural paradigms (autoregressive, masked, and bidirectional state-space models) and uncover a universal failure mode. Through systematic mechanistic probing via AT titration, positional ablation, spacing perturbation, and strand orientation tests, we demonstrate that apparent compensation sensitivity is driven entirely by AT content correlation (r=0.78-0.96 across architectures), not positional regulatory logic. The failures are striking: Evo2-1B and Caduceus score regulatory elements at incorrect positions higher than correct positions, inverting biological reality. All models are strand-blind. Compositional effects dominate positional effects by 46-fold. Perhaps most revealing, a simple 100-parameter position-aware PWM achieves perfect performance (CSS=1.00, SCR=0.98), exposing that billion-parameter gLMs fail not from insufficient capacity but from fundamentally misaligned inductive biases. Larger models show stronger compositional bias, demonstrating that scale amplifies rather than corrects this limitation. These findings reveal that current gLMs capture surface statistics while missing the positional grammar essential for gene regulation, demanding architectural innovation before deployment in synthetic biology, gene therapy, and clinical variant interpretation.",
+      "authors": [
+        "Bryan Cheng",
+        "Jasper Zhang"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-04-08T00:56:26+00:00",
+      "link": "https://arxiv.org/pdf/2604.06549v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "evaluation of genomic language models in computational biology",
+      "llm_evidence_cn": "计算生物学中基因组语言模型的评估",
+      "llm_evidence": "计算生物学中基因组语言模型的评估",
+      "canonical_evidence": "计算生物学中基因组语言模型的评估",
+      "llm_tldr_en": "Introduces a benchmark to test if genomic language models learn mechanistic regulatory logic or statistical shortcuts.",
+      "llm_tldr_cn": "引入MIT基准测试，揭示基因组语言模型在学习基因调控逻辑方面的局限性。",
+      "llm_tldr": "引入MIT基准测试，揭示基因组语言模型在学习基因调控逻辑方面的局限性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.01949v1",
+      "title": "annbatch unlocks terabyte-scale training of biological data in anndata",
+      "abstract": "The scale of biological datasets now routinely exceeds system memory, making data access rather than model computation the primary bottleneck in training machine-learning models. This bottleneck is particularly acute in biology, where widely used community data formats must support heterogeneous metadata, sparse and dense assays, and downstream analysis within established computational ecosystems. Here we present annbatch, a mini-batch loader native to anndata that enables out-of-core training directly on disk-backed datasets. Across single-cell transcriptomics, microscopy and whole-genome sequencing benchmarks, annbatch increases loading throughput by up to an order of magnitude and shortens training from days to hours, while remaining fully compatible with the scverse ecosystem. Annbatch establishes a practical data-loading infrastructure for scalable biological AI, allowing increasingly large and diverse datasets to be used without abandoning standard biological data formats. Github: https://github.com/scverse/annbatch",
+      "authors": [
+        "Ilan Gold",
+        "Felix Fischer",
+        "Lucas Arnoldt",
+        "F. Alexander Wolf",
+        "Fabian J. Theis"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.GN"
+      ],
+      "published": "2026-04-02T12:16:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.01949v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "efficient training on large-scale biological data like transcriptomics and sequencing",
+      "llm_evidence_cn": "针对转录组学和测序等大规模生物数据的高效训练",
+      "llm_evidence": "针对转录组学和测序等大规模生物数据的高效训练",
+      "canonical_evidence": "针对转录组学和测序等大规模生物数据的高效训练",
+      "llm_tldr_en": "annbatch enables terabyte-scale training of biological data by optimizing data loading throughput.",
+      "llm_tldr_cn": "annbatch 通过优化数据加载吞吐量，实现了太字节规模生物数据的训练。",
+      "llm_tldr": "annbatch 通过优化数据加载吞吐量，实现了太字节规模生物数据的训练。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.06569v1",
+      "title": "ECLIPSE: A Composable Pipeline for Predicting ecDNA Formation, Evolution, and Therapeutic Vulnerabilities in Cancer",
+      "abstract": "Extrachromosomal DNA (ecDNA) represents one of the most pressing challenges in cancer biology: circular DNA structures that amplify oncogenes, evade targeted therapies, and drive tumor evolution in ~30% of aggressive cancers. Despite its clinical importance, computational ecDNA research has been built on broken foundations. We discover that existing benchmarks suffer from circular reasoning -- models trained on features that already require knowing ecDNA status -- artificially inflating performance from AUROC 0.724 to 0.967. We introduce ECLIPSE, the first methodologically sound framework for ecDNA analysis, comprising three modules that transform how we predict, model, and target these structures. ecDNA-Former achieves AUROC 0.812 using only standard genomic features, demonstrating for the first time that ecDNA status is predictable without specialized sequencing, and that careful feature curation matters more than complex architectures. CircularODE captures ecDNA's unique stochastic dynamics through physics-constrained neural SDEs, achieving r > 0.997 on experimental data via zero-shot transfer. VulnCausal applies causal inference to identify therapeutic vulnerabilities, achieving 80x enrichment over chance and 3.7x higher validation than standard approaches by filtering spurious correlations. Together, these modules establish rigorous baselines for an emerging application area and reveal a broader lesson: in high-stakes biomedical ML, methodological rigor -- eliminating leakage, encoding domain physics, addressing confounding -- outweighs architectural innovation. ECLIPSE provides both the tools and the template for principled computational oncology.",
+      "authors": [
+        "Bryan Cheng",
+        "Jasper Zhang"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-04-08T01:35:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.06569v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "computational framework for ecDNA analysis in cancer biology",
+      "llm_evidence_cn": "癌症生物学中ecDNA分析的计算框架",
+      "llm_evidence": "癌症生物学中ecDNA分析的计算框架",
+      "canonical_evidence": "癌症生物学中ecDNA分析的计算框架",
+      "llm_tldr_en": "Introduces ECLIPSE, a methodologically sound pipeline for predicting and modeling ecDNA in cancer research.",
+      "llm_tldr_cn": "引入ECLIPSE，这是一个用于癌症研究中预测和建模ecDNA的方法学框架。",
+      "llm_tldr": "引入ECLIPSE，这是一个用于癌症研究中预测和建模ecDNA的方法学框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.07274v1",
+      "title": "A Systematic Study of Retrieval Pipeline Design for Retrieval-Augmented Medical Question Answering",
+      "abstract": "Large language models (LLMs) have demonstrated strong capabilities in medical question answering; however, purely parametric models often suffer from knowledge gaps and limited factual grounding. Retrieval-augmented generation (RAG) addresses this limitation by integrating external knowledge retrieval into the reasoning process. Despite increasing interest in RAG-based medical systems, the impact of individual retrieval components on performance remains insufficiently understood. This study presents a systematic evaluation of retrieval-augmented medical question answering using the MedQA USMLE benchmark and a structured textbook-based knowledge corpus. We analyze the interaction between language models, embedding models, retrieval strategies, query reformulation, and cross-encoder reranking within a unified experimental framework comprising forty configurations. Results show that retrieval augmentation significantly improves zero-shot medical question answering performance. The best-performing configuration was dense retrieval with query reformulation and reranking achieved 60.49% accuracy. Domain-specialized language models were also found to better utilize retrieved medical evidence than general-purpose models. The analysis further reveals a clear tradeoff between retrieval effectiveness and computational cost, with simpler dense retrieval configurations providing strong performance while maintaining higher throughput. All experiments were conducted on a single consumer-grade GPU, demonstrating that systematic evaluation of retrieval-augmented medical QA systems can be performed under modest computational resources.",
+      "authors": [
+        "Nusrat Sultana",
+        "Abdullah Muhammad Moosa",
+        "Kazi Afzalur Rahman",
+        "Sajal Chandra Banik"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-08T16:37:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.07274v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RAG for medical question answering",
+      "llm_evidence_cn": "用于医学问答的检索增强生成",
+      "llm_evidence": "用于医学问答的检索增强生成",
+      "canonical_evidence": "用于医学问答的检索增强生成",
+      "llm_tldr_en": "Systematically evaluates retrieval pipeline designs for medical question answering using large language models.",
+      "llm_tldr_cn": "系统性评估了大语言模型在医学问答任务中检索增强生成（RAG）流水线的设计影响。",
+      "llm_tldr": "系统性评估了大语言模型在医学问答任务中检索增强生成（RAG）流水线的设计影响。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.00555v1",
+      "title": "Ontology-Constrained Neural Reasoning in Enterprise Agentic Systems: A Neurosymbolic Architecture for Domain-Grounded AI Agents",
+      "abstract": "Enterprise adoption of Large Language Models (LLMs) is constrained by hallucination, domain drift, and the inability to enforce regulatory compliance at the reasoning level. We present a neurosymbolic architecture implemented within the Foundation AgenticOS (FAOS) platform that addresses these limitations through ontology-constrained neural reasoning. Our approach introduces a three-layer ontological framework--Role, Domain, and Interaction ontologies--that provides formal semantic grounding for LLM-based enterprise agents. We formalize the concept of asymmetric neurosymbolic coupling, wherein symbolic ontological knowledge constrains agent inputs (context assembly, tool discovery, governance thresholds) while proposing mechanisms for extending this coupling to constrain agent outputs (response validation, reasoning verification, compliance checking). We evaluate the architecture through a controlled experiment (600 runs across five industries: FinTech, Insurance, Healthcare, Vietnamese Banking, and Vietnamese Insurance), finding that ontology-coupled agents significantly outperform ungrounded agents on Metric Accuracy (p < .001, W = .460), Regulatory Compliance (p = .003, W = .318), and Role Consistency (p < .001, W = .614), with improvements greatest where LLM parametric knowledge is weakest--particularly in Vietnam-localized domains. Our contributions include: (1) a formal three-layer enterprise ontology model, (2) a taxonomy of neurosymbolic coupling patterns, (3) ontology-constrained tool discovery via SQL-pushdown scoring, (4) a proposed framework for output-side ontological validation, (5) empirical evidence for the inverse parametric knowledge effect that ontological grounding value is inversely proportional to LLM training data coverage of the domain, and (6) a production system serving 21 industry verticals with 650+ agents.",
+      "authors": [
+        "Thanh Luong Tuan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "published": "2026-04-01T06:59:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.00555v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "ontology-constrained neural reasoning for domain-grounded AI agents",
+      "llm_evidence_cn": "领域落地AI智能体的本体约束神经推理",
+      "llm_evidence": "领域落地AI智能体的本体约束神经推理",
+      "canonical_evidence": "领域落地AI智能体的本体约束神经推理",
+      "llm_tldr_en": "A neurosymbolic architecture using ontologies to ground LLM agents in specific domains and reduce hallucinations.",
+      "llm_tldr_cn": "一种利用本体论使LLM智能体在特定领域落地并减少幻觉的神经符号架构。",
+      "llm_tldr": "一种利用本体论使LLM智能体在特定领域落地并减少幻觉的神经符号架构。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05149v1",
+      "title": "EvolveRouter: Co-Evolving Routing and Prompt for Multi-Agent Question Answering",
+      "abstract": "Large language model agents often exhibit complementary strengths, making routing a promising approach for multi-agent question answering. However, existing routing methods remain limited in two important ways: they typically optimize over a fixed pool of agents without improving the agents themselves, and they often rely on rigid collaboration schemes that cannot adapt the number of participating agents to the query. We propose EvolveRouter, a trainable framework that addresses both limitations by jointly improving agent quality and collaboration structure. First, EvolveRouter couples graph-based query routing with targeted instruction refinement in a closed-loop co-evolution process, allowing router diagnostics to guide agent improvement while refined agents provide cleaner supervision for routing. Second, it introduces an adaptive inference strategy that dynamically determines the effective collaboration size for each query through router-weighted answer agreement. Together, these designs enable more capable and more efficient multi-agent reasoning. Experiments on five question answering benchmarks show that EvolveRouter consistently outperforms SOTA routing baselines in both F1 and exact match, while further analysis confirms the benefits of closed-loop refinement and adaptive collaboration.",
+      "authors": [
+        "Jiatan Huang",
+        "Zheyuan Zhang",
+        "Kaiwen Shi",
+        "Yanfang Ye",
+        "Chuxu Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-06T20:24:54+00:00",
+      "link": "https://arxiv.org/pdf/2604.05149v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "trainable framework for multi-agent collaboration structure",
+      "llm_evidence_cn": "多智能体协作结构的可训练框架",
+      "llm_evidence": "多智能体协作结构的可训练框架",
+      "canonical_evidence": "多智能体协作结构的可训练框架",
+      "llm_tldr_en": "Presents EvolveRouter to jointly improve agent quality and collaboration structure in multi-agent systems.",
+      "llm_tldr_cn": "提出了EvolveRouter，旨在共同提高多智能体系统中的智能体质量和协作结构。",
+      "llm_tldr": "提出了EvolveRouter，旨在共同提高多智能体系统中的智能体质量和协作结构。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06076v1",
+      "title": "The HTC-Claw: Automating Discovery through High-Throughput Computational Campaigns",
+      "abstract": "With the advancement of the Materials Genome Initiative, high-throughput computation has become central to accelerating materials discovery. However, conventional first-principles workflows are cumbersome and error-prone. Existing high-throughput tools, while efficient at batch job submission, lack intelligence: they cannot automatically plan tasks based on scientific objectives or dynamically adapt workflows according to intermediate results. To address these limitations, this paper proposes and implements HTC-Claw, an intelligent high-throughput computational platform built upon the OpenClaw framework. The key innovations of HTC-Claw are: 1) An agent-based framework for automatic decomposition of high-level research goals into parallelizable task sets; 2) A closed-loop execution engine that integrates real-time analysis and reporting; 3) Adaptive decision-making and workflow iteration capabilities based on intermediate results; and 4) A decoupled, modular architecture that separates the scheduling system from functional modules, enhancing extensibility and robustness. Case studies demonstrate that HTC-Claw enables an intelligent, end-to-end workflow from user intent to final reporting in materials exploration",
+      "authors": [
+        "Lianduan Zeng",
+        "Xiao Zhou",
+        "Xueru Zheng",
+        "Ning Gao",
+        "Lei Liu",
+        "Yunxuan Cao",
+        "Hongjian Chen",
+        "Zhongyang Wang",
+        "Tongxiang Fan"
+      ],
+      "primary_category": "cond-mat.mtrl-sci",
+      "categories": [
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-04-07T16:56:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.06076v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "agent-based framework for automatic decomposition of research goals",
+      "llm_evidence_cn": "用于自动分解研究目标的基于智能体的框架",
+      "llm_evidence": "用于自动分解研究目标的基于智能体的框架",
+      "canonical_evidence": "用于自动分解研究目标的基于智能体的框架",
+      "llm_tldr_en": "Proposes an agent-based platform to automate high-throughput computational discovery in materials science.",
+      "llm_tldr_cn": "提出了一个基于智能体的平台，用于自动化材料科学中的高通量计算发现。",
+      "llm_tldr": "提出了一个基于智能体的平台，用于自动化材料科学中的高通量计算发现。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
