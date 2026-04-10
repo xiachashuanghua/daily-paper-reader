@@ -1,0 +1,684 @@
+Title: SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology
+
+URL Source: https://arxiv.org/pdf/2604.07496v1
+
+Published Time: Fri, 10 Apr 2026 00:11:02 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+## Ondřej Huvar #
+
+Masaryk University, Czechia 
+
+## Martin Jonáš #
+
+Masaryk University, Czechia 
+
+## Samuel Pastva #
+
+Masaryk University, Czechia 
+
+Abstract 
+
+The theory of uninterpreted functions is a key modeling tool for systems with unknown or abstracted components. Some domains such as systems biology impose further restrictions regarding monotonicity on these components, requiring specific inputs to have a consistently positive or negative effect on the output. In this paper, we tackle the model inference problem for biological systems by applying the theory of uninterpreted functions with monotonicity constraints. We compare the performance of naive quantified encodings of the problem and the performance of the existing approach based on eager quantifier instantiation, which is based on the fact that a finite set of quantifier-free monotonicity lemmas is sufficient to encode the monotonicity of uninterpreted functions. Additionally, we consider a lazy variant of the approach that introduces the monotonicity lemmas on demand. We evaluate the smt -based approach to model inference using a large collection of systems biology benchmarks. The results demonstrate that the instantiation-based encodings significantly outperform quantified encodings, which typically struggle with large function arities and complex instances. As the key result, we show that our approach based on smt with uninterpreted functions and monotonicity constraints significantly outperforms state-of-the-art domain-specific tools used in systems biology, such as the asp -based Bonesis and the bdd -based AEON. 
+
+2012 ACM Subject Classification Theory of computation → Automated reasoning 
+
+Keywords and phrases satisfiability modulo theories, uninterpreted function, monotonicity, boolean network, logic-based modeling 
+
+Digital Object Identifier 10.4230/LIPIcs.CVIT.2016.23 
+
+## 1 Introduction 
+
+The theory of uninterpreted functions is a key modeling tool for systems with unknown or ab-stracted components. Some domains, including systems biology, impose further monotonicity 
+
+constraints on these components, requiring specific inputs to have a consistently positive or negative effect on the output. The monotonicity (or anti-monotonicity) of function arguments is a common constraint in models of physical—particularly biological—systems [ 13 ] due to the mechanistic nature of their underlying processes. For instance, a single chemical reaction either produces or consumes a specific compound overall. Similarly, a catalyst or inhibitor either accelerates or slows down such a reaction. While there are rare cases of true non-monotonic influence in nature, monotonicity remains a standard assumption in dynamical models of physical systems [5, 10, 13]. There are existing techniques for solving satisfiability over theories extended with un-interpreted functions subject to monotonicity constraints. A straightforward approach for dealing with these constraints relies on direct encoding using universally quantified formulas. More notably, Sofronie-Stokkermans et al. have proven that the extension of a theory with uninterpreted functions and monotonicity constraints is local [20 , 19 ]. As a consequence,  
+
+> ©Ondřej Huvar and Martin Jonáš and Samuel Pastva; licensed under Creative Commons License CC-BY 4.0 42nd Conference on Very Important Topics (CVIT 2016). Editors: John Q. Open and Joan R. Access; Article No. 23; pp. 23:1–23:17 Leibniz International Proceedings in Informatics
+> Schloss Dagstuhl – Leibniz-Zentrum für Informatik, Dagstuhl Publishing, Germany
+> arXiv:2604.07496v1 [cs.LO] 8 Apr 2026
+
+23:2 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology                            
+
+> fa(a, b, c )
+> fb(a, c )
+> fc(b)
+> Argument monotonicity of fa:unrestricted in a;anti-monotone in b;monotone in c;Argument monotonicity of fb:monotone in aand c;Argument monotonicity of fc:monotone in b;State (0 ,0,0) is a fixed-point; State (0 ,1,1) is a fixed-point; State (1 ,2,2) is a fixed-point. (a) Influence graph of a hypothetical biological system with unknown update functions repres-ented by fa,fb, and fc.Green arrows depict positive, red arrows negative, and gray arrows unrestricted regulations. (b) Restrictions imposed on the biological sys-tem either through empirical observations (fixed points) or via mechanistic assumptions (argu-ment monotonicity). All function arguments are required to be essential (i.e., influence the function’s output).
+
+Figure 1 A simple example depicting an inference problem of a three-component system. It consists of three genes ( a, b, and c) with integer domains and six expected regulations (dependencies) between said genes, some with monotonicity constraints. Finally, its long-term behavior is defined by three observations of fixed points. 
+
+a fixed finite set of quantifier instances of monotonicity axioms is sufficient to encode the monotonicity. These instances can be derived directly from occurrences of uninterpreted function symbols in the input formula [20]. This paper focuses on the use of uninterpreted functions with monotonicity constraints in logic-based discrete models, such as Boolean [ 14 ] and Thomas [ 21 ] networks. These frame-works are prominent in systems biology as predictive models of emergent phenomena [ 18 ]and are widely applied to model gene regulation, cell-to-cell signaling, and metabolic path-ways [ 13 , 16 ]. They consist of discrete variables (binary in Boolean networks, multi-valued in Thomas networks) that represent the discretized concentrations of biochemical species. Each variable is governed by an update function , which maps the current system state to the variable’s level in the next time step. A central challenge in logic-based modeling is model inference : the task of identifying a concrete model of the system that satisfies all empirical observations and mechanistic assumptions. While these constraints can vary, observations most frequently represent observed steady states (i.e., fixed points) of the system. Mechanistic assumptions, meanwhile, typically define the essentiality and monotonicity of regulations between variables, which together constitute the network’s influence graph. Figure 1 depicts a simple inference problem. The system has three integer-valued variables: 
+
+a, b, and c. The precise update functions that compute the next state of the system are unknown, but it has been observed that a is influenced by all three variables, with the effect of b being negative and the effect of c positive. Furthermore, b is positively influenced by both a and c, while c is positively influenced by b. It has also been experimentally observed that the configurations (0 , 0, 0) , (0 , 1, 1) , and (1 , 2, 2) are fixed points of the system. For example, when the system is in the state (1 , 2, 2) , it must remain in (1 , 2, 2) in the next state. O. Huvar and M. Jonáš and S. Pastva 23:3 
+
+One admissible solution for this inference problem is given by: 
+
+fa(a, b, c ) = 
+
+{max(0 , 3 − b), if a = 1 ,
+
+max(0 , c − b), otherwise ,fb(a, c ) = max( a, c ),fc(b) = b. 
+
+This set of update functions clearly satisfies that fa(a, b, c ) is anti-monotone in b and monotone in c, and that fb(a, c ) and fc(b) are monotone in all their arguments. Moreover, the update functions satisfy the observed fixed points: 
+
+1. For the state (0 , 0, 0) , the next state is (fa(0 , 0, 0) , f b(0 , 0) , f c(0)) , which is (0 , 0, 0) .
+
+2. For the state (0 , 1, 1) , the next state is (fa(0 , 1, 1) , f b(0 , 1) , f c(1)) , which is (0 , 1, 1) .
+
+3. For the state (1 , 2, 2) , the next state is (fa(1 , 2, 2) , f b(1 , 2) , f c(2)) , which is (1 , 2, 2) .
+
+Contribution. We show that the model inference problem maps naturally to smt , with unknown update functions directly encoded as uninterpreted functions subject to additional constraints derived from fixed-point observations and the regulations of the influence graph. The mechanistic assumptions regarding regulatory monotonicity translate naturally into monotonicity constraints on these uninterpreted functions. Using the resulting smt problems, we compare the performance of naive quantified encodings against the previously proposed approach [ 20 ] based on eager quantifier instantiation Additionally, we introduce a lazy variant of the instantiation approach that introduces monotonicity lemmas on demand. We evaluate these smt -based approaches to model inference using a comprehensive suite of benchmarks from systems biology, comprising 8,381 and 465 instances derived from existing Boolean and integer-based models, respectively, as well as 144 large instances from biological datasets without a known ground-truth model. Our results demonstrate that the instantiation-based procedures significantly outperform the naive quantified encoding, particularly on complex or high-arity problems. As a key result, we show that our smt -based approach significantly outperforms state-of-the-art tools used in systems biology, such as the 
+
+asp -based Bonesis and the bdd -based AEON. Moreover, unlike these tools, our approach enables the analysis of non-Boolean models. 
+
+Paper structure. The paper is structured as follows. Sections 2 and 3 briefly recall the logical preliminaries and monotonicity constraints in the context of smt . In Section 4, we describe the encoding of the inference problem using uninterpreted functions with monotonicity constraints. Section 5 covers existing approaches to solving such constraints and introduces the lazy instantiation-based algorithm. Finally, Section 6 presents the experimental evaluation, and Section 7 concludes the paper. 
+
+Related work. Several existing approaches tackle the model inference problem in the presence of monotonicity constraints without relying on smt with uninterpreted functions. While some of these address model inference through statistical methods or genetic programming [ 17 ], a significant effort is dedicated toward model inference via automated reasoning. Across these methods, efficiently enforcing monotonicity remains a persistent challenge. The tool RE:IN [ 24 , 23 ] encodes inference problems into smt without uninterpreted functions; to guarantee monotonicity, it restricts the search space to a limited, syntactically defined subset of update functions. Bonesis [ 6 , 5 ] and Caspo [ 11 ] support only Boolean models and rely on Answer Set Programming ( asp ) with exhaustive Disjunctive Normal Form ( dnf ) encodings. Since the size of a dnf encoding grows exponentially with function arity, Bonesis offers an 
+
+C V I T 2 0 1 6 23:4 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+optimization that limits the number of permitted dnf cubes, thereby trading completeness for scalability. Finally, AEON [ 3 , 2] is also limited to Boolean models and employs Binary Decision Diagrams ( bdd s) to exhaustively represent the function space. The bdd encoding—for each update function and for each combination of its input values—introduces one bdd variable representing the result of the function and imposes the monotonicity constraints directly at the bdd level. This induces an exponential blowup, restricting the tool’s applicability to functions of low arity. Notably, neither of these tools support integer-valued models. 
+
+## 2 Preliminaries 
+
+Let A be a set. For a vector x ∈ An, we denote by xi the value at its i-th position. For any vector x ∈ An, element b ∈ A, and index 1 ≤ i ≤ n, we denote by x[i ← b] the vector that agrees with x at all positions except at position i, where it has the value b.Let (A, ≤) be a partially ordered set. The ordering is called total if for all a, b ∈ A,we have either a ≤ b or b ≤ a. For each n ∈ N and 1 ≤ i ≤ n, a function f : An → A
+
+is called monotone in the i-th argument if for all a ∈ An and b ∈ A, we have that ai ≤ b
+
+implies f (a) ≤ f (a[i ← b]) . The function is anti-monotone in the i-th argument if the same assumptions imply f (a) ≥ f (a[i ← b]) .We work in the context of standard first-order logic with equality. We briefly recall the notation and concepts that are important for this paper and refer the reader to standard textbooks on the topic for further details [ 9 , 1 ]. As is standard in smt , we consider only quantifier-free formulas, unless explicitly stated otherwise. A signature Σ is a set of function symbols and predicate symbols, denoted ΣF and 
+
+ΣP , respectively. Each f ∈ ΣF and p ∈ ΣP has an associated arity , denoted arity (f ) ∈ N
+
+and arity (p) ∈ N, respectively. The sets of (Σ-)terms and (Σ-)formulas are defined in the standard way. We denote by terms (φ) the set of all subterms of a formula φ.A (Σ-)structure A is a pair consisting of a non-empty set A (the domain) and a mapping 
+
+(_)A that to each function symbol f of arity n assigns a function f A : An → A and to each predicate symbol P of arity n assigns a relation P A ⊆ An. The satisfaction relation A | = φ
+
+between a structure A and a formula φ is defined in the standard way. A (Σ-)theory T is a non-empty class of Σ-structures. A formula φ is T -satisfiable (or satisfiable modulo T ) if it is satisfied by some structure A ∈ T . It is T -unsatisfiable otherwise. A formula is T -valid if it is satisfied by all structures in T . A function symbol f ∈ ΣF is called uninterpreted in the theory T if the theory does not impose any restrictions on its interpretation. That is, if two 
+
+Σ-structures A and A′ differ only in the interpretation of f , we have A ∈ T ⇔ A ′ ∈ T .The examples in this paper are over the theory T of linear integer arithmetic ( LIA ), whose structures have the domain Z and the standard interpretation of arithmetic function and predicate symbols. However, the approach presented here is not limited to any particular theory T . We only assume that we are working over a theory T for which satisfiability of quantifier-free formulas is decidable. 
+
+## 3 Monotonicity Constraints 
+
+In this section, we formalize the monotonicity constraints. We first define a monotonicity specification , which states, for each uninterpreted function symbol, which of its formal parameters are monotone, which are anti-monotone, and which are unrestricted. We then define when a given formula φ is satisfiable in a given logical theory with respect to a given monotonicity specification. Our definition is compatible with other notions of monotonicity O. Huvar and M. Jonáš and S. Pastva 23:5 
+
+constraints appearing in the literature [20]. In the rest of the section, let T be a fixed theory over a signature Σ that contains a binary predicate symbol ≤ corresponding to a total ordering relation 1. Formally, there is a predicate symbol ≤ ∈ ΣP of arity 2 such that for all structures A = ( A, (_)A) ∈ T , the interpretation ≤A of this symbol is a total ordering relation on A.
+
+▶ Definition 1 (Monotonicity specification) . Let f ∈ ΣF be a function symbol of arity n.A monotonicity specification for f is a pair (fm, f a) where fm ⊆ { 1, . . . , n } and fa ⊆{1, . . . , n } are respectively the indices of monotone and anti-monotone arguments of f . A 
+
+Σ-structure A satisfies the monotonicity specification (fm, f a), written A | = ( fm, f a), if: 
+
+f A is monotone in the i-th argument for each i ∈ fm,
+
+f A is anti-monotone in the i-th argument for each i ∈ fa.A mapping M that assigns a monotonicity specification M (f ) to each uninterpreted function symbol f ∈ ΣF is called a monotonicity specification for Σ. The specification M is satisfied by a structure A, written A | = M , if for each uninterpreted function symbol f , we have 
+
+A | = M (f ).
+
+▶ Definition 2. A formula φ is satisfiable modulo the theory T with monotonicity specification 
+
+M (or (T, M )-satisfiable) if there is a Σ-structure A ∈ T such that A | = φ and A | = M .
+
+As a notational shorthand, if the monotonicity specification is clear from the context, we write simply fm for the monotone indices of f and fa for its anti-monotone indices. Notably, this definition restricts the monotonicity specification only to uninterpreted 
+
+function symbols. This is our intended use-case, and the algorithms used later in the paper rely on this assumption. The definition of a monotonicity specification could, in principle, be extended to support interpreted functions as well, but enforcing it would require different techniques. 
+
+▶ Example 3. Consider the theory LIA with two uninterpreted function symbols f and g of arities 2 and 1, respectively. Further, consider the formula 
+
+φ ≡ (f (c1, 2) = 4) ∧ (f (c1 + 5 , 0) = c2) ∧ (g(c2) < g (4)) .
+
+Let M be the following monotonicity specification: 
+
+M (f ) = ( {1}, {2}),M (g) = ( {1}, ∅),
+
+i.e., the function f is monotone in its first argument and anti-monotone in its second argument, and the function g is monotone in its only argument. Then φ is not satisfiable modulo LIA 
+
+with the monotonicity specification M . The monotonicity of f in the first argument implies 
+
+f (c1, 2) ≤ f (c1 +5 , 2) , and its anti-monotonicity in the second implies f (c1 +5 , 2) ≤ f (c1 +5 , 0) .Together, these imply 4 = f (c1, 2) ≤ f (c1 + 5 , 0) = c2. Consequently, the monotonicity of g
+
+implies g(4) ≤ g(c2), which contradicts the last conjunct of φ.Now consider a similar monotonicity specification M ′, where f is not constrained to be anti-monotone, i.e., M ′(f ) = M ′(g) = ( {1}, ∅). The formula φ is now satisfiable modulo  
+
+> 1The encodings of monotonicity used later in the paper are correct even with weaker assumptions on the ordering. The quantified encoding works for arbitrary partial orderings and the encoding based on eager quantifier instantiation works for arbitrary lattices and bounded semilattices [20, 19].
+
+C V I T 2 0 1 6 23:6 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+LIA with the monotonicity specification M ′, because the model A with cA 
+
+> 1
+
+= 4 , cA 
+
+> 2
+
+= 0 ,
+
+gA(x) = x, and f A(x, y ) = x for y = 2 and f A(x, y ) = 0 otherwise satisfies both φ and the monotonicity specification M ′. Note that the monotonicity specification M ′ does not constrain the behavior of f A in its second argument; the function can behave differently for each value of y, but it must be monotone in x for each fixed y.
+
+## 4 SMT Encoding of Logic-based Model Inference 
+
+We consider a standard variant of the logic-based model inference problem over a set of n
+
+indexed variables, V = {v1, . . . , v n}. Each variable vi ∈ V has an associated domain Dvi ,which is either Boolean ( Dvi = {0, 1}) or a larger integer interval (e.g., Dvi = {0, . . . , 5}). Alternatively, the cases of Dvi = N or Dvi = Z are also possible, but are very rare in practical biological applications, since concentrations of biochemical species often have a finite number of distinct levels. Models whose variables are restricted entirely to Boolean domains correspond to Boolean networks, while those containing non-Boolean but bounded variables are known as multi-valued (or Thomas) networks. The model structure is constrained by a directed influence graph (V, E ), where edges 
+
+E ⊆ V × V represent regulations (i.e., vi regulates vj if and only if (vi, v j ) ∈ E). This graph dictates the signature of the uninterpreted functions in our smt query: for each vi, we define an uninterpreted function fvi representing its update function, with an arity and domain matching its regulators. The inference problem imposes three types of constraints on these uninterpreted functions. 2
+
+Monotonicity: As part of the input, the method assumes a monotonicity specification M .This is directly expressed as a monotonicity specification from Definition 1. 
+
+Essentiality: A regulation (vi, v j ) ∈ E may be declared essential , meaning the regulator 
+
+vi must have an observable impact on vj . Assuming without loss of generality that vi is the first of k regulators for vj , we encode essentiality as a constraint ηvi 
+
+> vj
+
+defined as: 
+
+ηvi 
+
+> vj
+
+= ∃x, y, z 2, . . . , z k. f vj (x, z 2, . . . , z k)̸ = fvj (y, z 2, . . . , z k).
+
+Fixed-point observations: Finally, a fixed-point observation is a partial function assigning constant values to a subset of model variables, asserting the existence of a matching fixed-point in the model’s state space. Let F be a set of such assignments 
+
+(vi, d i) where vi ∈ V and di ∈ Dvi . The variables that are not assigned by F can be assigned arbitrarily. If r(vi)1 , . . . , r (vi) 
+
+> k
+
+denote the indices of the k regulators of vi, the fixed-point constraint τF is defined as follows: 
+
+τF = ∃x1, . . . , x n. ∧
+
+> 1≤i≤n
+
+xi = fvi (xr(vi)1
+
+, . . . , x r(vi)
+
+> k
+
+) ∧ ∧
+
+> (vi,d i)∈F
+
+xi = di.
+
+Finally, for each variable or uninterpreted function with a bounded domain, we introduce a constraint asserting these bounds. For Boolean variables, the encoding uses propositional variables instead of bounded integers. Values of propositional variables are naturally ordered by false < true , which can be expressed in propositional logic. We can also apply two key formula simplifications. First, for essential regulations where 
+
+vi is Boolean, the quantified variables x and y are directly instantiated with the constants 1 
+
+> 2Here and in the rest of the section, we present the constraints as explicitly existentially quantified to avoid introducing fresh constant names for each constraint. However, the existentially quantified variables should be replaced by fresh constants symbols in the real application.
+
+O. Huvar and M. Jonáš and S. Pastva 23:7 
+
+and 0. Second, in fixed-point constraints, we propagate the observation xi = di, substituting 
+
+xi with the constant di in all function applications. While straightforward, we observe that these optimizations can have a non-trivial impact on the overall performance. 
+
+▶ Example 4. Recall the inference problem that we described in Figure 1. Formally, it prescribes three uninterpreted functions fa, fb, and fc, with arity (fa) = 3 , arity (fb) = 2 , and 
+
+arity (fc) = 1 . Furthermore, the problem carries a monotonicity specification M such that 
+
+M (fa) = ( {3}, {2}), M (fb) = ( {1, 2}, ∅), and M (fc) = ( {1}, ∅). Since each regulation here is expected to be essential, we consider six essentiality constraints: 
+
+ηaa ≡ ∃x, y, z 2, z 3. f a(x, z 2, z 3)̸ = fa(y, z 2, z 3) ηab ≡ ∃x, y, z. f b(x, z )̸ = fb(y, z )
+
+ηba ≡ ∃x, y, z 1, z 3. f a(z1, x, z 3)̸ = fa(z1, y, z 3) ηcb ≡ ∃x, y, z. f b(z, x )̸ = fb(z, y )
+
+ηca ≡ ∃x, y, z 1, z 2. f a(z1, z 2, x )̸ = fa(z1, z 2, y ) ηbc ≡ ∃x, y. f c(x)̸ = fc(y)
+
+To assert the expected fixed points F1 = {(a, 0) , (b, 0) , (c, 0) }, F2 = {(a, 0) , (b, 1) , (c, 1) },and F3 = {(a, 1) , (b, 2) , (c, 2) }, we also consider the following fixed-point constraints. Here, we applied the aforementioned propagation of observed values. Because we have complete information about each fixed point, this entirely eliminates the existentially quantified variables: 
+
+τF1 ≡ fa(0 , 0, 0) = 0 ∧ fb(0 , 0) = 0 ∧ fc(0) = 0 ,τF2 ≡ fa(0 , 1, 1) = 0 ∧ fb(0 , 1) = 1 ∧ fc(1) = 1 ,τF3 ≡ fa(1 , 2, 2) = 1 ∧ fb(1 , 2) = 2 ∧ fc(2) = 2 .
+
+Overall, the encoding of our inference problem is then the following formula φ with the monotonicity specification M :
+
+φ ≡ (ηaa ∧ ηba ∧ ηca ∧ ηab ∧ ηcb ∧ ηbc ) ∧ (τF1 ∧ τF2 ∧ τF3 ).
+
+If we were to additionally require that the three system variables a, b, and c have bounded domains (e.g., {0, . . . , 3}), we must also introduce these bounds as separate constraints on every fa(x), fb(y), and fc(z) that appear in terms (φ), as well as on any existentially quantified atoms in the ηvi 
+
+> vj
+
+and τFi constraints. 
+
+## 5 Solving SMT with Monotonicity Constraints 
+
+In this section, we discuss in detail two existing techniques for solving quantifier-free for-mulas with monotonicity constraints and introduce a lazy approach based on generation of monotonicity lemmas on demand. 
+
+## 5.1 Quantified Encoding 
+
+A straightforward approach is to translate each formula φ with a monotonicity specification 
+
+M into an equivalent formula φquant  
+
+> M
+
+by directly encoding the monotonicity specification as a quantified formula ψ and defining φquant  
+
+> M
+
+= φ ∧ ψ.In particular, the formula ψ can be defined as ψ = ∧ 
+
+> f∈ΣF
+
+∧ 
+
+> i∈(fm∪fa)
+
+ψfi , where 
+
+ψfi =
+
+{∀x∀y (xi ≤ y → f (x) ≤ f (x[i ← y])) , if i ∈ fm,
+
+∀x∀y (xi ≤ y → f (x) ≥ f (x[i ← y])) , if i ∈ fa,
+
+C V I T 2 0 1 6 23:8 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+and x is a vector of arity( f ) variables. It is easy to see that the T -models of φ that satisfy the monotonicity specification M
+
+are exactly the T -models of φquant  
+
+> M
+
+= φ ∧ ψ (without the monotonicity specification). In particular, the formula φ is (T, M )-satisfiable if and only if φquant  
+
+> M
+
+is T -satisfiable. 
+
+▶ Example 5. Consider again the formula φ and the monotonicity specification M from Example 3. The corresponding formula φquant  
+
+> M
+
+for this monotonicity specification is 
+
+φquant  
+
+> M
+
+= φ ∧ ψf 
+
+> 1
+
+∧ ψf 
+
+> 2
+
+∧ ψg 
+
+> 1
+
+(1) 
+
+= ( f (c1, 2) = 4) ∧ (f (c1 + 5 , 0) = c2) ∧ (g(c2) < g (4)) ∧ (2) 
+
+∀x1∀x2∀y. (x1 ≤ y → f (x1, x 2) ≤ f (y, x 2)) ∧ (3) 
+
+∀x1∀x2∀y. (x2 ≤ y → f (x1, x 2) ≥ f (x1, y )) ∧ (4) 
+
+∀x∀y. (x ≤ y → g(x) ≤ g(y)) . (5) This formula precisely encodes the monotonicity specification and is LIA -unsatisfiable. The corresponding formula φquant   
+
+> M′
+
+for the specification M ′ does not contain the constraint ψf
+
+> 2
+
+and its corresponding row (4), which encodes the anti-monotonicity of the function f in its second argument. Without this constraint, the formula is LIA -satisfiable. The downside of this approach is that the formula φquant  
+
+> M
+
+is necessarily quantified for non-trivial monotonicity specifications, even if the original formula φ is quantifier-free. Consequently, determining its satisfiability might require potentially expensive quantifier reasoning. Furthermore, while the satisfiability of quantifier-free formulas is decidable for many theories (such as the theory of uninterpreted functions, UF ), it is undecidable in general when quantifiers are introduced. For such theories, the above encoding does not yield a decision procedure for quantifier-free formulas with monotonicity constraints. 
+
+## 5.2 Eager Quantifier Instantiation 
+
+Monotonicity can also be expressed without explicit quantification while preserving sat-isfiability. In particular, only a finite set of quantifier instances, so-called monotonicity lemmas , are sufficient to encode the monotonicity specification. Moreover, the set of these monotonicity lemmas is fixed for each input formula φ and can be easily computed from it [ 20 ]. However, this approach only works with the following equivalent definition of monotonicity that considers all arguments of each function symbol together. 
+
+▶ Theorem 6. For each Σ-structure A and monotonicity specification M , it holds that 
+
+A | = M if and only if each function symbol f of arity n satisfies ∀x, y. ψ (f, x, y ) where 
+
+ψ(f, x, y ) is defined as 
+
+ ∧
+
+> i∈fm
+
+xi ≤ yi
+
+ ∧
+
+ ∧
+
+> i∈fa
+
+yi ≤ xi
+
+ ∧
+
+∧
+
+> 1≤i≤ni̸∈ (fm∪fa)
+
+xi = yi
+
+ → f (x) ≤ f (y). (6) This equivalent definition ensures that the monotonicity lemmas, which consist of all instances of (6) for all pairs of occurrences of f in φ, are sufficient to precisely express the monotonicity specification for any given formula φ.O. Huvar and M. Jonáš and S. Pastva 23:9 
+
+▶ Theorem 7 ([ 20 , 19 ]) . Let φ be a formula and M a monotonicity specification. Then φ is 
+
+(T, M )-satisfiable if and only if the formula 
+
+φinst  
+
+> M
+
+≡ φ ∧ ∧   
+
+> f∈ΣF
+> f(t),f (s)∈terms (φ)
+
+ψ(f, t, s )
+
+is T -satisfiable. 
+
+Theorem 7 yields a decision procedure SolveEager that for a given formula φ and a monotonicity specification computes φinst  
+
+> M
+
+and uses an smt solver for quantifier-free formulas over the theory T . Note that in the worst case, the number of added monotonicity lemmas 
+
+ψ(f, t, s ) is quadratic with respect to the size of φ.For practical usage of the decision procedure SolveEager , it is important to note that 
+
+φinst  
+
+> M
+
+is not equivalent to the full encoding of the monotonicity specification φquant  
+
+> M
+
+; it is merely equisatisfiable with it. However, the proof in the original paper [ 20 ] shows how to algorithmically construct a T -model of φ that satisfies the monotonicity specifications from an arbitrary T -model of φinst  
+
+> M
+
+.
+
+▶ Example 8. Consider again the formula φ and the monotonicity specification M from Example 3. Because the set of function applications of f is {f (c1, 2) , f (c1 + 5 , 0) } and of applications of g is {g(c2), g (4) }, the resulting formula φinst  
+
+> M
+
+is 
+
+φinst  
+
+> M
+
+≡ (f (c1, 2) = 4) ∧ (f (c1 + 5 , 0) = c2) ∧ (g(c2) < g (4)) ∧ (7) 
+
+((( c1 ≤ c1 + 5) ∧ (2 ≥ 0)) → f (c1, 2) ≤ f (c1 + 5 , 0)) ∧ (8) 
+
+((( c1 + 5 ≤ c1) ∧ (0 ≥ 2)) → f (c1 + 5 , 0) ≤ f (c1, 2)) ∧ (9) 
+
+(( c2 ≤ 4) → g(c2) ≤ g(4)) ∧ (10) 
+
+((4 ≤ c2) → g(4) ≤ g(c2)) . (11) The formula precisely encodes the monotonicity specification at the points where f and g
+
+are evaluated and is LIA -unsatisfiable. For the monotonicity specification M ′, which does not enforce anti-monotonicity of f in its second argument, the corresponding subformulas (8) and (9) are changed to 
+
+((( c1 ≤ c1 + 5) ∧ (2 = 0)) → f (c1, 2) ≤ f (c1 + 5 , 0)) ∧ (12) 
+
+((( c1 + 5 ≤ c1) ∧ (0 = 2)) → f (c1 + 5 , 0) ≤ f (c1, 2)) , (13) which are vacuously true in this case, and the resulting formula φinst   
+
+> M′
+
+is LIA -satisfiable. For example, any structure A with cA 
+
+> 1
+
+= 6 , cA 
+
+> 2
+
+= 0 , f A(6 , 2) = 4 , f A(11 , 0) = 0 , gA(0) = 1 , and 
+
+gA(4) = 2 is a model of φinst   
+
+> M′
+
+. Such a model does not need to satisfy all the monotonicity constraints, as the functions can behave arbitrarily on points not mentioned by the formula. The proof of Theorem 7 yields the “globally monotonized” version A↑ of A that interprets the function symbols as 
+
+f A↑
+
+(x, y ) = 
+
+
+
+0, if x ≥ 11 and y = 0 ,
+
+4, if x ≥ 6 and y = 2 ,
+
+0, otherwise ,gA↑
+
+(x) = 
+
+{2, if x ≥ 4,
+
+1, otherwise .
+
+C V I T 2 0 1 6 23:10 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+## 5.3 Lazy Quantifier Instantiation 
+
+As noted earlier, the number of added monotonicity lemmas ψ(f, t, s ) can be quadratic with respect to the size of φ. In many input instances, not all of these monotonicity lemmas are needed to decide unsatisfiability or to find a model for the formula. Therefore, we propose a lazy approach that starts by considering only the formula φ and then adds the constraints 
+
+ψ(f, t, s ) lazily, based on violations of the monotonicity specification. The algorithm is presented as Algorithm 1.   
+
+> Algorithm 1 Lazy algorithm for solving satisfiability with monotonicity constraints.
+> 1:
+
+procedure SolveLazy (input formula φ, monotonicity specification M ) 
+
+> 2:
+
+φ′ ← φ 
+
+> 3:
+
+while IsSAT (φ′) do  
+
+> 4:
+
+A ← GetModel (φ′) 
+
+> 5:
+
+violated_lemmas ← { ψ(f, t, s ) | f ∈ Σf , f (t), f (s) ∈ terms (φ), A̸ | = ψ(f, t, s )} 
+
+> 6:
+
+if violated_lemmas = ∅ then  
+
+> 7:
+
+return sat  
+
+> 8:
+
+φ′ ← φ′ ∧ ∧ violated_lemmas  
+
+> 9:
+
+return unsat 
+
+The correctness of Algorithm 1 follows directly from Theorem 7. In particular, if the algorithm returns sat , the model A satisfies all instances of ψ(f, t, s ), meaning it satisfies 
+
+φinst  
+
+> M
+
+. Thus, φ is satisfiable with the monotonicity specification by Theorem 7. On the other hand, the while loop maintains the invariant that φinst  
+
+> M
+
+|= φ′. Therefore, if the algorithm returns unsat , the formula φinst  
+
+> M
+
+is not T -satisfiable, which in turn means that φ is not 
+
+(T, M )-satisfiable, again by Theorem 7. Finally, the set of all possible monotonicity lemmas has size O(|φ|2). Since at least one violated lemma is added in each iteration, the algorithm terminates in at most O(|φ|2) iterations. 
+
+## 6 Evaluation 
+
+To demonstrate the practical utility of using smt with monotonicity constraints for model inference, we perform an extensive evaluation on discrete models in systems biology, where monotonicity is a fundamental mechanistic assumption. Our evaluation focuses on inferring Boolean [ 14 ] and multi-valued [ 21 ] networks, two prominent classes of logic-based models [ 16 ,13 ]. We have implemented our procedures within a tool powered by the Z3 smt solver [ 7 ]. To ensure reproducibility, the tool’s source code is hosted on GitHub 3, while all benchmark instances, test scripts, and complete experimental results are archived on Zenodo 4.
+
+## 6.1 Implementation and Tested Tools 
+
+We implemented our tool in Rust, utilizing the C bindings for the Z3 smt solver [ 7]. The tool implements four distinct smt encodings: 
+
+quantified-individual : Uses the standard encoding from Section 5.1, generating one quantified constraint per monotonic function argument.   
+
+> 3https://github.com/sybila/biodivine-algo-smt-inference/tree/artefact-sat-2026-submission
+> 4https://doi.org/10.5281/zenodo.18920286
+
+O. Huvar and M. Jonáš and S. Pastva 23:11 
+
+quantified-aggregated : Applies Theorem 6 to generate one aggregated quantified constraint per uninterpreted function. 
+
+instantiated-eager : Directly implements the quantifier instantiation from Theorem 7. 
+
+instantiated-lazy : Extends the eager approach by lazily introducing monotonicity lemmas, as detailed in Section 5.3. These encodings are exposed as a generic layer on top of the Z3 api and can be applied to any uninterpreted function over the Int and Bool sorts. We then use this framework to implement an inference method for discrete biological models (Section 4). For Boolean networks, the encoding relies directly on the Bool sort in Z3. Meanwhile, for multi-valued networks, the Int sort is used with additional bounds assertions. For our evaluation, we compare against two state-of-the-art systems biology tools: Bonesis [ 6 , 5] and AEON [ 3, 2 ]. Bonesis utilizes Answer Set Programming ( asp ) to explicitly encode unknown functions via a Disjunctive Normal Form ( dnf ) representation, where the maximum number of cubes can be bounded by the user. AEON, conversely, employs Binary Decision Diagrams ( bdd s) to symbolically represent the entire solution space. Note that the 
+
+bdd -based approach always computes all solutions and is inherently incapable of computing only a single solution. We omit Caspo [ 11 ], which has been largely superseded by Bonesis, and RE:IN [24, 23], which does not support the full spectrum of monotonic functions. 
+
+## 6.2 Benchmark Instances 
+
+We evaluate our approach on three classes of benchmark instances. Two classes, bbm-boolean (8,381 instances) and bma-integer (465 instances), are derived from established models in the literature. The third, omnipath (144 instances), represents a real-world, data-driven inference task utilizing a biological dataset (308 genes, 7 fixed points) and a dense prior influence graph of known gene regulations (2,570 edges). A comprehensive description of the benchmark generation process is provided in our Zenodo artifact. Below, we briefly summarize the methodology for each class. 
+
+Biodivine Boolean Models 
+
+The Biodivine Boolean Models ( bbm ) repository [ 16 ] contains 285 Boolean models curated from the literature and systems biology databases, scaling up to 853 variables and 3,499 regulations. Most of these models include constant input variables representing environmental conditions. Since realistic inference tasks typically assume a fixed environment, we generated up to 128 unique random input configurations per model (exhaustively enumerating all combinations for models with 7 or fewer inputs). Treating each configuration as a distinct benchmark yielded 8,381 unique problem instances. We then computed the fixed points for each instance using AEON [ 3], bounding the enumeration at 216 fixed points (a limit hit by only one bbm model). The resulting inference task is to recover a model whose influence graph (including monotonicity and essentiality constraints) and fixed-point behavior are equivalent to the original. 
+
+Biomodel Analyzer 
+
+Biomodel Analyzer ( bma ) [ 4] is a framework for multi-valued biological modeling. We collected 18 publicly available bma models and applied the same environmental randomization 
+
+C V I T 2 0 1 6 23:12 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology                    
+
+> Table 1 Summary of successfully solved instances across the three benchmark sets using each
+> smt encoding (with a 10-minute timeout). Solved problems Benchmark set Size Quantified individual Quantified aggregated Instantiated eager Instantiated lazy
+> bbm-boolean 8381 8242 7456 8381 8381
+> bma-integer 465 00465 417
+> omnipath 144 76 87 144 144
+
+procedure used for bbm , yielding 465 problem instances. Because these instances are multi-valued, their smt encodings require Int sorts bounded by their respective domain intervals. The maximum domain interval in this dataset is {0, . . . , 10 }.
+
+Omnipath 
+
+Because the bbm-boolean and bma-integer instances are derived from curated models, they are satisfiable by design and exhibit structurally sparse influence graphs. To test our approach on a more realistic and challenging scenario, we constructed an inference task using scRNA-seq observations from seven fully differentiated neural cell types [ 8]. This strategy emulates the methodology of recent Boolean network inference case studies [ 5, 12 ]. We binarized the raw data using scBoolSeq [ 15 ] to extract seven partial Boolean fixed-point observations. We paired these observations with an influence graph of known gene regulations from the Omnipath database [ 22 ], restricted to a 308-gene strongly connected subnetwork that covers all non-zero genes in the observations. Crucially, this prior network is dense, featuring a maximum function arity of 76. However, because we do not enforce regulation essentiality, the inferred models may be significantly sparser than the prior network. To simulate varying levels of partial observability, we randomly sub-sampled the fixed-point observations, generating 16 variations for each decile between 10% and 90% data retention. This process produced 144 benchmark instances, roughly 40% of which are satisfiable. 
+
+## 6.3 Experiment Environment 
+
+We conducted all experiments on a workstation with a 32-core AMD Threadripper 2990WX 
+
+cpu and 256 GB of ram . All measured times are wall-clock times. The recorded times include all initialization overhead, such as parsing the problem specification and generating the smt query (or the equivalent data structures for other tools). The tools were configured to output only the final sat /unsat verdict rather than printing the full inferred model. We applied a 10-minute timeout to each benchmark instance. Executions that timed out or crashed (primarily due to out-of-memory errors) were recorded as failures. Given the high number of benchmark instances, we evaluated up to 16 benchmarks in parallel. 
+
+## 6.4 Comparison of SMT Encodings 
+
+We first evaluated each of the four implemented smt encodings using the three inference benchmark sets introduced in Section 6.2. The number of successfully solved instances for each method and benchmark set is summarized in Table 1. Both instantiation-based methods successfully completed all bbm-boolean and omnipath instances, with the instantiated-O. Huvar and M. Jonáš and S. Pastva 23:13             
+
+> (a) bbm-boolean benchmarks. (b) bma-integer benchmarks.
+> (c) omnipath benchmarks.
+> Figure 2 Cumulative plots comparing the performance of all four implemented smt approaches on the three benchmark sets. Each plot shows the number of successfully completed benchmark instances by each method (y-axis) before a specific time limit (x-axis). Only methods with at least one successfully solved instance are shown in each plot. The time axis is logarithmic in all plots. For the bbm-boolean plot, the y-axis is truncated to focus on the most challenging instances where the various approaches diverge most significantly.
+
+eager method also solving all bma-integer benchmarks. Detailed runtime distributions are shown in the cumulative plots in Figure 2, displaying the number of completed instances over time for each monotonicity encoding and benchmark set. On the bbm-boolean benchmark set, both instantiation-based strategies were able to solve every instance in under 2 minutes. On the other hand, the quantifier-based strategies failed on 139 and 925 instances, respectively. To better visualize the performance gaps between the four methods, the plot in Figure 2a is truncated to focus on the most challenging benchmarks where the various approaches diverge most significantly. High-arity uninterpreted functions proved to be the primary bottleneck for the quantifier-based approaches. While 
+
+quantified-individual failed on nearly half of the 307 instances where the maximum arity exceeded 12, quantified-aggregated successfully solved only a single instance where the maximum arity exceeded 11. On the bma-integer benchmarks, the instantiated-eager strategy clearly outper-formed the other three approaches. It was the only method to successfully solve every instance, with all benchmarks completed within 4 minutes and the vast majority finished in 
+
+C V I T 2 0 1 6 23:14 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology               
+
+> Table 2 Summary of successfully solved Boolean instances across the approaches compared in Section 6.5 (with a 10-minute timeout). Benchmark set Instantiated lazy ( smt )AEON Bonesis (default) Bonesis (16 cubes) Bonesis (8 cubes)
+> bbm 8381 5605 7342 8246 8248
+> omnipath 144 000134
+
+under 5 seconds, as illustrated in Figure 2b. The instantiation-lazy approach followed closely, solving 417 instances within the 10-minute timeout. In contrast, the quantifier-based methods did not solve any benchmark within the available time. This highlights the critical importance of instantiation-based strategies for effectively resolving integer-domain instances. The performance on the omnipath benchmarks is illustrated in Figure 2c. Both the 
+
+instantiated-eager and instantiated-lazy strategies successfully solved every instance in under 5 seconds. This demonstrates that the instantiation-based approaches are also well-suited for real-world scenarios involving specifications with high-arity uninterpreted functions. Notably, instantiated-lazy outperformed instantiated-eager in most cases, highlighting the potential of the lazy approach on sizable, dense networks. In these scenarios, the eager strategy is forced to generate a large number of monotonicity lemmas that may not actually be necessary to enforce. By contrast, both the quantified-individual and 
+
+quantified-aggregated methods failed to solve any satisfiable instance, though they performed well on unsatisfiable instances. Specifically, the quantified-aggregated variant resolved every unsatisfiable instance in under 3 seconds. While quantified-individual 
+
+performed slightly worse, it still successfully resolved all but 11 unsatisfiable instances. 
+
+## 6.5 Comparison Against AEON and Bonesis 
+
+Finally, we compared our smt -based approach to AEON and Bonesis, two state-of-the-art systems biology tools. Since both of these tools are restricted to Boolean networks, we only consider the bbm-boolean and omnipath benchmark sets. In particular, we compare our best-performing encoding ( instantiated-lazy ) against AEON and three Bonesis configurations: the default with no restrictions on the number of allowed dnf cubes, and two versions where the number of dnf cubes is restricted to 16 and 8. Note that by restricting the maximum number of cubes, Bonesis trades completeness for scalability; however, we did not encounter any case where Bonesis returned an incorrect result. This is in line with the common expectation that biologically motivated update functions are often simple [ 13 ]. However, it still means that Bonesis in this configuration can in specific complex instances miss a valid result. The total number of successfully completed instances for each approach and benchmark set is summarized in Table 2. More details on runtime distributions are shown through the cumulative plots in Figure 3. In particular, neither Bonesis nor AEON were able to complete all bbm-boolean instances. AEON was unable to complete any benchmark where the maximum function arity exceeded 5, failing on close to three thousand instances. This is an expected result, since AEON always solves the problem exhaustively, computing all satisfiable solutions at once using 
+
+bdd encoding. Bonesis in its default configuration failed to solve over a thousand instances. On the other hand, the variants restricted to 16 and 8 dnf cubes performed much better, solving all but 135 and 133 instances, respectively. Notably, our instantiated-lazy strategy O. Huvar and M. Jonáš and S. Pastva 23:15            
+
+> (a) bbm-boolean benchmarks. (b) omnipath benchmarks.
+> Figure 3 Cumulative plots comparing the performance of the instantiated-lazy strategy against
+> AEON and three configurations of Bonesis on the two Boolean benchmark sets. Each plot shows the number of successfully completed benchmark instances by each method (y-axis) before a specific time limit (x-axis). Only methods with at least one successful benchmark are shown in each plot. The time axis is logarithmic in all plots.
+
+outperformed Bonesis on every single benchmark instance, even when the tool was restricted to only 8 dnf cubes. The performance of our instantiated-lazy strategy against the other tools on the bbm-boolean dataset is illustrated through the cumulative plot in Figure 3a. As for the omnipath benchmarks, AEON and the default configuration of Bonesis both failed to handle the high function arity, triggering internal errors during the encoding stage. Even when restricted to 16 dnf cubes, Bonesis still failed to successfully solve any instance. On the other hand, when restricted to 8 dnf cubes, it was able to complete the majority of the instances. However, there is an order-of-magnitude difference in computation times between our instantiated-lazy strategy and Bonesis with 8 dnf cubes. This difference is illustrated in Figure 3b. 
+
+## 7 Conclusion 
+
+In this paper, we empirically evaluate the viability of smt when applied to the inference of logic-based models in systems biology. We identify function argument monotonicity as a critical challenge in the encoding of practical inference problems, demonstrating that naive quantified encodings of monotonicity frequently fail on real-world instances. We then evaluate two approaches based on quantifier instantiation, showing that they significantly outperform the naive quantified encoding. More importantly, switching to an instantiation-based encoding allows the smt approach to outperform current state-of-the-art automated reasoning tools in systems biology (namely Bonesis and AEON). Furthermore, it enables reasoning over integer-based systems, a capability that neither of these existing tools supports. For future work, we aim to extend the inference problem encoding with additional biolo-gically motivated constraints, such as requirements regarding trap spaces. Another promising direction is incorporating the uncertainty of biological observations as soft constraints within the framework of smt with optimization. 
+
+C V I T 2 0 1 6 23:16 SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology 
+
+References 
+
+1 Clark W. Barrett and Cesare Tinelli. Satisfiability Modulo Theories. In Handbook of Model Checking , pages 305–343. Springer, 2018. 
+
+2 Nikola Beneš, Luboš Brim, Ondřej Huvar, Samuel Pastva, and David Šafránek. Boolean network sketches: a unifying framework for logical model inference. Bioinformatics , 39(4):btad158, 2023. 
+
+3 Nikola Beneš, Luboš Brim, Ondřej Huvar, Samuel Pastva, David Šafránek, and Eva Šmijáková. Aeon. py: Python library for attractor analysis in asynchronous boolean networks. Bioinform-atics , 38(21):4978–4980, 2022. 
+
+4 David Benque, Sam Bourton, Caitlin Cockerton, Byron Cook, Jasmin Fisher, Samin Ishtiaq, Nir Piterman, Alex Taylor, and Moshe Y. Vardi. Bma: Visual tool for modeling and analyzing biological networks. In Computer Aided Verification , pages 686–692. Springer Berlin Heidelberg, 2012. 
+
+5 Stéphanie Chevalier, Julia Becker, Yujuan Gui, Vincent Noël, Cui Su, Sascha Jung, Laurence Calzone, Andrei Zinovyev, Antonio Del Sol, Jun Pang, et al. Data-driven inference of boolean networks from transcriptomes to predict cellular differentiation and reprogramming. npj Systems Biology and Applications , 11(1):105, 2025. 
+
+6 Stéphanie Chevalier, Déborah Boyenval, Gustavo Magaña-López, Théo Roncalli, Athénaïs Vaginay, and Loïc Paulevé. Bonesis: a python-based declarative environment for the verification, reprogramming, and synthesis of most permissive boolean networks. In International Conference on Computational Methods in Systems Biology , pages 71–79. Springer, 2024. 
+
+7 Leonardo De Moura and Nikolaj Bjørner. Z3: An efficient smt solver. In International conference on Tools and Algorithms for the Construction and Analysis of Systems , pages 337–340. Springer, 2008. 
+
+8 Daniela J. Di Bella, Ehsan Habibi, Robert R. Stickels, Gabriele Scalia, Juliana Brown, Payman Yadollahpour, Sung Min Yang, Catherine Abbate, Tommaso Biancalani, Evan Z. Macosko, Fei Chen, Aviv Regev, and Paola Arlotta. Molecular logic of cellular diversification in the mouse cerebral cortex. Nature , 595(7868):554–559, 2021. 
+
+9 Herbert B. Enderton. A Mathematical Introduction to Logic . Academic Press, 1972. 
+
+10 Yuval Gerber, Michelle Aluf-Medina, Ori Ratzon, Leeshay Elimelech, and Hillel Kugler. Reasoning about monotonic regulation conditions for boolean gene regulatory networks: An algorithmic approach. In 2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM) , pages 4721–4728. IEEE, 2025. 
+
+11 Carito Guziolowski, Santiago Videla, Federica Eduati, Sven Thiele, Thomas Cokelaer, Anne Siegel, and Julio Saez-Rodriguez. Exhaustively characterizing feasible logic models of a signaling network using answer set programming. Bioinformatics , 29(18):2320–2326, 2013. 
+
+12 Léonard Hérault, Mathilde Poplineau, Estelle Duprez, and Élisabeth Remy. A novel boolean network inference strategy to model early hematopoiesis aging. Computational and Structural Biotechnology Journal , 21:21–33, 2023. 
+
+13 Claus Kadelka, Taras-Michael Butrie, Evan Hilton, Jack Kinseth, Addison Schmidt, and Haris Serdarevic. A meta-analysis of boolean network models reveals design principles of gene regulatory networks. Science advances , 10(2):eadj0822, 2024. 
+
+14 Stuart Kauffman. Homeostasis and differentiation in random genetic control networks. Nature ,224(5215):177–178, 1969. 
+
+15 Gustavo Magaña-López, Laurence Calzone, Andrei Zinovyev, and Loïc Paulevé. Scboolseq: linking scrna-seq statistics and boolean dynamics. PLoS Computational Biology , 20(7):e1011620, 2024. 
+
+16 Samuel Pastva, David Šafránek, Nikola Beneš, Luboš Brim, and Thomas Henzinger. Repository of logically consistent real-world boolean network models. bioRxiv , pages 2023–06, 2023. 
+
+17 Žiga Pušnik, Miha Mraz, Nikolaj Zimic, and Miha Moškon. Review and assessment of boolean approaches for inference of gene regulatory networks. Heliyon , 8(8), 2022. O. Huvar and M. Jonáš and S. Pastva 23:17 
+
+18 Jordan C Rozum, Colin Campbell, Eli Newby, Fatemeh Sadat Fatemi Nasrollahi, and Réka Albert. Boolean networks as predictive models of emergent biological behaviors . Cambridge University Press, 2024. 
+
+19 Viorica Sofronie-Stokkermans. Hierarchical reasoning in local theory extensions and applica-tions. In Franz Winkler, Viorel Negru, Tetsuo Ida, Tudor Jebelean, Dana Petcu, Stephen M. Watt, and Daniela Zaharie, editors, 16th International Symposium on Symbolic and Numeric Algorithms for Scientific Computing, SYNASC 2014, Timisoara, Romania, September 22-25, 2014 , pages 34–41. IEEE Computer Society, 2014. doi:10.1109/SYNASC.2014.13 .
+
+20 Viorica Sofronie-Stokkermans and Carsten Ihlemann. Automated reasoning in some local extensions of ordered structures. In 37th International Symposium on Multiple-Valued Logic (ISMVL’07) , pages 1–1. IEEE, 2007. 
+
+21 René Thomas. Regulatory networks seen as asynchronous automata: a logical description. 
+
+Journal of theoretical biology , 153(1):1–23, 1991. 
+
+22 Dénes Türei, Jonathan Schaul, Nicolàs Palacio-Escat, Balázs Bohár, Yunfan Bai, Francesco Ceccarelli, Elif Çevrim, Macabe Daley, Melih Darcan, Daniel Dimitrov, Tunca Doğan, Daniel Domingo-Fernández, Aurelien Dugourd, Attila Gábor, Lejla Gul, Benjamin A Hall, Charles Tapley Hoyt, Olga Ivanova, Michal Klein, Toby Lawrence, Diego Mañanes, Dezső Módos, Sophia Müller-Dott, Márton Ölbei, Christina Schmidt, Bünyamin Şen, Fabian J Theis, Atabey Ünlü, Erva Ulusoy, Alberto Valdeolivas, Tamás Korcsmáros, and Julio Saez-Rodriguez. Omnipath: integrated knowledgebase for multi-omics analysis. Nucleic Acids Research , 54(D1):D652–D660, 2025. 
+
+23 Boyan Yordanov, Sara-jane Dunn, Colin Gravill, Himanshu Arora, Hillel Kugler, and Chris-toph M Wintersteiger. The reasoning engine: a satisfiability modulo theories-based framework for reasoning about discrete biological models. Journal of Computational Biology , 30(9):1046– 1058, 2023. 
+
+24 Boyan Yordanov, Sara-Jane Dunn, Hillel Kugler, Austin Smith, Graziano Martello, and Stephen Emmott. A method to identify and analyze biological programs through automated reasoning. NPJ systems biology and applications , 2(1):16010, 2016. 
+
+C V I T 2 0 1 6

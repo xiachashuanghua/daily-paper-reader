@@ -1,0 +1,440 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-10T20:06:02.910554+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2604.08071v1",
+      "title": "Identifying bubble-like subgraphs in linear-time via a unified SPQR-tree framework",
+      "abstract": "A fundamental algorithmic problem in computational biology is to find all subgraphs of a given type (superbubbles, snarls, and ultrabubbles) in a directed or bidirected input graph. These correspond to regions of genetic variation and are useful in analyzing collections of genomes. We present the first linear-time algorithms for identifying all snarls and all ultrabubbles, resolving problems open since 2018. The algorithm for snarls relies on a new linear-size representation of all snarls with respect to the number of vertices in the graph. We employ the well-known SPQR-tree decomposition, which encodes all 2-separators of a biconnected graph. After several dynamic-programming-style traversals of this tree, we maintain key properties (such as acyclicity) that allow us to decide whether a given 2-separator defines a subgraph to be reported. A crucial ingredient for linear-time complexity is that acyclicity of linearly many subgraphs can be tested simultaneously via the problem of computing all arcs in a directed graph whose removal renders it acyclic (so-called feedback arcs). As such, we prove a fundamental result for bidirected graphs, that may be of independent interest: all feedback arcs can be computed in linear time for tipless bidirected graphs, while in general this is at least as hard as matrix multiplication, assuming the k-Clique Conjecture. Our results form a unified framework that also yields a completely different linear-time algorithm for finding all superbubbles. Although some of the results are technically involved, the underlying ideas are conceptually simple, and may extend to other bubble-like subgraphs. More broadly, our work contributes to the theoretical foundations of computational biology and advances a growing line of research that uses SPQR-tree decompositions as a general tool for designing efficient algorithms, beyond their traditional role in graph drawing.",
+      "authors": [
+        "Francisco Sena",
+        "Aleksandr Politov",
+        "Corentin Moumard",
+        "Massimo Cairo",
+        "Romeo Rizzi",
+        "Manuel Cáceres",
+        "Sebastian Schmidt",
+        "Juha Harviainen",
+        "Alexandru I. Tomescu"
+      ],
+      "primary_category": "cs.DS",
+      "categories": [
+        "cs.DS"
+      ],
+      "published": "2026-04-09T10:41:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.08071v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Algorithmic analysis of genetic variation in genomes",
+      "llm_evidence_cn": "基因组遗传变异的算法分析",
+      "llm_evidence": "基因组遗传变异的算法分析",
+      "canonical_evidence": "基因组遗传变异的算法分析",
+      "llm_tldr_en": "Presents linear-time algorithms for identifying genetic variation regions like snarls in genome graphs.",
+      "llm_tldr_cn": "提出了用于识别基因组图中遗传变异区域（如snarls）的线性时间算法。",
+      "llm_tldr": "提出了用于识别基因组图中遗传变异区域（如snarls）的线性时间算法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.01949v2",
+      "title": "annbatch unlocks terabyte-scale training of biological data in anndata",
+      "abstract": "The scale of biological datasets now routinely exceeds system memory, making data access rather than model computation the primary bottleneck in training machine-learning models. This bottleneck is particularly acute in biology, where widely used community data formats must support heterogeneous metadata, sparse and dense assays, and downstream analysis within established computational ecosystems. Here we present annbatch, a mini-batch loader native to anndata that enables out-of-core training directly on disk-backed datasets. Across single-cell transcriptomics, microscopy and whole-genome sequencing benchmarks, annbatch increases loading throughput by up to an order of magnitude and shortens training from days to hours, while remaining fully compatible with the scverse ecosystem. Annbatch establishes a practical data-loading infrastructure for scalable biological AI, allowing increasingly large and diverse datasets to be used without abandoning standard biological data formats. Github: https://github.com/scverse/annbatch",
+      "authors": [
+        "Ilan Gold",
+        "Felix Fischer",
+        "Lucas Arnoldt",
+        "F. Alexander Wolf",
+        "Fabian J. Theis"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.GN"
+      ],
+      "published": "2026-04-02T12:16:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.01949v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "training biological data including whole-genome sequencing",
+      "llm_evidence_cn": "训练包括全基因组测序在内的生物数据",
+      "llm_evidence": "训练包括全基因组测序在内的生物数据",
+      "canonical_evidence": "训练包括全基因组测序在内的生物数据",
+      "llm_tldr_en": "A mini-batch loader for terabyte-scale biological data training in anndata format.",
+      "llm_tldr_cn": "一种用于 anndata 格式中 TB 级生物数据训练的微批次加载器。",
+      "llm_tldr": "一种用于 anndata 格式中 TB 级生物数据训练的微批次加载器。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.03350v1",
+      "title": "From Model-Based Screening to Data-Driven Surrogates: A Multi-Stage Workflow for Exploring Stochastic Agent-Based Models",
+      "abstract": "Systematic exploration of Agent-Based Models (ABMs) is challenged by the curse of dimensionality and their inherent stochasticity. We present a multi-stage pipeline integrating the systematic design of experiments with machine learning surrogates. Using a predator-prey case study, our methodology proceeds in two steps. First, an automated model-based screening identifies dominant variables, assesses outcome variability, and segments the parameter space. Second, we train Machine Learning models to map the remaining nonlinear interaction effects. This approach automates the discovery of unstable regions where system outcomes are highly dependent on nonlinear interactions between many variables. Thus, this work provides modelers with a rigorous, hands-off framework for sensitivity analysis and policy testing, even when dealing with high-dimensional stochastic simulators.",
+      "authors": [
+        "Paul Saves",
+        "Matthieu Mastio",
+        "Nicolas Verstaevel",
+        "Benoit Gaudou"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-04-03T15:32:49+00:00",
+      "link": "https://arxiv.org/pdf/2604.03350v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "predator-prey case study using agent-based models",
+      "llm_evidence_cn": "使用基于智能体模型的捕食者-猎物案例研究",
+      "llm_evidence": "使用基于智能体模型的捕食者-猎物案例研究",
+      "canonical_evidence": "使用基于智能体模型的捕食者-猎物案例研究",
+      "llm_tldr_en": "A multi-stage workflow for exploring stochastic agent-based models, demonstrated with biological simulations.",
+      "llm_tldr_cn": "一种用于探索随机智能体模型的阶段式工作流，通过生物模拟进行了演示。",
+      "llm_tldr": "一种用于探索随机智能体模型的阶段式工作流，通过生物模拟进行了演示。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06028v1",
+      "title": "A Multi-Stage Validation Framework for Trustworthy Large-scale Clinical Information Extraction using Large Language Models",
+      "abstract": "Large language models (LLMs) show promise for extracting clinically meaningful information from unstructured health records, yet their translation into real-world settings is constrained by the lack of scalable and trustworthy validation approaches. Conventional evaluation methods rely heavily on annotation-intensive reference standards or incomplete structured data, limiting feasibility at population scale. We propose a multi-stage validation framework for LLM-based clinical information extraction that enables rigorous assessment under weak supervision. The framework integrates prompt calibration, rule-based plausibility filtering, semantic grounding assessment, targeted confirmatory evaluation using an independent higher-capacity judge LLM, selective expert review, and external predictive validity analysis to quantify uncertainty and characterize error modes without exhaustive manual annotation. We applied this framework to extraction of substance use disorder (SUD) diagnoses across 11 substance categories from 919,783 clinical notes. Rule-based filtering and semantic grounding removed 14.59% of LLM-positive extractions that were unsupported, irrelevant, or structurally implausible. For high-uncertainty cases, the judge LLM's assessments showed substantial agreement with subject matter expert review (Gwet's AC1=0.80). Using judge-evaluated outputs as references, the primary LLM achieved an F1 score of 0.80 under relaxed matching criteria. LLM-extracted SUD diagnoses also predicted subsequent engagement in SUD specialty care more accurately than structured-data baselines (AUC=0.80). These findings demonstrate that scalable, trustworthy deployment of LLM-based clinical information extraction is feasible without annotation-intensive evaluation.",
+      "authors": [
+        "Maria Mahbub",
+        "Gregory M. Dams",
+        "Josh Arnold",
+        "Caitlin Rizy",
+        "Sudarshan Srinivasan",
+        "Elliot M. Fielstein",
+        "Minu A. Aghevli",
+        "Kamonica L. Craig",
+        "Elizabeth M. Oliva",
+        "Joseph Erdos",
+        "Jodie Trafton",
+        "Ioana Danciu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.IR"
+      ],
+      "published": "2026-04-07T16:23:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.06028v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based clinical information extraction from health records",
+      "llm_evidence_cn": "基于LLM的健康记录临床信息提取",
+      "llm_evidence": "基于LLM的健康记录临床信息提取",
+      "canonical_evidence": "基于LLM的健康记录临床信息提取",
+      "llm_tldr_en": "Proposes a multi-stage validation framework for trustworthy clinical information extraction using LLMs.",
+      "llm_tldr_cn": "提出了一种使用LLM进行可靠临床信息提取的多阶段验证框架。",
+      "llm_tldr": "提出了一种使用LLM进行可靠临床信息提取的多阶段验证框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04772v1",
+      "title": "Collaborative Altruistic Safety in Coupled Multi-Agent Systems",
+      "abstract": "This paper presents a novel framework for ensuring safety in dynamically coupled multi-agent systems through collaborative control. Drawing inspiration from ecological models of altruism, we develop collaborative control barrier functions that allow agents to cooperatively enforce individual safety constraints under coupling dynamics. We introduce an altruistic safety condition based on the so-called Hamilton's rule, enabling agents to trade off their own safety to support higher-priority neighbors. By incorporating these conditions into a distributed optimization framework, we demonstrate increased feasibility and robustness in maintaining system-wide safety. The effectiveness of the proposed approach is illustrated through simulation in a simplified formation control scenario.",
+      "authors": [
+        "Brooks A. Butler",
+        "Xiao Tan",
+        "Aaron D. Ames",
+        "Magnus Egerstedt"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC",
+        "eess.SY"
+      ],
+      "published": "2026-04-06T15:44:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.04772v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Safety in multi-agent systems inspired by ecological models",
+      "llm_evidence_cn": "受生态模型启发的多智能体系统安全",
+      "llm_evidence": "受生态模型启发的多智能体系统安全",
+      "canonical_evidence": "受生态模型启发的多智能体系统安全",
+      "llm_tldr_en": "Develops a safety framework for multi-agent systems based on biological altruism and Hamilton's rule.",
+      "llm_tldr_cn": "基于生物利他主义和汉密尔顿法则开发多智能体系统安全框架。",
+      "llm_tldr": "基于生物利他主义和汉密尔顿法则开发多智能体系统安全框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06835v1",
+      "title": "WebCVTree4: A Newly Designed Phylogenetic and Taxonomic Study Platform for Prokaryotes Using Composition Vectors and Whole Genomes",
+      "abstract": "CVTree is an alignment-free methodology for inferring species phylogeny and taxonomy. This method allows for the efficient and accurate resolution of evolutionary relationships among large numbers of species based on whole-genome sequence data. Since 2004, we have been continuously providing CVTree web services. Recently, the server has undergone a significant upgrade, culminating in the release of the WebCVTree4 platform. This upgrade encompasses a comprehensive update of the inbuilt genomic database. Concurrently, the core algorithm has been optimized to support online phylogenetic reconstruction for tens of thousands of species, thereby facilitating the construction of genome-based trees of life. Moreover, we have developed a novel algorithm for comparing phylogenetic trees with established taxonomic systems. This algorithm allows for rapid tree rooting, taxonomic annotation, and topology comparison. Through an interactive web-based visualization tool, users can dynamically adjust tree layouts and export high-quality phylogenetic tree figures. This functionality provides robust support for comparative analysis between CVTree-generated phylogeny and taxonomy. As genome sequencing costs continue to decline, research into microbial evolution and the revision of taxonomic frameworks will increasingly rely on whole-genome data. WebCVTree4 will serve as an efficient web-based platform to support studies in microbial phylogenetics and taxonomy, accessible at https://cvtree.online/.",
+      "authors": [
+        "Guanghong Zuo"
+      ],
+      "primary_category": "q-bio.PE",
+      "categories": [
+        "q-bio.PE",
+        "q-bio.GN"
+      ],
+      "published": "2026-04-08T08:55:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.06835v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Phylogenetic study using whole genomes",
+      "llm_evidence_cn": "基于全基因组的系统发育研究",
+      "llm_evidence": "基于全基因组的系统发育研究",
+      "canonical_evidence": "基于全基因组的系统发育研究",
+      "llm_tldr_en": "WebCVTree4 is an alignment-free platform for prokaryotic phylogeny and taxonomy using whole-genome data.",
+      "llm_tldr_cn": "WebCVTree4是一个利用全基因组数据进行原核生物系统发育和分类研究的免比对平台。",
+      "llm_tldr": "WebCVTree4是一个利用全基因组数据进行原核生物系统发育和分类研究的免比对平台。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.07595v1",
+      "title": "Reasoning Graphs: Deterministic Agent Accuracy through Evidence-Centric Chain-of-Thought Feedback",
+      "abstract": "Language model agents reason from scratch on every query: each time an agent retrieves evidence and deliberates, the chain of thought is discarded and the next similar query starts with no prior insight. This produces lower accuracy and high variance, as the same type of query can succeed or fail unpredictably. We introduce reasoning graphs, a graph structure that persists an agent's per-evidence chain of thought as structured edges connected to the evidence items they evaluate. Unlike prior memory mechanisms that store distilled strategies as flat records indexed by query similarity or appended by recency, reasoning graphs enable evidence-centric feedback: given a new candidate set, the system traverses all incoming evaluation edges for each evidence item across all prior runs, surfacing how that specific item has been judged before. This backward traversal from evidence inward is a structurally different capability from query-similarity retrieval, because the feedback is tied to the specific evidence the agent is currently examining, not to the query. We further introduce retrieval graphs, a complementary structure that feeds a pipeline planner to tighten the candidate funnel over successive runs. Together, both graphs form a self-improving feedback loop: accuracy rises and variance collapses over successive runs, with every decision fully traceable through the graph. This improvement requires no retraining; the base model remains frozen and all gains come from context engineering via graph traversal. We formalize the graph structure, traversal algorithms, and feedback mechanisms, and describe a sequential cluster evaluation protocol for measuring accuracy convergence and variance collapse on multi-hop question answering benchmarks.",
+      "authors": [
+        "Matthew Penaroza"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-08T20:57:21+00:00",
+      "link": "https://arxiv.org/pdf/2604.07595v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "General agent reasoning framework applicable to evidence-centric biological research tasks",
+      "llm_evidence_cn": "适用于以证据为中心的生物研究任务的通用智能体推理框架",
+      "llm_evidence": "适用于以证据为中心的生物研究任务的通用智能体推理框架",
+      "canonical_evidence": "适用于以证据为中心的生物研究任务的通用智能体推理框架",
+      "llm_tldr_en": "Introduces reasoning graphs to improve agent accuracy and consistency by persisting evidence-centric chains of thought.",
+      "llm_tldr_cn": "引入推理图，通过持久化以证据为中心的思维链，提高智能体推理的准确性和一致性。",
+      "llm_tldr": "引入推理图，通过持久化以证据为中心的思维链，提高智能体推理的准确性和一致性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06854v1",
+      "title": "To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models",
+      "abstract": "BACKGROUND: Recent studies have shown that domain-adapted large language models (LLMs) do not consistently outperform general-purpose counterparts on standard medical benchmarks, raising questions about the need for specialized clinical adaptation.   METHODS: We systematically compare general and clinical LLMs on a diverse set of multiple choice clinical question answering tasks in English and Spanish. We introduce a perturbation based evaluation benchmark that probes model robustness, instruction following, and sensitivity to adversarial variations. Our evaluation includes, one-step and two-step question transformations, multi prompt testing and instruction guided assessment. We analyze a range of state-of-the-art clinical models and their general-purpose counterparts, focusing on Llama 3.1-based models. Additionally, we introduce Marmoka, a family of lightweight 8B-parameter clinical LLMs for English and Spanish, developed via continual domain-adaptive pretraining on medical corpora and instructions.   RESULTS: The experiments show that clinical LLMs do not consistently outperform their general purpose counterparts on English clinical tasks, even under the proposed perturbation based benchmark. However, for the Spanish subsets the proposed Marmoka models obtain better results compared to Llama.   CONCLUSIONS: Our results show that, under current short-form MCQA benchmarks, clinical LLMs offer only marginal and unstable improvements over general-purpose models in English, suggesting that existing evaluation frameworks may be insufficient to capture genuine medical expertise. We further find that both general and clinical models exhibit substantial limitations in instruction following and strict output formatting. Finally, we demonstrate that robust medical LLMs can be successfully developed for low-resource languages such as Spanish, as evidenced by the Marmoka models.",
+      "authors": [
+        "Ane G. Domingo-Aldama",
+        "Iker De La Iglesia",
+        "Maitane Urruela",
+        "Aitziber Atutxa",
+        "Ander Barrena"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-08T09:17:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.06854v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "comparison of general and clinical LLMs on medical benchmarks",
+      "llm_evidence_cn": "通用与临床大模型在医学基准上的比较",
+      "llm_evidence": "通用与临床大模型在医学基准上的比较",
+      "canonical_evidence": "通用与临床大模型在医学基准上的比较",
+      "llm_tldr_en": "Evaluates the necessity of domain-specific adaptation for LLMs in medical and clinical contexts.",
+      "llm_tldr_cn": "评估了大语言模型在医学和临床背景下进行领域特定适配的必要性。",
+      "llm_tldr": "评估了大语言模型在医学和临床背景下进行领域特定适配的必要性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.07681v1",
+      "title": "Multi-Agent Orchestration for High-Throughput Materials Screening on a Leadership-Class System",
+      "abstract": "The integration of Artificial Intelligence (AI) with High-Performance Computing (HPC) is transforming scientific workflows from human-directed pipelines into adaptive systems capable of autonomous decision-making. Large language models (LLMs) play a critical role in autonomous workflows; however, deploying LLM-based agents at scale remains a significant challenge. Single-agent architectures and sequential tool calls often become serialization bottlenecks when executing large-scale simulation campaigns, failing to utilize the massive parallelism of exascale resources. To address this, we present a scalable, hierarchical multi-agent framework for orchestrating high-throughput screening campaigns. Our planner-executor architecture employs a central planning agent to dynamically partition workloads and assign subtasks to a swarm of parallel executor agents. All executor agents interface with a shared Model Context Protocol (MCP) server that orchestrates tasks via the Parsl workflow engine. To demonstrate this framework, we employed the open-weight gpt-oss-120b model to orchestrate a high-throughput screening of the Computation-Ready Experimental (CoRE) Metal-Organic Framework (MOF) database for atmospheric water harvesting. The results demonstrate that the proposed agentic framework enables efficient and scalable execution on the Aurora supercomputer, with low orchestration overhead and high task completion rates. This work establishes a flexible paradigm for LLM-driven scientific automation on HPC systems, with broad applicability to materials discovery and beyond.",
+      "authors": [
+        "Thang Duc Pham",
+        "Harikrishna Tummalapalli",
+        "Fakhrul Hasan Bhuiyan",
+        "Álvaro Vázquez Mayagoitia",
+        "Christine Simpson",
+        "Riccardo Balin",
+        "Venkatram Vishwanath",
+        "Murat Keçeli"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-09T01:01:11+00:00",
+      "link": "https://arxiv.org/pdf/2604.07681v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hierarchical multi-agent framework for high-throughput screening",
+      "llm_evidence_cn": "用于高通量筛选的分层多智能体框架",
+      "llm_evidence": "用于高通量筛选的分层多智能体框架",
+      "canonical_evidence": "用于高通量筛选的分层多智能体框架",
+      "llm_tldr_en": "A scalable multi-agent framework for high-throughput screening that could be adapted for biological data analysis.",
+      "llm_tldr_cn": "一种可扩展的多智能体框架，用于高通量筛选，可适配于生物数据分析。",
+      "llm_tldr": "一种可扩展的多智能体框架，用于高通量筛选，可适配于生物数据分析。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07496v1",
+      "title": "SMT with Uninterpreted Functions and Monotonicity Constraints in Systems Biology",
+      "abstract": "The theory of uninterpreted functions is a key modeling tool for systems with unknown or abstracted components. Some domains such as systems biology impose further restrictions regarding monotonicity on these components, requiring specific inputs to have a consistently positive or negative effect on the output. In this paper, we tackle the model inference problem for biological systems by applying the theory of uninterpreted functions with monotonicity constraints. We compare the performance of naive quantified encodings of the problem and the performance of the existing approach based on eager quantifier instantiation, which is based on the fact that a finite set of quantifier-free monotonicity lemmas is sufficient to encode the monotonicity of uninterpreted functions. Additionally, we consider a lazy variant of the approach that introduces the monotonicity lemmas on demand.   We evaluate the SMT-based approach to model inference using a large collection of systems biology benchmarks. The results demonstrate that the instantiation-based encodings significantly outperform quantified encodings, which typically struggle with large function arities and complex instances. As the key result, we show that our approach based on SMT with uninterpreted functions and monotonicity constraints significantly outperforms state-of-the-art domain-specific tools used in systems biology, such as the ASP-based Bonesis and the BDD-based AEON.",
+      "authors": [
+        "Ondřej Huvar",
+        "Martin Jonáš",
+        "Samuel Pastva"
+      ],
+      "primary_category": "cs.LO",
+      "categories": [
+        "cs.LO"
+      ],
+      "published": "2026-04-08T18:35:34+00:00",
+      "link": "https://arxiv.org/pdf/2604.07496v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Model inference for biological systems using SMT and systems biology constraints",
+      "llm_evidence_cn": "利用 SMT 和系统生物学约束进行生物系统模型推理",
+      "llm_evidence": "利用 SMT 和系统生物学约束进行生物系统模型推理",
+      "canonical_evidence": "利用 SMT 和系统生物学约束进行生物系统模型推理",
+      "llm_tldr_en": "Applies SMT theory to solve model inference problems in systems biology with monotonicity constraints.",
+      "llm_tldr_cn": "应用 SMT 理论解决具有单调性约束的系统生物学模型推理问题。",
+      "llm_tldr": "应用 SMT 理论解决具有单调性约束的系统生物学模型推理问题。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.07911v1",
+      "title": "Dynamic Attentional Context Scoping: Agent-Triggered Focus Sessions for Isolated Per-Agent Steering in Multi-Agent LLM Orchestration",
+      "abstract": "Multi-agent LLM orchestration systems suffer from context pollution: when N concurrent agents compete for the orchestrator's context window, each agent's task state, partial outputs, and pending questions contaminate the steering interactions of every other agent, degrading decision quality. We introduce Dynamic Attentional Context Scoping (DACS), a mechanism in which the orchestrator operates in two asymmetric modes. In Registry mode it holds only lightweight per-agent status summaries (<=200 tokens each), remaining responsive to all agents and the user. When an agent emits a SteeringRequest, the orchestrator enters Focus(a_i) mode, injecting the full context of agent a_i while compressing all other agents to their registry entries. Context isolation is agent-triggered, asymmetric, and deterministic: the context window contains exactly F(a_i) + R_{-i} during steering, eliminating cross-agent contamination without requiring context compression or retrieval. We evaluate DACS across four experimental phases totalling 200 trials: Phase 1 tests N in {3,5,10} (60 trials); Phase 2 tests agent heterogeneity and adversarial dependencies (60 trials); Phase 3 tests decision density up to D=15 (40 trials); Phase 4 uses autonomous LLM agents for free-form questions (40 trials, Claude Haiku 4.5). Across all 8 synthetic scenarios, DACS achieves 90.0--98.4% steering accuracy versus 21.0--60.0% for a flat-context baseline (p < 0.0001 throughout), with wrong-agent contamination falling from 28--57% to 0--14% and context efficiency ratios of up to 3.53x. The accuracy advantage grows with N and D; keyword matching is validated by LLM-as-judge across all phases (mean kappa=0.909). DACS outperforms the flat-context baseline by +17.2pp at N=3 (p=0.0023) and +20.4pp at N=5 (p=0.0008) in Phase 4, with the advantage growing with N confirmed by two independent judges.",
+      "authors": [
+        "Nickson Patel"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-09T07:26:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.07911v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "context scoping for multi-agent LLM orchestration",
+      "llm_evidence_cn": "多智能体LLM编排的上下文范围控制",
+      "llm_evidence": "多智能体LLM编排的上下文范围控制",
+      "canonical_evidence": "多智能体LLM编排的上下文范围控制",
+      "llm_tldr_en": "Introduces DACS to prevent context pollution in multi-agent LLM orchestration systems.",
+      "llm_tldr_cn": "引入DACS机制，防止多智能体LLM编排系统中的上下文污染。",
+      "llm_tldr": "引入DACS机制，防止多智能体LLM编排系统中的上下文污染。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

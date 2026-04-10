@@ -1,0 +1,392 @@
+Title: To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models
+
+URL Source: https://arxiv.org/pdf/2604.06854v1
+
+Published Time: Thu, 09 Apr 2026 00:55:59 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Graphical Abstract 
+
+To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models 
+
+Ane G. Domingo-Aldama ¹*, Iker De La Iglesia ¹, Maitane Urruela, Aitziber Atutxa, Ander Barrena 
+
+> arXiv:2604.06854v1 [cs.CL] 8 Apr 2026
+
+# Highlights 
+
+To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models 
+
+Ane G. Domingo-Aldama ¹*, Iker De La Iglesia ¹, Maitane Urruela, Aitziber Atutxa, Ander Barrena 
+
+• Recent works found that domain adapted models do not outperform general counterparts. 
+
+• The performance of general and clinical models is compared on different MCQA tasks. 
+
+• A perturbation-based LLM evaluation benchmark is presented. 
+
+• Four clinical LLMs are presented two for English and two For Spanish. 
+
+• Clinical LLMs show no consistent gains in English, but improve in Spanish tasks. To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models To Adapt or not to Adapt, Rethinking the Value of Medical Knowledge-Aware Large Language Models 
+
+Ane G. Domingo-Aldama ¹*a, Iker De La Iglesia ¹a, Maitane Urruela a, Aitziber Atutxa a and Ander Barrena a
+
+> a
+
+University of the Basque Country, Bilbao, Biscay, Spain 
+
+A R T I C L E I N F O 
+
+Keywords :Medical Large Language Models; Do-main Adaptation; Perturbation based evaluation; Evaluation Frameworks; Clinical Question Answering; 
+
+A B S T R A C T 
+
+BACKGROUND: Recent studies have shown that domain-adapted large language models (LLMs) do not consistently outperform general-purpose counterparts on standard medical benchmarks, raising questions about the need for specialized clinical adaptation. METHODS: We systematically compare general and clinical LLMs on a diverse set of multiple choice clinical question answering tasks in English and Spanish. We introduce a perturbation based evaluation benchmark that probes model robustness, instruction following, and sensitivity to adversarial variations. Our evaluation includes, one-step and two-step question transformations, multi prompt testing and instruction guided assessment. We analyze a range of state-of-the-art clinical models and their general-purpose counterparts, focusing on Llama 3.1–based models. Additionally, we introduce Marmoka, a family of lightweight 8B-parameter clinical LLMs for English and Spanish, developed via continual domain-adaptive pretraining on medical corpora and instructions. RESULTS: The experiments show that clinical LLMs do not consistently outperform their general purpose counterparts on English clinical tasks, even under the proposed perturbation based benchmark. However, for the Spanish subsets the proposed Marmoka models obtain better results compared to Llama. CONCLUSIONS: Our results show that, under current short-form MCQA benchmarks, clinical LLMs offer only marginal and unstable improvements over general-purpose models in English, suggesting that existing evaluation frameworks may be insufficient to capture genuine medical expertise. We further find that both general and clinical models exhibit substantial limitations in instruction following and strict output formatting. Finally, we demonstrate that robust medical LLMs can be successfully developed for low-resource languages such as Spanish, as evidenced by the Marmoka models. 
+
+1. Introduction 
+
+Advances in large language models (LLMs) have en-abled impressive performance across a variety of domains, including medical applications such as clinical note summa-rization, diagnostic assistance, and patient–provider interac-tion simulation. In response to this potential, many general-purpose LLMs have been adapted for the medical domain. Recent works (Jeong et al., 2024; Dorfner et al., 2024; Chen et al., 2025) found that domain-adapted LLMs do not consistently outperform their general-purpose counterparts. General-purpose models exhibit comparable or superior per-formance, occasionally, suggesting that these models may 
+
+> ∗
+
+Corresponding author  
+
+> ane.garciad@ehu.eus
+
+(A. G. Domingo-Aldama ¹*);  
+
+> iker.delaiglesia@ehu.eus
+
+(I. De La Iglesia ¹); maitane.urruela@ehu.eus (M. Urruela); aitziber.atucha@ehu.eus (A. Atutxa); ander.barrena@ehu.eus (A. Barrena) 
+
+> ORCID
+
+(s): 0009-0000-8202-1099 (A. G. Domingo-Aldama ¹*);  
+
+> 0000-0002-4141-992X
+
+(I. De La Iglesia ¹); 0009-0007-4463-6325 (M. Urruela);  
+
+> 0000-0003-4512-8633
+
+(A. Atutxa); 0000-0003-2024-0362 (A. Barrena) 
+
+> 1
+
+These authors contributed equally to this work. 
+
+already possess substantial latent medical knowledge, rais-ing important questions about the need for further domain specialization. Nonetheless, caution is warranted. Emerging evidence (Alzahrani et al., 2024b; Wiegreffe et al., 2024) shows that evaluation benchmarks are highly sensitive to even minor perturbations, which can lead to misleading conclusions about a model’s underlying capabilities. Moreover, the cur-rent predominant evaluation paradigm focuses on multiple-choice question-answering (MCQA) tasks, perplexity-based evaluation and accuracy metrics that do not fully capture real medical knowledge and the instruction following capacity of the models (Chang et al., 2024; Kweon et al., 2024; Liu et al., 2025). In addition, as LLMs evolve from research prototypes into practical clinical tools, there is a growing demand for smaller models (e.g., 7B–8B parameters) that can be realis-tically integrated into healthcare systems. Equally important is the development of models trained in minority languages beyond English, enabling their application across diverse health contexts. 
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 1 of 11 Rethinking Medical Knowledge Aware LLMs 
+
+The combined need for evaluation frameworks that ex-tend beyond surface-level performance, together with the demand for lightweight, clinically usable models in minority languages, motivates the following research questions: 
+
+• RQ1. Do we need to invest substantial resources in adapting general-purpose LLMs to the medical do-main, or do these models already encode sufficient medical knowledge? 
+
+• RQ2. Are general-purpose and medical-domain mod-els able to follow instructions and adhere to strict output formats? 
+
+• RQ3. Can robust medical-domain LLMs be devel-oped for languages like Spanish, which remain low-resource in the medical domain due to the limited availability of high-quality medical data and instruc-tions? To address the questions outlined above, this work in-troduces a comprehensive medical benchmark designed to evaluate LLMs in multiple MCQA tasks for both English and Spanish. Our framework includes multi-prompt evalua-tion, adversarial testing, and instruction-guided assessment to more rigorously examine the depth of a model’s medical understanding. In response to the last question, we publicly release Marmoka 2, a family of Llama 3.1-Instruct models adapted for the medical domain in both English and Spanish. Focus-ing on the 8B variants to meet realistic healthcare needs, Marmoka is trained with a hybrid strategy that combines Domain Adaptation Pretraining (DAPT) and general instruc-tion fine-tuning (Sainz et al., 2025), ensuring robust domain adaptation while preserving instruction-following ability. 
+
+2. Related Work 
+
+The development and deployment of LLMs in the med-ical domain pose several key challenges, including domain-specific adaptation, adaptation strategy, model size, multi-lingual support and output format-following ability. There is an ongoing debate regarding the actual ben-efit of developing domain-specific medical LLMs . Sev-eral studies have demonstrated that general-purpose LLMs can perform comparably to specialized biomedical models in clinical reasoning and knowledge tasks (Dorfner et al., 2024; Chen et al., 2025). This raises critical questions about the cost-effectiveness and long-term value of investing in domain-specific adaptations when generalist models already exhibit strong medical capabilities. In particular, Jeong et al. (2024) provide a critical evaluation of medical LLMs, conducting a head-to-head comparison between each adapted model and its general-purpose base counterpart. Contrary to many previous claims, their findings indicate that open-source medical LLMs often achieve only marginal improvements across a variety of  
+
+> 2All training details, models, and the full training recipe are publicly available at upponAcceptance
+
+medical QA tasks. While the approach of directly com-paring specialized models to their general-purpose source model is methodologically appropriate, it raises the question of whether assessing performance solely through simple MCQA tasks is sufficiently robust to conclude that domain-specific LLMs do not offer meaningful advantages in medi-cal applications. In this work, we aim to investigate this limitation by proposing a more perturbation-based evaluation framework. This hypothesis is based on work that showed that LLMs can be brittle under small perturbations (Alzahrani et al., 2024a). Consequently, recent work has scaled up these ideas, proposing perturbations for MCQA tasks so that correct answers cannot be retrieved by memorization (Salido et al., 2025a; Alzahrani et al., 2024a; Elhady et al., 2024). Regarding the domain adaptation strategy , we intro-duce the Marmoka models in the context of the recent growth of open medical LLMs, which are mainly developed through DAPT or instruction fine tuning of general domain models (Wang et al., 2025). Representative examples of DAPT include Meditron (Chen et al., 2023), based on Llama 2 (Touvron et al., 2023) and further pretrained on PubMed and clinical guidelines, and BioMistral (Labrak et al., 2024), which adapts Mistral using PubMed Central data. Instruction fine tuned approaches include Clinical Camel (Toma et al., 2023), built on Llama 2 with medical dialogues, and OpenBioLLM (Ankit Pal, 2024), which extends Llama 3 using direct preference optimization and a diverse medical instruction dataset. More recently, Aloe models (Gururajan et al., 2024) built on Llama 3.1 and Qwen2.5 (Qwen et al., 2025) use large scale supervised instruction tuning and model merging across multiple medical tasks, and despite not yet being peer reviewed, they can be considered the current state of the art in medical LLMs. However, to the best of our knowledge, no prior work has explored the hybrid training strategy that combines DAPT with general instruction fine-tuning, as proposed in Sainz et al. (2025) and adopted for the Marmoka models. The issue of model size remains a prominent topic of discussion. Although larger models often demonstrate better performance compared to their smaller counterparts Dorfner et al. (2024), this advantage is not universally consistent. Recent studies comparing models of different scales within the same series have shown that an increase in size does not necessarily guarantee better performance in clinical tasks (Chen et al., 2025; Domingo-Aldama et al., 2026; del Bar-rio et al., 2026). Furthermore, as highlighted in Al-Garadi et al. (2025), there is an urgent need to prioritize resource-efficient architectures specifically optimized for medical ap-plications, in contrast to the prevailing trend of constantly increasing model size. Another significant challenge is the development of non-English medical LLMs . The scarcity of large-scale, high-quality clinical datasets in languages other than English severely limits the creation and evaluation of multilingual models (Zheng et al., 2024; García-Ferrero et al., 2024). This   
+
+> Domingo-Aldama et al.: Preprint submitted to Elsevier Page 2 of 11 Rethinking Medical Knowledge Aware LLMs
+
+linguistic imbalance hinders the equitable deployment of AI-driven healthcare solutions worldwide. In response to this gap, the present work introduces a medical LLM specifically trained for Spanish-language clinical tasks. In addition, modern LLMs generally excel at produc-ing fluent text; however, many real-world applications re-quire strictly formatted outputs (e.g., text classification, multiple-choice QA) (Liu et al., 2024). Existing evalua-tion benchmarks, such as lm-evaluation-harness (Gao et al., 2024), primarily rely on selecting the lowest-perplexity op-tion. As a result, they fail to assess a model’s ability to generate outputs in the desired format under open-ended generation settings. In summary, while the necessity of domain-specific adaptation remains a subject of debate, simultaneously, the community faces critical hurdles in scaling models effec-tively, bridging the linguistic gap for non-English healthcare contexts, and ensuring models can adhere to the rigid output formats required for clinical integration. In the following sections, we will discuss these core themes in depth, evaluat-ing how our proposed framework and the Marmoka models address the challenges of adaptation, multilingualism, and robust performance evaluation. 
+
+3. Experimental setup 
+
+This study presents a rigorous evaluation of a widely adopted small, open-source, general-purpose LLMs (Llama 3-Instruct, Llama 3.1-Instruct and Mistral) and their various of their domain-specific adaptations. Subsequently, focusing on Llama 3.1 variants enables rigorous and controlled com-parisons, isolating the effects of domain specialization while minimizing architectural and pretraining differences. Building upon the work of Jeong et al. (2024) and the research questions presented in section 1, we extend the evaluation in three key methodological directions: (i) an analysis of the format output adherence, (ii) enhancing the evaluation framework by incorporating a range of controlled perturbations to assess model robustness, and (iii) expanding the linguistic scope to include Spanish. 
+
+3.1. Evaluation Datasets 
+
+The evaluation of the proposed models is conducted using eight state-of-the-art clinical datasets, comprising five in English and two in Spanish. A detailed description of the datasets, including their characteristics and sources, is provided in Table 1. 
+
+3.2. Evaluation Framework 
+
+The proposed evaluation framework is designed to an-swer the research questions of section 1. The following sections describe each of the characteristics of our evaluation framework. 
+
+3.2.1. Output Format Adherence 
+
+In our customized implementation, the model generates a free-form answer that is directly compared to the correct answer, without any intermediate perplexity-based selec-tion. Models are prompted to return only a single letter (A, B, C, or D). If the model generates anything beyond that, such as an explanation or a punctuation mark, the answer is considered incorrect. In other words, we evaluate based on the generated output, rather than the model’s output logits. This design aims to assess not only the model’s reasoning ability but also its capacity to accurately follow instructions. This requirement is applied across all one-step perturbations or adversarial transformations. Note that in existing evaluation benchmark, for instance 
+
+> lm-evaluation-harness
+
+, the response is usually selected by computing the perplexity for each option and choosing the option with the lowest perplexity. This choice is then com-pared against the ground-truth answer for evaluation. This setup often yields better results than open-ended generation because it simplifies the task to selecting among fixed op-tions. 
+
+3.2.2. Perturbations and Task Decomposition 
+
+Firstly, to assess not only the accuracy of models in solv-ing medical tasks but also the robustness of their underlying medical knowledge, we introduce a comprehensive evalua-tion framework that incorporates diverse input perturbations and decomposes tasks into well-defined solution steps. Our framework evaluates the original tasks with no alterations as in Jeong et al. (2024) but additionally, it integrates the following transformations: 
+
+One-Step Transformations The models are prompted to answer questions based on the given possible answer options. 
+
+• Shuffled options (Shuffle) : The order of the multiple-choice options is randomly shuffled. This evaluates whether the model’s responses rely on fixed position rather than understanding the content of each option. Shuffling is included in all the following perturbations and two-step approaches. 
+
+• Randomized option labels (Random) : The tradi-tional alphabetical option labels (A, B, C, D) are re-placed with randomly assigned, non-sequential letters (e.g., M, Q, F, Y). 
+
+• Add “None of the Others” (AddNoto ): An additional option labeled “None of the others” is introduced alongside the original answer choices. 
+
+• Replace with “None of the Others” (ReplaceNoto) :The correct answer is removed and replaced by “None of the others”, which now becomes the correct choice. 
+
+Two-Step Transformations These strategies requires the model to engage in intermediate reasoning steps before answering. 
+
+• Chain-of-thought (CoT) : The model is prompted to first generate a step-by-step rationale or argumentation for the question and then, in a new instance that   
+
+> Domingo-Aldama et al.: Preprint submitted to Elsevier Page 3 of 11
+
+Rethinking Medical Knowledge Aware LLMs                           
+
+> # Instances Language Dataset Dev Test # Options Description
+> EN
+> MMLU (Hendrycks et al., 2021) -1,089 4Massive multitask test consisting of multiple-choice questions from various branches of knowledge. A subset with the clinical tasks was extracted. PubmedQA (Jin et al., 2019) 11.2k -3Research biomedical questions with options yes/no/maybe using PubMed abstracts. MedQA (Jin et al., 2021) 1.27k 1.27k 4A multiple-choice adaptation for solving medical problems collected from professional medical board exams. MedMCQA (Pal et al., 2022) 4.18k *6.15k 4MCQA dataset designed to address real-world medical entrance exam questions. This dataset is only used for model development assessment. CareQA (en) (Arias-Duart et al., 2025) -5.62k 4Healtcare MCQA dataset in English from official sources of the Spanish Specialized Healthcare Training examinations.
+> ES
+> Casimedicos-exp (Goenaga et al., 2023) 63 125 4-5 MCQA based of Resident Medical Intern exams in Spanish. CareQA (es) (Arias-Duart et al., 2025) -5.62k 4Healtcare MCQA dataset in Spanish from official sources of the Spanish Specialized Healthcare Training examinations.
+
+Table 1 
+
+Summary of the datasets used to evaluate Marmoka models across various biomedical tasks. 
+
+includes this argumentation, provide the final answer based on the question and the reasoning. 
+
+• Summary (Summ) : The original question is first summarized, and the model must then answer based only on the summary. 
+
+• Paraphrase (Par) : Both the question and its options are rephrased while preserving their original meaning. 
+
+3.2.3. Framework implementation 
+
+Our evaluation framework follows the structure of the 
+
+lm-evaluation-harness to ensure experimental consistency and reproducibility, with adaptations to support open ended generation rather than perplexity based evaluation. Wher-ever possible, we reused existing dataset implementations to maintain methodological alignment, while Casimedicos-exp was implemented manually following the same design principles. In addition, each dataset is evaluated across three inde-pendent runs and three distinct prompt configurations, with model specific optimization of the chat template and system prompt. 
+
+3.3. Evaluated Models 
+
+3.3.1. Marmoka Models 
+
+Based on Sainz et al. (2025), we apply a modified DAPT approach to train our Marmoka medical models. Unlike traditional setups, we use an instruction-tuned model as the source rather than a base model. Specifically, we choose Llama 3.1–8B-Instruct as the starting point. We train 3 both English and Spanish versions of the model using an updated version of the medical corpora in De la Iglesia et al. (2025), gathered from various sources (see Table 2). In total, we use 26B words for English and 1B words for Spanish; all the corpora have been processed and deduplicated using standard approaches 4. To avoid catas-trophic forgetting, we also include general-domain instruc-tions generated by Llama 3.1–70B-Instruct 5 using Magpie (Xu et al., 2024): 1.4M for English and 310K for Spanish. 
+
+> 3
+
+https://github.com/axolotl-ai-cloud/axolotl 
+
+> 4
+
+https://github.com/Maits27/Deduplication 
+
+> 5
+
+https://huggingface.co/datasets/HiTZ/Magpie-Llama-3. 1-70B-Instruct-Filtered 
+
+Language Dataset Number of words 
+
+English WikiMed 54.4M PubMed PubMed Central (PMC) (2024) 25.9B EMEA Tiedemann (2012) 12.9M 
+
+Total 26B 
+
+Spanish WikiMed 16.3M PubMed 5.5M MedCrawler Carrino et al. (2021) 850.7M MeSpEn Villegas et al. (2019) 6.9M SciELO Intxaurrondo (2019) 29M 
+
+Total 908.3M 
+
+Table 2 
+
+Word counts of medical raw text used for model training. 
+
+This ensures both the inclusion of medical knowledge and the model’s ability to follow instructions. Note that this setup includes medical corpora, but not medical instructions 6.
+
+• Marmoka-en : We train four English models us-ing different hyperparameters, each on 6.5B unique words. These models are then merged into a single model using the MergeKit 7 tool (Goddard et al., 2024). 
+
+• Marmoka-es : We train three Spanish models, each with different hyperparameters but using the same 1B word corpus. These are also merged into a single model. For a fair comparison, we also use medical instructions to generate an additional model. 
+
+• Marmoka-it : which includes 410K medical instruc-tions from the UltraMedical 8 dataset (Zhang et al., 2024). As with the others, we use Llama 3.1-8B–Instruct as the source model. We further include 82K general-domain instructions and merge three models trained with different hyperparameters. Figure 2 shows the graphical abstract of the models presented above. Finally, we merged each of the Marmoka-en and Marmoka-es models with Marmoka-it to combine the 
+
+> 6
+
+The amount of medical instructions generated by Magpie is relatively minimal. 
+
+> 7
+
+https://github.com/arcee-ai/mergekit 
+
+> 8
+
+https://huggingface.co/datasets/TsinghuaC3I/UltraMedical 
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 4 of 11 Rethinking Medical Knowledge Aware LLMs                  
+
+> Model name Architecture
+> Meditron-7b (Chen et al., 2023) Llama 2 Llama-3.1-8B-Instruct (AI@Meta, 2024) Llama 3 Llama3-Aloe-8B-Alpha (Gururajan et al., 2024) Llama 3 Llama3.1-Aloe-Beta-8B (Gururajan et al., 2024) Llama 3 OpenBioLLM-8B (Ankit Pal, 2024) Llama 3 Meditron3-8B (OpenMeditron, 2025) Llama 3 Mistral-7B-Instruct-v0.1 (Jiang et al., 2023) Mistral BioMistral-7B (Labrak et al., 2024) Mistral
+> Table 3
+> Summary of the medical models evaluated against marmoka.
+
+strengths of the different approaches. This resulted in two combined models: Marmoka-en+it and Marmoka-es+it .In addition, to ensure robust evaluation and avoid bench-mark contamination (a common issue in biomedical NLP where test data leaks into training) our methodology strictly separates training, development, and test sets. Following best practices, we use the development set exclusively for tuning and reserve the test set for final evaluation. For Marmoka models development, we employed only the Casimedicos (Goenaga et al., 2023) validation set (for both English and Spanish) to select hyperparameters and guide model merg-ing. 
+
+3.3.2. Other Models 
+
+The baseline models used for comparison with Marmoka are selected from Jeong et al. (2024), and we also include models from Gururajan et al. (2024) based in the Llama 3.1 architecture. All details can be found in Table 3. 
+
+4. Results and Discussion 
+
+This section begins by evaluating the models’ ability to comply with the required output format (see subsection 4.1). Subsequently, subsection 4.2 presents an evaluation equiva-lent to that of Jeong et al. (2024) for the English tasks using both the one-step and two-step transformations. Finally, subsection 4.3 introduces the results in the Spanish tasks. 
+
+4.1. Output Format Adherence 
+
+Before evaluating the models with the proposed pertur-bation benchmark, we first conducted experiments to ana-lyze the output format adherence of the previously evaluated models. These results are particularly important for two reasons: (i) to determine whether the models can correctly follow instructions and return answers in the required for-mat, and (ii) to ensure that the perturbation-based bench-mark captures genuine clinical reasoning errors rather than format-related mistakes. The results in Figure 3 reveal that many models fail to produce the required output format, which consists solely of the letter corresponding to the correct answer. Both the domain-specific and medically adapted Mistral models re-turn correctly formatted outputs only in a small fraction of cases. In contrast, Llama 3 achieves a substantially higher rate of correctly formatted outputs (85.90%), although this performance is still insufficient for reliable use. Moreover, all medical variants of Llama 3 perform markedly worse than the base model, with some failing to produce the desired format even once. In contrast, Llama 3.1 and all of its medical counterparts are able to consistently produce the desired output format and are therefore included in the following section, where we apply the proposed benchmark. 
+
+4.2. Results for English Datasets 
+
+This section presents the results of the English tasks under both the one-step and two-step transformations, com-paring the performance of Llama 3.1 model with its medical counterparts on unperturbed tasks as well as under adversar-ial settings. 
+
+4.2.1. One-step Transformations 
+
+Table 4 provides a detailed view of model behavior in the one-step scenario and under evaluation perturbations. In the base scenario without perturbations, we observe relatively small performance differences between general-purpose and clinical models across all benchmarks. These differences are generally modest and dataset dependent, with Marmoka-en+it showing slightly better performance across most tasks. However, these improvements are too small to support a strong claim of a meaningful performance advan-tage. Importantly, these relative differences remain stable un-der the Shuffle and Random perturbations. In most cases, the variation with respect to the base scenario is limited to approximately ±2 accuracy points in the best cases, and often less. This indicates that Shuffle and Random transfor-mations do not significantly alter the relative ranking of the models. The AddNoto transformation introduces larger changes in absolute performance and reveals some model-specific behaviors. In this setting, clinical models, particularly Marmoka variants, occasionally benefit more than the general model. In contrast, the ReplaceNoto transformation has a strong negative impact on all models, with substantial drops in performance across all datasets. This confirms ReplaceNoto as a highly adversarial setting that significantly alters task difficulty and disrupts standard multiple-choice reasoning (Elhady et al., 2025; Salido et al., 2025b). It is also noteworthy the impact differences between the 
+
+AddNoto and ReplaceNoto scenarios: in the former, Llama 3.1 is the most affected model, whereas in the latter, it is the least affected. A possible explanation is that Llama 3.1 may have a stronger tendency to predict “None of the others.” As a result, AddNoto harms its performance because the option is always incorrect, while ReplaceNoto improves it because the option is always correct. 
+
+4.2.2. Two-step Transformations 
+
+The results obtained in the Two-step transformations for the English tasks are available in Table 5. To ensure a fair analysis of the results, it is also necessary to assess the   
+
+> Domingo-Aldama et al.: Preprint submitted to Elsevier Page 5 of 11
+
+Rethinking Medical Knowledge Aware LLMs                                                                                       
+
+> Language Transformation Dataset Llama 3.1 Aloe-Beta Marmoka-en Marmoka-en+it English None MMLU 72.90 0.97 0.39 0.62 PubMedQA 81.40 0.10 -0.80 -0.20 MedQA 60.42 -0.78 0.92 1.99 CareQA-En 65.93 1.46 1.57 2.12 Shuffle MMLU 71.44 0.23 1.00 1.76 PubMedQA 81.63 0.07 -0.80 -0.26 MedQA 61.77 -0.80 -0.03 1.45 CareQA-En 65.52 1.28 1.59 2.14 Random MMLU 69.93 -0.49 -0.77 -0.27 PubMedQA 80.03 -0.43 -0.73 0.57 MedQA 58.80 0.05 0.86 2.45 CareQA-En 62.87 1.70 0.88 1.64 AddNoto MMLU 66.44 1.81 1.70 2.88 PubMedQA 80.23 0.00 -0.70 0.24 MedQA 56.10 2.95 3.08 4.44 CareQA-En 57.05 4.72 1.97 3.31 ReplaceNoto MMLU 33.37 -13.73 -6.19 -7.63 PubMedQA 64.07 -18.37 -4.04 1.53 MedQA 27.47 -17.02 -9.04 -11.60 CareQA-En 34.75 -15.03 -4.94 -6.48
+
+Table 4 
+
+Accuracy scores of the one-step perturbations in the English Tasks. Green and red cells indicate improvements or drops compared to Llama 3.1, with darker shades showing larger differences.                                                                       
+
+> Language Transformation Dataset Llama 3.1 Aloe-Beta Marmoka-en Marmoka-en+it English None MMLU 72.90 0.97 0.39 0.62 PubMedQA 81.40 0.10 -0.80 -0.20 MedQA 60.42 -0.78 0.92 1.99 CareQA-En 65.93 1.46 1.57 2.12 CoT MMLU 74.78 0.36 -0.54 -0.53 PubMedQA 81.07 -0.24 -1.07 -1.17 MedQA 63.39 1.12 -0.91 0.16 CareQA-En 69.61 -0.38 0.16 0.96 Summ MMLU 68.71 -45.21 -0.01 -3.78 PubMedQA 80.20 1.97 0.40 1.60 MedQA 61.90 -0.33 0.49 1.62 CareQA-En 69.12 0.19 0.59 0.83 Par MMLU 66.87 -0.99 -1.07 -1.31 PubMedQA 61.33 10.10 0.50 4.87 MedQA 58.60 -1.02 1.14 1.73 CareQA-En 58.70 0.47 0.36 0.49
+
+Table 5 
+
+Accuracy scores of the two-step perturbations in the English tasks. Green and red cells indicate improvements or drops compared to Llama 3.1, with darker shades showing larger differences. 
+
+quality of the intermediate outputs produced by each trans-formation. Specifically, for the chain of thought transforma-tion, the model should generate reasoning in the requested format without explicitly stating the correct answer. For the summarization transformation, the output should be a faith-ful summary of the original question, without altering the answer options. Finally, for the paraphrasing transformation, the generated question should represent a genuine rephrasing of the original while preserving the content and the order of the answer choices. To analyze these characteristics, we conducted a human evaluation of five examples per dataset for each model and each transformation, except for the MMLU dataset, where one question from each category was analyzed. Con-sequently, a total of 21 examples were analyzed per model and transformation. The CoT transformation yields mixed effects. Although it improves performance on most datasets except Pub-MedQA, the relative differences between models remain small, with Llama 3.1 benefiting more from CoT prompting and obtaining better results than the clinical models. The human analysis of the intermediate step for the CoT trans-formation showed that all models consistently followed the required format across all datasets. The generated outputs included an analysis of each option, with up to three pieces of evidence in favor of and against each option. Moreover, the models respected the instruction not to explicitly state the correct answer at this stage Regarding the Summarization transformation, it affects negatively all the models and the results indicate a high degree of sensitivity depending on the evaluation domain. The Aloe-Beta-8B model exhibits a critical vulnerability, suffering a substantial drop of -45.21 on MMLU compared to the Llama 3.1 baseline. Notably, the Marmoka-en+it model demonstrates a consistent advantage over Llama 3.1 in datasets such as MedQA, PubMedQA and CareQA-En, although there is a performance drop in the MMLU dataset. The performance degradation of Aloe-Beta is mainly due to inconsistent instruction following, particularly the failure to preserve answer options across datasets despite explicit constraints introduced in the prompt. Marmoka-en produces summaries that closely mirror those of Llama 3.1, resulting in minimal performance differences, whereas Marmoka-en+it generates more diverse summaries while retaining more relevant information. Interestingly, both Marmoka-en variants exhibit certain formatting failures on the MMLU dataset, including the removal of questions or answer options and the introduction of answer bias. In contrast, the Paraphrasing transformation highlights a more uniform improvement across medical datasets for the adapted models. While all specialized models show a slight performance lag relative to Llama 3.1 on the MMLU 
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 6 of 11 Rethinking Medical Knowledge Aware LLMs                                                    
+
+> Language Transformation Dataset Llama 3.1 Aloe-Beta Marmoka-es Marmoka-es+it Spanish None Casimedicos-exp 50.80 -2.00 4.40 4.40 CareQA-Es 58.58 0.55 2.29 4.70 Shuffle Casimedicos-exp 50.27 -1.34 3.46 5.73 CareQA-Es 57.98 0.89 2.86 4.86 Random Casimedicos-exp 47.60 -0.27 3.47 6.27 CareQA-Es 54.67 1.61 1.94 4.28 AddNoto Casimedicos-exp 43.33 4.94 6.94 9.07 CareQA-Es 50.30 5.25 3.84 6.68 ReplaceNoto Casimedicos-exp 24.00 -20.27 -0.40 -4.00 CareQA-Es 30.99 -18.21 -5.64 -5.51
+
+Table 6 
+
+Accuracy scores of the one-step perturbations in the Spanish tasks. Green and red cells indicate improvements or drops compared to Llama 3.1, with darker shades showing larger differences. 
+
+dataset, they demonstrate significant gains in the others. The Aloe-Beta model achieves its most notable improvement in the PubMedQA dataset with a gain of +10.10, while the Marmoka-en+it model shows the most consistent robust-ness, maintaining positive differentials across all medical tasks including PubMedQA and MedQA. A manual revision of the paraphrasing outputs shows that Marmoka-en+it performs best, consistently preserving the original meaning, while Llama 3.1 and Marmoka-en also generate reliable paraphrases with acceptable stylistic changes and minimal impact on fidelity. In contrast, Aloe-Beta exhibits significant fidelity issues, introducing semantic alterations such as removing relevant clinical details or mod-ifying demographic information, particularly in MedQA, which can change the correct answer. This behavior may be related to Aloe-Beta’s training on synthetically gener-ated chain-of-thought data from MedQA, MMLU, and Pub-MedQA. In MedQA and MMLU, the chain-of-thought in-cludes a initial summarization step that explicitly condenses the context, whereas in PubMedQA this summarization re-quirement is limited to the question. This difference may have encouraged Aloe-Beta to treat paraphrasing as a gen-erative reformulation task rather than a fidelity-preserving transformation, increasing the likelihood of altering critical information. 
+
+4.3. Results for Spanish Datasets 
+
+To further examine the performance of general and clin-ical models across different scenarios, this section presents the results for the Spanish tasks, enabling an analysis of model behavior in a minority language compared to English. As with the English experiments, the results are organized into one-step (See subsubsection 4.3.1) and two-step (See subsubsection 4.3.2) transformations. 
+
+4.3.1. One-Step Transformations 
+
+Table 6 shows the results for the Spanish tasks in the One-Step transformation scenario. In the base scenario , Marmoka models consistently outperform Llama 3.1 across both Spanish datasets, con-firming the benefits of domain adaptation for minority lan-guages even in the absence of perturbations. Among them, the Marmoka-es+it variant generally achieves the strongest gains. Similarly, under the Shuffle and Random transfor-mations, Marmoka models remain the most robust, showing                                           
+
+> Language Transformation Dataset Llama 3.1 Aloe-Beta Marmoka-es Marmoka-es+it Spanish None Casimedicos-exp 50.80 -2.00 4.40 4.40 CareQA-Es 58.58 0.55 2.29 4.70 CoT Casimedicos-exp 48.85 -2.39 6.02 5.22 CareQA-Es 58.05 2.17 2.91 4.18 Summ Casimedicos-exp 36.79 -13.67 2.82 -1.53 CareQA-Es 53.07 -28.00 -7.56 -5.47 Par Casimedicos-exp 49.21 -5.60 0.80 7.60 CareQA-Es 49.19 -4.48 0.48 4.58
+
+Table 7 
+
+Accuracy scores of the two-step perturbations in the Spanish tasks. Green and red cells indicate improvements or drops compared to Llama 3.1, with darker shades showing larger differences. 
+
+smaller performance drops than their general domain coun-terparts. As observed in the English experiments, the AddNoto 
+
+transformation affects Llama 3.1 more severely, while clin-ical models remain comparatively stable, particularly the Marmoka variants. In contrast, the ReplaceNoto transfor-mation has a stronger negative impact on clinical models, with Aloe-Beta experiencing substantial performance drops of up to 18 to 20 points, while Marmoka not being so affected. This behavior mirrors the English results, where 
+
+ReplaceNoto emerges as the most challenging adversarial setting for all models. Overall, Aloe-Beta exhibits mixed performance, with marginal gains on CareQA-Es and slight degradation on Casimedicos-exp. The lower performance of both Aloe-Beta and Llama 3.1 is expected, as neither is specifically trained on Spanish data, further underscoring the importance of domain adaptation when developing medical LLMs for minority languages. 
+
+4.3.2. Two-Step Transformations 
+
+The experiments regarding the two-step transformation for the Spanish tasks are available in Table 7. In the two-step transformation experiments on the Spanish dataset, we also manually evaluated the effect of the system prompt language at each step. An examination of the results table indicates that the outcomes are largely comparable to those of the One-Step transformations. The Spanish Marmoka models maintained their initial performance advantage throughout the adversar-ial tests, with the notable exception of the summarization adversarial, where their performance declined relative to Llama 3.1. An analysis of a five-example subset from each dataset reveals distinct behavioral patterns in the generated para-phrases and summaries. Within the summarization task, both Aloe-Beta and Marmoka-es+it frequently struggled with format adherence, often removing answers from the questions despite explicit instructions to retain them. This accounts for the performance decline observed in the Marmoka-es+it model during the summarization task. Additionally, regarding the summarization objective itself, Aloe-Beta and Marmoka-es demonstrated a tendency to produce outputs that were either longer than the original text or unchanged in length. In contrast, Llama 3.1 consistently adhered to 
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 7 of 11 Rethinking Medical Knowledge Aware LLMs 
+
+the required output format and accurately executed the summarization instructions. In the paraphrase transformation, the required output format was generally maintained, with the exception of two instances in Aloe-Beta and one in Llama 3.1 where the order of answer options was altered. Regarding the quality of the paraphrasing itself, Llama 3.1 demonstrated the strongest performance, followed closely by Marmoka-es+it. Conversely, Aloe-Beta struggled significantly with this task, frequently altering the original meaning of the questions rather than providing an accurate paraphrase. A similar limitation was observed in Marmoka-es, though the impact was less severe. 
+
+5. Conclusions 
+
+This work challenges current trends in the evaluation of medical LLMs, demonstrating that there is still significant potential and that future research should build on the path we have established. Regarding the proposed research ques-tions: 
+
+RQ1. Do we need to invest substantial resources in adapting general-purpose LLMs to the medical domain, or do these models already encode sufficient medical knowledge? 
+
+The results for the English tasks indicate that in short-form MCQA scenarios, the performance improvements of medical LLMs over general-domain models, such as Llama, are marginal (as demonstrated by Jeong et al. (2024)) even under perturbed conditions. This trend persists in two-step transformations, where models frequently encounter diffi-culties adhering to complex instructions and specified out-put formats. Nevertheless, the Marmoka-en+it model intro-duced in this study consistently achieves the strongest results among the English variants. These findings raise questions regarding the overall util-ity of English domain adaptation given the narrow perfor-mance gap. However, it is essential to note that while these quantitative experiments are extensive, the evaluation is sub-ject to several interrelated limitations. The reliance on short-form MCQA may not provide a sufficient benchmark for assessing deep medical expertise; tasks requiring complex reasoning or broader clinical knowledge may be necessary to reveal the true capabilities of specialized models. Further-more, because the reported scores rely exclusively on auto-mated accuracy metrics without expert clinical adjudication, the validity of the models’ underlying rationales remains unverified. In summary, this research does not dismiss the neces-sity of specialized medical LLMs, but rather highlights the potential inadequacy of current evaluation frameworks in accurately measuring genuine medical proficiency. 
+
+RQ2. Are general-purpose and medical-domain mod-els able to follow instructions and adhere to strict output formats? 
+
+The findings presented in subsection 4.1 and across both two-step transformations (subsubsection 4.2.2 and subsub-section 4.3.2) reveal a significant performance deficit re-garding instruction following and strict adherence to output formats. Specifically, when models were required to return only a single letter within open-generation scenarios, many failed to comply, highlighting a fundamental limitation in their ability to maintain constrained formatting. This observation is further reinforced by the human evaluation of the two-step transformations. This conclusion underscores the critical importance of evaluating the instruction-following capabilities of LLMs following domain adaptation, as specialized fine-tuning can lead to "catastrophic forgetting" of the original alignment and instruction-following behaviors. Furthermore, the dif-ficulties observed in the Spanish tasks emphasize the neces-sity of incorporating multilingual instruction sets during the domain and language adaptation phases. Neglecting these elements in non-English contexts may result in models that possess the requisite medical knowledge but lack the lin-guistic agility to process and output information according to specific user requirements. 
+
+RQ3. Can robust medical-domain LLMs be devel-oped for languages like Spanish, which remain low-resource in the medical domain due to the limited avail-ability of high-quality medical data and instructions? 
+
+The results achieved by the Marmoka models, partic-ularly Marmoka-es+it, demonstrate that the domain adap-tation strategy employed in this study successfully facili-tates the development of a robust, medical-domain Spanish LLM. In this context, the Marmoka models consistently outperformed both Aloe-Beta and Llama 3.1, confirming the necessity of specialized domain and language adaptation for Spanish medical tasks. However, the two-step transformations reveal a persis-tent limitation regarding output format adherence, indicating an area that requires further investigation to enhance the practical usability of the generated models. 
+
+6. Future Work 
+
+In the future, we plan to extend the proposed benchmark by including additional tasks, such as named entity recog-nition (a critical area where LLMs currently underperform) and disease diagnosis tasks. Finally, we aim to train smaller and reasoner models to fully leverage the deployment poten-tial of the proposed Marmoka models. 
+
+Limitations 
+
+Our trained Marmoka models are intended for research purposes and are not approved for clinical use. They must not be used as medical devices or relied upon for diagnostic or therapeutic decision-making. Model outputs should not be interpreted as medical advice. The use of these models without rigorous validation poses significant risks, includ-ing misinformation, misclassifications, and the potential for   
+
+> Domingo-Aldama et al.: Preprint submitted to Elsevier Page 8 of 11
+
+Rethinking Medical Knowledge Aware LLMs 
+
+harm if relied upon in medical decision-making. Thus, when employed in actual clinical scenarios, all results must be in-dependently reviewed and validated by qualified healthcare professionals. The training data for the Marmoka models, sourced from the web and open datasets, may not adequately capture the full range of linguistic, demographic, or clinical variability found in real-world medical settings. Thus, it may intro-duce various biases, including selection bias, demographic and linguistic underrepresentation, and unexamined ethical risks. These factors can lead to skewed predictions, unequal model performance across populations, and the potential re-inforcement of existing health disparities and societal biases. We did not conduct further assessments to determine whether the datasets used contain biases or personally iden-tifiable information, nor did we independently verify the anonymization measures applied. However, all data sources employed in this work were previously processed, publicly released, and made available with stated limitations, includ-ing steps taken to ensure data quality and privacy compli-ance. Finally, the LLM selection was limited to 8B-parameter, non-reasoning models from the Llama 3.1 family. While this constraint reduces architectural diversity, it enables rigorous, controlled comparisons across the selected models. This setup allows us to isolate the impact of domain specialization and dataset characteristics, while minimizing the influence of architectural differences or variations in pretraining cor-pora. 
+
+Acknowledgments 
+
+This work has been partially supported by the HiTZ Center and the Basque Government, Spain (Research group funding IT1570-22), as well as by MCIN/AEI/10.13039/5011 00011033 Spanish Ministry of Universities, Science and Innovation by means of the projects: EDHIA PID2022-136522OB-C22 (also supported by FEDER, UE), DeepR3 TED2021-130295B-C31 (also sup-ported by European Union NextGeneration EU/PRTR). I. de la Iglesia has been funded by the FPU grant of the Spanish Ministry of Science, Innovation and Universities (MCIU) (FPU23/03347). A. G. Domingo-Aldama has been funded by the Pre-doctoral Training Program for Non-PhD Research Personnel grant of the Basque Government (PRE_2024_1_0224). M. Urruela has been funded by the Predoctoral Train-ing Program for Non-PhD Research Personnel grant of the Basque Government (PRE_2025_1_0177). 
+
+Ethics Statement 
+
+This study does not involve human participants, patient intervention, or access to identifiable personal health in-formation. All experiments were conducted using publicly available benchmark datasets and previously released lan-guage models. No private clinical records, protected health information, or sensitive personal data were collected, ac-cessed, or processed as part of this research. 
+
+References 
+
+AI@Meta, 2024. Llama 3 model card URL: https://github.com/ meta-llama/llama3/blob/main/MODEL_CARD.md .Al-Garadi, M., Mungle, T., Ahmed, A., Sarker, A., Miao, Z., Matheny, M.E., 2025. Large language models in healthcare. URL: https://arxiv. org/abs/2503.04748 , arXiv:2503.04748 .Alzahrani, N., Alyahya, H., Alnumay, Y., AlRashed, S., Alsubaie, S., Almushayqih, Y., Mirza, F., Alotaibi, N., Al-Twairesh, N., Alow-isheq, A., Bari, M.S., Khan, H., 2024a. When benchmarks are tar-gets: Revealing the sensitivity of large language model leaderboards, in: Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), Association for Computational Linguistics, Bangkok, Thailand. pp. 13787–13805. URL: https://aclanthology.org/2024.acl-long.744/ , doi: 10.18653/v1/ 2024.acl-long.744 .Alzahrani, N., Alyahya, H., Alnumay, Y., Alrashed, S., Alsubaie, S., Al-mushayqih, Y., Mirza, F., Alotaibi, N., Al-Twairesh, N., Alowisheq, A., et al., 2024b. When benchmarks are targets: Revealing the sensitivity of large language model leaderboards, in: Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 13787–13805. Ankit Pal, M.S., 2024. Openbiollms: Advancing open-source large lan-guage models for healthcare and life sciences. https://huggingface.co/ aaditya/OpenBioLLM-Llama3-70B .Arias-Duart, A., Martin-Torres, P.A., Hinjos, D., Bernabeu-Perez, P., Gan-zabal, L.U., Mallo, M.G., Gururajan, A.K., Lopez-Cuena, E., Alvarez-Napagao, S., Garcia-Gasulla, D., 2025. Automatic evaluation of health-care LLMs beyond question-answering, in: Chiruzzo, L., Ritter, A., Wang, L. (Eds.), Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers), Association for Computational Linguistics, Albuquerque, New Mexico. pp. 108–130. URL: https://aclanthology.org/2025.naacl-short.10/ .Carrino, C.P., Armengol-Estapé, J., de Gibert Bonet, O., Gutiérrez-Fandiño, A., Gonzalez-Agirre, A., Krallinger, M., Villegas, M., 2021. Spanish biomedical crawled corpus: A large, diverse dataset for spanish biomedical language models. arXiv:2109.07765 .Chang, Y., Wang, X., Wang, J., Wu, Y., Yang, L., Zhu, K., Chen, H., Yi, X., Wang, C., Wang, Y., Ye, W., Zhang, Y., Chang, Y., Yu, P.S., Yang, Q., Xie, X., 2024. A survey on evaluation of large language models. ACM Trans. Intell. Syst. Technol. 15. URL: https://doi.org/10.1145/3641289 ,doi: 10.1145/3641289 .Chen, C., Yu, J., Chen, S., Liu, C., Wan, Z., Bitterman, D., Wang, F., Shu, K., 2025. Clinicalbench: Can LLMs beat traditional ML models in clinical prediction? URL: https://openreview.net/forum?id=o9SuQXZvNA .Chen, Z., Cano, A.H., Romanou, A., Bonnet, A., Matoba, K., Salvi, F., Pagliardini, M., Fan, S., Köpf, A., Mohtashami, A., Sallinen, A., Sakhaeirad, A., Swamy, V., Krawczuk, I., Bayazit, D., Marmet, A., Montariol, S., Hartley, M.A., Jaggi, M., Bosselut, A., 2023. Meditron-70b: Scaling medical pretraining for large language models. URL: 
+
+> https://arxiv.org/abs/2311.16079
+
+, arXiv:2311.16079 .del Barrio, M., Laos, K., Lara, M.J.V., García, C.G., Menendez, H.D., 2026. Size doesn’t matter: Assessing the trustworthiness of large language models in medical contexts: A focus on epidu-ral information retrieval. Artificial Intelligence in Medicine 175, 103379. URL: https://www.sciencedirect.com/science/article/pii/ S093336572600031X , doi: https://doi.org/10.1016/j.artmed.2026.103379 .Domingo-Aldama, A.G., Merino Prado, M., García-Olea, A., Goikoetxea, J., Gojenola, K., Atutxa, A., 2026. Leveraging electronic health records for atrial fibrillation cohort generation. Health Information Science and Systems 14, 24. Dorfner, F.J., Dada, A., Busch, F., Makowski, M.R., Han, T., Truhn, D., Kleesiek, J., Sushil, M., Lammert, J., Adams, L.C., Bressem, K.K., 2024. Biomedical large languages models seem not to be superior to generalist 
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 9 of 11 Rethinking Medical Knowledge Aware LLMs 
+
+models on unseen medical data. URL: https://arxiv.org/abs/2408. 13833 , arXiv:2408.13833 .Elhady, A., Agirre, E., Artetxe, M., 2025. Wicked: A simple method to make multiple choice benchmarks more challenging, in: Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers), pp. 1183–1192. Elhady, A., Elsayed, K., Agirre, E., Artetxe, M., 2024. Improving factuality in clinical abstractive multi-document summarization by guided contin-ued pre-training, in: Duh, K., Gomez, H., Bethard, S. (Eds.), Proceedings of the 2024 Conference of the North American Chapter of the Asso-ciation for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers), Association for Computational Linguistics, Mexico City, Mexico. pp. 755–761. URL: https://aclanthology.org/ 2024.naacl-short.66/ , doi: 10.18653/v1/2024.naacl-short.66 .Gao, L., Tow, J., Abbasi, B., Biderman, S., Black, S., DiPofi, A., Foster, C., Golding, L., Hsu, J., Le Noac’h, A., Li, H., McDonell, K., Muennighoff, N., Ociepa, C., Phang, J., Reynolds, L., Schoelkopf, H., Skowron, A., Sutawika, L., Tang, E., Thite, A., Wang, B., Wang, K., Zou, A., 2024. The language model evaluation harness. URL: https://zenodo.org/ records/12608602 , doi: 10.5281/zenodo.12608602 .García-Ferrero, I., Agerri, R., Atutxa Salazar, A., Cabrio, E., de la Iglesia, I., Lavelli, A., Magnini, B., Molinet, B., Ramirez-Romero, J., Rigau, G., Villa-Gonzalez, J.M., Villata, S., Zaninello, A., 2024. MedMT5: An open-source multilingual text-to-text LLM for the medical domain, in: Proceedings of the 2024 Joint International Conference on Com-putational Linguistics, Language Resources and Evaluation (LREC-COLING 2024), ELRA and ICCL, Torino, Italia. pp. 11165–11177. URL: https://aclanthology.org/2024.lrec-main.974/ .Goddard, C., Siriwardhana, S., Ehghaghi, M., Meyers, L., Karpukhin, V., Benedict, B., McQuade, M., Solawetz, J., 2024. Arcee’s MergeKit: A toolkit for merging large language models, in: Dernoncourt, F., Preoţiuc-Pietro, D., Shimorina, A. (Eds.), Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing: Industry Track, As-sociation for Computational Linguistics, Miami, Florida, US. pp. 477– 485. URL: https://aclanthology.org/2024.emnlp-industry.36 , doi: 10. 18653/v1/2024.emnlp-industry.36 .Goenaga, I., Atutxa, A., Gojenola, K., Oronoz, M., Agerri, R., 2023. Explanatory argument extraction of correct answers in resident medical exams. arXiv:2312.00567 .Gururajan, A.K., Lopez-Cuena, E., Bayarri-Planas, J., Tormos, A., Hinjos, D., Bernabeu-Perez, P., Arias-Duart, A., Martin-Torres, P.A., Urcelay-Ganzabal, L., Gonzalez-Mallo, M., Alvarez-Napagao, S., Ayguadé-Parra, E., Garcia-Gasulla, U.C.D., 2024. Aloe: A family of fine-tuned open healthcare llms. arXiv:2405.01886 .Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M., Song, D., Steinhardt, J., 2021. Measuring massive multitask language under-standing. Proceedings of the International Conference on Learning Representations (ICLR) . De la Iglesia, I., Sánchez-Freire, A., Urquijo-Durán, O., Barrena, A., Atutxa, A., 2025. Eriberta private surpasses her public alter ego: Enhancing a bilingual pretrained encoder with limited private medical data. Proce-samiento del Lenguaje Natural 75, 283–296. Intxaurrondo, A., 2019. Scielo-spain-crawler (v1.0.1). https://doi.org/10. 5281/zenodo.2541681 . Zenodo. 10.5281/zenodo.2541681 .Jeong, D.P., Garg, S., Lipton, Z.C., Oberst, M., 2024. Medical adaptation of large language and vision-language models: Are we making progress?, in: Al-Onaizan, Y., Bansal, M., Chen, Y.N. (Eds.), Proceedings of the 2024 Conference on Empirical Methods in Natural Language Process-ing, Association for Computational Linguistics, Miami, Florida, USA. pp. 12143–12170. URL: https://aclanthology.org/2024.emnlp-main. 677/ , doi: 10.18653/v1/2024.emnlp-main.677 .Jiang, A.Q., Sablayrolles, A., Mensch, A., Bamford, C., Chaplot, D.S., de las Casas, D., Bressand, F., Lengyel, G., Lample, G., Saulnier, L., Lavaud, L.R., Lachaux, M.A., Stock, P., Scao, T.L., Lavril, T., Wang, T., Lacroix, T., Sayed, W.E., 2023. Mistral 7b. URL: https://arxiv.org/ abs/2310.06825 , arXiv:2310.06825 .Jin, D., Pan, E., Oufattole, N., Weng, W.H., Fang, H., Szolovits, P., 2021. What disease does this patient have? a large-scale open domain question answering dataset from medical exams. Applied Sciences 11, 6421. Jin, Q., Dhingra, B., Liu, Z., Cohen, W., Lu, X., 2019. Pubmedqa: A dataset for biomedical research question answering, in: Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), pp. 2567–2577. Kweon, S., Kim, J., Kwak, H., Cha, D., Yoon, H., Kim, K., Yang, J., Won, S., Choi, E., 2024. Ehrnoteqa: An llm benchmark for real-world clinical practice using discharge summaries. Advances in Neural Information Processing Systems 37, 124575–124611. Labrak, Y., Bazoge, A., Morin, E., Gourraud, P.A., Rouvier, M., Dufour, R., 2024. Biomistral: A collection of open-source pretrained large language models for medical domains. arXiv preprint arXiv:2402.10373 . Liu, F., Zhou, H., Gu, B., Zou, X., Huang, J., Wu, J., Li, Y., Chen, S.S., Hua, Y., Zhou, P., et al., 2025. Application of large language models in medicine. Nature Reviews Bioengineering , 1–20. Liu, Y., Li, D., Wang, K., Xiong, Z., Shi, F., Wang, J., Li, B., Hang, B., 2024. Are llms good at structured outputs? a benchmark for evaluating structured output capabilities in llms. Information Processing & Management 61, 103809. OpenMeditron, 2025. Meditron 3 model card URL: https://huggingface. co/OpenMeditron/Meditron3-8B .Pal, A., Umapathi, L.K., Sankarasubbu, M., 2022. Medmcqa: A large-scale multi-subject multi-choice dataset for medical domain question answering, in: Flores, G., Chen, G.H., Pollard, T., Ho, J.C., Naumann, T. (Eds.), Proceedings of the Conference on Health, Inference, and Learning, PMLR. pp. 248–260. URL: https://proceedings.mlr.press/ v174/pal22a.html .PubMed Central (PMC), 2024. PubMed Central Corpus. URL: https: //pmc.ncbi.nlm.nih.gov/about/intro/ .Qwen, :, Yang, A., Yang, B., Zhang, B., Hui, B., Zheng, B., Yu, B., Li, C., Liu, D., Huang, F., Wei, H., Lin, H., Yang, J., Tu, J., Zhang, J., Yang, J., Yang, J., Zhou, J., Lin, J., Dang, K., Lu, K., Bao, K., Yang, K., Yu, L., Li, M., Xue, M., Zhang, P., Zhu, Q., Men, R., Lin, R., Li, T., Tang, T., Xia, T., Ren, X., Ren, X., Fan, Y., Su, Y., Zhang, Y., Wan, Y., Liu, Y., Cui, Z., Zhang, Z., Qiu, Z., 2025. Qwen2.5 technical report. URL: 
+
+> https://arxiv.org/abs/2412.15115
+
+, arXiv:2412.15115 .Sainz, O., Perez, N., Etxaniz, J., de Landa, J.F., Aldabe, I., García-Ferrero, I., Zabala, A., Azurmendi, E., Rigau, G., Agirre, E., Artetxe, M., Soroa, A., 2025. Instructing large language models for low-resource languages: A systematic study for basque. Salido, E.S., Gonzalo, J., Marco, G., 2025a. None of the others: a gen-eral technique to distinguish reasoning from memorization in multiple-choice llm evaluation benchmarks. arXiv preprint arXiv:2502.12896 . Salido, E.S., Gonzalo, J., Marco, G., 2025b. None of the others: a gen-eral technique to distinguish reasoning from memorization in multiple-choice llm evaluation benchmarks. URL: https://arxiv.org/abs/2502. 12896 , arXiv:2502.12896 .Tiedemann, J., 2012. Parallel data, tools and interfaces in opus., in: Lrec, Citeseer. pp. 2214–2218. Toma, A., Lawler, P.R., Ba, J., Krishnan, R.G., Rubin, B.B., Wang, B., 2023. Clinical camel: An open expert-level medical language model with dialogue-based knowledge encoding. URL: https://arxiv.org/ abs/2305.12031 , arXiv:2305.12031 .Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., Bikel, D., Blecher, L., Ferrer, C.C., Chen, M., Cucurull, G., Esiobu, D., Fernandes, J., Fu, J., Fu, W., Fuller, B., Gao, C., Goswami, V., Goyal, N., Hartshorn, A., Hosseini, S., Hou, R., Inan, H., Kardas, M., Kerkez, V., Khabsa, M., Kloumann, I., Korenev, A., Koura, P.S., Lachaux, M.A., Lavril, T., Lee, J., Liskovich, D., Lu, Y., Mao, Y., Martinet, X., Mihaylov, T., Mishra, P., Molybog, I., Nie, Y., Poulton, A., Reizenstein, J., Rungta, R., Saladi, K., Schelten, A., Silva, R., Smith, E.M., Subramanian, R., Tan, X.E., Tang, B., Taylor, R., Williams, A., Kuan, J.X., Xu, P., Yan, Z., Zarov, I., Zhang, Y., Fan, A., Kambadur, M., Narang, S., Rodriguez, A., Stojnic, R., Edunov, S., Scialom, T., 2023. Llama 2: Open foundation and fine-tuned chat models. URL: https://arxiv.org/abs/2307.09288 , arXiv:2307.09288 .
+
+Domingo-Aldama et al.: Preprint submitted to Elsevier Page 10 of 11 Rethinking Medical Knowledge Aware LLMs 
+
+Villegas, M., Intxaurrondo, A., Gonzalez-Agirre, A., Krallinger, M., 2019. MeSpEn_Parallel-Corpora (2019-12-04). https://doi.org/10.5281/ zenodo.3562536 . LREC 2018 Workshop MultilingualBIO: Multilingual Biomedical Text Processing (MultilingualBIO), Miyazaki, Japan. Wang, C., Li, M., He, J., Wang, Z., Darzi, E., Chen, Z., Ye, J., Li, T., Su, Y., Ke, J., Qu, K., Li, S., Yu, Y., Liò, P., Wang, T., Wang, Y.G., Shen, Y., 2025. A survey for large language models in biomedicine. Artificial Intelligence in Medicine 170, 103268. URL: https://www.sciencedirect.com/science/article/pii/ S0933365725002039 , doi: https://doi.org/10.1016/j.artmed.2025.103268 .Wiegreffe, S., Tafjord, O., Belinkov, Y., Hajishirzi, H., Sabharwal, A., 2024. Answer, assemble, ace: Understanding how transformers answer multiple choice questions. arXiv preprint arXiv:2407.15018 . Xu, Z., Jiang, F., Niu, L., Deng, Y., Poovendran, R., Choi, Y., Lin, B.Y., 2024. Magpie: Alignment data synthesis from scratch by prompting aligned llms with nothing. URL: https://arxiv.org/abs/2406.08464 ,
+
+arXiv:2406.08464 .Zhang, K., Zeng, S., Hua, E., Ding, N., Chen, Z.R., Ma, Z., Li, H., Cui, G., Qi, B., Zhu, X., Lv, X., Jinfang, H., Liu, Z., Zhou, B., 2024. Ultramedical: Building specialized generalists in biomedicine. Zheng, G., Wang, X., Liang, J., Chen, N., Zheng, Y., Wang, B., 2024. Efficiently democratizing medical llms for 50 languages via a mixture of language family experts. arXiv preprint arXiv:2410.10626 . 
+
+Figure 1: Instance of the CareQA-En dataset. Llama-3.1-it  
+
+> Marmoka-it
+> Marmoka-en
+> Marmoka-es
+> Spanish medical corpora
+> English medical corpora
+> Medical Instructions
+> BASED ON CORPORA
+> BASED ON INSTRUCTIONS
+> MERGE
+> Marmoka-en-it
+> Marmoka-es-it
+> 1
+> 23
+> 4
+
+Figure 2: Overview of the Marmoka variants based on Llama 3.1-8B-Instruct. Four final models were developed: two trained on medical corpora (one in Spanish and the other in English), and two obtained by merging these models with an intermedi-ate Marmoka model trained using medical instruction data. OpenBioLLM-8B meditron-7b BioMistral-7B Meditron3-8B Aloe-8B-Alpha Mistral-7B-Instruct-v0.1 Meta-Llama-3-8B-Instruct Llama-3.1-8B-Instruct Aloe-8B-Beta Marmoka-en Marmoka-es Marmoka-en+it Marmoka-es+it     
+
+> 0% 25% 50% 75% 100%
+
+Figure 3: Percentage of answers correctly formatted according to task instructions for each evaluated model. Models shown in orange are excluded from further experiments due to a low rate of instruction adherence. Domingo-Aldama et al.: Preprint submitted to Elsevier Page 11 of 11
