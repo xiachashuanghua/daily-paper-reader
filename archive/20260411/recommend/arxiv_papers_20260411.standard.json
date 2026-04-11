@@ -1,0 +1,181 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-11T20:02:23.842685+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.03029v1",
+      "title": "A Boolean encoding of the Most Permissive semantics for Boolean networks",
+      "abstract": "Boolean networks are widely used to model biological regulatory networks and study their dynamics. Classical semantics, such as the asynchronous semantics, do not always accurately capture transient or asymptotic behaviors observed in quantitative models. To address this limitation, the Most Permissive semantics was introduced by Paulevé et al., extending Boolean dynamics with intermediate activity levels that allow components to transiently activate or inhibit their targets during transitions. In this work, we provide a Boolean encoding of the Most Permissive semantics: each component of the original network is represented by a triplet of Boolean variables, and we derive the extended logical function governing the resulting network. We prove that the asynchronous dynamics of the encoded network exactly reproduces the attainability properties of the original network under Most Permissive semantics. This encoding is implemented as a modifier within the bioLQM framework, making it directly compatible with existing tools such as GINsim. To address scalability limitations, we further extend the tool to support partial unfolding, restricted to a user-defined subset of components.",
+      "authors": [
+        "Laure de Chancel",
+        "Brigitte Mossé",
+        "Aurélien Naldi",
+        "Élisabeth Remy"
+      ],
+      "primary_category": "cs.DM",
+      "categories": [
+        "cs.DM"
+      ],
+      "published": "2026-04-03T13:36:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.03029v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "modeling biological regulatory networks",
+      "llm_evidence_cn": "生物调节网络建模",
+      "llm_evidence": "生物调节网络建模",
+      "canonical_evidence": "生物调节网络建模",
+      "llm_tldr_en": "Provides a Boolean encoding for Most Permissive semantics to better model biological network dynamics.",
+      "llm_tldr_cn": "提供了一种布尔编码方法，用于更准确地模拟生物调节网络的动态行为。",
+      "llm_tldr": "提供了一种布尔编码方法，用于更准确地模拟生物调节网络的动态行为。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04895v1",
+      "title": "Agentic Federated Learning: The Future of Distributed Training Orchestration",
+      "abstract": "Although Federated Learning (FL) promises privacy and distributed collaboration, its effectiveness in real-world scenarios is often hampered by the stochastic heterogeneity of clients and unpredictable system dynamics. Existing static optimization approaches fail to adapt to these fluctuations, resulting in resource underutilization and systemic bias. In this work, we propose a paradigm shift towards Agentic-FL, a framework where Language Model-based Agents (LMagents) assume autonomous orchestration roles. Unlike rigid protocols, we demonstrate how server-side agents can mitigate selection bias through contextual reasoning, while client-side agents act as local guardians, dynamically managing privacy budgets and adapting model complexity to hardware constraints. More than just resolving technical inefficiencies, this integration signals the evolution of FL towards decentralized ecosystems, where collaboration is negotiated autonomously, paving the way for future markets of incentive-based models and algorithmic justice. We discuss the reliability (hallucinations) and security challenges of this approach, outlining a roadmap for resilient multi-agent systems in federated environments.",
+      "authors": [
+        "Rafael O. Jarczewski",
+        "Gabriel U. Talasso",
+        "Leandro Villas",
+        "Allan M. de Souza"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-04-06T17:43:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.04895v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Language Model-based Agents for autonomous orchestration",
+      "llm_evidence_cn": "基于语言模型的智能体用于自主编排",
+      "llm_evidence": "基于语言模型的智能体用于自主编排",
+      "canonical_evidence": "基于语言模型的智能体用于自主编排",
+      "llm_tldr_en": "Proposes Agentic-FL, using LLM agents to autonomously orchestrate distributed federated learning.",
+      "llm_tldr_cn": "提出了Agentic-FL框架，利用LLM智能体自主编排分布式联邦学习。",
+      "llm_tldr": "提出了Agentic-FL框架，利用LLM智能体自主编排分布式联邦学习。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07798v1",
+      "title": "Lightweight LLM Agent Memory with Small Language Models",
+      "abstract": "Although LLM agents can leverage tools for complex tasks, they still need memory to maintain cross-turn consistency and accumulate reusable information in long-horizon interactions. However, retrieval-based external memory systems incur low online overhead but suffer from unstable accuracy due to limited query construction and candidate filtering. In contrast, many systems use repeated large-model calls for online memory operations, improving accuracy but accumulating latency over long interactions. We propose LightMem, a lightweight memory system for better agent memory driven by Small Language Models (SLMs). LightMem modularizes memory retrieval, writing, and long-term consolidation, and separates online processing from offline consolidation to enable efficient memory invocation under bounded compute. We organize memory into short-term memory (STM) for immediate conversational context, mid-term memory (MTM) for reusable interaction summaries, and long-term memory (LTM) for consolidated knowledge, and uses user identifiers to support independent retrieval and incremental maintenance in multi-user settings. Online, LightMem operates under a fixed retrieval budget and selects memories via a two-stage procedure: vector-based coarse retrieval followed by semantic consistency re-ranking. Offline, it abstracts reusable interaction evidence and incrementally integrates it into LTM. Experiments show gains across model scales, with an average F1 improvement of about 2.5 on LoCoMo, more effective and low median latency (83 ms retrieval; 581 ms end-to-end).",
+      "authors": [
+        "Jiaquan Zhang",
+        "Chaoning Zhang",
+        "Shuxu Chen",
+        "Zhenzhen Huang",
+        "Pengcheng Zheng",
+        "Zhicheng Wang",
+        "Ping Guo",
+        "Fan Mo",
+        "Sung-Ho Bae",
+        "Jie Zou",
+        "Jiwei Wei",
+        "Yang Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-04-09T04:51:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.07798v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM agent memory system for complex tasks",
+      "llm_evidence_cn": "用于复杂任务的LLM智能体记忆系统",
+      "llm_evidence": "用于复杂任务的LLM智能体记忆系统",
+      "canonical_evidence": "用于复杂任务的LLM智能体记忆系统",
+      "llm_tldr_en": "Introduces LightMem, a lightweight memory system for LLM agents using small language models.",
+      "llm_tldr_cn": "引入了LightMem，一种利用小语言模型为LLM智能体构建的轻量级记忆系统。",
+      "llm_tldr": "引入了LightMem，一种利用小语言模型为LLM智能体构建的轻量级记忆系统。",
+      "llm_tags": [
+        "query:llmagt:composite"
+      ],
+      "matched_query_tag": "query:llmagt:composite",
+      "matched_query_text": "Papers central to 大语言模型（LLM）与智能体（agent）在生物信息学中的应用相关论文, especially work that connects or combines: LLM applications in genomic sequence analysis; computational biology; Computational biology applications of LLMs; Autonomous agents for biological research; Large Language Models in bioinformatics; Multi-agent systems in biological data analysis; Review of large language models and autonomous agents in bioinformatics; Frameworks for multi agent systems in computational biology.",
+      "matched_requirement_id": "req-composite-llmagt",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07988v1",
+      "title": "LogAct: Enabling Agentic Reliability via Shared Logs",
+      "abstract": "Agents are LLM-driven components that can mutate environments in powerful, arbitrary ways. Extracting guarantees for the execution of agents in production environments can be challenging due to asynchrony and failures. In this paper, we propose a new abstraction called LogAct, where each agent is a deconstructed state machine playing a shared log. In LogAct, agentic actions are visible in the shared log before they are executed; can be stopped prior to execution by pluggable, decoupled voters; and recovered consistently in the case of agent or environment failure. LogAct enables agentic introspection, allowing the agent to analyze its own execution history using LLM inference, which in turn enables semantic variants of recovery, health check, and optimization. In our evaluation, LogAct agents recover efficiently and correctly from failures; debug their own performance; optimize token usage in swarms; and stop all unwanted actions for a target model on a representative benchmark with just a 3% drop in benign utility.",
+      "authors": [
+        "Mahesh Balakrishnan",
+        "Ashwin Bharambe",
+        "Davide Testuggine",
+        "David Geraghty",
+        "David Mao",
+        "Vidhya Venkat",
+        "Ilya Mironov",
+        "Rithesh Baradi",
+        "Gayathri Aiyer",
+        "Victoria Dudin"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AI"
+      ],
+      "published": "2026-04-09T08:58:23+00:00",
+      "link": "https://arxiv.org/pdf/2604.07988v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for agentic reliability and introspection",
+      "llm_evidence_cn": "智能体可靠性与内省框架",
+      "llm_evidence": "智能体可靠性与内省框架",
+      "canonical_evidence": "智能体可靠性与内省框架",
+      "llm_tldr_en": "Proposes LogAct, a shared log abstraction to ensure reliability and recovery for LLM-driven agents.",
+      "llm_tldr_cn": "提出了LogAct，一种通过共享日志抽象确保LLM驱动智能体可靠性与恢复的方案。",
+      "llm_tldr": "提出了LogAct，一种通过共享日志抽象确保LLM驱动智能体可靠性与恢复的方案。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
