@@ -1,0 +1,201 @@
+{
+  "date": "20260708-20260806",
+  "date_label": "2026-07-08 ~ 2026-08-06",
+  "generated_at": "2026-08-06 09:57:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.27556v1",
+      "route": "20260708-20260806/2607.27556v1-evaluating-agentic-bioinformatics-through-function-evidence-and-validation",
+      "title": "Evaluating Agentic Bioinformatics through Function, Evidence, and Validation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "直接针对智能体生物信息学的评估框架，基于功能、证据和验证",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.07467v1",
+      "route": "20260708-20260806/2607.07467v1-spacellagent-a-self-evolving-llm-based-multi-agent-framework-for-trajectory-analysis",
+      "title": "SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于LLM的多智能体框架用于单细胞与空间转录组轨迹分析，直接匹配生物数据分析中的多智能体系统",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.08803v1",
+      "route": "20260708-20260806/2607.08803v1-thebiocollection-unified-pre-training-scale-llm-corpus-for-biology",
+      "title": "TheBioCollection: Unified Pre-Training Scale LLM Corpus for Biology",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "包含基因序列的统一生物LLM预训练语料库",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.13608v1",
+      "route": "20260708-20260806/2607.13608v1-automatic-ordinary-differential-equations-discovery-for-biological-systems-using-large-language-model-powered-agentic-system",
+      "title": "Automatic Ordinary Differential Equations Discovery For Biological Systems Using Large Language Model Powered Agentic System",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用LLM智能体系统自动发现生物系统常微分方程，直接对应生物研究中的自主智能体",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.17902v1",
+      "route": "20260708-20260806/2607.17902v1-benchmarking-resource-efficient-llms-for-research-topic-ontology-generation-in-the-biomedical-field",
+      "title": "Benchmarking Resource-Efficient LLMs for Research Topic Ontology Generation in the Biomedical Field",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评测资源高效的LLM在生物医学概念关系识别与本体生成中的能力",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.19262v1",
+      "route": "20260708-20260806/2607.19262v1-biosecbench-surveillance-a-verifiable-benchmark-for-ai-agents-in-pathogen-genomic-surveillance",
+      "title": "BioSecBench-Surveillance: A Verifiable Benchmark for AI Agents in Pathogen Genomic Surveillance",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "AI智能体在病原体基因组监测中的基准测试",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.23821v1",
+      "route": "20260708-20260806/2607.23821v1-scta-an-agentic-framework-for-stable-and-interpretable-target-gene-discovery-from-single-cell-rna-sequencing",
+      "title": "SCTA: An Agentic Framework for Stable and Interpretable Target Gene Discovery from Single-Cell RNA Sequencing",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于智能体的单细胞靶基因发现框架，直接对应生物研究中的自主智能体应用",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.29347v1",
+      "route": "20260708-20260806/2607.29347v1-seekbrain-an-autonomous-multi-agent-system-for-accelerating-neuroscience-discovery",
+      "title": "SeekBrain: An Autonomous Multi-Agent System for Accelerating Neuroscience Discovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "自主多智能体系统加速神经科学发现",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2608.03154v1",
+      "route": "20260708-20260806/2608.03154v1-anchor-re-an-agentic-neuro-symbolic-framework-for-grounded-biomedical-relation-extraction",
+      "title": "ANCHOR-RE: An Agentic Neuro-Symbolic Framework for Grounded Biomedical Relation Extraction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "结合LLM智能体与外部知识的有依据生物医学关系抽取框架",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.07666v2",
+      "route": "20260708-20260806/2607.07666v2-a-hierarchical-memory-architecture-overcomes-context-limits-in-long-horizon-multi-agent-computational-modeling",
+      "title": "A hierarchical memory architecture overcomes context limits in long-horizon multi-agent computational modeling",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向计算生物学的多智能体框架，解决长期建模的上下文限制",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2607.09872v1",
+      "route": "20260708-20260806/2607.09872v1-a-differential-framework-for-dynamic-programming-in-biological-sequence-analysis",
+      "title": "A Differential Framework for Dynamic Programming in Biological Sequence Analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向生物序列分析中动态规划的统一次微分框架",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    },
+    {
+      "paper_id": "2608.02684v2",
+      "route": "20260708-20260806/2608.02684v2-a-blind-spot-in-alignment-quantifying-biosecurity-risks-in-large-language-models",
+      "title": "A Blind Spot in Alignment: Quantifying Biosecurity Risks in Large Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "量化LLM生成类毒素蛋白序列的生物安全风险",
+      "first_seen_at": "2026-08-06 09:57:40 UTC",
+      "updated_at": "2026-08-06 09:57:40 UTC"
+    }
+  ]
+}

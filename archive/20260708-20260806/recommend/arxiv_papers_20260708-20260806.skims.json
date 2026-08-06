@@ -1,0 +1,518 @@
+{
+  "mode": "skims",
+  "generated_at": "2026-08-06T09:46:15.544698+00:00",
+  "stats": {
+    "mode": "skims",
+    "forced_all_quick": true,
+    "min_score": 8.0,
+    "deep_divecandidates": 12,
+    "deep_cap": null,
+    "deep_selected": 0,
+    "quick_candidates": 12,
+    "quick_skim_target": null,
+    "quick_selected": 12
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.27556v1",
+      "source": "arxiv",
+      "title": "Evaluating Agentic Bioinformatics through Function, Evidence, and Validation",
+      "abstract": "Large language model agents increasingly plan, execute, and interpret biological analyses, yet fluent responses, successful tool calls, and benchmark performance alone do not establish scientific credibility. Existing reviews primarily organize biological agents by application, architecture, and agentic capability, but do not jointly operationalize the accountability of agent-generated workflows. We address this gap by treating the inspectable workflow trajectory, rather than architecture or final output alone, as the primary unit of analysis. We introduce the Function--Evidence--Validation (FEV) framework, which separates demonstrated workflow operations, traceable support for actions and claims, and use-case-specific validation. Using FEV, we map 109 agentic or agent-adjacent systems and 28 benchmark or evaluation resources, representing 128 unique publications across genomics, single-cell and spatial omics, protein science, drug discovery, computational pathology, and general bioinformatics automation. Across domains, planning and tool-mediated execution have advanced more rapidly than replayability, provenance, robust scientific assessment, external validation, and prospective empirical testing. We therefore argue that agentic bioinformatics should be assessed through workflow correctness rather than final-answer correctness alone. FEV provides a practical basis for comparing systems and designing transparent, auditable, and scientifically accountable bioinformatics workflows.",
+      "authors": [
+        "Phuc Pham",
+        "Truong-Son Hy"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-30T01:00:36+00:00",
+      "link": "https://arxiv.org/pdf/2607.27556v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "direct evaluation framework for agentic bioinformatics, using function, evidence, and validation",
+      "llm_evidence_cn": "直接针对智能体生物信息学的评估框架，基于功能、证据和验证",
+      "llm_evidence": "直接针对智能体生物信息学的评估框架，基于功能、证据和验证",
+      "canonical_evidence": "直接针对智能体生物信息学的评估框架，基于功能、证据和验证",
+      "llm_tldr_en": "This paper proposes the Function-Evidence-Validation framework to assess accountability of LLM-agent-driven biological workflows, using inspectable trajectories as the unit of analysis.",
+      "llm_tldr_cn": "LLM智能体越来越多地参与生物学分析，但流畅输出和工具调用并不等于科学可信。本文提出功能-证据-验证（FEV）框架，将可检查的工作流轨迹作为主要分析对象，把操作、证据和场景验证分开考察。该框架可以系统地评估智能体工作流的可信度，补足了现有评测只看架构或最终输出的短板。这项工作为生物信息学智能体提供了可操作的评价标准，促进该领域稳健发展。",
+      "llm_tldr": "LLM智能体越来越多地参与生物学分析，但流畅输出和工具调用并不等于科学可信。本文提出功能-证据-验证（FEV）框架，将可检查的工作流轨迹作为主要分析对象，把操作、证据和场景验证分开考察。该框架可以系统地评估智能体工作流的可信度，补足了现有评测只看架构或最终输出的短板。这项工作为生物信息学智能体提供了可操作的评价标准，促进该领域稳健发展。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07467v1",
+      "source": "arxiv",
+      "title": "SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis",
+      "abstract": "Spatial and Single-cell transcriptomics are transformative in deciphering cellular dynamics. As the fundamental paradigm for reconstructing cell developmental paths, trajectory inference (TI) is critical. However, existing methods require extensive manual intervention and proficiency in heterogeneous tools, posing a significant barrier to efficient TI analysis. To bridge this gap, we propose SpaCellAgent, an autonomous large language model (LLM) multi-agent framework that automates end-to-end spatiotemporal analysis and narrative generation. SpaCellAgent utilizes a multi-agent architecture for strategic workflow planning, a dynamic tool-orchestration engine for adaptive algorithm selection, and a self-evolution module that iteratively refines performance through feedback. We evaluate SpaCellAgent on six heterogeneous datasets encompassing complex temporal developmental trajectories, diverse sequencing platforms, and spatially-resolved tissue architectures. SpaCellAgent consistently demonstrates over 40\\% improvement in analytical efficiency while maintaining expert-aligned performance. By converting natural language specifications into optimized analytical workflows and fully automating the pipeline, SpaCellAgent democratizes advanced spatiotemporal modeling and establishes a scalable, agent-driven paradigm for computational biology. The code and materials are available at https://github.com/LittleXH-shw/SpaCellAgent.",
+      "authors": [
+        "Songhan Wang",
+        "Haoang Chi",
+        "He Li",
+        "Zhiheng Zhang",
+        "Jiayan Yuan",
+        "Cheems Wang",
+        "Hao Peng",
+        "Xinwang Liu",
+        "Wenjing Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-08T14:31:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.07467v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-based multi-agent framework for spatial/single-cell trajectory analysis; direct match to multi-agent biological data analysis",
+      "llm_evidence_cn": "基于LLM的多智能体框架用于单细胞与空间转录组轨迹分析，直接匹配生物数据分析中的多智能体系统",
+      "llm_evidence": "基于LLM的多智能体框架用于单细胞与空间转录组轨迹分析，直接匹配生物数据分析中的多智能体系统",
+      "canonical_evidence": "基于LLM的多智能体框架用于单细胞与空间转录组轨迹分析，直接匹配生物数据分析中的多智能体系统",
+      "llm_tldr_en": "SpaCellAgent is an end-to-end LLM multi-agent framework that automates trajectory inference and narrative generation for spatial and single-cell transcriptomics with self-evolving workflows.",
+      "llm_tldr_cn": "空间和单细胞转录组学中的轨迹推断需要跨多个异构工具的复杂流程，现有方法依赖大量手动干预和领域知识。论文提出SpaCellAgent，一个自演化的LLM多智能体框架，通过智能体协作进行流程规划、动态工具编排和自适应算法选择，实现端到端的时空数据分析与叙述生成，可显著降低轨迹推断的使用门槛并提升分析效率。",
+      "llm_tldr": "空间和单细胞转录组学中的轨迹推断需要跨多个异构工具的复杂流程，现有方法依赖大量手动干预和领域知识。论文提出SpaCellAgent，一个自演化的LLM多智能体框架，通过智能体协作进行流程规划、动态工具编排和自适应算法选择，实现端到端的时空数据分析与叙述生成，可显著降低轨迹推断的使用门槛并提升分析效率。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.08803v1",
+      "source": "arxiv",
+      "title": "TheBioCollection: Unified Pre-Training Scale LLM Corpus for Biology",
+      "abstract": "The push toward large language models for biology (BioLM) has created a need for training corpora that can endow models with a genuine understanding of biology. However, existing biological resources, such as molecular databases, protein repositories, genomic annotations, single-cell atlases, and pathway databases, are scattered across heterogeneous formats and remain unorganized into a cohesive corpus for language model training. We present TheBioCollection, a 52.6B-token pre-training-scale corpus that converts these disparate resources into a unified, training-ready form spanning small molecules, proteins, genomic sequences, cells, and pathways. Beyond consolidating existing data, TheBioCollection enriches each record with tool-computed biological properties and introduces new instruction tasks for capabilities that current corpora barely cover. We pair the corpus with TheBioCollection-Eval, a matched suite probing recognition, generation, and prediction across molecular, protein, genomic, cellular, and cross-domain settings. Holding the base Gravity-16B-A3B architecture fixed, training on TheBioCollection more than doubles its overall score on TheBioCollection-Eval with gains in every domain, while leaving general linguistic ability nearly intact.",
+      "authors": [
+        "Hyunjin Seo",
+        "Hyeon Hwang",
+        "Gyubok Lee",
+        "Jay Shin",
+        "Jimin Park",
+        "Taesoo Kim",
+        "Sanghoon Lee",
+        "Hongjoon Ahn",
+        "Sungjun Han",
+        "Sangwon Jung"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-07-09T06:56:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.08803v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Unified pre-training LLM corpus for biology including genomic sequences",
+      "llm_evidence_cn": "包含基因序列的统一生物LLM预训练语料库",
+      "llm_evidence": "包含基因序列的统一生物LLM预训练语料库",
+      "canonical_evidence": "包含基因序列的统一生物LLM预训练语料库",
+      "llm_tldr_en": "TheBioCollection unifies scattered biological resources into a 52.6B-token pre-training corpus spanning molecules, proteins, genomic sequences, cells, and pathways, enriched with tool-computed properties, enabling biology LLMs with genuine understanding.",
+      "llm_tldr_cn": "现有生物学资源如基因注释、单细胞图谱和通路数据库格式异构、分散，难以用于语言模型训练。研究提出TheBioCollection，将小分子、蛋白质、基因组序列、细胞和通路等资源统一为52.6B token的预训练规模语料库，并为每条记录补充工具计算的生物学属性。该语料库为训练具备真实生物学理解的生物大语言模型奠定了基础，可有力推动LLM在基因组序列分析和计算生物学中的应用。",
+      "llm_tldr": "现有生物学资源如基因注释、单细胞图谱和通路数据库格式异构、分散，难以用于语言模型训练。研究提出TheBioCollection，将小分子、蛋白质、基因组序列、细胞和通路等资源统一为52.6B token的预训练规模语料库，并为每条记录补充工具计算的生物学属性。该语料库为训练具备真实生物学理解的生物大语言模型奠定了基础，可有力推动LLM在基因组序列分析和计算生物学中的应用。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.13608v1",
+      "source": "arxiv",
+      "title": "Automatic Ordinary Differential Equations Discovery For Biological Systems Using Large Language Model Powered Agentic System",
+      "abstract": "Automatic scientific discovery has long been a goal of computational scholars - a machine that can discover nature's secrets on its own, moving computational systems beyond data-fitting tools toward the generation and refinement of mechanistic models of the universe. Recent advances in symbolic regression (SR) and large-language-model (LLM)-based agents suggest that such systems can recover equations from data, incorporate domain priors, and automate parts of the research workflow. However, most existing approaches either focus on narrow equation-discovery benchmarks or broad end-to-end automation pipelines, while biological systems remain comparatively underexplored. Here, we introduce the MEDA system, an LLM- and SR-powered agentic framework for discovering ordinary-differential-equation (ODE) models of biological and biologically inspired dynamical systems. MEDA retrieves background knowledge, defines admissible variables, generates mechanistic constraints, proposes candidate ODEs, and fits and evaluates them. We evaluate it across canonical model retrieval, reasoning-based extrapolation to unseen variants, and open-ended discovery, with and without experimental data. Across these settings, MEDA recovered the correct state variables, achieved strong structural recovery in retrieval and extrapolation tasks, and produced biologically plausible discovery-oriented models. Ablation and robustness analyses show that knowledge-guided formalization and mechanistic constraints are load-bearing components, whereas numerical fitting alone can preserve trajectory-compatible but biologically incorrect equations.",
+      "authors": [
+        "David Krongauz",
+        "Arad Zulti",
+        "Eran Segal",
+        "Teddy Lazebnik"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "math.DS"
+      ],
+      "published": "2026-07-15T08:56:56+00:00",
+      "link": "https://arxiv.org/pdf/2607.13608v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-powered agentic system for automatic ODE discovery in biological systems; direct autonomous agent for biological research",
+      "llm_evidence_cn": "利用LLM智能体系统自动发现生物系统常微分方程，直接对应生物研究中的自主智能体",
+      "llm_evidence": "利用LLM智能体系统自动发现生物系统常微分方程，直接对应生物研究中的自主智能体",
+      "canonical_evidence": "利用LLM智能体系统自动发现生物系统常微分方程，直接对应生物研究中的自主智能体",
+      "llm_tldr_en": "MEDA is an LLM-powered agentic system that automatically discovers ordinary differential equations for biological systems, combining symbolic regression with domain priors.",
+      "llm_tldr_cn": "自动科学发现的目标是让机器从数据中生成并精炼机制模型，但现有方法要么聚焦狭窄的方程发现基准，要么是宽泛的端到端自动化流程，对生物系统的探索相对不足。论文提出了MEDA系统，利用LLM智能体与符号回归结合，在数据中融入领域先验知识，自动发现生物系统的常微分方程，从而填补了该空白。",
+      "llm_tldr": "自动科学发现的目标是让机器从数据中生成并精炼机制模型，但现有方法要么聚焦狭窄的方程发现基准，要么是宽泛的端到端自动化流程，对生物系统的探索相对不足。论文提出了MEDA系统，利用LLM智能体与符号回归结合，在数据中融入领域先验知识，自动发现生物系统的常微分方程，从而填补了该空白。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.17902v1",
+      "source": "arxiv",
+      "title": "Benchmarking Resource-Efficient LLMs for Research Topic Ontology Generation in the Biomedical Field",
+      "abstract": "Knowledge Organization Systems like Ontologies and taxonomies are fundamental for structuring scientific knowledge, yet their manual curation presents a persistent bottleneck in knowledge management. While Large Language Models (LLMs) offer a scalable mechanism for automated ontology generation, their capacity to classify complex, domain-specific semantics requires systematic evaluation. In this paper, we assess the performance of five small, open-source LLMs (up to 9 billion parameters) in identifying semantic relationships between biomedical concepts. To support this evaluation, we introduce MeSH-Rel-4K, a dataset comprising 4K semantic relationships extracted from the Medical Subject Headings (MeSH). We analyse three adaptation strategies: standard prompting, Chain-of-Thought prompting, and fine-tuning. While parameter-constrained models traditionally struggle with the nuances of in-context logic, our results reveal that targeted fine-tuning increases the average F1-score by 34.1 percentage points. These results confirm that direct fine-tuning effectively exceeds the reasoning bottlenecks of smaller LLMs, providing an accurate, automated methodology for the construction and evolution of specialised biomedical ontologies.",
+      "authors": [
+        "Tanay Aggarwal",
+        "Angelo Salatino",
+        "Francesco Osborne",
+        "Enrico Motta"
+      ],
+      "primary_category": "cs.DL",
+      "categories": [
+        "cs.DL",
+        "cs.CL"
+      ],
+      "published": "2026-07-20T12:48:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.17902v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Benchmarks resource-efficient LLMs on biomedical concept relationship identification for ontology generation",
+      "llm_evidence_cn": "评测资源高效的LLM在生物医学概念关系识别与本体生成中的能力",
+      "llm_evidence": "评测资源高效的LLM在生物医学概念关系识别与本体生成中的能力",
+      "canonical_evidence": "评测资源高效的LLM在生物医学概念关系识别与本体生成中的能力",
+      "llm_tldr_en": "This paper benchmarks five small open-source LLMs (up to 9B) on biomedical ontology generation using the new MeSH-Rel-4K dataset of 4K semantic relationships, analyzing their ability to identify complex domain semantics.",
+      "llm_tldr_cn": "手动构建生物医学本体耗时费力，LLM有望实现自动化，但其对领域语义的分类能力缺乏系统评测。本文使用从医学主题词表（MeSH）提取的4K语义关系数据集MeSH-Rel-4K，评测五个小规模开源LLM（最大9B参数）识别生物医学概念间语义关系的能力，并分析三种自适应策略。结果显示资源高效的LLM在有限资源下仍具竞争力，为计算生物学中的本体生成提供参考。",
+      "llm_tldr": "手动构建生物医学本体耗时费力，LLM有望实现自动化，但其对领域语义的分类能力缺乏系统评测。本文使用从医学主题词表（MeSH）提取的4K语义关系数据集MeSH-Rel-4K，评测五个小规模开源LLM（最大9B参数）识别生物医学概念间语义关系的能力，并分析三种自适应策略。结果显示资源高效的LLM在有限资源下仍具竞争力，为计算生物学中的本体生成提供参考。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.19262v1",
+      "source": "arxiv",
+      "title": "BioSecBench-Surveillance: A Verifiable Benchmark for AI Agents in Pathogen Genomic Surveillance",
+      "abstract": "As pathogen genomic surveillance scales, the bottleneck is shifting from data generation to analysis. We present BioSecBench-Surveillance, a verifiable benchmark of 100 evaluations testing whether AI agents can infer the right analysis pipeline from raw sequencing data and surveillance context. Each evaluation gives an agent only the data and context a human analyst would have, then grades its structured answer deterministically. The tasks span seven categories, from taxonomic classification to genetic-engineering detection, across diverse sample types and sequencing technologies. Across 3,962 gradable attempts from sixteen model-harness pairs, the strongest configuration cleared only about half. Opus 4.8 with PI led at 50.2 percent, with a 95 percent confidence interval of 40.1 to 60.3 percent across 83 evaluations, tied with GPT-5.5 with Codex at 50.2 percent, with a 95 percent confidence interval of 40.8 to 59.6 percent, followed by Opus 4.7 with PI at 49.6 percent, with a 95 percent confidence interval of 40.0 to 59.2 percent, and Sonnet 4.6 with PI at 48.6 percent, with a 95 percent confidence interval of 38.9 to 58.3 percent. Even when agents invoked the correct workflows, their mistakes came from the choices around them, such as which references, thresholds, filters, and normalization to apply. BioSecBench-Surveillance provides a standard for measuring whether agents can be trusted to perform genomic surveillance when the next outbreak arrives.",
+      "authors": [
+        "Harmon Bhasin",
+        "Kevin Flyangolts",
+        "Dianzhuo Wang",
+        "Evan Seeyave",
+        "Arjun Banerjee",
+        "Amanda Darling",
+        "Joshua Stallings",
+        "David Stern",
+        "Shawn Higdon",
+        "Claire Duvallet",
+        "Bryan Tegomoh",
+        "Kenny Workman"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-21T16:33:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.19262v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "AI agents benchmark for pathogen genomic surveillance",
+      "llm_evidence_cn": "AI智能体在病原体基因组监测中的基准测试",
+      "llm_evidence": "AI智能体在病原体基因组监测中的基准测试",
+      "canonical_evidence": "AI智能体在病原体基因组监测中的基准测试",
+      "llm_tldr_en": "Presents BioSecBench, a verifiable benchmark of 100 evaluations testing whether AI agents can infer analysis pipelines from raw pathogen sequencing data; strongest agent scores only about 50%.",
+      "llm_tldr_cn": "病原体基因组监测规模扩大后，分析环节成为主要瓶颈，现有方法难以判断AI智能体是否能从原始测序数据中自主推导正确流程。为此，我们提出可验证基准BioSecBench，包含100个评估任务，覆盖七个类别，涉及多种样本类型与测序技术；每个任务仅提供与分析员相同的数据和背景并按结构化答案确定性评分。对16个模型-工具组合共3962次可评分尝试的评测显示，最强配置Opus 4.8+PI仅达到50.2%的通过率，证明当前智能体在该任务上仍有显著提升空间。",
+      "llm_tldr": "病原体基因组监测规模扩大后，分析环节成为主要瓶颈，现有方法难以判断AI智能体是否能从原始测序数据中自主推导正确流程。为此，我们提出可验证基准BioSecBench，包含100个评估任务，覆盖七个类别，涉及多种样本类型与测序技术；每个任务仅提供与分析员相同的数据和背景并按结构化答案确定性评分。对16个模型-工具组合共3962次可评分尝试的评测显示，最强配置Opus 4.8+PI仅达到50.2%的通过率，证明当前智能体在该任务上仍有显著提升空间。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.23821v1",
+      "source": "arxiv",
+      "title": "SCTA: An Agentic Framework for Stable and Interpretable Target Gene Discovery from Single-Cell RNA Sequencing",
+      "abstract": "Identifying therapeutic target genes from single-cell RNA sequencing (scRNA-seq) data remains a fundamental challenge in translational biology. Unlike bulk assays, scRNA-seq captures heterogeneous cellular states and rare subpopulations, but this same heterogeneity makes target discovery highly sensitive to analytical choices throughout the pipeline, including preprocessing, cell population selection, differential expression analysis, and downstream biological interpretation. As a result, existing workflows and general-purpose analysis agents often produce unstable or difficult-to-interpret target hypotheses, limiting their reliability for disease-focused discovery. We present SCTA (Single-Cell Target Agent), a decision-centric agentic framework for stable and interpretable target gene discovery from scRNA-seq data. Rather than treating analysis as a single general-purpose reasoning task, SCTA decomposes target discovery into specialized agents aligned with key decision points in the single-cell pipeline and constrains downstream reasoning with structured biological evidence. In a representative ablation study on hereditary chronic pancreatitis, we demonstrate that SCTA's full evidence integration yields the most stable target selection across independent runs among the tested configurations, while recovering biologically coherent, disease-relevant mechanisms validated in prior studies. These results suggest that decision-aware agent orchestration tailored to the structure of single-cell analysis can improve the robustness, interpretability, and practical utility of target discovery in precision medicine.",
+      "authors": [
+        "Shuyu Chen",
+        "Chen Zhu",
+        "Ye Zhang",
+        "Yang Li",
+        "Qiqi Xie",
+        "Haohan Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.GN"
+      ],
+      "published": "2026-07-26T19:59:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.23821v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Agentic framework for target gene discovery from scRNA-seq; direct bioinformatics application of LLM agents",
+      "llm_evidence_cn": "基于智能体的单细胞靶基因发现框架，直接对应生物研究中的自主智能体应用",
+      "llm_evidence": "基于智能体的单细胞靶基因发现框架，直接对应生物研究中的自主智能体应用",
+      "canonical_evidence": "基于智能体的单细胞靶基因发现框架，直接对应生物研究中的自主智能体应用",
+      "llm_tldr_en": "SCTA is an agentic framework that stabilizes and interprets target gene discovery from scRNA-seq, addressing variability across preprocessing, clustering, and differential expression choices.",
+      "llm_tldr_cn": "单细胞RNA测序中的细胞异质性和复杂的分析流程，使得靶基因发现极易受预处理、细胞亚群选择、差异表达分析等步骤的影响，现有工作流和通用分析智能体往往给出不稳定且难以解释的结果。为此论文提出SCTA（Single-Cell Target Agent），以智能体方式自动化地编排和分析scRNA-seq全流程，并输出稳定、可解释的靶基因候选。实验结果显示SCTA能够显著降低分析选择带来的结果波动，并为疾病相关的靶点发现提供更可靠的智能体框架，具有重要的转化生物学意义。",
+      "llm_tldr": "单细胞RNA测序中的细胞异质性和复杂的分析流程，使得靶基因发现极易受预处理、细胞亚群选择、差异表达分析等步骤的影响，现有工作流和通用分析智能体往往给出不稳定且难以解释的结果。为此论文提出SCTA（Single-Cell Target Agent），以智能体方式自动化地编排和分析scRNA-seq全流程，并输出稳定、可解释的靶基因候选。实验结果显示SCTA能够显著降低分析选择带来的结果波动，并为疾病相关的靶点发现提供更可靠的智能体框架，具有重要的转化生物学意义。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.29347v1",
+      "source": "arxiv",
+      "title": "SeekBrain: An Autonomous Multi-Agent System for Accelerating Neuroscience Discovery",
+      "abstract": "Modern neuroscience relies on integrating multi-scale, multimodal datasets to uncover the neural principles underlying intelligence. However, analytical challenges posed by highly heterogeneous data and fragmented workflows increasingly constrain discoveries. Here we introduce SeekBrain, an autonomous multi-agent framework designed to accelerate neuroscience discovery through domain-grounded hierarchical planning and cross-modal data analysis. SeekBrain dynamically constructs a repertoire of analysis recipes extracted from code-paper pairs. By coupling this codified expertise with agentic planning and execution engines, the framework scalably generates hypotheses and analytical pipelines on demand. Systematic evaluation on the expert-annotated BrainArena benchmark demonstrates that SeekBrain substantially outperforms state-of-the-art agent baselines across various analysis tasks. Crucially, when deployed in real-world research, SeekBrain integrated behavioral, neural, and anatomical data to reveal structured, distributed neural representations of larval zebrafish behavior and a shared axis of regional decoding strength across the brain in a mouse decision-making task. These results establish SeekBrain as a scalable and practical tool for accelerating data-driven discoveries in neuroscience.",
+      "authors": [
+        "Jiamin Wu",
+        "Peishan Xiang",
+        "Jingyang Chen",
+        "Yuqing Zhu",
+        "Yuxi Li",
+        "Ling Luo",
+        "Qihao Zheng",
+        "Jialiang Zu",
+        "Yongchao Wu",
+        "Mindong Liu",
+        "Haitao Wu",
+        "Chaofan Hu",
+        "Yijie Sun",
+        "Yuqi Hang",
+        "Yu Zhu",
+        "Shuo Li",
+        "Yue Fan",
+        "Shiyang Feng",
+        "Wanghan Xu",
+        "Tianlei Zhang",
+        "Jie Zhang",
+        "Wenlong Zhang",
+        "Bo Zhang",
+        "Kai Wang",
+        "Lei Bai",
+        "Mianxin Liu",
+        "Wanli Ouyang",
+        "Jiulin Du",
+        "Chunfeng Song"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-07-31T12:30:12+00:00",
+      "link": "https://arxiv.org/pdf/2607.29347v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autonomous multi-agent system for accelerating neuroscience discovery",
+      "llm_evidence_cn": "自主多智能体系统加速神经科学发现",
+      "llm_evidence": "自主多智能体系统加速神经科学发现",
+      "canonical_evidence": "自主多智能体系统加速神经科学发现",
+      "llm_tldr_en": "SeekBrain is an autonomous multi-agent framework that accelerates neuroscience discovery by combining domain-grounded hierarchical planning, code-paper-derived analysis recipes, and cross-modal data analysis to generate hypotheses and pipelines on demand.",
+      "llm_tldr_cn": "现有神经科学研究面临多尺度多模态数据整合难与工作流碎片化的问题。为此提出SeekBrain自主多智能体框架，利用从代码-论文对中提取的分析配方，结合智能体规划与执行引擎，按需生成假设与分析流程。在专家标注数据上的系统评估验证了其加速神经科学发现的有效性。",
+      "llm_tldr": "现有神经科学研究面临多尺度多模态数据整合难与工作流碎片化的问题。为此提出SeekBrain自主多智能体框架，利用从代码-论文对中提取的分析配方，结合智能体规划与执行引擎，按需生成假设与分析流程。在专家标注数据上的系统评估验证了其加速神经科学发现的有效性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03154v1",
+      "source": "arxiv",
+      "title": "ANCHOR-RE: An Agentic Neuro-Symbolic Framework for Grounded Biomedical Relation Extraction",
+      "abstract": "Biomedical relation extraction (BioRE) extracts structured knowledge from biomedical literature for applications such as knowledge base construction and hypothesis generation. Traditional symbolic systems such as SemRep provide high precision but limited recall, while large language models (LLMs) offer stronger contextual reasoning but remain prone to false-positive predictions. We developed ANCHOR-RE, a framework that integrates ontology-guided reasoning, external knowledge grounding, and data-driven verification rules into LLM inference. We evaluated it on three BioRE benchmarks (SemRepGS, DDI, and ChemProt) using both proprietary and open-weight LLMs. To assess generalizability beyond benchmark datasets while reducing potential evaluation bias from LLM pretraining contamination, we conducted a temporal evaluation using 100 biomedical articles published in 2026. With the proprietary backbone, ANCHOR-RE outperformed direct LLM prompting, improving micro-F1 from 0.654 to 0.676 on SemRepGS, from 0.769 to 0.872 on DDI, and from 0.939 to 0.941 on ChemProt. On DDI and ChemProt, it also outperformed previously reported inference-only methods and approached fine-tuned or instruction-tuned systems without parameter updates. Similar performance gains observed with open-weight LLMs indicate that the benefits were not limited to the proprietary backbone. On the post-cutoff set, manual assessment of 500 randomly sampled predictions yielded a precision of 69%, maintaining consistent precision on previously unseen biomedical literature. Neuro-symbolic reasoning can improve the reliability of LLM-based BioRE without fine-tuning. Results across multiple benchmarks, model families, and post-cutoff literature support ANCHOR-RE as a practical training-free approach to biomedical literature mining.",
+      "authors": [
+        "Shufan Ming",
+        "Yikun Han",
+        "Gibong Hong",
+        "Rui Zhang",
+        "Halil Kilicoglu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-04T05:36:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.03154v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Agentic neuro-symbolic framework for biomedical relation extraction using LLMs and external knowledge",
+      "llm_evidence_cn": "结合LLM智能体与外部知识的有依据生物医学关系抽取框架",
+      "llm_evidence": "结合LLM智能体与外部知识的有依据生物医学关系抽取框架",
+      "canonical_evidence": "结合LLM智能体与外部知识的有依据生物医学关系抽取框架",
+      "llm_tldr_en": "Presents ANCHOR-RE, an agentic neuro-symbolic framework that combines ontology-guided reasoning, external knowledge grounding, and data-driven verification for biomedical relation extraction, outperforming both symbolic systems and plain LLMs on BioRE benchmarks.",
+      "llm_tldr_cn": "生物医学关系抽取需要从文献中提取结构化知识，传统符号系统SemRep准确率高但召回低，LLM上下文推理强但易产生假阳性。作者提出ANCHOR-RE，将本体引导推理、外部知识锚定和数据驱动验证规则集成到LLM推理流程中。在SemRepGS、DDI和ChemProt三个基准上使用多种专有与开源LLM进行评估，结果显示相较纯LLM能减少假阳性并提升抽取效果，并为跨数据集的泛化性验证提供了新思路。该框架展示了智能体神经符号方法在生物医学知识库构建中的价值。",
+      "llm_tldr": "生物医学关系抽取需要从文献中提取结构化知识，传统符号系统SemRep准确率高但召回低，LLM上下文推理强但易产生假阳性。作者提出ANCHOR-RE，将本体引导推理、外部知识锚定和数据驱动验证规则集成到LLM推理流程中。在SemRepGS、DDI和ChemProt三个基准上使用多种专有与开源LLM进行评估，结果显示相较纯LLM能减少假阳性并提升抽取效果，并为跨数据集的泛化性验证提供了新思路。该框架展示了智能体神经符号方法在生物医学知识库构建中的价值。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07666v2",
+      "source": "arxiv",
+      "title": "A hierarchical memory architecture overcomes context limits in long-horizon multi-agent computational modeling",
+      "abstract": "Large language models (LLMs) demonstrate remarkable reasoning capabilities, yet their stateless architecture fundamentally limits deployment in long-horizon research workflows requiring multi-session continuity and quantitative rigor. Here we present Ensemble QSP, a multi-agent framework featuring a three-layer hierarchical memory architecture that keeps injected context bounded and constant in project duration (mid-term project state: median 301 tokens, max 4,050, across 104 runs) by capping each state category and evicting completed work, enabling continuous autonomous operation without context degradation. The system orchestrates five specialist worker agents under domain-expert principal investigators, enforcing physical constraints through physics-based checklists and structured-domain knowledge. Comprehensive benchmarking demonstrates robust autonomous pharmacokinetic-pharmacodynamic model selection without human intervention, consistent result quality across both lower-cost and frontier LLMs, improved PK parameter recovery relative to single-agent baselines, and stable model selection across linguistically diverse prompts of the same task. Feature-level ablation across physiologically based pharmacokinetic (PBPK) models spanning a broad complexity range shows that PI-agent oversight improves debugging efficiency while preserving final accuracy across conditions. The architecture is structurally domain-agnostic, adding a new scientific domain requires only a new PI agent configuration.",
+      "authors": [
+        "Shivendra G. Tewari",
+        "Holly Kimko"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.MA"
+      ],
+      "published": "2026-07-08T17:22:28+00:00",
+      "link": "https://arxiv.org/pdf/2607.07666v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-agent framework for long-horizon computational modeling in computational biology",
+      "llm_evidence_cn": "面向计算生物学的多智能体框架，解决长期建模的上下文限制",
+      "llm_evidence": "面向计算生物学的多智能体框架，解决长期建模的上下文限制",
+      "canonical_evidence": "面向计算生物学的多智能体框架，解决长期建模的上下文限制",
+      "llm_tldr_en": "LLM statelessness limits long-horizon multi-agent research workflows. Ensemble QSP uses a three-layer hierarchical memory to bound context (median 301 tokens across 104 runs), enabling continuous autonomous computational modeling with specialist agents.",
+      "llm_tldr_cn": "针对LLM无状态架构在长时程多智能体计算建模中的上下文退化问题，研究提出Ensemble QSP框架，通过三层分层记忆架构将注入上下文控制在恒定范围内，在104次运行中保持中期项目状态中位数仅301个token。该系统由领域专家主研究员协调五个专门工作智能体，实现无上下文退化的连续自主运行，并支持定量严谨的科研计算流程，为计算生物学等长期科研工作流提供可扩展的多智能体范式。",
+      "llm_tldr": "针对LLM无状态架构在长时程多智能体计算建模中的上下文退化问题，研究提出Ensemble QSP框架，通过三层分层记忆架构将注入上下文控制在恒定范围内，在104次运行中保持中期项目状态中位数仅301个token。该系统由领域专家主研究员协调五个专门工作智能体，实现无上下文退化的连续自主运行，并支持定量严谨的科研计算流程，为计算生物学等长期科研工作流提供可扩展的多智能体范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.09872v1",
+      "source": "arxiv",
+      "title": "A Differential Framework for Dynamic Programming in Biological Sequence Analysis",
+      "abstract": "Background: Dynamic programming in biological sequence analysis computes probabilities or partition functions by summing over exponentially many latent paths, alignments, derivation trees, or RNA secondary structures. Their backward and outside quantities are used model-specifically, but the relation between differential sensitivities and exact finite sequence changes is rarely stated in a common framework.   Methods: We represent hidden Markov models, affine-gap alignment ensembles, stochastic context-free grammars, and RNA secondary-structure ensembles as sum--product dynamic programs, defining backward and outside quantities as adjoints of forward or inside variables and sequence changes as finite replacements of sequence-dependent local factors.   Results: Posterior item marginals are normalized inside--outside products, local-event posteriors additionally include the local factor and child inside terms, and expected feature counts are logarithmic derivatives of the partition function. For HMMs, ordinary SCFGs, and single-position substitutions in affine-gap alignment, the partition function is multi-affine in position-specific factor groups, so a one-site change is recovered exactly from first-derivative coefficients and multisite changes from mixed derivatives. In nearest-neighbor RNA models a substitution alters overlapping loop, stacking, and multiloop factors and boundary contexts, so exact mutation effects instead require context-dependent inside--outside recombination, as in the Rchange algorithm. Numerical experiments reproduce brute-force recomputation to machine precision.   Conclusions: The framework identifies when derivatives give exact finite sequence effects and when broader recombination is required, providing a unified basis for posterior marginals, expected counts, parameter sensitivity, mutation analysis, and sequence design.",
+      "authors": [
+        "Kiyoshi Asai"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM"
+      ],
+      "published": "2026-07-10T18:05:23+00:00",
+      "link": "https://arxiv.org/pdf/2607.09872v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unified differential framework for dynamic programming in biological sequence analysis",
+      "llm_evidence_cn": "面向生物序列分析中动态规划的统一次微分框架",
+      "llm_evidence": "面向生物序列分析中动态规划的统一次微分框架",
+      "canonical_evidence": "面向生物序列分析中动态规划的统一次微分框架",
+      "llm_tldr_en": "Presents a differential framework that represents HMMs, alignments, SCFGs, and RNA secondary structure ensembles as sum-product dynamic programs, unifying backward/outside quantities as adjoints and exact finite sequence changes.",
+      "llm_tldr_cn": "在生物序列分析中，隐马尔可夫模型、比对、随机上下文无关文法和RNA二级结构等动态规划算法虽然都涉及对大量隐路径求和，但各模型的后向量与外部量计算方式各不相同。论文将它们统一为和积动态规划，将后向量和外部量定义为前向量或内变量的伴随量，并将序列改变视为局部替换的有限变化。该框架为不同动态规划模型提供了统一的敏感性与有限序列变化分析，有助于更系统地理解序列分析算法，属于计算生物学的方法论进展。",
+      "llm_tldr": "在生物序列分析中，隐马尔可夫模型、比对、随机上下文无关文法和RNA二级结构等动态规划算法虽然都涉及对大量隐路径求和，但各模型的后向量与外部量计算方式各不相同。论文将它们统一为和积动态规划，将后向量和外部量定义为前向量或内变量的伴随量，并将序列改变视为局部替换的有限变化。该框架为不同动态规划模型提供了统一的敏感性与有限序列变化分析，有助于更系统地理解序列分析算法，属于计算生物学的方法论进展。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02684v2",
+      "source": "arxiv",
+      "title": "A Blind Spot in Alignment: Quantifying Biosecurity Risks in Large Language Models",
+      "abstract": "Large Language Models (LLMs) are accelerating biological research, yet this same capability poses a critical biosecurity threat: models that assist in protein engineering can equally be prompted to generate predicted toxin-like sequences, potentially lowering the barrier to biological misuse. Current safety evaluations, however, operate in natural language and cannot determine whether a model-generated amino acid sequence is biological gibberish or a computational risk signal. To address this evaluation blind spot, we introduce SPIKE-Bench, coupling 631 curated toxin-design prompts across seven functional categories with the SPIKE funnel, a three-stage protocol that filters output through compliance, biological plausibility, and predicted toxicity, producing stage-level diagnostics and an aggregate function-aware metric: the Functional Harmfulness Rate (FHR). An audit of 32 LLMs reveals that most models freely comply with toxin-design requests; FHR is driven primarily by biological generation capability rather than safety alignment, reaching 50.7%; and Refusal Rate fails to predict functional risk. As a first step toward mitigation, we provide BioSafe-Guard, a domain-specialized classifier that substantially reduces predicted functional risk while preserving benign utility. We release SPIKE-Bench and BioSafe-Guard at https://github.com/PKU-Alignment/SPIKE-Bench to support more rigorous biosecurity evaluation of LLMs.",
+      "authors": [
+        "Shu Quan",
+        "Tianfang Hao",
+        "Sitong Fang",
+        "He Geng",
+        "Jiayi Zhou",
+        "Boyuan Chen",
+        "Kaile Wang",
+        "Donghai Hong",
+        "Juntao Dai",
+        "Yaodong Yang",
+        "Jiaming Ji"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T03:51:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.02684v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Quantifies biosecurity risks of LLMs generating toxin-like protein sequences",
+      "llm_evidence_cn": "量化LLM生成类毒素蛋白序列的生物安全风险",
+      "llm_evidence": "量化LLM生成类毒素蛋白序列的生物安全风险",
+      "canonical_evidence": "量化LLM生成类毒素蛋白序列的生物安全风险",
+      "llm_tldr_en": "Introduces SPIKE-Bench with 631 toxin-design prompts and a three-stage filter to detect whether LLM-generated amino acid sequences are plausible biological risks, closing a safety evaluation blind spot.",
+      "llm_tldr_cn": "现有的LLM安全评估局限于自然语言，无法判断模型生成的氨基酸序列是生物噪音还是真实风险信号，导致生物安全对齐存在盲点。我们提出SPIKE-Bench，整合631个覆盖七个功能类别的毒素设计提示，并设计SPIKE漏斗三级过滤协议，从合规性、生物合理性与预测毒性逐步筛选输出。该基准可有效区分生物学乱码与计算风险信号，为量化LLM在蛋白质工程场景下的生物安全风险提供了可复现评测工具。",
+      "llm_tldr": "现有的LLM安全评估局限于自然语言，无法判断模型生成的氨基酸序列是生物噪音还是真实风险信号，导致生物安全对齐存在盲点。我们提出SPIKE-Bench，整合631个覆盖七个功能类别的毒素设计提示，并设计SPIKE漏斗三级过滤协议，从合规性、生物合理性与预测毒性逐步筛选输出。该基准可有效区分生物学乱码与计算风险信号，为量化LLM在蛋白质工程场景下的生物安全风险提供了可复现评测工具。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ]
+}
