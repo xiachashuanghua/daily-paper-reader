@@ -44,14 +44,14 @@
       <span class="dpr-home-dashboard-kicker">2026-08-07</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 7 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 16 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>6</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>10</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 02:10:58 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 21:07:33 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦生物领域语言模型与分子动力学智能体，精读2篇高分论文。最值得看：LLMBDC用语言模型聚类基因本体，MDArena建立分子动力学工作流的编码智能体评估基准。建议优先关注科学场景下智能体的自动化评估与本体知识融合方向。</p>
+<p>今日聚焦16篇AI科学文献，精读6篇，重点锁定基因本体聚类与分子动力学智能体评估两大高分突破。</p>
+<p>最值得关注两项9.0分工作：LLMBDC用语言模型重构基因本体聚类，MDArena开创分子动力学代码智能体评测基准。</p>
+<p>普通读者可优先浏览精读报告，速读中EviGraph自主科研智能体与AutoML临床小数据方案也具参考价值。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">6 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology">LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology</span></li><li><span class="dpr-home-dashboard-paper-title" title="MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows">MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows</span></li><li><span class="dpr-home-dashboard-paper-title" title="EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents">EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology">LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology</span></li><li><span class="dpr-home-dashboard-paper-title" title="MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows">MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows</span></li><li><span class="dpr-home-dashboard-paper-title" title="Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models">Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>6</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">10 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Scaling Scientific Discovery Environments for Turn-Level Agentic RL">Scaling Scientific Discovery Environments for Turn-Level Agentic RL</span></li><li><span class="dpr-home-dashboard-paper-title" title="ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents">ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition">SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="EviGraph: Evidence-Guided Autonomous Research Agents">EviGraph: Evidence-Guided Autonomous Research Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data">DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data</span></li><li><span class="dpr-home-dashboard-paper-title" title="Scaling Scientific Discovery Environments for Turn-Level Agentic RL">Scaling Scientific Discovery Environments for Turn-Level Agentic RL</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>10</strong></span></div>
 </section>
 </div>
 

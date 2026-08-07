@@ -1,9 +1,9 @@
 {
   "date": "20260807",
   "date_label": "",
-  "generated_at": "2026-08-07 02:10:58 UTC",
+  "generated_at": "2026-08-07 21:07:33 UTC",
   "recommend_exists": true,
-  "run_count": 1,
+  "run_count": 2,
   "papers": [
     {
       "paper_id": "2608.00099v1",
@@ -17,9 +17,9 @@
         }
       ],
       "score": 9.0,
-      "evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
+      "evidence": "利用语言模型对基因本体术语进行聚类，是LLM在计算生物学中的应用。",
       "first_seen_at": "2026-08-07 02:10:58 UTC",
-      "updated_at": "2026-08-07 02:10:58 UTC"
+      "updated_at": "2026-08-07 21:07:33 UTC"
     },
     {
       "paper_id": "2608.02642v1",
@@ -33,9 +33,41 @@
         }
       ],
       "score": 9.0,
-      "evidence": "在真实生物分子模拟工作流上评测编码智能体",
+      "evidence": "在真实分子动力学工作流上评估编码智能体，直接涉及生物研究中的自主智能体。",
       "first_seen_at": "2026-08-07 02:10:58 UTC",
-      "updated_at": "2026-08-07 02:10:58 UTC"
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.05329v1",
+      "route": "202608/07/2608.05329v1-frozen-but-not-always-accessible-a-representation-analysis-of-genomic-language-models",
+      "title": "Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基因组语言模型在序列预测任务中的表征可访问性分析",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.05359v1",
+      "route": "202608/07/2608.05359v1-cascade-an-agentic-regulatory-network-framework-for-patient-data-validated-downstream-perturbation-prediction",
+      "title": "CASCADE: An Agentic Regulatory Network Framework for Patient-Data-Validated Downstream Perturbation Prediction",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "智能体框架预测基因扰动的下游转录效应，并在患者肿瘤数据上验证",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
     },
     {
       "paper_id": "2607.28229v1",
@@ -49,9 +81,57 @@
         }
       ],
       "score": 8.0,
-      "evidence": "面向AI智能体的生命科学知识层",
+      "evidence": "面向生命科学智能体的LLM知识层",
       "first_seen_at": "2026-08-07 02:10:58 UTC",
-      "updated_at": "2026-08-07 02:10:58 UTC"
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.03283v1",
+      "route": "202608/07/2608.03283v1-agentpanel-toward-a-new-paradigm-for-human--ai-collaboration-in-exploring-scientific-questions",
+      "title": "AgentPanel: Toward a New Paradigm for Human--AI Collaboration in Exploring Scientific Questions",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "人机协作的多智能体论坛，用于科学探索，可应用于生物研究",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.04738v2",
+      "route": "202608/07/2608.04738v2-evigraph-evidence-guided-autonomous-research-agents",
+      "title": "EviGraph: Evidence-Guided Autonomous Research Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向自主研究智能体的证据图框架，可应用于生物研究",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.05375v1",
+      "route": "202608/07/2608.05375v1-doctoragents-an-agentic-framework-to-iteratively-refine-automl-pipeline-for-small-clinical-temporal-data",
+      "title": "DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向临床时序数据的AutoML智能体框架，可迁移至生物数据分析",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
     },
     {
       "paper_id": "2607.28990v1",
@@ -81,9 +161,73 @@
         }
       ],
       "score": 6.0,
-      "evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
+      "evidence": "针对自主智能体的基准与评估框架，适用于生物研究智能体",
       "first_seen_at": "2026-08-07 02:10:58 UTC",
-      "updated_at": "2026-08-07 02:10:58 UTC"
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2607.28942v2",
+      "route": "202608/07/2607.28942v2-nesyfs-a-neuro-symbolic-fast-slow-thinking-framework-for-llm-agent-under-partial-observability",
+      "title": "NeSyFS: A Neuro-symbolic Fast-Slow Thinking Framework for LLM Agent under Partial Observability",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向部分可观测性的LLM智能体框架，与自主生物研究智能体相关",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.02291v1",
+      "route": "202608/07/2608.02291v1-shared-prefixes-better-credit-adaptive-routing-for-multi-agent-reasoning",
+      "title": "Shared Prefixes, Better Credit: Adaptive Routing for Multi-Agent Reasoning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体推理与信用分配框架，可迁移至生物多智能体系统",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.04872v2",
+      "route": "202608/07/2608.04872v2-a-sr-self-evolving-agentic-llms-for-symbolic-regression-via-hierarchical-coordination",
+      "title": "A-SR: Self-Evolving Agentic LLMs for Symbolic Regression via Hierarchical Coordination",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向符号回归的多智能体LLM框架，适用于生物数据分析",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
+    },
+    {
+      "paper_id": "2608.05956v1",
+      "route": "202608/07/2608.05956v1-certifying-collective-reasoning-in-multi-agent-systems-via-koopman-spectral-analysis",
+      "title": "Certifying Collective Reasoning in Multi-Agent Systems via Koopman Spectral Analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体集体推理的理论保证，适用于计算生物学中的多智能体框架",
+      "first_seen_at": "2026-08-07 21:07:33 UTC",
+      "updated_at": "2026-08-07 21:07:33 UTC"
     },
     {
       "paper_id": "2607.28692v1",

@@ -1,15 +1,15 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-07T02:02:50.539416+00:00",
+  "generated_at": "2026-08-07T20:58:56.028023+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 3,
+    "deep_divecandidates": 5,
     "deep_cap": 6,
-    "deep_selected": 3,
-    "quick_candidates": 4,
+    "deep_selected": 5,
+    "quick_candidates": 8,
     "quick_skim_target": 11,
-    "quick_selected": 4
+    "quick_selected": 8
   },
   "deep_dive": [
     {
@@ -37,13 +37,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "LLM framework that clusters Gene Ontology enrichment terms into biological domains, a direct computational biology application of LLMs.",
-      "llm_evidence_cn": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
-      "llm_evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
-      "canonical_evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
-      "llm_tldr_en": "LLMBDC uses large language models to cluster Gene Ontology enrichment terms into interpretable biological domains, overcoming fixed-similarity and static-hierarchy limits of existing tools, yielding scalable context-aware functional summarization of genomic data.",
-      "llm_tldr_cn": "基因本体富集分析常返回大量冗余术语，现有摘要工具依赖固定相似度或静态层级，难以结合生物上下文。LLMBDC提出以大规模语言模型为核心、面向生物领域的基因本体聚类框架，将GO术语归纳为可解释的高阶生物功能域。该方法可扩展且能感知上下文，替代主观费力的手工注释，帮助研究者从大规模基因组数据中获得更清晰的功能结论。",
-      "llm_tldr": "基因本体富集分析常返回大量冗余术语，现有摘要工具依赖固定相似度或静态层级，难以结合生物上下文。LLMBDC提出以大规模语言模型为核心、面向生物领域的基因本体聚类框架，将GO术语归纳为可解释的高阶生物功能域。该方法可扩展且能感知上下文，替代主观费力的手工注释，帮助研究者从大规模基因组数据中获得更清晰的功能结论。",
+      "llm_evidence_en": "Applies LLM to cluster Gene Ontology terms, a computational biology application of LLMs.",
+      "llm_evidence_cn": "利用语言模型对基因本体术语进行聚类，是LLM在计算生物学中的应用。",
+      "llm_evidence": "利用语言模型对基因本体术语进行聚类，是LLM在计算生物学中的应用。",
+      "canonical_evidence": "利用语言模型对基因本体术语进行聚类，是LLM在计算生物学中的应用。",
+      "llm_tldr_en": "LLMBDC is a context-aware framework that clusters Gene Ontology terms into interpretable higher-order biological domains using a large language model.",
+      "llm_tldr_cn": "基因本体（GO）富集分析常产生大量冗余术语，现有工具无法结合生物学上下文。为此提出LLMBDC，利用大语言模型对GO术语进行上下文感知聚类，将其归纳为可解释的高层生物学领域。该方法在基因集分析中具有可扩展性，为基因组数据分析提供了新工具。",
+      "llm_tldr": "基因本体（GO）富集分析常产生大量冗余术语，现有工具无法结合生物学上下文。为此提出LLMBDC，利用大语言模型对GO术语进行上下文感知聚类，将其归纳为可解释的高层生物学领域。该方法在基因集分析中具有可扩展性，为基因组数据分析提供了新工具。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -80,13 +80,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "Evaluates coding agents on realistic molecular dynamics workflows from active biomolecular simulation projects",
-      "llm_evidence_cn": "在真实生物分子模拟工作流上评测编码智能体",
-      "llm_evidence": "在真实生物分子模拟工作流上评测编码智能体",
-      "canonical_evidence": "在真实生物分子模拟工作流上评测编码智能体",
-      "llm_tldr_en": "MDArena benchmarks coding agents on 50 containerized molecular dynamics tasks spanning 29 molecular systems and 14 research protocols, showing agent reliability on realistic biomolecular workflows.",
-      "llm_tldr_cn": "生物分子模拟是加速科学发现的重要方向，然而编码智能体在真实分子动力学（MD）工作流上的可靠性尚未被充分刻画。为此，MDArena 提供了包含50个容器化任务的基准，覆盖29个分子系统和14类研究协议，包括轨迹分析、复合物体系准备、自由能计算和增强采样。作者评测了Codex和OpenCode等六种模型/框架配置，揭示现有编码智能体在真实生物计算任务中的能力与不足。该基准为自主智能体在计算生物学中的应用提供了标准化评测平台。",
-      "llm_tldr": "生物分子模拟是加速科学发现的重要方向，然而编码智能体在真实分子动力学（MD）工作流上的可靠性尚未被充分刻画。为此，MDArena 提供了包含50个容器化任务的基准，覆盖29个分子系统和14类研究协议，包括轨迹分析、复合物体系准备、自由能计算和增强采样。作者评测了Codex和OpenCode等六种模型/框架配置，揭示现有编码智能体在真实生物计算任务中的能力与不足。该基准为自主智能体在计算生物学中的应用提供了标准化评测平台。",
+      "llm_evidence_en": "Evaluates coding agents on realistic molecular dynamics workflows, directly linked to autonomous agents in biological research.",
+      "llm_evidence_cn": "在真实分子动力学工作流上评估编码智能体，直接涉及生物研究中的自主智能体。",
+      "llm_evidence": "在真实分子动力学工作流上评估编码智能体，直接涉及生物研究中的自主智能体。",
+      "canonical_evidence": "在真实分子动力学工作流上评估编码智能体，直接涉及生物研究中的自主智能体。",
+      "llm_tldr_en": "MDArena is a benchmark of 50 containerized tasks from active biomolecular simulation projects, evaluating coding agents on realistic molecular dynamics workflows such as trajectory analysis and enhanced sampling.",
+      "llm_tldr_cn": "当前编码智能体在真实分子动力学任务上的可靠性尚不清楚。为此，MDArena构建了包含50个容器化任务的基准，涵盖29个分子体系和14种研究协议。作者在Codex和OpenCode等六个模型/配置上评估了智能体性能。该基准填补了自主智能体在生物分子模拟领域评估的空白，促进了智能体在计算生物学研究中的应用。",
+      "llm_tldr": "当前编码智能体在真实分子动力学任务上的可靠性尚不清楚。为此，MDArena构建了包含50个容器化任务的基准，涵盖29个分子体系和14种研究协议。作者在Codex和OpenCode等六个模型/配置上评估了智能体性能。该基准填补了自主智能体在生物分子模拟领域评估的空白，促进了智能体在计算生物学研究中的应用。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -95,6 +95,140 @@
       "matched_requirement_id": "req-4",
       "selection_source": "fresh_fetch"
     },
+    {
+      "id": "2608.05329v1",
+      "source": "arxiv",
+      "title": "Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models",
+      "abstract": "Genomic foundation models are increasingly reused as frozen feature extractors for downstream sequence prediction, offering a compute-efficient alternative to full fine-tuning. However, it remains unclear when biological information encoded by these models is accessible without task-specific adaptation. We present a representation-accessibility analysis of frozen genomic language models across regulatory, epigenetic, promoter, splice-site, and variant-effect prediction tasks. We evaluate DNABERT-2, Nucleotide Transformer, HyenaDNA, GENERATOR-v2, and Omni-DNA under unified frozen-probing protocols, while separating diagnostic readout analyses from validation-selected checks. Our results reveal a consistent task-dependent pattern: frozen probes recover 95-100 % of fine-tuned performance on promoter tasks, but average splice-site recovery drops to 60-88 %. Frozen embeddings are also competitive on broad Genomic Benchmark tasks such as coding-region and species-discrimination classification, but show larger gaps on some regulatory and OCR tasks. Layer-wise probing, in-silico mutagenesis, variant-effect prediction, and embedding geometry show that local biological signal is partially present in frozen representations, but is not always accessible through final pooled embeddings.",
+      "authors": [
+        "Nirjhor Datta",
+        "Swakkhar Shatabda",
+        "M. Sohel Rahman"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN"
+      ],
+      "published": "2026-08-05T18:37:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.05329v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "representation accessibility analysis of genomic language models for sequence prediction",
+      "llm_evidence_cn": "基因组语言模型在序列预测任务中的表征可访问性分析",
+      "llm_evidence": "基因组语言模型在序列预测任务中的表征可访问性分析",
+      "canonical_evidence": "基因组语言模型在序列预测任务中的表征可访问性分析",
+      "llm_tldr_en": "This paper analyzes frozen genomic language models across regulatory, epigenetic, promoter, splice-site and variant-effect prediction tasks, showing task-dependent accessibility of biological information.",
+      "llm_tldr_cn": "基因组基础模型作为冻结特征提取器被广泛复用，但其中编码的生物学信息是否无需任务适配即可访问仍不清楚。论文在调控、表观遗传、启动子、剪接位点和变异效应预测任务上，统一对DNABERT-2、Nucleotide Transformer、HyenaDNA、GENERATOR-v2和Omni-DNA进行冻结探针协议评估，并区分诊断性读出与验证选择检查。结果显示存在一致的任务依赖模式，冻结表征的可访问性随任务变化，为基因组LLM的复用与适配提供指导。",
+      "llm_tldr": "基因组基础模型作为冻结特征提取器被广泛复用，但其中编码的生物学信息是否无需任务适配即可访问仍不清楚。论文在调控、表观遗传、启动子、剪接位点和变异效应预测任务上，统一对DNABERT-2、Nucleotide Transformer、HyenaDNA、GENERATOR-v2和Omni-DNA进行冻结探针协议评估，并区分诊断性读出与验证选择检查。结果显示存在一致的任务依赖模式，冻结表征的可访问性随任务变化，为基因组LLM的复用与适配提供指导。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.05359v1",
+      "source": "arxiv",
+      "title": "CASCADE: An Agentic Regulatory Network Framework for Patient-Data-Validated Downstream Perturbation Prediction",
+      "abstract": "CASCADE is an agentic framework that predicts downstream transcriptional effects of gene perturbation from precomputed   ARACNe regulatory networks, exposed via MCP. Prior work validates such tools by checking whether predicted genes are   known cancer genes (membership); we instead test whether the predicted direction of change matches reality, using   focal-gene copy-number amplification as a dosage-based proxy for the inverse of knockdown against real TCGA patient   tumor data.   For MYC, CASCADE's predicted knockdown targets show strong concordance with real amplified-vs-non-amplified tumor   expression across three cancer types (BRCA: 90.0%, COAD: 72.0%, STAD: 85.7%; all p<0.0013), well above permutation   baselines, surviving a PAM50 subtype control and replicating in an independent cohort (METABRIC, 87.2%). Compared   against curated MSigDB gene-set baselines via Fisher's exact test, CASCADE's accuracy is not shown to exceed existing   public knowledge of MYC- or E2F-driven biology, though its gene-specific direction-calling clearly outperforms a naive   uniform guess.   Extending to fifteen additional genes, validation proves gene-specific rather than universal: proliferation-machinery   regulators mostly replicate, while lineage-identity transcription factors and one cyclin-D paralog (CCND2)   consistently fail, a pattern we discuss as a hedged, post-hoc hypothesis.   We separately benchmark whether an LLM-based agent correctly grounds natural-language requests into CASCADE's real MCP   tool calls. Across 35 queries, a documented local model reaches 71.4% exact match (85.7% for a larger model); schema   and gene-alias failures are resolved by scale or server-side correction, but both models confidently default to the   wrong perturbation type on ambiguous queries, a failure a targeted fix could not resolve because its trigger condition   never occurs.",
+      "authors": [
+        "Jose A. Bird"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-05T19:30:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.05359v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Agentic framework for predicting downstream transcriptional effects of gene perturbation, validated on patient tumor data",
+      "llm_evidence_cn": "智能体框架预测基因扰动的下游转录效应，并在患者肿瘤数据上验证",
+      "llm_evidence": "智能体框架预测基因扰动的下游转录效应，并在患者肿瘤数据上验证",
+      "canonical_evidence": "智能体框架预测基因扰动的下游转录效应，并在患者肿瘤数据上验证",
+      "llm_tldr_en": "CASCADE is an agentic regulatory-network framework that predicts downstream transcriptional perturbation effects from ARACNe networks, validating direction-of-change against TCGA patient tumor data with strong concordance across cancer types.",
+      "llm_tldr_cn": "现有扰动预测验证过于简单，CASCADE利用基于ARACNe调控网络的智能体框架，以TCGA患者拷贝数扩增代理基因敲低，检验预测方向是否与真实表达一致。在MYC靶标上，BRCA、COAD、STAD一致率达90.0%、72.0%和85.7%，显著优于置换基线。该方法为基因扰动预测提供了患者数据驱动的严格验证范式。",
+      "llm_tldr": "现有扰动预测验证过于简单，CASCADE利用基于ARACNe调控网络的智能体框架，以TCGA患者拷贝数扩增代理基因敲低，检验预测方向是否与真实表达一致。在MYC靶标上，BRCA、COAD、STAD一致率达90.0%、72.0%和85.7%，显著优于置换基线。该方法为基因扰动预测提供了患者数据驱动的严格验证范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03283v1",
+      "source": "arxiv",
+      "title": "AgentPanel: Toward a New Paradigm for Human--AI Collaboration in Exploring Scientific Questions",
+      "abstract": "Identifying promising scientific ideas remains an important challenge in research practice. Researchers commonly rely on small-group discussions or one-to-one interactions with a single large language model, yet these approaches often expose them to only a limited range of perspectives and directions. We present AgentPanel, a multi-agent forum for human--AI collaboration in scientific exploration. Heterogeneous agents asynchronously discuss scientific questions in a forum-style environment, while researchers can submit questions, browse and organize candidate ideas, engage agents in follow-up interactions, and optionally generate post-hoc summary reports. We evaluate AgentPanel in terms of idea quality, exploration breadth, interaction effectiveness, candidate-selection efficiency, and practical utility. Offline experiments show that AgentPanel outperforms a centralized multi-agent debate baseline. A human study with 20 participants further shows that users value AgentPanel for perspective diversity and exploration support. In experience-based comparisons with commonly used LLM tools, 65\\% of participants favored AgentPanel for both breadth of research directions and overall suitability for early-stage exploration. The platform is publicly available at https://agentpanel.cc/.",
+      "authors": [
+        "Zhiyao Cui",
+        "Qianyi Wang",
+        "Haoyang Yan",
+        "Yiqun Zhang",
+        "Siyue Ren",
+        "Hangfan Zhang",
+        "Zelin Tan",
+        "Hao Li",
+        "Chunjiang Mu",
+        "Dexian Cai",
+        "Shao Zhang",
+        "Chen Zhang",
+        "Meng Li",
+        "Jianan Chai",
+        "Yuting Fan",
+        "Zichao Ye",
+        "Xiaolei Yang",
+        "Xinyao Lu",
+        "Yuyang Yu",
+        "Wenjie Lou",
+        "Xiaosong Wang",
+        "Fenghua Ling",
+        "Shiyang Feng",
+        "Mao Su",
+        "Qiaosheng Zhang",
+        "Bo Zhang",
+        "Yang Chen",
+        "Lei Bai",
+        "Shuyue Hu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-04T07:58:15+00:00",
+      "link": "https://arxiv.org/pdf/2608.03283v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-agent forum for human-AI collaboration in scientific exploration, applicable to biological research",
+      "llm_evidence_cn": "人机协作的多智能体论坛，用于科学探索，可应用于生物研究",
+      "llm_evidence": "人机协作的多智能体论坛，用于科学探索，可应用于生物研究",
+      "canonical_evidence": "人机协作的多智能体论坛，用于科学探索，可应用于生物研究",
+      "llm_tldr_en": "AgentPanel is a multi-agent forum enabling asynchronous discussions among heterogeneous agents and researchers, broadening perspectives and improving idea quality in scientific exploration.",
+      "llm_tldr_cn": "论文针对科研中小范围讨论和单LLM交互视角有限的问题，提出AgentPanel多智能体论坛。不同类型智能体在论坛中异步讨论科学问题，研究者可提交问题、浏览整理候选人想法、进行后续交互并生成总结报告。该系统在想法质量、探索广度和交互深度方面提升了人机协作的科学探索体验，适用于生物等领域科研。",
+      "llm_tldr": "论文针对科研中小范围讨论和单LLM交互视角有限的问题，提出AgentPanel多智能体论坛。不同类型智能体在论坛中异步讨论科学问题，研究者可提交问题、浏览整理候选人想法、进行后续交互并生成总结报告。该系统在想法质量、探索广度和交互深度方面提升了人机协作的科学探索体验，适用于生物等领域科研。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
     {
       "id": "2607.28229v1",
       "source": "arxiv",
@@ -127,62 +261,20 @@
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "Life-sciences knowledge layer for AI agents",
-      "llm_evidence_cn": "面向AI智能体的生命科学知识层",
-      "llm_evidence": "面向AI智能体的生命科学知识层",
-      "canonical_evidence": "面向AI智能体的生命科学知识层",
-      "llm_tldr_en": "EMBL AI Librarian is a knowledge layer that lets AI agents query Europe PMC literature in natural language and receive evidence answers, making literature access agent-friendly and supporting life-sciences agentic workflows.",
-      "llm_tldr_cn": "现有生命科学文献资源如Europe PMC并非为AI智能体设计，智能体需学习复杂语法并阅读全文才能获取证据。EMBL AI Librarian构建了一个以大语言模型编排的知识层，让智能体用自然语言提问并直接获得可用的证据答案。该系统面向生命科学中快速增长的智能体管线，将文献访问能力转化为智能体友好的接口。这项工作为生物信息学中的自主研究智能体提供了关键基础支撑。",
-      "llm_tldr": "现有生命科学文献资源如Europe PMC并非为AI智能体设计，智能体需学习复杂语法并阅读全文才能获取证据。EMBL AI Librarian构建了一个以大语言模型编排的知识层，让智能体用自然语言提问并直接获得可用的证据答案。该系统面向生命科学中快速增长的智能体管线，将文献访问能力转化为智能体友好的接口。这项工作为生物信息学中的自主研究智能体提供了关键基础支撑。",
-      "llm_tags": [
-        "query:llmagt"
-      ],
-      "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Autonomous agents for biological research",
-      "matched_requirement_id": "req-4",
-      "selection_source": "fresh_fetch"
-    }
-  ],
-  "quick_skim": [
-    {
-      "id": "2607.28990v1",
-      "source": "arxiv",
-      "title": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
-      "abstract": "Large language model agents have shown promising capabilities in data-driven scientific discovery tasks, where an agent interacts with an execution environment and produces a statistical claim. Long-horizon scientific analysis remains constrained by the lack of process supervised environments over real-world scientific data. This paper introduces SciDisco, a scalable framework for training Scientific Discovery agents in process-verifiable environments. SciThèque compiles hypotheses, datasets, hidden evidence graphs, and verifiers into task environments where analytical progress can be checked during interaction. DAG-grounded trajectory synthesis uses these environments to construct verifier-filtered multi-turn demonstrations. DiscoPO then uses the environment as the source of training signal, assigning turn-level credit to actions that produce verifiable analytical evidence. Experiments show that SciDisco-14B reaches state-of-the-art on hypothesis-driven scientific data analysis benchmarks.",
-      "authors": [
-        "Yucheng Xu",
-        "Keyi Zhang",
-        "Yuyang Yu",
-        "Min Zhang",
-        "Shiyuan Meng",
-        "Pei Chu",
-        "Zhongying Tu"
-      ],
-      "primary_category": "cs.AI",
-      "categories": [
-        "cs.AI"
-      ],
-      "published": "2026-07-31T03:34:39+00:00",
-      "link": "https://arxiv.org/pdf/2607.28990v1",
-      "tags": [
-        "keyword:LLMAGT",
-        "query:LLMAGT"
-      ],
       "llm_score": 7.0,
-      "llm_evidence_en": "Framework for scaling scientific discovery agents with process-verifiable environments, directly applicable to autonomous agents for biological research",
-      "llm_evidence_cn": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
-      "llm_evidence": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
-      "canonical_evidence": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
-      "llm_tldr_en": "Introduces SciDisco, a framework with process-verifiable environments, DAG-grounded trajectory synthesis, and DiscoPO for training scientific discovery agents in long-horizon data-driven research.",
-      "llm_tldr_cn": "长周期科学分析缺乏可监督真实数据的过程环境，制约了科学发现智能体的训练。本文提出SciDisco框架：SciThèque将假设、数据集、隐藏证据图和验证器编译为可交互过程校验的任务环境；DAG轨迹合成生成验证器过滤的多轮演示；DiscoPO利用环境奖励进行回合级强化学习。该框架把科学发现训练扩展到过程可验证的真实数据环境，为生物信息学等领域的自动化研究提供了基础设施。",
-      "llm_tldr": "长周期科学分析缺乏可监督真实数据的过程环境，制约了科学发现智能体的训练。本文提出SciDisco框架：SciThèque将假设、数据集、隐藏证据图和验证器编译为可交互过程校验的任务环境；DAG轨迹合成生成验证器过滤的多轮演示；DiscoPO利用环境奖励进行回合级强化学习。该框架把科学发现训练扩展到过程可验证的真实数据环境，为生物信息学等领域的自动化研究提供了基础设施。",
+      "llm_evidence_en": "LLM-based knowledge layer for life-sciences agents",
+      "llm_evidence_cn": "面向生命科学智能体的LLM知识层",
+      "llm_evidence": "面向生命科学智能体的LLM知识层",
+      "canonical_evidence": "面向生命科学智能体的LLM知识层",
+      "llm_tldr_en": "EMBL AI Librarian is a knowledge layer for AI agents that provides natural-language access to Europe PMC, returning targeted evidence instead of full papers, improving evidence retrieval for life-science agentic pipelines.",
+      "llm_tldr_cn": "针对生命科学AI智能体在访问Europe PMC等文献资源时需要学习复杂语法、多次检索并阅读全文的痛点，提出EMBL AI图书馆员知识层。它以自然语言接受智能体提问，并通过单一LLM编排整个知识提取流程，直接返回回答问题的证据，而不只是整篇论文。该工具升级了面向AI智能体的文献接口，显著提升生命科学智能体获取文献证据的效率。",
+      "llm_tldr": "针对生命科学AI智能体在访问Europe PMC等文献资源时需要学习复杂语法、多次检索并阅读全文的痛点，提出EMBL AI图书馆员知识层。它以自然语言接受智能体提问，并通过单一LLM编排整个知识提取流程，直接返回回答问题的证据，而不只是整篇论文。该工具升级了面向AI智能体的文献接口，显著提升生命科学智能体获取文献证据的效率。",
       "llm_tags": [
         "query:llmagt"
       ],
       "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Autonomous agents for biological research",
-      "matched_requirement_id": "req-4",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
       "selection_source": "fresh_fetch",
       "quick_tier": "7"
     },
@@ -213,13 +305,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 6.0,
-      "llm_evidence_en": "Trace-level evaluation and improvement of autonomous agents, useful for assessing autonomous agents in biological research",
-      "llm_evidence_cn": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
-      "llm_evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
-      "canonical_evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
-      "llm_tldr_en": "Introduces ClawTrack, a dual-assessment benchmark measuring both task outcomes and reasoning process of LLM agents, enabling failure attribution in long-horizon workflows.",
-      "llm_tldr_cn": "现有智能体基准只考核最终结果，无法区分运气成功与可靠推理，也难以定位失败环节。ClawTrack提出双重评估：任务得分测结果，过程得分沿推理轮次评估目标对齐、效率、信息利用与结果验证四个维度，包含320个跨8域任务。它能够揭示智能体在长周期任务中的过程缺陷，为改进自主智能体（包括生物研究智能体）提供精细反馈。",
-      "llm_tldr": "现有智能体基准只考核最终结果，无法区分运气成功与可靠推理，也难以定位失败环节。ClawTrack提出双重评估：任务得分测结果，过程得分沿推理轮次评估目标对齐、效率、信息利用与结果验证四个维度，包含320个跨8域任务。它能够揭示智能体在长周期任务中的过程缺陷，为改进自主智能体（包括生物研究智能体）提供精细反馈。",
+      "llm_evidence_en": "Benchmark and evaluation framework for autonomous agents, applicable to biological research agents",
+      "llm_evidence_cn": "针对自主智能体的基准与评估框架，适用于生物研究智能体",
+      "llm_evidence": "针对自主智能体的基准与评估框架，适用于生物研究智能体",
+      "canonical_evidence": "针对自主智能体的基准与评估框架，适用于生物研究智能体",
+      "llm_tldr_en": "ClawTrack addresses the evaluation gap in autonomous agents by providing a dual-assessment benchmark that measures both task outcomes and process quality across 320 tasks, enabling trace-level attribution of failures and improvement.",
+      "llm_tldr_cn": "论文指出现有智能体评估多只关注最终结果，无法区分正确推理与侥幸成功或定位过程缺陷。为此提出ClawTrack，包含320个跨8个领域的任务和过程评分器，从目标对齐、效率、信息利用和结果验证四个维度逐轮评估。该基准可用于生物研究等复杂自主智能体的开发与改进。",
+      "llm_tldr": "论文指出现有智能体评估多只关注最终结果，无法区分正确推理与侥幸成功或定位过程缺陷。为此提出ClawTrack，包含320个跨8个领域的任务和过程评分器，从目标对齐、效率、信息利用和结果验证四个维度逐轮评估。该基准可用于生物研究等复杂自主智能体的开发与改进。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -230,76 +322,241 @@
       "quick_tier": "6"
     },
     {
-      "id": "2607.28692v1",
+      "id": "2608.04738v2",
       "source": "arxiv",
-      "title": "SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition",
-      "abstract": "Large language model (LLM) agents have been increasingly adopted in scientific research for organizing and invoking specialized computational tools. However, their reliance on predefined tool spaces with static semantics limits their applicability to open-world scientific workflows, where tool requirements, capabilities, and boundaries evolve dynamically. To this end, we propose SciToolAgent-Evo, an ontology-aware self-evolving agent for open-world scientific tool acquisition. Driven by an evolving memory of skills, experiences, and an ontologized tool graph, it distills generalizable knowledge from contrastive trajectories during accumulation, whereas during inference, it formulates active requests and utilizes a LinUCB-based bandit gate to dynamically balance exploration and exploitation. Once a novel tool is acquired, its scientific ontology is completed online for seamless integration into the known graph. Moreover, we introduce OpenSciToolBench, a benchmark containing 900 realistic tasks across four difficulty levels. Extensive evaluations show that SciToolAgent-Evo achieves state-of-the-art performance, validating its robustness and generalization.",
+      "title": "EviGraph: Evidence-Guided Autonomous Research Agents",
+      "abstract": "Autonomous research agents can generate hypotheses, execute experiments, and draft manuscripts, yet their outputs often contain unsupported claims and inconsistencies between research questions, experiments, results, and conclusions. We argue that this problem is partly architectural: existing systems organize research as sequential pipelines but do not explicitly maintain or validate the evolving claim-evidence structure across stages. In this paper, we introduce EviGraph, an autonomous research framework that represents the research process as a typed evidence graph containing Problem, Gap, Hypothesis, Experiment, Finding, and Claim nodes. The graph serves as the operational state of the agent rather than a post-hoc record. EviGraph inspects evidence chains for missing dependencies, semantic misalignment, and result-claim inconsistencies, localizes the earliest weak node, and regenerates its affected downstream subgraph. Graph checkpointing prevents unsuccessful repairs from corrupting previously validated evidence. Manuscripts are generated only after every retained claim is grounded in a validated evidence chain. Experiments on ARC-Bench-ML and NanoResearch-20 show that EviGraph outperforms the compared end-to-end research-agent baselines in overall research performance, improves Claim Support Rate by 40.19% over the strongest baseline, and achieves 87.73% Experimental Data Consistency. These results demonstrate the value of explicit evidence-state maintenance for reliable autonomous research.",
       "authors": [
-        "Yuqi Tang",
-        "Chenyi Zhou",
-        "Libin Wang",
-        "Keyan Ding",
-        "Qiang Zhang",
-        "Huajun Chen"
+        "Zhenjiang Ren",
+        "Ruiji Li",
+        "Xujing Zhang",
+        "Ziliang Pang",
+        "Shuo Ren",
+        "Jiajun Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-05T12:02:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.04738v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "autonomous research agent framework using evidence graphs for hypothesis generation and experimentation",
+      "llm_evidence_cn": "面向自主研究智能体的证据图框架，可应用于生物研究",
+      "llm_evidence": "面向自主研究智能体的证据图框架，可应用于生物研究",
+      "canonical_evidence": "面向自主研究智能体的证据图框架，可应用于生物研究",
+      "llm_tldr_en": "EviGraph is an autonomous research framework that represents research as a typed evidence graph with Problem, Gap, Hypothesis, Experiment, Finding and Claim nodes, using the graph as operational state to validate evidence chains and reduce unsupported claims.",
+      "llm_tldr_cn": "现有自主研究智能体的输出常含有未经支持的声明，各阶段之间的证据链缺乏一致性。EviGraph将研究过程建模为包含问题、假设、实验、发现和声明等节点的类型化证据图，并让该图作为智能体的运行状态而非事后记录。这种方法能够系统检验证据链并发现缺失环节。该框架为可验证的自主科学发现提供了新的架构思路，可推广到生物等领域的智能体研究。",
+      "llm_tldr": "现有自主研究智能体的输出常含有未经支持的声明，各阶段之间的证据链缺乏一致性。EviGraph将研究过程建模为包含问题、假设、实验、发现和声明等节点的类型化证据图，并让该图作为智能体的运行状态而非事后记录。这种方法能够系统检验证据链并发现缺失环节。该框架为可验证的自主科学发现提供了新的架构思路，可推广到生物等领域的智能体研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.28942v2",
+      "source": "arxiv",
+      "title": "NeSyFS: A Neuro-symbolic Fast-Slow Thinking Framework for LLM Agent under Partial Observability",
+      "abstract": "Recently Large Language Models (LLMs) have been increasingly deployed as autonomous agents in applications such as self-reflection, retrieval-augmented generation, and scientific discovery. In these settings, agents must act based on limited observations rather than full environmental states, leading to partial observability. This introduces several key challenges: belief state inference, task objective misalignment, and planning under uncertainty. Prior approaches typically condition actions on full or summarized action-observation histories whose redundant and irrelevant information can mislead the decision making of LLM agent. Inspired by human cognition, we propose a novel neuro-symbolic fast-slow thinking (NeSyFS) framework for LLM agent, addressing the challenges introduced by partial observability in a unified approach. We use a knowledge graph (KG) to represent the belief state, providing triplets as context for every module of NeSyFS. The fast-thinking module performs reactive action, while slow-thinking conducts a new uncertainty-aware planning by following the high-level structure of twisted sequential Monte Carlo (TSMC) algorithm. To mitigate the misalignment of task objective, a reflection module is used to reflect fast-thinking actions, and also switches to the slow-thinking module whenever reactive actions repeatedly fail. Experiments on three representative benchmarks, i.e. ALFWorld, Webshop, and ScienceWorld, demonstrate significant advantages over previous methods.",
+      "authors": [
+        "Duo Xu",
+        "Faramarz Fekri"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-31T01:53:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.28942v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Framework for LLM agents in partial observability, relevant to autonomous biological research agents",
+      "llm_evidence_cn": "面向部分可观测性的LLM智能体框架，与自主生物研究智能体相关",
+      "llm_evidence": "面向部分可观测性的LLM智能体框架，与自主生物研究智能体相关",
+      "canonical_evidence": "面向部分可观测性的LLM智能体框架，与自主生物研究智能体相关",
+      "llm_tldr_en": "NeSyFS combines fast and slow thinking with neuro-symbolic reasoning to help LLM agents handle partial observability, improving belief state inference, task alignment, and planning under uncertainty.",
+      "llm_tldr_cn": "论文针对LLM智能体在部分可观测环境中的信念推断和规划问题，提出神经符号快慢思考框架。该框架融合人类认知中的快慢系统，结合符号推理与神经网络方法，对完整或摘要历史进行筛选，减少冗余信息干扰，提升智能体的决策质量。方法适用于科学发现等需要自主推理的智能体场景，包括生物研究。",
+      "llm_tldr": "论文针对LLM智能体在部分可观测环境中的信念推断和规划问题，提出神经符号快慢思考框架。该框架融合人类认知中的快慢系统，结合符号推理与神经网络方法，对完整或摘要历史进行筛选，减少冗余信息干扰，提升智能体的决策质量。方法适用于科学发现等需要自主推理的智能体场景，包括生物研究。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.05375v1",
+      "source": "arxiv",
+      "title": "DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data",
+      "abstract": "Clinical machine learning (ML) has the potential to support high-stakes medical decision-making, but reliable deployment is often constrained by scarce, heterogeneous, and temporal complexity. Developing effective ML pipelines for such data remains time-consuming and error-prone, while existing automated machine learning (AutoML) systems only partially address this challenge because they largely rely on brute-force search over predefined spaces and lack explicit reasoning and memory. We therefore reformulate AutoML for small clinical data from exhaustive search to reasoning-driven refinement. We propose DoctorAgents, an agentic AI framework that autonomously constructs and optimizes end-to-end ML pipelines through specialized large language model (LLM) agents for generation, validation, and refinement. DoctorAgents backpropagates natural-language feedback through textual gradient descent to perform targeted updates without exhaustive search. Experiments across diverse clinical tasks show that DoctorAgents consistently outperforms established AutoML baselines while producing more interpretable task-specific representations.",
+      "authors": [
+        "Ruilin Wang",
+        "Bo-Hong Wang",
+        "Elizabeth Kourbatski",
+        "Jun Bai",
+        "Hegang Chen",
+        "Ziyang Song",
+        "Gilles Boire",
+        "Marie Hudson",
+        "Yue Li"
       ],
       "primary_category": "cs.AI",
       "categories": [
         "cs.AI",
-        "cs.CL"
+        "cs.LG",
+        "cs.MA"
       ],
-      "published": "2026-07-30T08:47:11+00:00",
-      "link": "https://arxiv.org/pdf/2607.28692v1",
+      "published": "2026-08-05T19:52:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.05375v1",
       "tags": [
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "Self-evolving LLM agent for open-world scientific tool acquisition, transferable to biological research",
-      "llm_evidence_cn": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
-      "llm_evidence": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
-      "canonical_evidence": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
-      "llm_tldr_en": "SciToolAgent-Evo is an ontology-aware self-evolving LLM agent that distills knowledge from trajectories and uses an evolving tool graph plus LinUCB to acquire tools in open-world scientific workflows, a general framework transferable to bioinformatics.",
-      "llm_tldr_cn": "本文指出LLM智能体在科学研究中依赖静态工具空间、难以应对开放世界动态需求的问题，提出本体感知的自进化智能体SciToolAgent-Evo。它利用演化的技能记忆、经验与本体化工具图，从对比轨迹中提炼可泛化知识，并在推理时通过LinUCB策略主动请求工具。实验表明该方法能适应工具需求与边界的动态变化。该框架虽未限定于生物学，但可迁移到生物信息学科研工具获取中。",
-      "llm_tldr": "本文指出LLM智能体在科学研究中依赖静态工具空间、难以应对开放世界动态需求的问题，提出本体感知的自进化智能体SciToolAgent-Evo。它利用演化的技能记忆、经验与本体化工具图，从对比轨迹中提炼可泛化知识，并在推理时通过LinUCB策略主动请求工具。实验表明该方法能适应工具需求与边界的动态变化。该框架虽未限定于生物学，但可迁移到生物信息学科研工具获取中。",
+      "llm_score": 7.0,
+      "llm_evidence_en": "agentic framework for AutoML on clinical temporal data, transferable to biological data analysis",
+      "llm_evidence_cn": "面向临床时序数据的AutoML智能体框架，可迁移至生物数据分析",
+      "llm_evidence": "面向临床时序数据的AutoML智能体框架，可迁移至生物数据分析",
+      "canonical_evidence": "面向临床时序数据的AutoML智能体框架，可迁移至生物数据分析",
+      "llm_tldr_en": "DoctorAgents is an agentic framework that iteratively refines AutoML pipelines for small clinical temporal data using reasoning and memory, outperforming brute-force AutoML and transferable to biological data analysis.",
+      "llm_tldr_cn": "针对小样本临床时序数据上AutoML依赖暴力搜索、缺乏推理和记忆的问题，本文提出DoctorAgents智能体框架，将AutoML重构为推理驱动的迭代优化过程，自主构建并端到端优化机器学习管道。实验表明该方法在临床数据上优于现有AutoML系统，且可迁移至生物数据分析任务，为智能体驱动的数据建模提供了新思路。",
+      "llm_tldr": "针对小样本临床时序数据上AutoML依赖暴力搜索、缺乏推理和记忆的问题，本文提出DoctorAgents智能体框架，将AutoML重构为推理驱动的迭代优化过程，自主构建并端到端优化机器学习管道。实验表明该方法在临床数据上优于现有AutoML系统，且可迁移至生物数据分析任务，为智能体驱动的数据建模提供了新思路。",
       "llm_tags": [
         "query:llmagt"
       ],
       "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Autonomous agents for biological research",
-      "matched_requirement_id": "req-4",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
       "selection_source": "fresh_fetch",
-      "quick_tier": "6"
+      "quick_tier": "7"
     },
     {
-      "id": "2608.04588v1",
+      "id": "2608.02291v1",
       "source": "arxiv",
-      "title": "EASy: Towards Efficient LLM-Based Agentic System",
-      "abstract": "Agentic systems have emerged as a promising paradigm for solving complex tasks by coordinating specialized LLM-based agents. However, most existing systems primarily optimize task success while giving limited consideration to execution efficiency under practical constraints such as executor capability and computational cost. Existing router-based methods have limited ability to reason over rich, evolving task contexts, multi-step dependencies, and intermediate execution feedback, and often generalize poorly to unseen executors. We propose EASy, a trainable agentic framework that jointly optimizes task performance and computational efficiency through reinforcement learning. EASy equips an LLM-based orchestrator with explicit knowledge of the capability and cost profiles of heterogeneous executors, enabling context-sensitive coordination beyond performance-only routing. It further introduces a milestone-plan-act workflow that decomposes complex tasks into manageable milestones, constructs dependency-aware execution graphs, assigns suitable executors, and parallelizes independent steps while adapting subsequent decisions to intermediate outcomes. To train the orchestrator, we develop a tree-structured rollout procedure that explores alternative milestone decompositions and execution plans, together with multi-component rewards that capture task correctness, execution efficiency, and trajectory completeness. Extensive experiments on mathematical reasoning, embodied decision-making, and deep research benchmarks show that EASy consistently achieves stronger performance-efficiency trade-offs than strong agentic baselines.",
+      "title": "Shared Prefixes, Better Credit: Adaptive Routing for Multi-Agent Reasoning",
+      "abstract": "Multi-agent reasoning (MAR) improves reasoning reliability through iterative solution exchange and refinement. Existing adaptive MAR methods typically learn routing decisions from query-level labels or trajectory-level returns, but such coarse supervision cannot accurately estimate the state-conditioned utility of individual operators in multi-step collaboration. We propose TreeCredit, a shared-prefix credit assignment framework for efficient adaptive MAR. Its core insight is to estimate operator utility through state-matched downstream comparisons, rather than directly attributing trajectory-level outcomes to preceding decisions. TreeCredit constructs shared-prefix collaboration trees by expanding candidate operators from the same intermediate state and assigns each state--operator pair a correctness-prioritized suffix credit based on the terminal correctness and cumulative additional cost of its complete continuation. These structured credits are converted into state-local operator preferences to train a lightweight pairwise state router, which dynamically selects the next admissible operator during inference. Experiments on six reasoning benchmarks show that TreeCredit modestly improves accuracy while substantially reducing inference cost, achieving a better accuracy--cost trade-off than representative MAR methods.",
       "authors": [
-        "Junnan Liu",
-        "Linhao Luo",
-        "Thuy-Trang Vu",
-        "Gholamreza Haffari"
+        "Yiqing Liu",
+        "Zihao Wang",
+        "Hantao Yao",
+        "Wu Liu",
+        "Yongdong Zhang"
       ],
-      "primary_category": "cs.CL",
+      "primary_category": "cs.AI",
       "categories": [
-        "cs.CL",
         "cs.AI"
       ],
-      "published": "2026-08-05T08:50:36+00:00",
-      "link": "https://arxiv.org/pdf/2608.04588v1",
+      "published": "2026-08-03T14:22:23+00:00",
+      "link": "https://arxiv.org/pdf/2608.02291v1",
       "tags": [
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
       "llm_score": 6.0,
-      "llm_evidence_en": "Trainable framework for efficient LLM-based agentic systems, applicable as a multi-agent framework in computational biology",
-      "llm_evidence_cn": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
-      "llm_evidence": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
-      "canonical_evidence": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
-      "llm_tldr_en": "Introduces EASy, a reinforcement-learned agentic framework jointly optimizing task performance and computational cost, offering an efficient multi-agent orchestration method.",
-      "llm_tldr_cn": "现有LLM智能体系统主要优化任务成功率，忽略执行效率和成本等实际约束。EASy提出可训练的智能体编排框架，通过强化学习联合优化任务性能与计算效率，让编排器显式感知执行者的能力与成本画像，并能处理多步依赖和中间反馈。在复杂任务中，EASy在保持性能的同时显著降低计算开销，为多智能体系统（如计算生物学流程）提供了高效框架。",
-      "llm_tldr": "现有LLM智能体系统主要优化任务成功率，忽略执行效率和成本等实际约束。EASy提出可训练的智能体编排框架，通过强化学习联合优化任务性能与计算效率，让编排器显式感知执行者的能力与成本画像，并能处理多步依赖和中间反馈。在复杂任务中，EASy在保持性能的同时显著降低计算开销，为多智能体系统（如计算生物学流程）提供了高效框架。",
+      "llm_evidence_en": "Multi-agent reasoning framework with credit assignment, transferable to biological multi-agent systems",
+      "llm_evidence_cn": "多智能体推理与信用分配框架，可迁移至生物多智能体系统",
+      "llm_evidence": "多智能体推理与信用分配框架，可迁移至生物多智能体系统",
+      "canonical_evidence": "多智能体推理与信用分配框架，可迁移至生物多智能体系统",
+      "llm_tldr_en": "TreeCredit improves adaptive multi-agent reasoning by estimating operator utility through shared-prefix collaboration trees and state-matched comparisons, enabling more efficient routing and credit assignment in multi-step collaborations.",
+      "llm_tldr_cn": "论文针对多智能体推理中现有方法难以准确分配操作者效用的问题，提出TreeCredit框架。其核心是通过共享前缀协作树和状态匹配的下游比较来估计操作者价值，而不是直接归因于轨迹结果。该框架提高了自适应路由和信用分配的效率与准确性，可用于生物信息学等需要多智能体协作的复杂任务。",
+      "llm_tldr": "论文针对多智能体推理中现有方法难以准确分配操作者效用的问题，提出TreeCredit框架。其核心是通过共享前缀协作树和状态匹配的下游比较来估计操作者价值，而不是直接归因于轨迹结果。该框架提高了自适应路由和信用分配的效率与准确性，可用于生物信息学等需要多智能体协作的复杂任务。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.04872v2",
+      "source": "arxiv",
+      "title": "A-SR: Self-Evolving Agentic LLMs for Symbolic Regression via Hierarchical Coordination",
+      "abstract": "Symbolic regression aims to discover closed-form equations from data, but existing LLM-guided methods often rely on a unified proposal loop that compresses heterogeneous search failures into a scalar score and a single prompt. We propose A-SR, a self-evolving agentic framework that shifts the control unit from expression edits to role-conditioned evidence views. A-SR coordinates formula discovery through routing among coordination protocols, an online evaluator-reward role policy, and state-routed process memory. During search, evaluator feedback characterizes reliability and productivity, updates role-level utilities, and routes elite motifs, failure traces, and validity diagnostics to different agents. The framework self-evolves at two timescales: within a run, it adapts the search process without updating LLM parameters; across runs, recorded trajectories can be distilled into open-source LLMs as role-conditioned proposal priors. Averaged over the four LSR-Synth scientific domains in LLM-SRBench, A-SR improves Acc@0.01 over baselines from 25.79% to 48.30% with Llama3.1-8B, while A-SR-LoRA improves the corresponding Qwen3-4B result from 24.58% to 38.29%. On four real-world scientific discovery tasks, A-SR obtains the best in-distribution or out-of-distribution normalized mean squared error on 7 of 8 reported metrics.",
+      "authors": [
+        "Wenxiao Zhao",
+        "Dong Liu",
+        "Kaiyi Xu",
+        "Feng Liu",
+        "Zhen Zhao",
+        "Fei Ben",
+        "Shu Wang",
+        "Wenhao Li",
+        "Ying Nian Wu",
+        "Fenghua Ling",
+        "Haobo Li",
+        "Lei Bai"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-05T14:01:10+00:00",
+      "link": "https://arxiv.org/pdf/2608.04872v2",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent LLM framework for symbolic regression, a data analysis method applicable to biological data",
+      "llm_evidence_cn": "面向符号回归的多智能体LLM框架，适用于生物数据分析",
+      "llm_evidence": "面向符号回归的多智能体LLM框架，适用于生物数据分析",
+      "canonical_evidence": "面向符号回归的多智能体LLM框架，适用于生物数据分析",
+      "llm_tldr_en": "A-SR improves symbolic regression with a self-evolving agentic LLM framework that uses role-conditioned evidence views and hierarchical coordination, routing process memory to different agents for better equation discovery.",
+      "llm_tldr_cn": "论文指出现有LLM引导的符号回归方法将不同搜索失败压缩为标量分数和单一提示，效率有限。提出A-SR，通过协调协议、在线评估者-奖励角色策略和状态路由过程记忆，将失败痕迹和有效性诊断分配给不同智能体，实现自进化。该方法在公式发现任务上优于既有方法，可应用于生物数据分析中的方程建模。",
+      "llm_tldr": "论文指出现有LLM引导的符号回归方法将不同搜索失败压缩为标量分数和单一提示，效率有限。提出A-SR，通过协调协议、在线评估者-奖励角色策略和状态路由过程记忆，将失败痕迹和有效性诊断分配给不同智能体，实现自进化。该方法在公式发现任务上优于既有方法，可应用于生物数据分析中的方程建模。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.05956v1",
+      "source": "arxiv",
+      "title": "Certifying Collective Reasoning in Multi-Agent Systems via Koopman Spectral Analysis",
+      "abstract": "Orchestrated collectives of large language model (LLM) agents that debate and vote are an emerging form of computational intelligence: the intelligent behaviour resides in the \\emph{interaction}, not in any single agent. They improve task accuracy, yet remain black boxes at the system level: there is no principled test of convergence, no bound on the rounds needed, and no faithful account of what drove a decision. This paper develops a novel framework based on Koopman operator theory and validates its theoretical guarantees on multi-agent consensus dynamics. Treating the collective as one nonlinear dynamical system on a communication graph, we read its essential behaviour off the spectrum of its Koopman transfer operator, an exact linear representation of the nonlinear dynamics estimated from interaction traces. The spectrum yields three machine-checkable certificates: the sub-dominant eigenvalue $λ_2$ fixes the intrinsic timescale of reasoning and yields a convergence deadline computable \\emph{before} the debate runs; its eigenvector names the coherent factions the collective reasons in, and $|λ_2|$ certifies when that explanation is valid; and the leading spectral coordinates form a compressed, auditable message basis. On an attention-consensus model, the deadline tracks observed convergence with log--log correlation $0.93$ and bounds it in 96\\% of 24 configurations; attribution is exact whenever the spectrum certifies metastability; eight of 32 coordinates preserve the decision at 99.7\\% fidelity; and a certificate learned from 15 debates held on 60/60 held-out debates. The study runs in minutes on a CPU, making spectral certification a practical layer for trustworthy collective reasoning.",
+      "authors": [
+        "Nuzhat Khan",
+        "Indrakshi Dey"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "eess.SY"
+      ],
+      "published": "2026-08-06T12:30:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.05956v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Theoretical guarantees for multi-agent collective reasoning, applicable to frameworks for multi-agent systems in computational biology",
+      "llm_evidence_cn": "多智能体集体推理的理论保证，适用于计算生物学中的多智能体框架",
+      "llm_evidence": "多智能体集体推理的理论保证，适用于计算生物学中的多智能体框架",
+      "canonical_evidence": "多智能体集体推理的理论保证，适用于计算生物学中的多智能体框架",
+      "llm_tldr_en": "This paper develops a Koopman operator framework to certify collective reasoning in LLM multi-agent systems, providing convergence tests, round bounds, and decision attribution through spectral analysis.",
+      "llm_tldr_cn": "论文针对多智能体LLM系统缺乏收敛性测试、轮次界限和决策归因的问题，提出基于Koopman算子理论的分析框架，将集体视为通信图上的非线性动力系统，并通过其转移算子谱读取基本行为。该方法为多智能体共识动态提供了理论保证，可用于计算生物学等领域的多智能体系统验证。",
+      "llm_tldr": "论文针对多智能体LLM系统缺乏收敛性测试、轮次界限和决策归因的问题，提出基于Koopman算子理论的分析框架，将集体视为通信图上的非线性动力系统，并通过其转移算子谱读取基本行为。该方法为多智能体共识动态提供了理论保证，可用于计算生物学等领域的多智能体系统验证。",
       "llm_tags": [
         "query:llmagt"
       ],
