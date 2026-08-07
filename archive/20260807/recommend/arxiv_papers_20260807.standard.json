@@ -1,0 +1,313 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-07T02:02:50.539416+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.00099v1",
+      "source": "arxiv",
+      "title": "LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology",
+      "abstract": "Gene Ontology (GO) enrichment analysis is a foundational tool for translating large-scale genomic data into biological insights, but typically yields hundreds of redundant terms that obscure overarching themes. Existing summarization tools rely on fixed similarity metrics (REVIGO, GOSemSim, clusterProfiler::simplify()), gene-overlap measures (Metascape), or static hierarchy mappings (GO-slim), and therefore cannot incorporate biological context. Manual curation provides context-aware grouping but is subjective and labor-intensive. A scalable, context-aware framework is needed to cluster GO terms into interpretable higher-order biological domains. Here we present LLMBDC (Large Language Model for Biological Domains Oriented Clustering of Gene Ontology), a training-free framework that leverages zero-shot semantic reasoning of LLMs with confidence scoring to cluster GO terms into BioDomains using only ontology information at inference time. Benchmarked across Alzheimer's disease (AD) and Fragile X syndrome (FXS) against six baseline methods including SapBERT, LLMBDC achieved substantially higher precision, recall, and clustering performance. Against ground-truth annotations, LLMBDC improved ARI from 9.7% to 73.3% (AD) and from 15.7% to 66.6% (FXS) over REVIGO, with corresponding NMI gains from 59.9% to 73.4% (AD) and 66.0% to 79.5% (FXS). A Cauchy combination test further confirmed that aggregated BioDomains retained statistically significant functional signals. LLMBDC provides a scalable, reproducible, and interpretable route to context-aware, system-level interpretation of GO enrichment results while preserving biological specificity.",
+      "authors": [
+        "Ximing Ran",
+        "Jie Xu",
+        "Peng Jin",
+        "Zhaohui Qin",
+        "Zhexing Wen",
+        "Jiaying Lu"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.AI"
+      ],
+      "published": "2026-07-30T19:29:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.00099v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM framework that clusters Gene Ontology enrichment terms into biological domains, a direct computational biology application of LLMs.",
+      "llm_evidence_cn": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
+      "llm_evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
+      "canonical_evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
+      "llm_tldr_en": "LLMBDC uses large language models to cluster Gene Ontology enrichment terms into interpretable biological domains, overcoming fixed-similarity and static-hierarchy limits of existing tools, yielding scalable context-aware functional summarization of genomic data.",
+      "llm_tldr_cn": "基因本体富集分析常返回大量冗余术语，现有摘要工具依赖固定相似度或静态层级，难以结合生物上下文。LLMBDC提出以大规模语言模型为核心、面向生物领域的基因本体聚类框架，将GO术语归纳为可解释的高阶生物功能域。该方法可扩展且能感知上下文，替代主观费力的手工注释，帮助研究者从大规模基因组数据中获得更清晰的功能结论。",
+      "llm_tldr": "基因本体富集分析常返回大量冗余术语，现有摘要工具依赖固定相似度或静态层级，难以结合生物上下文。LLMBDC提出以大规模语言模型为核心、面向生物领域的基因本体聚类框架，将GO术语归纳为可解释的高阶生物功能域。该方法可扩展且能感知上下文，替代主观费力的手工注释，帮助研究者从大规模基因组数据中获得更清晰的功能结论。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02642v1",
+      "source": "arxiv",
+      "title": "MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows",
+      "abstract": "Accelerating scientific discovery is among the most consequential applications of AI, and computational biomolecular simulation stands out as a particularly promising target within this broader effort. Coding agents promise to automate significant portions of this workflow, yet their reliability on realistic molecular dynamics (MD) tasks remains poorly characterized. To address this issue, we introduce MDArena, a benchmark of 50 containerized tasks drawn from active biomolecular simulation projects, spanning 29 molecular systems and 14 broad research protocols, including trajectory analysis, complex system preparation, free-energy protocols, and enhanced sampling. We evaluate six model/harness configurations spanning Codex and OpenCode. Among the evaluated configurations, Codex GPT-5.5 at extra-high reasoning effort performs best, reaching 24/50 Strict-Pass@1 successes (48%), followed by Codex GPT-5.5 Medium with 21/50, and OpenCode Gemini Flash 3.5 with 20/50. Average correctness and process rewards are substantially higher than strict success rates across all configurations, indicating that agents frequently make meaningful partial progress but fail on the fine-grained details required for reproducible scientific workflows. Hard tasks remain largely unsolved, particularly membrane-protein system preparation and alchemical free-energy setup, both unsolved or near-unsolved by every evaluated configuration. MDArena thus exposes a substantial gap between the usefulness of coding agents as supervised assistants and their reliability as autonomous MD researchers, while providing a reproducible and extensible platform for tracking progress toward closing it.",
+      "authors": [
+        "Nithishwer Mouroug Anand",
+        "Wei-Tse Hsu",
+        "Kyle Vaccaro",
+        "Eden James Gage",
+        "Jonathan David Colburn",
+        "Linda Xi Phan",
+        "Minjoon Seo",
+        "Kevin Guan",
+        "Philip C. Biggin"
+      ],
+      "primary_category": "physics.chem-ph",
+      "categories": [
+        "physics.chem-ph",
+        "cs.AI"
+      ],
+      "published": "2026-07-31T13:48:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.02642v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Evaluates coding agents on realistic molecular dynamics workflows from active biomolecular simulation projects",
+      "llm_evidence_cn": "在真实生物分子模拟工作流上评测编码智能体",
+      "llm_evidence": "在真实生物分子模拟工作流上评测编码智能体",
+      "canonical_evidence": "在真实生物分子模拟工作流上评测编码智能体",
+      "llm_tldr_en": "MDArena benchmarks coding agents on 50 containerized molecular dynamics tasks spanning 29 molecular systems and 14 research protocols, showing agent reliability on realistic biomolecular workflows.",
+      "llm_tldr_cn": "生物分子模拟是加速科学发现的重要方向，然而编码智能体在真实分子动力学（MD）工作流上的可靠性尚未被充分刻画。为此，MDArena 提供了包含50个容器化任务的基准，覆盖29个分子系统和14类研究协议，包括轨迹分析、复合物体系准备、自由能计算和增强采样。作者评测了Codex和OpenCode等六种模型/框架配置，揭示现有编码智能体在真实生物计算任务中的能力与不足。该基准为自主智能体在计算生物学中的应用提供了标准化评测平台。",
+      "llm_tldr": "生物分子模拟是加速科学发现的重要方向，然而编码智能体在真实分子动力学（MD）工作流上的可靠性尚未被充分刻画。为此，MDArena 提供了包含50个容器化任务的基准，覆盖29个分子系统和14类研究协议，包括轨迹分析、复合物体系准备、自由能计算和增强采样。作者评测了Codex和OpenCode等六种模型/框架配置，揭示现有编码智能体在真实生物计算任务中的能力与不足。该基准为自主智能体在计算生物学中的应用提供了标准化评测平台。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.28229v1",
+      "source": "arxiv",
+      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
+      "abstract": "The web is increasingly accessed by AI agents rather than humans. Every agent needs knowledge, especially in the life-sciences, where agentic pipelines are growing fast. Access to the literature is a crucial part of that need, and resources such as Europe PMC, with over 40M indexed records, are widely used to meet it. Yet these resources were not built for AI agents: they take keywords and complex syntax and return whole papers, so every agent must learn the syntax, issue several searches, and read full papers to find the evidence it needs. We introduce EMBL AI Librarian, a knowledge layer that upgrades the Europe PMC interface for AI agents: an agent asks in natural language and receives evidence that answers it. A single LLM orchestrates the whole knowledge retrieval process: it plans complementary subqueries executed by the live Europe PMC search engine, then reads the selected papers and locates the relevant evidence. We evaluate Librarian across four benchmarks: literature synthesis, claim verification, open-domain question answering, and downstream biology tasks such as protocol questions and sequence manipulation. On ScholarQABench, Librarian improves Citation F1 by more than $16$ points over strong recently published baselines. Used as the retrieval layer of an existing claim-verification pipeline, it increases agreement with expert consensus; and on the open-form LitQA2 benchmark, a GPT-5.4 agent scores about $8$ points higher when grounded in Librarian than with web search. Overall, our results show that equipping life-science agents with the Librarian knowledge layer improves performance across a range of tasks. We release our code publicly at https://github.com/petroni-lab/librarian",
+      "authors": [
+        "Luigi Sigillo",
+        "Matteo Silvestri",
+        "Francesco Tabaro",
+        "Rajat Bhatnagar",
+        "Syed Irtaza Mubashar",
+        "Matt Jeffryes",
+        "Daljit Nijjer",
+        "Vittorio Perera",
+        "Ola Spjuth",
+        "Julio Saez-Rodriguez",
+        "Melissa Harrison",
+        "Fabio Petroni"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.IR",
+        "cs.LG"
+      ],
+      "published": "2026-07-30T14:00:27+00:00",
+      "link": "https://arxiv.org/pdf/2607.28229v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Life-sciences knowledge layer for AI agents",
+      "llm_evidence_cn": "面向AI智能体的生命科学知识层",
+      "llm_evidence": "面向AI智能体的生命科学知识层",
+      "canonical_evidence": "面向AI智能体的生命科学知识层",
+      "llm_tldr_en": "EMBL AI Librarian is a knowledge layer that lets AI agents query Europe PMC literature in natural language and receive evidence answers, making literature access agent-friendly and supporting life-sciences agentic workflows.",
+      "llm_tldr_cn": "现有生命科学文献资源如Europe PMC并非为AI智能体设计，智能体需学习复杂语法并阅读全文才能获取证据。EMBL AI Librarian构建了一个以大语言模型编排的知识层，让智能体用自然语言提问并直接获得可用的证据答案。该系统面向生命科学中快速增长的智能体管线，将文献访问能力转化为智能体友好的接口。这项工作为生物信息学中的自主研究智能体提供了关键基础支撑。",
+      "llm_tldr": "现有生命科学文献资源如Europe PMC并非为AI智能体设计，智能体需学习复杂语法并阅读全文才能获取证据。EMBL AI Librarian构建了一个以大语言模型编排的知识层，让智能体用自然语言提问并直接获得可用的证据答案。该系统面向生命科学中快速增长的智能体管线，将文献访问能力转化为智能体友好的接口。这项工作为生物信息学中的自主研究智能体提供了关键基础支撑。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.28990v1",
+      "source": "arxiv",
+      "title": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
+      "abstract": "Large language model agents have shown promising capabilities in data-driven scientific discovery tasks, where an agent interacts with an execution environment and produces a statistical claim. Long-horizon scientific analysis remains constrained by the lack of process supervised environments over real-world scientific data. This paper introduces SciDisco, a scalable framework for training Scientific Discovery agents in process-verifiable environments. SciThèque compiles hypotheses, datasets, hidden evidence graphs, and verifiers into task environments where analytical progress can be checked during interaction. DAG-grounded trajectory synthesis uses these environments to construct verifier-filtered multi-turn demonstrations. DiscoPO then uses the environment as the source of training signal, assigning turn-level credit to actions that produce verifiable analytical evidence. Experiments show that SciDisco-14B reaches state-of-the-art on hypothesis-driven scientific data analysis benchmarks.",
+      "authors": [
+        "Yucheng Xu",
+        "Keyi Zhang",
+        "Yuyang Yu",
+        "Min Zhang",
+        "Shiyuan Meng",
+        "Pei Chu",
+        "Zhongying Tu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-31T03:34:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.28990v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Framework for scaling scientific discovery agents with process-verifiable environments, directly applicable to autonomous agents for biological research",
+      "llm_evidence_cn": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
+      "llm_evidence": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
+      "canonical_evidence": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
+      "llm_tldr_en": "Introduces SciDisco, a framework with process-verifiable environments, DAG-grounded trajectory synthesis, and DiscoPO for training scientific discovery agents in long-horizon data-driven research.",
+      "llm_tldr_cn": "长周期科学分析缺乏可监督真实数据的过程环境，制约了科学发现智能体的训练。本文提出SciDisco框架：SciThèque将假设、数据集、隐藏证据图和验证器编译为可交互过程校验的任务环境；DAG轨迹合成生成验证器过滤的多轮演示；DiscoPO利用环境奖励进行回合级强化学习。该框架把科学发现训练扩展到过程可验证的真实数据环境，为生物信息学等领域的自动化研究提供了基础设施。",
+      "llm_tldr": "长周期科学分析缺乏可监督真实数据的过程环境，制约了科学发现智能体的训练。本文提出SciDisco框架：SciThèque将假设、数据集、隐藏证据图和验证器编译为可交互过程校验的任务环境；DAG轨迹合成生成验证器过滤的多轮演示；DiscoPO利用环境奖励进行回合级强化学习。该框架把科学发现训练扩展到过程可验证的真实数据环境，为生物信息学等领域的自动化研究提供了基础设施。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.28037v1",
+      "source": "arxiv",
+      "title": "ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents",
+      "abstract": "As LLM-based agents are deployed in complex, multi-step workflows, a critical evaluation gap has emerged: most existing benchmarks judge only final outcomes, unable to distinguish reliable reasoning from lucky success or attribute failures to specific process deficiencies, hindering attribution in long-horizon tasks.   In this work, we present ClawTrack, a dual-assessment benchmark that simultaneously measures what an agent achieves (Task Score) and how it achieves it (Process Score). ClawTrack comprises 320 tasks across 8 domains with 25+ deterministic mock services. A Process Grader scores each reasoning turn along four dimensions (goal alignment, efficiency, information utilization, and result verification), anchored by 12,541 task-specific rubric items. Evaluating 21 models over 16,000+ trials, we find that: (1) process scores effectively attribute success and failure to specific reasoning dimensions, filtering lucky passes invisible to outcome-only evaluation; (2) the four dimensions are complementary, with result verification as the systematic bottleneck; (3) the framework is robust to evaluator choice across different judge LLMs; and (4) process-based trajectory filtering yields consistent post-training improvements across model scales.",
+      "authors": [
+        "Xingjian Wu",
+        "Xuhang Zhu",
+        "Xingchen Liu",
+        "Junlin Liu",
+        "Jianing Wang",
+        "Linsen Guo",
+        "Xiaoyu Li",
+        "Xuezhi Cao",
+        "Xunliang Cai"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-07-30T11:18:47+00:00",
+      "link": "https://arxiv.org/pdf/2607.28037v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Trace-level evaluation and improvement of autonomous agents, useful for assessing autonomous agents in biological research",
+      "llm_evidence_cn": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
+      "llm_evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
+      "canonical_evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
+      "llm_tldr_en": "Introduces ClawTrack, a dual-assessment benchmark measuring both task outcomes and reasoning process of LLM agents, enabling failure attribution in long-horizon workflows.",
+      "llm_tldr_cn": "现有智能体基准只考核最终结果，无法区分运气成功与可靠推理，也难以定位失败环节。ClawTrack提出双重评估：任务得分测结果，过程得分沿推理轮次评估目标对齐、效率、信息利用与结果验证四个维度，包含320个跨8域任务。它能够揭示智能体在长周期任务中的过程缺陷，为改进自主智能体（包括生物研究智能体）提供精细反馈。",
+      "llm_tldr": "现有智能体基准只考核最终结果，无法区分运气成功与可靠推理，也难以定位失败环节。ClawTrack提出双重评估：任务得分测结果，过程得分沿推理轮次评估目标对齐、效率、信息利用与结果验证四个维度，包含320个跨8域任务。它能够揭示智能体在长周期任务中的过程缺陷，为改进自主智能体（包括生物研究智能体）提供精细反馈。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.28692v1",
+      "source": "arxiv",
+      "title": "SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition",
+      "abstract": "Large language model (LLM) agents have been increasingly adopted in scientific research for organizing and invoking specialized computational tools. However, their reliance on predefined tool spaces with static semantics limits their applicability to open-world scientific workflows, where tool requirements, capabilities, and boundaries evolve dynamically. To this end, we propose SciToolAgent-Evo, an ontology-aware self-evolving agent for open-world scientific tool acquisition. Driven by an evolving memory of skills, experiences, and an ontologized tool graph, it distills generalizable knowledge from contrastive trajectories during accumulation, whereas during inference, it formulates active requests and utilizes a LinUCB-based bandit gate to dynamically balance exploration and exploitation. Once a novel tool is acquired, its scientific ontology is completed online for seamless integration into the known graph. Moreover, we introduce OpenSciToolBench, a benchmark containing 900 realistic tasks across four difficulty levels. Extensive evaluations show that SciToolAgent-Evo achieves state-of-the-art performance, validating its robustness and generalization.",
+      "authors": [
+        "Yuqi Tang",
+        "Chenyi Zhou",
+        "Libin Wang",
+        "Keyan Ding",
+        "Qiang Zhang",
+        "Huajun Chen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-30T08:47:11+00:00",
+      "link": "https://arxiv.org/pdf/2607.28692v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Self-evolving LLM agent for open-world scientific tool acquisition, transferable to biological research",
+      "llm_evidence_cn": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
+      "llm_evidence": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
+      "canonical_evidence": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
+      "llm_tldr_en": "SciToolAgent-Evo is an ontology-aware self-evolving LLM agent that distills knowledge from trajectories and uses an evolving tool graph plus LinUCB to acquire tools in open-world scientific workflows, a general framework transferable to bioinformatics.",
+      "llm_tldr_cn": "本文指出LLM智能体在科学研究中依赖静态工具空间、难以应对开放世界动态需求的问题，提出本体感知的自进化智能体SciToolAgent-Evo。它利用演化的技能记忆、经验与本体化工具图，从对比轨迹中提炼可泛化知识，并在推理时通过LinUCB策略主动请求工具。实验表明该方法能适应工具需求与边界的动态变化。该框架虽未限定于生物学，但可迁移到生物信息学科研工具获取中。",
+      "llm_tldr": "本文指出LLM智能体在科学研究中依赖静态工具空间、难以应对开放世界动态需求的问题，提出本体感知的自进化智能体SciToolAgent-Evo。它利用演化的技能记忆、经验与本体化工具图，从对比轨迹中提炼可泛化知识，并在推理时通过LinUCB策略主动请求工具。实验表明该方法能适应工具需求与边界的动态变化。该框架虽未限定于生物学，但可迁移到生物信息学科研工具获取中。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.04588v1",
+      "source": "arxiv",
+      "title": "EASy: Towards Efficient LLM-Based Agentic System",
+      "abstract": "Agentic systems have emerged as a promising paradigm for solving complex tasks by coordinating specialized LLM-based agents. However, most existing systems primarily optimize task success while giving limited consideration to execution efficiency under practical constraints such as executor capability and computational cost. Existing router-based methods have limited ability to reason over rich, evolving task contexts, multi-step dependencies, and intermediate execution feedback, and often generalize poorly to unseen executors. We propose EASy, a trainable agentic framework that jointly optimizes task performance and computational efficiency through reinforcement learning. EASy equips an LLM-based orchestrator with explicit knowledge of the capability and cost profiles of heterogeneous executors, enabling context-sensitive coordination beyond performance-only routing. It further introduces a milestone-plan-act workflow that decomposes complex tasks into manageable milestones, constructs dependency-aware execution graphs, assigns suitable executors, and parallelizes independent steps while adapting subsequent decisions to intermediate outcomes. To train the orchestrator, we develop a tree-structured rollout procedure that explores alternative milestone decompositions and execution plans, together with multi-component rewards that capture task correctness, execution efficiency, and trajectory completeness. Extensive experiments on mathematical reasoning, embodied decision-making, and deep research benchmarks show that EASy consistently achieves stronger performance-efficiency trade-offs than strong agentic baselines.",
+      "authors": [
+        "Junnan Liu",
+        "Linhao Luo",
+        "Thuy-Trang Vu",
+        "Gholamreza Haffari"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-08-05T08:50:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.04588v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Trainable framework for efficient LLM-based agentic systems, applicable as a multi-agent framework in computational biology",
+      "llm_evidence_cn": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
+      "llm_evidence": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
+      "canonical_evidence": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
+      "llm_tldr_en": "Introduces EASy, a reinforcement-learned agentic framework jointly optimizing task performance and computational cost, offering an efficient multi-agent orchestration method.",
+      "llm_tldr_cn": "现有LLM智能体系统主要优化任务成功率，忽略执行效率和成本等实际约束。EASy提出可训练的智能体编排框架，通过强化学习联合优化任务性能与计算效率，让编排器显式感知执行者的能力与成本画像，并能处理多步依赖和中间反馈。在复杂任务中，EASy在保持性能的同时显著降低计算开销，为多智能体系统（如计算生物学流程）提供了高效框架。",
+      "llm_tldr": "现有LLM智能体系统主要优化任务成功率，忽略执行效率和成本等实际约束。EASy提出可训练的智能体编排框架，通过强化学习联合优化任务性能与计算效率，让编排器显式感知执行者的能力与成本画像，并能处理多步依赖和中间反馈。在复杂任务中，EASy在保持性能的同时显著降低计算开销，为多智能体系统（如计算生物学流程）提供了高效框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

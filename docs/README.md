@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-08 ~ 2026-08-06</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-07</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 12 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 7 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>12</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-06 09:57:40 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 02:10:58 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日速读12篇生物信息学相关论文，精读0篇，重点关注智能体评估、自进化框架与生物学预训练语料库。最值得看的是《Evaluating Agentic Bioinformatics》与《SpaCellAgent》，分别聚焦智能体评估基准与轨迹分析的多智能体自进化方法。下一步建议从10分高分论文入手精读，深入理解其验证流程与设计细节。</p>
+<p>今日聚焦生物领域语言模型与分子动力学智能体，精读2篇高分论文。最值得看：LLMBDC用语言模型聚类基因本体，MDArena建立分子动力学工作流的编码智能体评估基准。建议优先关注科学场景下智能体的自动化评估与本体知识融合方向。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">0 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology">LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology</span></li><li><span class="dpr-home-dashboard-paper-title" title="MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows">MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows</span></li><li><span class="dpr-home-dashboard-paper-title" title="EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents">EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents</span></li></ul>
   </div>
-
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">12 篇</strong>
+    <strong class="dpr-home-dashboard-count">4 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Evaluating Agentic Bioinformatics through Function, Evidence, and Validation">Evaluating Agentic Bioinformatics through Function, Evidence, and Validation</span></li><li><span class="dpr-home-dashboard-paper-title" title="SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis">SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis</span></li><li><span class="dpr-home-dashboard-paper-title" title="TheBioCollection: Unified Pre-Training Scale LLM Corpus for Biology">TheBioCollection: Unified Pre-Training Scale LLM Corpus for Biology</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Scaling Scientific Discovery Environments for Turn-Level Agentic RL">Scaling Scientific Discovery Environments for Turn-Level Agentic RL</span></li><li><span class="dpr-home-dashboard-paper-title" title="ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents">ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition">SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>12</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
 </section>
 </div>
 

@@ -1,0 +1,121 @@
+{
+  "date": "20260807",
+  "date_label": "",
+  "generated_at": "2026-08-07 02:10:58 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.00099v1",
+      "route": "202608/07/2608.00099v1-llmbdc-language-model-for-biological-domains-oriented-clustering-of-gene-ontology",
+      "title": "LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用大语言模型对基因本体富集术语进行生物学领域聚类，是LLM在计算生物学中的直接应用。",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2608.02642v1",
+      "route": "202608/07/2608.02642v1-mdarena-evaluating-coding-agents-on-realistic-molecular-dynamics-workflows",
+      "title": "MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "在真实生物分子模拟工作流上评测编码智能体",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2607.28229v1",
+      "route": "202608/07/2607.28229v1-embl-ai-librarian-life-sciences-knowledge-layer-for-ai-agents",
+      "title": "EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向AI智能体的生命科学知识层",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2607.28990v1",
+      "route": "202608/07/2607.28990v1-scaling-scientific-discovery-environments-for-turn-level-agentic-rl",
+      "title": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "提出可扩展的科学发现智能体训练框架，直接适用于生物研究中的自主智能体",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2607.28037v1",
+      "route": "202608/07/2607.28037v1-clawtrack-towards-trace-level-evaluation-and-improvement-of-real-world-autonomous-agents",
+      "title": "ClawTrack: Towards Trace-Level Evaluation and Improvement of Real-World Autonomous Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提供轨迹级智能体评估基准，适用于生物研究中自主智能体的评估与改进",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2607.28692v1",
+      "route": "202608/07/2607.28692v1-scitoolagent-evo-an-ontology-aware-self-evolving-agent-for-open-world-scientific-tool-acquisition",
+      "title": "SciToolAgent-Evo: An Ontology-Aware Self-Evolving Agent for Open-World Scientific Tool Acquisition",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向开放世界科学工具获取的自进化LLM智能体，可迁移至生物研究",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    },
+    {
+      "paper_id": "2608.04588v1",
+      "route": "202608/07/2608.04588v1-easy-towards-efficient-llm-based-agentic-system",
+      "title": "EASy: Towards Efficient LLM-Based Agentic System",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出可训练的LLM智能体编排框架，可作为计算生物学多智能体框架应用",
+      "first_seen_at": "2026-08-07 02:10:58 UTC",
+      "updated_at": "2026-08-07 02:10:58 UTC"
+    }
+  ]
+}
