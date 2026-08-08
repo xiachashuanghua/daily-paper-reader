@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-07</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-08</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 16 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>6</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>10</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 21:07:33 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-08 19:39:53 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦16篇AI科学文献，精读6篇，重点锁定基因本体聚类与分子动力学智能体评估两大高分突破。</p>
-<p>最值得关注两项9.0分工作：LLMBDC用语言模型重构基因本体聚类，MDArena开创分子动力学代码智能体评测基准。</p>
-<p>普通读者可优先浏览精读报告，速读中EviGraph自主科研智能体与AutoML临床小数据方案也具参考价值。</p>
+<p>今日精读2篇论文，聚焦代谢组学大模型与智能体强化学习两大前沿方向；其中MetaboLLM以9.0分获最高关注，主攻生化知识整合与代谢物图谱预测。建议优先阅读该模型，理解大语言模型在代谢组学中的落地潜力。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">6 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology">LLMBDC: Language Model for Biological Domains Oriented Clustering of Gene Ontology</span></li><li><span class="dpr-home-dashboard-paper-title" title="MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows">MDArena: Evaluating Coding Agents on Realistic Molecular Dynamics Workflows</span></li><li><span class="dpr-home-dashboard-paper-title" title="Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models">Frozen but Not Always Accessible: A Representation Analysis of Genomic Language Models</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="MetaboLLM: a metabolomics-specialized large language model for biochemical knowledge integration and predictive metabolite graph construction">MetaboLLM: a metabolomics-specialized large language model for biochemical knowledge integration and predictive metabolite graph construction</span></li><li><span class="dpr-home-dashboard-paper-title" title="Scaling Scientific Discovery Environments for Turn-Level Agentic RL">Scaling Scientific Discovery Environments for Turn-Level Agentic RL</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>6</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -86,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">10 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="EviGraph: Evidence-Guided Autonomous Research Agents">EviGraph: Evidence-Guided Autonomous Research Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data">DoctorAgents: an agentic framework to iteratively refine AutoML pipeline for small clinical temporal data</span></li><li><span class="dpr-home-dashboard-paper-title" title="Scaling Scientific Discovery Environments for Turn-Level Agentic RL">Scaling Scientific Discovery Environments for Turn-Level Agentic RL</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>10</strong></span></div>
+
 </section>
 </div>
 

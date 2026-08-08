@@ -1,0 +1,41 @@
+{
+  "date": "20260808",
+  "date_label": "",
+  "generated_at": "2026-08-08 19:39:53 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.06253v1",
+      "route": "202608/08/2608.06253v1-metabollm-a-metabolomics-specialized-large-language-model-for-biochemical-knowledge-integration-and-predictive-metabolite-graph-construction",
+      "title": "MetaboLLM: a metabolomics-specialized large language model for biochemical knowledge integration and predictive metabolite graph construction",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "代谢组学专用LLM，实现知识整合与患者级图预测",
+      "first_seen_at": "2026-08-08 19:39:53 UTC",
+      "updated_at": "2026-08-08 19:39:53 UTC"
+    },
+    {
+      "paper_id": "2607.28990v1",
+      "route": "202608/08/2607.28990v1-scaling-scientific-discovery-environments-for-turn-level-agentic-rl",
+      "title": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "用于训练科学发现智能体的可验证环境框架，对自主生物学发现具有很强的适用性",
+      "first_seen_at": "2026-08-08 19:39:53 UTC",
+      "updated_at": "2026-08-08 19:39:53 UTC"
+    }
+  ]
+}

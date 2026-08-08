@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-08",
+  "date": "2026-08-08",
+  "generated_at": "2026-08-08T19:39:54",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/08/2608.06253v1-metabollm-a-metabolomics-specialized-large-language-model-for-biochemical-knowledge-integration-and-predictive-metabolite-graph-construction",
+      "section": "deep",
+      "title_en": "MetaboLLM: a metabolomics-specialized large language model for biochemical knowledge integration and predictive metabolite graph construction",
+      "authors": "Dohyun Ku, Min Gu Kwak, Francisco J. Pasquel, Jing Li",
+      "date": "2026-08-06",
+      "pdf": "https://arxiv.org/pdf/2608.06253v1",
+      "score": "9.0",
+      "evidence": "代谢组学专用LLM，实现知识整合与患者级图预测",
+      "tldr": "代谢组学知识分散且难以转化为预测模型。研究团队开发代谢组学专用大语言模型MetaboLLM，结合持续预训练、监督微调与结构化检索，并构建MetaboLLM-GIN将生成的生化描述转换为代谢物图用于患者预测。该模型在知识、关系及描述任务上超过基线和医学模型，且在两个临床应用中取得最高AUC。实验结果证明领域专用语言模型能整合异构生化知识，构建具有预测性和可解释性的代谢物图。",
+      "tags": "query:llmagt",
+      "abstract_en": "Metabolomics knowledge is distributed across heterogeneous resources and remains difficult to translate into predictive representations. We developed MetaboLLM, a metabolomics-specialized large language model adapted through continual pretraining, supervised fine-tuning, and structured retrieval, together with MetaboLLM-GIN, which converts generated biochemical descriptions into metabolite graphs for patient-level prediction using a graph isomorphism network. Across four backbone families, MetaboLLM outperformed corresponding base and medically adapted models on metabolomics knowledge, relational, and description tasks, and transferred to an external public benchmark. MetaboLLM-GIN achieved the highest AUC for stress hyperglycemia prediction after coronary artery bypass grafting (0.8616) and postmenopausal hormone-regimen classification (0.8123), outperforming conventional models, alternative graph constructions, and graphs generated from unadapted or non-retrieval LLM configurations. Model interpretation further produced biologically meaningful findings in both applications. These results show that domain-specialized language models can organize heterogeneous biochemical knowledge into predictive and interpretable metabolite graph representations.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/08/2607.28990v1-scaling-scientific-discovery-environments-for-turn-level-agentic-rl",
+      "section": "deep",
+      "title_en": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
+      "authors": "Yucheng Xu, Keyi Zhang, Yuyang Yu, Min Zhang, Shiyuan Meng, Pei Chu, Zhongying Tu",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.28990v1",
+      "score": "8.0",
+      "evidence": "用于训练科学发现智能体的可验证环境框架，对自主生物学发现具有很强的适用性",
+      "tldr": "大语言模型智能体在数据驱动科学发现中展现出潜力，但长周期分析缺乏过程监督环境。为此提出SciDisco框架，通过SciThèque构建可验证分析步骤的实验环境，利用DAG轨迹合成生成验证器过滤的演示，并采用DiscoPO进行回合级强化学习。实验表明SciDisco-14B在假设驱动科学数据分析基准上达到最先进水平，为科学发现智能体提供了可扩展的训练范式。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language model agents have shown promising capabilities in data-driven scientific discovery tasks, where an agent interacts with an execution environment and produces a statistical claim. Long-horizon scientific analysis remains constrained by the lack of process supervised environments over real-world scientific data. This paper introduces SciDisco, a scalable framework for training Scientific Discovery agents in process-verifiable environments. SciThèque compiles hypotheses, datasets, hidden evidence graphs, and verifiers into task environments where analytical progress can be checked during interaction. DAG-grounded trajectory synthesis uses these environments to construct verifier-filtered multi-turn demonstrations. DiscoPO then uses the environment as the source of training signal, assigning turn-level credit to actions that produce verifiable analytical evidence. Experiments show that SciDisco-14B reaches state-of-the-art on hypothesis-driven scientific data analysis benchmarks.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

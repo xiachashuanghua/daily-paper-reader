@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-08T19:35:34.467530+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.06253v1",
+      "source": "arxiv",
+      "title": "MetaboLLM: a metabolomics-specialized large language model for biochemical knowledge integration and predictive metabolite graph construction",
+      "abstract": "Metabolomics knowledge is distributed across heterogeneous resources and remains difficult to translate into predictive representations. We developed MetaboLLM, a metabolomics-specialized large language model adapted through continual pretraining, supervised fine-tuning, and structured retrieval, together with MetaboLLM-GIN, which converts generated biochemical descriptions into metabolite graphs for patient-level prediction using a graph isomorphism network. Across four backbone families, MetaboLLM outperformed corresponding base and medically adapted models on metabolomics knowledge, relational, and description tasks, and transferred to an external public benchmark. MetaboLLM-GIN achieved the highest AUC for stress hyperglycemia prediction after coronary artery bypass grafting (0.8616) and postmenopausal hormone-regimen classification (0.8123), outperforming conventional models, alternative graph constructions, and graphs generated from unadapted or non-retrieval LLM configurations. Model interpretation further produced biologically meaningful findings in both applications. These results show that domain-specialized language models can organize heterogeneous biochemical knowledge into predictive and interpretable metabolite graph representations.",
+      "authors": [
+        "Dohyun Ku",
+        "Min Gu Kwak",
+        "Francisco J. Pasquel",
+        "Jing Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-06T16:42:34+00:00",
+      "link": "https://arxiv.org/pdf/2608.06253v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Metabolomics-specialized LLM with knowledge integration and patient-level graph prediction",
+      "llm_evidence_cn": "代谢组学专用LLM，实现知识整合与患者级图预测",
+      "llm_evidence": "代谢组学专用LLM，实现知识整合与患者级图预测",
+      "canonical_evidence": "代谢组学专用LLM，实现知识整合与患者级图预测",
+      "llm_tldr_en": "Presents MetaboLLM, a metabolomics-specialized LLM via continual pretraining, SFT, and structured retrieval, plus MetaboLLM-GIN for turning descriptions into metabolite graphs for patient-level prediction, outperforming base models and transferring to external benchmarks.",
+      "llm_tldr_cn": "代谢组学知识分散且难以转化为预测表示。MetaboLLM通过持续预训练、监督微调和结构化检索获得代谢组学专门能力，并配合MetaboLLM-GIN将生成的生化描述转为代谢物图，进行患者层面的预测。在四类骨干模型上，MetaboLLM均优于基础模型和医学适配模型，并能迁移到外部公共基准。这项工作为代谢组学乃至生物医学预测提供了大语言模型与图学习结合的可行范式。",
+      "llm_tldr": "代谢组学知识分散且难以转化为预测表示。MetaboLLM通过持续预训练、监督微调和结构化检索获得代谢组学专门能力，并配合MetaboLLM-GIN将生成的生化描述转为代谢物图，进行患者层面的预测。在四类骨干模型上，MetaboLLM均优于基础模型和医学适配模型，并能迁移到外部公共基准。这项工作为代谢组学乃至生物医学预测提供了大语言模型与图学习结合的可行范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.28990v1",
+      "source": "arxiv",
+      "title": "Scaling Scientific Discovery Environments for Turn-Level Agentic RL",
+      "abstract": "Large language model agents have shown promising capabilities in data-driven scientific discovery tasks, where an agent interacts with an execution environment and produces a statistical claim. Long-horizon scientific analysis remains constrained by the lack of process supervised environments over real-world scientific data. This paper introduces SciDisco, a scalable framework for training Scientific Discovery agents in process-verifiable environments. SciThèque compiles hypotheses, datasets, hidden evidence graphs, and verifiers into task environments where analytical progress can be checked during interaction. DAG-grounded trajectory synthesis uses these environments to construct verifier-filtered multi-turn demonstrations. DiscoPO then uses the environment as the source of training signal, assigning turn-level credit to actions that produce verifiable analytical evidence. Experiments show that SciDisco-14B reaches state-of-the-art on hypothesis-driven scientific data analysis benchmarks.",
+      "authors": [
+        "Yucheng Xu",
+        "Keyi Zhang",
+        "Yuyang Yu",
+        "Min Zhang",
+        "Shiyuan Meng",
+        "Pei Chu",
+        "Zhongying Tu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-31T03:34:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.28990v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Framework for training scientific discovery agents with process-verifiable environments, strongly applicable to autonomous biological discovery",
+      "llm_evidence_cn": "用于训练科学发现智能体的可验证环境框架，对自主生物学发现具有很强的适用性",
+      "llm_evidence": "用于训练科学发现智能体的可验证环境框架，对自主生物学发现具有很强的适用性",
+      "canonical_evidence": "用于训练科学发现智能体的可验证环境框架，对自主生物学发现具有很强的适用性",
+      "llm_tldr_en": "SciDisco compiles hypotheses, datasets, hidden evidence graphs and verifiers into process-supervised environments to train long-horizon scientific discovery agents via turn-level reinforcement learning, with DAG-grounded trajectory synthesis and the DiscoPO objective.",
+      "llm_tldr_cn": "SciDisco针对科学发现智能体在真实世界数据上缺乏过程监督环境、难以进行长时序训练的问题，提出将假说、数据集、隐藏证据图和验证器封装为可在交互中检查进展的任务环境；利用DAG轨迹合成构造经验证器过滤的多轮示范，并设计DiscoPO策略优化算法。实验结果显示该方法能够有效训练出在多种科学发现任务中生成可靠统计论断的智能体，为生物学等领域的AI科研助手奠定基础。",
+      "llm_tldr": "SciDisco针对科学发现智能体在真实世界数据上缺乏过程监督环境、难以进行长时序训练的问题，提出将假说、数据集、隐藏证据图和验证器封装为可在交互中检查进展的任务环境；利用DAG轨迹合成构造经验证器过滤的多轮示范，并设计DiscoPO策略优化算法。实验结果显示该方法能够有效训练出在多种科学发现任务中生成可靠统计论断的智能体，为生物学等领域的AI科研助手奠定基础。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
