@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-09T20:22:38.864816+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.05266v1",
+      "source": "arxiv",
+      "title": "Agentic self-driving microscopy benchmarks support qualification but do not necessarily generalize to unseen tasks",
+      "abstract": "Large language model agents are increasingly being developed to control a wide range of scientific characterization tools including microscopes and synchrotron beamlines. Research into agentic control of physical infrastructure is nascent and there are few well-established paradigms for how to engineer an agentic system. There are many choices to make when designing a microscopy agent, including the choice of LLM, the number of agents to use, agent responsibilities and delegation rules, retrieval-augmented generation parameters, and more. When designing and optimizing an agentic microscope controller, researchers not only want to ensure that the agent can correctly perform known tasks but also that the agent can generalize to new tasks that it has not encountered before. In this study, we develop a benchmark and trace-logging framework that reveals a) how different choices of agent architecture impact performance at microscopy tasks and b) the limitations of benchmarks for predicting if a particular agent will perform well on unseen microscopy tasks. The framework was used to evaluate one-, two-, and three-agent graph topologies, five LLMs, RAG and context parameters, and operational constraints across 53 microscopy benchmark tests. In total, 105 agent configurations, 1,949 individual test runs, and 49,109 RAG retrievals were recorded. Direct comparisons showed clear differences in latency, token use, cost, and failure mode between configurations. However, surrogate models trained on agent architecture and test results did not reliably predict an agent's performance on new, unseen tasks. These results show that these benchmarks are useful for qualification, regression testing, diagnosis, and direct comparison, but the current heterogeneous test suite does not support a task-independent global configuration model.",
+      "authors": [
+        "Nathan S Johnson",
+        "Ian Abshire"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cond-mat.mtrl-sci",
+        "cs.LG"
+      ],
+      "published": "2026-08-05T17:58:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.05266v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agentic LLM controllers for scientific microscopy; benchmarks for autonomous instruments in biological research",
+      "llm_evidence_cn": "面向科学显微镜的LLM智能体控制器，为生物研究中的自主仪器提供基准评测",
+      "llm_evidence": "面向科学显微镜的LLM智能体控制器，为生物研究中的自主仪器提供基准评测",
+      "canonical_evidence": "面向科学显微镜的LLM智能体控制器，为生物研究中的自主仪器提供基准评测",
+      "llm_tldr_en": "Agentic self-driving microscopy benchmarks show LLM-based multi-agent designs can be tuned for known tasks, but performance does not necessarily generalize to unseen tasks, highlighting evaluation gaps.",
+      "llm_tldr_cn": "大语言模型智能体正被用于控制显微镜和同步辐射束线等科学仪器，但工程范式仍未成熟。本文研究自驱动显微镜智能体的多项设计选择并构建基准测试，结果显示现有基准可以支持智能体的资格认证，但未必泛化到未见任务。这表明在推进真实科研设施中的自主仪器控制时，需要更严谨的基准设计与泛化评估。",
+      "llm_tldr": "大语言模型智能体正被用于控制显微镜和同步辐射束线等科学仪器，但工程范式仍未成熟。本文研究自驱动显微镜智能体的多项设计选择并构建基准测试，结果显示现有基准可以支持智能体的资格认证，但未必泛化到未见任务。这表明在推进真实科研设施中的自主仪器控制时，需要更严谨的基准设计与泛化评估。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

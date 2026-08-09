@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-09",
+  "date": "2026-08-09",
+  "generated_at": "2026-08-09T20:23:58",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/09/2608.05266v1-agentic-self-driving-microscopy-benchmarks-support-qualification-but-do-not-necessarily-generalize-to-unseen-tasks",
+      "section": "deep",
+      "title_en": "Agentic self-driving microscopy benchmarks support qualification but do not necessarily generalize to unseen tasks",
+      "authors": "Nathan S Johnson, Ian Abshire",
+      "date": "2026-08-05",
+      "pdf": "https://arxiv.org/pdf/2608.05266v1",
+      "score": "8.0",
+      "evidence": "面向科学显微镜的LLM智能体控制器，为生物研究中的自主仪器提供基准评测",
+      "tldr": "大语言模型代理正被用于控制显微镜等科学工具，但如何设计代理架构并评估其泛化能力仍是难题。本研究构建了包含53项显微镜任务、105种代理配置、1949次测试的基准与轨迹日志框架，比较了单/双/三代理拓扑、五种LLM及RAG参数。结果发现配置间在延迟、成本、故障模式上差异显著，但基于已知任务训练的代理模型无法可靠预测新任务表现。表明基准可用于资格认证与回归测试，但无法支持任务无关的全局配置优化。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language model agents are increasingly being developed to control a wide range of scientific characterization tools including microscopes and synchrotron beamlines. Research into agentic control of physical infrastructure is nascent and there are few well-established paradigms for how to engineer an agentic system. There are many choices to make when designing a microscopy agent, including the choice of LLM, the number of agents to use, agent responsibilities and delegation rules, retrieval-augmented generation parameters, and more. When designing and optimizing an agentic microscope controller, researchers not only want to ensure that the agent can correctly perform known tasks but also that the agent can generalize to new tasks that it has not encountered before. In this study, we develop a benchmark and trace-logging framework that reveals a) how different choices of agent architecture impact performance at microscopy tasks and b) the limitations of benchmarks for predicting if a particular agent will perform well on unseen microscopy tasks. The framework was used to evaluate one-, two-, and three-agent graph topologies, five LLMs, RAG and context parameters, and operational constraints across 53 microscopy benchmark tests. In total, 105 agent configurations, 1,949 individual test runs, and 49,109 RAG retrievals were recorded. Direct comparisons showed clear differences in latency, token use, cost, and failure mode between configurations. However, surrogate models trained on agent architecture and test results did not reliably predict an agent's performance on new, unseen tasks. These results show that these benchmarks are useful for qualification, regression testing, diagnosis, and direct comparison, but the current heterogeneous test suite does not support a task-independent global configuration model.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
