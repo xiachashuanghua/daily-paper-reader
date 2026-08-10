@@ -1,0 +1,89 @@
+{
+  "date": "20260810",
+  "date_label": "",
+  "generated_at": "2026-08-10 20:26:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.07344v1",
+      "route": "202608/10/2608.07344v1-muxvizpy-a-python-library-for-the-analysis-of-multilayer-biological-networks",
+      "title": "muxvizpy: a Python library for the analysis of multilayer biological networks",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "计算生物学多层生物网络分析Python库",
+      "first_seen_at": "2026-08-10 20:26:40 UTC",
+      "updated_at": "2026-08-10 20:26:40 UTC"
+    },
+    {
+      "paper_id": "2608.06727v1",
+      "route": "202608/10/2608.06727v1-biomor-biology-guided-mixture-of-recursions-for-effective-genomic-learning",
+      "title": "bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于Transformer的基因组学习并引入生物学引导路由",
+      "first_seen_at": "2026-08-10 20:26:40 UTC",
+      "updated_at": "2026-08-10 20:26:40 UTC"
+    },
+    {
+      "paper_id": "2608.07437v1",
+      "route": "202608/10/2608.07437v1-fisher-r1-training-llm-agents-for-reliable-hypothesis-testing",
+      "title": "Fisher-R1: Training LLM Agents for Reliable Hypothesis Testing",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "训练LLM智能体做可靠假设检验，基准含生物学和医学任务",
+      "first_seen_at": "2026-08-10 20:26:40 UTC",
+      "updated_at": "2026-08-10 20:26:40 UTC"
+    },
+    {
+      "paper_id": "2608.02143v1",
+      "route": "202608/10/2608.02143v1-beyond-solution-centric-search-adaptive-inquiry-and-knowledge-revision-for-autonomous-ml-engineering",
+      "title": "Beyond Solution-Centric Search: Adaptive Inquiry and Knowledge Revision for Autonomous ML Engineering",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向自主研究任务的智能体范式，可迁移至自主生物研究",
+      "first_seen_at": "2026-08-10 20:26:40 UTC",
+      "updated_at": "2026-08-10 20:26:40 UTC"
+    },
+    {
+      "paper_id": "2608.06871v1",
+      "route": "202608/10/2608.06871v1-cedar-agent-orchestrated-tree-search-for-goal-directed-optimization-of-complex-systems",
+      "title": "CEDAR: Agent-Orchestrated Tree Search for Goal-Directed Optimization of Complex Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向复杂系统目标导向优化的智能体编排树搜索，明确覆盖生物学应用；与用于生物研究的自主智能体直接相关。",
+      "first_seen_at": "2026-08-10 20:26:40 UTC",
+      "updated_at": "2026-08-10 20:26:40 UTC"
+    }
+  ]
+}

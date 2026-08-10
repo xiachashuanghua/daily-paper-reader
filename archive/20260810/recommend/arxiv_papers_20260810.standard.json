@@ -1,0 +1,215 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-10T20:15:28.839145+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.07344v1",
+      "source": "arxiv",
+      "title": "muxvizpy: a Python library for the analysis of multilayer biological networks",
+      "abstract": "Biological systems are inherently multilayered: the same entities---genes, cells, or bacterial species---participate simultaneously in qualitatively distinct types of interactions, each carrying complementary information that no single relational view can capture. Analysing such systems with single-layer tools, or by collapsing layers into a monoplex projection, systematically discards inter-layer dependencies and can yield misleading conclusions about centrality, community structure, and robustness. The multilayer network formalism addresses, and \\texttt{muxViz} established one of the first comprehensive toolkits for its structural analysis, but its R-only interface and dense data structures limit applicability to large biological networks. We introduce \\textit{muxvizpy}, a Python library that reimplements and extends the \\texttt{muxViz} analytical catalogue with a sparse linear-algebra stack built on SciPy and PyTorch. Muxvizpy exposes seven categories through a unified, composable API and is numerically validated against \\texttt{muxViz} on synthetic Erdős--Rényi and Barabási--Albert multiplex networks while substantially reducing peak memory and wall-clock time at scale. We illustrate its applicability on a virus--human protein-interaction multiplex in which computing some structural analysis was unfeasible. \\\\[2pt] muxvizpy is freely available under the MIT licence at https://github.com/CoMuNeLab/MuxVizPy. Mathematical definitions of all implemented metrics are provided in the Additional File.",
+      "authors": [
+        "Matteo Baldan",
+        "Francesco Zambelli",
+        "Andrea Valsecchi",
+        "Giacomo Baruzzo",
+        "Giulia Cesaro",
+        "Manlio De Domenico",
+        "Barbara Di Camillo"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "q-bio.MN"
+      ],
+      "published": "2026-08-07T15:39:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.07344v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "computational biology library for multilayer biological networks",
+      "llm_evidence_cn": "计算生物学多层生物网络分析Python库",
+      "llm_evidence": "计算生物学多层生物网络分析Python库",
+      "canonical_evidence": "计算生物学多层生物网络分析Python库",
+      "llm_tldr_en": "Introduces muxvizpy, a Python library for multilayer biological network analysis with sparse data structures, addressing the R-only interface and dense limitations of muxViz. Enables scalable analysis of genes, cells, and bacterial species interactions in computational biology.",
+      "llm_tldr_cn": "生物系统天然具有多层结构，同一类实体参与多种不同类型的相互作用，若用单层工具或直接投影会丢失层间依赖并导致误导性结论。该文开发muxvizpy Python库，用稀疏数据结构实现多层生物网络的构建、度量和社区分析，支持大规模网络。它弥补了muxViz仅提供R接口且数据结构稠密的局限，为计算生物学多层网络研究提供可扩展的Python工具。",
+      "llm_tldr": "生物系统天然具有多层结构，同一类实体参与多种不同类型的相互作用，若用单层工具或直接投影会丢失层间依赖并导致误导性结论。该文开发muxvizpy Python库，用稀疏数据结构实现多层生物网络的构建、度量和社区分析，支持大规模网络。它弥补了muxViz仅提供R接口且数据结构稠密的局限，为计算生物学多层网络研究提供可扩展的Python工具。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.06727v1",
+      "source": "arxiv",
+      "title": "bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning",
+      "abstract": "Transformer models for high-dimensional omics analysis process thousands of genes or pathways, although only a subset requires deep computation. Mixture-of-Recursions (MoR) improves efficiency through adaptive token-choice or expert-choice routing. We propose bioMoR, which, to the best of our knowledge, is the first framework to apply MoR to gene-level and pathway-level learning. Our contributions include identifying three locations for integrating structured biological knowledge within an MoR backbone: graph-based information sharing refines token embeddings, a structural bias guides self-attention toward biologically related tokens, and a graph-aware router uses neighborhood information to determine each token's recursion depth. These techniques are centered on our insight that additional knowledge of token interaction can effectively help models construct embeddings and select which tokens should be learned more deeply. Across eight benchmarks spanning diverse omics data types and evaluated under a unified five-fold cross-validation protocol, bioMoR improves average macro-F1 by 8.2 percentage points and balanced accuracy by 7.1 percentage points over the strongest biology-agnostic MoR baseline while using 75 percent fewer parameters and up to 58 percent fewer FLOPs than a non-recursive Transformer. The selected marker genes or pathways provide biological interpretability, while their token-specific recursion depths reveal how computation is allocated.",
+      "authors": [
+        "Koushik Howlader",
+        "Tirtho Roy",
+        "Md Tauhidul Islam",
+        "Wei Le"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-07T02:44:11+00:00",
+      "link": "https://arxiv.org/pdf/2608.06727v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Transformer-based genomic learning with biology-guided routing",
+      "llm_evidence_cn": "基于Transformer的基因组学习并引入生物学引导路由",
+      "llm_evidence": "基于Transformer的基因组学习并引入生物学引导路由",
+      "canonical_evidence": "基于Transformer的基因组学习并引入生物学引导路由",
+      "llm_tldr_en": "bioMoR applies Mixture-of-Recursions to gene-level and pathway-level omics learning, integrating graph-based biology knowledge into token embeddings, attention bias, and router to improve efficiency and performance.",
+      "llm_tldr_cn": "高维组学数据只有少数基因或通路需要深层计算。bioMoR首次将混合递归(MoR)引入基因级与通路级学习，通过图信息共享细化令牌嵌入、使自注意力偏向生物相关令牌、并利用图感知路由器决定递归深度。实验表明这类生物学引导的路由机制能够在保持高效的同时提升组学学习效果，为基因组分析的高效Transformer建模提供了新思路。",
+      "llm_tldr": "高维组学数据只有少数基因或通路需要深层计算。bioMoR首次将混合递归(MoR)引入基因级与通路级学习，通过图信息共享细化令牌嵌入、使自注意力偏向生物相关令牌、并利用图感知路由器决定递归深度。实验表明这类生物学引导的路由机制能够在保持高效的同时提升组学学习效果，为基因组分析的高效Transformer建模提供了新思路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.02143v1",
+      "source": "arxiv",
+      "title": "Beyond Solution-Centric Search: Adaptive Inquiry and Knowledge Revision for Autonomous ML Engineering",
+      "abstract": "Long-horizon autonomous research tasks such as machine learning engineering require systems to make interdependent decisions under a limited budget. Existing LLM-based agents typically organize candidate-solution improvement through tree, graph, or chain structures, meaning that the search process determines how information is acquired and managed. We call this design solution-centric search and propose instead the information paradigm, in which an evolving information state represents the system's understanding of the task and guides solution improvement. We instantiate this paradigm in Iris, an inquiry-revision loop. For information acquisition, Iris generates local action plans from the current information state and uses epistemic actions to probe decision-critical unknowns without modifying the retained solution. For information management, Iris synthesizes observations across experiments into task knowledge composed of revisable claims with explicit scope and status. It updates this knowledge as new evidence arrives and constructs each decision context from raw evidence, structured summaries, or task knowledge at the required level of detail. On MLE-Bench, Iris attains a 64.9% any-medal rate under a 12-hour budget, the highest among compared systems. Across four tasks spanning harness engineering and model post-training, Iris also demonstrates cross-domain generalization.",
+      "authors": [
+        "Shaokang Fu",
+        "Yulong Tao",
+        "Linbo Jin",
+        "Jiarong Zhao",
+        "Qiming Shi",
+        "Tianjun Pan",
+        "Haonan Li",
+        "Chengyu Wang",
+        "Jia Wu",
+        "Chengfu Huo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-03T12:28:52+00:00",
+      "link": "https://arxiv.org/pdf/2608.02143v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "autonomous research agents; transferable to autonomous biological research",
+      "llm_evidence_cn": "面向自主研究任务的智能体范式，可迁移至自主生物研究",
+      "llm_evidence": "面向自主研究任务的智能体范式，可迁移至自主生物研究",
+      "canonical_evidence": "面向自主研究任务的智能体范式，可迁移至自主生物研究",
+      "llm_tldr_en": "Proposes Iris, an inquiry-revision loop for long-horizon autonomous research, maintaining an evolving information state that guides solution improvement instead of solution-centric tree/graph search. Offers a transferable paradigm for autonomous biological research agents.",
+      "llm_tldr_cn": "现有LLM智能体常用树、图或链结构组织候选方案改进，属于以方案为中心的搜索，信息获取与任务理解受限于搜索结构。该文提出信息范式的Iris系统，用演化中的信息状态表示系统对任务的理解，并以此指导方案改进，实现自适应探究和知识修正。该系统面向长周期自主研究任务，如机器学习工程，其范式可迁移到自主生物研究场景。",
+      "llm_tldr": "现有LLM智能体常用树、图或链结构组织候选方案改进，属于以方案为中心的搜索，信息获取与任务理解受限于搜索结构。该文提出信息范式的Iris系统，用演化中的信息状态表示系统对任务的理解，并以此指导方案改进，实现自适应探究和知识修正。该系统面向长周期自主研究任务，如机器学习工程，其范式可迁移到自主生物研究场景。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.07437v1",
+      "source": "arxiv",
+      "title": "Fisher-R1: Training LLM Agents for Reliable Hypothesis Testing",
+      "abstract": "Reliable hypothesis testing is the foundation of many empirical scientific claims. Large language model (LLM) agents are increasingly used to automate this process, as they can inspect datasets, generate code, and produce analyses end-to-end. However, we show that they frequently make subtle inferential errors that lead to incorrect conclusions despite correctly executed analyses. Existing benchmarks fail to capture this failure mode, as they rarely assess whether a reported p-value is statistically valid given the assumptions underlying the data. We address this gap by building P-Bench, a benchmark comprising 425 open-ended, realistic hypothesis-testing tasks spanning economics, biology, and medicine. Each task requires an agent to select a statistical method, compute a p-value, and draw a conclusion given only a scientific hypothesis and a dataset. We further introduce Fisher-R1, an open-weight LLM agent trained for rigorous hypothesis testing using synthetic tasks and reinforcement learning. On P-Bench, Fisher-R1-14B substantially improves over its backbone and outperforms strong proprietary and open-source baselines, including GPT-5.4 and DeepSeekV4-Pro, achieving a 21% average relative improvement in single-trial success over DeepSeek-V4-Pro, with gains up to 26% on the most challenging tasks. Our results demonstrate that current LLM agents lack reliable statistical reasoning for hypothesis testing and that reinforcement learning on tasks with verified statistical reward substantially improves reliability.",
+      "authors": [
+        "Jiacheng Miao",
+        "Jin Mu",
+        "Guanhua Chen",
+        "James Zou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-07T17:22:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.07437v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agent training for reliable hypothesis testing with a benchmark including biology and medicine",
+      "llm_evidence_cn": "训练LLM智能体做可靠假设检验，基准含生物学和医学任务",
+      "llm_evidence": "训练LLM智能体做可靠假设检验，基准含生物学和医学任务",
+      "canonical_evidence": "训练LLM智能体做可靠假设检验，基准含生物学和医学任务",
+      "llm_tldr_en": "Fisher-R1 trains LLM agents to avoid subtle inferential errors in hypothesis testing using P-Bench, a 425-task benchmark spanning economics, biology, and medicine. Trained agents improve statistical method selection and p-value validation, advancing trustworthy AI-driven science.",
+      "llm_tldr_cn": "针对LLM智能体在假设检验中常因统计推断细节错误而得出错误结论的问题，提出了Fisher-R1训练方法与P-Bench基准。该基准包含经济学、生物学和医学等领域的425个开放任务，要求智能体选择统计方法并检查p值有效性。实验表明训练后的智能体显著减少了推断错误，提升了自动化科学分析的可靠性。这项工作为AI驱动的实证研究提供了更可靠的评估与训练框架。",
+      "llm_tldr": "针对LLM智能体在假设检验中常因统计推断细节错误而得出错误结论的问题，提出了Fisher-R1训练方法与P-Bench基准。该基准包含经济学、生物学和医学等领域的425个开放任务，要求智能体选择统计方法并检查p值有效性。实验表明训练后的智能体显著减少了推断错误，提升了自动化科学分析的可靠性。这项工作为AI驱动的实证研究提供了更可靠的评估与训练框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.06871v1",
+      "source": "arxiv",
+      "title": "CEDAR: Agent-Orchestrated Tree Search for Goal-Directed Optimization of Complex Systems",
+      "abstract": "Complex systems, core objects of study in artificial life, model diverse phenomena through nonlinear, feedback-driven interactions that produce emergent behavior, with applications from population dynamics and biology to economic policy and strategic decision-making. Yet the difficulty of predicting how feedback structure gives rise to emergent behavior, a central open problem in artificial life, makes goal-directed design exceptionally challenging. In established practice, system structures are written in specialized modeling languages such as DYNAMO or STELLA, compounding the challenge with labor-intensive workflows that limit adoption and hinder timely decision-making. To address these challenges, we introduce CEDAR, an autonomous method that uses Large Language Model (LLM) agents to discover complex systems satisfying user-specified behavioral goals. Our key innovation is an LLM-driven Monte Carlo Tree Search (MCTS) deeply coupled with complex systems: at each iteration, an LLM Judge evaluates emergent behavior against specified goals and an LLM Editor proposes improved variants, with the Judge acting as a fitness function and the Editor as a variation operator, akin to a generate-and-evaluate loop in evolutionary computation. We represent complex systems as a restricted, runnable subset of Python with domain-specific primitives, letting LLMs modify system dynamics directly. CEDAR formalizes this as an MCTS variant with an LLM-parameterized transition kernel and value function, enabling goal-directed discovery of complex system behaviors while preserving solution diversity, and its LLM-based interpretability reveals how structural changes drive emergent behavior. CEDAR reduces human effort while enabling capabilities difficult to achieve with existing approaches, facilitating broader adoption of complex systems across domains.",
+      "authors": [
+        "Yingtao Tian"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-07T06:54:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.06871v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Agent-orchestrated tree search for goal-directed optimization of complex systems with explicit applications in biology; directly aligns with autonomous agents for biological research.",
+      "llm_evidence_cn": "面向复杂系统目标导向优化的智能体编排树搜索，明确覆盖生物学应用；与用于生物研究的自主智能体直接相关。",
+      "llm_evidence": "面向复杂系统目标导向优化的智能体编排树搜索，明确覆盖生物学应用；与用于生物研究的自主智能体直接相关。",
+      "canonical_evidence": "面向复杂系统目标导向优化的智能体编排树搜索，明确覆盖生物学应用；与用于生物研究的自主智能体直接相关。",
+      "llm_tldr_en": "CEDAR uses an autonomous agent to orchestrate tree search for goal-directed design of complex systems, including biological models, reducing reliance on specialized modeling languages and enabling timely optimization.",
+      "llm_tldr_cn": "复杂系统目标导向设计因反馈结构难以预测且依赖专业建模语言而极具挑战。CEDAR引入自主智能体编排树搜索，自动探索系统结构以实现目标优化，并降低对DYNAMO/STELLA等专用语言的依赖。该方法在种群动力学、生物学等应用中展示了优化复杂系统的能力，为生物系统的自动化设计与分析提供了智能体驱动的范式。",
+      "llm_tldr": "复杂系统目标导向设计因反馈结构难以预测且依赖专业建模语言而极具挑战。CEDAR引入自主智能体编排树搜索，自动探索系统结构以实现目标优化，并降低对DYNAMO/STELLA等专用语言的依赖。该方法在种群动力学、生物学等应用中展示了优化复杂系统的能力，为生物系统的自动化设计与分析提供了智能体驱动的范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
