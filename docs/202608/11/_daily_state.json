@@ -1,0 +1,57 @@
+{
+  "date": "20260811",
+  "date_label": "",
+  "generated_at": "2026-08-11 20:59:19 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09636v1",
+      "route": "202608/11/2608.09636v1-neurorefiner-morphology-aware-multi-agent-refinement-for-3d-fluorescence-microscopy-neuron-segmentation",
+      "title": "NeuroRefiner: Morphology-Aware Multi-Agent Refinement for 3D Fluorescence Microscopy Neuron Segmentation",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用于显微镜三维神经元分割的多智能体优化系统",
+      "first_seen_at": "2026-08-11 20:59:19 UTC",
+      "updated_at": "2026-08-11 20:59:19 UTC"
+    },
+    {
+      "paper_id": "2608.08148v1",
+      "route": "202608/11/2608.08148v1-dogma-a-central-dogma-guided-foundation-model-for-multi-omics-alignment-and-multi-task-learning-in-oncology",
+      "title": "DoGMA: A Central-Dogma-Guided Foundation Model for Multi-Omics Alignment and Multi-Task Learning in Oncology",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向肿瘤多组学的Transformer-MoE基础模型，与计算生物学中的LLM/基础模型应用高度相关",
+      "first_seen_at": "2026-08-11 20:59:19 UTC",
+      "updated_at": "2026-08-11 20:59:19 UTC"
+    },
+    {
+      "paper_id": "2608.06771v1",
+      "route": "202608/11/2608.06771v1-agentic-artificial-intelligence-for-reproducible-human-in-the-loop-environmental-health-research",
+      "title": "Agentic Artificial Intelligence for Reproducible Human-in-the-Loop Environmental Health Research",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向可复现环境健康研究的人机协同智能体框架，可应用于生物/健康研究",
+      "first_seen_at": "2026-08-11 20:59:19 UTC",
+      "updated_at": "2026-08-11 20:59:19 UTC"
+    }
+  ]
+}

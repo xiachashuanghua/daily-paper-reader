@@ -1,0 +1,133 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-11T20:54:29.207496+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.09636v1",
+      "source": "arxiv",
+      "title": "NeuroRefiner: Morphology-Aware Multi-Agent Refinement for 3D Fluorescence Microscopy Neuron Segmentation",
+      "abstract": "Accurate 3D neuron segmentation in fluorescence microscopy is critical for neuroscience. However, the sparse and elongated morphology of neurons poses significant challenges to existing segmentation methods. These methods struggle to preserve both local details and global topology, leading to fragmented results. To address this, we propose NeuroRefiner, a multi-agent system that formalizes the human expert workflow involving iterative global observation and local editing. Specifically, NeuroRefiner comprises three collaborative agents dedicated to diagnosing topological errors, generating correction instructions, and validating refinement quality. To facilitate agent instruction-guided segmentation refinement, we propose TopoRefineNet, a dedicated 3D U-Net-based tool that leverages cross-modality feature fusion to generate refined masks. Through multi-round agent reasoning and voxel-level editing, NeuroRefiner produces topologically more accurate segmentations with enhanced interpretability. Experiments on the BigNeuron, CWMBS, and ZBFWB datasets demonstrate that NeuroRefiner outperforms state-of-the-art methods, notably achieving a 3.02% improvement in F1 score on the challenging ZBFWB dataset.",
+      "authors": [
+        "Haiyang Yan",
+        "Jinyue Guo",
+        "Yanchao Zhang",
+        "Bingqing Wang",
+        "Zhenchen Li",
+        "Jing Liu",
+        "Jiazheng Liu",
+        "Linlin Li",
+        "Hua Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-10T14:14:47+00:00",
+      "link": "https://arxiv.org/pdf/2608.09636v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-agent refinement system for 3D neuron segmentation from microscopy",
+      "llm_evidence_cn": "用于显微镜三维神经元分割的多智能体优化系统",
+      "llm_evidence": "用于显微镜三维神经元分割的多智能体优化系统",
+      "canonical_evidence": "用于显微镜三维神经元分割的多智能体优化系统",
+      "llm_tldr_en": "NeuroRefiner applies a morphology-aware multi-agent framework to 3D neuron segmentation, collaboratively diagnosing and correcting topological errors to reduce fragmentation. It directly demonstrates multi-agent systems for biological data analysis.",
+      "llm_tldr_cn": "针对三维荧光显微镜神经元分割中稀疏细长形态导致片段化结果的问题，本文提出NeuroRefiner多智能体系统，将专家迭代观察与局部编辑的工作流程形式化。系统包含三个协作智能体，分别负责拓扑错误诊断、修正指令生成和优化质量验证。该方法能够保留局部细节与全局拓扑，提升神经元分割的完整性与准确性，是生物图像数据分析中多智能体应用的成功案例。",
+      "llm_tldr": "针对三维荧光显微镜神经元分割中稀疏细长形态导致片段化结果的问题，本文提出NeuroRefiner多智能体系统，将专家迭代观察与局部编辑的工作流程形式化。系统包含三个协作智能体，分别负责拓扑错误诊断、修正指令生成和优化质量验证。该方法能够保留局部细节与全局拓扑，提升神经元分割的完整性与准确性，是生物图像数据分析中多智能体应用的成功案例。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08148v1",
+      "source": "arxiv",
+      "title": "DoGMA: A Central-Dogma-Guided Foundation Model for Multi-Omics Alignment and Multi-Task Learning in Oncology",
+      "abstract": "Attention mechanisms have been widely utilized in modern deep learning, and many existing multi-omics models inherit their conventional use to allow unrestricted bidirectional interactions. However, the fundamental logic of life is directional. Existing designs often overlook the directionality suggested by the central dogma, potentially limiting transfer across heterogeneous cancers, downstream tasks, and incomplete modality settings.In this work, we present DoGMA, a central-dogma-guided foundation model for pan-cancer multi-omics analysis, arguing that robust transfer requires representations with domain-specific inductive bias. Concretely, we build it on a Transformer-MoE architecture where directed attention biases inter-omics communication toward central-dogma information flow. We further pretrain our model with masked hierarchical omics reconstruction to guide it toward learning central-dogma-consistent interactions. Across diverse downstream tasks, including cancer representation learning, survival prediction, and metastasis prediction, DoGMA consistently demonstrates strong predictive performance. Ablations and analyses further suggest that the performance gains arise from the synergy between central-dogma-guided directed attention and reconstruction-based pretraining, which together promote more biologically consistent cross-omics information exchange. Overall, DoGMA demonstrates that domain-specific inductive biases can improve the robustness and transferability of multi-omics foundation models, offering new insights into the design of attention mechanisms for multi-omics representation learning.",
+      "authors": [
+        "Junfei Ling",
+        "Bangzheng Pu",
+        "Bingsen Xue",
+        "Tianle Li",
+        "Ruying Hu",
+        "Cheng Jin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-08-08T14:15:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.08148v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Transformer-based multi-omics foundation model in oncology, adjacent to LLM applications in computational biology",
+      "llm_evidence_cn": "面向肿瘤多组学的Transformer-MoE基础模型，与计算生物学中的LLM/基础模型应用高度相关",
+      "llm_evidence": "面向肿瘤多组学的Transformer-MoE基础模型，与计算生物学中的LLM/基础模型应用高度相关",
+      "canonical_evidence": "面向肿瘤多组学的Transformer-MoE基础模型，与计算生物学中的LLM/基础模型应用高度相关",
+      "llm_tldr_en": "DoGMA proposes a central-dogma-guided Transformer-MoE foundation model for pan-cancer multi-omics alignment and multi-task learning, using directed attention to encode directional biological logic and improve transfer across cancers and incomplete modalities.",
+      "llm_tldr_cn": "现有组学模型通常允许注意力双向自由交互，忽略了中心法则所暗示的生命信息流动方向，限制了跨癌种和跨任务迁移。为此提出DoGMA，一个中心法则引导的Transformer-MoE基础模型，通过有向注意力为多组学表征引入领域偏置，实现泛癌多组学对齐与多任务学习。实验表明该设计能提升对不完备模态和下游任务的迁移能力。多个任务结果验证了中心法则先验的有效性，为方向性组学建模提供了新思路。",
+      "llm_tldr": "现有组学模型通常允许注意力双向自由交互，忽略了中心法则所暗示的生命信息流动方向，限制了跨癌种和跨任务迁移。为此提出DoGMA，一个中心法则引导的Transformer-MoE基础模型，通过有向注意力为多组学表征引入领域偏置，实现泛癌多组学对齐与多任务学习。实验表明该设计能提升对不完备模态和下游任务的迁移能力。多个任务结果验证了中心法则先验的有效性，为方向性组学建模提供了新思路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.06771v1",
+      "source": "arxiv",
+      "title": "Agentic Artificial Intelligence for Reproducible Human-in-the-Loop Environmental Health Research",
+      "abstract": "Agentic artificial intelligence (AI) systems that are capable of planning and executing multi-step analytical tasks are increasingly available to environmental health researchers, but their reliability in real-world practice has not been fully explored. This paper describes a human-in-the-loop agentic framework for environmental health research, involving the review, verification, and correction of AI-generated data analysis code and results at each step - a process that mirrors the mentorship structure of traditional research teams. This approach offers a path toward rigorous, reproducible use of agentic AI in routine data-rich environmental health research. We illustrate this framework through a case study analyzing nitrogenous organic contaminants at U.S. Superfund sites, a chemical family linked to the emerging tire-derived contaminants 6PPD and 6PPD-quinone. Using an agentic large language model to generate R code for data filtering, spatial mapping, and cluster analysis, we document instances where initial agentic AI outputs benefited from a human-in-the-loop process to produce more rigorous and reproducible results. We conclude that effective use of agentic AI requires both domain expertise to frame questions and evaluate outputs, and coding literacy to guide the AI's approach, while outlining future opportunities for agentic AI workflow to advance the environmental health sciences.",
+      "authors": [
+        "Edmund Seto"
+      ],
+      "primary_category": "physics.soc-ph",
+      "categories": [
+        "physics.soc-ph"
+      ],
+      "published": "2026-08-07T03:45:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.06771v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Human-in-the-loop agentic AI framework for reproducible environmental health research; applicable to biological/health research",
+      "llm_evidence_cn": "面向可复现环境健康研究的人机协同智能体框架，可应用于生物/健康研究",
+      "llm_evidence": "面向可复现环境健康研究的人机协同智能体框架，可应用于生物/健康研究",
+      "canonical_evidence": "面向可复现环境健康研究的人机协同智能体框架，可应用于生物/健康研究",
+      "llm_tldr_en": "Presents a human-in-the-loop agentic AI framework for reproducible environmental health research, with stepwise review and correction of AI-generated code and results, illustrated on a nitrogen analysis case study.",
+      "llm_tldr_cn": "智能体式 AI 系统能够规划并执行多步分析任务，但在实际环境健康研究中的可靠性尚未充分探索。该论文提出一种人在回路的智能体框架，在每一步对 AI 生成的数据分析代码和结果进行审查、验证和纠正，模仿传统研究团队的指导结构。通过一个氮元素分析案例展示，该方法为在日常数据密集型环境健康研究中严谨、可复现地使用智能体 AI 提供了路径，也适用于更广泛的生物医学数据分析场景。",
+      "llm_tldr": "智能体式 AI 系统能够规划并执行多步分析任务，但在实际环境健康研究中的可靠性尚未充分探索。该论文提出一种人在回路的智能体框架，在每一步对 AI 生成的数据分析代码和结果进行审查、验证和纠正，模仿传统研究团队的指导结构。通过一个氮元素分析案例展示，该方法为在日常数据密集型环境健康研究中严谨、可复现地使用智能体 AI 提供了路径，也适用于更广泛的生物医学数据分析场景。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
