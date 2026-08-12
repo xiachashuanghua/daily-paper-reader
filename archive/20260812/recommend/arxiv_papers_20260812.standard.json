@@ -1,0 +1,171 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-12T20:45:12.866560+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.10480v1",
+      "source": "arxiv",
+      "title": "Multi-Granular Rationale-Guided Molecular LLM for Property Prediction",
+      "abstract": "Large language models (LLMs) are widely applied across chemical tasks, such as molecular property prediction, which underpins drug discovery. Molecular LLMs represent a molecule through several modalities, notably a 1D SMILES sequence or a 2D molecular graph. Both encode molecular information implicitly, so the contribution of individual substructures remains opaque. Retrieval and augmentation methods add context, but from external sources. However, the cues chemists reason over are the internal substructures that drive a property up or down. We propose MR-MoL, a multi-granular rationale-guided molecular LLM that supplies this evidence directly. A fine-tuned GNN scores each substructure through masking, and the most influential ones are serialized as a ranked, direction-tagged rationale that the LLM reads alongside the SMILES sequence and molecular graph. The rationale spans three levels of granularity: Murcko scaffolds with their side chains, BRICS fragments, and functional groups. This is, to our knowledge, the first method to expose GNN-derived attributions to an LLM as evidence for property prediction. On eight MoleculeNet tasks, MR-MoL achieves the best overall results among generalist models and narrows the gap to specialist models tuned for each task. Five diagnostics further confirm that the model reads the rationale rather than merely benefiting from its presence. Its direction, rank, and substructure each shape the prediction, and its attributions reproduce known structure-property relationships.",
+      "authors": [
+        "Junwoo Park",
+        "Minyoung Shin",
+        "Cheol Soon Lee",
+        "Sujee Lee"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-11T04:50:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.10480v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM for molecular property prediction underpinning drug discovery; direct computational biology application of LLMs",
+      "llm_evidence_cn": "面向分子性质预测的LLM，服务药物发现，属于计算生物学中的LLM直接应用",
+      "llm_evidence": "面向分子性质预测的LLM，服务药物发现，属于计算生物学中的LLM直接应用",
+      "canonical_evidence": "面向分子性质预测的LLM，服务药物发现，属于计算生物学中的LLM直接应用",
+      "llm_tldr_en": "Molecular LLMs hide substructure contributions; MR-MoL uses a fine-tuned GNN to score influential substructures as rationales, guiding molecular property prediction and improving interpretability for drug discovery.",
+      "llm_tldr_cn": "现有分子LLM将分子编码为SMILES或图，子结构贡献难以解释，而化学家依赖内部子结构判断性质。为此提出MR-MoL，先用微调GNN通过掩码对子结构打分，再将最有影响的多粒度子结构序列化输入分子LLM。实验表明该方法可提升性质预测表现，并提供可解释的内部证据。该框架为计算生物学与药物设计中的分子预测任务提供了可直接复用的思路。",
+      "llm_tldr": "现有分子LLM将分子编码为SMILES或图，子结构贡献难以解释，而化学家依赖内部子结构判断性质。为此提出MR-MoL，先用微调GNN通过掩码对子结构打分，再将最有影响的多粒度子结构序列化输入分子LLM。实验表明该方法可提升性质预测表现，并提供可解释的内部证据。该框架为计算生物学与药物设计中的分子预测任务提供了可直接复用的思路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.04634v1",
+      "source": "arxiv",
+      "title": "HELENA:Hierarchical Sparse Coordination over a Union of Complementary Topologies for MAS",
+      "abstract": "LLM-based multi-agent systems (MAS) typically optimize a single topology, restricting reasoning to a narrow trajectory and limiting comprehensive analytical capacity. Naively merging multiple topologies into a composite graph introduces redundant noise propagation across irrelevant connections, degrading solution quality. To address this dilemma, we propose \\textbf{Hierarchical Sparse Coordination over a Union of Complementary Topologies for MAS (HELENA)}, a multi-agent framework that balances diverse reasoning paths with sparse task-dependent execution. \\helena{} constructs a union MAS graph from complementary candidate topologies selected via Monte Carlo Tree Search and Determinantal Point Process, broadening the reasoning trajectory for comprehensive analysis of complex problems. A Hierarchical Sparse Coordination module then activates only a sparse subgraph at each step while agents exchange compressed latent briefs to suppress redundant noise propagation. Finally, a Local Self-Refinement stage identifies decision units with discrepancy evidence and rewrites them only when contrastive evidence simultaneously confirms a reliable solution-side failure and a challenger-side improvement. Experiments across eight benchmarks show that \\helena{} achieves state-of-the-art results on all benchmarks, with an average gain of \\pctup{3.47} over the strongest baseline and up to \\pctup{10.34} on MMLU-Pro, achieving larger improvements on harder benchmarks at a reasonable additional cost.",
+      "authors": [
+        "Zhifang Mao",
+        "Linyao Zheng",
+        "Xuhang Shi",
+        "Xiuquan Hou"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-08-05T09:49:30+00:00",
+      "link": "https://arxiv.org/pdf/2608.04634v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based MAS coordination framework; applicable as generic infrastructure for computational-biology multi-agent systems",
+      "llm_evidence_cn": "基于LLM的多智能体协调框架；可作为计算生物学多智能体系统的通用基础设施",
+      "llm_evidence": "基于LLM的多智能体协调框架；可作为计算生物学多智能体系统的通用基础设施",
+      "canonical_evidence": "基于LLM的多智能体协调框架；可作为计算生物学多智能体系统的通用基础设施",
+      "llm_tldr_en": "LLM-based multi-agent systems usually optimize one topology, limiting analysis. HELENA builds a union MAS graph from MCTS and DPP selected topologies, then applies hierarchical sparse coordination to balance diverse reasoning paths with task-dependent execution.",
+      "llm_tldr_cn": "基于LLM的多智能体系统通常只优化单一拓扑，推理轨迹狭窄、综合能力受限，简单合并拓扑又会带来噪声传播。作者提出HELENA，通过蒙特卡洛树搜索和行列式点过程选取互补的候选拓扑构成联合图，再以层级稀疏协调按任务剪枝无关连接，从而兼顾多样推理与高效执行。实验验证其在多智能体推理任务上提升了解质量。该框架为构建计算生物学中的多智能体分析系统提供了通用的协调基础设施。",
+      "llm_tldr": "基于LLM的多智能体系统通常只优化单一拓扑，推理轨迹狭窄、综合能力受限，简单合并拓扑又会带来噪声传播。作者提出HELENA，通过蒙特卡洛树搜索和行列式点过程选取互补的候选拓扑构成联合图，再以层级稀疏协调按任务剪枝无关连接，从而兼顾多样推理与高效执行。实验验证其在多智能体推理任务上提升了解质量。该框架为构建计算生物学中的多智能体分析系统提供了通用的协调基础设施。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.08605v1",
+      "source": "arxiv",
+      "title": "ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration",
+      "abstract": "Multi-agent systems (MAS) built on Large Language Models (LLMs) are proliferating rapidly, but their heterogeneous execution traces provide no common basis for evaluation across methods. Outcome-only benchmarks discard collaborations, whereas LLM-as-Judge evaluation requires additional, model-dependent inference and can vary with the LLM and rubric. We introduce a generalizable evaluation framework that maps native MAS traces into a shared space of unified collaboration graphs, enabling different methods to be evaluated under the same representation, reference set, and metric panel. Candidate graphs are compared with a query-specific reference forest. Each forest is a benchmark-provided collection of verified-success graphs: it records diverse ways in which representative MAS methods can complete the task, rather than prescribing a unique optimal process. Instantiating the framework as ForestBench, we filter $844$ collaboration-necessary queries from seven public datasets, precompute ten successful target-conditioned reference graphs per query, and evaluate six representative MAS frameworks. Controlled backbone, reference-construction, and perturbation studies test the stability and scope of evaluation. Once the benchmark forests are built, ForestBench scores a trace in milliseconds without further LLM inference, providing a reusable structural basis for comparing diverse MAS collaboration traces.",
+      "authors": [
+        "Guo Chen",
+        "Ziwen Li",
+        "Reed Li",
+        "Yu Lu",
+        "Haibo Shi",
+        "Bingbing Xu",
+        "Junjie Huang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-09T09:38:52+00:00",
+      "link": "https://arxiv.org/pdf/2608.08605v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "General framework for evaluating LLM-based multi-agent systems, transferable to computational biology MAS",
+      "llm_evidence_cn": "用于评估基于LLM的多智能体系统的通用框架，可迁移至计算生物学中的MAS",
+      "llm_evidence": "用于评估基于LLM的多智能体系统的通用框架，可迁移至计算生物学中的MAS",
+      "canonical_evidence": "用于评估基于LLM的多智能体系统的通用框架，可迁移至计算生物学中的MAS",
+      "llm_tldr_en": "ForestBench maps native MAS traces into a unified collaboration graph space for comparable evaluation, providing a benchmark methodology applicable to multi-agent systems in any domain.",
+      "llm_tldr_cn": "现有基于LLM的多智能体系统执行轨迹异构，缺乏统一评估基准，结果评估难以跨方法比较。ForestBench提出将原生多智能体轨迹映射为统一的协作图，在相同表示、参考集和指标面板下评估不同方法，并借助查询相关的参考森林进行比较。该框架为多智能体协作提供了通用评估基础设施。对于计算生物学中多智能体系统的评估具有方法论借鉴价值。",
+      "llm_tldr": "现有基于LLM的多智能体系统执行轨迹异构，缺乏统一评估基准，结果评估难以跨方法比较。ForestBench提出将原生多智能体轨迹映射为统一的协作图，在相同表示、参考集和指标面板下评估不同方法，并借助查询相关的参考森林进行比较。该框架为多智能体协作提供了通用评估基础设施。对于计算生物学中多智能体系统的评估具有方法论借鉴价值。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.10363v1",
+      "source": "arxiv",
+      "title": "Nutrition Data Infrastructure for the AI Era: Operationalizing FAIR for Agent-Mediated Research",
+      "abstract": "AI agents can accelerate nutrition research, but their analyses inherit the identity, semantic, and release ambiguities of the underlying data. We present Nutrition Data Service (NDS), source-preserving infrastructure that operationalizes FAIR for automated use: description resolution makes release-specific records findable; typed crosswalks connect independently released resources; machine-readable interfaces expose versioned sources and crosswalks, making analyses by AI agents replayable and auditable. On food-description benchmarks, NDS shows strong held-out accuracy and outperforms the best published language-model result on NutriBench. External and blinded crosswalk evaluations show that its typed contract favors defensible links and rejects unsupported mappings. In a person-level glycemic-index analysis, pinned NDS inputs produce identical outputs across models and repeated runs, while open-web reconstruction remains unstable. The central result is that agent-mediated nutrition research requires a new data infrastructure for data identity, search, and crosswalk.",
+      "authors": [
+        "Lin Liao",
+        "Peng Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-11T01:42:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.10363v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "FAIR data infrastructure explicitly designed to enable AI agents in nutrition research, supporting autonomous agent-mediated biological research",
+      "llm_evidence_cn": "面向营养学研究中AI智能体的FAIR数据基础设施，支持自主智能体中介的生物研究",
+      "llm_evidence": "面向营养学研究中AI智能体的FAIR数据基础设施，支持自主智能体中介的生物研究",
+      "canonical_evidence": "面向营养学研究中AI智能体的FAIR数据基础设施，支持自主智能体中介的生物研究",
+      "llm_tldr_en": "Presents Nutrition Data Service (NDS), FAIR infrastructure with description resolution and typed crosswalks so AI agents can run replayable, auditable nutrition analyses, outperforming prior language-model results on NutriBench.",
+      "llm_tldr_cn": "本文针对AI智能体在营养学研究中因数据身份、语义和版本歧义而难以可靠分析的问题，提出营养数据服务（NDS）。该基础设施通过描述解析、类型化交叉映射和机器可读接口实现FAIR原则，使智能体分析可回放、可审计。在食物描述基准和NutriBench上表现优异，优于此前最优语言模型结果，为智能体驱动的生物医学研究提供了可复现的基础设施。",
+      "llm_tldr": "本文针对AI智能体在营养学研究中因数据身份、语义和版本歧义而难以可靠分析的问题，提出营养数据服务（NDS）。该基础设施通过描述解析、类型化交叉映射和机器可读接口实现FAIR原则，使智能体分析可回放、可审计。在食物描述基准和NutriBench上表现优异，优于此前最优语言模型结果，为智能体驱动的生物医学研究提供了可复现的基础设施。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
