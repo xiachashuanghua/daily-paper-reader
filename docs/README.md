@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-12</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-13</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-12 20:49:55 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-13 20:54:43 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读1篇、速读3篇，共扫描4篇论文，重点聚焦分子大模型与多智能体协作评估。最值得关注的是《Multi-Granular Rationale-Guided Molecular LLM for Property Prediction》（9.0/10），其多粒度理由引导机制为分子属性预测提供了新思路。若时间有限，可优先读该精读论文；后续可关注HELENA与ForestBench在多智能体拓扑协同与统一评估框架上的潜在交集。</p>
+<p>今日精读1篇高分论文，聚焦蛋白质语言模型的任务与数据集特定信息。最值得关注：该研究揭示了模型如何编码任务及数据集特异性知识，评分高达9.0。建议优先精读此文，并关注其对蛋白质功能预测的实际影响。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,7 +74,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Multi-Granular Rationale-Guided Molecular LLM for Property Prediction">Multi-Granular Rationale-Guided Molecular LLM for Property Prediction</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Task- and dataset-specific information in protein language models">Task- and dataset-specific information in protein language models</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
 </section>
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="HELENA:Hierarchical Sparse Coordination over a Union of Complementary Topologies for MAS">HELENA:Hierarchical Sparse Coordination over a Union of Complementary Topologies for MAS</span></li><li><span class="dpr-home-dashboard-paper-title" title="ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration">ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration</span></li><li><span class="dpr-home-dashboard-paper-title" title="Nutrition Data Infrastructure for the AI Era: Operationalizing FAIR for Agent-Mediated Research">Nutrition Data Infrastructure for the AI Era: Operationalizing FAIR for Agent-Mediated Research</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>3</strong></span></div>
+
 </section>
 </div>
 

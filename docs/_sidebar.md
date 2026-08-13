@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-13 <!--dpr-date:20260813-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/13/2608.12090v1-task--and-dataset-specific-information-in-protein-language-models" data-sidebar-item="{&quot;title&quot;: &quot;Task- and dataset-specific information in protein language models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.12090v1-task--and-dataset-specific-information-in-protein-language-models&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用&quot;}">Task- and dataset-specific information in protein language models</a>
   * 2026-08-12 <!--dpr-date:20260812-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/12/2608.10480v1-multi-granular-rationale-guided-molecular-llm-for-property-prediction" data-sidebar-item="{&quot;title&quot;: &quot;Multi-Granular Rationale-Guided Molecular LLM for Property Prediction&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.10480v1-multi-granular-rationale-guided-molecular-llm-for-property-prediction&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;面向分子性质预测的LLM，服务药物发现，属于计算生物学中的LLM直接应用&quot;}">Multi-Granular Rationale-Guided Molecular LLM for Property Prediction</a>

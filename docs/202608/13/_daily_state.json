@@ -1,0 +1,25 @@
+{
+  "date": "20260813",
+  "date_label": "",
+  "generated_at": "2026-08-13 20:54:43 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.12090v1",
+      "route": "202608/13/2608.12090v1-task--and-dataset-specific-information-in-protein-language-models",
+      "title": "Task- and dataset-specific information in protein language models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用",
+      "first_seen_at": "2026-08-13 20:54:43 UTC",
+      "updated_at": "2026-08-13 20:54:43 UTC"
+    }
+  ]
+}

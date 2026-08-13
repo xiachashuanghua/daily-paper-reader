@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-13",
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T20:54:45",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/13/2608.12090v1-task--and-dataset-specific-information-in-protein-language-models",
+      "section": "deep",
+      "title_en": "Task- and dataset-specific information in protein language models",
+      "authors": "Roman Joeres, Ilya Senatorov, Olga V. Kalinina",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.12090v1",
+      "score": "9.0",
+      "evidence": "探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用",
+      "tldr": "蛋白语言模型（PLM）通常采用最后一层嵌入用于下游任务，但其内部信息分布尚不清楚。本文分析13个PLM在15个任务上的各层嵌入，训练探针模型比较性能。结果显示最后一层很少最优：残基级任务信息随层数递增，而全蛋白任务中数据集决定信息位置（DMS数据浅层更好，多样天然蛋白深层更好），人工蛋白上性能显著下降。该发现为按任务和数据集选择嵌入层提供了依据。",
+      "tags": "query:llmagt",
+      "abstract_en": "Protein language models (PLMs) have transferred the latest advances from natural language processing to computational biology. These models, trained on large corpora of protein sequence data, are widely used to translate amino acid sequences into latent-space embeddings, ready for use in diverse downstream tasks (DTs). By a common consensus, embeddings from the model's last layer are used, and the model's internal behavior remains poorly understood. We analyzed 13 PLMs across 15 DTs from 11 datasets to investigate the informativeness of embeddings created in intermediate PLM layers. We trained probe models on embeddings from each layer, compared their performance, and computed characteristics of the latent spaces they span to estimate the information they contain, and found that the last layers of PLMs rarely contained embeddings that led to the best results on downstream tasks. Furthermore, we identified a connection between DTs and the distribution across PLMs' layers of the relevant information to predict that task. For example, similarity between the pre-training objective and the objective of predicting properties of individual residues leads to a steady increase in understanding of such tasks across the layers of PLMs. On the other hand, for whole-protein tasks, we observe that the dataset, rather than the task itself, defines PLMs' ability to perform well on a DT. Embeddings from shallow layers of PLMs perform better for datasets that contain deep mutational scan (DMS) data, while datasets containing diverse natural proteins find most useful embeddings in the models' deeper layers. Additionally, we discover that the performance of PLMs drops significantly when tasks are introduced for artificial proteins.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

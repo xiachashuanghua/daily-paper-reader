@@ -1,0 +1,54 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-13T20:52:40.345943+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.12090v1",
+      "source": "arxiv",
+      "title": "Task- and dataset-specific information in protein language models",
+      "abstract": "Protein language models (PLMs) have transferred the latest advances from natural language processing to computational biology. These models, trained on large corpora of protein sequence data, are widely used to translate amino acid sequences into latent-space embeddings, ready for use in diverse downstream tasks (DTs). By a common consensus, embeddings from the model's last layer are used, and the model's internal behavior remains poorly understood. We analyzed 13 PLMs across 15 DTs from 11 datasets to investigate the informativeness of embeddings created in intermediate PLM layers. We trained probe models on embeddings from each layer, compared their performance, and computed characteristics of the latent spaces they span to estimate the information they contain, and found that the last layers of PLMs rarely contained embeddings that led to the best results on downstream tasks. Furthermore, we identified a connection between DTs and the distribution across PLMs' layers of the relevant information to predict that task. For example, similarity between the pre-training objective and the objective of predicting properties of individual residues leads to a steady increase in understanding of such tasks across the layers of PLMs. On the other hand, for whole-protein tasks, we observe that the dataset, rather than the task itself, defines PLMs' ability to perform well on a DT. Embeddings from shallow layers of PLMs perform better for datasets that contain deep mutational scan (DMS) data, while datasets containing diverse natural proteins find most useful embeddings in the models' deeper layers. Additionally, we discover that the performance of PLMs drops significantly when tasks are introduced for artificial proteins.",
+      "authors": [
+        "Roman Joeres",
+        "Ilya Senatorov",
+        "Olga V. Kalinina"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.BM"
+      ],
+      "published": "2026-08-12T14:13:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.12090v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Probing protein language model layers for downstream tasks in computational biology",
+      "llm_evidence_cn": "探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用",
+      "llm_evidence": "探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用",
+      "canonical_evidence": "探究蛋白质语言模型各层嵌入对下游任务的信息量，属于LLM在计算生物学中的应用",
+      "llm_tldr_en": "Analyzes 13 protein language models across 15 downstream tasks to assess layer-wise informativeness, showing intermediate embeddings vary by task and dataset, informing model selection.",
+      "llm_tldr_cn": "该论文针对蛋白质语言模型内部层次行为理解不足的问题，分析了13个蛋白质语言模型在15个下游任务（来自11个数据集）中的嵌入表示信息量。通过在各层嵌入上训练探针模型并比较性能，揭示了中间层嵌入的信息含量随任务和数据集变化。这一发现说明最后一层嵌入并非总是最优，为计算生物学中选择合适的模型层和嵌入表示提供了依据。",
+      "llm_tldr": "该论文针对蛋白质语言模型内部层次行为理解不足的问题，分析了13个蛋白质语言模型在15个下游任务（来自11个数据集）中的嵌入表示信息量。通过在各层嵌入上训练探针模型并比较性能，揭示了中间层嵌入的信息含量随任务和数据集变化。这一发现说明最后一层嵌入并非总是最优，为计算生物学中选择合适的模型层和嵌入表示提供了依据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
