@@ -1,0 +1,73 @@
+{
+  "date": "20260814",
+  "date_label": "",
+  "generated_at": "2026-08-14 21:17:29 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.08636v1",
+      "route": "202608/14/2608.08636v1-enhancing-scientific-named-entity-recognition-via-large-language-models-a-type-driven-multi-task-learning-approach",
+      "title": "Enhancing Scientific Named Entity Recognition via Large Language Models: A Type-driven Multi-task Learning Approach",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于LLM的科学命名实体识别方法，可应用于生物医学文献挖掘",
+      "first_seen_at": "2026-08-14 21:17:29 UTC",
+      "updated_at": "2026-08-14 21:17:29 UTC"
+    },
+    {
+      "paper_id": "2608.09251v1",
+      "route": "202608/14/2608.09251v1-morse-task-oriented-multi-agent-system-with-mixture-of-role-subtask-experts",
+      "title": "MoRSE: Task-Oriented Multi-Agent System with Mixture of Role-Subtask Experts",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向任务的多智能体系统，带角色-子任务专家",
+      "first_seen_at": "2026-08-14 21:17:29 UTC",
+      "updated_at": "2026-08-14 21:17:29 UTC"
+    },
+    {
+      "paper_id": "2608.12921v1",
+      "route": "202608/14/2608.12921v1-discovering-efficient-and-explainable-communication-topologies-for-llm-based-multi-agent-systems-via-causal-inference",
+      "title": "Discovering Efficient and Explainable Communication Topologies for LLM-based Multi-Agent Systems via Causal Inference",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于因果推断的LLM多智能体通信拓扑发现",
+      "first_seen_at": "2026-08-14 21:17:29 UTC",
+      "updated_at": "2026-08-14 21:17:29 UTC"
+    },
+    {
+      "paper_id": "2608.13505v1",
+      "route": "202608/14/2608.13505v1-intern-s2-preview-scientific-agentic-foundation-model",
+      "title": "Intern-S2-Preview: Scientific Agentic Foundation Model",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向多模态科学发现的基础智能体模型，可用于生物研究",
+      "first_seen_at": "2026-08-14 21:17:29 UTC",
+      "updated_at": "2026-08-14 21:17:29 UTC"
+    }
+  ]
+}
