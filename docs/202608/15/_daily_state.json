@@ -1,0 +1,89 @@
+{
+  "date": "20260815",
+  "date_label": "",
+  "generated_at": "2026-08-15 20:34:00 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.06961v1",
+      "route": "202608/15/2608.06961v1-cai-copilot-reducing-operational-workload-in-molecular-design-through-intent-driven-agentic-workflows",
+      "title": "CAi Copilot: Reducing Operational Workload in Molecular Design through Intent-Driven Agentic Workflows",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向分子设计的智能体工作流，降低早期药物发现的操作负担。",
+      "first_seen_at": "2026-08-15 20:34:00 UTC",
+      "updated_at": "2026-08-15 20:34:00 UTC"
+    },
+    {
+      "paper_id": "2608.12564v1",
+      "route": "202608/15/2608.12564v1-scaling-automatic-research-agents-via-world-models",
+      "title": "Scaling Automatic Research Agents via World Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "通过世界模型扩展自动研究智能体，直接适用于自主生物学研究",
+      "first_seen_at": "2026-08-15 20:34:00 UTC",
+      "updated_at": "2026-08-15 20:34:00 UTC"
+    },
+    {
+      "paper_id": "2608.06714v1",
+      "route": "202608/15/2608.06714v1-the-optimizer-is-the-agent-reasoning-driven-search-across-prompts-programs-and-ml-workflows",
+      "title": "The Optimizer Is the Agent: Reasoning-Driven Search across Prompts, Programs, and ML Workflows",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于优化提示、程序与机器学习工作流的推理驱动智能体框架，可应用于计算生物学科管道",
+      "first_seen_at": "2026-08-15 20:34:00 UTC",
+      "updated_at": "2026-08-15 20:34:00 UTC"
+    },
+    {
+      "paper_id": "2608.07700v1",
+      "route": "202608/15/2608.07700v1-towards-researcher-agents-for-knowledge-graph-question-answering",
+      "title": "Towards Researcher Agents for Knowledge-Graph Question Answering",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "能够迭代改进自身提示与工具的研究型智能体，适用于生物知识图谱问答",
+      "first_seen_at": "2026-08-15 20:34:00 UTC",
+      "updated_at": "2026-08-15 20:34:00 UTC"
+    },
+    {
+      "paper_id": "2608.11949v1",
+      "route": "202608/15/2608.11949v1-exrole-from-team-trajectories-to-executable-roles-in-multi-agent-language-models",
+      "title": "ExRole: From Team Trajectories to Executable Roles in Multi-Agent Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体大语言模型角色学习框架；可迁移至生物研究场景",
+      "first_seen_at": "2026-08-15 20:34:00 UTC",
+      "updated_at": "2026-08-15 20:34:00 UTC"
+    }
+  ]
+}
