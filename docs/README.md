@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-15</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-16</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 8 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>7</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-15 20:34:00 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-16 19:50:19 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读1篇、速读3篇，聚焦AI智能体与科研自动化。</p>
-<p>最值得看的是《CAi Copilot》，以8.0分领跑，用意图驱动工作流降低分子设计运维负担。</p>
-<p>后续可关注AI辅助科研工具如何简化重复操作，提升实验设计效率。</p>
+<p>今日共读8篇论文，1篇精读聚焦AI辅助Rust生物信息学，7篇速读覆盖AI科学家与多智能体系统。</p>
+<p>最值得关注的是精读论文获9.0高分，展示静态分析引导的智能体翻译可让Rust成为全栈生信语言；速读中OmniScientist提出全模态全学科AI科学家，值得一看。</p>
+<p>建议普通读者优先精读高分的Rust翻译论文，理解其技术路径；速读材料可泛读多智能体内存管理方向，留意冲突感知与溯源共享设计。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,7 +76,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CAi Copilot: Reducing Operational Workload in Molecular Design through Intent-Driven Agentic Workflows">CAi Copilot: Reducing Operational Workload in Molecular Design through Intent-Driven Agentic Workflows</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Static analysis-guided agentic AI translation enables Rust as a full stack bioinformatics language">Static analysis-guided agentic AI translation enables Rust as a full stack bioinformatics language</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
 </section>
@@ -86,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">7 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Scaling Automatic Research Agents via World Models">Scaling Automatic Research Agents via World Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="The Optimizer Is the Agent: Reasoning-Driven Search across Prompts, Programs, and ML Workflows">The Optimizer Is the Agent: Reasoning-Driven Search across Prompts, Programs, and ML Workflows</span></li><li><span class="dpr-home-dashboard-paper-title" title="Towards Researcher Agents for Knowledge-Graph Question Answering">Towards Researcher Agents for Knowledge-Graph Question Answering</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="OmniScientist: An Omni-Modal Omni-Discipline AI Scientist">OmniScientist: An Omni-Modal Omni-Discipline AI Scientist</span></li><li><span class="dpr-home-dashboard-paper-title" title="LatticeMind: A Conflict-Aware Memory Primitive for Multi-Agent Systems">LatticeMind: A Conflict-Aware Memory Primitive for Multi-Agent Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="MAP-Graph: Provenance-Aware Shared Memory for Multi-Agent Workflows">MAP-Graph: Provenance-Aware Shared Memory for Multi-Agent Workflows</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>7</strong></span></div>
 </section>
 </div>
 

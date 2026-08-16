@@ -1,0 +1,137 @@
+{
+  "date": "20260816",
+  "date_label": "",
+  "generated_at": "2026-08-16 19:50:19 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.13029v1",
+      "route": "202608/16/2608.13029v1-static-analysis-guided-agentic-ai-translation-enables-rust-as-a-full-stack-bioinformatics-language",
+      "title": "Static analysis-guided agentic AI translation enables Rust as a full stack bioinformatics language",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用智能体AI/LLM解决生物信息学问题（遗留代码转Rust）",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.13558v1",
+      "route": "202608/16/2608.13558v1-omniscientist-an-omni-modal-omni-discipline-ai-scientist",
+      "title": "OmniScientist: An Omni-Modal Omni-Discipline AI Scientist",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "具备想法、实验与写作智能体的自主AI科学家，可应用于生物研究",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.08236v1",
+      "route": "202608/16/2608.08236v1-latticemind-a-conflict-aware-memory-primitive-for-multi-agent-systems",
+      "title": "LatticeMind: A Conflict-Aware Memory Primitive for Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体记忆框架，可迁移至生物数据分析",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.10509v1",
+      "route": "202608/16/2608.10509v1-map-graph-provenance-aware-shared-memory-for-multi-agent-workflows",
+      "title": "MAP-Graph: Provenance-Aware Shared Memory for Multi-Agent Workflows",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多代理工作流中的来源感知共享内存框架，可迁移到计算生物学的多代理系统",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.10970v1",
+      "route": "202608/16/2608.10970v1-reltex-reliable-llm-based-taxonomy-expansion",
+      "title": "ReLTEx: Reliable LLM-based Taxonomy Expansion",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于LLM的可靠分类扩展方法，可应用于生物本体构建",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.12109v1",
+      "route": "202608/16/2608.12109v1-on-the-convergence-rate-lower-bound-of-biochemical-computational-modules",
+      "title": "On the Convergence Rate Lower Bound of Biochemical Computational Modules",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "生化反应网络的计算生物学理论研究",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.12720v1",
+      "route": "202608/16/2608.12720v1-erskill-evolving-for-skill-guided-adaptive-memory-retrieval",
+      "title": "ERSkill: Evolving for Skill-Guided Adaptive Memory Retrieval",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "自进化技能引导的记忆检索框架，适用于自主生物研究代理",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    },
+    {
+      "paper_id": "2608.12990v1",
+      "route": "202608/16/2608.12990v1-lycheememory-v2-efficient-long-term-memory-for-llm-agents-via-semantic-segment-level-consolidation",
+      "title": "LycheeMemory V2: Efficient Long-Term Memory for LLM Agents via Semantic Segment-Level Consolidation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向LLM代理的高效长期记忆框架，可支持自主生物研究代理",
+      "first_seen_at": "2026-08-16 19:50:19 UTC",
+      "updated_at": "2026-08-16 19:50:19 UTC"
+    }
+  ]
+}

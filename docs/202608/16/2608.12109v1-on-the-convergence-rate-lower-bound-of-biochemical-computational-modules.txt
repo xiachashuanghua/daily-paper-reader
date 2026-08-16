@@ -1,0 +1,842 @@
+Title: On the Convergence Rate Lower Bound of Biochemical Computational Modules
+
+URL Source: https://arxiv.org/pdf/2608.12109v1
+
+Published Time: Thu, 13 Aug 2026 00:59:30 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# On the Convergence Rate Lower Bound of Biochemical Computational Modules 
+
+Yuzhen Fan ∗ Chuanhou Gao ∗∗ Shibo He ∗ Jiming Chen ∗∗ College of Control Science and Engineering, Hangzhou, 310027, China (e-mail: yzfan@zju.edu.cn, s18he@zju.edu.cn, cjm@zju.edu.cn).  
+
+> ∗∗
+
+School of Mathematical Sciences, Hangzhou, 310058, China (e-mail: gaochou@zju.edu.cn) 
+
+Abstract: Biochemical reaction networks have become a central theoretical framework for implementing molecular computation. A key challenge is finite time computational accuracy, as computation outputs are encoded in limiting steady states (LSSs) of species concentrations while practical implementations operate for only finite time. This work proposes a concise characterization of convergence rate for biochemical computational modules with multiple output species, and rigorously establishes it as being bounded by the eigenvalue with largest (least negative) real part of the Jacobian matrix. Two numerical examples illustrate how the theoretical lower bound shapes the convergence rate range and reveals its dependence on reaction rate constants. This formulation enables systematic evaluation of biochemical computation speed and provides a practical design measure for constructing high-accuracy and error-controlled biochemical computational modules. 
+
+Keywords: Biochemical reaction network, mass action system, convergence rate, lower bound, Jacobian matrix 1. INTRODUCTION Interactions among biomolecules exhibit complicated dy-namic behaviors that enable living cells to process multiple input signals and make decisions accordingly, which allow biological organisms to adapt to fluctuating environments and maintain functioning. Driven by both synthetic biol-ogy applications and the exploration of biological learn-ing mechanisms, increasing theoretical (Vasi´ c et al., 2022; Anderson et al., 2021; Fan et al., 2025a; Arredondo and Lakin, 2022; Moorman et al., 2019; Singh et al., 2019) and experimental (Cherry and Qian, 2025; Chen et al., 2024; Okumura et al., 2022) efforts have been devoted to con-structing engineered biological circuits capable of learning based on existing computational paradigms, especially ar-tificial neural networks. Those facilitate the execution of complex computational and information processing tasks at the cellular and molecular levels. Chemical reaction network (CRN) represents a widely rec-ognized mathematical model for describing biomolecular interactions and serves as a theoretical bridge for the system level design of biological molecular circuits. Since CRNs can be implemented via DNA strand displacement reactions, there is growing interest in exploring CRNs as computational machines (Vasi´ c et al., 2020), along with development in mathematical theory that are crucial for ensuring reliable design method and advancing refinement of theoretical design (Anderson et al., 2021; Anderson and Joshi, 2025; Chalk et al., 2019; Fan et al., 2025b). A fundamental theoretical challenge in regarding CRNs as a computational machine lies in the finite time computa-tional accuracy problem(Anderson and Joshi, 2025; Fan et al., 2025b). Specifically, when using CRNs to perform a computational task, the output value is conventionally designed as the LSSs of some species that the system ap-proaches asymptotically (Anderson et al., 2021). Since any practical implementation requires finite time operation of the system, it is important to bound the error, i.e., devi-ations between the actual concentrations recorded at the finite time and the desired computational values encoded by LSSs. Such errors can be propagated and amplified in large-scale designs, degrading the performance of the biochemical computational systems (Fan et al., 2025b). Extending the recording time to improve accuracy is un-sustainable as it compromises practicality and introduces additional issues. Therefore, for implementing given com-putational tasks while maintaining the desired accuracy using CRNs, it is essential to design the CRN system (structure and parameters) with faster convergence rate. This relies on a concise measure of the convergence rate, or equivalently the error decay rate, which is regarded as com-putation speed when using CRNs. Anderson first provided a quantitative definition on convergence rates for real-valued functions, which facilitates to evaluate biochemical computation modules with single output (Anderson and Joshi, 2025). However, for multiple output cases with cou-pled dynamics (e.g. biochemical neural networks) or more complex single output designs for nonlinear operations such as computing Sigmoid function, it is difficult to di-rectly evaluate computation speed through the definition. In this work, we present a characterization of the con-vergence rate lower bound for biochemical computational modules that is formulated for one whole mass action system (CRNs equipped with mass action kinetics) and linked to by the eigenvalue with largest (least negative) real part of its Jacobian matrix. Our results allow the arXiv:2608.12109v1 [math.OC] 12 Aug 2026 biochemical computation speed to be estimated without explicit solution and provide a quantitative metric for error-controlled design, where higher computation speed directly implies higher computational accuracy within a given operation time. The remainder of this article is organized as follows. Sec-tion 2 covers preliminaries about CRNs and computation using CRNs. Section 3 develops the characterization of the convergence rate lower bound for both linear and nonlinear mass action systems with rigorous proofs. Two numerical examples are presented in Section 4 to illustrate our theoretical results. 2. PRELIMINARIES In this section, we briefly introduce the definition of chemical reaction networks and the computation using CRNs as a biochemical programming language. 
+
+2.1 Chemical Reaction Network 
+
+Consider a CRN with n species that interact with each other through r reactions 
+
+Definition 1. (CRN). A CRN consists of three finite sets: 
+
+species set S = {X1, . . . , X n} that denotes the sub-jects participating in the reactions; complex set C =Srj=1 {Cj , C ′ 
+
+> j
+
+} where each complex is a nonnegative integer linear combination of species, Pni=1 aiXi, with stoichio-metric coefficient ai ∈ Z≥0 of Xi; reaction set R = {Cj →
+
+C′ 
+
+> j
+
+: j = 1 , ..., r } satisfying that ∀Cj → C′ 
+
+> j
+
+∈ R , C.j ̸ = C′ 
+
+> .j
+
+,and ∀C.j ∈ C , ∃C′ 
+
+> .j
+
+∈ C supporting either C.j → C′ 
+
+> .j
+
+or 
+
+C′ 
+
+> .j
+
+→ C.j . We use the triple ( S, C, R) to represent a CRN. Then, the jth reaction is written as 
+
+> n
+
+X
+
+> i=1
+
+vij Xi −→ 
+
+> n
+
+X
+
+> i=1
+
+v′ 
+
+> ij
+
+Xi, (1) where Pni=1 vij Xi and Pni=1 v′ 
+
+> ij
+
+Xi represent the reactant and product complex of the jth reaction, respectively. Further, we define the reaction vectors of the jth reaction by v′ 
+
+> .j
+
+− v.j . The dynamics of ( S, C, R) that captures the concentration change of each species, labeled by x ∈ Rn
+
+> ≥0
+
+,if a continuous vector-valued function K : Rn 
+
+> ≥0
+
+→ Rr 
+
+> ≥0
+
+is defined to evaluate the reaction rates, written as 
+
+dx (t)
+
+dt = Γ K (x), x ∈ Rn
+
+> ≥0
+
+. (2) where Γ ∈ Zn×r is the stoichiometric matrix with the jth column Γ ·j = v′ 
+
+> .j
+
+−v.j . Mass action kinetics is usually used to evaluate the reaction rate, which induces the rate of the 
+
+jth reaction as 
+
+Kj (x) = kj xv.j ≜ kjnY
+
+> i=1
+
+xvij  
+
+> i
+
+, (3) where kj > 0 represents the reaction rate constant. The CRN system endowed with mass action kinetics offers polynomial ordinary differential equations, often termed as mass action system (MAS) and denoted by the quad (S, C, R, k ) with k = ( k1, ..., k r )⊤. With kj specified, the reaction graph (1) can be rewritten with kj alongside the reaction arrow. We further give the definitions of equilibrium and expo-nential convergence. 
+
+Definition 2. (Equilibrium). For a MAS ( S, C, R, k ) gov-erned by (2) plus (3), if a constant vector ¯ x ∈ Rn 
+
+> ≥0
+
+satisfies ΓK (¯ x) = 0, then ¯ x is called the nonnegative equilibrium point . If for any xA ∈ A ⊂ Rn 
+
+> ≥0
+
+there is Γ K (xA) = 0, then the set A is called an equilibrium set. 
+
+Definition 3. (Exponential Convergence). Consider a MAS (S, C, R, k ) governed by (2) plus (3) and admitting an equilibrium set A. The solution x(t) of this MAS converges exponentially to A if there are constants M, γ ∈ R>0
+
+supporting inf y∈A ∥x(t) − y∥ ≤ M e −γt for all t ≥ 0. When the system admits an isolated equilibrium, i.e., 
+
+A = {¯x}, exponential convergence is ensured if there exist 
+
+M, γ ∈ R>0 satisfying ∥x(t) − ¯x∥ ≤ M e −γt .
+
+2.2 Implementing Calculation Using CRNs 
+
+Various calculations could be realized by CRNs. It implies that each variable (a fixed constant in calculation or information processing) needs to be represented by some counterpart in CRNs. Thus, considering the CRN ( S, C, R)govern by (2) and (3) with S = X1
+
+S X2, where X1 denotes the input species set and X2 refers to the output species set, the dynamical equations are written as 
+
+ ˙x1(t) = f1(x1, x 2),
+
+˙x2(t) = f2(x1, x 2) (4) with x1(t) ∈ Rn1
+
+> ≥0
+
+, x 2(t) ∈ Rn−n1 
+
+> ≥0
+
+indicate the concen-tration of input species and output species, respectively. When implementing the calculation of the function g(s) ∈
+
+Rn−n1 with s ∈ Rn1 using CRNs, it prompts to use x1(0) to encode values of the independent variable s, while the LSSs of output species, i.e., 
+
+L [x(t)] = ( lim  
+
+> t→∞
+
+x2(t)) X2⊂S (5) to represent the corresponding dependent variables in any calculation. We refer to the CRN that can accomplish the desired computational task as a biochemical computational module . Note that (5) includes globally/locally asymptot-ically stable equilibrium of output species, if any. 
+
+Example 1. For the addition operation g(s) = s1 + s2with 
+
+s = ( s1, s 2) in R2
+
+> ≥0
+
+, we can implement it by the MAS 
+
+S11
+
+−→ S1 + G, S21
+
+−→ S2 + G, G 1
+
+−→ ∅ ,
+
+where X1 = {S1, S 2} clearly act as catalyst species (no concentration changes at all times, i.e., ∀t, s1(t) =
+
+s1(0) , s 2(t) = s2(0)). The dynamics follows species X2 =
+
+{G}, i.e., ˙g(t) = s1(t) + s2(t) − g(t). Given s1(0) = s1
+
+and s2(0) = s2, this yields the LSS of G to be g =lim t→∞ g(t) = s1(0) + s2(0), successfully storing the addi-tion result s1 + s2.In the following, lowercase variables are used to represent the concentrations of the corresponding uppercase species. 3. CONVERGENCE RATE LOWER BOUND FOR BIOCHEMICAL COMPUTATIONAL MODULE In this section, we define to specify the convergence rate when computing the vector-valued function g(s) ∈ Rn2 ,with n1 + n2 = n, using the MAS (4) designed with multiple output species. Definition 4. Suppose that (4) admits the limiting steady state ¯ x ∈ Rn 
+
+> ≥0
+
+with ¯ x2 = g(x1(0)) ∈ Rn2 . The convergence rate of (4) to ¯ x is defined as 
+
+ρ = − lim sup 
+
+> t→∞
+
+ln ∥x(t) − ¯x∥
+
+t , (6) whenever ρ ∈ (0 , ∞]. Here, ∥ · ∥ denotes the 2-norm of a vector. In the context of molecular computation, the convergence rate implies that the biochemical computational module govern by (4) computes g(s) at speed ρ. This definition extends the convergence rate for computing scalar func-tions using CRNs in (Anderson and Joshi, 2025) to the multiple output setting. The following lemma, adapted from (Anderson and Joshi, 2025), further characterizes this rate. 
+
+Lemma 5. Let the MAS (4) admits the LSS ¯ x ∈ Rn
+
+> ≥0
+
+with ¯x2 = g(x1(0)) ∈ Rn2 . Suppose that there exist 
+
+M > 0, ρ > 0 and a > 0 for all t ≥ 0
+
+∥x(t) − ¯x∥ ≤ M t ae−ρt , (7) then (4) computes g(x1(0)) = ¯ x2 at a rate that is at least 
+
+ρ. Conversely, if the MAS (4) converges to ¯ x at a rate greater than ρ, then there exists a M > 0 such that for all 
+
+t ≥ 0
+
+∥x(t) − ¯x∥ ≤ M e −ρt . (8) 
+
+Proof. The forward direction follows directly by apply-ing the operations in Definition 4 to both sides of (7). Conversely, for sufficiently large T > 0, defining M = 1 + max t∈[0 ,T ]{∥ x(t) − ¯x∥}  eρT yields (8) for all t ≥ 0due to the continuity of the norm. Definition 4 establishes that the convergence rate is ρ
+
+if the deviation between the trajectory of MAS and its LSS has the form of f (t)e−ρt with f (t) growing slower than any linear exponential function eϵt (∀ϵ > 0) when 
+
+t → ∞ , i.e., satisfying lim t→∞ ln f (t) 
+
+> t
+
+= 0 (Anderson and Joshi, 2025). Lemma 5 further describes that ρ serves as a lower bound for the convergence rate, derived from the dynamic characterization of the MAS. Conversely, when the explicit knowledge of the convergence rate is available, a more compact upper bound of the realization error can be found in (8), which certifies exponential convergence of the MAS and allows us to determine the finite time required to reach any prescribed computational accuracy 
+
+ϵ. Additionally, given ϵ > 0 and a finite operation time T , a CRN design is considered adequate if its convergence rate lower bound satisfies ρ ≥ 1 
+
+> T
+
+ln( M/ϵ ). Therefore, linking 
+
+ρ to MAS characteristics facilitates the design of CRN structure and the rate constants tuning to meet accuracy. Note that the rate in (6) characterizes output convergence, as it lower-bounds the decay of both the entire system as well as the output species toward the LSSs. Now we study the convergence rate lower bound of bio-chemical computational modules consisting only of inflow-outflow reactions and reactions involving one single non-catalytic reactant. Notably, the MAS govern by (2) and (3) becomes an affine linear system, i.e., ˙x(t) = Ax (t) + u, x (0) ∈ Rn
+
+> ≥0
+
+, (9) where A ∈ Rn×n, u ∈ Rn represent the system matrix and inflow vector composed of rate constants. In the following, we provide a concrete convergence rate lower bound of implementing computations using (9). 
+
+Proposition 6. Suppose that the MAS (9) admits the globally asymptotically stable equilibrium ¯ x = (¯ x1, ¯x2)⊤ =
+
+A−1u, i.e., A is Hurwitz with n eigenvalues ℜ(λn) ≤ℜ(λn−1) ≤ · · · ≤ ℜ (λ1) < 0, where λ1 is the dominant eigenvalue with largest (least negative) real part, then the convergence rate of calculating any function satisfying 
+
+g(x1(0)) = [0n2×n1 In2×n2 ] A−1u using (9) is at least 
+
+ρ = |ℜ (λ1)|.
+
+Proof. Considering the solution to (9), we have ∥x(t) + 
+
+A−1u∥ ≤ ∥eAt ∥∥ x(0) + A−1u∥. For the system matrix 
+
+A ∈ Rn×n, let A = P JP −1 be its Jordan form. Then, one can obtain 
+
+∥eAt ∥ ≤ ∥ P ∥∥ eJt ∥∥ P −1∥.
+
+Let J = Λ + N be the decomposition into its diagonal part Λ = diag( λ1, . . . , λ n) and nilpotent part N . Notably, Λ contains the eigenvalues of A, and N d = 0 where 
+
+d = max i{di} is the order of the largest Jordan block. Therefore, combining the definition of 2-norm for matrices leads to 
+
+∥eJt ∥ = ∥eΛteN t ∥ ≤ ∥ eΛt∥∥ 
+
+> d−1
+
+X
+
+> j=0
+
+N j
+
+j! tj ∥≤
+
+q
+
+λmax [( eΛt)HeΛt]
+
+> d−1
+
+X
+
+> j=0
+
+∥ N j
+
+j! tj ∥.
+
+=
+
+q
+
+λmax [( eΛt)HeΛt]
+
+> d−1
+
+X
+
+> j=0
+
+tj
+
+j!
+
+q
+
+λmax [( N j )HN j ].
+
+Due to the eigenvalues of ( N j )HN j are composed of {0, 1},we have the estimation as follows 
+
+∥x(t) + A−1u∥ ≤ C1
+
+q
+
+λmax [( eΛt)HeΛt]
+
+> d−1
+
+X
+
+> j=0
+
+tj
+
+j!= C1eℜ(λ1)
+
+> d−1
+
+X
+
+> j=0
+
+tj
+
+j! ,
+
+where C1 = ∥P ∥∥ P −1∥∥ x(0) + A−1u∥. Combining (6) and Lemma 5, it is demonstrated that 
+
+ρ ≥ −ℜ (λ1) = |ℜ (λ1)|
+
+due to lim sup 
+
+> t→∞
+> ln(
+
+Pd−1  
+
+> j=0
+> tjj!)
+> t
+
+= 0, i.e., the convergence rate of realizing computation using (9) is at least |ℜ (λ1)|. 2
+
+In the following, we extend our analysis to nonlinear MASs to evaluate more sophisticated biological computations, which necessitates a rigorous characterization of conver-gence rate for such positive polynomial systems. Suppose that the general MAS governed by (2) and (3) admits one LSS ¯ x, and we denote f (x) = Γ K (x). After applying the coordinate transformation of (2) and (3) and setting ˜x = x − ¯x, one can have ˙˜x = f (˜ x + ¯ x) ≜ h(˜ x) (10) with the zero LSS. Notably, it implies that there are no constant items in h(˜ x). Due to the polynomial form of 
+
+h(˜ x), (10) can be written as ˙˜x = ∂h (˜ x)
+
+∂ ˜x ˜x=0 
+
+˜x + ˜h(˜ x), (11) where ∂h (˜ x)  
+
+> ∂˜x˜x=0
+
+= ∂f (x) 
+
+> ∂x x=¯ x
+
+is equal to the linear part of the system (10). Therefore, ˜h(˜ x) consists solely of monomials of degree two or higher. We now formulate the following theorem to demonstrate that the nonlinear MASs, served as the biochemical computational modules and admitting asymptotically stable equilibrium points, present the computation speed that can be quantitatively expressed as the dominant eigenvalue with largest real part of the Jacobian matrix, evaluated at the corresponding LSS. The proof relies on two technical lemmas provided in the Appendix, i.e., Lemma 8, which bounds the norm of higher-order polynomial terms in ˜h(˜ x), and Lemma 9, which shows that for any matrix over the complex field and ϵ > 0, a diagonalizable matrix can be found to approximate it such that the corresponding eigenvalues differ by at most ϵ of the original ones. 
+
+Theorem 7. Consider the MAS governed by (2) and (3) allowing an asymptotically stable equilibrium point ¯x.Suppose that the Jacobian matrix has n eigenvalues sat-isfying ℜλn ≤ ℜ λn−1 ≤ · · · ≤ ℜ λ1 < 0. The convergence rate of calculating any function satisfying g(x1(0)) = ¯ x2
+
+using (2) and (3) is at least given by |ℜ λ1|.
+
+Proof. Considering the system (11), for A = ∂h (˜ x)  
+
+> ∂˜x˜x=0
+
+and any ϵ > 0, there exists a diagonalizable matrix Bϵ and 
+
+Cϵ = A − Bϵ satisfying ∥Cϵ∥ < ϵ . Then, we have ˙˜x = Bϵ ˜x + Cϵ ˜x + ˜h(˜ x).
+
+Below, we can find an invertible matrix Pϵ to perform a linear transformation on ˜x, i.e., z = P −1 
+
+> ϵ
+
+˜x, where 
+
+P −1 
+
+> ϵ
+
+˜xP ϵ = Λ ϵ and Λ ϵ is a diagonal matrix. Then, we have ˙z = P −1 
+
+> ϵ
+
+˙˜x = Λ ϵz + P −1 
+
+> ϵ
+
+CϵPϵz + P −1 
+
+> ϵ
+
+˜h(Pϵz). (12) Now we use the quadratic Lyapunov function V (z) = 
+
+> 12
+
+∥z∥2 to bound the energy of deviations from equilibrium, and combined with (12), lemma 8 and 9, we have ˙V (z) = 12 (zH ˙z + ˙ zHz)=zH Λϵ + Λ H
+
+> ϵ
+
+2 z + zH P −1 
+
+> ϵ
+
+CϵPϵ + P H 
+
+> ϵ
+
+CH 
+
+> ϵ
+
+(P −1 
+
+> ϵ
+
+)H
+
+2 z
+
++ zHP −1 
+
+> ϵ
+
+˜h + ˜hH(P −1 
+
+> ϵ
+
+)H z
+
+2
+
+≤λmax ℜ [Λ ϵ] ∥z∥2 + c1ϵ∥z∥2 + c2∥z∥p+1 
+
+=2( λmax ℜ [Λ ϵ] + c1ϵ)V (z) + ˜ c2V (z)α,
+
+when t > T with T chosen large enough to ensure that 
+
+∥z∥ < 1. Here, c1 = ∥P −1 
+
+> ϵ
+
+∥∥ Pϵ∥, c2 = c∥P −1 
+
+> ϵ
+
+∥, ˜ c2 = 2 p+1 2 c2
+
+and α = p+1 2 > 1. Since the positive constant ϵ is arbitrary, one can have ˙V (z) ≤ 2λmax ℜ [Λ ϵ] V (z) + ˜ c2V (z)α,
+
+Denoting λ′ 
+
+> 1
+
+= λmax ℜ [Λ ϵ], according to the Comparison Lemma and the solution to Bernoulli’s equation, we have the inequality 
+
+V (z(t)) ≤ (− ˜c
+
+2λ′
+
+> 1
+
++ ( ˜c
+
+2λ′
+
+> 1
+
++ V (0) 1−α)e2λ′
+
+> 1(1 −α)
+
+) 11−α .
+
+Based on these, we derive the upper bound of ln ∥x − ¯x∥
+
+as follows ln ∥x − ¯x∥ = ln ∥˜x∥ ≤ ln ∥Pϵ∥ + ln2 V (z)2
+
+≤ c3 +ln 
+
+h
+
+− ˜c2
+
+> 2λ′
+> 1
+
++ ( ˜c2
+
+> 2λ′
+> 1
+
++ V (0) 1−α)e2λ′
+
+> 1(1 −α)
+
+i
+
+2(1 − α)with c3 = ln2 2 + ln ∥Pϵ∥. Therefore, considering the conver-gence rate (6), we have 
+
+−ρ ≤ lim sup 
+
+> t→∞
+
+(ln 
+
+h
+
+− ˜c2
+
+> 2λ′
+> 1
+
++ ( ˜c2
+
+> 2λ′
+> 1
+
++ V (0) 1−α)e2λ′
+
+> 1(1 −α)t
+
+i
+
+2(1 − α)t )= lim sup 
+
+> t→∞
+
+( ˜c2
+
+> 2λ′
+> 1
+
++ V (0) 1−α)2 λ′
+
+> 1
+
+(1 − α)e2λ′
+
+> 1(1 −α)t
+
+2(1 − α)( − ˜c2
+
+> 2λ′
+> 1
+
++ ( ˜c2
+
+> 2λ′
+> 1
+
++ V (0) 1−α)e2λ′
+
+> 1(1 −α)t
+
+)= λ′
+
+> 1
+
+.
+
+Recalling the lemma 9, for any ϵ > 0 here, we can derive that |λ′ 
+
+> 1
+
+− ℜ λ1| < ϵ . Therefore, it holds that −ρ ≤ ℜ λ1 + ϵ.Consequently, due to the arbitrariness of ϵ, it implies that the convergence rate of computing g(x1(0)) = ¯ x2 satisfying 
+
+ρ ≥ −ℜ λ1, i.e., at least |ℜ λ1|. 2
+
+It should be noted that these characterizations are tailored for MASs where LSSs represent computational results, specifically Proposition 6 and Theorem 7 provide the local convergence rate for individual equilibrium. Thus, they are applicable to multistable systems where distinct LSSs encode input-dependent computational results, potentially with varying convergence rate lower bounds. However, while CRNs exhibit diverse behaviors, limit cycles are excluded as they fail to yield the static convergent output required for computational tasks. 4. EXAMPLES This section illustrates the theoretical lower bound through two numerical examples, demonstrating that it serves as the dominant factor governing computation speed, and system trajectories exhibiting consistent with our theoret-ical derivations. 
+
+4.1 Hadamard Product 
+
+This example illustrates Proposition 6 applied to the linear case. Considering the operation between vectors 
+
+a = ( ai), b = ( bi), c = ( ci) ∈ R2
+
+> ≥0
+
+, i.e., 
+
+a ⊙ b ⊙ c =
+
+a1b1c1
+
+a2b2c2
+
+
+
+≜
+
+z1
+
+z2
+
+
+
+,
+
+then we construct the following biochemical reaction net-work governed by a linear system 
+
+A1 + B1
+
+> k1
+
+−→ A1 + B1 + M1, M 1
+
+> k1
+
+−→ ∅,M1 + C1
+
+> k2
+
+−→ M1 + C1 + Z1, Z 1
+
+> k2
+
+−→ ∅,A2 + B2
+
+> k3
+
+−→ A2 + B2 + M2, M 2
+
+> k3
+
+−→ ∅,M2 + C2
+
+> k4
+
+−→ M2 + C2 + Z2, Z 2
+
+> k4
+
+−→ ∅
+
+(13) with input species {Ai, B i, C i}, and four output species 
+
+{Zi, M i} representing the resulted vector z = ( zi) ∈ R2
+
+> ≥0
+
+.Eigenvalues of the system matrix of (13) is given by 
+
+{k1, k 2, k 3, k 4}. According to Proposition 6, we immedi-ately find that the speed of computing a ⊙ b ⊙ c using (13) is at least ρ1 = min {k1, k 2, k 3, k 4}, which corresponds to the smallest degradation rate among the involved species. This lower bound of convergence rate can be determined without explicitly solving the system (13). Through one of the output species Z1, Fig.1(a) illustrates that this lower bound is the dominant factor determining the overall range of computation speed attainable using CRNs, and Fig. 1(b) shows the consistency between the true convergence behavior and our estimation of the convergence rate lower bound. 
+
+4.2 Biochemical Adaptive Linear Neural Networks 
+
+We validate Theorem 7 for the nonlinear MAS by estimating the computation speed of the feedforward part in the biochemical adaptive linear neural network (BALNN) (Fan et al., 2022), where the input sample x =(x1, . . . , x n) ∈ R1×n and weight vector w = ( w1, . . . , w n) ∈
+
+R1×n. The feedforward CRN with automatic computation capability to compute y = x · w is governed by a nonlinear MAS as follows 
+
+dy +(t)
+
+dt = k1p+(t) − ky +(t) − k∞y+(t)y−(t),dy −(t)
+
+dt = k2p−(t) − ky −(t) − k∞y+(t)y−(t),
+
+(14) where y±(t) are the concentration of two output species of the feedforward part, and p±(t) maintain constant here and carry the positive and negative part of the linear weighted sum, respectively. Under the assumption 
+
+k∞ ≫ k, ¯ y+ stores the positive output of the BALNN when p+(0) > p −(0), whereas ¯ y− stores its negative out-put. Eigenvalues of the Jacobian matrix are obtained as 
+
+{− k, −k − −k∞|k1p+(0) −k2p−(0) | 
+
+> k
+
+}, and therefore the con-vergence rate of the feedforward part in the BALNN is at least ρ2 = k. Through the output species Y −, Fig. 1(c) illustrates how the degradation rate k of Y +, Y − influences the convergence rate compared with k∞, and Fig. 1(d) demonstrates the validity of our theoretical results. 5. CONCLUSION This work develops a rigorous and concise characterization of convergence rate lower bound for biochemical compu-tational modules, showing that the computation speed is fundamentally bounded by the dominant eigenvalues of the Jacobian matrix. Our results demonstrate how this char-acterization provides a theoretical metric for evaluating finite time computational accuracy and guides structure and parameter designs to achieve desired precision within a shorter time. However, current characterizations are inap-plicable to singular Jacobians with zero eigenvalues, which may arise from conservation laws. Additionally, while max-imizing the dominant eigenvalue provides one approach to accelerate biochemical molecular computation, transient performance is still influenced by the remaining spectrum. Validation against experimental data and addressing these theoretical limitations remain subjects for future research. REFERENCES Anderson, D.F. and Joshi, B. (2025). Chemical mass-action systems as analog computers: Implementing arithmetic computations at specified speed. Theoretical Computer Science , 1025, 114983. Anderson, D.F., Joshi, B., and Deshpande, A. (2021). On reaction network implementations of neural net-works. Journal of the Royal Society Interface , 18(177), 20210031. Arredondo, D. and Lakin, M.R. (2022). Supervised learn-ing in a multilayer, nonlinear chemical neural network. 
+
+IEEE Transactions on Neural Networks and Learning Systems , 34(10), 7734–7745. Chalk, C., Kornerup, N., Reeves, W., and Soloveichik, D. (2019). Composable rate-independent computation in continuous chemical reaction networks. IEEE/ACM Transactions on Computational Biology and Bioinfor-matics , 18(1), 250–260. Chen, Z., Linton, J.M., Xia, S., Fan, X., Yu, D., Wang, J., Zhu, R., and Elowitz, M.B. (2024). A synthetic protein-level neural network in mammalian cells. Science ,386(6727), 1243–1250. Cherry, K.M. and Qian, L. (2025). Supervised learning in dna neural networks. Nature , 1–9. Fan, Y., Zhang, X., and Gao, C. (2022). Towards program-ming adaptive linear neural networks through chemical reaction networks. IFAC-PapersOnLine , 55(18), 7–13. Fan, Y., Zhang, X., Gao, C., and Dochain, D. (2025a). Automatic implementation of neural networks through reaction networks—part i: Circuit design and conver-gence analysis. IEEE Transactions on Automatic Con-trol , 70(10), 6356–6371. Fan, Y., Zhang, X., Gao, C., and Dochain, D. (2025b). Automatic implementation of neural networks through reaction networks—part ii: Error analysis. IEEE Trans-actions on Automatic Control , 70(10), 6372–6387. Moorman, A., Samaniego, C.C., Maley, C., and Weiss, R. (2019). A dynamical biomolecular neural network. In 2019 IEEE 58th conference on decision and control (CDC) , 1797–1802. IEEE. Okumura, S., Gines, G., Lobato-Dauzier, N., Baccouche, A., Deteix, R., Fujii, T., Rondelez, Y., and Genot, A.J. (2022). Nonlinear decision-making with enzymatic neural networks. Nature , 610(7932), 496–501. Singh, A., Wiuf, C., Behera, A., and Gopalkrishnan, M. (2019). A reaction network scheme which implements inference and learning for hidden markov models. In In-ternational Conference on DNA Computing and Molec-ular Programming , 54–79. Springer. Vasi´ c, M., Chalk, C., Luchsinger, A., Khurshid, S., and Soloveichik, D. (2022). Programming and training rate-independent chemical reaction networks. Proceed-ings of the National Academy of Sciences , 119(24), e2111552119. Vasi´ c, M., Soloveichik, D., and Khurshid, S. (2020). Crn++: Molecular programming language. Natural Computing , 19(2), 391–407. APPENDIX The following lemmas provide the technical foundations for the proof of Theorem 7. 
+
+Lemma 8. For one polynomial function h(x) ∈ Cn with 
+
+x ∈ Cn, consisting of monomial items of degree d ≥ 2, there exist c > 0 and a fixed p > 1 such that 
+
+∥h(x)∥ ≤ c∥x∥p
+
+when ∥x∥ ≤ 1. (a) Dependence of computation speed of the Hadamard production on rate constants (c) Dependence of computation speed of feedforward module of BALNN on rate constants (b) Comparison between true convergence and the estimated speed (d) Comparison between true convergence and the estimated speed Fig. 1. Computation speed characterization for the Hadamard module and the BALNN feedforward module with ρ1 = k2
+
+in (a) and ρ2 = k in (c). In (b) and (d), orange lines represent theoretical lower bounds ρ = |ℜ (λ1)|
+
+, and the blue lines show the true convergence of (13) and (14). 
+
+Proof. Without loss of generality, we focus on the 2-norm here. Each scalar element of h(x) is denoted as 
+
+hj (x) = Pmj 
+
+> k=1
+
+akj 
+
+Qni=1 xbij  
+
+> i
+
+with bij are nonnegative inte-gers. Then, combining the Arithmetic Mean - Geometric Mean inequality, one can have 
+
+|
+
+> n
+
+Y
+
+> i=1
+
+xbij  
+
+> i
+
+| ≤ (
+
+Pni=1 |xi|bij 
+
+n )n ≤ (
+
+Pni=1 ∥x∥bij 
+
+n )n
+
+≤ ( n∥x∥bj
+
+n )n = ∥x∥nb j
+
+where bj = min i{bij } due to ∥x∥ ≤ 1. Further, |hj (x)| ≤ 
+
+aj ∥x∥nb j with aj = nmax k{akj }. With that, we can derive 
+
+∥h(x)∥ = ( 
+
+> n
+
+X
+
+> j=1
+
+|hj (x)|2) 12 ≤ (
+
+> n
+
+X
+
+> j=1
+
+a2 
+
+> j
+
+∥x∥2nb j ) 12
+
+≤ (na 2∥x∥2nb ) 12 = √n|a|∥ x∥nb ,
+
+where a = max j {aj } and b = min j {bj }. Therefore, with 
+
+c = √n|a| and p = nb , it can be obtained that p > 1 since 
+
+b ≥ 2 when n = 1 and p > 1 whenever n ≥ 2. 2
+
+Lemma 9. Given A ∈ Cn×n, for every ϵ > 0, there exists a diagonalizable matrix B ∈ Cn×n such that ∥A − B∥ < ϵ .Moreover, let λi and λ′ 
+
+> i
+
+denote the eigenvalues of A and 
+
+B, respectively, we have |λi − λ′
+
+> i
+
+| < ϵ , i = 1 , · · · , n .
+
+Proof. Considering the Schur decomposition, i.e., for A ∈
+
+Cn×n, there exists a unitary matrix U such that U HAU =
+
+T where T is an upper triangular matrix with the diagonal elements λ1, · · · , λ n. For every ϵ > 0, one can construct a perturbation matrix D = diag( d1, · · · , d n) such that 
+
+|di| < ϵ and eigenvalues of T + D are distinct. It implies that there exists an invertible matrix P such that 
+
+P −1(T + D)P = diag( λ1 + d1, · · · , λ n + dn)
+
+≜ diag( λ′
+
+> 1
+
+, · · · , λ ′
+
+> n
+
+) ≜ Λ.
+
+Therefore, let B = U (T +D)U H, one can find an invertible matrix U P satisfying ( P −1U H)B(U P ) = Λ, i.e., B is diagonalizable. Then, we estimate that 
+
+∥B − A∥ = ∥U DU H∥ =
+
+q
+
+λmax [U D HDU H] = ∥D∥ < ϵ. 
+
+Due to the construction, |λi − λ′
+
+> i
+
+| < ϵ holds naturally. 2
+
+Remark 1. Although perturbing eigenvalues may alter their ordering, for any ϵ > 0, one can always choose perturbations such that the dominant eigenvalue index is preserved. Specifically, suppose that eigenvalues are ordered as ℜλn ≤ ℜ λn−1 ≤ · · · ≤ ℜ λ1, and the first 
+
+k(k < n ) ones share the same largest negative real part. To find the appropriate perturbations, considering λi ∈{λ1, · · · , λ k}, one can set di = ϵi 
+
+> 2
+
+ejθ i with θ1 ∈ − π 
+
+> 2
+
+, π
+
+> 2
+
+,
+
+ϵ1 = ϵ, θi = π 
+
+> 2
+
++ (i−1) πk , ϵi = min {ϵ, ℜλi−ℜ λk 
+
+> 2
+
+} for i ∈{2, · · · , k }, and j denotes the imaginary unit in complex numbers here. As for λi ∈ {λk+1 , · · · , λ n}, it is only necessary to ensure that |di| < min {ϵ, ℜλ1−ℜ λi 
+
+> 2
+
+} and that all perturbed eigenvalues remain distinct.
