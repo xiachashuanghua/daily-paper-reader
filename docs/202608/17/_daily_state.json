@@ -1,0 +1,41 @@
+{
+  "date": "20260817",
+  "date_label": "",
+  "generated_at": "2026-08-17 20:42:45 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.14228v1",
+      "route": "202608/17/2608.14228v1-autoschema-live-schema-grounding-for-agentic-text-to-sparql-over-heterogeneous-knowledge-graphs",
+      "title": "AutoSchema: Live Schema Grounding for Agentic Text-to-Sparql over Heterogeneous Knowledge Graphs",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "生命科学知识图谱上基于实时模式锚定的智能体文本到SPARQL查询",
+      "first_seen_at": "2026-08-17 20:42:45 UTC",
+      "updated_at": "2026-08-17 20:42:45 UTC"
+    },
+    {
+      "paper_id": "2608.10030v1",
+      "route": "202608/17/2608.10030v1-automating-and-scaling-behavioral-scientific-research-on-ai-agents",
+      "title": "Automating and Scaling Behavioral Scientific Research on AI Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "AEROBAT多智能体系统自动化端到端行为科学研究，可直接应用于生物自主实验",
+      "first_seen_at": "2026-08-17 20:42:45 UTC",
+      "updated_at": "2026-08-17 20:42:45 UTC"
+    }
+  ]
+}

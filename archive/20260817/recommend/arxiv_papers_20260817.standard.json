@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-17T20:38:57.635934+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.14228v1",
+      "source": "arxiv",
+      "title": "AutoSchema: Live Schema Grounding for Agentic Text-to-Sparql over Heterogeneous Knowledge Graphs",
+      "abstract": "Life science knowledge graphs make large collections of structured data available through SPARQL, but each resource uses its own schema, identifiers, and links. TogoMCP helps language model agents query these resources by providing curated Metadata Interoperability Exchange files. Creating and maintaining these files still requires language model assisted drafting, validation, and manual review. We study \\emph{live schema grounding}, where an agent obtains the schema evidence needed for a question directly from the current endpoints. We present \\textsc{autoschema}, a general framework for live schema grounding that requires no training. It inspects live schemas, maps entity names in a question to graph identifiers, explores relation paths, and finds possible connections between resources during iterative query construction. We use TogoMCP as our main comparison framework. We evaluate \\textsc{autoschema} on Resource Focused Biomedical KGQA, Multi Resource Biomedical KGQA, Longitudinal Biomedical Semantic QA over BioASQ Task B, and Chemistry Knowledge Graph Transfer to a previously undocumented RDF graph. \\textsc{autoschema} improves mean factoid accuracy over TogoMCP in the biomedical KGQA tasks and gives consistent gains in the longitudinal BioASQ evaluation. It also reduces iteration budget exhaustion and uses fewer tool calls on average in the core evaluation. The transfer study gives preliminary evidence that live schema grounding can support irregular and previously unseen graphs without first creating a curated schema file.",
+      "authors": [
+        "Yiming Zhang",
+        "Koji Tsuda"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-14T12:02:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.14228v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agentic Text-to-SPARQL over heterogeneous life science knowledge graphs with live schema grounding",
+      "llm_evidence_cn": "生命科学知识图谱上基于实时模式锚定的智能体文本到SPARQL查询",
+      "llm_evidence": "生命科学知识图谱上基于实时模式锚定的智能体文本到SPARQL查询",
+      "canonical_evidence": "生命科学知识图谱上基于实时模式锚定的智能体文本到SPARQL查询",
+      "llm_tldr_en": "AutoSchema is a training-free framework for live schema grounding in agentic Text-to-SPARQL over heterogeneous life science knowledge graphs, eliminating costly maintenance of schema files by inspecting endpoints, mapping entities, and exploring relationships.",
+      "llm_tldr_cn": "生命科学知识图谱由多个异构SPARQL端点组成，维护如TogoMCP的调停文件成本高，阻碍了智能体查询。本文提出AutoSchema通用框架，无需训练，直接从当前端点检查实时模式，将问题中的实体名映射到图谱标识符并探索关系，从而实现基于实时模式锚定的Text-to-SPARQL。实验表明该方法能有效支持异构知识图谱上的查询生成，减少人工模式维护。该工作为生命科学数据上的自主智能体提供关键的模式理解能力。",
+      "llm_tldr": "生命科学知识图谱由多个异构SPARQL端点组成，维护如TogoMCP的调停文件成本高，阻碍了智能体查询。本文提出AutoSchema通用框架，无需训练，直接从当前端点检查实时模式，将问题中的实体名映射到图谱标识符并探索关系，从而实现基于实时模式锚定的Text-to-SPARQL。实验表明该方法能有效支持异构知识图谱上的查询生成，减少人工模式维护。该工作为生命科学数据上的自主智能体提供关键的模式理解能力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.10030v1",
+      "source": "arxiv",
+      "title": "Automating and Scaling Behavioral Scientific Research on AI Agents",
+      "abstract": "As AI agents are increasingly deployed in complex environments, understanding their behaviors becomes critical. Yet behavioral scientific research on AI agents remains manual and labor-intensive. We introduce AEROBAT, the first multi-agent system to automate behavioral scientific research on AI agents. Given an arbitrary target behavior by its user, AEROBAT automatically executes a full pipeline of behavioral scientific research---generating hypotheses about the behavior, designing and executing controlled experiments, making behavioral assessments, analyzing the results, and writing reports. For 12 target behaviors, we used AEROBAT to generate and test 79 hypotheses: designing 1,240 controlled experiments and executing 23,512 simulation rounds in total. Moderate-to-strong statistical evidence was found for 26 hypotheses, including some novel ones. In sum, our results demonstrate that automated behavioral scientific research on AI agents can complement and extend the reach of manual research.",
+      "authors": [
+        "Soo Yong Lee",
+        "Jongha Lee",
+        "Jaewan Chun",
+        "Hyunjin Hwang",
+        "Fanchen Bu",
+        "Ziv Ben-Zion",
+        "Taekwan Kim",
+        "Denny Borsboom",
+        "Jaemin Yoo",
+        "Kijung Shin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-10T01:14:31+00:00",
+      "link": "https://arxiv.org/pdf/2608.10030v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AEROBAT multi-agent system automates end-to-end behavioral science research, directly applicable to autonomous experimentation in biology",
+      "llm_evidence_cn": "AEROBAT多智能体系统自动化端到端行为科学研究，可直接应用于生物自主实验",
+      "llm_evidence": "AEROBAT多智能体系统自动化端到端行为科学研究，可直接应用于生物自主实验",
+      "canonical_evidence": "AEROBAT多智能体系统自动化端到端行为科学研究，可直接应用于生物自主实验",
+      "llm_tldr_en": "AEROBAT is the first multi-agent system to automate behavioral scientific research on AI agents, generating hypotheses, designing and executing controlled experiments, analyzing results, and writing reports; it tested 79 hypotheses over 1,240 experiments, demonstrating scalable automated research.",
+      "llm_tldr_cn": "针对AI智能体行为科学研究依赖人工且费力的痛点，论文提出AEROBAT，这是首个自动化行为科学研究的多智能体系统。给定任意目标行为，它能自动完成假设生成、实验设计执行、行为评估与报告撰写。在12项目标行为上生成并测试79条假设、设计1240项对照实验，展现大规模自动化研究的可行性，为生物科研自动化提供可借鉴范式。",
+      "llm_tldr": "针对AI智能体行为科学研究依赖人工且费力的痛点，论文提出AEROBAT，这是首个自动化行为科学研究的多智能体系统。给定任意目标行为，它能自动完成假设生成、实验设计执行、行为评估与报告撰写。在12项目标行为上生成并测试79条假设、设计1240项对照实验，展现大规模自动化研究的可行性，为生物科研自动化提供可借鉴范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

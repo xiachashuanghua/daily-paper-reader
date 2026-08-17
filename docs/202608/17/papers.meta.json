@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-17",
+  "date": "2026-08-17",
+  "generated_at": "2026-08-17T20:42:48",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/17/2608.14228v1-autoschema-live-schema-grounding-for-agentic-text-to-sparql-over-heterogeneous-knowledge-graphs",
+      "section": "deep",
+      "title_en": "AutoSchema: Live Schema Grounding for Agentic Text-to-Sparql over Heterogeneous Knowledge Graphs",
+      "authors": "Yiming Zhang, Koji Tsuda",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14228v1",
+      "score": "8.0",
+      "evidence": "生命科学知识图谱上基于实时模式锚定的智能体文本到SPARQL查询",
+      "tldr": "生命科学知识图谱异构性强，现有方法依赖人工维护的schema文件。本文提出AutoSchema，一种无需训练的实时schema grounding框架，直接从端点获取schema证据并迭代构建SPARQL查询。在多个生物医学和化学KGQA基准上，相比TogoMCP提升了事实性QA准确率，减少迭代预算耗尽。该工作展示了实时schema grounding对异构图谱的通用性，无需预先创建curated文件。",
+      "tags": "query:llmagt",
+      "abstract_en": "Life science knowledge graphs make large collections of structured data available through SPARQL, but each resource uses its own schema, identifiers, and links. TogoMCP helps language model agents query these resources by providing curated Metadata Interoperability Exchange files. Creating and maintaining these files still requires language model assisted drafting, validation, and manual review. We study \\emph{live schema grounding}, where an agent obtains the schema evidence needed for a question directly from the current endpoints. We present \\textsc{autoschema}, a general framework for live schema grounding that requires no training. It inspects live schemas, maps entity names in a question to graph identifiers, explores relation paths, and finds possible connections between resources during iterative query construction. We use TogoMCP as our main comparison framework. We evaluate \\textsc{autoschema} on Resource Focused Biomedical KGQA, Multi Resource Biomedical KGQA, Longitudinal Biomedical Semantic QA over BioASQ Task B, and Chemistry Knowledge Graph Transfer to a previously undocumented RDF graph. \\textsc{autoschema} improves mean factoid accuracy over TogoMCP in the biomedical KGQA tasks and gives consistent gains in the longitudinal BioASQ evaluation. It also reduces iteration budget exhaustion and uses fewer tool calls on average in the core evaluation. The transfer study gives preliminary evidence that live schema grounding can support irregular and previously unseen graphs without first creating a curated schema file.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/17/2608.10030v1-automating-and-scaling-behavioral-scientific-research-on-ai-agents",
+      "section": "quick",
+      "title_en": "Automating and Scaling Behavioral Scientific Research on AI Agents",
+      "authors": "Soo Yong Lee, Jongha Lee, Jaewan Chun, Hyunjin Hwang, Fanchen Bu, Ziv Ben-Zion, Taekwan Kim, Denny Borsboom, Jaemin Yoo, Kijung Shin",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.10030v1",
+      "score": "7.0",
+      "evidence": "AEROBAT多智能体系统自动化端到端行为科学研究，可直接应用于生物自主实验",
+      "tldr": "AI代理的行为科学研究目前仍依赖人工，过程繁琐。我们提出AEROBAT，这是首个自动化行为科学研究的智能体系统，能自动生成假设、设计实验、执行实验、分析结果并撰写报告。针对12种目标行为，系统自动生成79个假设，设计1240个受控实验，执行23512轮模拟，最终发现26个假设获得中等至强统计证据，其中部分发现具有新颖性。这一研究表明，自动化行为科学研究能显著补充和扩展人工研究。",
+      "tags": "query:llmagt",
+      "abstract_en": "As AI agents are increasingly deployed in complex environments, understanding their behaviors becomes critical. Yet behavioral scientific research on AI agents remains manual and labor-intensive. We introduce AEROBAT, the first multi-agent system to automate behavioral scientific research on AI agents. Given an arbitrary target behavior by its user, AEROBAT automatically executes a full pipeline of behavioral scientific research---generating hypotheses about the behavior, designing and executing controlled experiments, making behavioral assessments, analyzing the results, and writing reports. For 12 target behaviors, we used AEROBAT to generate and test 79 hypotheses: designing 1,240 controlled experiments and executing 23,512 simulation rounds in total. Moderate-to-strong statistical evidence was found for 26 hypotheses, including some novel ones. In sum, our results demonstrate that automated behavioral scientific research on AI agents can complement and extend the reach of manual research.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
