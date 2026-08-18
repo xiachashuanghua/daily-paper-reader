@@ -1,0 +1,73 @@
+{
+  "date": "20260818",
+  "date_label": "",
+  "generated_at": "2026-08-18 19:41:19 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.15669v1",
+      "route": "202608/18/2608.15669v1-large-discovery-models-empirically-grounded-model-based-open-ended-search",
+      "title": "Large Discovery Models: Empirically-grounded Model-Based Open-Ended Search",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于LLM的生成模型用于蛋白质序列与分子发现",
+      "first_seen_at": "2026-08-18 19:41:19 UTC",
+      "updated_at": "2026-08-18 19:41:19 UTC"
+    },
+    {
+      "paper_id": "2608.16419v1",
+      "route": "202608/18/2608.16419v1-pertmind-eliciting-emergent-biological-reasoning-in-llm-via-reinforcement-learning-on-cellular-perturbation-data",
+      "title": "PertMind: Eliciting Emergent Biological Reasoning in LLM via Reinforcement Learning on Cellular Perturbation Data",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用细胞扰动数据上的强化学习训练LLM，提升突现生物学推理能力",
+      "first_seen_at": "2026-08-18 19:41:19 UTC",
+      "updated_at": "2026-08-18 19:41:19 UTC"
+    },
+    {
+      "paper_id": "2608.10366v1",
+      "route": "202608/18/2608.10366v1-dsagentbench-can-agents-automate-end-to-end-data-science-workflows-in-real-computer-environments",
+      "title": "DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "智能体自动化数据科学工作流基准，可迁移至生物研究中的自主智能体",
+      "first_seen_at": "2026-08-18 19:41:19 UTC",
+      "updated_at": "2026-08-18 19:41:19 UTC"
+    },
+    {
+      "paper_id": "2608.14354v1",
+      "route": "202608/18/2608.14354v1-scienceflow-a-long-horizon-agent-for-ml-research-scientific-discovery-and-beyond",
+      "title": "ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向ML研究与科学发现的长程自主智能体，与生物研究自主智能体直接相关",
+      "first_seen_at": "2026-08-18 19:41:19 UTC",
+      "updated_at": "2026-08-18 19:41:19 UTC"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-18",
+  "date": "2026-08-18",
+  "generated_at": "2026-08-18T19:41:22",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/18/2608.15669v1-large-discovery-models-empirically-grounded-model-based-open-ended-search",
+      "section": "deep",
+      "title_en": "Large Discovery Models: Empirically-grounded Model-Based Open-Ended Search",
+      "authors": "Zhongwei Yu, Yan Song, Xue Yan, Anjie Liu, Xingyu Lu, Yihang Chen, Huichi Zhou, Siyuan Guo, Luoyang Sun, Sihan Chen, Xiangning Yu, Jun Wang",
+      "date": "2026-08-16",
+      "pdf": "https://arxiv.org/pdf/2608.15669v1",
+      "score": "9.0",
+      "evidence": "基于LLM的生成模型用于蛋白质序列与分子发现",
+      "tldr": "科学发现通常需要在庞大、结构化的开放假说空间中优化昂贵目标，现有生成模型（如大语言模型）对新候选的自评与似然度不可靠。为此提出大型发现模型(LDM)，将生成模型与贝叶斯非参数奖励代理模型耦合，利用不确定性感知价值引导候选的提出、精炼与选择，并随实验数据持续更新记忆。在神经网络训练、抗体设计和分子优化三个任务中，相比LLM-only反思与传统统计搜索，LDM使验证BPB降低2.4倍、结合能下降18.2%、分子多目标性能提升60%以上，展现了作为通用发现引擎的潜力。",
+      "tags": "query:llmagt",
+      "abstract_en": "Scientific discovery often involves optimising expensive-to-evaluate objectives over vast, structured, and open-ended hypothesis spaces, such as molecules, protein sequences, and computer programs. Generative models such as large language models (LLMs) provide expressive priors over such spaces, but their likelihoods and self-assessments are unreliable proxies for the objectives and calibrated epistemic uncertainty, especially for novel candidates outside the observed data distribution. We introduce the Large Discovery Model (LDM), an empirically grounded recurrent architecture that couples a generative model with a Bayesian non-parametric reward surrogate model. The generative model proposes and refines candidate designs, while the surrogate predicts their performance and quantifies uncertainty, yielding an uncertainty-aware value that guides candidate generation, refinement, and selection. The discovery memory and the surrogate model are continually updated as each new experimental observation arrives. We evaluate LDM on three scenarios spanning different design modalities and objectives, including neural-network training, antibody design, and molecular optimisation. Compared to LLM-only reflection or traditional statistical search across these domains, LDM achieves a $2.4\\times$ greater reduction in validation BPB, an $18.2\\%$ relative decrease in binding energy, and more than $60\\%$ relative gains in molecular multi-objective performance. These results suggests that LDM could serve as a general-purpose discovery engine for effective search over open-ended hypothesis spaces.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.16419v1-pertmind-eliciting-emergent-biological-reasoning-in-llm-via-reinforcement-learning-on-cellular-perturbation-data",
+      "section": "deep",
+      "title_en": "PertMind: Eliciting Emergent Biological Reasoning in LLM via Reinforcement Learning on Cellular Perturbation Data",
+      "authors": "Zhenchao Tang, Xiaogang Xu, Tianxu Lv, Jiahui Guan, Jiale Zhou, Haohuai He, Zhi Song, Hanbo Huang, Jiehui Huang, Jiafei Wu, Zhe Liu",
+      "date": "2026-08-17",
+      "pdf": "https://arxiv.org/pdf/2608.16419v1",
+      "score": "9.0",
+      "evidence": "利用细胞扰动数据上的强化学习训练LLM，提升突现生物学推理能力",
+      "tldr": "大型语言模型可描述生物机制，但后训练依赖昂贵的人工推理轨迹。PertMind将细胞扰动图谱作为强化学习环境，用实测基因响应作奖励，结合监督初始化和多级强化信号训练前向预测。模型提升未见细胞环境的响应推断，并且无需任务后训练即可迁移到逆向扰动、双扰动推理、表型筛选等任务。此举验证强化实验端点可激发模型内在生物推理，为实验图谱转化为通用生物推理训练环境提供可扩展途径。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language models can describe mechanisms, yet scalable post-training still depends on costly, manually curated biological reasoning traces. Here we show that cellular perturbation atlases can instead become reinforcement-learning environments, where measured gene responses provide computable rewards for biological reasoning. We introduce PertMind, which combines trusted-trajectory supervised initialization with gene-, pathway-, and format-level reinforcement signals. Trained only on forward perturbation-response prediction, PertMind improved response inference in unseen cellular contexts while retaining general language capabilities. It also transferred without task-specific post-training to reverse perturbation identification, double-perturbation reasoning, phenotypic-screen prioritization, and biological-process interpretation. PertMind further generated biological profiles that supported competitive gene, cell, and donor representations across multiscale downstream tasks. These results support the hypothesis that reinforcement on experimental endpoints can concentrate reusable biological strategies already accessible to pretrained models. More broadly, perturbation-derived reinforcement learning offers a scalable route for transforming expanding experimental atlases into training environments for general-purpose biological reasoning.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.10366v1-dsagentbench-can-agents-automate-end-to-end-data-science-workflows-in-real-computer-environments",
+      "section": "quick",
+      "title_en": "DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?",
+      "authors": "Mizanur Rahman, Mohammed Saidul Islam, Ridwan Mahbub, Md Tahmid Rahman Laskar, Shafiq Joty, Enamul Hoque Prince",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.10366v1",
+      "score": "6.0",
+      "evidence": "智能体自动化数据科学工作流基准，可迁移至生物研究中的自主智能体",
+      "tldr": "现有数据科学基准缺乏真实计算机交互，无法评估端到端工作流。本文提出DSAgentBench，包含275个覆盖全生命周期的任务，要求代理在真实操作系统中协调多工具，并通过确定性评估器验证分析正确性、可视化与模型性能。最强Claude-4.6-Sonnet仅56.70%成功率，开源代理低于1%，揭示显著能力差距。该基准为开发可落地、可验证的自动化数据科学代理奠定基础。",
+      "tags": "query:llmagt",
+      "abstract_en": "Real-world data science involves long-horizon workflows that span data wrangling, exploration, modeling, visualization, and validation, and require coordinated use of tools such as notebooks, IDEs, terminals, browsers, and databases within real operating environments. Yet existing benchmarks lack real-computer interaction and do not evaluate whether agents can execute complete end-to-end data-science workflows in realistic computing environments, failing to capture the multi-stage, multi-tool nature of data-science practice. We introduce DSAgentBench, the first benchmark to evaluate whether agents can automate full data-science workflows inside real computer environments. DSAgentBench contains 275 diverse tasks covering the entire data-science life-cycle, reflecting the complexity and tool coordination required in practice. Each task requires grounding decisions in intermediate outputs and coordinated tool use, and includes a deterministic evaluator that verifies analytical correctness, visual outputs, and model performance rather than code-only execution. Our extensive experiments with 15 closed- and open-source models show that even the strongest agent, Claude-4.6-Sonnet, achieves only 56.70% task success, while all open-source agents remain below 1%, frequently failing at tool orchestration, OS grounding, and multi-step reasoning. These results reveal a substantial capability gap between current agentic systems and real data-science workflows, positioning DSAgentBench as a foundation for developing grounded, verifiable, autonomous data-science agents. We release DSAgentBench at https://github.com/vis-nlp/DSAgentBench.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.14354v1-scienceflow-a-long-horizon-agent-for-ml-research-scientific-discovery-and-beyond",
+      "section": "quick",
+      "title_en": "ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond",
+      "authors": "Mingming Zhao, Jiqian Dong, Kangping Xu, Zadid Hasan, Chengrui Fan, Shan Jiang, Shuai Mao, Ting Lingya, Linyi Zou, Tailin Zhou, Yun Hin Chan, Wenkai Zhang, Zhanhong Zhou, Guowei Huang, Hongliang Li, Wenjing Cun, Zhitang Chen, Mingxuan Yuan, Yanhui Geng",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14354v1",
+      "score": "6.0",
+      "evidence": "面向ML研究与科学发现的长程自主智能体，与生物研究自主智能体直接相关",
+      "tldr": "长时间自主研究面临连续性不足、死胡同恢复缺失和计算资源分配低效等严峻挑战，现有智能体难以保持稳定目标。ScienceFlow 框架将研究进程组织为可执行状态片段，通过 ESTRA 重锚定机制在活动与存档状态间切换，以决定继续或重定向研究轨迹，并由证据感知控制器依据资源、预算和已验证进展分配算力。在完整 MLE-bench 上以 24 小时预算取得 70.22% Any-Medal 分数，较此前最好成绩提升 4.92 个百分点。结果证实高效状态管理、自适应探索与目标对齐执行是扩展自主研究的关键。",
+      "tags": "query:llmagt",
+      "abstract_en": "Enabling LLM agents to sustain productive, stable, and goal-aligned research over extended horizons is a central challenge for autonomous machine learning and scientific discovery, as progress hinges on continuously managing evolving state, exploration decisions, and computational resources. Pioneering autoresearch agents, despite great success, still lack mechanisms for continuity, recovery from dead ends, and value-driven compute allocation, which inherently undermines overall search efficiency, wastes computational resources, and lowers the chance of ultimate success. To bridge this gap, we introduce ScienceFlow, an end-to-end autoresearch agent framework that organizes long-horizon research work into research segments grounded in executable workspaces. It represents research progress as recoverable executable states, enabling efficient exploration, revision, and execution. Transitions between research segments are governed by Executable-State Transition through Re-Anchoring (ESTRA), which selects either the live state or an archived state as the next anchor and determines whether to continue or redirect the research trajectory. An evidence-aware execution controller allocates resources to physical jobs based on resource availability, remaining budget, and validated progress. We evaluate ScienceFlow on tasks spanning machine learning, scientific modeling, and mathematical optimization. Results on diverse long-horizon benchmarks demonstrate its ability to sustain effective research processes, highlighted by a SOTA 70.22 percent Any-Medal score on the full MLE-bench within a 24-hour budget, outperforming prior reported results by 4.92 percentage points. The efficacy of ScienceFlow further demonstrates that efficient state management, adaptive exploration, and objective-aligned execution are critical for scaling autonomous research beyond short-horizon interactions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
