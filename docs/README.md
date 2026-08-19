@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-18</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-19</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 12 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>10</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-18 19:41:19 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-19 20:15:58 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读2篇、速读2篇，聚焦AI驱动科学发现与数据科学自动化。最值得关注的两篇高分论文，分别提出大规模发现模型（Large Discovery Models）以及用强化学习在细胞扰动数据上激发LLM涌现生物推理（PertMind）。建议对AI科研感兴趣的读者优先精读这两篇，了解模型如何自主探索与推理。</p>
+<p>今日12篇论文扫描完成，2篇精读聚焦AI科研智能体失效诊断与生物分子序列-结构共设计，值得重点研读；另有RNA二级结构预测、多智能体分析等10篇速读可作扩展，建议优先精读高评分两篇以把握前沿方向。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,7 +74,7 @@
     <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Large Discovery Models: Empirically-grounded Model-Based Open-Ended Search">Large Discovery Models: Empirically-grounded Model-Based Open-Ended Search</span></li><li><span class="dpr-home-dashboard-paper-title" title="PertMind: Eliciting Emergent Biological Reasoning in LLM via Reinforcement Learning on Cellular Perturbation Data">PertMind: Eliciting Emergent Biological Reasoning in LLM via Reinforcement Learning on Cellular Perturbation Data</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="How Do Agents Fail on AutoResearch: End-to-End Diagnostic Evaluation on 100 Real-World Frontier Research Tasks">How Do Agents Fail on AutoResearch: End-to-End Diagnostic Evaluation on 100 Real-World Frontier Research Tasks</span></li><li><span class="dpr-home-dashboard-paper-title" title="Leveraging generative hallucination and biophysics-informed modeling for unified biomolecular sequence-structure co-design">Leveraging generative hallucination and biophysics-informed modeling for unified biomolecular sequence-structure co-design</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">10 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?">DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?</span></li><li><span class="dpr-home-dashboard-paper-title" title="ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond">ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="MultiStructRNA: a Python package for multi-algorithm RNA secondary structure prediction, ensemble analysis, and visualization">MultiStructRNA: a Python package for multi-algorithm RNA secondary structure prediction, ensemble analysis, and visualization</span></li><li><span class="dpr-home-dashboard-paper-title" title="Polaris : Multi Agentic System for Conversational Enterprise Analytics">Polaris : Multi Agentic System for Conversational Enterprise Analytics</span></li><li><span class="dpr-home-dashboard-paper-title" title="Semantic Uncertainty-Guided Orchestration in Hierarchical Multi-Agent Systems">Semantic Uncertainty-Guided Orchestration in Hierarchical Multi-Agent Systems</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>10</strong></span></div>
 </section>
 </div>
 

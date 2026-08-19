@@ -1,0 +1,201 @@
+{
+  "date": "20260819",
+  "date_label": "",
+  "generated_at": "2026-08-19 20:15:58 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.14905v1",
+      "route": "202608/19/2608.14905v1-how-do-agents-fail-on-autoresearch-end-to-end-diagnostic-evaluation-on-100-real-world-frontier-research-tasks",
+      "title": "How Do Agents Fail on AutoResearch: End-to-End Diagnostic Evaluation on 100 Real-World Frontier Research Tasks",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向科学研究全生命周期的LLM智能体诊断评估",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.17381v1",
+      "route": "202608/19/2608.17381v1-leveraging-generative-hallucination-and-biophysics-informed-modeling-for-unified-biomolecular-sequence-structure-co-design",
+      "title": "Leveraging generative hallucination and biophysics-informed modeling for unified biomolecular sequence-structure co-design",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "计算生物学中的生物分子序列-结构协同设计",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.14846v1",
+      "route": "202608/19/2608.14846v1-multistructrna-a-python-package-for-multi-algorithm-rna-secondary-structure-prediction-ensemble-analysis-and-visualization",
+      "title": "MultiStructRNA: a Python package for multi-algorithm RNA secondary structure prediction, ensemble analysis, and visualization",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "生物信息学中的RNA二级结构预测工具包",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.14246v1",
+      "route": "202608/19/2608.14246v1-polaris--multi-agentic-system-for-conversational-enterprise-analytics",
+      "title": "Polaris : Multi Agentic System for Conversational Enterprise Analytics",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体对话分析框架，可迁移用于计算生物学数据分析",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.14707v1",
+      "route": "202608/19/2608.14707v1-semantic-uncertainty-guided-orchestration-in-hierarchical-multi-agent-systems",
+      "title": "Semantic Uncertainty-Guided Orchestration in Hierarchical Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向分层LLM多智能体系统的通用不确定性感知编排框架，可迁移至生物数据分析智能体",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.14927v1",
+      "route": "202608/19/2608.14927v1-llms-can-predict-failure-risk-but-struggle-to-predict-which-collaboration-protocol-pays-off-cost-aware-protocol-routing-across-reasoning-tasks",
+      "title": "LLMs Can Predict Failure Risk, But Struggle to Predict Which Collaboration Protocol Pays Off: Cost-Aware Protocol Routing Across Reasoning Tasks",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向多智能体LLM协作协议的成本感知路由框架，并在生物学与科学基准上评估",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.15264v1",
+      "route": "202608/19/2608.15264v1-agentr-a-stateful-and-recovery-aware-software-architecture-for-llm-based-auditable-workflows",
+      "title": "AgentR A Stateful and Recovery-Aware Software Architecture for LLM-based Auditable Workflows",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向LLM智能体的有状态可审计工作流架构，以科学文献综述为例验证",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.15591v1",
+      "route": "202608/19/2608.15591v1-agent-gym-a-framework-for-continuous-evaluation-and-evolution-of-llm-agents-through-human-in-the-loop-feedback",
+      "title": "Agent Gym: A Framework for Continuous Evaluation and Evolution of LLM Agents Through Human-in-the-Loop Feedback",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "领域无关的LLM智能体持续评估与进化框架，可应用于生物学自主研究智能体",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.15703v1",
+      "route": "202608/19/2608.15703v1-hymem-hierarchical-context-management-for-long-horizon-agents-via-information-isolation",
+      "title": "HyMem: Hierarchical Context Management for Long-Horizon Agents via Information Isolation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向长程LLM智能体的层级上下文管理，适用于自主科研智能体",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.16002v1",
+      "route": "202608/19/2608.16002v1-from-sequence-to-structure-relational-uncertainty-propagation-for-llm-agents",
+      "title": "From Sequence to Structure: Relational Uncertainty Propagation for LLM Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向LLM智能体的轨迹级不确定性量化方法，可迁移至生物研究自主智能体的可靠性保障",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.16181v1",
+      "route": "202608/19/2608.16181v1-muse-an-interactive-meta-agent-for-understanding-and-steering-llm-powered-data-science-systems",
+      "title": "MUSE: An Interactive Meta-Agent for Understanding and Steering LLM-powered Data Science Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于理解和引导LLM驱动数据科学智能体的交互式元智能体",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    },
+    {
+      "paper_id": "2608.16951v1",
+      "route": "202608/19/2608.16951v1-the-little-scientist-llm-agent-driven-discovery-via-the-scientific-method",
+      "title": "The Little Scientist: LLM Agent-Driven Discovery via the Scientific Method",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出遵循科学方法的LLM智能体框架，含科学家智能体与库恩智能体，可迁移至生物研究自动化",
+      "first_seen_at": "2026-08-19 20:15:58 UTC",
+      "updated_at": "2026-08-19 20:15:58 UTC"
+    }
+  ]
+}

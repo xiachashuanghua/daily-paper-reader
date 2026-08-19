@@ -1,0 +1,495 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-19T20:07:47.848235+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2608.14905v1",
+      "source": "arxiv",
+      "title": "How Do Agents Fail on AutoResearch: End-to-End Diagnostic Evaluation on 100 Real-World Frontier Research Tasks",
+      "abstract": "AI has long assisted scientific research, but the rapid advance of LLMs and agentic scaffolds is reshaping the landscape; a single system can now carry whole-stage research from an initial hypothesis all the way to final published paper, which is a paradigm now referred to as AutoResearch. Existing evaluations reveal little about how these agents operate or where they break down. Tasks are narrowly-scoped, evaluation measures performance but not process, and failure diagnoses lack systematic coverage or artifact-level visibility. To address this gap, we introduce AutoResearchEval, featuring 100 tasks grounded in published frontier science across 7 scientific domains and the full research lifecycle, including ideation, retrieval, execution, analysis, writing, and review. Evaluating 8 harness-model combinations yields 800 autoresearch agent trajectories, with process-level annotation. We organize these insights into AutoResearch Failure Taxonomy or ARFT, a framework of 45 empirically-grounded failure patterns. To enable scalable fine-grained attribution, we leverage a human-calibrated agent-as-a-judge pipeline to inspect complete trajectories and intermediate artifacts. Failure patterns converge on a single overarching limitation, namely that current agents lack a metacognitive loop, which entails the ability to check what they produced against what they found, revise when it does not hold up, and question whether the path they took was sound. The same patterns recur across all 8 harness-model combinations, including the strongest models tested, locating the deficit at the model level rather than in any particular scaffold; whether orchestration-level interventions can close it is an open question this work does not test. We publicly release AutoResearchEval and ARFT to facilitate continued research and development in autonomous scientific discovery.",
+      "authors": [
+        "Yanlin Fei",
+        "Nazhou Liu",
+        "Xinmiao Yu",
+        "Shaolong Chen",
+        "Lei Li",
+        "Rahul Thapa",
+        "Madalina Ciobanu",
+        "Qingqing Mao",
+        "Ritankar Das"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-14T21:39:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.14905v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "diagnostic evaluation of LLM agents across scientific research lifecycle",
+      "llm_evidence_cn": "面向科学研究全生命周期的LLM智能体诊断评估",
+      "llm_evidence": "面向科学研究全生命周期的LLM智能体诊断评估",
+      "canonical_evidence": "面向科学研究全生命周期的LLM智能体诊断评估",
+      "llm_tldr_en": "Existing evaluations of AutoResearch agents ignore process and failure modes. AutoResearchEval introduces 100 tasks grounded in published frontier science across 7 domains and the full research lifecycle, diagnosing agent failures with artifact-level visibility.",
+      "llm_tldr_cn": "LLM与智能体框架已能承担从假设到成稿的自动研究流程，但现有评估只关注任务成功率，无法揭示智能体在哪里失败。AutoResearchEval 基于已发表的前沿科学构建100项真实任务，覆盖7个科学领域和完整研究生命周期，并提供产物级别的诊断信息。该系统化评估揭示了智能体在构思、执行和产出环节中的典型故障模式，为构建更可靠的自主科研智能体提供了重要参考。",
+      "llm_tldr": "LLM与智能体框架已能承担从假设到成稿的自动研究流程，但现有评估只关注任务成功率，无法揭示智能体在哪里失败。AutoResearchEval 基于已发表的前沿科学构建100项真实任务，覆盖7个科学领域和完整研究生命周期，并提供产物级别的诊断信息。该系统化评估揭示了智能体在构思、执行和产出环节中的典型故障模式，为构建更可靠的自主科研智能体提供了重要参考。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17381v1",
+      "source": "arxiv",
+      "title": "Leveraging generative hallucination and biophysics-informed modeling for unified biomolecular sequence-structure co-design",
+      "abstract": "Biomolecular design underpins applications from molecular recognition to therapeutics and synthetic biology, yet de novo interaction design remains challenging-especially for DNA/RNA, underexplored non-protein modalities with scarce, heterogeneous complex data and sharper geometric and chemical constraints. We introduce MCTH (Monte Carlo Tree Hallucination), an inference-only framework that casts all-atom sequence-structure co-design as uncertainty-aware planning over hallucinated states from pretrained folding and inverse-folding models, with optional biophysical control within the same decision loop. MCTH treats these models as frozen black-box operators and uses Monte Carlo Tree Search to allocate a fixed inference budget across competing design trajectories, incorporating model confidence and uncertainty, as well as cross-expert consensus/disagreement when multiple predictors are available. Across protein-RNA, protein-DNA, protein-protein, and protein-ligand design, matched-budget experiments show that adaptive search improves over simpler sampling and cycling strategies, while held-out AlphaFold3 and Chai-1 evaluations demonstrate transfer beyond the search-time oracle. MCTH provides a shared planning layer across modalities while allowing task-specific folding, inverse-folding, and biophysical modules, requiring no fine-tuning or backpropagation through component models.",
+      "authors": [
+        "Xuefeng Liu",
+        "Mingxuan Cao",
+        "Xiao Luo",
+        "Songhao Jiang",
+        "Tobin Sosnick",
+        "Jinbo Xu",
+        "Louis Maher",
+        "Rick Stevens"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI",
+        "cs.LG",
+        "q-bio.BM"
+      ],
+      "published": "2026-08-18T05:16:41+00:00",
+      "link": "https://arxiv.org/pdf/2608.17381v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "biomolecular sequence-structure co-design in computational biology",
+      "llm_evidence_cn": "计算生物学中的生物分子序列-结构协同设计",
+      "llm_evidence": "计算生物学中的生物分子序列-结构协同设计",
+      "canonical_evidence": "计算生物学中的生物分子序列-结构协同设计",
+      "llm_tldr_en": "Biomolecular design for DNA/RNA is challenging. MCTH is an inference-only framework that treats pretrained folding/inverse-folding models as black boxes and uses Monte Carlo Tree Search to plan over hallucinated states with biophysical control, enabling unified sequence-structure co-design.",
+      "llm_tldr_cn": "DNA/RNA等非蛋白生物分子的从头相互作用设计长期受限于数据稀缺、几何化学约束复杂。MCTH 提出仅推理的蒙特卡洛树幻觉框架，将预训练折叠与逆折叠模型视为黑盒，在幻觉状态上进行不确定性感知规划，并可在同一决策环中加入生物物理控制。该方法统一了序列-结构协同设计过程，为在受限生物分子体系中的从头设计提供了新的求解范式。",
+      "llm_tldr": "DNA/RNA等非蛋白生物分子的从头相互作用设计长期受限于数据稀缺、几何化学约束复杂。MCTH 提出仅推理的蒙特卡洛树幻觉框架，将预训练折叠与逆折叠模型视为黑盒，在幻觉状态上进行不确定性感知规划，并可在同一决策环中加入生物物理控制。该方法统一了序列-结构协同设计过程，为在受限生物分子体系中的从头设计提供了新的求解范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.14846v1",
+      "source": "arxiv",
+      "title": "MultiStructRNA: a Python package for multi-algorithm RNA secondary structure prediction, ensemble analysis, and visualization",
+      "abstract": "We introduce MultiStructRNA, a unified Python toolkit for RNA secondary structure prediction, ensemble analysis, and visualization. Although RNA secondary structure is central to RNA biology and therapeutic design, practical adoption is often hindered by fragmented tooling, incompatible input and output formats, and limited visualization support. MultiStructRNA addresses these challenges through a single high-level API that orchestrates multiple prediction algorithms, harmonizes results into a consistent schema, and provides reproducible, ensemble-aware metrics through an object model suited to both interactive notebooks and production pipelines. MultiStructRNA enables seamless switching between prediction methods without requiring workflow changes and supports both in-notebook and exportable visualizations. Designed for scalability, it supports high-throughput analyses and simplifies comparison across methods while standardizing downstream feature extraction. The current release also includes optional agent-readable workflow recipes that document dependency setup, backend-adapter conventions, SHAPE-data reconciliation, structure interpretation, and comparative sequence analyses. By integrating diverse RNA secondary structure packages within a common framework, MultiStructRNA streamlines structure analysis and facilitates its use in RNA design, optimization, and machine learning workflows.",
+      "authors": [
+        "Yashrajsinh Jadeja",
+        "Haining Lin",
+        "Mihir Metkar"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "q-bio.BM"
+      ],
+      "published": "2026-08-14T19:38:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.14846v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RNA secondary structure prediction toolkit in bioinformatics",
+      "llm_evidence_cn": "生物信息学中的RNA二级结构预测工具包",
+      "llm_evidence": "生物信息学中的RNA二级结构预测工具包",
+      "canonical_evidence": "生物信息学中的RNA二级结构预测工具包",
+      "llm_tldr_en": "RNA secondary structure analysis is hampered by fragmented tools and incompatible formats. MultiStructRNA provides a unified Python API that orchestrates multiple prediction algorithms, harmonizes outputs, and computes ensemble-aware metrics, enabling reproducible analysis and seamless algorithm switching.",
+      "llm_tldr_cn": "RNA二级结构预测虽对生物学和药物设计十分重要，但现有工具分散、格式不兼容且可视化支持有限。MultiStructRNA 通过统一的高层API编排多种预测算法，将结果规范化为一致模式，并提供面向集成分析的可重复指标对象模型。该工具支持在交互式笔记本和生产线中无缝切换算法，显著降低了RNA结构预测的分析门槛。",
+      "llm_tldr": "RNA二级结构预测虽对生物学和药物设计十分重要，但现有工具分散、格式不兼容且可视化支持有限。MultiStructRNA 通过统一的高层API编排多种预测算法，将结果规范化为一致模式，并提供面向集成分析的可重复指标对象模型。该工具支持在交互式笔记本和生产线中无缝切换算法，显著降低了RNA结构预测的分析门槛。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.14246v1",
+      "source": "arxiv",
+      "title": "Polaris : Multi Agentic System for Conversational Enterprise Analytics",
+      "abstract": "In today's fast-paced environment, the ability to swiftly access, understand, and act on data is no longer optional; it is essential. Yet most organizations remain data-rich but insight-poor, constrained by the complexity of querying, interpreting, and explaining enterprise-scale information. We present Polaris, a supervisor-led multi-agent framework for conversational enterprise analytics that bridges this gap. Polaris introduces Dynamic Task Coordination (DTC), a decision-theoretic orchestration layer that models agent-task assignment as adaptive bipartite matching, enabling real-time coordination, recovery, and optimization across specialized agents for querying, visualization, and reasoning. By coupling DTC with reason-first, ReAct-style agents, Polaris transforms natural-language queries into coherent analytical workflows that not only retrieve and visualize data but also explain the underlying \"why.\" Evaluation on structured enterprise datasets demonstrates high semantic fidelity and answer relevancy, underscoring the potential of multi-agent orchestration to deliver trustworthy, end-to-end business intelligence at scale.",
+      "authors": [
+        "Varuni H K",
+        "Soham Sarkar",
+        "Jay Kumar",
+        "Goutham Krishnan",
+        "Tanvi Johari",
+        "Avinash Bharadwaj",
+        "Santosh Hegde"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-14T12:26:41+00:00",
+      "link": "https://arxiv.org/pdf/2608.14246v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for conversational analytics transferable to computational biology",
+      "llm_evidence_cn": "多智能体对话分析框架，可迁移用于计算生物学数据分析",
+      "llm_evidence": "多智能体对话分析框架，可迁移用于计算生物学数据分析",
+      "canonical_evidence": "多智能体对话分析框架，可迁移用于计算生物学数据分析",
+      "llm_tldr_en": "Organizations struggle to query and interpret enterprise data. Polaris is a supervisor-led multi-agent framework with Dynamic Task Coordination, modeling agent-task assignment as bipartite matching to orchestrate querying, visualization, and reasoning agents for conversational analytics.",
+      "llm_tldr_cn": "企业数据分析中存在查询、解释和展示复杂数据链路的困难。Polaris 提出监督者主导的多智能体框架，通过动态任务协调层将智能体-任务分配建模为自适应二分匹配，实时协同查询、可视化和推理等专用智能体。该系统以ReAct风格推理驱动对话式分析，提升了任务分配的实时性与恢复能力，为多智能体数据分析框架提供了可借鉴的通用设计。",
+      "llm_tldr": "企业数据分析中存在查询、解释和展示复杂数据链路的困难。Polaris 提出监督者主导的多智能体框架，通过动态任务协调层将智能体-任务分配建模为自适应二分匹配，实时协同查询、可视化和推理等专用智能体。该系统以ReAct风格推理驱动对话式分析，提升了任务分配的实时性与恢复能力，为多智能体数据分析框架提供了可借鉴的通用设计。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.14707v1",
+      "source": "arxiv",
+      "title": "Semantic Uncertainty-Guided Orchestration in Hierarchical Multi-Agent Systems",
+      "abstract": "As large language model (LLM)-based multi-agent systems become increasingly capable, coordinating agents under uncertainty becomes a fundamental challenge. Existing orchestration strategies typically rely on fixed interaction patterns and often lack mechanisms for assessing the reliability of intermediate reasoning steps, allowing errors and hallucinations to propagate through the system. This paper introduces a semantic-uncertainty-guided orchestration approach, HASSUM as a general framework for uncertainty-aware coordination in multi-agent systems. The method estimates uncertainty using semantic entropy and semantic density, which measure trust at the level of answer semantics rather than output probabilities. These signals enable adaptive orchestration decisions, including output verification, selective reprompting, additional deliberation, and confidence-aware response selection. Because the approach operates independently of any particular agent architecture, it can be integrated into a broad range of hierarchical and collaborative multi-agent systems. The evaluations demonstrate an implementation within a hierarchical agent framework and evaluate it on StrategyQA, JailbreakBench, and TruthfulQA benchmarks. Across tasks that require complex reasoning and are prone to ambiguity or hallucinations, uncertainty-guided orchestration yields more reliable outcomes than uncertainty-unaware coordination. Semantic entropy and semantic density in tandem outperformed either metric alone. Ablations testing different thresholds and model sizes demonstrated that both influence the effectiveness of semantic metrics. The results suggest that semantic uncertainty is a practical and general-purpose signal for improving robustness and trustworthiness in agentic AI systems.",
+      "authors": [
+        "John Knowlton",
+        "Aritra Guha",
+        "Risto Miikkulainen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-11T03:55:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.14707v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "general uncertainty-aware orchestration framework for hierarchical LLM multi-agent systems, transferable to biological data analysis agents",
+      "llm_evidence_cn": "面向分层LLM多智能体系统的通用不确定性感知编排框架，可迁移至生物数据分析智能体",
+      "llm_evidence": "面向分层LLM多智能体系统的通用不确定性感知编排框架，可迁移至生物数据分析智能体",
+      "canonical_evidence": "面向分层LLM多智能体系统的通用不确定性感知编排框架，可迁移至生物数据分析智能体",
+      "llm_tldr_en": "HASSUM uses semantic entropy and semantic density to guide adaptive orchestration in hierarchical multi-agent systems, reducing error propagation; a general framework reusable for multi-agent biological data analysis.",
+      "llm_tldr_cn": "基于大语言模型的多智能体系统常因固定交互模式和缺乏中间推理可靠性评估而导致错误与幻觉传播。本文提出HASSUM，一种语义不确定性引导的编排框架，利用语义熵和语义密度估计答案层面的可信度，并据此进行自适应协调。该框架通用性强，可为生物数据分析中的多智能体协作提供不确定性感知的编排机制，提升系统可靠性。",
+      "llm_tldr": "基于大语言模型的多智能体系统常因固定交互模式和缺乏中间推理可靠性评估而导致错误与幻觉传播。本文提出HASSUM，一种语义不确定性引导的编排框架，利用语义熵和语义密度估计答案层面的可信度，并据此进行自适应协调。该框架通用性强，可为生物数据分析中的多智能体协作提供不确定性感知的编排机制，提升系统可靠性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.14927v1",
+      "source": "arxiv",
+      "title": "LLMs Can Predict Failure Risk, But Struggle to Predict Which Collaboration Protocol Pays Off: Cost-Aware Protocol Routing Across Reasoning Tasks",
+      "abstract": "Multi-agent large language model (LLM) systems can improve reasoning by spending more computation, but deployment requires deciding when extra collaboration is worth its cost. We isolate this decision by running every problem under four protocols while holding the solver fixed within each setting: direct solving (Baseline), iterative self-correction (Single), planner-executor-reviewer collaboration (PER), and multi-agent deliberation (Broadcast). The primary benchmark comprises 4,181 competition-level math problems; paired robustness checks cover four benchmarks spanning competition math, biology, and broader science with two solver families. Across fixed policies, trained routers, and frozen LLM routers, conservative policies under-escalate, whereas higher-solve frozen routers often over-escalate. A post-answer, pre-collaboration gpt-oss-120b probe ranks Baseline failures with 0.8847 AUROC (4,151 parseable cases; 95% CI [0.8732, 0.8955]). The same score remains informative for predicting whether any collaboration helps (0.7683 AUPRC), but is much weaker for identifying PER- or Broadcast-specific value (0.1674 and 0.1041 AUPRC). Separately, the pre-answer self-confidence gate reaches 78.0% solve at 45K tokens, compared with 73.8% at 71.3K for a frozen gpt-oss-120b router and 92.4% for a retrospective fixed-order oracle. Across 10 paired model-condition settings, the oracle adds 23.2-58.3 points of retrospective coverage over Baseline, but protocol profiles vary by task. In the six settings with held-out router evaluations, oracle gaps remain 18.5-28.9 points. Confidence can therefore support initial escalation, while protocol-specific cost-aware routing remains unresolved.",
+      "authors": [
+        "Chih-Hsuan Yang",
+        "Jingyan Jiang",
+        "Cheng-Hau Yang",
+        "Vikram Vasudevan",
+        "Huihuo Zheng",
+        "Venkatram Vishwanath",
+        "Rajeev Thakur"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-08-14T22:35:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.14927v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "cost-aware router across multi-agent LLM collaboration protocols, evaluated on biology and science benchmarks",
+      "llm_evidence_cn": "面向多智能体LLM协作协议的成本感知路由框架，并在生物学与科学基准上评估",
+      "llm_evidence": "面向多智能体LLM协作协议的成本感知路由框架，并在生物学与科学基准上评估",
+      "canonical_evidence": "面向多智能体LLM协作协议的成本感知路由框架，并在生物学与科学基准上评估",
+      "llm_tldr_en": "This paper isolates when multi-agent collaboration is worth its cost by routing across four protocols with a trained cost-aware router; evaluations include biology and science benchmarks, offering practical guidance for building bio multi-agent frameworks.",
+      "llm_tldr_cn": "多智能体LLM系统可通过增加计算提升推理能力，但部署时需判断额外协作是否值得成本。本文将四种协作协议（直接求解、自我修正、规划-执行-评审、多智能体评议）在固定求解器下进行比较，并训练成本感知路由器进行协议选择。在数学竞赛题及涵盖生物学与广泛科学的基准上，路由器能预测失败风险但难以预知哪种协议最优。该工作为构建面向生物信息学的多智能体系统提供成本与收益的实用决策框架。",
+      "llm_tldr": "多智能体LLM系统可通过增加计算提升推理能力，但部署时需判断额外协作是否值得成本。本文将四种协作协议（直接求解、自我修正、规划-执行-评审、多智能体评议）在固定求解器下进行比较，并训练成本感知路由器进行协议选择。在数学竞赛题及涵盖生物学与广泛科学的基准上，路由器能预测失败风险但难以预知哪种协议最优。该工作为构建面向生物信息学的多智能体系统提供成本与收益的实用决策框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.15264v1",
+      "source": "arxiv",
+      "title": "AgentR A Stateful and Recovery-Aware Software Architecture for LLM-based Auditable Workflows",
+      "abstract": "Modern LLM-based applications increasingly require multi- stage execution, persistent intermediate state, retry seman- tics, and auditable usage accounting. However, many LLM applications are still implemented as stateless prompt- response wrappers or session-bounded conversational sys- tems, which makes them difficult to recover, audit, and re- produce after interruption or failure. We propose AgentR, a stateful architecture for LLM workflow systems that en- ables persistence and recovery, instantiated through scien- tific literature review as a representative use case. AgentR represents research intent, generated queries, candidate- paper assessments and gap analyses as durable workflow artifacts, and executes the pipeline through asynchronous BullMQ workers backed by Redis, with PostgreSQL as the persistence store. The design includes explicit processing state transitions, retries with exponential backoff, orphan job detection, credit-aware pre-checks, ACID token-cost logging, and Type-2 slowly changing pricing records. We evaluate AgentR on telemetry collected from a prototype deployment. At the LLM stage, the system achieves 99.2% job completion, and mean latencies of 9.0 s, 18.9 s, and 25.4 s for intent decomposition, query generation, and paper scoring, respectively. Parallel scoring allows for analytical latency modeling from observed calls, leading to as much as 4.3 wall-clock speedup over sequential execution. The results provide preliminary proof-of-concept that persistent state machine design, asynchronous orchestration, and cost-aware usage logging can enable improved observability, recoverability, and operational accountability in LLM workflow systems. The prototype implementation of AgentR is publicly available at: https://github.com/ RiyaSamanta/AgentR-public.",
+      "authors": [
+        "Riya Samanta",
+        "Bidyut Saha",
+        "Soumya Kanti Ghosh",
+        "Rajkumar Buyya"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-08-15T14:51:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.15264v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Stateful audit/recovery workflow architecture for LLM agents, instantiated in scientific literature review",
+      "llm_evidence_cn": "面向LLM智能体的有状态可审计工作流架构，以科学文献综述为例验证",
+      "llm_evidence": "面向LLM智能体的有状态可审计工作流架构，以科学文献综述为例验证",
+      "canonical_evidence": "面向LLM智能体的有状态可审计工作流架构，以科学文献综述为例验证",
+      "llm_tldr_en": "AgentR proposes a stateful, recovery-aware architecture for LLM workflows, demonstrated on scientific literature review; applicable to autonomous research agents.",
+      "llm_tldr_cn": "针对LLM应用多为无状态提示封装、难以恢复和审计的问题，提出AgentR状态化工作流架构，将研究意图、查询、论文评估和差距分析等作为持久化工作流产物，并通过科学文献综述用例验证。该架构使LLM工作流可恢复、可审计、可复现，对生物信息学中的自主文献调研和科研智能体构建具有直接借鉴意义。",
+      "llm_tldr": "针对LLM应用多为无状态提示封装、难以恢复和审计的问题，提出AgentR状态化工作流架构，将研究意图、查询、论文评估和差距分析等作为持久化工作流产物，并通过科学文献综述用例验证。该架构使LLM工作流可恢复、可审计、可复现，对生物信息学中的自主文献调研和科研智能体构建具有直接借鉴意义。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.15591v1",
+      "source": "arxiv",
+      "title": "Agent Gym: A Framework for Continuous Evaluation and Evolution of LLM Agents Through Human-in-the-Loop Feedback",
+      "abstract": "Large Language Model (LLM) agents deployed in production environments face a fundamental tension: the agent's behavior is frozen at deployment time, while the business rules and edge cases it must handle continue to evolve. Existing approaches address agent construction and one-time evaluation but provide no structured mechanism for continuous post-deployment behavioral correction without modifying the agent's source code. Most of the approaches offered in the market, require intense collection of logs and traces, and re-examining the agent design by the engineering team, a process which is heavy, long and negates the economical value of agentic transformation. We introduce Agent Gym, a modular, domain-agnostic framework that wraps any existing LLM-based agent in a continuous evaluation-and-evolution loop. The framework provides six composable capabilities --- Act, Evaluate, Investigate, Correct, Learn, and Observe --- organized across three architectural zones: a constitution layer that codifies domain knowledge in configuration artifacts, a runtime inference pipeline that chains acting, investigation, and adaptive correction, and a learning loop that enables subject matter experts to discover and validate new correction rules through natural language interaction. The key technical contributions include a hybrid deterministic-LLM correction engine with 21 condition operators and three-tier actions, a three-layer investigation architecture for ground-truth-free compliance validation, and a programmatic safety loop that guarantees rule correctness before human approval. We further introduce the Spec-to-Note Gap, an autoencoder-inspired view of agentic system transparency. An open-source reference implementation for invoice processing demonstrates that the framework is fully operational and ready for adoption.",
+      "authors": [
+        "Pouya Ghiasnezhad Omran",
+        "Michael Zimmermann",
+        "Duncan Cambridge",
+        "Ashmita Kapoor",
+        "Tanya Dixit"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-16T07:27:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.15591v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "domain-agnostic framework for continuous evaluation and evolution of LLM agents with human-in-the-loop feedback; applicable to autonomous biological research agents",
+      "llm_evidence_cn": "领域无关的LLM智能体持续评估与进化框架，可应用于生物学自主研究智能体",
+      "llm_evidence": "领域无关的LLM智能体持续评估与进化框架，可应用于生物学自主研究智能体",
+      "canonical_evidence": "领域无关的LLM智能体持续评估与进化框架，可应用于生物学自主研究智能体",
+      "llm_tldr_en": "Agent Gym is a modular, domain-agnostic framework that lets LLM agents be continuously evaluated and behaviorally corrected after deployment via human-in-the-loop feedback, without modifying agent source code.",
+      "llm_tldr_cn": "LLM智能体部署后行为冻结，而业务规则和边界情况持续演化。Agent Gym提供领域无关的模块化框架，通过人在回路反馈对智能体进行持续评估与行为修正，无需修改源码。它还支持智能体的进化式迭代。该框架可帮助生物学研究中的自主智能体在部署后不断适应新的实验需求。",
+      "llm_tldr": "LLM智能体部署后行为冻结，而业务规则和边界情况持续演化。Agent Gym提供领域无关的模块化框架，通过人在回路反馈对智能体进行持续评估与行为修正，无需修改源码。它还支持智能体的进化式迭代。该框架可帮助生物学研究中的自主智能体在部署后不断适应新的实验需求。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.15703v1",
+      "source": "arxiv",
+      "title": "HyMem: Hierarchical Context Management for Long-Horizon Agents via Information Isolation",
+      "abstract": "Large language model (LLM) agents often perform poorly on complex, long-horizon tasks because their context becomes increasingly cluttered over time. As interactions accumulate, detailed execution traces and intermediate outputs dominate the context, making it difficult for the model to retain and use high-level planning information. Most existing methods address this issue through compression or retrieval applied to a single, flat context, which does not clearly separate different types of context information and often leads to degraded reasoning. To address this challenge, we propose HyMem, a hierarchical framework that explicitly separates the agent's context into distinct functional layers. HyMem organizes context by function to separate high-level planning from execution and complex analysis. Its isolated reasoning module handles complex subtasks without adding intermediate reasoning traces to the persistent planning context, while its memory management module preserves task progress across context refreshes through structured summaries. These components reduce redundant context accumulation, retain task-critical information, and support coherent long-horizon reasoning within a limited context window. Experiments on GAIA and Browsecomp-plus show that, with DeepSeek-V4, HyMem achieves average Pass@1 scores of 66.7% and 61.3%, outperforming the strongest baseline by 6.1 and 4.7 percentage points, respectively. Further analysis indicates that HyMem effectively controls the growth of the reasoning context, allowing the model to maintain focus and accuracy across complex, long-horizon tasks.",
+      "authors": [
+        "XinQi Wang",
+        "Jinwei Xiao",
+        "Sijia Cui",
+        "Hongming Zhang",
+        "Yanna Wang",
+        "Qingyang Zhang",
+        "Bo Xu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-16T12:15:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.15703v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hierarchical context management for long-horizon LLM agents relevant to autonomous research",
+      "llm_evidence_cn": "面向长程LLM智能体的层级上下文管理，适用于自主科研智能体",
+      "llm_evidence": "面向长程LLM智能体的层级上下文管理，适用于自主科研智能体",
+      "canonical_evidence": "面向长程LLM智能体的层级上下文管理，适用于自主科研智能体",
+      "llm_tldr_en": "Long-horizon LLM agents suffer from cluttered context. HyMem is a hierarchical framework that separates agent context into distinct functional layers, preserving high-level planning information and improving reasoning in complex long-horizon tasks.",
+      "llm_tldr_cn": "面向长程任务的LLM智能体会随着交互累积使上下文变得杂乱，高层规划信息难以保留。HyMem 提出层级上下文管理框架，将智能体上下文按功能划分为不同层级，避免中间执行细节干扰高层规划，从而缓解推理退化问题。该框架显式隔离规划、执行与记忆等类型信息，为复杂长程智能体任务提供了一种有效的上下文组织形式，可迁移到自主生物学研究等长周期场景。",
+      "llm_tldr": "面向长程任务的LLM智能体会随着交互累积使上下文变得杂乱，高层规划信息难以保留。HyMem 提出层级上下文管理框架，将智能体上下文按功能划分为不同层级，避免中间执行细节干扰高层规划，从而缓解推理退化问题。该框架显式隔离规划、执行与记忆等类型信息，为复杂长程智能体任务提供了一种有效的上下文组织形式，可迁移到自主生物学研究等长周期场景。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.16002v1",
+      "source": "arxiv",
+      "title": "From Sequence to Structure: Relational Uncertainty Propagation for LLM Agents",
+      "abstract": "Reliable uncertainty quantification (UQ) is essential for deploying large language model (LLM) agents in complex interactive environments. Existing UQ methods largely rely on local signals, such as token probabilities, predictive entropy, or per-step confidence, and therefore overlook the long-range dependencies through which errors accumulate across an execution trajectory. As a result, they may fail to identify agent failures whose causes originate several reasoning or interaction steps before the final answer. We propose RUPA (Relational Uncertainty Propagation for Agents), a trajectory-level UQ framework for LLM agents. RUPA represents an execution history as a directed trajectory graph in which reasoning states, tool interactions, and environment feedback are nodes connected by temporal and semantic dependency edges. It then propagates uncertainty over this graph to capture how execution risk accumulates and transfers across interaction steps. The propagated signal is combined with trajectory-level behavioral features and goal-alignment information to produce a confidence estimate for the full agent trajectory. We evaluate RUPA on representative agent benchmarks, including $τ$-2, Terminal-Bench-2, and GAIA, using 6 open-source LLMs spanning multiple model families. Experimental results show that RUPA consistently outperforms existing UQ methods by providing more accurate uncertainty estimates, enabling earlier failure detection, and improving uncertainty-guided agent execution across diverse agent tasks. These results demonstrate that explicitly modeling relational dependency is crucial to reliable UQ for long-horizon LLM agents, providing a practical foundation for trustworthy agent execution.",
+      "authors": [
+        "Zhengzhao Ma. Boxi Cao",
+        "Yaojie Lu",
+        "Hongyu Lin",
+        "Xianpei Han",
+        "Le Sun"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-08-17T01:40:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.16002v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "trajectory-level uncertainty quantification for LLM agents; transferable to reliable autonomous agents in biological research",
+      "llm_evidence_cn": "面向LLM智能体的轨迹级不确定性量化方法，可迁移至生物研究自主智能体的可靠性保障",
+      "llm_evidence": "面向LLM智能体的轨迹级不确定性量化方法，可迁移至生物研究自主智能体的可靠性保障",
+      "canonical_evidence": "面向LLM智能体的轨迹级不确定性量化方法，可迁移至生物研究自主智能体的可靠性保障",
+      "llm_tldr_en": "Proposes RUPA, a trajectory-level UQ framework that represents LLM agent execution as a directed trajectory graph and propagates uncertainty across reasoning, tool, and environment steps, catching long-range failures that local signals miss.",
+      "llm_tldr_cn": "现有LLM智能体的不确定性量化主要依赖局部信号，难以捕捉跨步骤误差积累。RUPA将执行历史建模为有向轨迹图，在推理状态、工具交互与环境反馈之间传播不确定性。实验表明它能识别原因位于多个推理步骤之前的智能体失败。该框架为生物研究等复杂交互环境中部署可靠自主智能体提供通用支撑。",
+      "llm_tldr": "现有LLM智能体的不确定性量化主要依赖局部信号，难以捕捉跨步骤误差积累。RUPA将执行历史建模为有向轨迹图，在推理状态、工具交互与环境反馈之间传播不确定性。实验表明它能识别原因位于多个推理步骤之前的智能体失败。该框架为生物研究等复杂交互环境中部署可靠自主智能体提供通用支撑。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.16181v1",
+      "source": "arxiv",
+      "title": "MUSE: An Interactive Meta-Agent for Understanding and Steering LLM-powered Data Science Systems",
+      "abstract": "Recent advances in large language models have enabled a new class of agentic data science systems that allow users to complete complex data science workflows through natural language. Although these systems can significantly reduce manual effort, it remains difficult to diagnose their behavior and steer the reasoning process when failures or unexpected outputs occur. We present MUSE, an interactive meta-agent that enhances user understanding and control of agentic data science systems by (1) dynamically restructuring low-level execution traces into multiple semantic levels that support navigation from high-level overviews to low-level implementation details; (2) enabling users to reference specific workflow steps in context to ask grounded questions, provide feedback, and revise problematic steps without manually locating relevant execution history; and (3) supporting mixed-initiative steering by surfacing suspicious steps for inspection, scaffolding the repair process, and translating user repair intent into contextualized instructions for the underlying agent. In a between-subjects study (n = 15), MUSE improved task efficiency and increased users' confidence in understanding and steering agentic data science workflows.",
+      "authors": [
+        "Wei-Hao Chen",
+        "Weixi Tong",
+        "Yuan Tian",
+        "Chenglong Wang",
+        "Tianyi Zhang"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-08-17T06:54:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.16181v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "interactive meta-agent for understanding and steering LLM-powered data science agents",
+      "llm_evidence_cn": "用于理解和引导LLM驱动数据科学智能体的交互式元智能体",
+      "llm_evidence": "用于理解和引导LLM驱动数据科学智能体的交互式元智能体",
+      "canonical_evidence": "用于理解和引导LLM驱动数据科学智能体的交互式元智能体",
+      "llm_tldr_en": "Agentic data science systems are hard to diagnose and steer. MUSE is an interactive meta-agent that restructures low-level execution traces into multiple semantic levels and lets users reference specific workflow steps, improving transparency and control over LLM-powered data science agents.",
+      "llm_tldr_cn": "LLM驱动的智能体数据科学系统虽然能通过自然语言完成复杂分析，但其执行过程难以诊断和引导。MUSE 提出交互式元智能体方法，将底层执行轨迹动态重构为多个语义层级，使用户可以从概览到细节逐层定位问题，并能在上下文中引用具体步骤进行干预。该工作提升了智能体数据科学系统的可理解性与可控性，对生物数据分析等长流程任务具有借鉴意义。",
+      "llm_tldr": "LLM驱动的智能体数据科学系统虽然能通过自然语言完成复杂分析，但其执行过程难以诊断和引导。MUSE 提出交互式元智能体方法，将底层执行轨迹动态重构为多个语义层级，使用户可以从概览到细节逐层定位问题，并能在上下文中引用具体步骤进行干预。该工作提升了智能体数据科学系统的可理解性与可控性，对生物数据分析等长流程任务具有借鉴意义。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.16951v1",
+      "source": "arxiv",
+      "title": "The Little Scientist: LLM Agent-Driven Discovery via the Scientific Method",
+      "abstract": "What happens when you teach an LLM-based agent the scientific method?   Motivation: Scientific discovery emerges from cycles of hypothesis, implementation, empirical testing, and feedback. Can this process be automated? We approach automated algorithm design through the lens of the scientific method, where an LLM-based agent goes through each step of the process in an ordered, iterative fashion.   Results: We present The Little Scientist, a framework in which a \"Scientist agent\" works inside an evaluation environment that benchmarks its code and returns structured per-instance diagnostics. When the Scientist plateaus at a local optimum, a \"Kuhn agent\" injects a paradigm-shifting conjecture paired with a cross-disciplinary inspiration, forcing exploration of a different region of the LLM's latent space. We demonstrate the framework on two problems that require fundamentally different modes of discovery. For protein fitness prediction, the Scientist discovered Delta V, an ensemble calibration strategy that ranks first on the ProteinGym DMS Substitutions Zero-Shot leaderboard across all five official evaluation metrics, exceeding the #2 model (VenusREM) by +0.033 mean Spearman correlation across 217 DMS assays. For DNA motif discovery, the Scientist wrote an algorithm from scratch--DALE (Dual-seed Algorithm for Latent Enumeration)--that outperforms STREME (the default in the MEME Suite) across 132 ENCODE transcription factors (mean AUROC 0.842 vs. 0.803, Wilcoxon p < 10^{-6}) while running 11x faster. This demonstrates that the framework can produce genuinely novel algorithms, not just optimize existing components. Together, these results show that an LLM agent stepping through the scientific method can discover both new algorithms and new ensemble strategies that outperform prior solutions. The entire research program consumed 704M tokens on a single virtual machine with no GPUs",
+      "authors": [
+        "Travis Smith"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.MA"
+      ],
+      "published": "2026-08-16T01:32:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.16951v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM agent framework for scientific method with Scientist and Kuhn agents; highly transferable to autonomous biological research",
+      "llm_evidence_cn": "提出遵循科学方法的LLM智能体框架，含科学家智能体与库恩智能体，可迁移至生物研究自动化",
+      "llm_evidence": "提出遵循科学方法的LLM智能体框架，含科学家智能体与库恩智能体，可迁移至生物研究自动化",
+      "canonical_evidence": "提出遵循科学方法的LLM智能体框架，含科学家智能体与库恩智能体，可迁移至生物研究自动化",
+      "llm_tldr_en": "Presents The Little Scientist, an LLM-agent framework where a Scientist agent iterates through hypothesis, implementation, and testing, and a Kuhn agent introduces paradigm shifts to escape local optima; directly applicable to autonomous biological discovery.",
+      "llm_tldr_cn": "本文探索是否能用LLM智能体自动化科学方法，提出“小科学家”框架，其中科学家智能体迭代进行假设、实现与测试，库恩智能体在性能平台期注入范式转变。该框架面向自动化算法设计，但其科学发现循环同样适用于生物研究，展示了LLM智能体在自主科研中的应用潜力。",
+      "llm_tldr": "本文探索是否能用LLM智能体自动化科学方法，提出“小科学家”框架，其中科学家智能体迭代进行假设、实现与测试，库恩智能体在性能平台期注入范式转变。该框架面向自动化算法设计，但其科学发现循环同样适用于生物研究，展示了LLM智能体在自主科研中的应用潜力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
