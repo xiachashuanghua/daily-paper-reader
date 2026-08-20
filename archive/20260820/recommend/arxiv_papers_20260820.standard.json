@@ -1,0 +1,183 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-20T20:46:47.509485+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.16357v1",
+      "source": "arxiv",
+      "title": "MELD: A Protocol for Merging Knowledge Across Distributed Agentic Memories",
+      "abstract": "Autonomous agents share a transport and can call each other's tools, but they cannot share what they know: no protocol lets two agents' memories reconcile a fact phrased two ways, link related facts held apart, or reconcile contradictory knowledge without silently discarding either claim. We present MELD, a self-managing coherence mechanism for a federation of agent memories whose run-time model is the knowledge graph itself. Each brain admits every incoming claim through a five-outcome procedure (insert, merge, relate, conflict, or reject), decided from three signals (scoped claim-key identity, embedding similarity, and a natural-language-inference verdict) under context and freshness gates, and acting through exactly one auditable, authenticated Patch, the only object that mutates state. A binding onto standard publish/subscribe transport with a per-claim status CRDT keeps sovereign brains coherent in claim status without a coordinator: self-healing after partitions and under lossy routing, and self-protecting against silent rewrite by a peer, under a benign-fault model. MELD does not adjudicate truth; a detected contradiction is preserved for later adjudication, never silently resolved. On HotpotQA distractor, distributed merge is recall-non-inferior to a centralized store under a pre-specified equivalence test and recall-superior to naive union at about 11% less live storage; the merge classifier separates at AUC 0.968 with a 0.013 false-merge rate on adjudicated candidate pairs; the status CRDT reconverges in 30/30 real partition-heal trials where last-writer-wins manages 11/30; and semantic routing delivers about 3x fewer messages at matched recall. We evaluate on a real computing continuum spanning an operator-grade 5G edge, national HPC, and a local tier, with empirically calibrated thresholds.",
+      "authors": [
+        "Lauri Lovén",
+        "Jaakko Sauvola",
+        "Jukka Riekki",
+        "Sasu Tarkoma"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-17T10:09:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.16357v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Protocol for merging distributed agentic memories, applicable to multi-agent biological data analysis.",
+      "llm_evidence_cn": "面向分布式智能体记忆合并的协议，可用于多智能体生物数据分析。",
+      "llm_evidence": "面向分布式智能体记忆合并的协议，可用于多智能体生物数据分析。",
+      "canonical_evidence": "面向分布式智能体记忆合并的协议，可用于多智能体生物数据分析。",
+      "llm_tldr_en": "MELD is a self-managing coherence protocol enabling distributed agent memories to insert, merge, relate, conflict, or reject claims, supporting shared knowledge in multi-agent systems.",
+      "llm_tldr_cn": "多个自主智能体可以共享工具调用，却无法协调各自记忆中的知识。论文提出MELD协议，以知识图谱为运行时模型，通过插入、合并、关联、冲突、拒绝五种结果来管理智能体间的知识一致性。该机制利用身份、嵌入相似度与自然语言推理信号，在上下文与时效门控下做出决策。MELD为多智能体系统共享记忆提供了通用基础，可服务于多智能体生物数据分析场景。",
+      "llm_tldr": "多个自主智能体可以共享工具调用，却无法协调各自记忆中的知识。论文提出MELD协议，以知识图谱为运行时模型，通过插入、合并、关联、冲突、拒绝五种结果来管理智能体间的知识一致性。该机制利用身份、嵌入相似度与自然语言推理信号，在上下文与时效门控下做出决策。MELD为多智能体系统共享记忆提供了通用基础，可服务于多智能体生物数据分析场景。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.17834v1",
+      "source": "arxiv",
+      "title": "AdaLens: Interactive Storyline for Monitoring and Steering Long-Running Agentic Data Analysis",
+      "abstract": "Large language models are pushing data science toward increasingly autonomous and agentic workflows, with recent systems already supporting multi-step and long-running analyses. As these workflows become more autonomous, conventional interfaces no longer provide adequate support for two critical requirements: observability for understanding an agent's evolving reasoning and evidence, and steerability for redirecting low-value directions or deepening promising ones during execution. Existing interactive approaches improve process visibility and open intervention points, but they remain largely designed for discrete, turn-by-turn exchanges rather than the parallel branches and evolving decision structures of long-running agentic analysis. We study this need as interactive oversight in long-running agentic data analysis and present AdaLens, an interactive system for monitoring and steering ongoing runs. AdaLens combines a storyline-based representation that unifies analytical plans, execution progress, intermediate findings, and data-column involvement with steering interactions grounded in these analytical elements for directional guidance and execution control. We evaluate AdaLens through two case studies and a user study, examining how it supports analysts in monitoring and steering long-running agentic data analysis.",
+      "authors": [
+        "Yangtian Liu",
+        "Yan Miao",
+        "Shuhan Liu",
+        "Yunfan Zhou",
+        "Dae Hyun Kim",
+        "Di Weng",
+        "Yingcai Wu"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-08-18T14:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.17834v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Interactive monitoring and steering for long-running agentic data analysis, transferable to autonomous biological research agents.",
+      "llm_evidence_cn": "面向长期运行智能体数据分析的交互式监控与引导，可迁移至自主生物研究智能体。",
+      "llm_evidence": "面向长期运行智能体数据分析的交互式监控与引导，可迁移至自主生物研究智能体。",
+      "canonical_evidence": "面向长期运行智能体数据分析的交互式监控与引导，可迁移至自主生物研究智能体。",
+      "llm_tldr_en": "AdaLens provides interactive storyline-based observability and steerability for long-running agentic data analysis, helping monitor evidence and redirect autonomous workflows; transferable to biological research.",
+      "llm_tldr_cn": "随着LLM推动数据分析走向长期自主运行，现有交互界面难以支持对智能体推理过程的观察与引导。论文提出AdaLens，用交互式故事线让用户理解智能体演化的推理与证据，并在执行中重定向低价值方向或深化可行方向。该系统面向并行分支和长期决策结构，而非传统的逐轮对话。这种方法可推广到自主生物研究智能体的数据探索流程。",
+      "llm_tldr": "随着LLM推动数据分析走向长期自主运行，现有交互界面难以支持对智能体推理过程的观察与引导。论文提出AdaLens，用交互式故事线让用户理解智能体演化的推理与证据，并在执行中重定向低价值方向或深化可行方向。该系统面向并行分支和长期决策结构，而非传统的逐轮对话。这种方法可推广到自主生物研究智能体的数据探索流程。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.18490v1",
+      "source": "arxiv",
+      "title": "Bayesian Partner Modelling enables Adaptive Replanning for LLM Coordination",
+      "abstract": "Multi-agent Large Language Model (LLM) systems often struggle to collaborate with new teammates whose strategies shift mid-task. Because agents execute multi-step or temporally extended skills, they frequently continue executing outdated plans long after public evidence shows that a partner has changed its skill. Existing methods either treat partner tracking as passive context-leaving the agent aware of the shift but slow to act-or replan indiscriminately. We introduce BayesBeliefAgent, which pairs a hierarchical LLM planner with a Bayesian tracking module. Rather than replanning constantly, our agent interrupts its current skill only when a partner's actions directly contradict the inferred skill. Beyond standard reward, we evaluate performance using replanning efficiency and the belief-action gap: the fraction of total decisions where an agent with a correct partner estimate executes a non-complementary skill. Across benchmark Overcooked environments, contradiction-conditioned control drastically narrows this belief-action gap while requiring an order of magnitude fewer replans than heuristic methods",
+      "authors": [
+        "Harsh Goel",
+        "Aditya Sai Ellendula",
+        "Vaishnav Tadiparthi",
+        "Ehsan Moradi Pari",
+        "Hossein Nourkhiz Mahjoub",
+        "Sandeep P. Chinchali"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-08-19T03:29:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.18490v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Bayesian partner-modelling framework for adaptive replanning in multi-agent LLM coordination.",
+      "llm_evidence_cn": "面向多智能体LLM协作的自适应重规划贝叶斯伙伴建模框架，可迁移至计算生物学多智能体系统。",
+      "llm_evidence": "面向多智能体LLM协作的自适应重规划贝叶斯伙伴建模框架，可迁移至计算生物学多智能体系统。",
+      "canonical_evidence": "面向多智能体LLM协作的自适应重规划贝叶斯伙伴建模框架，可迁移至计算生物学多智能体系统。",
+      "llm_tldr_en": "Multi-agent LLM systems often fail to adapt when partner strategies change. BayesBeliefAgent combines a hierarchical LLM planner with Bayesian partner tracking, interrupting skills only when actions contradict the inferred skill, improving coordination.",
+      "llm_tldr_cn": "针对多智能体大语言模型（LLM）协作中队友策略变化导致旧计划持续执行的问题，本文提出贝叶斯信念智能体（BayesBeliefAgent），将分层LLM规划器与贝叶斯跟踪模块结合。系统仅在伙伴行为与推断技能直接矛盾时中断当前技能，避免被动感知或盲目重规划。实验评估表明该方法能提升协调性能。该框架为多智能体系统的动态协作提供了可迁移的自适应规划机制。",
+      "llm_tldr": "针对多智能体大语言模型（LLM）协作中队友策略变化导致旧计划持续执行的问题，本文提出贝叶斯信念智能体（BayesBeliefAgent），将分层LLM规划器与贝叶斯跟踪模块结合。系统仅在伙伴行为与推断技能直接矛盾时中断当前技能，避免被动感知或盲目重规划。实验评估表明该方法能提升协调性能。该框架为多智能体系统的动态协作提供了可迁移的自适应规划机制。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.19047v1",
+      "source": "arxiv",
+      "title": "Eureka: Task-Conditioned Meta-Agent Orchestration for Scientific Discovery",
+      "abstract": "We present Eureka, a task-conditioned Meta-Agent architecture that compiles long-horizon tasks into dynamic obligation graphs with explicit acceptance semantics. During execution, Eureka forms Macro-Agents with specialized state, memory, operators, tools, verifiers, and local topology via receding-horizon planning, architecture promotion, and minimal-sufficient compilation. When bottlenecks recur, cost-benefit-gated evolution updates the local architecture under constraints. Theoretically, we establish results on regret, planning invalidation, amortization, subtree interfaces, serializability, and verification. Experimentally, Eureka completes 170/170 recursive tasks and generates 3,948 certificates with no false acceptances. Active context compresses median input from 9,490 to 4,005 tokens; incremental processing avoids 65.38% recomputation across 12,000 tasks; 16,000 concurrent executions serialize consistently. The same Meta-Agent instantiates a Theory-Discovery Agent and a Math/Conjecture Agent. The former yields structural results in quantum-process and spacetime theory. The latter identifies bottlenecks in Riemann Hypothesis research and advances a positivity certificate for Suzuki's localized Weil quadratic form to 0 < a <= 69/200 = 0.345, reaching ~99.55% of (log 2)/2. These results suggest that scientific-agent capability depends not only on the base model but on whether an architecture can be formed to match the task's cognitive structure.",
+      "authors": [
+        "Alizer Wong",
+        "Heng Cui",
+        "Yi Tan",
+        "Xiongchao Zhan",
+        "Liang Lin",
+        "Yuxiang Guo",
+        "Zhaorong Dai",
+        "Zixin Zeng",
+        "Wenyuan Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "math.NT"
+      ],
+      "published": "2026-08-19T15:40:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.19047v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Meta-agent orchestration for scientific discovery, applicable to biological research",
+      "llm_evidence_cn": "面向科学发现的元智能体编排，可适用于生物学研究",
+      "llm_evidence": "面向科学发现的元智能体编排，可适用于生物学研究",
+      "canonical_evidence": "面向科学发现的元智能体编排，可适用于生物学研究",
+      "llm_tldr_en": "Eureka introduces a task-conditioned Meta-Agent architecture that compiles long-horizon tasks into dynamic obligation graphs and forms Macro-Agents for scientific discovery; a transferable framework for autonomous biological research agents.",
+      "llm_tldr_cn": "针对长程科学任务中智能体架构难以动态调整的问题，提出Eureka元智能体架构，将任务编译为动态义务图并形成具有专用状态、工具与验证器的宏智能体。在递归任务上完成170/170，生成3948个证书且零误接受。其成本收益门控演化机制为生物学研究中的自主智能体框架提供了可迁移的编排思路。",
+      "llm_tldr": "针对长程科学任务中智能体架构难以动态调整的问题，提出Eureka元智能体架构，将任务编译为动态义务图并形成具有专用状态、工具与验证器的宏智能体。在递归任务上完成170/170，生成3948个证书且零误接受。其成本收益门控演化机制为生物学研究中的自主智能体框架提供了可迁移的编排思路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

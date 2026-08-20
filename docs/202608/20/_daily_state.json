@@ -1,0 +1,73 @@
+{
+  "date": "20260820",
+  "date_label": "",
+  "generated_at": "2026-08-20 20:51:31 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.16357v1",
+      "route": "202608/20/2608.16357v1-meld-a-protocol-for-merging-knowledge-across-distributed-agentic-memories",
+      "title": "MELD: A Protocol for Merging Knowledge Across Distributed Agentic Memories",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向分布式智能体记忆合并的协议，可用于多智能体生物数据分析。",
+      "first_seen_at": "2026-08-20 20:51:31 UTC",
+      "updated_at": "2026-08-20 20:51:31 UTC"
+    },
+    {
+      "paper_id": "2608.17834v1",
+      "route": "202608/20/2608.17834v1-adalens-interactive-storyline-for-monitoring-and-steering-long-running-agentic-data-analysis",
+      "title": "AdaLens: Interactive Storyline for Monitoring and Steering Long-Running Agentic Data Analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向长期运行智能体数据分析的交互式监控与引导，可迁移至自主生物研究智能体。",
+      "first_seen_at": "2026-08-20 20:51:31 UTC",
+      "updated_at": "2026-08-20 20:51:31 UTC"
+    },
+    {
+      "paper_id": "2608.18490v1",
+      "route": "202608/20/2608.18490v1-bayesian-partner-modelling-enables-adaptive-replanning-for-llm-coordination",
+      "title": "Bayesian Partner Modelling enables Adaptive Replanning for LLM Coordination",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向多智能体LLM协作的自适应重规划贝叶斯伙伴建模框架，可迁移至计算生物学多智能体系统。",
+      "first_seen_at": "2026-08-20 20:51:31 UTC",
+      "updated_at": "2026-08-20 20:51:31 UTC"
+    },
+    {
+      "paper_id": "2608.19047v1",
+      "route": "202608/20/2608.19047v1-eureka-task-conditioned-meta-agent-orchestration-for-scientific-discovery",
+      "title": "Eureka: Task-Conditioned Meta-Agent Orchestration for Scientific Discovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向科学发现的元智能体编排，可适用于生物学研究",
+      "first_seen_at": "2026-08-20 20:51:31 UTC",
+      "updated_at": "2026-08-20 20:51:31 UTC"
+    }
+  ]
+}

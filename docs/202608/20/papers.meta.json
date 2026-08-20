@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-20",
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T20:51:34",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/20/2608.16357v1-meld-a-protocol-for-merging-knowledge-across-distributed-agentic-memories",
+      "section": "quick",
+      "title_en": "MELD: A Protocol for Merging Knowledge Across Distributed Agentic Memories",
+      "authors": "Lauri Lovén, Jaakko Sauvola, Jukka Riekki, Sasu Tarkoma",
+      "date": "2026-08-17",
+      "pdf": "https://arxiv.org/pdf/2608.16357v1",
+      "score": "6.0",
+      "evidence": "面向分布式智能体记忆合并的协议，可用于多智能体生物数据分析。",
+      "tldr": "自主智能体虽可共享工具，却无法共享记忆：同一事实的不同表述、相关事实与矛盾知识无法合并。MELD以知识图谱为运行时模型，提出五结果程序（插入、合并、关联、冲突、拒绝），用键身份、嵌入相似和NLI三信号决策，经单一可审计补丁与状态CRDT实现无协调器一致自愈。在HotpotQA上，分布式合并召回率不亚于集中式，存储节省约11%，矛盾检测AUC 0.968，CRDT在30/30试验中收敛，语义路由消息减少约3倍。该协议不裁决真理，保留矛盾以供后续裁决，为联邦智能体记忆提供可审计、自管理的合并机制。",
+      "tags": "query:llmagt",
+      "abstract_en": "Autonomous agents share a transport and can call each other's tools, but they cannot share what they know: no protocol lets two agents' memories reconcile a fact phrased two ways, link related facts held apart, or reconcile contradictory knowledge without silently discarding either claim. We present MELD, a self-managing coherence mechanism for a federation of agent memories whose run-time model is the knowledge graph itself. Each brain admits every incoming claim through a five-outcome procedure (insert, merge, relate, conflict, or reject), decided from three signals (scoped claim-key identity, embedding similarity, and a natural-language-inference verdict) under context and freshness gates, and acting through exactly one auditable, authenticated Patch, the only object that mutates state. A binding onto standard publish/subscribe transport with a per-claim status CRDT keeps sovereign brains coherent in claim status without a coordinator: self-healing after partitions and under lossy routing, and self-protecting against silent rewrite by a peer, under a benign-fault model. MELD does not adjudicate truth; a detected contradiction is preserved for later adjudication, never silently resolved. On HotpotQA distractor, distributed merge is recall-non-inferior to a centralized store under a pre-specified equivalence test and recall-superior to naive union at about 11% less live storage; the merge classifier separates at AUC 0.968 with a 0.013 false-merge rate on adjudicated candidate pairs; the status CRDT reconverges in 30/30 real partition-heal trials where last-writer-wins manages 11/30; and semantic routing delivers about 3x fewer messages at matched recall. We evaluate on a real computing continuum spanning an operator-grade 5G edge, national HPC, and a local tier, with empirically calibrated thresholds.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/20/2608.17834v1-adalens-interactive-storyline-for-monitoring-and-steering-long-running-agentic-data-analysis",
+      "section": "quick",
+      "title_en": "AdaLens: Interactive Storyline for Monitoring and Steering Long-Running Agentic Data Analysis",
+      "authors": "Yangtian Liu, Yan Miao, Shuhan Liu, Yunfan Zhou, Dae Hyun Kim, Di Weng, Yingcai Wu",
+      "date": "2026-08-18",
+      "pdf": "https://arxiv.org/pdf/2608.17834v1",
+      "score": "6.0",
+      "evidence": "面向长期运行智能体数据分析的交互式监控与引导，可迁移至自主生物研究智能体。",
+      "tldr": "大语言模型驱动的数据分析正迈向自主的长时运行，但现有界面难以支持对智能体推理与证据的观察和引导。AdaLens引入基于故事线的统一表示，融合分析计划、执行进度、中间发现与数据列参与，并支持针对这些元素的方向指导与运行控制。案例研究和用户实验表明，该交互系统能有效帮助分析师在长时运行中监控并转向有价值的方向，弥补传统回合制界面的不足，增强交互式监督能力。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language models are pushing data science toward increasingly autonomous and agentic workflows, with recent systems already supporting multi-step and long-running analyses. As these workflows become more autonomous, conventional interfaces no longer provide adequate support for two critical requirements: observability for understanding an agent's evolving reasoning and evidence, and steerability for redirecting low-value directions or deepening promising ones during execution. Existing interactive approaches improve process visibility and open intervention points, but they remain largely designed for discrete, turn-by-turn exchanges rather than the parallel branches and evolving decision structures of long-running agentic analysis. We study this need as interactive oversight in long-running agentic data analysis and present AdaLens, an interactive system for monitoring and steering ongoing runs. AdaLens combines a storyline-based representation that unifies analytical plans, execution progress, intermediate findings, and data-column involvement with steering interactions grounded in these analytical elements for directional guidance and execution control. We evaluate AdaLens through two case studies and a user study, examining how it supports analysts in monitoring and steering long-running agentic data analysis.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/20/2608.18490v1-bayesian-partner-modelling-enables-adaptive-replanning-for-llm-coordination",
+      "section": "quick",
+      "title_en": "Bayesian Partner Modelling enables Adaptive Replanning for LLM Coordination",
+      "authors": "Harsh Goel, Aditya Sai Ellendula, Vaishnav Tadiparthi, Ehsan Moradi Pari, Hossein Nourkhiz Mahjoub, Sandeep P. Chinchali",
+      "date": "2026-08-19",
+      "pdf": "https://arxiv.org/pdf/2608.18490v1",
+      "score": "6.0",
+      "evidence": "面向多智能体LLM协作的自适应重规划贝叶斯伙伴建模框架，可迁移至计算生物学多智能体系统。",
+      "tldr": "多智能体LLM协作中，队友策略变化时智能体常因多步技能而执行过时计划。现有方法或被动跟踪导致反应迟缓，或频繁重规划效率低。为此提出BayesBeliefAgent，结合分层LLM规划器与贝叶斯跟踪，仅在队友行为直接矛盾时中断技能。在Overcooked上显著缩小信念-行动差距，重规划次数减少一个数量级，实现了高效自适应重规划。",
+      "tags": "query:llmagt",
+      "abstract_en": "Multi-agent Large Language Model (LLM) systems often struggle to collaborate with new teammates whose strategies shift mid-task. Because agents execute multi-step or temporally extended skills, they frequently continue executing outdated plans long after public evidence shows that a partner has changed its skill. Existing methods either treat partner tracking as passive context-leaving the agent aware of the shift but slow to act-or replan indiscriminately. We introduce BayesBeliefAgent, which pairs a hierarchical LLM planner with a Bayesian tracking module. Rather than replanning constantly, our agent interrupts its current skill only when a partner's actions directly contradict the inferred skill. Beyond standard reward, we evaluate performance using replanning efficiency and the belief-action gap: the fraction of total decisions where an agent with a correct partner estimate executes a non-complementary skill. Across benchmark Overcooked environments, contradiction-conditioned control drastically narrows this belief-action gap while requiring an order of magnitude fewer replans than heuristic methods",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/20/2608.19047v1-eureka-task-conditioned-meta-agent-orchestration-for-scientific-discovery",
+      "section": "quick",
+      "title_en": "Eureka: Task-Conditioned Meta-Agent Orchestration for Scientific Discovery",
+      "authors": "Alizer Wong, Heng Cui, Yi Tan, Xiongchao Zhan, Liang Lin, Yuxiang Guo, Zhaorong Dai, Zixin Zeng, Wenyuan Li",
+      "date": "2026-08-19",
+      "pdf": "https://arxiv.org/pdf/2608.19047v1",
+      "score": "6.0",
+      "evidence": "面向科学发现的元智能体编排，可适用于生物学研究",
+      "tldr": "科学发现中的长时程任务需复杂架构而非单模型。Eureka将任务编译为带接受语义的动态义务图，并形成含专用状态/算子/验证器的宏智能体。实验完成170/170递归任务、生成3948个证书无假阳性，上下文压缩53%、避免65.38%重算。同一架构驱动理论发现与数学猜想智能体，推进了Riemann猜想相关证明，表明能力取决于架构与任务认知结构匹配。",
+      "tags": "query:llmagt",
+      "abstract_en": "We present Eureka, a task-conditioned Meta-Agent architecture that compiles long-horizon tasks into dynamic obligation graphs with explicit acceptance semantics. During execution, Eureka forms Macro-Agents with specialized state, memory, operators, tools, verifiers, and local topology via receding-horizon planning, architecture promotion, and minimal-sufficient compilation. When bottlenecks recur, cost-benefit-gated evolution updates the local architecture under constraints. Theoretically, we establish results on regret, planning invalidation, amortization, subtree interfaces, serializability, and verification. Experimentally, Eureka completes 170/170 recursive tasks and generates 3,948 certificates with no false acceptances. Active context compresses median input from 9,490 to 4,005 tokens; incremental processing avoids 65.38% recomputation across 12,000 tasks; 16,000 concurrent executions serialize consistently. The same Meta-Agent instantiates a Theory-Discovery Agent and a Math/Conjecture Agent. The former yields structural results in quantum-process and spacetime theory. The latter identifies bottlenecks in Riemann Hypothesis research and advances a positivity certificate for Suzuki's localized Weil quadratic form to 0 < a <= 69/200 = 0.345, reaching ~99.55% of (log 2)/2. These results suggest that scientific-agent capability depends not only on the base model but on whether an architecture can be formed to match the task's cognitive structure.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
