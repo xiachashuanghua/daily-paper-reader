@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-20</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-21</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-20 20:51:31 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-21 20:48:35 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日共速读4篇论文，无精读，关注多智能体记忆合并、数据分析可视监控与LLM协作规划三个方向。</p>
-<p>最值得看的是《MELD》与《AdaLens》，分别探索分布式智能体记忆协议和长时数据分析的交互式监控，均获6.0分。</p>
-<p>下一步可优先精读这两篇，深入理解其方法细节，再决定是否借鉴到自己的智能体系统中。</p>
+<p>今日精读2篇高分论文并速读1篇，聚焦涌现系统建模与生物机器人设计。最值得关注的是《Learning constructive models of emergent systems》和《An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design》，均获9.0分。建议普通读者优先了解多智能体在高阶生物机器人设计中的应用，并延伸关注生物-人工智能混合框架。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">0 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Learning constructive models of emergent systems">Learning constructive models of emergent systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design">An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design</span></li></ul>
   </div>
-
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -86,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="MELD: A Protocol for Merging Knowledge Across Distributed Agentic Memories">MELD: A Protocol for Merging Knowledge Across Distributed Agentic Memories</span></li><li><span class="dpr-home-dashboard-paper-title" title="AdaLens: Interactive Storyline for Monitoring and Steering Long-Running Agentic Data Analysis">AdaLens: Interactive Storyline for Monitoring and Steering Long-Running Agentic Data Analysis</span></li><li><span class="dpr-home-dashboard-paper-title" title="Bayesian Partner Modelling enables Adaptive Replanning for LLM Coordination">Bayesian Partner Modelling enables Adaptive Replanning for LLM Coordination</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Biological-Hybrid Intelligence: A Conceptual Framework for Distributed Biological--Artificial Computation">Biological-Hybrid Intelligence: A Conceptual Framework for Distributed Biological--Artificial Computation</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
 </section>
 </div>
 

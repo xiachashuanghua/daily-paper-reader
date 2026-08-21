@@ -1,0 +1,57 @@
+{
+  "date": "20260821",
+  "date_label": "",
+  "generated_at": "2026-08-21 20:48:35 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.18248v1",
+      "route": "202608/21/2608.18248v1-learning-constructive-models-of-emergent-systems",
+      "title": "Learning constructive models of emergent systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "在统计系统发育启发框架下应用于酶序列",
+      "first_seen_at": "2026-08-21 20:48:35 UTC",
+      "updated_at": "2026-08-21 20:48:35 UTC"
+    },
+    {
+      "paper_id": "2608.19699v1",
+      "route": "202608/21/2608.19699v1-an-evidence-grounded-multi-agent-system-for-high-level-bio-robot-design",
+      "title": "An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "面向生物机器人设计的LLM多智能体系统",
+      "first_seen_at": "2026-08-21 20:48:35 UTC",
+      "updated_at": "2026-08-21 20:48:35 UTC"
+    },
+    {
+      "paper_id": "2608.18748v1",
+      "route": "202608/21/2608.18748v1-biological-hybrid-intelligence-a-conceptual-framework-for-distributed-biological--artificial-computation",
+      "title": "Biological-Hybrid Intelligence: A Conceptual Framework for Distributed Biological--Artificial Computation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "跨生物与人工基底的计算分配框架",
+      "first_seen_at": "2026-08-21 20:48:35 UTC",
+      "updated_at": "2026-08-21 20:48:35 UTC"
+    }
+  ]
+}
