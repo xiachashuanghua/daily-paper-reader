@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-21</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-22</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>6</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-21 20:48:35 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-22 19:43:02 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读2篇高分论文并速读1篇，聚焦涌现系统建模与生物机器人设计。最值得关注的是《Learning constructive models of emergent systems》和《An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design》，均获9.0分。建议普通读者优先了解多智能体在高阶生物机器人设计中的应用，并延伸关注生物-人工智能混合框架。</p>
+<p>今日完成6篇文献速读，未安排精读，重点关注AI与数据科学交叉领域。最值得关注的是利用大模型实现可复现的科学文献数据提取，以及面向神经影像分析的Agentic AI平台。建议优先精读这三篇7.0分论文，深入理解其方法与应用边界。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Learning constructive models of emergent systems">Learning constructive models of emergent systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design">An Evidence-Grounded Multi-Agent System for High-Level Bio-Robot Design</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
+
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">6 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Biological-Hybrid Intelligence: A Conceptual Framework for Distributed Biological--Artificial Computation">Biological-Hybrid Intelligence: A Conceptual Framework for Distributed Biological--Artificial Computation</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Self-prompting and cross-model consensus enable reproducible data extraction from scientific literature with large language models">Self-prompting and cross-model consensus enable reproducible data extraction from scientific literature with large language models</span></li><li><span class="dpr-home-dashboard-paper-title" title="Scientific Data Skills: Enabling Agent-Ready Scientific Data Services at Scale">Scientific Data Skills: Enabling Agent-Ready Scientific Data Services at Scale</span></li><li><span class="dpr-home-dashboard-paper-title" title="Bringing analytic rigor to agentic AI for science: The Brain Researcher platform for neuroimaging data analysis">Bringing analytic rigor to agentic AI for science: The Brain Researcher platform for neuroimaging data analysis</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>6</strong></span></div>
 </section>
 </div>
 

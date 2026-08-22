@@ -1,0 +1,105 @@
+{
+  "date": "20260822",
+  "date_label": "",
+  "generated_at": "2026-08-22 19:43:02 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.19025v1",
+      "route": "202608/22/2608.19025v1-self-prompting-and-cross-model-consensus-enable-reproducible-data-extraction-from-scientific-literature-with-large-language-models",
+      "title": "Self-prompting and cross-model consensus enable reproducible data extraction from scientific literature with large language models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向科学文献的LLM可复现数据抽取，可应用于计算生物学文献挖掘",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    },
+    {
+      "paper_id": "2608.19625v1",
+      "route": "202608/22/2608.19625v1-scientific-data-skills-enabling-agent-ready-scientific-data-services-at-scale",
+      "title": "Scientific Data Skills: Enabling Agent-Ready Scientific Data Services at Scale",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "提出智能体就绪的科学数据表示SciDSK，支持自主发现与调用，直接服务生物自主研究智能体。",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    },
+    {
+      "paper_id": "2608.19902v1",
+      "route": "202608/22/2608.19902v1-bringing-analytic-rigor-to-agentic-ai-for-science-the-brain-researcher-platform-for-neuroimaging-data-analysis",
+      "title": "Bringing analytic rigor to agentic AI for science: The Brain Researcher platform for neuroimaging data analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向神经影像数据分析的自主智能体平台，属于生物医学研究领域",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    },
+    {
+      "paper_id": "2608.14352v1",
+      "route": "202608/22/2608.14352v1-atlas-discovering-agent-strategies-through-llm-guided-abstraction-and-automata-learning",
+      "title": "ATLAS: Discovering Agent Strategies through LLM-Guided Abstraction and Automata Learning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于LLM的智能体策略发现方法，可迁移用于分析生物研究智能体。",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    },
+    {
+      "paper_id": "2608.19653v1",
+      "route": "202608/22/2608.19653v1-deltaml-bench-evaluating-machine-learning-agents-on-real-world-research-repositories",
+      "title": "DeltaML-Bench: Evaluating Machine Learning Agents on Real-World Research Repositories",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出在真实研究代码库上评估自主ML智能体的基准，可应用于生物研究智能体评估。",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    },
+    {
+      "paper_id": "2608.19701v1",
+      "route": "202608/22/2608.19701v1-beyond-memory-majority-latent-source-reasoning-for-multi-agent-memory-arbitration",
+      "title": "Beyond Memory Majority: Latent-Source Reasoning for Multi-Agent Memory Arbitration",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出多智能体记忆仲裁框架解决记忆相关偏差，可支持生物数据分析中的多智能体系统。",
+      "first_seen_at": "2026-08-22 19:43:02 UTC",
+      "updated_at": "2026-08-22 19:43:02 UTC"
+    }
+  ]
+}
