@@ -1,0 +1,91 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-23T19:14:43.204503+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.19511v1",
+      "source": "arxiv",
+      "title": "Symposium: Trust via Auditable Records for Communities of AI Scientist Agents",
+      "abstract": "Symposium is a formal framework and practical implementation to record the operation of AI agents deployed by small scientific research communities. Symposium provides long-term, immutable histories of agent-driven research activity, leaving auditable trails of analyses, hypotheses, data, and scientific discourse. This shared record of published artifacts enables agents to build on prior work and preserves the evidence researchers and agents need to make purpose-dependent trust assessments. Symposium captures scientific argument, including structured claims, fine-grained evidence citations, assumptions, and explicit declarations of what material may and may not be used as evidence. Symposium differs from AI co-scientist agents or integrated AI research environments; it is a framework that separates a scientific community's durable history from the agents and other systems that operate on that history. It assumes that a community will use diverse AI systems in a rapidly evolving environment. A working implementation of the publication infrastructure, agent prompt components, and documentation are provided to enable users to rapidly set up and run their own Symposium community.",
+      "authors": [
+        "Dexter Pratt"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-20T00:08:40+00:00",
+      "link": "https://arxiv.org/pdf/2608.19511v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "auditable records for AI scientist agents in research communities; directly supports autonomous biological research agents",
+      "llm_evidence_cn": "为研究社区中的AI科学家智能体提供可审计记录；直接支持自主生物研究智能体",
+      "llm_evidence": "为研究社区中的AI科学家智能体提供可审计记录；直接支持自主生物研究智能体",
+      "canonical_evidence": "为研究社区中的AI科学家智能体提供可审计记录；直接支持自主生物研究智能体",
+      "llm_tldr_en": "Symposium provides a formal framework and implementation for recording AI scientist agents' research activities, creating auditable trails of analyses, hypotheses, and evidence to enable trust and reproducibility.",
+      "llm_tldr_cn": "该论文提出Symposium框架，为科研社区中的AI科学家智能体提供长期、不可篡改的研究活动记录，包括分析、假设、数据与科学讨论的审计轨迹。通过结构化声明、证据引用和假设说明，Symposium保留科研证据链，使智能体能够在已有工作基础上构建并支持有条件的信任评估。该框架与特定领域无关，可直接应用于生物信息学中的自主研究代理，提升科研的可信度与可复现性。",
+      "llm_tldr": "该论文提出Symposium框架，为科研社区中的AI科学家智能体提供长期、不可篡改的研究活动记录，包括分析、假设、数据与科学讨论的审计轨迹。通过结构化声明、证据引用和假设说明，Symposium保留科研证据链，使智能体能够在已有工作基础上构建并支持有条件的信任评估。该框架与特定领域无关，可直接应用于生物信息学中的自主研究代理，提升科研的可信度与可复现性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.17282v1",
+      "source": "arxiv",
+      "title": "DeAR: Decentralized Agentic Reasoning via Capability Grounding and Collaborative Thought Navigation",
+      "abstract": "Existing agentic reasoning systems typically rely on centralized protocols. This design introduces routing bottlenecks and static role allocations that often fail when handling complex multimodal queries. We propose DeAR (Decentralized Agentic Reasoning), a framework that shifts from central control to autonomous peer-to-peer collaboration. DeAR is built on three mechanisms: (1) decentralized capability grounding for query-dependent agent specialization, (2) thought map navigation for targeted peer interactions, and (3) topology update for adaptive error correction. Evaluations across 9 diverse multimodal reasoning and text-based QA benchmarks indicate that DeAR consistently outperforms recent baseline methods, validating that decentralized and adaptive collaboration among agents enhances accuracy in knowledge-intensive reasoning tasks. The source code will be available at https://open_upon_acceptance.",
+      "authors": [
+        "Xing Wei",
+        "Changmeng Zheng",
+        "XiaoYong Wei",
+        "Xiufen Ye",
+        "Qing Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-18T02:26:13+00:00",
+      "link": "https://arxiv.org/pdf/2608.17282v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Decentralized multi-agent reasoning framework applicable to computational biology multi-agent systems",
+      "llm_evidence_cn": "去中心化多智能体推理框架，可应用于计算生物学的多智能体系统",
+      "llm_evidence": "去中心化多智能体推理框架，可应用于计算生物学的多智能体系统",
+      "canonical_evidence": "去中心化多智能体推理框架，可应用于计算生物学的多智能体系统",
+      "llm_tldr_en": "Introduces DeAR, a decentralized agentic reasoning framework with capability grounding, thought map navigation, and topology update, outperforming centralized baselines on 9 multimodal reasoning benchmarks.",
+      "llm_tldr_cn": "集中式智能体推理系统存在路由瓶颈和静态角色分配问题，难以应对复杂多模态查询。本文提出DeAR，通过去中心化能力接地、思维图导航和拓扑更新，让智能体自主协作并自适应纠错。在9个多模态推理与文本QA基准上，DeAR持续优于现有方法，为计算生物学中的多智能体协作提供了一种可扩展的框架。",
+      "llm_tldr": "集中式智能体推理系统存在路由瓶颈和静态角色分配问题，难以应对复杂多模态查询。本文提出DeAR，通过去中心化能力接地、思维图导航和拓扑更新，让智能体自主协作并自适应纠错。在9个多模态推理与文本QA基准上，DeAR持续优于现有方法，为计算生物学中的多智能体协作提供了一种可扩展的框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
