@@ -1,0 +1,276 @@
+Title: Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment
+
+URL Source: https://arxiv.org/pdf/2608.21057v1
+
+Published Time: Mon, 24 Aug 2026 00:48:54 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+# Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment 
+
+Emma Granqvist 1,2[0009 −0000 −6436 −4178] , Rocío Mercado 2,3[0000 −0002 −6170 −6088] ,and Samuel Genheden 1[0000 −0002 −7624 −7363]  
+
+> 1
+
+Molecular AI, Discovery Sciences, R&D, AstraZeneca, Gothenburg, Sweden  
+
+> 2
+
+Department of Computer Science and Engineering, Section for Data Science and AI, Chalmers University of Technology and University of Gothenburg, Gothenburg, Sweden  
+
+> 3
+
+Science for Life Laboratory (SciLifeLab), Gothenburg, Sweden 
+
+Abstract. Agentic large language model (LLM) systems are reshap-ing scientific workflows in chemistry and drug discovery, but evaluat-ing their open-ended, tool-augmented outputs remains a fundamental bottleneck. Reference-based metrics such as BLEU and ROUGE fail to capture semantic correctness, while expert human evaluation does not scale to the iteration speed these systems demand. The LLM-as-a-Judge paradigm has emerged as a scalable alternative, but existing drug discov-ery benchmarks deploy LLM judges without validating their alignment with human experts. In this work, we present an LLM-as-a-Judge eval-uation framework for ChatInvent, an agentic drug discovery assistant deployed at AstraZeneca, with four contributions. First, we define four output-quality evaluation dimensions—Completeness, Relevancy, Struc-tural Clarity, and Scope Adherence—alongside deterministic Tool Call Correctness checks. Second, we validate the judge through a human alignment study with five expert annotators, comparing Gemini 3.1 Pro, Claude Opus 4.7, GPT-5, and Llama 3.1 70B as candidate judges. Third, we optimize the best-performing judge using few-shot demonstrations of human-annotated examples, improving alignment with the human ma-jority vote from 0.80 to 0.86. Fourth, applying the optimized judge to 70 held-out questions, we surface concrete limitations and find that informal phrasings do not systematically degrade output quality; if anything, it is helpful to have the LLM rewrite the original question before querying the agent. Our framework provides a reusable template for human-aligned evaluation of agentic systems in scientific domains. 
+
+Keywords: LLM-as-a-Judge · Judge Alignment · Agentic AI · AI As-sistants · Auto-Evaluation · Agents · Drug Discovery 
+
+## 1 Introduction 
+
+The emergence of large language models (LLMs) has transformed a wide range of domains due to their outstanding generalization, adaptability, and transfer ca-pabilities [17]. In chemistry and drug discovery applications, LLM-based agentic arXiv:2608.21057v1 [cs.LG] 21 Aug 2026 2 E. Granqvist et al. 
+
+systems have become powerful orchestrators by integrating external domain-specific tools and databases [7, 14, 8, 15, 5, 22]. This tool-augmented design allows LLM agents to leverage decades of computational chemistry software and scien-tific infrastructure while mitigating LLM limitations on tasks that require pre-cise calculations, symbolic reasoning, or access to up-to-date knowledge. Agentic systems such as the AI co-scientist [7], ChemCrow[14], CACTUS [15], SciToolA-gent[5], MolClaw[22], and ChatInvent[8] illustrate this paradigm: they have the capability to plan experiments, call specialized computational tools, and coor-dinate multi-step scientific workflows, demonstrating how LLMs coupled with expert tools can support end-to-end scientific planning and execution. The development of LLM powered frameworks also presented a pressing chal-lenge for evaluation. Due to their powerful generative capabilities, these systems often produce open-ended and context-dependent output, making traditional metrics that compare predictions to a single ground truth insufficient for a com-prehensive evaluation of reliability, usefulness, and robustness. Instead, human annotations can be regarded as the “ground truth” as these can offer a deeper understanding of the models performance. However, gathering human feedback from experts is typically time-consuming and resource intensive, making large-scale evaluation a challenge. As a result, LLMs have increasingly been used as evaluators by adapting their evaluation based on the task’s context and crite-ria. The LLM-as-a-Judge approach enables scalable and autonomous evaluation while raising concerns about reliability, bias, and reproducibility, underscoring the need to also assess the quality of the evaluator itself. In this work, we showcase how LLM-as-a-Judge can be designed and used for a reliable, automated, and scalable evaluation of an agentic drug discovery system, ChatInvent. Our contributions include: 
+
+– an analysis of the design of an LLM-as-a-Judge for drug discovery systems, 
+
+– a study on human alignment of a multi-component LLM judge, 
+
+– a comparison of performance across different models underlying the LLM judge, 
+
+– and an assessment of the quality of the agentic output across the different functionalities of ChatInvent. We focus on a specific agent, ChatInvent, rather than trying to compare different agents and we focus on introducing concepts that we believe are impor-tant when designing LLM-as-a-judge systems for chemistry agents because the capability and scope of any agentic system constantly changes. 
+
+## 2 Related Work 
+
+Traditional reference-based metrics such as BLEU [18] and ROUGE [12] fail to capture the semantic nuances, task diversity, and open-ended nature of mod-ern generative model outputs. Human preference is widely considered the gold-standard for evaluating LLM systems, but expert evaluation does not scale to Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 3
+
+the iteration speed of modern agent development, creating a bottleneck for rapid prototyping and large-batch assessment. The LLM-as-a-Judge paradigm, introduced by Zheng et al. [23], addresses this by using a strong LLM to evaluate model outputs at scale while maintaining high agreement with human judgment. Strong LLM judges can reach over 80% agreement with human evaluators on general tasks [23, 9], matching or exceeding the agreement between individual human annotators at a fraction of the time. However, LLM judges exhibit several systematic biases, including model self-preference, format and verbosity bias, and positional bias [23], underscoring the importance of validating the judge itself against human annotations rather than treating its outputs as ground truth. Recent work has framed LLM-based evaluation and prompt optimization as complementary tools to build scalable evaluation systems. DSPy [10] pro-vides a programming model in which evaluation criteria are expressed as typed signatures that can be optimized via demonstrations, which we adopt as the im-plementation substrate for our judge. Most directly related to our setting, Ríos-García and Jablonka [19] use an LLM-as-judge and LLM-as-optimizer framework for organic chemistry data extraction, demonstrating that lightweight prompt re-finement against expert annotations can substantially improve domain-specific evaluation quality. For agentic drug discovery systems specifically, two comprehensive evalua-tion efforts have been described. SciToolEval was developed to benchmark Sci-ToolAgent [5], a single-agent orchestrator, using LLM-generated test questions covering both single- and multi-tool workflows; an LLM judge scores both the final answer and the tool-call sequence, and the benchmark has been used to compare SciToolAgent against ChemCrow [14] and CACTUS [15]. MolClaw [22] introduces MolBench (based on ChemCoTBench), a multi-dimensional bench-mark spanning diverse chemistry tasks and evaluating performance against both stand-alone LLMs and other agentic frameworks along dimensions such as tool-call sequence and scientific validity. In contrast to these efforts, neither SciTool-Eval nor MolBench validates its LLM judge against human annotation, a critical alignment gap which our work addresses. 
+
+## 3 ChatInvent: Agentic Drug Discovery System 
+
+ChatInvent [8, 11], is an agentic drug discovery assistant that has been inte-grated into the AstraZeneca discovery pipeline to navigate the different stages of the DMTA (Design–Make–Test–Analyze) cycle. Lately, an open-source ver-sion was released that is entirely based on open-source codes instead of internal AstraZeneca services. ChatInvent is using a number of computational tools such as ReInvent [13], AiZynthFinder [20], and PrecedentFinder [2], see Table 1 for a complete list of tools at the time of writing the manuscript. The scope of ChatInvent is constantly growing as new tools are implemented. The system is a multi-agent framework that includes a supervisor agent and four task-specific sub-agents, namely Design, Synthesis, Analyzer, and Utility agents. The supervi-4 E. Granqvist et al. 
+
+sor agent manages the conversation by directing user requests to the appropriate sub-agent(s). The sub-agent makes the appropriate tool call(s) for the task, and the supervisor agent delivers the final response to the user. Table 1: Summary of the available tools in ChatInvent including their respective functions and the responsible sub-agent.           
+
+> Tool Function Sub-Agent
+> AiZynthFinder [20] Template-based retrosynthesis prediction based on Monte Carlo tree search. Synthesis PrecedentFinder [2] Mines reaction databases for literature precedents and similar transformations as a reference reaction. Synthesis Mol2Mol [13] Transformer based model for molecular optimization. Design ReinventScoring [13] Scoring engine. Design Analyze Agentic-tool for manipulating CSV files. Analyzer Synonyms2Smiles Converting molecule names to SMILES strings. Utility
+
+## 4 Evaluation Framework 
+
+4.1 LLM-as-a-Judge 
+
+He et al. [8] evaluated ChatInvent in terms of Tool Call Correctness , Error Rate ,and Token Consumption . These metrics focus on the internal workings of the system, and thus provide a good approximation of its performance. However, the metrics do not assess the quality of the actual agentic output received by the user. Here, we present an extended evaluation scope, focusing on evaluating the agentic output given the user question and its context, using LLM-as-a-Judge, see Figure 1 for an overview of the workflow. Five evaluation dimensions were considered: Tool Call Correctness (com-puted by direct comparison) and four LLM-judged criteria: Completeness , Rele-vancy , Structural Clarity , and Scope Adherence . See Table 2 for the complete list of evaluation dimensions, including descriptions and allowed score labels. Each of the score labels can be mapped to numeric scores (0, 0.5, 1), where 0 means that the agentic output does not meet the expected requirement, 0.5 means that it is partially fulfilled and 1 means that it is completely fulfilled. Exception be-ing Scope Adherence, for which Below Target and Above Target are considered separate labels during the alignment analysis, whereas in the later analysis, both are instead mapped to 0 while On Target is mapped to 1 for a clearer analysis. The LLM judge was implemented using DSPy Signatures [10], instructing the LLM on how to judge the question-answer pairs. Each metric is defined by a description and allowed score labels; see Table 2 for a summary including short versions of the descriptions. The input to the judge includes: the user question ,Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 5LLM Judge     
+
+> Judgement:
+> Metrics:
+> •Correctness: 1
+> •Relevancy: 1
+> •Structural Clarity: 1
+> •Scope Adherence: 1
+> Justification
+
+ChatInvent     
+
+> >>Can you generate molecules similar to paracetamol?
+> User request:
+> CCOC1=CC=C(C=C1)NC… CC(=O)NC1=CC=C(C=C1… CC(=O)OC1=CC=CC=C1C… NC(=O)C1=CC=CC=C1O…
+> …
+> ”Here are some
+> molecules similar
+> to paracetamol:”
+> Agentic Output:
+> [synonyms2smiles, Mol2Mol2, Analyzer]
+> Tool Calls:
+
+Fig. 1: First, the user requests are passed to ChatInvent which produces an out-put. Secondly, the agentic output is passed to the LLM judge, together with the user question, tool calls and question related context. Finally, the LLM judge delivers a score for each evaluation dimension together with a justification. Table 2: Evaluation dimensions including description and allowed score labels. *Note that Tool Call Correctness is evaluated separately via a deterministic check, whereas the other four metrics are computed via the LLM judge. 
+
+Dimension Short Description Score Labels 
+
+Tool Call Correctness* Do the actual tool calls match the expected or accepted tool calls for the question? Incorrect, Partially Correct, Correct Completeness How complete is the output in covering all required information. This metric evaluates recall: of the information that should be in the output based on the task and evaluation context, how much is present? Not Complete, Partially Complete, Complete Structural Clarity How well-structured and easy to parse is the output, independent of whether the content is correct, relevant, or complete. This metric evaluates presentation only: formatting, organization, logical flow, and readability. Not Clear,Partially Clear, Clear Relevancy How relevant is the content of the output with respect to the task and evaluation context. This metric evaluates precision: of the information present in the output, is it pertinent to the user’s request? Not Relevant, Partially Relevant, Relevant Scope Adherence Does the agent operate within its intended scope and use its assigned capabilities appropriately? Below Target, On Target, Above Target 
+
+agentic output , evaluation context , the expected , accepted , and actual tool calls 
+
+made by the ChatInvent. An accepted tool call-sequence is an incomplete tool call-sequence that nevertheless produces some valuable information for the user [8]. The judge returns a grading for each dimension, where the grading strictly belongs to the predefined score labels, together with a short justification text. 6 E. Granqvist et al. 
+
+We compared four LLMs as judges: Gemini 3.1 Pro from Google [4], Claude Opus 4.7 from Anthropic [1], GPT-5 from OpenAI [21], and open-weight model Llama 3.1 70B from Meta[16], all using the default settings. These LLMs were state-of-the-art at the time of the research project and cover both API-based and open-weights models. However, considering the speed at which models are released there will likely be more performant models available in the near-future. As this paper is about introducing new concepts, the exact model choice and consequently, the exact results does not matter significantly. 
+
+4.2 Test Questions 
+
+As a first step, a set of 20 test questions was manually curated to cover the expected functions of ChatInvent. In these, molecule names, SMILES, reactions, and property constraints were initially included as variables. The test questions cover both the use of each individual tool (labeled Tool ) and a combination of multiple tools (labeled Workflow ). The questions are divided into different categories that describe the intent of the question asked; see Table 3. Following this, four additional variations of each test question were generated using an LLM (Gemini 2.5 Pro), which had been instructed to generate variations with different formality levels ranging from 1 (most formal) to 4 (least formal); the original manually-written question is labeled variation 0, see Table A1 for examples. Finally, the variables were randomly sampled for each of the 100 questions to complete the questions. The four variations, together with the neutral reference question, constituted in total 100 questions for the set of main questions. Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 7
+
+Table 3: The number of questions for the different question types and categories, together with the included tools. The parenthesis indicates that the tool is ex-pected in some but not all questions in that category.                         
+
+> Type # Questions Category # Questions Tools Included
+> Tool 40 Mol2Mol 5Mol2Mol AiZynthFinder 5AiZynthFinder PrecedentFinder 5PrecedentFinder Synonyms2Smiles 10 Synonyms2Smiles Scoring 15 ReinventScoring Workflow 60 DesignOnly 5Synonyms2Smiles , Mol2Mol SynthesisOnly 10 Synonyms2Smiles, PrecedentFinder or AiZynthFinder DesignSynthesis 10 (Synonyms2Smiles), Mol2Mol, Analyzer, AiZynthFinder and/or PrecedentFinder DesignProperty 15 (Synonyms2Smiles), Mol2Mol, ReinventScoring, Analyzer DesignPropertySynthesis 20 (Synonyms2Smiles), Mol2Mol, ReinventScoring, (Analyzer), AiZynthFinder and/or PrecedentFinder
+
+4.3 Tool Call Validation 
+
+In addition to the evaluation using the LLM judge, the actual tool calls were also compared to the expected tool calls, in the same manner as in the original publication. This is done by checking if the sequences of actual tool calls match the expected (complete match) or accepted (partial match) tool calls defined when writing the questions. 
+
+## 5 Human Alignment 
+
+5.1 Annotation Setup 
+
+A human alignment study was conducted to evaluate how well the LLM judge aligned with human annotators. First, a set of 30 question were sampled from the main test question set, covering all question categories and formality levels while oversampling the complex workflow questions, as lower alignment can be expected for these categories compared to the simpler ones. In addition, five of 8 E. Granqvist et al. 
+
+these questions were duplicated to obtain an estimate of self-consistency among the human evaluators, for a total of 35 questions. These 35 questions were presented to five annotators who are expert re-searchers in AI for chemistry. The question-answer pairs together with the eval-uation context and the expected/accepted tool sequences were presented in a web application where the annotators were asked to score the output using the rubrics. The human annotators were given the same description for the eval-uation dimensions as provided in the DSPy Signature to the LLM and these descriptions were always visible in the app during the annotation. In addition, the evaluation context, which provided information on what the answer should include, and the expected/accepted and actual tool calls were always visible to the annotators. 
+
+5.2 Human Annotator Reliability 
+
+The agreement between the human annotators was assessed by calculating the exact match rate and Cohen’s weighted kappa [3] on the duplicated test ques-tions that were given to the annotators. Cohen’s kappa measures the inter-rater reliability and is added as a more robust measure as it also corrects for agree-ment by chance. The weighted Cohen’s kappa also enables disagreements to be weighted differently, so that 0 and 0.5 are more similar than 0 and 1. In Figure 2a, we can see that the overall exact match rate is on average 0.82 and the overall Cohen’s weighted kappa 0.69, indicating a moderate to high self-consistency. After this analysis, one of the duplicated annotations was randomly removed for the remaining part. Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 9Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Agreement Score          
+
+> 0.76 0.84 0.84 0.84 0.82 0.31 0.58 0.71 0.52 0.69
+> Exact Match Kappa Weighted
+
+(a) Intra-rater reliability in terms of Cohen’s weighted kappa and exact match rate. Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Agreement Score          
+
+> 0.27 0.63 0.26 0.12 0.54 0.30 0.69 0.26 0.15 0.59
+> Fleiss Kappa Mean Pairwise Kappa
+
+(b) Inter-annotator agreement in terms of mean pairwise Cohen’s weighted kappa and Fleiss’s kappa. 
+
+Fig. 2: (a) Intra-rater reliability measured on the five repeated questions, and (b) the inter-annotator agreement on the full annotated set. Next, inter-human alignment was assessed. We calculated Fleiss’s kappa [6], which, contrary to Cohen’s kappa, enables measuring agreement between more than 2 annotators and the mean pairwise weighted Cohen’s kappa, which av-erages over all annotator pairs. The agreement per dimension is presented in Figure 2b, and we observe that the agreement varies between the different di-mensions, where the highest agreement is observed for Completeness, and the lowest agreement is observed for Scope Adherence. For all dimensions, a positive agreement is observed and overall, a moderate agreement is observed across the human annotators, based on Fleiss’s kappa of 0.54 and mean pairwise weighted Cohen’s kappa of 0.59. 
+
+5.3 Intra–LLM Agreement 
+
+Each model was run three times on the 30 unique questions to assess the consis-tency of the models across runs. Similarly as in Section 5.2, this was evaluated using the mean pairwise Cohen’s kappa and Fleiss’s kappa, computed from the 10 E. Granqvist et al. 
+
+three trials for each model. In Figure 3, we can see that the agreement is gener-ally high for all models and dimensions both in terms of the Fleiss’s kappa and mean pairwise Cohen’s weighted kappa with the exception of GPT-5 for Scope Adherence where both the mean pairwise Cohen’s kappa and Fleiss’s kappa are significantly lower compared to all other models and dimensions. This indicates that the GPT-5 model is more inconsistent in its ratings across the runs com-pared to the other dimensions. The GPT-5 model is generally the model with the lowest inter-model agreement, although overall the agreement can be considered substantial with a Fleiss’s kappa of 0.76 overall. In contrast, Claude Opus 4.7 closely followed by Gemini 3.1 Pro, has the highest inter-model agreement with a Fleiss’s kappa of 0.92 and 0.91 respectively. Note that two of the 30 questions triggered a content filter for Claude Opus 4.7, likely because the questions in-clude drug analogs and chemical reactions. Therefore, Claude is evaluated on 28 of the 30 questions. In the following alignment analysis, the LLM score is determined by a majority vote across the three runs. Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Mean Pairwise Kappa                    
+
+> 0.93 0.91 0.87 0.87 0.93 0.89 0.92 0.86 0.37 0.77 0.82 0.91 1.00 0.69 0.92 0.80 0.82 0.68 0.71 0.84
+> Claude Opus 4.7 GPT-5 Gemini 3.1 Pro Llama 3.1 70B
+
+(a) Intra-model agreement in terms of mean pairwise Cohen’s weighted kappa. Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Fleiss Kappa                    
+
+> 0.92 0.89 0.87 0.86 0.92 0.87 0.90 0.85 0.33 0.76 0.82 0.89 1.00 0.75 0.91 0.71 0.78 0.66 0.70 0.81
+> Claude Opus 4.7 GPT-5 Gemini 3.1 Pro Llama 3.1 70B
+
+(b) Intra-model agreement in terms of Fleiss’s kappa. 
+
+Fig. 3: Intra-LLM consistency measured based on the three runs for each model on the 30 questions. The numbers on each bar indicate the mean values and error bars indicate the standard deviation. Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 11 
+
+5.4 Human–LLM Agreement 
+
+Finally, the alignment between human and LLM was assessed by comparing the LLM judge’s scores with the majority vote of human annotators. In case of a tie, the most critical voices take precedence, thus, the lowest of the scores is selected. The alignment was measured using the weighted Cohen’s kappa and the exact match rate and is presented in Figure 4. Here we can observe that Gemini 3.1 Pro has the highest human-alignment for the overall component when considering both Cohen’s weighted kappa and the exact match rate. The Claude Opus 4.7 model displays higher agreement for some of the components, whereas GPT-5 displays the lowest agreement for all the components. Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Cohens Kappa Weighted      
+
+> 0.71 0.64 0.15 0.53 0.70 0.36 0.46 0.38 0.14 0.45 0.61 0.69 0.38 0.68 0.76 0.39 0.76 0.23 0.67 0.72
+> Claude Opus 4.7 GPT-5 Gemini 3.1 Pro Llama 3.1 70B
+
+(a) Human-LLM alignment measured by Cohen’s weighted kappa. Relevancy Completeness Structural Clarity Scope Adherence Overall 0.0 0.2 0.4 0.6 0.8 1.0 Exact Match Rate        
+
+> 0.93 0.71 0.71 0.89 0.81 0.70 0.53 0.83 0.27 0.58 0.90 0.77 0.83 0.90 0.85 0.77 0.87 0.77 0.90 0.82
+> Claude Opus 4.7 GPT-5 Gemini 3.1 Pro Llama 3.1 70B
+
+(b) Human-LLM alignment measured by exact match rate. 
+
+Fig. 4: Human-LLM alignment across different evaluation dimensions for four models: GPT-5, Gemini 3.1 Pro, Claude Opus 4.7, and Llama 3.1 70B. Both the human preference and LLM scores are based on a majority vote. Interestingly, we also note that the human-LLM agreement is higher com-pared to the mean pairwise human-human agreement, indicating a higher agree-ment between the human majority vote and the LLM. This comparison should 12 E. Granqvist et al. 
+
+be interpreted carefully: the majority-vote target reduces individual-annotator noise, so a direct comparison with pairwise human-human agreement is not sym-metric. Based on these results, Gemini 3.1 Pro is selected as the judge model for the remaining parts of the evaluation. 
+
+5.5 Judge Optimization 
+
+The human annotated data was further used to optimize the LLM judge using optimizer available in the DSPy package. Of the 30 unique annotated samples, 20 were used as a training set for the DSPy optimizer and the remaining 10 were used for evaluation. In particular, the LabeledFewShot optimizer was used here to maximize the mean alignment, ¯A, described in Equation 1. In short, the LabeledFewShotOptimizer constructs few-shot examples from the provided labeled input-output data points and includes these in the judge signature. Table 4: Judge signature optimization results in terms of mean alignment on the evaluated on the validation set.        
+
+> Model Optimizer # Examples Mean Alignment
+> Gemini 3.1 Pro None -0.800 Gemini 3.1 Pro LabeledFewShot 20 0.862
+
+The result of the signature optimization is presented in Table 4. Here we observe that by optimizing the judge, we can improve the alignment from 0.80 to 0.86 when evaluated on the validation set. This optimized model is used to evaluate and judge all remaining test questions for further experiments (Equation 1). Since both human and judge scores take values in {0, 0.5, 1}, the absolute difference |h − p| also takes only values in {0, 0.5, 1}.
+
+A(h, p ) = 
+
+
+
+1 if |h − p| = 0 0.5 if |h − p| = 0 .50 if |h − p| = 1 ¯A = 1
+
+N M 
+
+> N
+
+X
+
+> i=1
+> M
+
+X
+
+> j=1
+
+A(hij , p ij )
+
+(1) where N is the number of test questions, M is the number of dimensions, h is the score given by the human annotator and p is the score given by the LLM judge. Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 13 
+
+## 6 Experiments & Results 
+
+After excluding the 30 questions used in the alignment analysis, the remaining 70 questions were evaluated by a single Gemini 3.1 Pro–based judge using the optimized judge signature described in Section 5.5. The questions were assessed with respect to Completeness, Relevancy, Structural Clarity, and Scope Adher-ence. In addition to the judge evaluation, the Tool Call Correctness was also calculated for each sample. The result of this assessment is presented in the following sections. 
+
+6.1 Multi-Dimensional Evaluation of Agent Outputs 0.0 18.6% 0.5 38.6% 1.0 42.9%   
+
+> Completeness
+> 0.0 12.9% 0.5 1.4% 1.0 85.7%
+> Relevancy
+> 0.0 8.6% 0.5 1.4% 1.0 90.0%
+> Structural Clarity
+> 0.0 15.7% 1.0 84.3%
+> Scope Adherence
+> 0.0 7.1% 0.5 2.9% 1.0 90.0%
+> Tool Call Correctness
+> 0.0 12.6% 0.5 8.9% 1.0 78.6%
+> Overall 0.0 0.5 1.0
+
+Fig. 5: Distribution of scores across all dimensions and questions. Here, 1 indi-cates that the requirements are fully met, 0.5 indicates that these are partially met, and 0 indicates that the requirements are not met. The distribution of the scores over the 70 questions for each evaluation di-mension is shown in Figure 5. Here, we can see an overall high performance from ChatInvent with a Tool Call Correctness of 90%, Relevancy of 86%, Scope Adherence of 84% and Structural Clarity of 90%. However, we observe that the Completeness score is much lower, with 43% of the outputs rated Complete and 39% rated Partially Complete. After a manual inspection of the justification of 14 E. Granqvist et al. 
+
+the question that scored incomplete: we can conclude that 9 out of the 13 sam-ples are due to different errors of the system, while the remaining four samples are due to incomplete agent output or incomplete tool calls. For samples marked as partially complete, the majority of these outputs lack one or two components such as the requested CSV path, a table or some requested molecular descrip-tor, which means that the user would not know, for instance, where to find the generated molecules. Completeness Relevancy Structural Clarity Scope Adherence Tool Call Correctness Overall 0.00 0.25 0.50 0.75 1.00 Score Tool Workflow           
+
+> 0.72 0.80 0.87 0.77 0.97 0.82 0.55 0.91 0.94 0.90 0.88 0.83
+
+Fig. 6: Mean judge scores over the 70 test questions for each evaluation dimension and question type (Tool or Workflow). In Figure 6 the mean scores over the 70 test questions, comparing the tool and workflow questions. Here, we can clearly see that the Completeness and Tool Call Correctness are clearly higher for the tool questions compared to the workflow ones. This result is not surprising, as the workflow questions are more complex and use more tools, which leaves more room for error. We also observe that Relevancy, Structural Clarity, and Scope Adherence appears to be higher for the workflow questions, indicating that these dimensions of the output are not negatively impacted by increasing complexity of the questions. Looking at Figure 7, we can see that the mean scores vary between the dif-ferent categories of questions. This is particularly clear when considering Com-pleteness. Here, we can see that the lowest scoring categories are Mol2Mol, De-signOnly, Design Synthesis, and DesignPropertySynthesis. All of these categories use the Mol2Mol tool, which is intended to return the CSV path with the output. As noted above, this is the most common reason for lower scores and appears to be the main reason for these lower scores for categories involving the Mol2Mol tool. We can also observe that AiZynthFinder and Scoring questions score the lowest in Scope Adherence and Relevancy. By manually inspecting these ques-tions, we can conclude that in all cases this is a result of different errors in the execution of the tools. A low Scope Adherence score was also given to a Design-Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 15 AiZynthFinder DesignOnly DesignProperty DesignPropertySynthesis DesignSynthesis Mol2Mol PrecedentFinder Scoring Synonym2SMILES SynthesisOnly 
+
+Fig. 7: Radar plot showing mean judge scores over the 70 test questions for each question category. PropertySynthesis question where the agent stopped prematurely as a result of Mol2Mol not being able to generate any molecules that fulfilled the requested criteria. 
+
+6.2 Impact of Question Formality Completeness Relevancy Structural Clarity Scope Adherence Tool Call Correctness Overall 0.00 0.25 0.50 0.75 1.00 Score 0 1 2 3 4
+
+Fig. 8: Mean judge scores over the 70 test questions for each evaluation dimension and formality level. Here, 0 refers to the reference question and 1-4 to a generated question, ranging from very formal (1) to very informal (4). In Figure 8, the mean scores over the 70 test questions are plotted for each dimension grouped by formality level. A trend can be observed, indicating that 16 E. Granqvist et al. 
+
+the way the question is formulated does impact the scores, although the standard deviation is rather high. For example, we can see that in all dimensions, the most formal question (1) generates the lowest scores followed by the reference question (0), which was formulated manually. This is also observed for the Tool Call Correctness, indicating that these questions could be slightly easier for ChatInvent to process. However, we see a slight increase in the scores for the more informally formulated questions (2-3) indicating that a neutral/informal phrasing does not significantly harm the performance of the system and might even be preferable. 
+
+## 7 Discussion 
+
+In this work, we have showcased how an LLM-as-a-Judge can be designed to evaluate an agentic system for drug discovery such as ChatInvent. In particular, we have designed the LLM judge to ensure high agreement with human pref-erences by appropriately evaluating it through a human alignment study. This is an overlooked feature in previously proposed benchmarks for drug discovery agents such as SciToolEval and MolBench. In the study conducted, five anno-tators were given the same instructions and information as the LLM judge and asked to score the agentic output. First, we assessed the alignment, and then we used these annotated samples to optimize the LLM judge to better align with human preferences. We observed a high alignment with human preferences even before any prompt optimization was performed, indicating that LLMs are capa-ble of evaluating the output of the drug discovery agent. In fact, the alignment between LLMs and human majority vote even exceeded the alignment between human annotators (with the caveat noted in Section 5.4 about the asymmetric comparison). In addition, we also assessed the model consistency across runs and found that overall all models, and Claude Opus 4.7 and Gemini 3.1 Pro in particular, were highly consistent across the runs. Based on these results and the fact that we observed the highest human-LLM alignment for Gemini 3.1 Pro, we selected this model as our judge. However, since both Claude Opus 4.7 and the open-source alternative Llama 3.1 70B also scored highly on these aspects, we believe that these models would also make an excellent choice here. Considering that new models are released on a monthly basis, it is very likely that more performant models will be available in the future. Therefore, the results herein should be taken as a proof-of-concept rather than a strong recommendation. After establishing the reliability of the LLM judge, we have shown how it can be used to identify missing components in the output and indicate areas where the agentic system needs improvement. One such example is the recurring issue of missing CSV file paths and requested properties in the output that could be identified through the lower Completeness scores, thereby paving the way for automatic evaluation of the agentic system. Furthermore, we have investigated how the complexity of the user request impacts the tool call correctness and completeness of the agentic output while being more robust in terms of relevancy and clarity of the output. This indicates that although some information is not Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 17 
+
+included in the final answer from the agent, the agent is nonetheless competent in providing a partial answer that is also interpretable. We have also assessed whether the phrasing of the user requests affected the quality of agentic output. Here, we have seen an indication that the manually formulated questions seem to generate lower-quality outputs, indicating that it could be advantageous to have an LLM amend written prompts before passing them to agentic systems. In addition, we have not seen a clear indication that informally phrased prompts receive worse output. In contrast, it appears that the overly formal output might generate slightly lower scoring responses compared to the more informal ones. However, it should be noted that these results come with high uncertainty, and further studies on the topic are warranted. Furthermore, as the capabilities of the ChatInvent agent are still growing, the scope of questions needs to be grow as well, and it remains to be seen what the most prominent issues with the agent will be in the future. To use the developed LLM-as-a-Judge system in production, several design choices remain to be engineered. When developing new features in ChatInvent, it would be valuable to run the full evaluation system, but it might be prohibitively expensive in terms of token cost or compute time. Therefore, a smoke test on a representative subset of questions might be more practical. Furthermore, it would be possible to include the LLM judge directly in the agentic loop and not present the final result to the user until a sufficiently high completeness score has been achieved, but that might also be prohibitively expensive. An important direction for future research would be to extend the test ques-tions to not only include test questions that evaluate the known capabilities of the agentic system. We have started to compile a list of questions that are am-biguously phrased, out-of-scope, contain erroneous input, or are ethically ques-tionable. Such evaluations would improve our understanding of how ChatInvent functions in more challenging situations. 
+
+## 8 Conclusion 
+
+We conclude by stating that a careful design of LLM-as-a-Judge is necessary to obtain a reliable system that is capable of scalable and autonomous evalu-ation of agentic systems for drug discovery. By introducing dimensions of the design overlooked by previously proposed evaluation systems, such as human alignment validation and domain-specific judge optimization, we contribute to a more robust and truthful evaluation of AI systems that show great promise in drug discovery.   
+
+> Acknowledgments. EG and RM acknowledge the funding provided by the Wallen-berg AI, Autonomous Systems, and Software Program (WASP), supported by the Knut and Alice Wallenberg Foundation. We thank the following scientists who contributed to the annotations study and provided valuable insights and feedback: Lakshidaa Sai-giridharan, Thibaud Southiratn and Nils Dunlop.
+> Disclosure of Interests. EG and SG are AstraZeneca employees. The authors declare no competing interests.
+
+18 E. Granqvist et al. 
+
+## References 
+
+1. Anthropic: Claude Opus 4.7 Model Card. https://www.anthropic.com/news/claude-opus-4-7 (2026), accessed: 2026-05-18 2. Bauer, C.A., Kogej, T., Genheden, S., Norrby, P.O.: Precedent Finder: Locating pareto-optimal reactions. Journal of Chemical Information and Modeling 65 (18), 9378–9382 (2025). https://doi.org/10.1021/acs.jcim.5c01797 3. Cohen, J.: Weighted kappa: Nominal scale agreement provision for scaled disagreement or partial credit. Psychological Bulletin 70 (4), 213 (1968). https://doi.org/10.1037/h0026256 4. DeepMind, G.: Gemini 3.1 Pro Model Card. https://deepmind.google/models/model-cards/gemini-3-1-pro/ (2026), accessed: 2026-05-21 5. Ding, K., Yu, J., Huang, J., Yang, Y., Zhang, Q., Chen, H.: SciToolAgent: a knowledge-graph-driven scientific agent for multitool integration. Nature Computa-tional Science 5(10), 962–972 (2025). https://doi.org/10.1038/s43588-025-00849-y 6. Fleiss, J.L.: Measuring nominal scale agreement among many raters. Psychological Bulletin 76 (5), 378 (1971). https://doi.org/10.1037/h0031619 7. Gottweis, J., Weng, W.H., Daryin, A., Tu, T., Palepu, A., Sirkovic, P., Myaskovsky, A., Weissenberger, F., Rong, K., Tanno, R., et al.: Towards an AI co-scientist. arXiv preprint arXiv:2502.18864 (2025). https://doi.org/10.48550/arXiv.2502.18864 8. He, J., Lai, H., Saigiridharan, L., Ghiandoni, G.M., Jenei, K., Gokalp, U., Nukovic, A., Engkvist, O., Janet, J.P., Genheden, S.: Democratising real-world drug discovery through agentic AI. Drug Discovery Today p. 104605 (2026). https://doi.org/10.1016/j.drudis.2026.104605 9. Jung, J., Brahman, F., Choi, Y.: Trust or escalate: LLM judges with provable guarantees for human agreement. In: International Conference on Learning Repre-sentations. vol. 2025, pp. 3101–3125 (2025) 10. Khattab, O., Singhvi, A., Maheshwari, P., Zhang, Z., Santhanam, K., Vard-hamanan, S., Haq, S., Sharma, A., Joshi, T.T., Moazam, H., Miller, H., Zaharia, M., Potts, C.: DSPy: Compiling declarative language model calls into self-improving pipelines (2024) 11. langdmta lab: langdmta-lab. https://github.com/MolecularAI/langdmta-lab (2026), accessed: 2026-05-13 12. Lin, C.Y.: ROUGE: A package for automatic evaluation of summaries. In: Text Summarization Branches Out. pp. 74–81 (2004) 13. Loeffler, H.H., He, J., Tibo, A., Janet, J.P., Voronov, A., Mervin, L.H., Engkvist, O.: Reinvent 4: Modern AI–driven generative molecule design. Journal of Chem-informatics 16 (1), 20 (2024). https://doi.org/10.1186/s13321-024-00812-5 14. M. Bran, A., Cox, S., Schilter, O., Baldassari, C., White, A.D., Schwaller, P.: Aug-menting large language models with chemistry tools. Nature Machine Intelligence 
+
+6(5), 525–535 (2024). https://doi.org/10.1038/s42256-024-00832-8 15. McNaughton, A.D., Sankar Ramalaxmi, G.K., Kruel, A., Knutson, C.R., Varikoti, R.A., Kumar, N.: CACTUS: Chemistry agent connecting tool usage to science. ACS Omega 9(46), 46563–46573 (2024). https://doi.org/10.1021/acsomega.4c08408 16. llama models: llama-models. https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md (2024), accessed: 2026-06-03 17. Naveed, H., Khan, A.U., Qiu, S., Saqib, M., Anwar, S., Usman, M., Akhtar, N., Barnes, N., Mian, A.: A comprehensive overview of large language models. Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 19 ACM Transactions on Intelligent Systems and Technology 16 (5), 1–72 (2025). https://doi.org/10.1145/3744746 18. Papineni, K., Roukos, S., Ward, T., Zhu, W.J.: BLEU: a method for automatic evaluation of machine translation. In: Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics. pp. 311–318 (2002) 19. Ríos-García, M., Jablonka, K.M.: LLM-as-Judge meets LLM-as-Optimizer: En-hancing organic data extraction evaluations through dual LLM approaches. In: AI4Mat-ICLR-2025: AI for Accelerated Materials Design Workshop, ICLR 2025 (2025), https://openreview.net/forum?id=MjQml5U1Xq 20. Saigiridharan, L., Hassen, A.K., Lai, H., Torren-Peraire, P., Engkvist, O., Genheden, S.: AiZynthFinder 4.0: developments based on learnings from 3years of industrial application. Journal of Cheminformatics 16 (1), 57 (2024). https://doi.org/10.1186/s13321-024-00860-x 21. Singh, A., Fry, A., Perelman, A., Tart, A., Ganesh, A., El-Kishky, A., McLaughlin, A., Low, A., Ostrow, A., Ananthram, A., et al.: OpenAI GPT-5 system card. arXiv preprint arXiv:2601.03267 (2025). https://doi.org/10.48550/arXiv.2601.03267 22. Zhang, L., Wang, L., Sun, X., Tang, W., Su, H., Qian, Y., Yang, Q., Li, Q., Tang, Z., Sun, H., et al.: MolClaw: An autonomous agent with hierarchical skills for drug molecule evaluation, screening, and optimization. arXiv preprint arXiv:2604.21937 (2026). https://doi.org/10.48550/arXiv.2604.21937 23. Zheng, L., Chiang, W.L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E., et al.: Judging LLM-as-a-Judge with MT-Bench and Chat-bot Arena. Advances in Neural Information Processing Systems 36 , 46595–46623 (2023) 
+
+## A Question Formality Levels 
+
+Table A1 illustrates how the same underlying task is rephrased across the five formality levels used in our study. Four representative categories are shown: Syn-onyms2Smiles, DesignOnly, SynthesisOnly, and DesignSynthesis. Within each category, variation 0 is the manually-written reference question, and variations 1–4 are LLM-generated rephrasings spanning highly formal (1) through infor-mal/slang (4) language. The placeholders <MOLECULE_NAME> and <SMILES> are filled in with sampled values at evaluation time. 20 E. Granqvist et al. 
+
+Table A1: Examples of questions from four different categories and the generated variations with respect to formality. Variation 0 is the original manually-written reference question; variations 1–4 are LLM-generated rephrasings ranging from highly formal (1) to informal (4). 
+
+Question Category Question Variation 
+
+Synonyms2Smiles "What is the SMARTS of <MOLECULE_NAME>?" 0"Could you please provide the SMARTS representation for <MOLECULE_NAME>?" 1"I need to find the SMARTS string for <MOLECULE_NAME>, can you assist with that?" 2"Hey, can you pull the SMARTS pattern for <MOLECULE_NAME> for me?" 3"whats the smarts for <MOLECULE_NAME>??" 4DesignOnly "Can you generate similar molecules to: <MOLECULE_NAME>?" 0"Would you please generate a set of molecular analogs based on the structure of <MOLECULE_NAME>?" 1"Could you generate some molecules that are structurally similar to <MOLECULE_NAME>?" 2"Hey, can you generate a few analogs of <MOLECULE_NAME> for me?" 3"can u gen some similar mols to <MOLECULE_NAME> pls?" 4SynthesisOnly "How can I synthesize: <MOLECULE_NAME> and what are some similar reactions to each reaction step involved in making this molecule?" 0"Could you please propose a synthetic pathway for <MOLECULE_NAME>? For each transformation within the proposed route, I would also require examples of analogous reactions." 1"I need a viable synthetic route to <MOLECULE_NAME>. In addition, please provide some similar reactions for each step of the synthesis." 2"Can you figure out a synthesis for <MOLECULE_NAME> for me? And for each reaction step, can you also find some other reactions that do the same kind of thing?" 3"hey, how do i make <MOLECULE_NAME>? for each step in the synth, gimme some simlar rxns too." 4DesignSynthesis "Can you give me some molecules similar to <SMILES> and show me the synthesis routes for the top 5 similar ones?" 0"I require a list of chemical analogs for the structure represented by <SMILES>. For the five most structurally similar compounds, please also provide their respective synthetic pathways." 1"Could you please generate some molecules similar to <SMILES>? I would also like to see the synthesis routes for the top 5 candidates." 2"Hey, I’m looking for some analogs of <SMILES>. Can you pull up a few and then show me how to make the top 5?" 3"run a similarity search on <SMILES> & show me the syntheis for the top 5 hits. thx." 4Designing LLM-Based Evaluation System for Agentic AI in Drug Discovery 21 
+
+## B Evaluation Dimension Correlations Completeness Relevancy Structural Clarity Scope Adherence Tool Call Correctness Completeness Relevancy Structural Clarity Scope Adherence Tool Call Correctness 1.00 0.64 0.55 0.72 0.46 0.64 1.00 0.84 0.87 0.51 0.55 0.84 1.00 0.76 0.37 0.72 0.87 0.76 1.00 0.60 0.46 0.51 0.37 0.60 1.00 
+
+> 1.00
+> 0.75
+> 0.50
+> 0.25
+> 0.00 0.25 0.50 0.75 1.00 Correlation Coefficient
+
+Fig. A1: Correlation between evaluation dimensions across all questions in terms of Pearson correlation coefficient. In Figure A1 the correlation between the evaluation dimensions. We can see that Scope Adherence and Relevancy are highly correlated and the other dimen-sions are all moderately correlated, based on the Pearson correlation coefficient. The high correlation between Relevancy and Scope Adherence is likely due to the nine questions that resulted in an error, as all of these scored low in both these dimensions and high on almost all other questions.

@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-23</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-24</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-23 19:17:20 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-24 20:05:26 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读1篇、速读1篇，重点聚焦AI科学家智能体的可信记录与去中心化推理协作。最值得关注的是《Symposium》提出的基于可审计记录构建社区信任机制（8.0分），以及《DeAR》的能力锚定与协同思维导航（6.0分）。建议优先深入精读高分论文，并关注其审计透明度设计对多智能体协作的启发。</p>
+<p>今日精读两篇高价值论文，分别聚焦大语言模型在疟疾药物研发中的评估，以及无模拟轨迹推断框架。最值得关注的是模型性能与资源消耗的权衡，以及新型推断方法在精度上的突破。建议优先浏览这两篇精读的结论部分，速读两篇可暂缓深入。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Symposium: Trust via Auditable Records for Communities of AI Scientist Agents">Symposium: Trust via Auditable Records for Communities of AI Scientist Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Rigorous Evaluation of Large Language Models for Malaria Drug Discovery: Trade-offs in Performance, Scale, and Resource Utility">Rigorous Evaluation of Large Language Models for Malaria Drug Discovery: Trade-offs in Performance, Scale, and Resource Utility</span></li><li><span class="dpr-home-dashboard-paper-title" title="TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics">TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics</span></li><li><span class="dpr-home-dashboard-paper-title" title="Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment">Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DeAR: Decentralized Agentic Reasoning via Capability Grounding and Collaborative Thought Navigation">DeAR: Decentralized Agentic Reasoning via Capability Grounding and Collaborative Thought Navigation</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Consilience: Conformally Calibrated Communication Control for Hidden-Profile Multi-Agent Reasoning">Consilience: Conformally Calibrated Communication Control for Hidden-Profile Multi-Agent Reasoning</span></li><li><span class="dpr-home-dashboard-paper-title" title="Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents">Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
 </div>
 

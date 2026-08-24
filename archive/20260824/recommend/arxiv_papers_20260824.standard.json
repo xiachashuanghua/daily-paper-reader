@@ -1,0 +1,212 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-24T20:00:09.445973+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.20418v1",
+      "source": "arxiv",
+      "title": "Rigorous Evaluation of Large Language Models for Malaria Drug Discovery: Trade-offs in Performance, Scale, and Resource Utility",
+      "abstract": "We introduce Malaria-Instruct, a curated instruction-following dataset derived from the ChEMBL Legacy Malaria corpus for Malaria virtual screening, and conduct a systematic evaluation of five open-source LLMs; Gemma-2 2B/9B, TxGemma-2B/9B, and LlaSMol-Mistral-7B, on a rigorous out-of-distribution data split. Performance was benchmarked against classical ML models (Random Forest, XGBoost) and frontier proprietary models (Gemini 2.5, OpenAI o3) under few-shot conditions. Fine-tuned LLMs substantially outperformed all baselines: TxGemma-9B achieved the highest ROC-AUC ($0.731 \\pm 0.005$) and LlaSMol-Mistral-7B the best enrichment factor (EF@1\\% $\\approx$ 4.99). Domain-specific fine-tuning proved categorically indispensable with TxGemma-9B collapsing from ROC-AUC 0.731 to 0.499, under its best few-shot condition, and neither Gemini 2.5 (ROC-AUC $\\approx$ 0.53) nor o3 (ROC-AUC $\\approx$ 0.59) achieved reliable discrimination without fine-tuning. Biomedical pretraining conferred a measurable advantage at equivalent scale, while chemistry-aware pretraining yielded superior prospective enrichment. Fine-tuned open-source LLMs represent a compelling, resource-efficient paradigm for antimalarial VS, outperforming both classical pipelines and proprietary reasoning models under structurally challenging conditions.",
+      "authors": [
+        "Marvellous O. Ajala",
+        "Zainab Ashimiyu-Abdusalam",
+        "Comfort Adesina"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-18T20:12:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.20418v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM applications in computational biology for malaria virtual screening",
+      "llm_evidence_cn": "大语言模型在疟疾虚拟筛选等计算生物学中的应用",
+      "llm_evidence": "大语言模型在疟疾虚拟筛选等计算生物学中的应用",
+      "canonical_evidence": "大语言模型在疟疾虚拟筛选等计算生物学中的应用",
+      "llm_tldr_en": "Introduces Malaria-Instruct and a systematic evaluation of open-source LLMs for malaria virtual screening, showing fine-tuned models outperform classical and frontier baselines, with TxGemma-9B reaching ROC-AUC 0.731 and strong enrichment factors.",
+      "llm_tldr_cn": "该论文构建了基于ChEMBL疟疾语料的指令微调数据集Malaria-Instruct，并系统评估了五个开源大语言模型在疟疾虚拟筛选中的表现。在严格的分布外划分下，微调后的模型显著优于传统机器学习基线及前沿专有模型，其中TxGemma-9B取得最高ROC-AUC 0.731，LlaSMol-Mistral-7B取得最佳富集因子4.99。研究揭示了模型性能、规模与资源利用之间的权衡。该工作为LLM在药物发现中的可靠应用提供了重要基准。",
+      "llm_tldr": "该论文构建了基于ChEMBL疟疾语料的指令微调数据集Malaria-Instruct，并系统评估了五个开源大语言模型在疟疾虚拟筛选中的表现。在严格的分布外划分下，微调后的模型显著优于传统机器学习基线及前沿专有模型，其中TxGemma-9B取得最高ROC-AUC 0.731，LlaSMol-Mistral-7B取得最佳富集因子4.99。研究揭示了模型性能、规模与资源利用之间的权衡。该工作为LLM在药物发现中的可靠应用提供了重要基准。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.21070v1",
+      "source": "arxiv",
+      "title": "TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics",
+      "abstract": "Inferring continuous system evolution from sparse temporal snapshots is a key challenge in generative modeling and single-cell omics. While Optimal Transport (OT) is popular, existing frameworks are largely restricted to first-order dynamics, assuming memoryless velocity fields. This limits expressiveness, as first-order systems fail to account for regulatory momentum and time-delayed responses inherent in processes like cell differentiation. Here, we introduce TracingFlow, a simulation-free Flow Matching framework generalizing to second-order dynamics. By using neural networks to regress the acceleration field, TracingFlow provides an exact, efficient solution to the Dynamical Optimal Acceleration Transport (DOAT) problem. Unlike first-order methods yielding over-smoothed trajectories, our second-order formulation captures high-curvature transitions and nonlinear evolutions by learning the underlying force fields. Evaluated on complex synthetic and large-scale scRNA-seq datasets, TracingFlow achieves superior accuracy in distributional reconstruction and trajectory faithfulness. Moreover, by integrating lineage tracing priors, it recovers dynamical structures that are both mathematically optimal and biologically plausible.",
+      "authors": [
+        "Yuhao Sun",
+        "Zekun Wu",
+        "Zixun Huang",
+        "Peijie Zhou"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "q-bio.GN"
+      ],
+      "published": "2026-08-21T13:11:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.21070v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "single-cell trajectory inference for cell differentiation in computational biology",
+      "llm_evidence_cn": "计算生物学中的单细胞轨迹推断与细胞分化",
+      "llm_evidence": "计算生物学中的单细胞轨迹推断与细胞分化",
+      "canonical_evidence": "计算生物学中的单细胞轨迹推断与细胞分化",
+      "llm_tldr_en": "Introduces TracingFlow, a simulation-free flow matching framework that generalizes optimal transport to second-order dynamics for accurate trajectory inference from sparse snapshots, addressing regulatory momentum in cell differentiation.",
+      "llm_tldr_cn": "该论文针对现有最优传输方法仅能处理一阶动力学、难以刻画细胞分化中调控惯性和时滞响应的问题，提出了TracingFlow框架。它利用神经网络回归加速度场，将无模拟流匹配推广到二阶动力学，给出动态最优加速度传输问题的精确高效解。实验表明该框架在稀疏时间快照下能更准确地推断连续系统演化。相关工作有望推动单细胞组学等计算生物学研究的发展。",
+      "llm_tldr": "该论文针对现有最优传输方法仅能处理一阶动力学、难以刻画细胞分化中调控惯性和时滞响应的问题，提出了TracingFlow框架。它利用神经网络回归加速度场，将无模拟流匹配推广到二阶动力学，给出动态最优加速度传输问题的精确高效解。实验表明该框架在稀疏时间快照下能更准确地推断连续系统演化。相关工作有望推动单细胞组学等计算生物学研究的发展。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.21057v1",
+      "source": "arxiv",
+      "title": "Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment",
+      "abstract": "Agentic large language model (LLM) systems are reshaping scientific workflows in chemistry and drug discovery, but evaluating their open-ended, tool-augmented outputs remains a fundamental bottleneck. Reference-based metrics such as BLEU and ROUGE fail to capture semantic correctness, while expert human evaluation does not scale to the iteration speed these systems demand. The LLM-as-a-Judge paradigm has emerged as a scalable alternative, but existing drug discovery benchmarks deploy LLM judges without validating their alignment with human experts. In this work, we present an LLM-as-a-Judge evaluation framework for ChatInvent, an agentic drug discovery assistant deployed at AstraZeneca, with four contributions. First, we define four output-quality evaluation dimensions---Completeness, Relevancy, Structural Clarity, and Scope Adherence---alongside deterministic Tool Call Correctness checks. Second, we validate the judge through a human alignment study with five expert annotators, comparing Gemini 3.1 Pro, Claude Opus 4.7, GPT-5, and Llama 3.1 70B as candidate judges. Third, we optimize the best-performing judge using few-shot demonstrations of human-annotated examples, improving alignment with the human majority vote from 0.80 to 0.86. Fourth, applying the optimized judge to 70 held-out questions, we surface concrete limitations and find that informal phrasings do not systematically degrade output quality; if anything, it is helpful to have the LLM rewrite the original question before querying the agent. Our framework provides a reusable template for human-aligned evaluation of agentic systems in scientific domains.",
+      "authors": [
+        "Emma Granqvist",
+        "Rocío Mercado",
+        "Samuel Genheden"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-21T12:58:24+00:00",
+      "link": "https://arxiv.org/pdf/2608.21057v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-based evaluation framework for agentic AI in drug discovery",
+      "llm_evidence_cn": "面向药物发现智能体AI的LLM评估框架",
+      "llm_evidence": "面向药物发现智能体AI的LLM评估框架",
+      "canonical_evidence": "面向药物发现智能体AI的LLM评估框架",
+      "llm_tldr_en": "This paper presents a human-aligned LLM-as-a-Judge evaluation system for agentic drug discovery assistants, addressing the gap in validating alignment with human experts for open-ended scientific outputs.",
+      "llm_tldr_cn": "针对智能体LLM系统在药物发现中的开放输出难以评估、传统指标与人工评估存在局限的问题，本文提出基于LLM-as-a-Judge的评估框架，并通过人类对齐来验证评判者与专家的一致性。该框架应用于阿斯利康的ChatInvent智能体药物发现助手，从多个层面提升评估的稳健性，为科学AI的可扩展评估提供参考。",
+      "llm_tldr": "针对智能体LLM系统在药物发现中的开放输出难以评估、传统指标与人工评估存在局限的问题，本文提出基于LLM-as-a-Judge的评估框架，并通过人类对齐来验证评判者与专家的一致性。该框架应用于阿斯利康的ChatInvent智能体药物发现助手，从多个层面提升评估的稳健性，为科学AI的可扩展评估提供参考。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.20564v1",
+      "source": "arxiv",
+      "title": "Consilience: Conformally Calibrated Communication Control for Hidden-Profile Multi-Agent Reasoning",
+      "abstract": "Multi-agent LLM systems can improve reasoning by pooling diverse perspectives, but their effectiveness depends on coordinating communication, particularly in hidden-profile settings where each agent holds only part of the evidence required for a correct decision. Existing protocols, including fixed schedules, round-robin exchange, and unstructured debate, provide no guarantee that a conversational action is appropriate. We propose Consilience, an inference-time orchestration framework that both steers and certifies multi-agent communication under distributed private information. At each turn, Consilience summarizes the discussion using a compact state capturing uncertainty, disagreement, evidence gain, redundancy, and premature consensus, then selects both a communication intervention (challenge, clarify, seek evidence, or route) and an appropriate speaker. Its central contribution is a round-wise conformal calibration procedure that provides a distribution-free, finite-sample guarantee: at each discussion round, conditional on reaching that round, the one-step regret of a controller's proposed action is bounded by a calibrated threshold with marginal probability at least 1 - alpha; an acceptance mechanism enforces the same guarantee for the executed action by replacing inadmissible proposals. On HiddenBench-style hidden-profile tasks spanning 12 open and closed weight language models, Consilience improves decision accuracy and communication efficiency over fixed and unstructured discussion protocols, sometimes surpassing a full-information baseline where every agent observes all evidence. These results demonstrate that certified adaptive communication control can be more valuable than increasing information availability, providing a practical mechanism for reliable multi-agent LLM coordination.",
+      "authors": [
+        "Abhijith Babu",
+        "Ramneet Kaur",
+        "Vishal Pramanik",
+        "Olivera Kotevska",
+        "Nathaniel D. Bastian",
+        "Susmit Jha",
+        "Sunny Raj",
+        "Yanzhao Wu",
+        "Sumit Kumar Jha",
+        "Anirban Roy"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-20T20:57:25+00:00",
+      "link": "https://arxiv.org/pdf/2608.20564v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Proposes an inference-time orchestration framework for multi-agent LLM communication in hidden-profile settings, directly relevant to multi-agent biological data analysis.",
+      "llm_evidence_cn": "提出面向隐藏配置场景的多智能体LLM通信推理时编排框架，直接关涉多智能体生物数据分析。",
+      "llm_evidence": "提出面向隐藏配置场景的多智能体LLM通信推理时编排框架，直接关涉多智能体生物数据分析。",
+      "canonical_evidence": "提出面向隐藏配置场景的多智能体LLM通信推理时编排框架，直接关涉多智能体生物数据分析。",
+      "llm_tldr_en": "This paper presents Consilience, a conformally calibrated framework that steers and certifies multi-agent communication under distributed private information, improving reasoning in hidden-profile settings.",
+      "llm_tldr_cn": "针对多智能体LLM系统在隐藏配置场景中通信协调缺乏保证的问题，提出Consilience推理时编排框架。该框架用紧凑状态汇总讨论中的不确定性、分歧、证据增益等指标，并对多智能体通信进行保形校准的引导与认证，确保对话动作的适当性。在分布式私有信息条件下，该框架提高了推理质量。其通信控制方法可应用于生物数据分析中多智能体系统的协同推理。",
+      "llm_tldr": "针对多智能体LLM系统在隐藏配置场景中通信协调缺乏保证的问题，提出Consilience推理时编排框架。该框架用紧凑状态汇总讨论中的不确定性、分歧、证据增益等指标，并对多智能体通信进行保形校准的引导与认证，确保对话动作的适当性。在分布式私有信息条件下，该框架提高了推理质量。其通信控制方法可应用于生物数据分析中多智能体系统的协同推理。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.20631v1",
+      "source": "arxiv",
+      "title": "Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents",
+      "abstract": "Large language model (LLM) agents have demonstrated the ability to solve multi-step tasks requiring planning, tool use, and external information access, yet growing execution histories increase inference cost and expose reasoning to outdated, irrelevant, or misleading information, potentially degrading reasoning quality. Existing memory approaches organize or compress execution histories but provide limited mechanisms for deciding which memories remain active. We introduce the, a hierarchical memory system that organizes execution into tasks, subtasks, and actions while assigning each memory a dynamic retention score. Event-based updates and selection-based decay revise these scores, allowing WMT to preserve useful information, fold completed trajectories, suppress low-utility content, and retain access to folded context. We evaluate WMT on GAIA-Text using Qwen3-8B, Gemma 4 E4B, and Llama-3.1-8B, with ablations and memory-poisoning experiments. Relative to linear memory, WMT improves accuracy by an average of 9.97 percentage points while reducing prompt-token usage by 32.8%. Memory-poisoning experiments show that WMT limits the persistence and propagation of unreliable information. Our results suggest that effective long-horizon agent memory depends less on storing more information than on deciding which information should remain active.",
+      "authors": [
+        "Quang Dao",
+        "Purvi Kathalkar",
+        "Kenneth Eaton"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-21T00:14:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.20631v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes a hierarchical memory system for LLM agents, directly enhancing autonomous agent capabilities applicable to biological research.",
+      "llm_evidence_cn": "提出面向LLM智能体的层次化记忆系统，直接增强可用于生物研究的自主智能体能力。",
+      "llm_evidence": "提出面向LLM智能体的层次化记忆系统，直接增强可用于生物研究的自主智能体能力。",
+      "canonical_evidence": "提出面向LLM智能体的层次化记忆系统，直接增强可用于生物研究的自主智能体能力。",
+      "llm_tldr_en": "This paper introduces Weighted Memory Tree (WMT), a hierarchical memory system for LLM agents that assigns dynamic retention scores to memories, improving long-horizon task performance by preserving useful information and pruning irrelevant ones.",
+      "llm_tldr_cn": "针对LLM智能体在长时程任务中执行历史增长、无关记忆干扰推理的问题，提出加权记忆树（WMT）层次化记忆系统。WMT将执行过程组织为任务、子任务和动作，并为每条记忆赋予动态保留分数，通过事件驱动更新和选择驱动衰减来保留有用信息、折叠已完成轨迹。该方法增强了自主智能体在复杂任务中的记忆管理能力，可迁移至生物研究中的自主实验规划。",
+      "llm_tldr": "针对LLM智能体在长时程任务中执行历史增长、无关记忆干扰推理的问题，提出加权记忆树（WMT）层次化记忆系统。WMT将执行过程组织为任务、子任务和动作，并为每条记忆赋予动态保留分数，通过事件驱动更新和选择驱动衰减来保留有用信息、折叠已完成轨迹。该方法增强了自主智能体在复杂任务中的记忆管理能力，可迁移至生物研究中的自主实验规划。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

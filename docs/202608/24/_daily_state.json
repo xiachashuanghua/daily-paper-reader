@@ -1,0 +1,89 @@
+{
+  "date": "20260824",
+  "date_label": "",
+  "generated_at": "2026-08-24 20:05:26 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.20418v1",
+      "route": "202608/24/2608.20418v1-rigorous-evaluation-of-large-language-models-for-malaria-drug-discovery-trade-offs-in-performance-scale-and-resource-utility",
+      "title": "Rigorous Evaluation of Large Language Models for Malaria Drug Discovery: Trade-offs in Performance, Scale, and Resource Utility",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "大语言模型在疟疾虚拟筛选等计算生物学中的应用",
+      "first_seen_at": "2026-08-24 20:05:26 UTC",
+      "updated_at": "2026-08-24 20:05:26 UTC"
+    },
+    {
+      "paper_id": "2608.21070v1",
+      "route": "202608/24/2608.21070v1-tracingflow-a-simulation-free-trajectory-inference-framework-based-on-second-order-dynamics",
+      "title": "TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "计算生物学中的单细胞轨迹推断与细胞分化",
+      "first_seen_at": "2026-08-24 20:05:26 UTC",
+      "updated_at": "2026-08-24 20:05:26 UTC"
+    },
+    {
+      "paper_id": "2608.21057v1",
+      "route": "202608/24/2608.21057v1-designing-a-robust-llm-based-evaluation-system-for-agentic-ai-in-drug-discovery-through-human-alignment",
+      "title": "Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向药物发现智能体AI的LLM评估框架",
+      "first_seen_at": "2026-08-24 20:05:26 UTC",
+      "updated_at": "2026-08-24 20:05:26 UTC"
+    },
+    {
+      "paper_id": "2608.20564v1",
+      "route": "202608/24/2608.20564v1-consilience-conformally-calibrated-communication-control-for-hidden-profile-multi-agent-reasoning",
+      "title": "Consilience: Conformally Calibrated Communication Control for Hidden-Profile Multi-Agent Reasoning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "提出面向隐藏配置场景的多智能体LLM通信推理时编排框架，直接关涉多智能体生物数据分析。",
+      "first_seen_at": "2026-08-24 20:05:26 UTC",
+      "updated_at": "2026-08-24 20:05:26 UTC"
+    },
+    {
+      "paper_id": "2608.20631v1",
+      "route": "202608/24/2608.20631v1-weighted-memory-tree-remembering-what-matters-for-long-horizon-llm-agents",
+      "title": "Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出面向LLM智能体的层次化记忆系统，直接增强可用于生物研究的自主智能体能力。",
+      "first_seen_at": "2026-08-24 20:05:26 UTC",
+      "updated_at": "2026-08-24 20:05:26 UTC"
+    }
+  ]
+}
