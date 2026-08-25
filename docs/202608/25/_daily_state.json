@@ -1,0 +1,105 @@
+{
+  "date": "20260825",
+  "date_label": "",
+  "generated_at": "2026-08-25 20:54:58 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.21916v1",
+      "route": "202608/25/2608.21916v1-genomeharness-harnessing-al-agents-for-reliable-adaptation-of-genome-language-models",
+      "title": "GenomeHarness: Harnessing Al Agents for Reliable Adaptation of Genome Language Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基因组语言模型与DNA序列分析，用AI智能体实现可靠微调适配",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    },
+    {
+      "paper_id": "2608.22132v1",
+      "route": "202608/25/2608.22132v1-sse-bio-a-structured-self-evolving-agent-with-agentic-retrieval-policy-for-multi-hop-biomedical-reasoning",
+      "title": "SSE-Bio: A Structured Self-Evolving Agent with Agentic Retrieval Policy for Multi-Hop Biomedical Reasoning",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "用于多跳生物医学推理的结构化自进化大语言模型智能体",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    },
+    {
+      "paper_id": "2608.22079v1",
+      "route": "202608/25/2608.22079v1-digiphen-a-new-paradigm-for-building-predictive-models-of-biological-systems",
+      "title": "DigiPhen: a new paradigm for building predictive models of biological systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "用于生物系统预测建模的计算生物学平台",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    },
+    {
+      "paper_id": "2608.23104v1",
+      "route": "202608/25/2608.23104v1-molecular-llm-agents-from-architectural-design-to-scientific-autonomy",
+      "title": "Molecular LLM Agents: From Architectural Design to Scientific Autonomy",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向科学自主性的分子LLM智能体研究",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    },
+    {
+      "paper_id": "2608.22152v1",
+      "route": "202608/25/2608.22152v1-the-collaboration-tax-how-much-llm-multi-agent-systems-pay-to-coordinate",
+      "title": "The Collaboration Tax: How Much LLM Multi-Agent Systems Pay to Coordinate",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "量化LLM多代理系统的协调成本，为生物多代理系统设计提供参考",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    },
+    {
+      "paper_id": "2608.22974v1",
+      "route": "202608/25/2608.22974v1-toward-effective-and-reliable-llm-agents-via-dynamic-ontology",
+      "title": "Toward Effective and Reliable LLM Agents via Dynamic Ontology",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过动态本体构建可靠LLM代理的通用框架，可迁移至生物研究代理",
+      "first_seen_at": "2026-08-25 20:54:58 UTC",
+      "updated_at": "2026-08-25 20:54:58 UTC"
+    }
+  ]
+}

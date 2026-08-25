@@ -1,0 +1,266 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-25T20:50:47.869151+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.21916v1",
+      "source": "arxiv",
+      "title": "GenomeHarness: Harnessing Al Agents for Reliable Adaptation of Genome Language Models",
+      "abstract": "Pretrained genome language models provide reusable representations for DNA sequence analysis, but turning them into reliable downstream predictors remains non-trivial. Their practical performance depends strongly on fine-tuning recipes, and default recipes reported in prior studies may be suboptimal for new tasks or model backbones, making weak downstream results difficult to interpret. These requirements place a substantial operational burden on many intended users, whose expertise is often centered on biological questions and interpretation rather than machine-learning engineering. Reliable use of genome language models therefore requires more than conventional AutoML-style tuning: it requires a systematic, budget-aware, and auditable procedure that lowers the barrier to downstream adaptation. We present GenomeHarness, an agentic harness for adapting genome language models through controlled search over fine-tuning recipes. GenomeHarness combines an AI agent for proposing and repairing recipe edits, a harness for protocol-constrained execution, resource management, and test isolation, and a Monte Carlo tree search controller for allocating search effort across recipe lineages. We evaluate GenomeHarness on DNABERT2 and NTv2-100M-Multi across the NT Benchmark and Genomic Benchmarks. Final evaluation is performed using three random seeds after recipe freezing. Across 52 model-task settings, GenomeHarness improves mean test MCC in 47 settings, including 24 of 26 DNABERT2 settings and 23 of 26 NTv2-100M-Multi settings. The gains are especially pronounced on Genomic Benchmarks and on tasks where the root recipe is unstable or poorly matched, such as human ocr ensembl task. Search traces further show that GenomeHarness progressively identifies stronger recipes, turning downstream adaptation into a controlled and auditable workflow rather than a manual tuning process.",
+      "authors": [
+        "Weicai Long",
+        "Yusen Hou",
+        "Houcheng Su",
+        "Junning Feng",
+        "Yanlin Zhang"
+      ],
+      "primary_category": "cs.CE",
+      "categories": [
+        "cs.CE"
+      ],
+      "published": "2026-08-22T11:01:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.21916v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "genome language models, DNA sequence analysis, reliable fine-tuning via AI agents",
+      "llm_evidence_cn": "基因组语言模型与DNA序列分析，用AI智能体实现可靠微调适配",
+      "llm_evidence": "基因组语言模型与DNA序列分析，用AI智能体实现可靠微调适配",
+      "canonical_evidence": "基因组语言模型与DNA序列分析，用AI智能体实现可靠微调适配",
+      "llm_tldr_en": "Presents GenomeHarness, an AI agent harness that systematically, budget-aware tunes pretrained genome language models for reliable DNA sequence analysis, reducing operational burden for biology-focused users.",
+      "llm_tldr_cn": "基因组语言模型虽能为DNA序列分析提供可复用表示，但微调方案严重依赖默认配方，默认设置往往次优，使结果难以解释。本文提出GenomeHarness，用AI智能体以系统化、预算感知且可审计的方式为基因组语言模型选择适配策略，避免用户承担繁重的机器学习工程负担。实验表明该框架能提升下游预测的可靠性，为生物学家使用基因组基础模型提供了标准化途径。",
+      "llm_tldr": "基因组语言模型虽能为DNA序列分析提供可复用表示，但微调方案严重依赖默认配方，默认设置往往次优，使结果难以解释。本文提出GenomeHarness，用AI智能体以系统化、预算感知且可审计的方式为基因组语言模型选择适配策略，避免用户承担繁重的机器学习工程负担。实验表明该框架能提升下游预测的可靠性，为生物学家使用基因组基础模型提供了标准化途径。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22132v1",
+      "source": "arxiv",
+      "title": "SSE-Bio: A Structured Self-Evolving Agent with Agentic Retrieval Policy for Multi-Hop Biomedical Reasoning",
+      "abstract": "Biomedical multi-hop question answering (QA) requires models to connect evidence across intermediate entities such as diseases, drugs, proteins, and phenotypes. Existing agents typically rely on static retrieval workflows or coarse-grained prompt rewriting, which can lead to instruction drift when reasoning procedures need to be updated. We propose SSE-Bio, a structured self-evolving agent with an agentic retrieval policy for multi-hop biomedical reasoning. Instead of globally rewriting agent instructions, SSE-Bio maintains a structured state, selectively retrieves knowledge triplets and prior templates through a trainable proxy policy, and improves its reasoning memory through fine-grained template editing. To optimise retrieval decisions, we introduce a proxy-training strategy based on group relative policy optimization, where the proxy is improved through decision-contrastive groups over alternative retrieval choices. Experiments on three biomedical multi-hop QA benchmarks show that SSE-Bio consistently outperforms existing baselines, achieving an improvement of 6.56 absolute points over the strongest self-evolving baseline on BioHopR.",
+      "authors": [
+        "Zhaohan Meng",
+        "Zaiqiao Meng",
+        "Siwei Liu",
+        "Hao Xu",
+        "Ke Yuan",
+        "Iadh Ounis"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-08-22T23:08:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.22132v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "structured self-evolving LLM agent for multi-hop biomedical reasoning, agents for biological research",
+      "llm_evidence_cn": "用于多跳生物医学推理的结构化自进化大语言模型智能体",
+      "llm_evidence": "用于多跳生物医学推理的结构化自进化大语言模型智能体",
+      "canonical_evidence": "用于多跳生物医学推理的结构化自进化大语言模型智能体",
+      "llm_tldr_en": "SSE-Bio presents a structured self-evolving agent with a trainable agentic retrieval policy for biomedical multi-hop QA, selectively retrieving knowledge triplets and templates and editing reasoning memory to prevent instruction drift.",
+      "llm_tldr_cn": "论文提出SSE-Bio，一种用于多跳生物医学问答的结构化自进化智能体。它维护结构化状态，通过可训练的代理策略选择性检索知识三元组和先前模板，并用细粒度模板编辑更新推理记忆，避免全局改写指令带来的指令漂移。相比静态检索和粗粒度提示重写，SSE-Bio在连接疾病-药物-蛋白-表型等跨实体推理上更稳定，为生物医学知识问答提供了可进化的智能体范式。",
+      "llm_tldr": "论文提出SSE-Bio，一种用于多跳生物医学问答的结构化自进化智能体。它维护结构化状态，通过可训练的代理策略选择性检索知识三元组和先前模板，并用细粒度模板编辑更新推理记忆，避免全局改写指令带来的指令漂移。相比静态检索和粗粒度提示重写，SSE-Bio在连接疾病-药物-蛋白-表型等跨实体推理上更稳定，为生物医学知识问答提供了可进化的智能体范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.22079v1",
+      "source": "arxiv",
+      "title": "DigiPhen: a new paradigm for building predictive models of biological systems",
+      "abstract": "Reengineered biological systems have the potential to revolutionize chemical and material production, enhance critical mineral recovery, serve as threat sensors and improve human health. Unfortunately, the extreme complexity of organisms has made it difficult to achieve this potential in all but the simplest cases. Recent technological advances, however, have provided a foundation for solving this problem. Here, we describe a capability for accelerating the reengineering of cells by providing accurate predictions of the impact of genetic or environmental changes on cell phenotype. This digital phenome platform (DigiPhen) consists of integrated experimental, analytical and modeling workflows for building a digital representation of microbial or plant systems. It is designed around an expanding set of interchangeable, interconnecting software and experimental modules that can accurately represent the mechanistic determinants of phenotype. The DigiPhen platform will systematically collect data on cell composition, spatial organization, metabolic pathways and regulatory networks in a semi-autonomous fashion and use this information to build modular, multi-scale models of biological systems. These models will be used to predict molecular and environmental changes needed for producing desired biological outcomes. DigiPhen is intended to be the heart of community research campaigns that will meet the immediate needs of individual researchers while fulfilling long-term goals of the scientific community. Altogether, the DigiPhen platform represents a new paradigm for building predictive models of biological systems.",
+      "authors": [
+        "H. Steven Wiley",
+        "Angela Cintolesi",
+        "Niaz Bahar Chowdhury",
+        "Jaydeep P Bardhan",
+        "Song Feng",
+        "Steven S. Andrews",
+        "Herbert M Sauro",
+        "Kristin E. Burnum-Johnson",
+        "Scott E. Baker",
+        "Douglas Mans"
+      ],
+      "primary_category": "q-bio.MN",
+      "categories": [
+        "q-bio.MN"
+      ],
+      "published": "2026-08-22T18:56:25+00:00",
+      "link": "https://arxiv.org/pdf/2608.22079v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "computational biology platform for predictive modeling of biological systems",
+      "llm_evidence_cn": "用于生物系统预测建模的计算生物学平台",
+      "llm_evidence": "用于生物系统预测建模的计算生物学平台",
+      "canonical_evidence": "用于生物系统预测建模的计算生物学平台",
+      "llm_tldr_en": "DigiPhen integrates experimental, analytical and modeling workflows to build digital representations of cells, enabling accurate predictions of genetic and environmental impacts on phenotype for accelerating cell reengineering.",
+      "llm_tldr_cn": "论文提出数字表型平台DigiPhen，通过整合实验、分析和建模工作流，构建微生物等细胞的数字表征，以准确预测遗传或环境变化对细胞表型的影响。其目标是加速细胞重编程在化学与材料生产、关键矿物回收和健康等领域的应用。该平台为计算生物学中建立可预测的生物系统数字孪生提供了新范式。",
+      "llm_tldr": "论文提出数字表型平台DigiPhen，通过整合实验、分析和建模工作流，构建微生物等细胞的数字表征，以准确预测遗传或环境变化对细胞表型的影响。其目标是加速细胞重编程在化学与材料生产、关键矿物回收和健康等领域的应用。该平台为计算生物学中建立可预测的生物系统数字孪生提供了新范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.22152v1",
+      "source": "arxiv",
+      "title": "The Collaboration Tax: How Much LLM Multi-Agent Systems Pay to Coordinate",
+      "abstract": "Multi-agent systems built from large language models are deployed widely, yet how much performance is lost when two LLMs must coordinate rather than act alone remains unclear. We formulate the collaboration tax as the team-decentralisation loss of a two-player cooperative game with private information, with two propositions characterising its sign and its equivalence to a max-superadditivity violation. We operationalise this definition on 32 solo-tractable tasks grouped by source of grounding friction and measure it on 11 models from 7 providers. The tax is structured along two no-exception axes: a category ordering across every model and a monotonic decrease with capability. The proximate mechanism is not a reasoning deficit but a four-stage conversational cascade in which agents make ungrounded claims, fail to query the partner, skip integrating both views, and accept the answer without re-derivation. The tax is mechanically predictable from conversation features and partly tractable: a prompt intervention targeting all four stages closes a substantial fraction of the gap, with the dominant bottleneck differing across categories. In heterogeneous pairs the tax is pulled toward the stronger partner rather than the additive midpoint, empirically realising the max-superadditivity violation predicted by our framework. Together these results recast collaboration in LLM systems as a measurable, predictable, and partly tractable cost.",
+      "authors": [
+        "Weixiang Sun",
+        "Zehong Wang",
+        "Hong Huang",
+        "Colby Nelson",
+        "Yanfang Ye"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-23T00:47:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.22152v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "quantifies coordination cost in LLM multi-agent systems, informing design of biological multi-agent systems",
+      "llm_evidence_cn": "量化LLM多代理系统的协调成本，为生物多代理系统设计提供参考",
+      "llm_evidence": "量化LLM多代理系统的协调成本，为生物多代理系统设计提供参考",
+      "canonical_evidence": "量化LLM多代理系统的协调成本，为生物多代理系统设计提供参考",
+      "llm_tldr_en": "The collaboration tax quantifies performance loss when two LLMs must coordinate, revealing category ordering across models and monotonic decrease with capability in 32 tasks.",
+      "llm_tldr_cn": "多代理LLM系统被广泛部署，但两个LLM协作相对独立行动的性能损失尚未明确。该论文将协作税形式化为双人合作博弈中的团队去中心化损失，并在32个单人可解任务和11个模型上度量这一代价。结果表明协作税存在两类无例外规律：跨模型类别排序和能力单调递减，其机制源于四阶段收敛问题而非推理缺陷。该分析为设计高效的多代理生物学数据分析系统提供了重要参考，协作税的研究也为多代理系统的效率瓶颈提供了量化视角。",
+      "llm_tldr": "多代理LLM系统被广泛部署，但两个LLM协作相对独立行动的性能损失尚未明确。该论文将协作税形式化为双人合作博弈中的团队去中心化损失，并在32个单人可解任务和11个模型上度量这一代价。结果表明协作税存在两类无例外规律：跨模型类别排序和能力单调递减，其机制源于四阶段收敛问题而非推理缺陷。该分析为设计高效的多代理生物学数据分析系统提供了重要参考，协作税的研究也为多代理系统的效率瓶颈提供了量化视角。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23104v1",
+      "source": "arxiv",
+      "title": "Molecular LLM Agents: From Architectural Design to Scientific Autonomy",
+      "abstract": "Molecular science represents an important frontier for LLM-based agents. Unlike general agents that mainly operate over natural language, code, or web environments, molecular LLM agents must perceive, reason about, and act upon chemical objects across symbolic strings, molecular graphs, 3D conformations, spectra, simulations, and wet-lab measurements. Their capabilities depend on chemically faithful molecular perception, an LLM-centered agent framework, domain-specific tool grounding, and computational or experimental feedback, in addition to planning and tool use. This work develops a conceptual framework for molecular LLM agents from two complementary perspectives. First, we introduce an architectural view of molecular-agent design, covering molecular representation and perception, the agent framework, domain-specific toolboxes, and learning and optimization. Second, we propose a scientific autonomy ladder inspired by staged autonomy in engineering systems, categorizing agents into four levels: L1 assistive or fixed workflows, L2 adaptive computational agents, L3 feedback-aware physical experiment agents, and L4 scientific-agenda agents. Together, these two perspectives establish a comprehensive framework for comparing existing molecular LLM agents, identifying missing capabilities and deployment risks, and guiding the design, evaluation, and deployment of future agents in molecular discovery workflows.",
+      "authors": [
+        "Jiatong Li",
+        "Wengyu Zhang",
+        "Weida Wang",
+        "Yuxuan Ren",
+        "Wei Liu",
+        "Chenyang Mao",
+        "Yuqiang Li",
+        "Yatao Bian",
+        "Changmeng Zheng",
+        "Xiaoyong Wei",
+        "Qing Li"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-08-24T11:09:25+00:00",
+      "link": "https://arxiv.org/pdf/2608.23104v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "molecular LLM agents toward scientific autonomy",
+      "llm_evidence_cn": "面向科学自主性的分子LLM智能体研究",
+      "llm_evidence": "面向科学自主性的分子LLM智能体研究",
+      "canonical_evidence": "面向科学自主性的分子LLM智能体研究",
+      "llm_tldr_en": "A conceptual framework for molecular LLM agents covering perception of chemical objects, LLM-centered agent design, tool grounding, and feedback, advancing autonomous scientific experimentation.",
+      "llm_tldr_cn": "分子科学是LLM智能体的重要前沿。与通用智能体不同，分子LLM智能体需要在符号字符串、分子图、三维构象、光谱、模拟和湿实验测量之间感知、推理和行动。本文从架构设计角度提出概念框架，涵盖化学感知、LLM中心智能体框架、领域工具接入与计算或实验反馈。该工作为面向科学自主性的分子智能体设计提供了系统化的建设蓝图。",
+      "llm_tldr": "分子科学是LLM智能体的重要前沿。与通用智能体不同，分子LLM智能体需要在符号字符串、分子图、三维构象、光谱、模拟和湿实验测量之间感知、推理和行动。本文从架构设计角度提出概念框架，涵盖化学感知、LLM中心智能体框架、领域工具接入与计算或实验反馈。该工作为面向科学自主性的分子智能体设计提供了系统化的建设蓝图。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.22974v1",
+      "source": "arxiv",
+      "title": "Toward Effective and Reliable LLM Agents via Dynamic Ontology",
+      "abstract": "Large language model (LLM) agents rely heavily on knowledge encoded in model parameters or presented as unstructured context. In domain-specific tasks, this leaves important semantic connections implicit. This often results in incomplete evidence use and brittle multi-step decisions. Ontologies offer a way to externalize domain concepts and relations as machine-interpretable structures, but constructing task-usable ontologies traditionally requires substantial effort from domain experts and is difficult to scale. Automatic construction is also challenging: an ontology that appears semantically plausible may not contain the relational structures needed for actual decision making. We present OaK, an ontology-as-a-kernel framework that dynamically constructs and refines task-oriented ontologies for LLM agents. Given task requirements and training data, OaK constructs an ontology and its knowledge graph, generates task-adaptation functions for graph reasoning, and uses judge feedback to iteratively refine both. By making relevant concepts and relations explicit, the ontology grounds knowledge retrieval and multi-step decision making. We evaluate OaK on TravelPlanner, CRMArenaPro, and ToolQA. Results show that OaK improves standard LLM agents, strengthens evidence grounding, and boosts the reliability of multi-step reasoning.",
+      "authors": [
+        "Xiaohui Zhang",
+        "Zequn Sun",
+        "Chengyuan Yang",
+        "Yuanning Cui",
+        "Lingbing Guo",
+        "Wei Hu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-24T08:33:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.22974v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "general framework for effective and reliable LLM agents via dynamic ontology, transferable to biological agents",
+      "llm_evidence_cn": "通过动态本体构建可靠LLM代理的通用框架，可迁移至生物研究代理",
+      "llm_evidence": "通过动态本体构建可靠LLM代理的通用框架，可迁移至生物研究代理",
+      "canonical_evidence": "通过动态本体构建可靠LLM代理的通用框架，可迁移至生物研究代理",
+      "llm_tldr_en": "OaK dynamically constructs and revises domain ontologies as a kernel to improve evidence use and multi-step decision reliability of LLM agents in domain-specific tasks.",
+      "llm_tldr_cn": "LLM代理在领域任务中常因语义关系隐含而出现证据使用不完整和决策脆弱。该论文提出OaK框架，将本体作为内核动态构建并维护领域概念关系，以外部化语义连接并促进可靠的多步决策。实验表明动态本体可改善代理决策的证据使用与可靠性，具体基准结果见原文。该方法为构建更有效的LLM代理提供通用机制，可迁移到生物研究代理等需要可靠证据链的场景，属于方法论桥接。",
+      "llm_tldr": "LLM代理在领域任务中常因语义关系隐含而出现证据使用不完整和决策脆弱。该论文提出OaK框架，将本体作为内核动态构建并维护领域概念关系，以外部化语义连接并促进可靠的多步决策。实验表明动态本体可改善代理决策的证据使用与可靠性，具体基准结果见原文。该方法为构建更有效的LLM代理提供通用机制，可迁移到生物研究代理等需要可靠证据链的场景，属于方法论桥接。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
