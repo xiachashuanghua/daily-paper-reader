@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-25</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-26</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>5</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-25 20:54:58 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-26 21:45:20 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日6篇论文聚焦AI与生物医学，其中2篇精读揭示基因组语言模型可靠适配与多跳推理新进展；最值得关注的是《GenomeHarness》以9.0分成为亮点，其Agent方法值得深入研读；建议普通读者从精读列表入手，优先把握基因组模型与生物推理的实用范式。</p>
+<p>今日精读0篇，速读5篇，重点关注LLM智能体模拟实验与控制实验方法。</p>
+<p>最值得看的是《LLM Agents Perform Controlled Experiments Using Simulation Models》（7.0/10），其次是多智能体优化与临床预测方向。</p>
+<p>建议优先精读高分的智能体模拟实验论文，后续可补充该方向实证案例。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="GenomeHarness: Harnessing Al Agents for Reliable Adaptation of Genome Language Models">GenomeHarness: Harnessing Al Agents for Reliable Adaptation of Genome Language Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="SSE-Bio: A Structured Self-Evolving Agent with Agentic Retrieval Policy for Multi-Hop Biomedical Reasoning">SSE-Bio: A Structured Self-Evolving Agent with Agentic Retrieval Policy for Multi-Hop Biomedical Reasoning</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
+
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">5 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DigiPhen: a new paradigm for building predictive models of biological systems">DigiPhen: a new paradigm for building predictive models of biological systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="Molecular LLM Agents: From Architectural Design to Scientific Autonomy">Molecular LLM Agents: From Architectural Design to Scientific Autonomy</span></li><li><span class="dpr-home-dashboard-paper-title" title="The Collaboration Tax: How Much LLM Multi-Agent Systems Pay to Coordinate">The Collaboration Tax: How Much LLM Multi-Agent Systems Pay to Coordinate</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="LLM Agents Perform Controlled Experiments Using Simulation Models">LLM Agents Perform Controlled Experiments Using Simulation Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="OptiMAS: Automatically Optimize Multi-Agent System">OptiMAS: Automatically Optimize Multi-Agent System</span></li><li><span class="dpr-home-dashboard-paper-title" title="Role-Specialized Mixture-of-Agents with Open-Weight LLMs for Clinical Prediction">Role-Specialized Mixture-of-Agents with Open-Weight LLMs for Clinical Prediction</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>5</strong></span></div>
 </section>
 </div>
 

@@ -1,0 +1,89 @@
+{
+  "date": "20260826",
+  "date_label": "",
+  "generated_at": "2026-08-26 21:45:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.23622v1",
+      "route": "202608/26/2608.23622v1-llm-agents-perform-controlled-experiments-using-simulation-models",
+      "title": "LLM Agents Perform Controlled Experiments Using Simulation Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向制药工艺设计的LLM多智能体受控模拟实验框架",
+      "first_seen_at": "2026-08-26 21:45:20 UTC",
+      "updated_at": "2026-08-26 21:45:20 UTC"
+    },
+    {
+      "paper_id": "2608.21918v1",
+      "route": "202608/26/2608.21918v1-optimas-automatically-optimize-multi-agent-system",
+      "title": "OptiMAS: Automatically Optimize Multi-Agent System",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过连续数据驱动演化自动优化LLM多智能体系统；可直接作为计算生物学中MAS的框架",
+      "first_seen_at": "2026-08-26 21:45:20 UTC",
+      "updated_at": "2026-08-26 21:45:20 UTC"
+    },
+    {
+      "paper_id": "2608.22176v1",
+      "route": "202608/26/2608.22176v1-role-specialized-mixture-of-agents-with-open-weight-llms-for-clinical-prediction",
+      "title": "Role-Specialized Mixture-of-Agents with Open-Weight LLMs for Clinical Prediction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于LLM的多智能体系统用于EHR临床预测，与多智能体生物数据分析相关",
+      "first_seen_at": "2026-08-26 21:45:20 UTC",
+      "updated_at": "2026-08-26 21:45:20 UTC"
+    },
+    {
+      "paper_id": "2608.22839v1",
+      "route": "202608/26/2608.22839v1-hierarchy-aware-supervised-uncertainty-estimation-for-black-box-llm-taxonomic-reasoning",
+      "title": "Hierarchy-Aware Supervised Uncertainty Estimation for Black-box LLM Taxonomic Reasoning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "生物多样性监测中基于LLM的分类推理与不确定性估计",
+      "first_seen_at": "2026-08-26 21:45:20 UTC",
+      "updated_at": "2026-08-26 21:45:20 UTC"
+    },
+    {
+      "paper_id": "2608.23336v1",
+      "route": "202608/26/2608.23336v1-can-coding-agents-build-robust-baselines-a-skill-based-approach-for-automating-the-medical-imaging-model-development-pipeline",
+      "title": "Can Coding Agents Build Robust Baselines? A Skill-Based Approach for Automating the Medical Imaging Model-Development Pipeline",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于自动化医学影像模型开发的智能体AI科学家流程，与自主智能体用于生物学研究相关",
+      "first_seen_at": "2026-08-26 21:45:20 UTC",
+      "updated_at": "2026-08-26 21:45:20 UTC"
+    }
+  ]
+}

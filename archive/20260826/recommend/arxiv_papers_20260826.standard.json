@@ -1,0 +1,221 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-26T21:41:27.942140+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.23622v1",
+      "source": "arxiv",
+      "title": "LLM Agents Perform Controlled Experiments Using Simulation Models",
+      "abstract": "Large language models (LLMs) have shown strong capabilities in reasoning, planning, and tool use, but many scientific and engineering tasks require more than plausible text and code generation. They require understanding how a system responds to intervention, which in practice depends on controlled experimentation. In this work, we propose a multi-agent framework that enables LLM agents to conduct controlled experiments with scientific simulation models for pharmaceutical process design. Given a user query and a baseline configuration, the system constructs a structured task representation, designs experiments, executes comparative simulation, interprets the resulting outcomes, and synthesizes evidence-based recommendations for process parameter optimization. By coupling language models with high-fidelity simulation models in an interactive agent framework, the proposed system supports reasoning through intervention, comparison, and observation. As a result, it produces more specific and actionable outputs than language-only reasoning. In an industrial application setting, this advantage is reflected in higher output specificity as well as improved user-rated correctness and helpfulness. Ablation studies and visualized case analyses further demonstrate the effectiveness and practical utility of simulation-integrated experimental reasoning.",
+      "authors": [
+        "Yuchen Xia",
+        "Michael Weyrich",
+        "Nasser Jazdi",
+        "Johannes Stümpfle",
+        "Johannes Sigel",
+        "Akshay Narla",
+        "Gavin K. Reynolds",
+        "Anna Jawor-Baczynska",
+        "Pol Llopart"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA",
+        "cs.SE"
+      ],
+      "published": "2026-08-22T18:54:52+00:00",
+      "link": "https://arxiv.org/pdf/2608.23622v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent LLM framework for controlled simulation experiments in pharmaceutical process design",
+      "llm_evidence_cn": "面向制药工艺设计的LLM多智能体受控模拟实验框架",
+      "llm_evidence": "面向制药工艺设计的LLM多智能体受控模拟实验框架",
+      "canonical_evidence": "面向制药工艺设计的LLM多智能体受控模拟实验框架",
+      "llm_tldr_en": "Proposes a multi-agent framework that enables LLM agents to design and execute controlled experiments with simulation models for pharmaceutical process optimization given a user query and baseline configuration.",
+      "llm_tldr_cn": "面向药物工艺设计需要受控实验理解系统干预响应的问题，提出一个多智能体框架，使LLM智能体能够构建结构化任务、设计实验、执行对比模拟并解释结果，最终给出基于证据的工艺参数优化建议。展示了LLM智能体在科学模拟实验中的自主性。",
+      "llm_tldr": "面向药物工艺设计需要受控实验理解系统干预响应的问题，提出一个多智能体框架，使LLM智能体能够构建结构化任务、设计实验、执行对比模拟并解释结果，最终给出基于证据的工艺参数优化建议。展示了LLM智能体在科学模拟实验中的自主性。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.21918v1",
+      "source": "arxiv",
+      "title": "OptiMAS: Automatically Optimize Multi-Agent System",
+      "abstract": "Automated evolution of Multi-Agent Systems (MAS) holds significant potential for reducing the manual effort required to design and optimize LLM-based agent architectures. However, extant search-based paradigms face a fundamental trade-off, where an expanded optimization scope exacerbates evolutionary instability, while discrete branch-and-discard search isolates insights across lineages. To address these limitations, we propose a continuous, data-driven optimization paradigm built upon a unified ReAct-based infrastructure that reconciles a broad optimization scope with operational stability. Under this paradigm, we present OptiMAS, a task-agnostic agentic optimizer that leverages textual interaction trajectories and task feedback as loss signals for end-to-end MAS evolution. Equipped with a novel dual-track memory mechanism, OptiMAS sustains performance improvement over extended optimization horizons. Evaluation on four heterogeneous agentic benchmarks with three varying scale and accessibility LLM backbones, demonstrates that OptiMAS consistently achieves competitive or superior accuracy relative to both domain-specialized hand-crafted systems and existing evolutionary methods. Our work establishes a practical milestone toward robust, automated MAS evolution.",
+      "authors": [
+        "Yuxin Cheng",
+        "Chang Liu",
+        "Hanxin Yu",
+        "Haochen Tan",
+        "Taiqiang Wu",
+        "Weiqiang Jin",
+        "Jie Ran",
+        "Kaibo Wang",
+        "Xiaoguang Li",
+        "Haoli Bai",
+        "Graziano Chesi",
+        "Ngai Wong"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-08-22T11:09:04+00:00",
+      "link": "https://arxiv.org/pdf/2608.21918v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automatic optimization of LLM multi-agent systems via continuous data-driven evolution; directly applicable as a framework for MAS in computational biology",
+      "llm_evidence_cn": "通过连续数据驱动演化自动优化LLM多智能体系统；可直接作为计算生物学中MAS的框架",
+      "llm_evidence": "通过连续数据驱动演化自动优化LLM多智能体系统；可直接作为计算生物学中MAS的框架",
+      "canonical_evidence": "通过连续数据驱动演化自动优化LLM多智能体系统；可直接作为计算生物学中MAS的框架",
+      "llm_tldr_en": "OptiMAS proposes a continuous, data-driven optimization paradigm for LLM-based multi-agent systems built on a unified ReAct infrastructure. It uses textual interaction trajectories and task feedback as loss signals for end-to-end MAS evolution, reconciling broad optimization scope with operational stability. This task-agnostic optimizer reduces manual effort in agent architecture design and can be applied to computational biology workflows.",
+      "llm_tldr_cn": "设计LLM多智能体系统通常需要大量人工调优，而现有搜索范式在扩展性与稳定性间存在矛盾。OptiMAS基于统一ReAct基础设施提出连续数据驱动的演化范式，将文本交互轨迹和任务反馈作为损失信号，进行端到端多智能体系统优化。该方法能在保持运行稳定的同时扩大优化范围，作为任务无关优化器显著减少设计多智能体系统的手动成本，适用于计算生物学中的多智能体分析流程。",
+      "llm_tldr": "设计LLM多智能体系统通常需要大量人工调优，而现有搜索范式在扩展性与稳定性间存在矛盾。OptiMAS基于统一ReAct基础设施提出连续数据驱动的演化范式，将文本交互轨迹和任务反馈作为损失信号，进行端到端多智能体系统优化。该方法能在保持运行稳定的同时扩大优化范围，作为任务无关优化器显著减少设计多智能体系统的手动成本，适用于计算生物学中的多智能体分析流程。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.22176v1",
+      "source": "arxiv",
+      "title": "Role-Specialized Mixture-of-Agents with Open-Weight LLMs for Clinical Prediction",
+      "abstract": "Large Language Models (LLMs) are increasingly applied to clinical prediction tasks such as in-hospital mortality and readmission from electronic health records (EHRs). Privacy and compliance constraints motivate systems that can be deployed locally, which has increased interest in open-weight multi-agent designs. However, most medical multi-agent systems are evaluated as a single block, leaving unclear which agent role contributes to prediction and whether retrieval drives observed gains. We study a role-specialized Mixture-of-Agents (MoA) that combines medical knowledge retrieval with contrastive similar-patient reasoning. By varying the role design while holding the retrieval setup fixed, we localize the main effect to the final integrator. Pairing large open-weight analysts with a small open-weight integrator matches closed-model prompting on F1 for mortality prediction while flagging substantially more true high-risk patients. Mechanism analysis shows the role assignment directly yields a high-recall operating point without threshold tuning. The effect is task-dependent, with smaller gains for readmission because the available records correlate weakly with this longer-horizon outcome. These results position role design as a key factor in privacy-constrained, training-free clinical LLM prediction.",
+      "authors": [
+        "Jun Hou",
+        "Yi Fang",
+        "Xuan Wang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-08-23T02:22:31+00:00",
+      "link": "https://arxiv.org/pdf/2608.22176v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based multi-agent system for clinical prediction from EHRs; relevant to multi-agent biological data analysis",
+      "llm_evidence_cn": "基于LLM的多智能体系统用于EHR临床预测，与多智能体生物数据分析相关",
+      "llm_evidence": "基于LLM的多智能体系统用于EHR临床预测，与多智能体生物数据分析相关",
+      "canonical_evidence": "基于LLM的多智能体系统用于EHR临床预测，与多智能体生物数据分析相关",
+      "llm_tldr_en": "Proposes a role-specialized Mixture-of-Agents framework with open-weight LLMs for clinical prediction from EHRs. Varying role designs while holding retrieval fixed shows the final integrator drives performance. Addresses privacy constraints and clarifies contribution of each agent role.",
+      "llm_tldr_cn": "本文研究开放权重大语言模型在临床预测任务中的多智能体系统设计问题。现有医学多智能体系统往往整体评估，难以判断各角色贡献。作者提出角色专门化的Mixture-of-Agents框架，将医学知识检索与对比相似患者推理相结合，并可在本地部署以满足隐私合规要求。通过固定检索设置、仅改变角色设计的控制实验，发现最终整合器是性能提升的主要来源，为理解多智能体预测机制提供了实证依据。",
+      "llm_tldr": "本文研究开放权重大语言模型在临床预测任务中的多智能体系统设计问题。现有医学多智能体系统往往整体评估，难以判断各角色贡献。作者提出角色专门化的Mixture-of-Agents框架，将医学知识检索与对比相似患者推理相结合，并可在本地部署以满足隐私合规要求。通过固定检索设置、仅改变角色设计的控制实验，发现最终整合器是性能提升的主要来源，为理解多智能体预测机制提供了实证依据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.22839v1",
+      "source": "arxiv",
+      "title": "Hierarchy-Aware Supervised Uncertainty Estimation for Black-box LLM Taxonomic Reasoning",
+      "abstract": "Large language models (LLMs) are increasingly used for scientific decision support, yet reliable confidence estimation remains difficult in black-box settings. We study uncertainty estimation for hierarchical taxonomic reasoning generated by a black-box LLM in a long-tailed biodiversity monitoring pipeline. Using proxy features extracted by an open-source tool LLM, we train lightweight supervised estimators with hierarchy-aware supervision to predict rank-wise correctness. Across three tool LLMs, the supervised estimators consistently outperform a token-likelihood baseline for micro discrimination and selective prediction under a single global rejection threshold, improving micro AUROC from 0.57 to 0.75--0.80. The best results are achieved by a rank-specific multi-head design (H3), suggesting that accounting for hierarchical output structure is important when a unified abstention rule is required. Our code is publicly available at https://github.com/uoguelph-mlrg/hierarchy-aware-llm-uq",
+      "authors": [
+        "Shuting Xie",
+        "Nathaniel Lesperance",
+        "Graham W. Taylor"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-08-24T06:05:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.22839v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based taxonomic reasoning with uncertainty estimation in biodiversity monitoring",
+      "llm_evidence_cn": "生物多样性监测中基于LLM的分类推理与不确定性估计",
+      "llm_evidence": "生物多样性监测中基于LLM的分类推理与不确定性估计",
+      "canonical_evidence": "生物多样性监测中基于LLM的分类推理与不确定性估计",
+      "llm_tldr_en": "Proposes hierarchy-aware supervised uncertainty estimators for black-box LLM taxonomic reasoning in a biodiversity monitoring pipeline, improving micro AUROC from 0.57 to 0.75-0.80 and outperforming token-likelihood baselines.",
+      "llm_tldr_cn": "黑盒大语言模型在科学决策支持中缺乏可靠的置信度估计，尤其在层级分类推理场景。本文在长尾生物多样性监测流水线中，使用开源工具LLM提取代理特征，训练带层次感知监督的轻量估计器预测各等级正确性。在三个工具LLM上，该方法在微观判别和选择性预测上超越词元似然基线，微观AUROC从0.57提升至0.75-0.80，为LLM辅助生物学分类提供了可靠的置信度机制。",
+      "llm_tldr": "黑盒大语言模型在科学决策支持中缺乏可靠的置信度估计，尤其在层级分类推理场景。本文在长尾生物多样性监测流水线中，使用开源工具LLM提取代理特征，训练带层次感知监督的轻量估计器预测各等级正确性。在三个工具LLM上，该方法在微观判别和选择性预测上超越词元似然基线，微观AUROC从0.57提升至0.75-0.80，为LLM辅助生物学分类提供了可靠的置信度机制。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23336v1",
+      "source": "arxiv",
+      "title": "Can Coding Agents Build Robust Baselines? A Skill-Based Approach for Automating the Medical Imaging Model-Development Pipeline",
+      "abstract": "Developing competitive deep learning baselines for medical imaging remains a highly iterative process requiring literature review, implementation, experimentation, and expert refinement. Existing automation approaches typically optimize isolated components, such as architecture search or hyperparameter tuning, rather than the complete baseline development process. We present an agentic AI Scientist workflow that combines literature-guided reasoning, automated code generation, and hypothesis-driven experimentation to generate competitive baseline models for medical imaging challenges. The framework is evaluated on four public benchmarks spanning segmentation, classification, and detection. Across all tasks, the Experimentation Pipeline consistently improves validation performance, achieving competitive leaderboard results, including 6th place on both PUMA tracks (15 teams) and 31st place on MILK10k (125 teams). On MIDOG25, the resulting model also demonstrates strong domain generalization across scanners, tumor types, and species. Using the same workflow across all challenges without task-specific redesign, we demonstrate that skill-based, literature-guided agentic workflows can substantially reduce the engineering effort required to develop competitive medical imaging baselines.",
+      "authors": [
+        "Eugenia Moris",
+        "José Ignacio Orlando"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T14:47:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.23336v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Agentic AI Scientist workflow for automated medical imaging model development; relevant to autonomous agents for biological research",
+      "llm_evidence_cn": "用于自动化医学影像模型开发的智能体AI科学家流程，与自主智能体用于生物学研究相关",
+      "llm_evidence": "用于自动化医学影像模型开发的智能体AI科学家流程，与自主智能体用于生物学研究相关",
+      "canonical_evidence": "用于自动化医学影像模型开发的智能体AI科学家流程，与自主智能体用于生物学研究相关",
+      "llm_tldr_en": "Presents an agentic AI Scientist workflow that automates literature-guided reasoning, code generation, and hypothesis-driven experimentation to build competitive medical imaging baselines. Evaluated on four public benchmarks spanning segmentation, classification, and detection, the framework generates robust baselines, potentially applicable to broader biological research.",
+      "llm_tldr_cn": "针对医学影像深度学习基线开发需要多轮迭代的问题，本文提出一个智能体AI科学家工作流，结合文献引导推理、自动代码生成和假设驱动实验，实现基线模型的自动化构建。在分割、分类、检测四个公开基准上的评估表明，该框架能够生成具有竞争力的基线模型。此方法可迁移到其他生物医学建模任务，为自主智能体在生物研究中的应用提供了范式。",
+      "llm_tldr": "针对医学影像深度学习基线开发需要多轮迭代的问题，本文提出一个智能体AI科学家工作流，结合文献引导推理、自动代码生成和假设驱动实验，实现基线模型的自动化构建。在分割、分类、检测四个公开基准上的评估表明，该框架能够生成具有竞争力的基线模型。此方法可迁移到其他生物医学建模任务，为自主智能体在生物研究中的应用提供了范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
