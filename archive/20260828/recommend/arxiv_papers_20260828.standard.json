@@ -1,0 +1,440 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-28T03:01:27.956605+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.25215v1",
+      "source": "arxiv",
+      "title": "Federation Is Nearly Free, Reasoning Is Not: Tradeoffs for AI Co-Scientists in Protein Characterization Workflows",
+      "abstract": "Natural language driven autonomous co-scientist workflows involve a fundamental trade-off between flexibility and reasoning at the expense of determinism, reproducibility, and observability. Such agents increasingly must communicate across institutional boundaries, where federation topology can shape latency and cost. We systematically evaluated these tradeoffs using a controlled ablation on a production agentic platform for science. We use a verifiable task: given a protein sequence, we ask an agent to confidently characterize its function by routing across common tools. We compare federation topology, classic RL vs LLM-driven harnesses, language model, and prompt expertise. We also stratify results by protein novelty. We find that the choice of LLM dominated prediction quality far more than topology or prompting (Opus ~92%-94% vs o4-mini ~40%-50%). The PPO policy was nearly as accurate as the best LLM (88%) at zero token cost, fastest latency, and perfect consistency, but yields no reasoning trace. Expert prompted LLMs reached the highest accuracy but were high-cost and less consistent; prompt dependence was largest when the task was hardest. Federation imposed a negligible penalty on performance. These results offer actionable guidance for deploying agents for scientific workflows: for routine, verifiable tasks, a cheap deterministic policy delivers near-frontier accuracy with complete reproducibility, while flexible LLM reasoning is best reserved for open-ended discovery.",
+      "authors": [
+        "Maia Kapur",
+        "Timothy Boe",
+        "Abby Jerger",
+        "Paul Rigor"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA",
+        "q-bio.QM"
+      ],
+      "published": "2026-08-25T23:11:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.25215v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autonomous AI co-scientist workflows for protein characterization",
+      "llm_evidence_cn": "用于蛋白质表征的自主AI协同科学家工作流",
+      "llm_evidence": "用于蛋白质表征的自主AI协同科学家工作流",
+      "canonical_evidence": "用于蛋白质表征的自主AI协同科学家工作流",
+      "llm_tldr_en": "Studies tradeoffs in LLM-driven autonomous co-scientist systems for protein characterization, comparing federation topology, RL vs LLM harnesses, and model choices via controlled ablations.",
+      "llm_tldr_cn": "论文针对自然语言驱动的自主协同科学家在蛋白质表征工作流中的可扩展性问题，提出系统评估联邦拓扑、经典RL与LLM驱动框架、语言模型与提示词专业度等设计选择的影响。利用可控消融实验在可验证的蛋白质功能表征任务上比较不同配置，结果显示推理能力比联邦传输更关键，为科学智能体的可复现设计提供了量化依据。",
+      "llm_tldr": "论文针对自然语言驱动的自主协同科学家在蛋白质表征工作流中的可扩展性问题，提出系统评估联邦拓扑、经典RL与LLM驱动框架、语言模型与提示词专业度等设计选择的影响。利用可控消融实验在可验证的蛋白质功能表征任务上比较不同配置，结果显示推理能力比联邦传输更关键，为科学智能体的可复现设计提供了量化依据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25286v1",
+      "source": "arxiv",
+      "title": "BixBench3: Benchmarking AI agents on research-study-scale computational biology tasks",
+      "abstract": "Artificial intelligence (AI) promises to accelerate biological research by automating computational analyses. Yet the ability of AI agents to carry out computational biology at the scale of complete research studies has not been systematically evaluated. Here we introduce BixBench3, a benchmark that measures the capacity of AI agents to process raw biological data through to scientific results. We designed BixBench3 tasks to mirror the delegation of work from a scientist to an agent: the scientist chooses the research question and high-level methods, then delegates implementation of all analyses to the agent. In each task, an agent receives a research objective, methodological guidance, and raw data derived from a published scientific study, and must execute a sequence of analyses to achieve the research objective. The data artifacts resulting from these analyses - such as peak call matrices or differential expression tables - are programmatically graded against the corresponding artifacts generated and reported in the original study. Across 20 BixBench3 tasks encompassing the generation of 138 unique artifacts, we find that 13 frontier models achieve scores ranging from 0.00 for Gemini 3.1 Flash Lite to 0.48 for GPT 5.6 Sol. Agents perform worse on tasks with larger raw datasets (0.36 on tasks with <100 GB versus 0.10 on tasks with >100 GB) and on analyses requiring more sequential steps (0.36 at 1-2 steps vs 0.24 at 3+). On average, agents use 6.8 hours, 102 million tokens, and $43 to complete each task, with the longest attempts consuming 24 hours, 1.07 billion tokens, and $525. Notably, the highest-scoring agents used fewer tokens and were cheaper than less performant options. These results reveal that LLMs vary substantially in their ability to (1) execute multiple sequential analysis steps coherently, (2) manage large quantities of raw data, and (3) work across scientific domains.",
+      "authors": [
+        "Zane Koch",
+        "Asmamaw T. Wassie",
+        "Javier Valdes-Aleman",
+        "Jason Lee",
+        "Michaela M. Hinks",
+        "Samuel G. Rodriques",
+        "Andrew D. White",
+        "Jon M. Laurent"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-08-26T01:45:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.25286v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmarking AI agents on research-study-scale computational biology tasks",
+      "llm_evidence_cn": "在完整研究尺度的计算生物学任务上评测AI智能体",
+      "llm_evidence": "在完整研究尺度的计算生物学任务上评测AI智能体",
+      "canonical_evidence": "在完整研究尺度的计算生物学任务上评测AI智能体",
+      "llm_tldr_en": "Introduces BixBench3, a benchmark measuring AI agents ability to carry out computational biology from raw data to scientific results, mirroring scientist-agent delegation.",
+      "llm_tldr_cn": "针对AI智能体在完整研究尺度上执行计算生物学任务的能力缺乏系统评测的问题，提出BixBench3基准。其任务模拟科学家将研究问题与高层方法委托给智能体、由智能体完成全部数据分析实现的过程，要求智能体根据研究目标、方法学指导与原始数据产出科学结果。该基准为评估自主智能体在真实生物学研究中的可用性提供了标准化测试环境，推动AI驱动的生物学研究自动化。",
+      "llm_tldr": "针对AI智能体在完整研究尺度上执行计算生物学任务的能力缺乏系统评测的问题，提出BixBench3基准。其任务模拟科学家将研究问题与高层方法委托给智能体、由智能体完成全部数据分析实现的过程，要求智能体根据研究目标、方法学指导与原始数据产出科学结果。该基准为评估自主智能体在真实生物学研究中的可用性提供了标准化测试环境，推动AI驱动的生物学研究自动化。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25466v1",
+      "source": "arxiv",
+      "title": "Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction",
+      "abstract": "The functional annotation of genes in non-model organisms remains a significant challenge in computational biology, with 20-70% of sequenced genes lacking characterized functions. Traditional homology-based methods are often costly and strongly dependent on high sequence similarity. This study presents Homo-RAG, a framework for large language model-based gene function prediction that integrates homology-guided multi-hop retrieval with evidence-aware ranking. The framework exploits biological relationships between zebrafish and human orthologs to guide evidence acquisition from ZFIN, UniProt, and PubMed through hybrid dense and lexical retrieval. An Evidence Confidence Score (ECS) integrates semantic relevance, entity matching, orthology information, source reliability, and literature association signals to refine the ranking of retrieved evidence. Extensive evaluation across 150 queries and 7,200 retrieved documents shows that evidence weighting parameter of lambda=0.50 improves NDCG@10 to 0.9879 and MRR to 0.99, while retrieving relevant evidence for 99.33% of queries. Furthermore, 80% of the retrieved documents are query-exclusive, indicating that evidence quality complements rather than replaces retrieval relevance. These findings establish Homo-RAG as a practical and robust framework for reliable, evidence-grounded gene function prediction in understudied organisms. The study addresses important limitations of conventional annotation pipelines while identifying opportunities for future improvements in evidence features and attribution mechanisms.",
+      "authors": [
+        "Azrin Sultana"
+      ],
+      "primary_category": "cs.NE",
+      "categories": [
+        "cs.NE",
+        "cs.AI"
+      ],
+      "published": "2026-08-26T07:33:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.25466v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-based framework for gene function prediction, directly applicable to genomic sequence analysis",
+      "llm_evidence_cn": "基于LLM的基因功能预测框架，直接适用于基因组序列分析",
+      "llm_evidence": "基于LLM的基因功能预测框架，直接适用于基因组序列分析",
+      "canonical_evidence": "基于LLM的基因功能预测框架，直接适用于基因组序列分析",
+      "llm_tldr_en": "Homo-RAG uses homology-guided multi-hop retrieval and evidence-aware ranking within a large language model framework to predict gene functions across species, addressing the high fraction of uncharacterized genes in non-model organisms.",
+      "llm_tldr_cn": "针对非模式生物中大量基因缺乏功能注释的问题，Homo-RAG提出了一种基于大语言模型的基因功能预测框架，利用同源关系引导的多跳检索从ZFIN、UniProt和PubMed等数据库获取证据，并通过证据置信度评分整合语义相关性与实体匹配。实验表明该方法能有效提升跨物种基因功能预测的准确性，为计算生物学中的基因注释提供了新工具。",
+      "llm_tldr": "针对非模式生物中大量基因缺乏功能注释的问题，Homo-RAG提出了一种基于大语言模型的基因功能预测框架，利用同源关系引导的多跳检索从ZFIN、UniProt和PubMed等数据库获取证据，并通过证据置信度评分整合语义相关性与实体匹配。实验表明该方法能有效提升跨物种基因功能预测的准确性，为计算生物学中的基因注释提供了新工具。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "LLM applications in genomic sequence analysis",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.26747v1",
+      "source": "arxiv",
+      "title": "AgentFold: Closed-Loop Agentic Search for Protein Folding Model Design",
+      "abstract": "Scientific LLM agents have shown promise in literature reasoning, tool use, and experiment planning, but it remains unclear whether they can autonomously improve large, tightly coupled scientific machine-learning systems through executable code changes and computationally expensive validation. We study this question in protein folding, where progress requires coordinated architectural modifications, multi-objective evaluation, and domain-aware interpretation. We present AgentFold, a multi-agent framework that formulates folding-model development as a closed-loop search over executable code variants. Starting from ESMFold, AgentFold proposes hypotheses, implements and debugs code-level modifications, evaluates model variants, analyzes experimental outcomes, and stores both successful and failed interventions in structured memory. An MCTS-style policy allocates computational resources across high-scoring search branches. On an engineering-scale protein-folding codebase comprising more than 2,000 lines of code, AgentFold explores approximately 80 model variants using approximately 5,000 GPU-hours and 170 million LLM tokens. Under a matched computational budget, AgentFold improves the best lDDT by 7.5% over independent Codex proposals and outperforms a random-search control. Beyond model improvement, the resulting intervention traces reveal recurring empirical design patterns: stable gains tend to arise from early, soft, learnable priors and gated refinement, whereas direct geometric perturbations and geometry-conditioned feedback often destabilize training. The code and experimental resources are publicly available at https://github.com/lmqfly/AgentFold.",
+      "authors": [
+        "Mingquan Liu",
+        "Jiangyu Chen",
+        "Hanqun Cao",
+        "Xujun Zhang",
+        "Pengsen Ma",
+        "Xiangru Tang",
+        "Shuting Jin",
+        "Zhuo Yang",
+        "Tianfan Fu",
+        "Fang Wu",
+        "Xiangxiang Zeng"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-27T07:38:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.26747v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM agent framework for protein folding model design",
+      "llm_evidence_cn": "用于蛋白质折叠模型设计的LLM智能体框架",
+      "llm_evidence": "用于蛋白质折叠模型设计的LLM智能体框架",
+      "canonical_evidence": "用于蛋白质折叠模型设计的LLM智能体框架",
+      "llm_tldr_en": "AgentFold is a multi-agent framework demonstrating autonomous closed-loop search over code variants to improve protein folding model design from an initial ESMFold baseline.",
+      "llm_tldr_cn": "针对科学LLM智能体能否自主改进大型耦合科学机器学习系统的问题，论文提出AgentFold，一个将蛋白质折叠模型开发形式化为闭循环代码变体搜索的多智能体框架。它从ESMFold出发，自主提出假设、实现并调试代码级修改、评估模型变体并分析实验结果，实现折叠模型的迭代优化。这项工作扩展了LLM智能体在结构生物学中的应用边界，展现了在计算密集型科学任务中自主科研的潜力。",
+      "llm_tldr": "针对科学LLM智能体能否自主改进大型耦合科学机器学习系统的问题，论文提出AgentFold，一个将蛋白质折叠模型开发形式化为闭循环代码变体搜索的多智能体框架。它从ESMFold出发，自主提出假设、实现并调试代码级修改、评估模型变体并分析实验结果，实现折叠模型的迭代优化。这项工作扩展了LLM智能体在结构生物学中的应用边界，展现了在计算密集型科学任务中自主科研的潜力。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25770v1",
+      "source": "arxiv",
+      "title": "HypoForge: A Self-Improving Multi-Agent Framework for Automated Hypothesis Generation and Testing via Scientific Skill Learning",
+      "abstract": "Large language models (LLMs) have enabled AI scientist systems to automate scientific discovery, yet existing approaches most rely on static prompting or fixed workflows and fail to accumulate experience for continual improvement. We propose HypoForge, an experience-guided multi-agent framework that learns reusable scientific skills for automated hypothesis generation and hypothesis testing. HypoForge is built on the observation that these two stages involve different supervision signals. For hypothesis generation, where explicit feedback is unavailable, HypoForge adopts an adversarial generator--discriminator mechanism to improve reasoning through comparative critique. For hypothesis testing, where empirical feedback is available, HypoForge learns testing skills from execution outcomes and ground-truth results. By matching skill learning strategies with stage-specific supervision, HypoForge enables continual improvement without fine-tuning foundation models. Experiments on hypothesis generation and testing benchmarks show that HypoForge consistently outperforms existing AI scientist frameworks and skill-level variants. Further analysis demonstrates the effectiveness of the proposed stage-specific skill learning paradigms.",
+      "authors": [
+        "Ziqing Qian",
+        "Jiaying Lei",
+        "Yifang Wang",
+        "Nan Cao"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-08-26T13:14:23+00:00",
+      "link": "https://arxiv.org/pdf/2608.25770v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-agent framework for automated scientific hypothesis generation and testing, directly transferable to biological research.",
+      "llm_evidence_cn": "面向科学假设生成与验证的多智能体框架，可迁移至生物研究。",
+      "llm_evidence": "面向科学假设生成与验证的多智能体框架，可迁移至生物研究。",
+      "canonical_evidence": "面向科学假设生成与验证的多智能体框架，可迁移至生物研究。",
+      "llm_tldr_en": "Proposes HypoForge, an experience-guided multi-agent framework that learns reusable scientific skills for automated hypothesis generation and testing, using adversarial critique and differentiated supervision signals.",
+      "llm_tldr_cn": "现有AI科学家系统依赖静态提示或固定流程，难以持续积累经验。HypoForge提出经验引导的多智能体框架，通过生成-判别对抗机制改进假设生成，并利用不同监督信号优化假设验证，从而学习可复用的科学技能。该框架支持自动化科学发现中的自我改进，为生物等领域的多智能体研究提供了通用范式。",
+      "llm_tldr": "现有AI科学家系统依赖静态提示或固定流程，难以持续积累经验。HypoForge提出经验引导的多智能体框架，通过生成-判别对抗机制改进假设生成，并利用不同监督信号优化假设验证，从而学习可复用的科学技能。该框架支持自动化科学发现中的自我改进，为生物等领域的多智能体研究提供了通用范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.26701v1",
+      "source": "arxiv",
+      "title": "Accelerating Scientific Research with Gemini in the Real-World",
+      "abstract": "We present an extension and comprehensive real-world validation of Co-Scientist, a Gemini-based multi-agent system designed to accelerate end-to-end scientific research across hypothesis generation, experimentation, and manuscript generation. Moving beyond in silico hypothesis generation, this specialized configuration transitions Co-Scientist into an execution-grounded research partner advancing closed-loop scientific workflows across materials science, biology, and computer science. In materials science, Co-Scientist interfaced with a semi-automated chemical vapor deposition reactor to design a safe precursor route for MXenes; experimental execution produced a lamellar 2D material sharing key structural similarities with the Ti3C2Tx MXene lattice, although further experiments are needed to confirm the atomic structure. Leveraging Gemini 3 Deep Think for rapid, lab-in-the-loop execution, it also tailored growth recipes to laboratory constraints in minutes, enabling single-attempt growth of monolayer MoS2, MoSe2, and WS2 semiconductors. In biology, Co-Scientist predicted emergent swarming phenotypes of engineered E. coli across inducer (IPTG) gradients from sparse imaging data, quantitatively matching unpublished wet-lab morphological measurements. In computer science, Co-Scientist autonomously discovered an inference-time scaling architecture that outperformed six frontier models on HealthBench (Hard and Professional) while reducing potential clinical harm under blinded physician evaluation. Finally, a double-blind study of end-to-end generated papers with 30 domain experts across 450 reviews demonstrates that Co-Scientist's reliability modules reduce hallucination and plagiarism while improving research safety. Together, these results demonstrate progress toward closed-loop multi-agent scientific AI systems capable of accelerating real-world scientific discovery.",
+      "authors": [
+        "Samuel Schmidgall",
+        "Xiaokai Zhu",
+        "Marian Shaw",
+        "Lin Yang",
+        "Valentin Liévin",
+        "Jingyun Yang",
+        "Yuchen Zhuang",
+        "Tim Strother",
+        "Alex Bijamov",
+        "Min Woo Sun",
+        "Anil Palepu",
+        "Justin Chen",
+        "David Steiner",
+        "Jacqueline Shreibati",
+        "Wei-Hung Weng",
+        "Yilin Zhao",
+        "Xingjian Hu",
+        "Nicholas Zahn",
+        "Sadhya Garg",
+        "Julia Kirby",
+        "Yuxiang Gan",
+        "Jiaoli Li",
+        "Divy Thakkar",
+        "Shekoofeh Azizi",
+        "David Racz",
+        "Juraj Gottweis",
+        "Vivek Natarajan",
+        "Chenglin Wu",
+        "Tal Danino",
+        "Keran Rong",
+        "Haozhe Wang",
+        "Benoit Schillings",
+        "Yong Cheng",
+        "Quoc V. Le",
+        "Tao Tu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-27T06:58:13+00:00",
+      "link": "https://arxiv.org/pdf/2608.26701v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Gemini-based multi-agent system accelerating scientific research, including biology",
+      "llm_evidence_cn": "基于Gemini的多智能体系统加速科学研究，涵盖生物学",
+      "llm_evidence": "基于Gemini的多智能体系统加速科学研究，涵盖生物学",
+      "canonical_evidence": "基于Gemini的多智能体系统加速科学研究，涵盖生物学",
+      "llm_tldr_en": "This paper validates Co-Scientist, a Gemini-based multi-agent system, in real-world closed-loop research across materials science, biology, and computer science, demonstrating execution-grounded hypothesis generation and experimentation in biology.",
+      "llm_tldr_cn": "该论文对基于Gemini的多智能体系统Co-Scientist进行扩展和全面的真实世界验证，使其超越虚拟假设生成，成为执行扎根的研究伙伴，闭环推进材料科学、生物学和计算机科学的研究流程。在生物学中，Co-Scientist可自动生成假设、设计并执行实验、分析结果并辅助撰写论文，展示了LLM智能体在生物研究中的实际价值。",
+      "llm_tldr": "该论文对基于Gemini的多智能体系统Co-Scientist进行扩展和全面的真实世界验证，使其超越虚拟假设生成，成为执行扎根的研究伙伴，闭环推进材料科学、生物学和计算机科学的研究流程。在生物学中，Co-Scientist可自动生成假设、设计并执行实验、分析结果并辅助撰写论文，展示了LLM智能体在生物研究中的实际价值。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.25992v1",
+      "source": "arxiv",
+      "title": "ProgRouter: Online Progress-Guided Orchestration for Multi-Agent LLM Workflows under Quality-Cost Tradeoffs",
+      "abstract": "Multi-agent large language model (LLM) workflows have emerged as a powerful paradigm for solving complex, open-ended tasks through collaborative reasoning among specialized LLM agents, but they incur substantial operating costs due to repeated LLM invocations and long-horizon context accumulation. Existing cascade routing methods make one-shot, query-level decisions and cannot adapt to the dynamic, state-dependent nature of multi-step workflows, in which the right LLM at each step depends on evolving task progress, remaining task difficulty, and cost-efficiency requirements. We present ProgRouter, an online progress-guided routing framework that adaptively selects LLM agents across workflow steps to preserve task-solving quality while adhering to time and cost budgets. ProgRouter introduces a multi-view task progress scorer that combines coarse workflow outcome regimes with fine-grained signals on subtask completion, progress trends, and workflow state quality. Then, a dual-path task progress predictor and an adaptive meta-gating mechanism estimate the progress gain for each candidate routed LLM. ProgRouter makes online step-wise routing decisions that balance progress gain, task time budgets, and long-term operating cost efficiency. Experiments on HumanEval Plus, MBPP, MATH-500, and ASQA, spanning agentic code generation, mathematical reasoning, and retrieval-augmented long-form question answering, demonstrate that ProgRouter reduces the operating cost relative to key baselines while maintaining strong task-solving performance.",
+      "authors": [
+        "Songyuan Li",
+        "Ahmed M. Abdelmoniem",
+        "Shiqiang Wang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-26T16:42:02+00:00",
+      "link": "https://arxiv.org/pdf/2608.25992v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "online orchestration framework for multi-agent LLM workflows",
+      "llm_evidence_cn": "多智能体LLM工作流的在线编排框架",
+      "llm_evidence": "多智能体LLM工作流的在线编排框架",
+      "canonical_evidence": "多智能体LLM工作流的在线编排框架",
+      "llm_tldr_en": "ProgRouter adaptively selects LLM agents at each workflow step based on task progress and cost-efficiency, reducing cost while preserving quality in multi-agent workflows.",
+      "llm_tldr_cn": "针对多智能体工作流中固定级联路由无法适应动态任务状态的问题，论文提出ProgRouter，一个在线进度引导的路由框架。它根据当前任务进度、剩余难度和成本效率，逐步选择合适的LLM代理，在保持求解质量的同时显著降低推理成本。在多个开放任务上评估，ProgRouter在质量-成本权衡上优于静态路由基线。该框架可应用于计算生物学中长周期多步骤智能体系统的资源调度。",
+      "llm_tldr": "针对多智能体工作流中固定级联路由无法适应动态任务状态的问题，论文提出ProgRouter，一个在线进度引导的路由框架。它根据当前任务进度、剩余难度和成本效率，逐步选择合适的LLM代理，在保持求解质量的同时显著降低推理成本。在多个开放任务上评估，ProgRouter在质量-成本权衡上优于静态路由基线。该框架可应用于计算生物学中长周期多步骤智能体系统的资源调度。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.22045v1",
+      "source": "arxiv",
+      "title": "Multi-Agent Discovery and Resource-Aware Autonomous Exploration of Scientific Datasets",
+      "abstract": "Modern scientific facilities and instruments generate datasets at scales that are difficult for individual researchers to discover, access, and explore. Although many datasets are publicly available, using them often requires familiarity with repository organization, data formats, multiresolution structures, and visualization parameters. We present WebVisus, a constrained and resource-aware multi-agent system for discovering and autonomously exploring remote, multiresolution scientific datasets. Given a natural-language research question, WebVisus identifies the user's intent and launches an autonomous exploration agent that examines slices, volumes, and timesteps while adapting data resolution and retrieval quality to available client memory and computational resources. This design supports progressive exploration without complete dataset downloads or manual configuration of low-level visualization parameters using natural languages. We report the system architecture, constrained agent protocol, resource-aware access mechanism, and case studies evaluating autonomous visual exploration and resource-aware agentic access across scientific datasets.",
+      "authors": [
+        "Aashish Panta",
+        "Hugo Lee",
+        "Giorgio Scorzelli",
+        "Kyongsik Yun",
+        "Valerio Pascucci"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-08-22T17:16:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.22045v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent autonomous exploration of scientific datasets",
+      "llm_evidence_cn": "多智能体自主探索科学数据集",
+      "llm_evidence": "多智能体自主探索科学数据集",
+      "canonical_evidence": "多智能体自主探索科学数据集",
+      "llm_tldr_en": "WebVisus is a constrained, resource-aware multi-agent system that autonomously discovers and explores remote multiresolution scientific datasets from a natural-language research question, adapting resolution to available resources.",
+      "llm_tldr_cn": "现代科学设施产生的大规模数据集让研究者难以发现与探索。该论文提出WebVisus，一个资源受限的多智能体系统，可根据自然语言研究问题自动识别用户意图，并启动自主探索智能体检查远程多分辨率数据集的切片、体块和时间步，同时根据可用客户端资源调整数据分辨率与检索质量。其意义在于为科学数据发现提供了一个可复用的通用多智能体框架。",
+      "llm_tldr": "现代科学设施产生的大规模数据集让研究者难以发现与探索。该论文提出WebVisus，一个资源受限的多智能体系统，可根据自然语言研究问题自动识别用户意图，并启动自主探索智能体检查远程多分辨率数据集的切片、体块和时间步，同时根据可用客户端资源调整数据分辨率与检索质量。其意义在于为科学数据发现提供了一个可复用的通用多智能体框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23078v1",
+      "source": "arxiv",
+      "title": "AgentWeave: Routing Before Reasoning for Efficient Function Calling in Tool-Rich Language Models",
+      "abstract": "Large language models increasingly operate over large collections of tools, functions, APIs, and specialized agents. As the candidate action space grows, a function-calling model must process more schemas, consume more prompt tokens, and distinguish among increasingly similar or irrelevant alternatives. We study a complementary systems strategy: reduce the candidate set before language-model inference while leaving the downstream model unchanged. We introduce AgentWeave, a deterministic pre-inference routing layer that constructs a bounded model-visible action space using eligibility, requirement, capability, and routing signals. We evaluate AgentWeave with a frozen BFCL-derived routing-pressure protocol using the public MadeAgents/Hammer2.1-1.5b model. On 48 fresh BFCL V4 multiple-function tasks, AgentWeave achieves 6/48 (12.5%) native BFCL successes, whereas all-tools, deterministic random top-8, and semantic top-8 baselines each achieve 0/48. The paired success difference is +12.5 percentage points with a 10,000-resample paired bootstrap 95% confidence interval of +4.17 to +22.92 points and exact McNemar p=0.03125. Relative to all-tools exposure, AgentWeave presents 70.18% fewer tools, uses 61.70% fewer input tokens, and exhibits 50.95% lower mean local-model latency. The result is deliberately narrow: this is a BFCL-derived routing-pressure study rather than an official full BFCL leaderboard score, and absolute task success remains low. The evidence nevertheless shows that candidate-space construction can materially affect a fixed model's function-calling behavior and motivates evaluating routing as a distinct stage before model reasoning.",
+      "authors": [
+        "Saurav Singla",
+        "Aarav Singla",
+        "Advik Gupta",
+        "Parnika Gupta"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-08-24T10:38:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.23078v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "pre-inference routing for efficient function calling in tool-rich LLMs",
+      "llm_evidence_cn": "工具丰富LLM中推理前的路由以提升函数调用效率",
+      "llm_evidence": "工具丰富LLM中推理前的路由以提升函数调用效率",
+      "canonical_evidence": "工具丰富LLM中推理前的路由以提升函数调用效率",
+      "llm_tldr_en": "AgentWeave introduces a deterministic pre-inference routing layer that reduces the candidate action space for function calling in tool-rich settings, improving efficiency without altering the LLM.",
+      "llm_tldr_cn": "当LLM面对大量工具与API时，函数调用的提示词开销和候选区分难度不断上升。论文提出AgentWeave，一种确定性的推理前路由层，利用资格、需求、能力与路由信号构造受限的模型可见动作空间，从而在不改变下游模型的前提下提高函数调用效率。在BFCL基准的压力协议下评估，显示其能显著降低令牌消耗与错误调用。该路由技术可服务于生物信息学中工具丰富的科学智能体，提升工具选择效率。",
+      "llm_tldr": "当LLM面对大量工具与API时，函数调用的提示词开销和候选区分难度不断上升。论文提出AgentWeave，一种确定性的推理前路由层，利用资格、需求、能力与路由信号构造受限的模型可见动作空间，从而在不改变下游模型的前提下提高函数调用效率。在BFCL基准的压力协议下评估，显示其能显著降低令牌消耗与错误调用。该路由技术可服务于生物信息学中工具丰富的科学智能体，提升工具选择效率。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.26753v1",
+      "source": "arxiv",
+      "title": "Beyond Execution: Auditing Experimental Fidelity in LLM-Driven Scientific Research",
+      "abstract": "LLM agents used for scientific experimentation must do more than generate executable code: they must implement the reference method faithfully, design experiments that test the paper's claims, and provide evidence supporting those claims. We show that agents often produce methodological hallucinations: silently reducing datasets or training budgets, replacing failed learning or generative components with lookup or oracle functions, or drawing conclusions from resource-limited settings where a method's claimed advantage disappears. To detect these failures, we introduce ABE-Ralph, a reference-anchored auditing framework that represents claims, protocols, required components, baselines, and metrics as structured experimental constraints, guides implementation through an 8-step workflow, and performs quantitative, qualitative, and code-level verification. Across 30 long-horizon reproduction runs covering 12 machine learning domains, ABE-Ralph achieves a 93% robust execution rate and identifies five scientific failure modes. In 23 NatureBench discovery tasks, ABE-Ralph matches or exceeds state-of-the-art performance on 5 tasks. These results show that reliable evaluation of AI scientists must assess whether the experimental design faithfully tests the intended claim and whether the resulting evidence supports it, rather than treating code execution or plausible metrics as evidence of scientific success.",
+      "authors": [
+        "Lezhi Yu",
+        "Xiaogang Xu",
+        "Yuhua Zhou",
+        "Shuibing He",
+        "Aimin Pan"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-08-27T07:49:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.26753v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Auditing framework to detect methodological hallucination in LLM-driven experiments, ensuring reliable autonomous biological research",
+      "llm_evidence_cn": "审计LLM驱动实验的方法幻觉，保障自主生物研究的可靠性",
+      "llm_evidence": "审计LLM驱动实验的方法幻觉，保障自主生物研究的可靠性",
+      "canonical_evidence": "审计LLM驱动实验的方法幻觉，保障自主生物研究的可靠性",
+      "llm_tldr_en": "LLM agents often produce methodological hallucinations in experiments, such as shrinking datasets or replacing components. ABE-Ralph audits experimental fidelity by representing claims and protocols as structured constraints, ensuring trustworthy LLM-driven scientific research, applicable to bioinformatics.",
+      "llm_tldr_cn": "LLM智能体在科学实验中不能只生成可执行代码，还需忠实实现参考方法并验证实验结果。本文指出智能体常出现方法幻觉，如悄悄缩小数据集、用查找或oracle函数替换失败组件，并在资源受限环境下错误维持结论。为此提出ABE-Ralph参考锚定审计框架，将声明、协议、组件、基线与指标建模为结构化约束来检测此类失败。该工作为可靠的LLM驱动科研提供了关键保障，适用于生物信息学等强实验学科。",
+      "llm_tldr": "LLM智能体在科学实验中不能只生成可执行代码，还需忠实实现参考方法并验证实验结果。本文指出智能体常出现方法幻觉，如悄悄缩小数据集、用查找或oracle函数替换失败组件，并在资源受限环境下错误维持结论。为此提出ABE-Ralph参考锚定审计框架，将声明、协议、组件、基线与指标建模为结构化约束来检测此类失败。该工作为可靠的LLM驱动科研提供了关键保障，适用于生物信息学等强实验学科。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

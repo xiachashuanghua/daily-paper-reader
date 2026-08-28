@@ -1,0 +1,169 @@
+{
+  "date": "20260828",
+  "date_label": "",
+  "generated_at": "2026-08-28 03:11:44 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.25215v1",
+      "route": "202608/28/2608.25215v1-federation-is-nearly-free-reasoning-is-not-tradeoffs-for-ai-co-scientists-in-protein-characterization-workflows",
+      "title": "Federation Is Nearly Free, Reasoning Is Not: Tradeoffs for AI Co-Scientists in Protein Characterization Workflows",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用于蛋白质表征的自主AI协同科学家工作流",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.25286v1",
+      "route": "202608/28/2608.25286v1-bixbench3-benchmarking-ai-agents-on-research-study-scale-computational-biology-tasks",
+      "title": "BixBench3: Benchmarking AI agents on research-study-scale computational biology tasks",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "在完整研究尺度的计算生物学任务上评测AI智能体",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.25466v1",
+      "route": "202608/28/2608.25466v1-homo-rag-homology-guided-retrieval-augmented-generation-for-cross-species-gene-function-prediction",
+      "title": "Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于LLM的基因功能预测框架，直接适用于基因组序列分析",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.26747v1",
+      "route": "202608/28/2608.26747v1-agentfold-closed-loop-agentic-search-for-protein-folding-model-design",
+      "title": "AgentFold: Closed-Loop Agentic Search for Protein Folding Model Design",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用于蛋白质折叠模型设计的LLM智能体框架",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.25770v1",
+      "route": "202608/28/2608.25770v1-hypoforge-a-self-improving-multi-agent-framework-for-automated-hypothesis-generation-and-testing-via-scientific-skill-learning",
+      "title": "HypoForge: A Self-Improving Multi-Agent Framework for Automated Hypothesis Generation and Testing via Scientific Skill Learning",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向科学假设生成与验证的多智能体框架，可迁移至生物研究。",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.26701v1",
+      "route": "202608/28/2608.26701v1-accelerating-scientific-research-with-gemini-in-the-real-world",
+      "title": "Accelerating Scientific Research with Gemini in the Real-World",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于Gemini的多智能体系统加速科学研究，涵盖生物学",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.25992v1",
+      "route": "202608/28/2608.25992v1-progrouter-online-progress-guided-orchestration-for-multi-agent-llm-workflows-under-quality-cost-tradeoffs",
+      "title": "ProgRouter: Online Progress-Guided Orchestration for Multi-Agent LLM Workflows under Quality-Cost Tradeoffs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "多智能体LLM工作流的在线编排框架",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.22045v1",
+      "route": "202608/28/2608.22045v1-multi-agent-discovery-and-resource-aware-autonomous-exploration-of-scientific-datasets",
+      "title": "Multi-Agent Discovery and Resource-Aware Autonomous Exploration of Scientific Datasets",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体自主探索科学数据集",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.23078v1",
+      "route": "202608/28/2608.23078v1-agentweave-routing-before-reasoning-for-efficient-function-calling-in-tool-rich-language-models",
+      "title": "AgentWeave: Routing Before Reasoning for Efficient Function Calling in Tool-Rich Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "工具丰富LLM中推理前的路由以提升函数调用效率",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    },
+    {
+      "paper_id": "2608.26753v1",
+      "route": "202608/28/2608.26753v1-beyond-execution-auditing-experimental-fidelity-in-llm-driven-scientific-research",
+      "title": "Beyond Execution: Auditing Experimental Fidelity in LLM-Driven Scientific Research",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "审计LLM驱动实验的方法幻觉，保障自主生物研究的可靠性",
+      "first_seen_at": "2026-08-28 03:11:44 UTC",
+      "updated_at": "2026-08-28 03:11:44 UTC"
+    }
+  ]
+}
