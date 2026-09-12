@@ -1,0 +1,302 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-12T20:49:45.348064+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2609.05818v1",
+      "source": "arxiv",
+      "title": "Agentic BAIM-LLM Evaluation (ABLE): Benchmarking LLM Use of Protein Design Tools",
+      "abstract": "We introduce ABLE, a benchmark for evaluating LLM agents' ability to use biological AI models (BAIMs), such as ProteinMPNN and AlphaFold3, in dual-use protein design workflows. ABLE assesses agent performance through a set of tasks spanning structure retrieval, sequence generation, and design validation. We evaluate 15 frontier models and find that seven refuse all tasks, while the remaining models exhibit substantial performance differences. Claude Sonnet 4 and Gemini 3 Pro achieve the highest scores across information retrieval, tool selection, and tool use. We further compare model performance on a subset of tasks against an expert human baseline. Our results suggest that current LLMs can substantially lower barriers to protein design, but remain inconsistent in planning, strategy generation, and integrating biological knowledge with tool use.",
+      "authors": [
+        "Bryce Cai",
+        "Geetha Jeyapragasan",
+        "Samira Nedungadi",
+        "Jake Yukich",
+        "Seth Donoughe"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY",
+        "q-bio.QM"
+      ],
+      "published": "2026-09-05T02:28:21+00:00",
+      "link": "https://arxiv.org/pdf/2609.05818v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmarks LLM agents using biological AI models for protein design",
+      "llm_evidence_cn": "评测LLM智能体使用生物AI模型进行蛋白质设计",
+      "llm_evidence": "评测LLM智能体使用生物AI模型进行蛋白质设计",
+      "canonical_evidence": "评测LLM智能体使用生物AI模型进行蛋白质设计",
+      "llm_tldr_en": "ABLE is a benchmark evaluating LLM agents on using biological AI models like ProteinMPNN and AlphaFold3 in protein design tasks; across 15 frontier models seven refuse all tasks while others differ sharply in tool use.",
+      "llm_tldr_cn": "当前缺乏评估LLM智能体调用生物AI模型能力的标准基准。本文提出ABLE基准，覆盖结构检索、序列生成与设计验证等任务，评测15个前沿模型在双用途蛋白质设计流程中的表现。结果显示七个模型拒绝所有任务，其余模型在工具选择与使用上差异显著，Claude Sonnet 4与Gemini 3 Pro得分最高。该工作表明LLM可显著降低蛋白质设计门槛。",
+      "llm_tldr": "当前缺乏评估LLM智能体调用生物AI模型能力的标准基准。本文提出ABLE基准，覆盖结构检索、序列生成与设计验证等任务，评测15个前沿模型在双用途蛋白质设计流程中的表现。结果显示七个模型拒绝所有任务，其余模型在工具选择与使用上差异显著，Claude Sonnet 4与Gemini 3 Pro得分最高。该工作表明LLM可显著降低蛋白质设计门槛。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.08696v1",
+      "source": "arxiv",
+      "title": "MorphoOrgaAgent: A Foundation-Model-Based Multi-Agent System for Autonomous Organoid Analysis",
+      "abstract": "Organoids are three-dimensional tissue models whose morphology provides important insights into tumor development, disease progression, and drug testing. Extracting these morphological features relies heavily on manual segmentation, which is time-consuming and labor-intensive. Furthermore, performing quantitative statistical analysis typically requires custom coding skills and a mathematical background, presenting a major barrier for experimental biologists. To address these challenges, we introduce MorphoOrgaAgent, a multi-agent framework that achieves zero-shot organoid segmentation, automated data analysis, and report generation based on natural language input. The framework consists mainly of three core components: a TaskUnderstandingAgent that identifies requested measurements and visualization types; a hybrid segmentation module that combines Cellpose-derived geometric prompts with text prompts to guide SAM3 for zero-shot organoid instance segmentation; and a ReportAgent that computes quantitative metrics and compiles them alongside generated visualizations into a structured report. We further introduce MorphoOrgaVQA, a benchmark designed for quantitative evaluation of agent systems in organoid morphology analysis. Experimental results demonstrate that MorphoOrgaAgent handles both explicit and descriptive user requests, produces measurements closely matching ground truth, and generates complete analysis reports without requiring manual programming. The complete source code and MorphoOrgaVQA benchmark are publicly available at https://github.com/peng-lab/MorphoOrgaAgent.",
+      "authors": [
+        "Hanyi Zhang",
+        "Maximilian Hoermann",
+        "Lion J. Gleiter",
+        "Yiling Xu",
+        "Bettina Katalin Budai",
+        "Hans-Ulrich Kauczor",
+        "Carsten Marr",
+        "Tingying Peng"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CV"
+      ],
+      "published": "2026-09-08T12:59:46+00:00",
+      "link": "https://arxiv.org/pdf/2609.08696v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-agent system for autonomous organoid analysis in biological research",
+      "llm_evidence_cn": "用于自主类器官分析的多智能体系统，属于生物研究中的自主智能体",
+      "llm_evidence": "用于自主类器官分析的多智能体系统，属于生物研究中的自主智能体",
+      "canonical_evidence": "用于自主类器官分析的多智能体系统，属于生物研究中的自主智能体",
+      "llm_tldr_en": "To address manual segmentation and coding barriers in organoid analysis, MorphoOrgaAgent is a multi-agent framework enabling zero-shot segmentation, automated analysis, and report generation from natural language input, lowering the barrier for experimental biologists.",
+      "llm_tldr_cn": "针对类器官形态分析中人工分割耗时且需编程背景的问题，本文提出MorphoOrgaAgent多智能体框架，基于基础模型实现零样本分割、自动统计与报告生成。该框架接受自然语言指令，自动完成从分割到分析的全流程，降低了实验生物学家的使用门槛。结果表明多智能体系统可有效支持自主类器官分析，为生物医学研究提供自动化工具。",
+      "llm_tldr": "针对类器官形态分析中人工分割耗时且需编程背景的问题，本文提出MorphoOrgaAgent多智能体框架，基于基础模型实现零样本分割、自动统计与报告生成。该框架接受自然语言指令，自动完成从分割到分析的全流程，降低了实验生物学家的使用门槛。结果表明多智能体系统可有效支持自主类器官分析，为生物医学研究提供自动化工具。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.05238v1",
+      "source": "arxiv",
+      "title": "Quantum Optimisation for Protein-Protein Interaction Network Alignment",
+      "abstract": "Protein-protein interaction (PPI) network alignment combines topological and sequence information to identify conserved modules across species, but global alignment remains challenging: heuristics sacrifice optimality, while exact methods lack scalability. We model the alignment as a weighted maximum common induced subgraph problem and reformulate it through the modular product graph to a minimum-weight vertex cover on the complement, with node weights carrying sequence similarity. To solve this problem, we develop a hybrid framework combining kernelisation, branch-and-bound, and seven Quantum Approximate Optimisation Algorithm (QAOA) formulations. These formulations differ in how the cover constraints are enforced, from penalty terms in the cost Hamiltonian to mixers confined to the feasible subspace. For single round QAOA, we derive closed-form expressions for the expected cost of four circulant mixer variants, enabling performance characterisation without circuit simulation. Applied to synthetic and real-world networks reduced to KEGG pathways, the QAOA formulations achieve high topological conservation on the aligned core while at least maintaining biological conservation comparable to leading classical aligners, at the cost of reduced node coverage. Across selected KEGG pathways, the aligned subnetworks retain disease-associated proteins, preserving biologically relevant information. Cheaper formulations leave more edges uncovered, while enforcing feasibility in the mixer raises circuit depth by one to two orders of magnitude. Together, these results highlight the potential of quantum optimisation for PPI network alignment and the resource trade-offs that will shape its scalability as quantum hardware matures.",
+      "authors": [
+        "Merle Stahl",
+        "Robert J. Banks",
+        "Matthias Traube",
+        "Josua Unger",
+        "Wolfgang Lechner",
+        "Jan Baumbach",
+        "Mhaned Oubounyt"
+      ],
+      "primary_category": "quant-ph",
+      "categories": [
+        "quant-ph",
+        "q-bio.MN"
+      ],
+      "published": "2026-09-04T15:04:55+00:00",
+      "link": "https://arxiv.org/pdf/2609.05238v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "computational biology protein interaction network alignment",
+      "llm_evidence_cn": "计算生物学蛋白质相互作用网络比对",
+      "llm_evidence": "计算生物学蛋白质相互作用网络比对",
+      "canonical_evidence": "计算生物学蛋白质相互作用网络比对",
+      "llm_tldr_en": "A hybrid quantum-classical framework that models PPI network alignment as minimum-weight vertex cover and solves it with kernelisation, branch-and-bound and seven QAOA formulations.",
+      "llm_tldr_cn": "针对蛋白质-蛋白质相互作用网络全局比对中启发式方法牺牲最优性、精确方法又缺乏可扩展性的问题，本文将比对建模为加权最大公共诱导子图问题，通过模积图转化为补图上的最小权重顶点覆盖，并开发结合核化、分支定界与七种QAOA形式的混合框架。节点权重携带序列相似性信息，实验展示了该框架在跨物种PPI网络比对上的求解能力，为计算生物学中的网络比对提供了新方法。",
+      "llm_tldr": "针对蛋白质-蛋白质相互作用网络全局比对中启发式方法牺牲最优性、精确方法又缺乏可扩展性的问题，本文将比对建模为加权最大公共诱导子图问题，通过模积图转化为补图上的最小权重顶点覆盖，并开发结合核化、分支定界与七种QAOA形式的混合框架。节点权重携带序列相似性信息，实验展示了该框架在跨物种PPI网络比对上的求解能力，为计算生物学中的网络比对提供了新方法。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.04999v1",
+      "source": "arxiv",
+      "title": "BIT.UA at BioASQ 14B: Modular Retrieval with pg_textsearch and Qdrant, and Agent-Based Answer Generation",
+      "abstract": "This paper describes the participation of the BIT.UA team from the University of Aveiro in the 14th edition of the BioASQ Task B challenge on biomedical question answering. Building on our previous submissions, we introduced a substantially refactored and modular codebase, and made significant changes to both the retrieval and generation components of the pipeline. For Phase~A document retrieval, we replaced the PyTerrier PISA index with PostgreSQL-based pg\\_textsearch for BM25 retrieval and adopted Qdrant for dense embedding indexing, enabling more efficient storage and GPU-accelerated similarity search. We explored HyDE-based query expansion alongside a Context-1 retrieval strategy. A new reranker training pipeline was developed, incorporating dense retrieval for negative sampling. For Phases A+ and B answer generation, we introduced an LLM-as-a-judge framework and a novel agent quorum mechanism, where multiple agents with diverse prompts debate and iteratively converge on a consensus answer using adaptive document retention. We also participated in the snippets generation subtask for the first time. Our systems achieved competitive results across all batches, with Phase~A systems achieving MAP ranks of 5 (Batch~1,3). We discuss the impact of these architectural changes, lessons learned, and outline directions for future work including SPLADE and ColBERT integration. All code is openly available: https://github.com/bioinformatics-ua/BioASQ14b.",
+      "authors": [
+        "André Ribeiro",
+        "Rúben Garrido",
+        "Alexander Christiansen",
+        "Richard A. A. Jonker",
+        "Sérgio Matos"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-09-04T11:10:07+00:00",
+      "link": "https://arxiv.org/pdf/2609.04999v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "biomedical QA with agent-based answer generation and modular retrieval",
+      "llm_evidence_cn": "基于智能体答案生成的生物医学问答与模块化检索",
+      "llm_evidence": "基于智能体答案生成的生物医学问答与模块化检索",
+      "canonical_evidence": "基于智能体答案生成的生物医学问答与模块化检索",
+      "llm_tldr_en": "BIT.UA presents a modular BioASQ 14B biomedical QA pipeline combining pg_textsearch BM25, Qdrant dense retrieval, HyDE query expansion, a new reranker, and agent-based answer generation.",
+      "llm_tldr_cn": "针对生物医学问答中检索与生成效率不足的问题，该文介绍BIT.UA团队参加BioASQ 14B任务B的方案。作者重构模块化流水线，以PostgreSQL的pg_textsearch实现BM25检索、Qdrant做稠密向量索引，并探索HyDE查询扩展与Context-1检索策略，同时训练新的重排序模型，答案生成阶段采用基于智能体的方式。该方案提升了存储效率与GPU加速相似度搜索能力，为生物医学问答提供了可复用的智能体驱动流水线。",
+      "llm_tldr": "针对生物医学问答中检索与生成效率不足的问题，该文介绍BIT.UA团队参加BioASQ 14B任务B的方案。作者重构模块化流水线，以PostgreSQL的pg_textsearch实现BM25检索、Qdrant做稠密向量索引，并探索HyDE查询扩展与Context-1检索策略，同时训练新的重排序模型，答案生成阶段采用基于智能体的方式。该方案提升了存储效率与GPU加速相似度搜索能力，为生物医学问答提供了可复用的智能体驱动流水线。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.04658v1",
+      "source": "arxiv",
+      "title": "VizIt: A multi-view framework for exploring single-cell, spatial, and genetic data online",
+      "abstract": "Multi-omic studies increasingly require data to be examined from complementary biological perspectives, yet interactive exploration remains fragmented across modalities and tools. We present VizIt, an open-source framework for multi-view exploration of single-cell and spatial transcriptomic, epigenomic and genetic data. VizIt connects gene-, cell type-, condition-, spatial-, genomic region- and variant-centered views, enabling seamless navigation across biological perspectives. We demonstrate VizIt through the Parkinson's Cell Atlas, a customizable interactive multi-omic resource.",
+      "authors": [
+        "Chenhang Christopher Zhang",
+        "Yanqing Lou",
+        "Jie Yuan",
+        "Mingming Lu",
+        "Jacob Parker",
+        "Himanshu Chintalapudi",
+        "Zechuan Lin",
+        "Clemens R. Scherzer",
+        "Yuxuan Hu",
+        "Ruifeng Hu",
+        "Xianjun Dong"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "q-bio.GN"
+      ],
+      "published": "2026-09-04T02:40:47+00:00",
+      "link": "https://arxiv.org/pdf/2609.04658v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Open-source multi-view framework for single-cell, spatial and genetic data exploration",
+      "llm_evidence_cn": "面向单细胞、空间与遗传数据探索的开源多视图框架",
+      "llm_evidence": "面向单细胞、空间与遗传数据探索的开源多视图框架",
+      "canonical_evidence": "面向单细胞、空间与遗传数据探索的开源多视图框架",
+      "llm_tldr_en": "Multi-omic exploration is fragmented across modalities and tools; VizIt is an open-source multi-view framework linking single-cell, spatial, epigenomic and genetic data, demonstrated on the Parkinson's Cell Atlas for seamless cross-perspective navigation.",
+      "llm_tldr_cn": "多组学研究日益需要从互补的生物学视角审视数据，但现有交互式探索在模态与工具之间彼此割裂，难以统一导航。作者提出VizIt，一个开源的多视图探索框架，将基因、细胞类型、条件、空间、基因组区域与变异等中心视图连接起来，统一支持单细胞、空间转录组、表观基因组与遗传数据的分析。论文以帕金森细胞图谱为示例，展示用户可在多种生物学视角间无缝切换，形成可定制的交互式多组学资源。该工作为多组学数据的整合探索提供了统一且可扩展的可视化方案。",
+      "llm_tldr": "多组学研究日益需要从互补的生物学视角审视数据，但现有交互式探索在模态与工具之间彼此割裂，难以统一导航。作者提出VizIt，一个开源的多视图探索框架，将基因、细胞类型、条件、空间、基因组区域与变异等中心视图连接起来，统一支持单细胞、空间转录组、表观基因组与遗传数据的分析。论文以帕金森细胞图谱为示例，展示用户可在多种生物学视角间无缝切换，形成可定制的交互式多组学资源。该工作为多组学数据的整合探索提供了统一且可扩展的可视化方案。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.09203v1",
+      "source": "arxiv",
+      "title": "OpenDiscoveryTrace: Process Traces for Evaluating AI Scientist Workflows",
+      "abstract": "Existing benchmarks for autonomous AI scientists evaluate only final outputs---generated code, hypotheses, or papers---yet discard the reasoning process by which those outputs were obtained. This makes it impossible to audit scientific methodology, diagnose failure modes, or distinguish systematic reasoning from fortunate guessing. We present \\textbf{OpenDiscoveryTrace}, a public dataset of 558 complete AI scientific agent trajectories that captures how models reason, not just what they produce. Each trajectory records a structured 9-field-per-step trace---including thoughts, tool calls, observations, errors, revision triggers, and self-reported confidence---as models execute 124 scientific tasks spanning drug discovery, materials science, genomics, and scientific literature analysis. The dataset covers seven models: three frontier models (GPT-5.4, Claude Opus 4.6, and Gemini 3.1 Pro; 124 trajectories each, fully balanced across domains and difficulty levels) and four open-weight models (Qwen2.5-7B, Mistral-7B-v0.3, Phi-3.5-mini, and Qwen2.5-1.5B; 30 each), plus 60 live-retrieval variant trajectories. Pilot analysis on 363 LLM-judged trajectories reveals that process traces expose behavioral differences invisible to output-only evaluation: all three frontier models achieve comparable success rates (84--89%), yet Claude Opus 4.6 produces 30$\\times$ more errors than GPT-5.4 (2.5 vs. 0.08 per trajectory, $p < 0.0001$, Cliff's $δ= 0.613$), with qualitatively different error profiles---66.7% tool misuse for Claude versus 83.6% reasoning errors for GPT-5.4. We define five benchmark tasks with baselines from logistic regression, random forests, LSTMs, and Transformer models. The dataset, trace schema, agent harness, and benchmark definitions are publicly available under CC BY 4.0 to support research on process-level evaluation, scientific agent auditing, and AI governance.",
+      "authors": [
+        "Aayam Bansal",
+        "Keertan Balaji"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-05T12:16:47+00:00",
+      "link": "https://arxiv.org/pdf/2609.09203v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI scientific agent trajectories spanning genomics and drug discovery",
+      "llm_evidence_cn": "涵盖基因组学与药物发现的AI科学智能体轨迹",
+      "llm_evidence": "涵盖基因组学与药物发现的AI科学智能体轨迹",
+      "canonical_evidence": "涵盖基因组学与药物发现的AI科学智能体轨迹",
+      "llm_tldr_en": "OpenDiscoveryTrace releases 558 complete AI scientific agent trajectories with structured per-step traces across 124 tasks spanning drug discovery, materials science and genomics, enabling process-level auditing of AI scientist workflows.",
+      "llm_tldr_cn": "现有自主AI科学家基准只评估最终输出，丢弃了推理过程，难以审计科学方法或诊断失败模式。本文发布OpenDiscoveryTrace，包含558条完整AI科学智能体轨迹，每步记录想法、工具调用、观察、错误等9个字段。任务涵盖药物发现、材料科学与基因组学等124项科学任务。该数据集为评估AI科学家工作流的推理过程提供了可审计的公共资源。",
+      "llm_tldr": "现有自主AI科学家基准只评估最终输出，丢弃了推理过程，难以审计科学方法或诊断失败模式。本文发布OpenDiscoveryTrace，包含558条完整AI科学智能体轨迹，每步记录想法、工具调用、观察、错误等9个字段。任务涵盖药物发现、材料科学与基因组学等124项科学任务。该数据集为评估AI科学家工作流的推理过程提供了可审计的公共资源。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.06366v1",
+      "source": "arxiv",
+      "title": "AutoKD: Autonomous Knowledge Discovery",
+      "abstract": "Scientific discovery in data-rich domains is currently constrained by human bandwidth: the growth in the volume and complexity of real-world data far outpaces the rate at which researchers can read, reason, and synthesize. Recent LLM-based multi-agent systems have begun to automate portions of the research cycle, but they target hypothesis generation in settings where validation cannot itself be automated, and each run is one-shot, with no mechanism for findings to accumulate or steer subsequent inquiry. This paper introduces AutoKD, a multi-agent framework for autonomous knowledge discovery that is both computational and cumulative, allowing validated findings to persist and inform subsequent inquiry. Six coordinated LLM agents collaborate in an open-ended discovery loop, where accepted findings are stored in a persistent insight graph that serves as both long-term memory and an exploration-steering mechanism. We evaluate AutoKD on three diverse datasets from two perspectives: Open-ended Quality against published findings, and Conditioned Quality via literature-derived queries. Across both evaluation perspectives, AutoKD covers known findings and surfaces substantive discoveries that complement human-driven research. Our code is available at https://github.com/GeQinwen/AutoKD.",
+      "authors": [
+        "Qinwen Ge",
+        "Bo Ni",
+        "Haowei Fu",
+        "Ngoc N. Tran",
+        "Erik Blasch",
+        "Tyler Derr"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-06T03:48:29+00:00",
+      "link": "https://arxiv.org/pdf/2609.06366v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for autonomous scientific knowledge discovery",
+      "llm_evidence_cn": "面向自主科学知识发现的多智能体框架",
+      "llm_evidence": "面向自主科学知识发现的多智能体框架",
+      "canonical_evidence": "面向自主科学知识发现的多智能体框架",
+      "llm_tldr_en": "AutoKD proposes a multi-agent LLM framework for autonomous, cumulative knowledge discovery, where six coordinated agents run an open-ended discovery loop so validated findings persist and steer later inquiry.",
+      "llm_tldr_cn": "数据丰富的科学领域面临人类阅读与推理带宽瓶颈，现有LLM多智能体系统多为一次性假设生成，发现无法累积。本文提出AutoKD多智能体框架，六个LLM智能体在开放式发现循环中协作，使已验证发现可持久保存并引导后续探究。该框架将自主知识发现同时做到可计算与可累积，为持续演进的科学发现流程提供新范式。",
+      "llm_tldr": "数据丰富的科学领域面临人类阅读与推理带宽瓶颈，现有LLM多智能体系统多为一次性假设生成，发现无法累积。本文提出AutoKD多智能体框架，六个LLM智能体在开放式发现循环中协作，使已验证发现可持久保存并引导后续探究。该框架将自主知识发现同时做到可计算与可累积，为持续演进的科学发现流程提供新范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

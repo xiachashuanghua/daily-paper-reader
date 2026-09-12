@@ -1,0 +1,1440 @@
+Title: Quantum Optimisation for Protein-Protein Interaction Network Alignment
+
+URL Source: https://arxiv.org/pdf/2609.05238v1
+
+Published Time: Mon, 07 Sep 2026 01:07:39 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+## Quantum Optimisation for Protein-Protein Interaction Network Alignment 
+
+Merle Stahl ∗,1 Robert J. Banks ∗,2, † Matthias Traube ,2 Josua Unger ,3
+
+Wolfgang Lechner ,2, 3, 4 Jan Baumbach ,1, 5 and Mhaned Oubounyt 1
+
+> 1
+
+Institute for Computational Systems Biomedicine, University of Hamburg, 22761 Hamburg, Germany 
+
+> 2
+
+Parity Quantum Computing Germany GmbH, 20095 Hamburg, Germany 
+
+> 3
+
+Parity Quantum Computing GmbH, A-6020 Innsbruck, Austria 
+
+> 4
+
+Institute for Theoretical Physics, University of Innsbruck, A-6020 Innsbruck, Austria 
+
+> 5
+
+Department of Mathematics and Computer Science, University of Southern Denmark, 5230 Odense, Denmark 
+
+(Dated: 4 September 2026) Protein–protein interaction (PPI) network alignment combines topological and sequence infor-mation to identify conserved modules across species, but global alignment remains challenging: heuristics sacrifice optimality, while exact methods lack scalability. We model the alignment as a weighted maximum common induced subgraph problem and reformulate it through the modular product graph to a minimum-weight vertex cover on the complement, with node weights carrying sequence similarity. To solve this problem, we develop a hybrid framework combining kernelisation, branch-and-bound, and seven Quantum Approximate Optimisation Algorithm (QAOA) formula-tions. These formulations differ in how the cover constraints are enforced, from penalty terms in the cost Hamiltonian to mixers confined to the feasible subspace. For single round QAOA, we derive closed-form expressions for the expected cost of four circulant mixer variants, enabling performance characterisation without circuit simulation. Applied to synthetic and real-world networks reduced to KEGG pathways, the QAOA formulations achieve high topological conservation on the aligned core while at least maintaining biological conservation comparable to leading classical aligners, at the cost of reduced node coverage. Across selected KEGG pathways, the aligned subnetworks re-tain disease-associated proteins, preserving biologically relevant information. Cheaper formulations leave more edges uncovered, while enforcing feasibility in the mixer raises circuit depth by one to two orders of magnitude. Together, these results highlight the potential of quantum optimisation for PPI network alignment and the resource trade-offs that will shape its scalability as quantum hardware matures. PPI Network Pairs 
+
+> Synthetic & Real-World Pairs
+> Species A Species B
+
+Evaluation 
+
+> Comparing Encoding Strategies
+
+QAOA-based Alignment 
+
+> p times
+
+H|0 ⟩
+
+H|0 ⟩
+
+H|0 ⟩ ⟨C⟩
+
+> Cost Layer Mixer Layer
+
+Keywords: Protein-protein interaction network alignment, Maximum Common Induced Subgraph, Quantum Approximate Optimisation Algorithm, Hybrid quantum-classical algorithms 
+
+1. INTRODUCTION 
+
+Protein-protein interaction (PPI) networks map the molecular machinery of the cell, with nodes representing proteins and edges to their physical or functional asso-ciations. Because a protein’s function is largely deter-mined by its interaction partners, aligning PPI networks  
+
+> ∗
+
+These authors contributed equally to this work.  
+
+> †
+
+Corresponding author: r.banks@parityqc.com 
+
+across species allows conserved functional modules to be identified and functional annotation to be transferred be-tween organisms, including from model organisms to hu-mans [1]. This matters for translational research: much of what is known about human gene function and disease biology was first established in model organisms such as mice, and network alignment offers a systematic way to transfer that knowledge across species. Formally, global network alignment seeks an injective mapping between the proteins of two networks that max-imises the number of conserved interactions, or equiva-arXiv:2609.05238v1 [quant-ph] 4 Sep 2026 2lently the maximum common subgraph they share [2]. This is a maximum clique in their modular product graph [3, 4], or a minimum vertex cover in its complement [5], and the problem is NP-hard. Existing aligners resolve the resulting intractability in one of two ways, and neither is fully satisfactory. Heuristic methods such as IsoRank [2], MAGNA++ [6], HubAlign [7], L-GRAAL [8], SANA [9], and AntNetAlign [10] scale to whole interactomes but can return subopti-mal solutions. Exact methods, including the Lagrangian-relaxation aligner Natalie2 [11] and dedicated branch-and-bound MCIS solvers [12–14], do certify optimal-ity and remain efficient on sparse instances, but they slow down quickly as the modular product graph gets denser. Cross-species PPI alignment generates exactly this regime: sequence homology is permissive, so many protein pairs are admissible candidates. No existing method offers both guaranteed optimality and tractable scale, which motivates the search for alternative solvers. We investigate whether quantum optimisation can close this gap. The Quantum Approximate Optimisation Algorithm (QAOA) encodes a combinatorial problem as a cost Hamiltonian whose ground state corresponds to the optimal solution and whose low-lying excited states correspond to near-optimal ones, and alternates evolu-tion under this Hamiltonian with a mixing Hamiltonian that drives transitions between candidate solutions [15]. For constrained problems such as MCIS, feasibility can be enforced softly, through penalty terms in the cost Hamil-tonian, or structurally, by restricting the mixer to the feasible subspace [16–18]. The two routes differ in qubit count, circuit depth, and whether the sampler returns feasible solutions. No existing quantum work compares them on the PPI network alignment problem. Daskin, Grama and Kais [19] with a follow-up by Daskin [20] align PPI net-works by quantum phase estimation on the Kronecker-product transition matrix, an eigenvector method rather than a combinatorial one. Huang and Roje [21] cast MCIS isomorphism as a quadratic unconstrained bi-nary optimisation (QUBO) for quantum annealing, and Prasad [22] embeds QAOA-derived bounds in a classical branch-and-bound for maximum clique. Both works ad-dress generic graphs without biological application, and neither compares constraint-handling strategies. The general standing of QAOA is mixed. At low depth on high-girth regular graphs, local classical algorithms match or exceed QAOA on Max-Cut [23], and barren plateaus impede trainability at scale [24, 25]. The picture at higher depth is more favourable. On large-girth D-regular graphs the p = 11 QAOA exceeds all classical al-gorithms known to the authors that rest on no unproven conjectures [26, 27], and on the Low Autocorrelation Bi-nary Sequence problem QAOA at constant depth scales better than state-of-the-art branch-and-bound solvers in simulations up to 40 qubits, with the best reported scal-ing coming from QAOA inside quantum minimum find-ing, a form of amplitude amplification [28]. On hard-ware, warm-started QAOA exceeds the cuts returned by Goemans–Williamson on 96-node trapped-ion instances that classical solvers still solve exactly [29]. The regimes where an advantage would appear lie beyond current de-vices, and resource estimates place the crossover in the fault-tolerant regime [30, 31]. Our focus is therefore on the formulation of QAOA for PPI alignment and its re-source requirements. We formulate PPI network alignment as a minimum weighted vertex cover on the complement of the modu-lar product graph, with node weights encoding sequence similarity, and instantiate seven QAOA variants span-ning penalty-based through fully mixer-constrained fea-sibility handling. Because direct QAOA is limited by available qubit count, we embed each variant in a branch-and-bound decomposition that reduces each instance to smaller subproblems. We evaluate the pipeline on NA-PAbench2 synthetic networks [32] and real human–mouse KEGG pathway subnetworks [33], benchmarking against established classical aligners. We contribute a QAOA-amenable formulation of PPI network alignment, a sys-tematic comparison of how constraint handling trades feasibility against qubit count and circuit depth, and an assessment of where the pipeline stands against classical solvers.  
+
+> 2. MATERIALS AND METHODS
+
+We develop a hybrid quantum–classical framework for aligning two PPI networks using their modular product graph. The quantum solver is applied to the vertex-cover problem remaining after classical preprocessing (Fig. 1).  
+
+> 2.1. PPI network alignment as weighted maximum common induced subgraph problem
+
+We formulate the alignment of two PPI networks as a weighted maximum common induced subgraph (MCIS) problem. Let G1 = ( V1, E 1) and G2 = ( V2, E 2) be the two PPI networks, each from a different species, where nodes represent proteins and edges represent interac-tions. A global network alignment is an injective par-tial node mapping f : V1 → V2, mapping each protein of the smaller network with at most one protein of the larger [1, 34]. The search for an optimal such mapping can be cast as a clique-search problem [35] through the modular prod-uct graph construction. We build a graph whose nodes are candidate protein pairs ( u, v ) with u ∈ V1 and v ∈ V2,restricted to biologically plausible pairings [11, 36]: pairs with zero weight are dropped before the product graph is built. This leaves the weighted optimum unchanged, since such a pair contributes nothing to the objective. Two nodes ( u, v ) and ( u′, v ′) are connected by an edge if and only if the pairings are mutually consistent: u̸ = u′,
+
+v̸ = v′, and the two pairs preserve the same relationship 3C Alignment as Maximum Clique 
+
+B Hybrid Quantum-Classical Solver A PPI Network Pair  
+
+> Sequence-Based Node Similarity b1b2b4b3a2a3a1
+> b1 b2 b3 b4 a1 a2 a3
+> Species A Species B Weighted Modular Product Graph
+> a1b1
+> a2b1
+> a3b1
+> a1b2
+> a2b2
+> a3b2
+> a1b3
+> a2b3
+> a3b3
+> a1b4
+> a2b4
+> a3b4
+> b1
+> b2
+> b4
+> b3
+> a2
+> a3
+> a1
+> a1b1a2b1a3b1a1b2
+> a2b2a3b2a1b3a2b3
+> a3b3a1b4a2b4a3b4
+> Classical Problem Decomposition
+> Smaller Subproblem
+> Matching Ring / All-to-All Basic Constrained Matching Star Greedy All-to-All Greedy Ring Greedy Star
+> QAOA Variants
+
+Figure 1. Overview of the QAOA-based pipeline for PPI network alignment. (A) The two PPI networks to be aligned, together with a sequence-based node-similarity matrix between their proteins, are combined into a weighted modular product graph. Its nodes are candidate protein pairs, weighted by sequence similarity, and two nodes are adjacent if the pairs they represent are compatible, i.e. if the corresponding proteins are connected in both networks or in neither. (B) The maximum-weight clique problem on the modular product graph is reformulated as a minimum-weight vertex cover problem on the complement graph and reduced to a QUBO. Branch-and-bound with kernelisation shrinks each instance to a qubit-feasible core, which is solved by QAOA in one of seven variants. (C) Sampling, decoding, and post-processing recover the solution, and the resulting maximum-weight clique corresponds to the final optimal node-to-node alignment. 
+
+in both networks, that is, {u, u ′} ∈ E1 ⇔ { v, v ′} ∈ E2.Under this construction, a set of mutually consistent pair-ings forms a clique, and a maximum common subgraph of G1 and G2 corresponds exactly to a maximum clique in the modular product graph H, whose complement we denote ¯H [3, 4]. Maximum weight clique and minimum weight vertex cover are equivalent problems, and we work with the ver-tex cover because it is the form the mixers of Sec. 2.3 are built on: a clique in ¯H forces all but one of its nodes into any valid cover. A maximum clique in H is a maximum independent set in ¯H, and the complement of a maxi-mum independent set is a minimum vertex cover of ¯H.The same holds with weights, since the total node weight is fixed. Solving for a minimum weight vertex cover on ¯H therefore gives the maximum clique, and hence the optimal alignment [5, 37]. To incorporate sequence homology, each candidate-pair node carries a weight derived from the pairwise se-quence similarity of the two proteins, normalised to a common scale, so that pairings between homologous pro-teins are preferentially retained in the alignment. Topo-logical conservation is enforced structurally by the edges of the modular product graph, so the weights determine which of the topologically consistent alignments is se-lected, yielding alignments that are consistent with both network topology and protein homology. 
+
+2.2. Binary formulation: minimum weighted vertex cover 
+
+Let ¯H = ( V, E ) denote the complement of the modular product graph, with node weights wi ≥ 0 carrying the normalised sequence similarity of the candidate pair i ∈
+
+V . Introducing a binary variable xi ∈ { 0, 1} for each node, with xi = 1 if node i is placed in the vertex cover, minimum weighted vertex cover on ¯H can be written as the QUBO 
+
+QMVC (x) = X
+
+> i∈V
+
+wixi + λ X
+
+> (i,j )∈E
+
+(1 − xi)(1 − xj ), (1) where the second sum penalises every edge whose two endpoints are both left out of the cover. The penalty satisfies λ ≥ max i∈V wi. Since every vio-lating edge in a vertex cover can be removed by adding one of the nodes in the violating edge to the vertex cover, and since the cost of this cannot exceed max i∈V wi,
+
+QMVC (x) can be considered an upper bound on the minimum vertex cover achieved by x with simple post-processing. We apply that repair step to the sampled bitstrings in the branch-and-bound runs of Sec. 2.3. The direct-QAOA results are reported as raw sampler out-put. Since any vertex cover can be decoded as a com-mon subgraph, QMVC (x) also acts as a lower bound on the maximum weighted common subgraph. The QUBO 4maps straightforwardly onto an Ising Hamiltonian, 
+
+HMVC = X
+
+> i∈V
+
+wi
+
+1 − Zi
+
+2 + λ X
+
+> (i,j )∈E
+
+1 + Zi
+
+21 + Zj
+
+2 , (2) with one qubit per candidate-pair node and Zi the Pauli-
+
+Z operator on qubit i. Equation (2) is the problem Hamiltonian used throughout the remainder of this work. In all experiments we set λ = max i∈V wi + 1, which strictly exceeds the bound above. In practice we re-normalise the rest of the problem Hamiltonian such that 
+
+λ = 1. Holding λ close to its minimum admissible value keeps the penalty scale comparable to that of the objec-tive.  
+
+> 2.3. Solving the vertex-cover problem with QAOA
+
+The quantum approximate optimisation algorithm. 
+
+QAOA [15] prepares a variational state by alternating evolution under the problem Hamiltonian Hp = HMVC 
+
+and a driver (mixing) Hamiltonian Hd,
+
+|ψp(γ, β)⟩ =
+
+> p
+
+Y
+
+> k=1
+
+e−iβ k Hd e−iγ k Hp |ψ0⟩ , (3) where |ψ0⟩ is the ground state of Hd and the 2 p an-gles ( γ, β) are either tuned by a classical outer loop to minimise ⟨Hp⟩ = ⟨ψp(γ, β)| Hp |ψp(γ, β)⟩ or fixed by a parameter-free schedule. Measuring the final state in the computational basis returns candidate vertex covers. In the standard formulation Hd = − P 
+
+> i∈V
+
+Xi is a trans-verse field, whose ground state is the uniform superposi-tion |+⟩⊗| V |, so that the circuit explores the entire 2 |V |-dimensional Hilbert space. All alignment results reported are obtained at depth 
+
+p = 3 with a linear-ramp schedule [38], both for direct QAOA and for the QAOA sub-solver called inside the branch-and-bound decomposition, detailed in Appendix A. The schedule fixes the angles rather than optimising them: the driver (mixer) angle de-creases linearly as βk = 1 − k/p while the problem (cost) angle increases linearly as γk = (k + 1) /p for 
+
+k = 0 , . . . , p − 1, an adiabatic-inspired ramp that begins mixer-dominated and ends cost-dominated. At p = 3 this gives β = (1 , 23 , 13 ) and γ = ( 13 , 23 , 1), and the fully constrained mixer uses the analogous two-part ramp with an additional initial-Hamiltonian term. Dispensing with the outer loop means that the differences we report between variants reflect the mixer construction rather than the behaviour of a classical optimiser, and that the reported runtimes carry no angle-search cost. The scaling study of Sec. 3.4 is a separate experiment conducted at p = 1, where ⟨Hp⟩ is available in closed form (Appendix B). There the angles are selected as the best of a 7 × 7 grid over β, γ ∈ [0 , 2π] together with the linear-ramp point. All circuits are simulated with 
+
+qiskit-aer [39] without a noise model, drawing 2048 shots. Ground-state probability is estimated from these same samples rather than from exact amplitudes, so values below roughly 5 × 10 −4 are not resolved. 
+
+Constraint handling: penalties versus mixers. The vertex-cover constraint can be imposed in two quali-tatively different ways. The penalty route leaves the mixer unconstrained and folds feasibility into the cost, as in the second term of Eq. (2): the search visits infeasible strings, and λ controls how strongly they are suppressed. The mixer route instead restricts Hd so that it is block-diagonal with respect to the feasible subspace, and initialises the register inside that subspace, so that the evolution never produces an infeasible string [16–18]. The two routes trade against each other directly: penal-ties are cheap in qubits and depth but return infeasible samples, whereas structural enforcement guarantees feasibility at the cost of a more elaborate, deeper mixer. Characterising that trade-off for this problem is the purpose of the variants below. 
+
+Clique-cover mixers. Between the two extremes sits a family of mixers built from classical structure in ¯H.Given a clique of size d, any vertex cover must contain at least d − 1 of its nodes. Any disjoint clique cover therefore provides a lower bound on the minimum ver-tex cover, since at least all but one node of each clique must belong to every valid cover. Given a clique cover, we adapt QAOA so that it only searches over strings con-sistent with this bound. For each clique the valid strings consist of the all-‘1’ state and the one-cold states, i.e. states with a single ‘0’ and ‘1’s everywhere else, giving 
+
+d + 1 valid states for a clique of size d.    
+
+> Clique configuration Node label 011 0101 1110 2111 3Table I. Example valid configurations for a clique of size three. For the one-cold states (left-column) the position of the ‘0’ corresponds to the value associated with the node label, with the first position corresponding to 0. The all-‘1’ state corre-sponds to the node label being equal to the size of the clique.
+
+We consider driver Hamiltonians that drive each clique separately and are block-diagonal, so that they do not couple valid states to invalid ones. Each choice of driver corresponds to the adjacency matrix of a graph whose nodes are the valid clique states. Three such graphs are considered here: a ring , a star graph, and an all-to-all 
+
+graph. Interpreting the one-cold states associated with a clique of size d as nodes labelled by integers between 0 and d − 1 (a small example is shown in Table I) and the all-‘1’ state as the node labelled by d, then the graphs represent: 
+
+• Ring : Coupling consecutively labelled nodes, with 5the addition of coupling node 0 to node d.
+
+• Star : Coupling all nodes to the central node, which is taken to be d. This graph is equivalent to the standard Boolean-cube connectivity between states induced by transverse-field driving, with the tran-sitions between valid and violating states removed. 
+
+• All-to-all : Coupling valid states to all other valid states. Throughout, the driver unitaries are implemented ex-actly rather than by Trotterisation, so that the results below carry no Trotter error. Appendix C provides the circuit implementations. Because a clique cover constrains only the edges in-ternal to its cliques, the edges of ¯H that run between cliques are still handled by the penalty term of Eq. (2). The clique-cover variants are therefore penalty-based for-mulations with a partially constrained mixer, intermedi-ate between the two extremes of the previous subsection. A combination of penalties and constrained mixing has previously been explored for Parity-QAOA [40]. Two constructions are used to obtain the clique cover itself. A maximal matching is an example of a clique cover and can be found in polynomial time [41], and for triangle-free graphs it is optimal. We also consider a greedy algorithm that builds cliques starting from high-degree nodes. 
+
+The seven variants. Combining the two extremes above with the clique-cover mixers gives the seven vari-ants listed in Table II. The Basic variant is the penalty-only baseline: an unconstrained transverse-field mixer acting on the full Hilbert space [15]. The Constrained 
+
+variant is the opposite extreme, a mixer restricted to the valid vertex covers of ¯H so that every sample is feasi-ble by construction [16]. The remaining five combine a clique cover (maximal matching or greedy) with one of the three driver graphs. The table has five rather than six clique-cover entries because the matching cover admits no separate all-to-all variant. A maximal matching produces cliques of size at most two, so each clique register carries at most d+1 = 3 valid states, and a ring on three nodes is already the complete graph: the ring and all-to-all drivers coincide there and define the same unitary. The star on three nodes is a path rather than a triangle, so Matching Star 
+
+remains distinct. For the greedy cover, which produces cliques of size d > 2, all three driver graphs differ and all three variants are retained. 
+
+Branch-and-bound decomposition. Direct QAOA is bounded by the number of available qubits, which for Eq. (2) is one per candidate-pair node and thus grows as |V1| · | V2| before filtering. In practice this confines direct solution to instances of at most 33 qubits. To reach larger instances we embed each variant in a branch-and-bound decomposition: classical kernelisation reduces the instance, branching splits it into subproblems of at most 20 nodes, and each subproblem is solved by QAOA while larger branches are resolved classically. Because the bounds used for pruning are valid bounds on the vertex-cover objective, exactness is preserved throughout. Ap-pendix A provides the details.  
+
+> 2.4. Benchmarking datasets
+
+Synthetic PPI network pairs. We generated synthetic PPI network pairs using NAPAbench2 [32], which pro-duces evolutionarily related networks from a common ancestor along a hypothetical phylogenetic tree, with known ground-truth node correspondences. Networks were extended using the STICKY growth model [42] as implemented in NAPAbench2. We considered two ancestor sizes, corresponding to two evolutionary scenar-ios, and generated five independent pairs per parameter setting. Node weights were taken from the sequence-similarity matrices supplied by NAPAbench2 alongside each network pair. The resulting pairs span a range of sizes and densities, from the smallest instances up to the largest ones that remain tractable for the QAOA variant simulations, and are summarised in Table S2. Within each pair the two networks differ in size and density, reflecting the asymmetry typical of cross-species PPI comparisons. 
+
+Real-world PPI network pairs. We complemented the synthetic benchmarks with real PPI network pairs derived from the human and mouse interactomes in STRING [43], retaining interactions with combined score ≥ 700 (high confidence). Cross-species pairs were constructed around shared KEGG [33] pathways: for each pathway present in both organisms, we induced the subgraph of the corresponding pathway proteins in each species’ interactome. Modular product graph node weights were computed with BLAST [44, 45]: hits were generated with NCBI BLAST+ blastp 2.16.0 at an E-value threshold of 10 −5 against the STRING v12 protein sequences [43], and the weights are the resulting bit-scores. The pathway pairs used are listed in Table S3 and shown in Fig. S8. 
+
+Disease-associated genes. To ground the alignments in disease-relevant biology, we annotated the pathway networks with genes associated with Alzheimer’s and Parkinson’s disease. Disease genes were obtained from the Open Targets Platform [46, 47], retaining for each disease all targets with a genetic-association datatype score ≥ 0.1 (release 26.06), following the threshold used by Federico et al. [48]. 6                                                  
+
+> Table II. The seven QAOA variants. All variants solve the same problem Hamiltonian, Eq. (2), and differ only in how the vertex-cover constraint is enforced. The driver graph is the graph whose adjacency matrix defines Hd.For the clique-cover variants its nodes are the d+ 1 valid states of a clique of size d.Variant Constraints Clique cover Driver graph Initial state
+> Basic penalty —transverse field |+⟩⊗| V|
+> Matching Ring penalty + mixer maximal matching complete, three states uniform, three states
+> Matching Star penalty + mixer maximal matching star star ground state
+> Greedy Ring penalty + mixer greedy ring Wstate
+> Greedy All-to-All penalty + mixer greedy all-to-all Wstate
+> Greedy Star penalty + mixer greedy star Wstate, Hon qubit 1
+> Constrained mixer —vertex covers of ¯H|1. . . 1⟩
+> 2.5. Benchmarking measures
+
+We assess alignment quality along two axes, topo-logical and biological conservation. Both are reported alongside node coverage, since either score can be inflated by aligning fewer nodes. 
+
+Topological conservation. As the primary structural measure we use the Symmetric Substructure Score ( S3)[49]. An edge of the subgraph induced on the mapped nodes of the first network is conserved when its image is an edge of the second. S3 is the Jaccard index of the two induced edge sets, 
+
+S3 = |Ec||Eind 1 | + |Eind 2 | − | Ec| , (4) where Ec is the set of conserved edges and Eind  
+
+> i
+
+the edges induced on the mapped nodes V ′ 
+
+> i
+
+in the network i.Unlike the one-sided Edge Correctness [50] and Induced Conserved Structure [51], of which it is the symmetric combination, S3 penalises both sparse-to-dense and dense-to-sparse mismapping. 
+
+Biological conservation. For synthetic benchmarks, where the true orthology mapping is known, we report node correctness as node-level precision: the fraction of evaluable mapped nodes assigned to their true counter-part [32]. For real networks, where no ground-truth mapping ex-ists, we use Gene Ontology (GO) [52, 53] semantic sim-ilarity over the biological-process namespace. Annota-tions are taken from the UniProt-GOA human and mouse releases [54] and stored per pathway as gene-to-term lists, retaining all evidence codes. The ontology is read from the go-basic release, restricted to biological-process terms connected by is a and part of edges. For a term 
+
+t, the information content is IC( t) = − log p(t) [55], with 
+
+p(t) the frequency of t and its descendants in the anno-tation corpus. Two terms t1, t 2 are scored with the Lin measure [56], sim( t1, t 2) = 2 IC( tMICA )IC( t1) + IC( t2) , (5) where tMICA is the common ancestor of t1 and t2 with the highest information content, and the score is zero if the denominator vanishes. Term-level scores are aggregated per gene pair by the Best-Match-Average scheme [57]: for each term of one protein the maximum similarity to any term of its partner is taken, and the two directional means are averaged. The pathway-level score is the mean over aligned pairs. Pairs in which either protein lacks a biological-process annotation are excluded from this mean. 
+
+Node coverage. Because every score above is inter-pretable only relative to how much of the network is mapped, we report node coverage NCV = |V ′ 
+
+> 1
+
+||V1| , (6) the fraction of the smaller network that the alignment matches.  
+
+> 2.6. Classical baselines
+
+We benchmarked against seven classical global net-work aligners: L-GRAAL [8], HubAlign [7], IsoRank [2], MAGNA++ [6], Natalie2 [11], SANA [9] and AntNe-tAlign [10]. Every aligner was run once per instance on both benchmark suites (the synthetic NAPAbench2 networks and the human–mouse KEGG pathway pairs), using its published default parameters. Sequence sim-ilarity was supplied to each tool in its expected form: raw BLAST bit scores for L-GRAAL, HubAlign and SANA, min–max-normalised scores for MAGNA++, Iso-Rank and AntNetAlign, and E-values for Natalie2.   
+
+> 3. RESULTS 3.1. QAOA variants on small instances
+
+We first benchmark the seven QAOA variants on the small synthetic NAPAbench2 pairs of maximal size of 70.00 0.25 0.50 0.75 1.00 Node Coverage Basic Ring Star Ring All-to-all Star Constrained      
+
+> Matching Greedy Closely related Distantly related
+> Figure 2. Node coverage of the QAOA variants on the small NAPAbench2 instances. Solid boxes are closely related pairs, hatched boxes distantly related ones. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Constrained ).
+
+33 modular product size after filtering, which are small enough to be solvable in a single QAOA run, without classical decomposition. 
+
+Alignment quality. Across all seven variants the mapped core is conserved exactly. Node correctness is 1.0 for all variants, and topological conservation is 1 .0for both closely and distantly related pairs. The latter follows from the induced MCS objective: every induced edge of the mapped core is conserved by construction. Node coverage does not separate the variants either (Fig. 2): all seven yield near-identical distributions in both regimes. The constraint-handling strategy therefore has no measurable effect on alignment quality at these instance sizes. What coverage does depend on is how divergent the two networks are: medians fall from approximately 0.82 for closely related pairs to approximately 0 .60 for distantly related ones, as fewer nodes can be matched when the networks share less structure. 
+
+Hardware cost and sampler behaviour. Both the hard-ware cost of the variants and the quality of their sam-plers change systematically with problem size (Fig. 3). Qubit count grows sub-linearly in the nominal size, where without kernelisation it would be linear, and the remain-ing kernel splits the variants into three groups. Basic ,
+
+Matching Ring and Constrained sit at the one-qubit-per-variable baseline. The greedy clique-cover variants lie above them, with one auxiliary qubit per clique register. 
+
+Matching Star is the most expensive, because a maxi-mal matching produces many small cliques, each need-ing an auxiliary qubit (Appendix C). Circuit depth sep-arates them more, driven by the fully constrained vari-ant: enforcing feasibility directly in the mixer rather than through penalty terms lifts its depth to a mean of roughly 9,500 at the largest instance, five times that of Greedy Star (roughly 1 ,800) and more than an order of magni-tude above the rest, which stay below 800. These circuits are noiseless, but depth sets the order in which the vari-ants would accumulate error on hardware. The feasibil-ity guarantee of the constrained mixer holds only for the ideal circuit, so whether the structured mixers keep their advantage under noise is open. Ground-state probability, the fraction of samples that hit the exact optimum, stays low throughout and decays towards what 2048 shots re-solve at the largest instances: on closely related pairs the penalty-based variants reach means of roughly 0 .08–0 .16 at the smallest size (highest for the greedy ring and all-to-all drivers) and fall below 0 .02 by problem size 70, so no variant reliably samples the exact optimal cover un-der QAOA. The fully constrained variant is in fact the weakest on all but the largest closely related pairs, so re-stricting the mixer to the feasible subspace does not, at this depth, concentrate the sampler on the optimum.  
+
+> 3.2. Branch-and-bound and QAOA variants at scale
+
+To move beyond the instance sizes reachable by direct QAOA, we embed each variant in the branch-and-bound decomposition, which partitions an instance into qubit-feasible subproblems while preserving exactness. This is a substantial increase over direct QAOA, though still well below whole-interactome scale. We benchmark the resulting branch-and-bound + QAOA pipeline against established classical aligners on both synthetic and real network pairs (Fig. 4). 
+
+Synthetic benchmarks. On closely related NA-PAbench2 pairs all seven variants attain node cor-rectness of 1 .0 for nearly every pair, with S3 at 1 .0by construction of the induced objective (Fig. 4A). The classical aligners score lower on both measures and scatter considerably more, several distributions extending far into the low range. What the quantum variants give up is node coverage, at a median of roughly 0.85 against near-complete coverage for most classical methods. Natalie2 and L-GRAAL are the exceptions, since both may leave nodes unmatched rather than forcing a full assignment, and their coverage is only slightly higher than ours. The separation grows on the distantly related pairs (Fig. 4B). As the networks diverge the classical align-ers degrade on both axes, node correctness shifting lower and S3 spreading well below ceiling, while the branch-and-bound + QAOA variants remain at ceiling throughout. Coverage declines to about 0 .65 for our 820 40 60 80 100 Problem Size 7.5 10.0 12.5 15.0 17.5 20.0 22.5 Mean Qubits               
+
+> 20 40 60 80 100 Problem Size 02000 4000 6000 8000 10000 Mean Circuit Depth
+> 20 40 60 80 100 Problem Size 0.00 0.02 0.04 0.06 0.08 0.10 0.12 0.14 0.16 Mean Ground-State Probability
+> Basic Matching Ring Matching Star Greedy Ring Greedy All-to-All Greedy Star Constrained
+
+Figure 3. Hardware cost and sampler behaviour of the QAOA variants on closely related synthetic pairs . Qubit count, circuit depth (decomposed to a {u, cx } basis), and ground-state probability, the fraction of samples that hit the exact optimum with increasing problem size. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Constrained ). 
+
+variants and drops for Natalie2 and L-GRAAL alongside them, since fewer nodes admit an exact match once the two networks share less structure. The classical aligners were designed for interactomes orders of magnitude larger than these instances. 
+
+Real-world benchmarks. On the human–mouse KEGG pathway pairs S3 is again at ceiling across all variants, and GO semantic similarity is comparable between the two groups, with medians clustered around 0.85–0 .9 (Fig. 4C). Coverage again favours the classical methods. Since Natalie2 and L-GRAAL produce almost complete alignments in this case, the lower coverage appears to result from our formulation rather than from partial mapping itself. The cause is the induced rule, which admits a pairing only where the interaction is present in both species or absent in both. Human and mouse subgraphs are not equally dense and not equally well studied [58]. An edge present on one side and absent on the other vetoes a pair-ing irrespective of which side it sits on, so the sparser net-work bounds how much of the denser one can be mapped. Two relaxations address this, and both gain coverage at the expense of exact conservation. Weakening the rule to a one-way implication (Appendix D) raises coverage close to the ceiling, while S3 decreases (Fig. S5). Lower-ing the penalty weight below max i wi + 1 (Appendix E, Fig. S6) allows a bounded number of uncovered edges, which costs more S3 for less coverage and adds a tail of poorly conserved pairs (Fig. S7). Here feasibility no longer follows from optimality there, the pruning bounds break. 
+
+3.3. Use case: Human–mouse alignment of pathways associated with Alzheimer’s and Parkinson’s disease 
+
+We examine three of the aligned KEGG pathway pairs in more detail, each with an established role in neurode-generative processes implicated in Alzheimer’s (AD) and Parkinson’s disease (PD). Mitophagy (hsa04137) medi-ates the selective clearance of damaged mitochondria. Nigral dopaminergic neurons sustain an unusually high bioenergetic and oxidative load, and defects in mito-chondrial quality control have long been associated with their selective vulnerability in PD [59, 60]. Lysosome biogenesis (hsa04142) produces the terminal degrada-tive compartment for autophagy and endocytosis, and lysosomal dysfunction can therefore impair the clearance of damaged organelles and aggregation-prone substrates that accumulate in both diseases [61, 62]. Cholesterol metabolism (hsa04979) regulates lipid homeostasis and transport in the brain, where altered lipid handling is strongly implicated in AD [63, 64]. These pathways are functionally coupled: mitochondria targeted for mi-tophagy are ultimately degraded in lysosomes, and al-tered cholesterol homeostasis acts on the same endolyso-somal compartment and can itself interfere with mi-tochondrial clearance [62, 65]. Although the underly-ing genes are conserved at the orthologue level, their phenotypic consequences can differ between human and mouse [66, 67]. All three pairs are solved through the branch-and-bound decomposition, and five of the seven implemented QAOA variants recover the identical alignment on each. The others differ only in paralogue assignment: Basic 
+
+cross-assigns one paralogue pair each in mitophagy and 9the lysosome pair, and Constrained aligns two proteins fewer in cholesterol metabolism and one fewer in the lyso-some pair. Fig. 5 shows the Matching Ring solution, with the disease proteins highlighted. Across the three pathways, 21 of the 24 disease pro-teins (88%) present in the human networks are recov-ered by the induced alignment, compared with 151 of 181 (83%) of the remaining proteins. Viewed from the opposite perspective, disease proteins make up a larger fraction of the mapped proteins (21 /172 = 12 .2%) than of the unmapped proteins (3 /33 = 9 .1%). The number of disease proteins is small, but the direction is consis-tent: the proteins of primary biological interest are re-covered at least as well as, and, if anything, better than the remaining network proteins, even though the strict induced formulation yields lower overall node coverage than the classical aligners. This is noteworthy because the induced rule maps a node only when its interactions are matched on both sides, making recovery increasingly demanding for highly connected nodes. Several of these proteins are among the better-connected nodes of their pathway networks, consistent with the tendency of dis-ease proteins to occupy connected neighbourhoods of the interactome [68]. Among the recovered proteins are several with partic-ularly strong genetic evidence for disease in the respec-tive pathways. PRKN , which is mutated in autosomal-recessive early-onset PD [69], is recovered in the mi-tophagy panel, as is APOE , a major common genetic risk factor for late-onset AD [63], in the cholesterol panel. 
+
+APOE additionally illustrates that the disease annota-tions overlap at the gene level: it is associated with both AD and PD, as are SCARB2 , CTSB , and IDUA in the lysosome panel. The three disease proteins not recov-ered are PINK1 , PSAP , and LDLR . PINK1 is the most notable of these, since it acts upstream of PRKN in the same pathway [59]. Its human interaction neighbourhood is not sufficiently matched in the mouse network to sat-isfy the induced-alignment constraint. The alignment moreover places the recovered proteins on their corresponding mouse orthologues: 20 of the 21 map to identically named mouse genes, while the re-maining gene maps to its orthologue under a different symbol ( RAB7A → Rab7 ). The conservation extends to their surroundings: of the 76 distinct first-order neigh-bours of the mapped disease proteins, 67 (88%) are them-selves mapped (79–94% per pathway), and 63 of the 71 orthology-resolvable neighbours (89%) are aligned to the correct orthologue. Because the induced rule preserves adjacency, these neighbours retain their interaction with the disease protein on the mouse side. They are also functionally coherent, with a Lin best-match-average GO biological-process similarity of 0 .86–1 .00 across the three pathways. The alignment thus preserves not only the disease proteins but the conserved subnetwork around them.  
+
+> 3.4. Depth-one QAOA variants at scale
+
+The comparison in Sec. 3.1 is bounded by simulation cost to instances of at most 33 qubits. For the four vari-ants whose mixer is circulant the depth-one expectation of the cost Hamiltonian is instead available in closed form (Appendix B), which removes that ceiling. Its evaluation cost grows with the size of the largest clique in the cover, so the reach follows clique size: Basic and Matching Ring 
+
+can be characterised up to modular product sizes of 1000 and the greedy variants stop at 380 (Fig. 6). The reach comes at a price. A single layer yields the ex-pected cost ⟨Hp⟩ but no sampled bitstrings, so it bounds the achievable alignment rather than reporting one. In return the closed form is exact, free of sampling noise, and shows ⟨Hp⟩ alongside the two quantities that drive it: the weight of the vertex cover a variant selects and the number of edges it leaves uncovered. The greedy variants work best, keeping the expected cost below 15 across the sizes they reach, whereas it rises to 60 for Matching Ring and to 130 for Basic (Fig. 6A). The first of the two drivers is the cover weight (Fig. 6B). A lighter cover is better, since it leaves more of the sequence-similarity weight, and typically more nodes, in the alignment. Basic selects the lightest covers over the small-size range, with the clique-structured mixers marginally heavier. Matching Ring stays just above Ba-sic almost throughout, and the Greedy Ring and Greedy All-to-All curves cross the Basic curve. At depth one a light cover can equally be an infea-sible one, and Basic reaches its light covers by leaving edges uncovered (Fig. 6C). Basic , whose mixer imposes no cover-feasibility structure, leaves a large and growing expected number of edges uncovered, peaking near 110. The structured mixers suppress this, with the greedy variants staying close to zero across the range they reach and Matching Ring in between, ending near 35. The tra-jectory of Basic is markedly non-monotonic, reflecting instance-to-instance variation among the network fami-lies at a given product-graph size. Overall, the greedy variants reach the lowest expected cost but only over the smaller instances their closed form can evaluate, whereas Basic spans the full range at the highest cost, driven by its many uncovered edges. Match-ing Ring strikes the best balance, holding a cost well be-low Basic across the full range that Basic reaches. 10 0.00 0.25 0.50 0.75 1.00 Model                                      
+
+> AClosely Related Synthetic Data 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00
+> 0.00 0.25 0.50 0.75 1.00 Model
+> BDistantly Related Synthetic Data 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00
+> 0.00 0.25 0.50 0.75 1.00 Biological Conservation (Node Correctness / Lin BMA) Model
+> CHuman vs. Mouse Data 0.00 0.25 0.50 0.75 1.00 Topological Conservation (S³ Score)
+> 0.00 0.25 0.50 0.75 1.00 Node Coverage
+> Basic L-GRAAL Matching Ring HubAlign Matching Star MAGNA++ Greedy Ring IsoRank Greedy All-to-All SANA Greedy Star Natalie2 Constrained AntNetAlign
+
+Figure 4. Alignment quality of the branch-and-bound decomposition combined with the QAOA variants com-pared against the classical aligners. Each panel shows the distribution of alignment quality over network pairs for one metric: biological conservation (node correctness for synthetic data, Lin best-match-average GO semantic similarity for real-world data), topological conservation ( S3 score), and node coverage. Rows correspond to (A) closely related and (B) distantly related synthetic NAPAbench2 pairs, and (C) real human–mouse KEGG pathway pairs. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Constrained ). 11 A Mitophagy Human    
+
+> BLysosome biogenesis CCholesterol metabolism
+> Mouse
+> Conserved edge Unmapped edge Mapped protein Unmapped protein AD protein PD protein AD + PD
+
+Figure 5. Cross-species alignment of disease-protein neighbourhoods in three neurodegeneration-associated pathways. Human and mouse STRING networks for (A) Mitophagy (KEGG hsa04137), (B) Lysosome biogenesis (hsa04142) and (C) Cholesterol metabolism (hsa04979). Proteins whose genes are associated with Alzheimer’s disease (AD) in Open Targets are shown in green, those associated with Parkinson’s disease (PD) in yellow. Proteins aligned to a counterpart by the 
+
+Matching Ring QAOA variant are drawn at matching positions in the two species’ layouts. 12 0 200 400 600 800 1000 Problem Size 020 40 60 80 100 120 Expected Cost           
+
+> 0200 400 600 800 1000 510 15 20 25 Mean Cover Weight
+> 0200 400 600 800 1000 Problem Size 025 50 75 100 Mean Violating Edges
+
+A BC   
+
+> Basic Matching Ring Greedy Ring Greedy All-to-All
+
+Figure 6. Depth-one QAOA cost decomposition on closely related synthetic networks. For each of the four variants whose depth-one expectation is available in closed form, the (A) exact expected cost ⟨Hp⟩ = ⟨C⟩ + wmax ⟨P ⟩ is split into (B) the average vertex-cover weight ⟨C⟩ and (C) the average number of uncovered edges ⟨P ⟩, against the modular-product size 
+
+|V1| · | V2|. The maximum node weight is denoted by wmax . Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Greedy ). 13  
+
+> 4. DISCUSSION AND CONCLUSION
+
+We reduce protein–protein interaction network align-ment to a weighted minimum vertex cover on the com-plement of the modular product graph and solve it with seven QAOA variants embedded in a branch-and-bound decomposition. The variants differ only in how the vertex-cover constraint is enforced. Alignment quality comes out the same for all seven variants. The exact reduction holds both conservation measures at ceiling across the range we tested, includ-ing the distantly related pairs where less structure is shared. What we give up is coverage, and on the human– mouse pathways the induced rule is what binds, since an interaction recorded in one species and missing in the other blocks the pairing outright. Both relaxations we tested buy coverage back at the expense of exact conser-vation, and they differ in what else they cost: the one-way implication leaves the branch-and-bound decompo-sition intact, while a lowered penalty weight forfeits the pruning bounds. The smaller mapped subset neverthe-less retains what matters biologically, with the disease-associated proteins of the pathways kept and mapped to their orthologues. What separates the variants is their cost. The fully constrained mixer is the only formulation that guaran-tees feasibility, and it is also the most expensive by a wide margin. The clique-cover mixers enforce part of the constraint and pay for it in auxiliary qubits, most of all Matching Star , while Matching Ring stays at the one-qubit-per-variable baseline. Basic is the cheapest. At depth one, where the closed form carries the com-parison to modular product graphs an order of magni-tude larger, the same ordering appears in the expected cost: Basic leaves a large and growing number of violated edges, Matching Ring fewer, and the greedy covers stay near zero, while the average cover weight separates them only weakly. The clique-cover variants therefore sit be-tween the two extremes, enforcing part of the constraint at a fraction of the depth the constrained mixer requires. These results have several limitations. The instances we align are far below interactome scale. On instances of this size, classical exact solvers find the optimal align-ment efficiently, so what we contribute is the encoding and its resource cost, not direct evidence of a compu-tational speedup. The classical aligners we benchmark against were built for whole interactomes, so their re-sults are not optimal here. The constrained variant, the only one whose mixer guarantees feasibility, requires a circuit depth far beyond the reach of near-term hard-ware, and even the cheaper variants inherit the general obstacles of QAOA at scale, with ground-state probabil-ity low throughout and falling below the sampling resolu-tion at the largest sizes we reach. Our angles are fixed by a linear-ramp schedule rather than optimised, which iso-lates the effect of the mixer construction. The depth-one analysis is bounded in turn by the cost of evaluating the closed form, which grows exponentially in the size of the largest clique in the cover. The sizes each variant reaches there reflect that evaluation cost, not the resources the variant itself would need. The most promising direction forward is to relax exact edge conservation, though that needs a different decom-position method, since the soft penalty breaks the bounds branch-and-bound relies on. Another direction is to use the whole sample rather than the single best mapping: QAOA returns many low-energy covers, and the near-optimal ones are alternative alignments that could be merged into a many-to-many mapping, or used in other ways we have not explored here. The formulation could also be extended from pairwise to multiple network align-ment. 
+
+> DATA AVAILABILITY
+
+All primary data are public. Human and mouse inter-actomes were taken from STRING v12 [43] and restricted to KEGG pathways [33]. Synthetic network pairs were generated with NAPAbench2 [32]. Disease–gene associa-tions are from the Open Targets Platform [46]. 
+
+> ACKNOWLEDGEMENTS
+
+This work was funded by the Investitions- und F¨ orderbank Hamburg (IFBHH, Hamburg Investment and Development Bank) [51172434]. Graphical abstract and Fig. 1 are created in BioRen-der. Stahl, M. (2026) https://BioRender.com/ sa0gkgx .During the preparation of this work, the authors used Claude (Anthropic) to generate and review snippets of text and code, and to assist with proofreading and im-proving both. All methods and interpretations of the results were conceived and determined by the authors. After use, the authors reviewed and edited all AI-assisted content as necessary and take full responsibility for the content of the published article. AI was not used as, and is not credited as, an author of this work. 14 
+
+> Appendix A: Kernelisation and Branch-and-bound
+
+Kernelisation in this context, refers to applying a series of simple rules (or equivalently passes) to remove the easy part of the problem leaving behind the kernel or difficult part of the problem to solve. Each pass in the kernelisation takes as an input an instance of a minimum vertex cover and then returns a new instance of minimum vertex cover with potentially a partial solution to the problem. The returned problem instance should be smaller or the same size in terms of the number of nodes as the original problem. By solving the ker-nelised problem and combining it with the partial solution, the solution to the original problem should be obtained. The kernelisation should also run in polynomial time. Kernelisation has been explored previously in the quantum optimisation literature [70–74]. In this work we implement the following passes: 1. Remove degree 0 nodes. 2. Remove degree 1 nodes whose weight exceeds or is equal to its neighbour. 3. Remove corner nodes. A node is a corner node if it forms a clique with all its neighbours and has weight greater than or equal to its neighbours. Any one of its neighbours covers the same or greater number of edges at less cost [75, 76]. 4. Add dominating nodes. A node u dominates a node v if the closed neighbourhood of v is a subset of the closed neighbourhood of u. A closed neighbourhood being all neighbours of the node as well as the node itself. Therefore u covers all the edges v covers and more. Provided the weight of u is less than or equal to v, then u
+
+can always be added to the vertex cover [70, 77]. This does not present an extensive list of kernelisation techniques [75, 76, 78]. For the branch-and-bound methods considered in this paper, the lower bound is calculated using the maximum matching on the graph. An initial upper bound is found using a greedy solver that adds nodes, scored by the sum of the weights of their neighbours, in decreasing order until a vertex cover is reached. The branch-and-bound branches on high-degree nodes first, with ties broken by the node whose neighbourhood has the greatest weight. Once a branch has reached a predefined size, it is passed to QAOA to solve the subproblem.    
+
+> Appendix B: Details of QAOA p= 1 performance
+
+In this section we provide the details on analysing QAOA p = 1 applied to minimum vertex cover. As the circuits are shallow in this regime we can evaluate expectation values analytically (this has already been done for the basic version of QAOA p = 1 [79]). To do this we start by rewriting the problem Hamiltonian in terms of qudits (i.e. arbitrary finite-level quantum systems). We do this by assigning each clique in the clique covering a single qudit. So for a clique cover C = {c1, c 2 . . . c m} consisting of m cliques, each clique indexed by i of size di is treated as a di + 1 level qudit. The qudit levels are indexed between 0 and di. An index j between 0 and di − 1 corresponds to omitting the corresponding qubit from the vertex cover. The index di corresponds to all qubits in the clique being in the vertex cover. Table S1 shows an example for a clique of size 4.      
+
+> Qubit state Qudit State 0111 01011 11101 21110 31111 4Table S1. An example encoding from a clique of size four into a 4-level qudit.
+
+In this new formulation the problem Hamiltonian, Eq. (2), can be written as follows: 
+
+Hp =
+
+> m
+
+X
+
+> i=1
+> di
+
+X
+
+> j=0
+
+(Wi − wij ) Pi(j) + λ
+
+> m
+
+X
+
+> i1=1
+> m
+
+X 
+
+> i2=1
+> di1−1
+
+X 
+
+> j1=0
+> di2−1
+
+X
+
+> j2=0
+
+δ(( i1,j 1),(i2,j 2)) ∈E Pi1 (j1)Pi2 (j2) (B1) 15 In Eq. (B1) the operators Pi(j) is the projector associated with the ith clique, projecting onto the jth qudit computa-tional basis-state. The weights are denoted by wij , i.e. the cost of having the jth node in the ith clique in the solution. The set of weights is extended such that wi,d i = 0. The sum of weights for each clique i is given by 
+
+Wi =
+
+> di
+
+X
+
+> j=0
+
+wij . (B2) Finally, δ denotes the Kronecker-delta, which takes the values 1 or 0. In this case δ(( i1,j 1),(i2,j 2)) ∈E is one if there is an edge in the original vertex-cover graph between the jth 1 node associated with the ith 1 clique and the jth 2 node associated with the ith 2 clique. It remains to rewrite the driver Hamiltonian in this qudit language. For this we consider only the case where the adjacency matrix corresponds to a circulant graph (e.g. all-to-all or a ring as opposed to a star graph). Circulant adjacency matrices can be written in terms of the shift operator defined as 
+
+Xi |k⟩ = |k + 1 mod ( di + 1) ⟩ , (B3) where Xi acts on a qudit of dimension di + 1. Therefore, the driver Hamiltonian can be written as 
+
+Hd = −
+
+> m
+
+X
+
+> i=1
+> di
+
+X
+
+> j=0
+
+Γij Xji , (B4) with Γ ij ≥ 0 (explicit expressions for the ring and all-to-all drivers can be found in Eq. (B36) and Eq. (B37) respectively). The ground state is then Nmi=1 |+⟩i, where |+⟩i denotes a uniform superposition of computational basis states for each qudit i.The aim is to calculate: 
+
+⟨Hp⟩ = ⟨+| eiγH p eiβH d Hpe−iβH d e−iγH p |+⟩ , (B5) to do this we calculate 
+
+⟨Zrk ⟩ = ⟨+| eiγH p eiβH d Zr e−iβH d e−iγH p |+⟩ , (B6) and 
+
+⟨Zrk Zsl ⟩ = ⟨+| eiγH p eiβH d Zr Zse−iβH d e−iγH p |+⟩ , (B7) where Zi is the clock-operator of a di + 1 level qudit defined as 
+
+Zi |k⟩ = ωkdi+1 |k⟩ , (B8) where ωdi+1 = e2πi/ (di+1) is the ( di + 1) th root of unity. Calculating the expectation values involves the following steps: 1. Commute through all terms that do not contribute to the expectation value. 2. Move the rotation associated to the driver Hamiltonian to the left-hand-side of the observable. 3. Expand the driver rotation as a sum over shift-operators. 4. Move the shift operators to the left-hand-side of each term in the sum. 5. Project each resulting term in the sum onto the identity. We detail these steps for the single and two body terms separately. 16 
+
+1. Single-body terms 
+
+Starting with the single-body terms, commuting through all the terms that do not contribute, gives: 
+
+e−iH dβ Zrk e−iH dβ = e−iβ Pmi=1 
+
+Pdij=0 Γij Xji Zrk eiβ Pmi=1 
+
+Pdij=0 Γij Xji (B9) = e−iβ Pdkj=0 Γkj Xjk Zrk eiβ Pdkj=0 Γkj Xjk (B10) Pushing a single X rotation past the Zrk term gives: 
+
+Zrk eiβ Γkj Xjk = Zrk
+
+∞X
+
+t=0 
+
+(iβ )t
+
+t! Xjt k (B11) =
+
+∞X
+
+t=0 
+
+(iβ )t
+
+t! ωjrt dk +1 Xjt k Zrk (B12) =
+
+∞X
+
+t=0 
+
+
+
+iβω jr dk +1 Xjk
+
+t
+
+t! Zrk (B13) = eiβω jr dk +1 Xjk Zrk , (B14) where we have used Zrk Xjk = ωrj dk +1 Xjk Zrk . Hence Eq. (B9) becomes: 
+
+e−iβ Pdkj=0 Γkj Xjk Zrk eiβ Pdkj=0 Γkj Xjk = e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )Xjk Zrk (B15) In order to expand the exponential into a sum over powers of the shift operator we use the following result for applying functions to Xk:
+
+f (Xk) = 
+
+dkX
+
+a=0 
+
+f (ωa) ˜Pk(a) (B16) =
+
+dkX
+
+α=0 
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+f (ωadk +1 )ω−aα dk +1 
+
+!
+
+Xαk , (B17) where ˜Pk(a) is the projector onto the ath eigenvalue of X. An analogous statement holds for functions of Z.So Eq. (B9) can be expressed as the sum: 
+
+e−iH dβ Zrk e−iH dβ =
+
+dkX
+
+α=0 
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )ωaj dk +1 ω−aα dk +1 
+
+!
+
+Xαk Zrk . (B18) The next step is to move the rotation associated with the problem Hamiltonian past each Xαk in the sum. Starting with the single-body rotations: 
+
+eiγ Pmi=1 
+
+Pdij=0 (Wi−wij )Pi(j)Xαk e−iγ Pmi=1 
+
+Pdij=0 (Wi−wij )Pi(j) = eiγ Pdkj=0 (Wk −wkj )Pk (j)Xαk e−iγ Pdkj=0 (Wk −wkj )Pk (j) (B19) Consider moving a shift operator past a term generated by a projector acting on a single computational basis state: 
+
+eiγ |k⟩⟨ k|Xα = 1 + 
+
+∞X
+
+t=1 
+
+(iγ )t
+
+t! |k⟩ ⟨ k|
+
+!
+
+Xα (B20) = Xα1 + 
+
+∞X
+
+t=1 
+
+(iγ )t
+
+t! |k⟩ ⟨ k − α| (B21) = Xα 1 + 
+
+∞X
+
+t=1 
+
+(iγ )t
+
+t! |k − α⟩ ⟨ k − α|
+
+!
+
+(B22) = Xαeiγ |k−α⟩⟨ k−α| (B23) 17 It follows that Eq. (B19) equals: 
+
+eiγ Pdkj=0 (Wk −wkj )Pk (j)Xαk e−iγ Pdkj=0 (Wk −wkj )Pk (j) = Xαk e−iγ Pdkj=0 (Wk −wkj )( Pk (j)−Pk (j−α)) (B24) Repeating this for the two-body term: 
+
+eiγλ Pmi2=1 
+
+Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E Pk (j1)Pi2 (j2)Xαk e−iγλ Pmi2=1 
+
+Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E Pk (j1)Pi2 (j2) (B25) = Xαk e−iγλ Pmi2=1 
+
+Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (Pk (j1)−Pk (j1−α)) Pi2 (j2) (B26) = XαkmY
+
+i2=1 
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (Pk (j1)−Pk (j1−α)) Pi2 (j2) (B27) = XαkmY
+
+i2=1 
+
+di2X
+
+τi2 =0 
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (Pk (j1)−Pk (j1−α)) δj2,t i2 ω−ti2 τi2
+
+di2 +1 Zτi2
+
+i2 (B28) Since any term not proportional to the identity will contribute zero, and all Zk terms excluding Zr enter through the above expression, we only need to consider the case τik = 0 in the above expression. Putting it all together for ⟨Zr ⟩ we have: 
+
+⟨Zrk ⟩ =
+
+dkX
+
+α=0 
+
+⟨+| Xαk
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )ωaj dk +1 ω−aα dk +1 
+
+!
+
+e−iγ Pdkj=0 (Wk −wkj )( Pk (j)−Pk (j−α)) 
+
+mY
+
+i2=1 
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (Pk (j1)−Pk (j1−α)) δj2,t i2 Zrk |+⟩ . (B29) Acting with X onto the adjacent bra and projecting the inner terms onto the identity gives: 
+
+⟨Zrk ⟩ =
+
+dkX
+
+α=0 
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )ωaj dk +1 ω−aα dk +1 
+
+!
+
+×
+
+1
+
+dk + 1 
+
+dk +1 X
+
+u=0 
+
+e−iγ Pdkj=0 (Wk −wkj )( δu,j −δu,j −α)
+
+mY
+
+i2=1 
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (δu,j 1 −δu,j 1−α)δj2,t i2 ωru dk +1 
+
+ .
+
+(B30) 
+
+2. Two-body terms 
+
+For the two-body terms the process is much the same as the single-body term. The question is now, how do the rotations associated with the problem Hamiltonian move past Xαk Xνl . There are two new cases to consider: interactions between the qudits in question and interactions involving a common third qudit. Considering first interactions between the qudits: 
+
+eiγλ Pdk −1
+
+> j1=0
+
+Pdl−1 
+
+> j2=0
+
+δ(( k,j 1),(l,j 2)) ∈E Pk (j1)Pl(j2)Xαk Xνl e−iγλ Pdk −1
+
+> j1=0
+
+Pdl−1 
+
+> j2=0
+
+δ(( k,j 1),(l,j 2)) ∈E Pk (j1)Pl(j2)
+
+= Xαk Xνl e−iγλ Pdk −1
+
+> j1=0
+
+Pdl−1 
+
+> j2=0
+
+δ(( k,j 1),(l,j 2)) ∈E (Pk (j1)Pl(j2)−Pk (j1−α)Pl(j2−ν)) (B31) And for a qudit adjacent to the two body term in question: 
+
+eiγλ Pdk −1
+
+> j1=0
+
+Pdq −1 
+
+> j2=0
+
+δ(( k,j 1),(q,j 2)) ∈E Pk (j1)Pq (j2)eiγλ Pdl−1
+
+> j3=0
+
+Pdq −1 
+
+> j4=0
+
+δ(( l,j 3),(q,j 4)) ∈E Pl(j3)Pq (j4)Xαk Xνl
+
+× e−iγλ Pdk −1
+
+> j1=0
+
+Pdq −1 
+
+> j2=0
+
+δ(( k,j 1),(q,j 2)) ∈E Pk (j1)Pq (j2)e−iγλ Pdl−1
+
+> j3=0
+
+Pdq −1 
+
+> j4=0
+
+δ(( l,j 3),(q,j 4)) ∈E Pl(j3)Pq (j4)
+
+= Xαk Xνl e−iγλ Pdk −1
+
+> j1=0
+
+Pdq −1 
+
+> j2=0
+
+δ(( k,j 1),(q,j 2)) ∈E (Pk (j1)−Pk (j1−α)) Pq (j2)e−iγλ Pdl−1
+
+> j3=0
+
+Pdq −1 
+
+> j4=0
+
+δ(( l,j 3),(q,j 4)) ∈E (Pl(j3)−Pl(j3−ν)) Pq (j4)
+
+(B32) 18 Projecting the above equation onto the identity for the qudit labelled by q gives: 
+
+Xαk Xνl
+
+1
+
+dq + 1 
+
+dq
+
+X
+
+t=0 
+
+e−iγλ 
+
+hPdq −1
+
+j2=0 δt,j 2
+
+Pdk −1
+
+j1=0 δ(( k,j 1),(q,j 2)) ∈E (Pk (j1)−Pk (j1−α))+ Pdl−1
+
+j3=0 δ(( l,j 3),(q,j 2)) ∈E (Pl(j3)−Pl(j3−ν)) 
+
+i 
+
+(B33) Putting it all together: 
+
+⟨Zrk Zsl ⟩ =
+
+dkX
+
+α=0 
+
+dlX
+
+ν=0 
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )ωaj dk +1 ω−aα dk +1 
+
+!
+
+1
+
+dl + 1 
+
+dlX
+
+a=0 
+
+e−iβ Pdkj=0 Γlj (1 −ωjs dl+1 )ωaj dl+1 ω−aν dl+1 
+
+!
+
+⟨+| Xαk Xνl
+
+e−iγ Pdkj=0 (Wk −wkj )( Pk (j)−Pk (j−α)) e−iγ Pdlj=0 (Wl−wlj )( Pl(j)−Pl(j−ν)) 
+
+e−iγλ Pdk −1
+
+j1=0 
+
+Pdl−1
+
+j2=0 δ(( k,j 1),(l,j 2)) ∈E (Pk (j1)Pl(j2)−Pk (j1−α)Pl(j2−ν)) 
+
+Y
+
+i2
+
+(k,i 2)∈E
+
+(l,i 2)̸∈ Ei2̸ =l
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdk −1
+
+j1=0 
+
+Pdi2 −1
+
+j2=0 δ(( k,j 1),(i2,j 2)) ∈E (Pk (j1)−Pk (j1−α)) δj2,t i2
+
+Y
+
+i2
+
+(k,i 2)̸∈ E
+
+(l,i 2)∈Ei2̸ =k
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdl−1
+
+j1=0 
+
+Pdi2 −1
+
+j2=0 δ(( l,j 1),(i2,j 2)) ∈E (Pl(j1)−Pl(j1−ν)) δj2,t i2
+
+Y
+
+q
+
+(k,q )∈E
+
+(l,q )∈Eq̸ =k,l 
+
+1
+
+dq + 1 
+
+dq
+
+X
+
+tq =0 
+
+e−iγλ 
+
+hPdq −1
+
+j2=0 δtq ,j 2
+
+Pdk −1
+
+j1=0 δ(( k,j 1),(q,j 2)) ∈E (Pk (j1)−Pk (j1−α))+ Pdl−1
+
+j3=0 δ(( l,j 3),(q,j 2)) ∈E (Pl(j3)−Pl(j3−ν)) 
+
+i 
+
+Zrk Zsl |+⟩
+
+(B34) 19 Evaluating the above gives: 
+
+⟨Zrk Zsl ⟩ =
+
+dkX
+
+α=0 
+
+dlX
+
+ν=0 
+
+1
+
+dk + 1 
+
+dkX
+
+a=0 
+
+e−iβ Pdkj=0 Γkj (1 −ωjr dk +1 )ωaj dk +1 ω−aα dk +1 
+
+!
+
+1
+
+dl + 1 
+
+dlX
+
+a=0 
+
+e−iβ Pdkj=0 Γlj (1 −ωjs dl+1 )ωaj dl+1 ω−aν dl+1 
+
+!
+
+1(dk + 1)( dl + 1) 
+
+dkX
+
+u=0 
+
+dlX
+
+v=0 
+
+ωru dk +1 ωsv dl+1 
+
+e−iγ Pdkj=0 (Wk −wkj )( δu,j −δu,j −α)e−iγ Pdlj=0 (Wl−wlj )( δv,j −δv,j −ν )
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdl−1 
+
+> j2=0
+
+δ(( k,j 1),(l,j 2)) ∈E (δu,j 1 δv,j 2 −δu,j 1−αδv,j 2−ν )
+
+Y
+
+i2
+
+(k,i 2)∈E
+
+(l,i 2)̸∈ Ei2̸ =l
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdk −1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( k,j 1),(i2,j 2)) ∈E (δu,j 1 −δu,j 1−α)δj2,t i2
+
+Y
+
+i2
+
+(k,i 2)̸∈ E
+
+(l,i 2)∈Ei2̸ =k
+
+1
+
+di2 + 1 
+
+di2X
+
+ti2 =0 
+
+e−iγλ Pdl−1
+
+> j1=0
+
+Pdi2 −1 
+
+> j2=0
+
+δ(( l,j 1),(i2,j 2)) ∈E (δv,j 1 −δv,j 1−ν )δj2,t i2
+
+Y
+
+q
+
+(k,q )∈E
+
+(l,q )∈Eq̸ =k,l 
+
+1
+
+dq + 1 
+
+dq
+
+X
+
+tq =0 
+
+e−iγλ 
+
+hPdq −1 
+
+> j2=0
+
+δtq ,j 2
+
+Pdk −1 
+
+> j1=0
+
+δ(( k,j 1),(q,j 2)) ∈E (δu,j 1 −δu,j 1−α)+Pdl−1 
+
+> j3=0
+
+δ(( l,j 3),(q,j 2)) ∈E (δv,j 3 −δv,j 3−ν )i 
+
+(B35) We use Eq. (B35) to evaluate the performance of QAOA p = 1 for circulant adjacency matrices. When the driving between qudit-states corresponds to a ring the driver Hamiltonian is given by: Γring 
+
+ij =
+
+(
+
+1 if j = 1 or j = di
+
+0 otherwise . (B36) For the all-to-all case the driver is given by: Γall-to-all 
+
+ij =
+
+(
+
+1 if j̸ = 0 0 otherwise . (B37) The expectation of the problem Hamiltonian can be recovered from Eq. (B30) and Eq. (B35) using: 
+
+⟨Pk(j)⟩ = 1
+
+dk + 1 
+
+dkX
+
+q=0 
+
+ω−jq dk +1 ⟨Zqk ⟩ (B38) and 
+
+⟨Pk(a)Pl(b)⟩ = 1(dk + 1)( dl + 1) 
+
+dkX
+
+r=0 
+
+dlX
+
+s=0 
+
+ω−ar dk +1 ω−bs dl+1 ⟨Zrk Zsk ⟩. (B39) 
+
+Appendix C: Circuit implementation details 
+
+In this appendix we outline how to construct the QAOA circuits for the clique based driver Hamiltonians used in this paper. Recall that each term in the driver acts on disjoint cliques, so can be considered separately. Inspired by adiabatic quantum optimisation [80, 81], we show how to implement each of the propagator associated without Trotter error. The absence of Trotter error is achieved by applying a unitary that diagonalises the Hamiltonian, applying rotations proportional to both the angle and associated eigenvalue and then undoing the rotation associated 20 with the diagonalisation. A similar idea was applied in [17] based around the Fast-Fermionic-Fourier Transform (FFFT) [82, 83] for the ring driver and based around XX + Y Y Hamiltonians for the all-to-all graph. In this work we instead utilise a Discrete Fourier Transform (DFT) which diagonalises both the ring and all-to-all driver (or any other circulant adjacency matrix) with the same circuit. It also does not rely on the radix-2 nature of the FFFT, or the need for fermionic swaps [82]. As mentioned in the main text each driver Hamiltonian can be written as Hd = −A, where A corresponds to the adjacency matrix of a ring, star, or all-to-all graph. The initial-state corresponds to the largest eigenvalue of A.Each adjacency matrix is normalised by the difference between its largest and smallest eigenvalue, i.e. the propagator associated with the driver Hamiltonian for one clique in the graph is 
+
+Ud(β) = e iEmax −Emin Aβ , (C1) where Emax and Emin correspond to the maximum and minimum eigenvalue of A respectively. For the Matching Ring mixer, each non-trivial clique consists of two nodes. In this case the driver Hamiltonian is given by: 
+
+HMatching Ring  
+
+> d
+
+∝ − 
+
+
+
+0 0 0 00 0 1 10 1 0 10 1 1 0
+
+ = 1
+
+√3
+
+
+
+1 0 0 00 1 1 10 1 e2πi/ 3 e4πi/ 3
+
+0 1 e4πi/ 3 e2πi/ 3
+
+| {z }
+
+> := V
+
+
+
+0 0 0 0 0 −2 0 0 0 0 1 0 0 0 0 1 
+
+| {z }
+
+> := D
+
+1
+
+√3
+
+
+
+1 0 0 00 1 1 10 1 e2πi/ 3 e4πi/ 3
+
+0 1 e4πi/ 3 e2πi/ 3
+
+
+
+> †
+
+(C2) Clearly this Hamiltonian does not couple the |00 ⟩ to any other state. The missing normalisation (the reciprocal of the difference between the largest and smallest eigenvalue) is clearly 3. To implement Ud as a circuit in this case, we use a KAK decomposition [84] to implement V . This is achieved with three CNOT gates. Implementing the diagonal part D consists of parameterised single qubit Z rotations and a ZZ rotation consisting of two CNOT gates. In total 8 CNOT gates are used to implement the rotation. The initial state in this case is an equal superposition of all three valid states (i.e. 1√3 (|01 ⟩ + |10 ⟩ + |11 ⟩)). The circuit for generating the initial state is shown in Fig. S1.     
+
+> |0⟩Ry
+> 
+> 2 arccos 1√3
+> 
+> X
+> |0⟩Ry
+> 
+> 2 arccos 1√2
+> 
+> X
+> Figure S1. Quantum circuit for preparing the initial state for each pair of nodes in one edge of a matching.
+
+For the Ring and All-to-all driver Hamiltonians, beyond maximal matchings, we utilise one auxiliary qubit per clique in order to one-cold encode the valid states. Therefore, a clique of size d has d + 1 nodes associated with it. As established all but one node of the clique must be in the solution. If a node is not in the solution, than the associated qubit is assigned the value ‘0’. If all nodes are in the solution the auxiliary qubit is assigned ‘1’, otherwise it is assigned ‘0’. As a result all valid configuration states correspond to the d + 1 Hamming weight sector of the Hilbert space associated with the d + 1 qubits. In practice we use a one-hot encoding by flipping all the qubits, confining the evolution to the single Hamming weight sector. This is achieved by changing the sign of all single qubit Z rotations associated with the problem Hamiltonian and applying a corrective layer of NOT gates at the end of the circuit (as shown in Fig. S2). 21 
+
+c(0) 1
+
+W − State 
+
+P (wc(0) 1
+
+γk /λ )DFT †
+
+P (βk ˜E(|c1|)0 )DFT 
+
+Xc(1) 1 P (wc(1) 1
+
+γk /λ ) P (βk ˜E(|c1|)1 ) Xc(2) 1 P (wc(2) 1
+
+γk /λ ) P (βk ˜E(|c1|)2 ) Xc(a)1 P (βk ˜E(|c1|)3 ) Xc(0) 2
+
+W − State 
+
+P (wc(0) 2
+
+γk /λ ) P (−γk )DFT †
+
+P (βk ˜E(|c2|)0 )DFT 
+
+Xc(1) 2 P (wc(1) 2
+
+γk /λ ) P (−γk ) P (βk ˜E(|c2|)1 ) Xc(a)2 P (βk ˜E(|c2|)2 ) X
+
+State prep. Problem unitary Driver unitary Corr. Repeat p times Figure S2. An illustrative example of a full QAOA circuit. The quantum circuit shown consists of two registers c1 and c2,representing two cliques in the clique cover. In this case we consider the ring mixer. Both registers are initialised in a W -state (shaded, left), which corresponds to the ground-state of the driver Hamiltonian. Single-qubit phase ( P ) rotations are applied to implement rotations in proportion to the size of the vertex cover. Controlled phase gates P (ϕ) couple registers between cliques to enforce penalties between cliques. The DFT and IDFT blocks, implemented through Givens rotations, perform the discrete Fourier transform and its inverse on each register. The DFT diagonalises the driver Hamiltonian, such that it can be implemented through diagonal gates. The middle part of the section is repeated p times with the ( γk , β k ) changing between repeating circuit blocks. At the end of the circuit a layer of X gates is applied to move from a one-hot to a one-cold encoding. 
+
+Both the Ring and All-to-all mixers correspond to a circulant matrix and are therefore diagonalised by the Discrete Fourier Transform (DFT). The DFT is implemented through Givens rotations [85], and therefore the depth scales in proportion to the size of the clique. For the ring mixer: 
+
+Aring =
+
+> d
+
+X
+
+> i=0
+
+|i⟩ ⟨ i + 1 | + |i + 1 ⟩ ⟨ i| , (C3) which has eigenvalues 2 cos(2 πk/ (d + 1)) for k ∈ { 0, 1, . . . , d }. The QAOA circuit for this case is illustrated in Fig. S2 where the normalised eigenvalues are denoted by: ˜E(d) 
+
+> k
+
+= cos(2 πk/ (d + 1)) 1 − cos  2π⌊ d+1 2 ⌋/(d + 1)  . (C4) For the all-to-all adjacency matrix 
+
+Aall-to-all =
+
+> d
+
+X
+
+> j=0
+> d
+
+X
+
+> i>j
+
+|i⟩ ⟨ j| + |i⟩ ⟨ j| (C5) the eigenvalues are d corresponding to the equal superposition state and -1 otherwise. The implementation of this driver is shown in Fig. S3. The initial state for both the all-to-all and ring case, the ground-state of the driver Hamiltonian, corresponds to a W -state (i.e. an equal superposition of states with Hamming weight 1). It is already known how to implement 
+
+W -states [86]. 22 
+
+c(0) 1
+
+DFT †
+
+P
+
+ β|c1|
+
+> 1+ |c1|
+
+
+
+DFT 
+
+c(1) 1 P
+
+ −β
+
+> 1+ |c1|
+
+
+
+c(2) 1 P
+
+ −β
+
+> 1+ |c1|
+
+
+
+c(a)1 P
+
+ −β
+
+> 1+ |c1|
+
+
+
+Figure S3. Trotter-free implementation of the all-to-all driver unitary exp( iβA all-to-all ) on a single clique register c1, comprising the auxiliary qubit c(a)1 . The all-to-all adjacency matrix is circulant and therefore diagonalised by the discrete Fourier transform, so the driver reduces to single-qubit phase gates conjugated by DFT † and DFT. 
+
+The star-graph is not circulant and therefore not diagonalised by a DFT. The adjacency matrix on d + 1 nodes can be written as follows: 
+
+Astar =
+
+> d−1
+
+X
+
+> j=0
+
+|j⟩ ⟨ d| + |d⟩ ⟨ j| (C6) where d labels the central node. This is a rank-2 matrix with the image spanned by the orthonormal vectors |d⟩ and 
+
+|u⟩ =
+
+> d−1
+
+X
+
+> j=0
+
+|j⟩ . (C7) Hence the eigenvectors not in the kernel of Astar are ( |u⟩ ± | d⟩) /√2 with associated eigenvalues ±√d. Again, we use a one-hot encoding with the all ‘0’ state corresponding to d, with the correction pushed to the end of the circuit. Using one auxiliary qubit per clique, we couple |d⟩ to the |1⟩ state of the auxiliary qubit and |u⟩ to the |0⟩ state of the auxiliary qubit. The rotation is then performed on the auxiliary qubit, which is then decoupled from the original qubits. The circuit is shown in Fig. S4. For the initial-state, we prepend the circuit for generating a W -state [86] by a Hadamard gate acting on the first qubit in the circuit. 
+
+c(0) 1
+
+DFT † DFT c(1) 1
+
+c(2) 1 Rx(−β)
+
+|0⟩ X X |0⟩
+
+Figure S4. Trotter-free implementation of the star driver unitary exp( iβA star ) on a clique register, using one auxiliary qubit that is returned to |0⟩. The star graph is not circulant, so the DFT diagonalises it only on the subspace excluding the central state |d⟩, and the surrounding controlled gates isolate that subspace. 
+
+Appendix D: Monomorphism relaxation 
+
+The induced rule used throughout the main text requires {u, u ′} ∈ E1 ⇔ { v, v ′} ∈ E2: two candidate pairs may be aligned only if the interaction is present in both species or absent in both. This is what makes S3 = 1 hold by 23 0.00 0.25 0.50 0.75 1.00 Model                              
+
+> AInduced (Strict) 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00
+> 0.00 0.25 0.50 0.75 1.00 Biological Conservation (Lin BMA) Model
+> BMonomorphism 0.00 0.25 0.50 0.75 1.00 Topological Conservation (S³ Score)
+> 0.00 0.25 0.50 0.75 1.00 Node Coverage
+> Basic Matching Ring Matching Star Greedy Ring Greedy All-to-All Greedy Star Constrained
+
+Figure S5. Monomorphism relaxation against the strict induced rule under the branch-and-bound decompo-sition. Each panel shows the distribution of alignment quality over the human–mouse KEGG pathway pairs solved by both formulations, for one metric: biological conservation (Lin best-match-average GO semantic similarity), topological conservation (S3 score), and node coverage. Rows correspond to (A) the strict induced rule and (B) the monomorphism relaxation. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Constrained ). 
+
+construction, and it is also strict enough to veto biologically real correspondences. If a protein’s interaction profile is genuinely richer in one species than the other, every mapping that would place it is rejected, not because the orthology is doubtful but because the surrounding topology is asymmetric. The monomorphism relaxation weakens the rule to a one-way implication, {u, u ′} ∈ E1 ⇒ { v, v ′} ∈ E2, so that the template network may carry edges the other lacks. The reduction is otherwise unchanged: it remains a hard maximum-weight clique, and therefore a minimum-weight vertex cover, so the entire pipeline of Sec. 2.3 applies without modification. Only the modular product construction differs. 
+
+Appendix E: Soft-penalty relaxed constraint 
+
+A second, independent relaxation acts on the penalty weight rather than on the edge rule. Sec. 2.2 fixes λ =max i wi + 1, the smallest value for which no uncovered edge can ever be profitable. Lowering λ below that bound admits a bounded number of edge violations into the low-energy spectrum: the optimisation is softened, the sampler is free to pass through infeasible strings, and feasibility is no longer implied by optimality. This makes it also incompatible with branch and bound decomposition. 24 0.1 1Penalty Scale λ       
+
+> 0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75 Mean Violating Edges
+> 0.1 1Penalty Scale λ
+> 678910 11 12 13 Mean Returned Pairs (incl. infeasible)
+> Basic Matching Ring Matching Star Greedy Ring Greedy All-to-All Greedy Star
+
+Figure S6. Cost of softening the penalty weight λ, swept over the small human–mouse KEGG pathway pairs the solver reliably handles. Each panel plots a mean over pathways against λ: the number of uncovered (violating) edges left in the returned solution, and the number of returned candidate pairs, counting infeasible ones. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Greedy Star ). 25 0.00 0.25 0.50 0.75 1.00 Model                                             
+
+> AInduced (Strict) 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00
+> 0.00 0.25 0.50 0.75 1.00 Model
+> BRelaxed Constraint, λScale 0.1 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00
+> 0.00 0.25 0.50 0.75 1.00 Biological Conservation (Lin BMA) Model
+> CMonomorphism 0.00 0.25 0.50 0.75 1.00 Topological Conservation (S³ Score)
+> 0.00 0.25 0.50 0.75 1.00 Node Coverage
+> Basic Matching Ring Matching Star Greedy Ring Greedy All-to-All Greedy Star
+
+Figure S7. Alignment quality of three edge-rule and penalty formulations. Each panel shows the distribution of alignment quality over the small human–mouse KEGG pathway pairs for one metric: biological conservation (Lin best-match-average GO semantic similarity), topological conservation ( S3 score), and node coverage. Rows correspond to (A) the strict induced rule, (B) the monomorphism relaxation, and (C) the soft-penalty relaxation at λ scale 0 .1. Colours run from blue to red as feasibility moves from the penalty term ( Basic ) into the mixer ( Greedy Star ). 26 
+
+Appendix F: Datasets details 
+
+Table S2. Parameter settings of the synthetic PPI network pairs generated with NAPAbench2. The ancestor column gives the two evolutionary scenarios with (1) more distantly (2) closely related pairs. Node counts and mean degrees are reported separately for the two networks of each pair. Each row averages the 10 generated scenarios. Ancestor Network A Network B Nodes (Distant) Nodes (Close) Nodes Mean degree Nodes Mean degree 1 3 4 1.6 5 1.9 1 3 4 1.7 6 1.9 2 4 5 1.8 5 1.8 2 4 5 1.8 6 2.0 3 5 6 2.0 8 2.0 3 6 7 2.0 10 2.2 4 6 8 2.2 12 2.4 4 7 9 2.3 14 2.6 4 8 10 2.3 16 2.6 5 9 11 2.3 18 2.5 5 10 12 2.4 20 2.7 5 10 13 2.4 24 2.9 6 11 14 2.5 28 2.8 6 12 15 2.4 32 3.1 7 13 16 2.4 36 3.2 7 14 17 2.6 40 3.2 8 14 18 2.7 44 3.4 8 15 19 2.7 48 3.4 9 16 20 2.7 50 3.5 10 1 10 2 10 3
+
+> Number of Human Nodes 10 1
+> 10 2
+> 10 3
+> Number of Mouse Nodes
+> not included (n=102) included (n=227)
+
+Figure S8. Size of the human–mouse KEGG pathway PPI network pairs. Each point is one pathway present in both organisms, placed by the number of nodes in the induced human and mouse subgraphs. 27 
+
+Table S3: Human–mouse KEGG pathway pairs used as real-world benchmark instances, with the size of the induced subgraph in each species. KEGG Pathway Human Mouse ID Nodes Mean degree Nodes Mean degree 00010 Glycolysis / Gluconeogenesis 64 13.81 65 13.35 00020 Citrate cycle (TCA cycle) 28 9.64 32 9.94 00030 Pentose phosphate pathway 29 11.38 33 13.82 00040 Pentose and glucuronate interconversions 32 5.06 33 3.33 00051 Fructose and mannose metabolism 31 10.90 35 9.83 00052 Galactose metabolism 30 10.80 32 11.62 00053 Ascorbate and aldarate metabolism 23 5.83 27 3.48 00061 Fatty acid biosynthesis 17 3.65 18 3.56 00062 Fatty acid elongation 25 5.76 29 6.62 00071 Fatty acid degradation 37 9.68 36 10.50 00100 Steroid biosynthesis 20 5.80 20 5.80 00120 Primary bile acid biosynthesis 17 3.53 18 4.00 00130 Ubiquinone and other terpenoid-quinone biosynthesis 11 2.36 10 2.60 00140 Steroid hormone biosynthesis 60 19.87 79 12.53 00220 Arginine biosynthesis 21 7.24 20 6.40 00232 Caffeine metabolism 5 4.00 6 3.67 00240 Pyrimidine metabolism 55 19.89 55 20.80 00250 Alanine, aspartate and glutamate metabolism 36 10.94 37 11.68 00260 Glycine, serine and threonine metabolism 38 8.74 38 8.89 00270 Cysteine and methionine metabolism 46 10.78 50 11.56 00280 Valine, leucine and isoleucine degradation 46 11.83 55 15.35 00290 Valine, leucine and isoleucine biosynthesis 4 3.00 4 3.00 00310 Lysine degradation 35 3.43 38 4.42 00330 Arginine and proline metabolism 47 7.11 52 8.00 00340 Histidine metabolism 21 7.14 26 7.54 00350 Tyrosine metabolism 34 9.88 39 10.31 00360 Phenylalanine metabolism 16 7.38 21 8.00 00380 Tryptophan metabolism 41 7.07 51 10.16 00400 Phenylalanine, tyrosine and tryptophan biosynthesis 6 5.00 8 7.00 00410 beta-Alanine metabolism 29 11.79 30 12.33 00430 Taurine and hypotaurine metabolism 11 7.09 13 8.62 00440 Phosphonate and phosphinate metabolism 6 3.33 6 3.33 00450 Selenocompound metabolism 16 4.88 16 4.88 00480 Glutathione metabolism 50 11.28 55 5.93 00500 Starch and sucrose metabolism 31 12.00 30 11.80 00510 N-Glycan biosynthesis 49 6.12 50 6.00 00511 Other glycan degradation 13 2.15 13 2.15 00512 Mucin type O-glycan biosynthesis 29 6.55 28 6.14 00513 Various types of N-glycan biosynthesis 37 4.27 39 4.36 00514 Other types of O-glycan biosynthesis 22 2.09 20 2.50 00515 Mannose type O-glycan biosynthesis 22 3.82 23 3.91 00520 Amino sugar and nucleotide sugar metabolism 41 6.93 49 6.61 00524 Neomycin, kanamycin and gentamicin biosynthesis 5 4.00 5 4.00 00531 Glycosaminoglycan degradation 19 3.26 21 3.52 00532 Glycosaminoglycan biosynthesis - chondroitin sulfate / dermatan sulfate 16 3.00 16 2.88 00533 Glycosaminoglycan biosynthesis - keratan sulfate 10 2.80 11 3.09 00534 Glycosaminoglycan biosynthesis - heparan sulfate / heparin 12 1.50 12 1.50 00561 Glycerolipid metabolism 58 10.66 60 10.90 00562 Inositol phosphate metabolism 70 16.26 70 15.29 00563 Glycosylphosphatidylinositol (GPI)-anchor biosynthesis 23 6.00 22 5.45 00564 Glycerophospholipid metabolism 80 13.50 96 13.48 00565 Ether lipid metabolism 29 9.17 44 11.00 00590 Arachidonic acid metabolism 44 12.36 81 14.10 00591 Linoleic acid metabolism 12 5.00 48 8.50 00592 alpha-Linolenic acid metabolism 8 1.50 24 7.33 00600 Sphingolipid metabolism 47 19.96 48 20.96 00601 Glycosphingolipid biosynthesis - lacto and neolacto series 26 13.77 26 13.23 00603 Glycosphingolipid biosynthesis - globo and isoglobo series 15 5.20 16 5.62 00604 Glycosphingolipid biosynthesis - ganglio series 14 5.00 15 5.87 00620 Pyruvate metabolism 36 10.00 39 11.28 00630 Glyoxylate and dicarboxylate metabolism 28 4.93 31 5.55 00640 Propanoate metabolism 33 10.67 34 11.06 00650 Butanoate metabolism 27 5.85 28 8.29 00670 One carbon pool by folate 20 13.30 19 12.53 00730 Thiamine metabolism 13 3.85 13 5.85 00740 Riboflavin metabolism 6 4.00 7 5.14 00750 Vitamin B6 metabolism 5 4.00 8 7.00 00760 Nicotinate and nicotinamide metabolism 32 16.69 39 18.56 00770 Pantothenate and CoA biosynthesis 20 4.80 20 4.70 00785 Lipoic acid metabolism 4 2.00 4 2.00 00790 Folate biosynthesis 24 7.00 24 6.50 00830 Retinol metabolism 65 17.57 92 8.74 00860 Porphyrin metabolism 40 4.30 40 2.95 00900 Terpenoid backbone biosynthesis 21 5.24 22 5.27 00910 Nitrogen metabolism 8 2.00 7 1.43 00920 Sulfur metabolism 10 3.80 11 4.00 00970 Aminoacyl-tRNA biosynthesis 44 3.64 43 3.86 00980 Metabolism of xenobiotics by cytochrome P450 69 15.25 56 5.93 00982 Drug metabolism - cytochrome P450 64 11.84 46 4.61 00983 Drug metabolism - other enzymes 74 8.59 77 5.61 01040 Biosynthesis of unsaturated fatty acids 25 6.64 29 6.55 28 
+
+KEGG Pathway Human Mouse ID Nodes Mean degree Nodes Mean degree 01210 2-Oxocarboxylic acid metabolism 17 8.12 18 9.44 01212 Fatty acid metabolism 53 8.23 56 9.39 01230 Biosynthesis of amino acids 73 9.48 77 9.43 01521 EGFR tyrosine kinase inhibitor resistance 77 16.36 78 15.15 01522 Endocrine resistance 92 13.96 90 13.49 01523 Antifolate resistance 20 5.00 24 3.67 01524 Platinum drug resistance 65 6.71 64 6.53 02010 ABC transporters 15 2.80 19 1.37 03008 Ribosome biogenesis in eukaryotes 74 15.62 74 15.54 03015 mRNA surveillance pathway 87 9.68 88 10.86 03018 RNA degradation 64 8.75 65 9.26 03020 RNA polymerase 31 19.10 29 18.83 03022 Basal transcription factors 44 29.41 43 28.28 03030 DNA replication 36 11.11 34 10.47 03050 Proteasome 43 32.65 45 35.24 03060 Protein export 20 6.30 22 5.82 03320 PPAR signaling pathway 52 3.15 53 3.62 03410 Base excision repair 21 5.71 21 5.14 03420 Nucleotide excision repair 46 9.96 43 9.40 03430 Mismatch repair 22 7.73 21 6.86 03440 Homologous recombination 36 7.78 39 8.51 03450 Non-homologous end-joining 10 5.80 10 5.40 03460 Fanconi anemia pathway 51 10.90 49 12.37 04012 ErbB signaling pathway 81 13.75 81 13.51 04061 Viral protein interaction with cytokine and cytokine receptor 96 7.71 87 6.37 04064 NF-kappa B signaling pathway 97 8.49 89 7.57 04070 Phosphatidylinositol signaling system 85 17.39 84 17.26 04115 p53 signaling pathway 60 5.50 56 5.14 04122 Sulfur relay system 7 3.14 8 2.25 04130 SNARE interactions in vesicular transport 32 17.31 31 20.52 04136 Autophagy - other 31 6.84 32 6.50 04137 Mitophagy - animal 63 6.13 63 5.59 04142 Lysosome biogenesis 97 5.24 97 5.28 04146 Peroxisome 66 3.79 58 3.93 04211 Longevity regulating pathway 87 10.57 90 10.84 04213 Longevity regulating pathway - multiple species 58 9.45 57 10.11 04215 Apoptosis - multiple species 29 7.03 31 7.48 04216 Ferroptosis 31 1.48 30 1.60 04260 Cardiac muscle contraction 87 14.92 84 14.57 04330 Notch signaling pathway 52 7.58 50 8.40 04340 Hedgehog signaling pathway 45 7.73 48 7.54 04350 TGF-beta signaling pathway 85 9.46 86 9.21 04370 VEGF signaling pathway 55 12.55 56 12.61 04392 Hippo signaling pathway - multiple species 27 4.67 26 4.46 04512 ECM-receptor interaction 87 9.08 85 11.79 04520 Adherens junction 69 7.33 67 6.96 04540 Gap junction 87 10.39 84 9.69 04610 Complement and coagulation cascades 81 4.94 90 6.44 04612 Antigen processing and presentation 63 9.65 75 18.93 04614 Renin-angiotensin system 16 2.25 16 2.62 04622 RIG-I-like receptor signaling pathway 63 7.11 52 7.62 04623 Cytosolic DNA-sensing pathway 58 8.03 43 9.81 04640 Hematopoietic cell lineage 59 3.90 62 3.48 04657 IL-17 signaling pathway 71 7.41 68 7.24 04658 Th1 and Th2 cell differentiation 84 8.24 84 7.93 04660 T cell receptor signaling pathway 95 13.31 97 13.24 04662 B cell receptor signaling pathway 78 11.38 72 11.44 04664 Fc epsilon RI signaling pathway 59 14.41 59 14.95 04666 Fc gamma R-mediated phagosome formation 89 10.04 84 10.36 04668 TNF signaling pathway 96 12.50 95 12.02 04670 Leukocyte transendothelial migration 90 10.22 86 11.40 04672 Intestinal immune network for IgA production 38 3.79 35 3.31 04710 Circadian rhythm 29 8.00 28 8.29 04713 Circadian entrainment 91 13.87 92 14.33 04720 Long-term potentiation 63 13.56 62 13.71 04721 Synaptic vesicle cycle 65 9.29 65 11.17 04727 GABAergic synapse 81 8.67 83 11.23 04730 Long-term depression 58 10.38 59 10.92 04740 Olfactory transduction 34 6.76 33 6.73 04742 Taste transduction 48 3.71 46 4.22 04744 Phototransduction 25 5.76 24 5.33 04911 Insulin secretion 81 8.30 78 8.56 04912 GnRH signaling pathway 84 11.55 84 11.48 04913 Ovarian steroidogenesis 45 4.71 55 4.65 04914 Progesterone-mediated oocyte maturation 93 11.51 88 12.09 04916 Melanogenesis 94 12.15 95 12.19 04917 Prolactin signaling pathway 61 10.36 65 9.75 04918 Thyroid hormone synthesis 65 7.11 57 8.14 04920 Adipocytokine signaling pathway 59 6.85 62 6.87 04923 Regulation of lipolysis in adipocytes 52 7.77 52 7.38 04924 Renin secretion 64 7.81 62 7.39 04925 Aldosterone synthesis and secretion 89 9.12 88 9.41 04927 Cortisol synthesis and secretion 59 6.44 63 6.89 04929 GnRH secretion 60 9.10 62 8.74 29 
+
+KEGG Pathway Human Mouse ID Nodes Mean degree Nodes Mean degree 04930 Type II diabetes mellitus 42 7.10 43 8.84 04933 AGE-RAGE signaling pathway in diabetic complications 94 8.00 96 8.19 04940 Type I diabetes mellitus 33 5.76 47 17.79 04950 Maturity onset diabetes of the young 22 2.27 4 1.00 04960 Aldosterone-regulated sodium reabsorption 33 7.64 35 7.83 04961 Endocrine and other factor-regulated calcium reabsorption 48 5.58 42 6.33 04962 Vasopressin-regulated water reabsorption 41 6.34 39 7.54 04964 Proximal tubule bicarbonate reclamation 15 6.27 15 6.00 04966 Collecting duct acid secretion 22 14.09 23 18.35 04970 Salivary secretion 74 8.11 64 9.09 04971 Gastric acid secretion 69 8.12 66 8.58 04972 Pancreatic secretion 67 4.78 74 5.35 04973 Carbohydrate digestion and absorption 41 6.78 42 6.24 04974 Protein digestion and absorption 77 4.03 70 4.14 04975 Fat digestion and absorption 26 3.00 37 5.41 04976 Bile secretion 59 5.36 43 6.23 04977 Vitamin digestion and absorption 10 1.60 10 1.60 04978 Mineral absorption 28 3.71 37 3.14 04979 Cholesterol metabolism 45 5.82 46 4.83 05030 Cocaine addiction 48 6.54 45 7.51 05031 Amphetamine addiction 64 10.31 61 11.15 05032 Morphine addiction 86 10.00 81 10.07 05033 Nicotine addiction 36 4.72 37 6.38 05100 Bacterial invasion of epithelial cells 69 9.25 70 8.91 05133 Pertussis 70 5.20 67 5.88 05134 Legionellosis 50 3.64 56 3.79 05140 Leishmaniasis 65 6.18 61 5.87 05142 Chagas disease 93 8.86 94 9.06 05143 African trypanosomiasis 26 2.46 23 2.61 05144 Malaria 32 1.94 27 2.30 05146 Amoebiasis 88 4.34 95 4.72 05150 Staphylococcus aureus infection 53 4.79 50 5.36 05204 Chemical carcinogenesis - DNA adducts 74 14.00 82 5.63 05210 Colorectal cancer 82 9.88 86 10.00 05211 Renal cell carcinoma 60 10.07 59 9.32 05212 Pancreatic cancer 71 9.35 71 8.96 05213 Endometrial cancer 58 9.41 57 9.33 05214 Glioma 71 12.00 69 11.91 05215 Prostate cancer 88 12.91 92 11.87 05216 Thyroid cancer 37 4.05 36 3.94 05217 Basal cell carcinoma 63 9.94 63 9.81 05218 Melanoma 72 9.14 70 8.91 05219 Bladder cancer 37 6.32 37 5.73 05220 Chronic myeloid leukemia 75 9.79 73 8.99 05221 Acute myeloid leukemia 65 8.03 64 7.78 05222 Small cell lung cancer 89 7.71 89 8.45 05223 Non-small cell lung cancer 67 10.66 65 9.75 05230 Central carbon metabolism in cancer 63 9.27 64 9.47 05231 Choline metabolism in cancer 75 11.39 73 12.11 05235 PD-L1 expression and PD-1 checkpoint pathway in cancer 87 11.93 86 11.19 05310 Asthma 16 6.50 14 5.71 05320 Autoimmune thyroid disease 40 6.60 40 20.80 05321 Inflammatory bowel disease 54 4.15 55 4.00 05322 Systemic lupus erythematosus 83 8.94 61 5.44 05323 Rheumatoid arthritis 72 8.50 70 10.06 05330 Allograft rejection 27 8.00 38 21.68 05332 Graft-versus-host disease 30 9.13 44 20.91 05340 Primary immunodeficiency 28 2.57 27 2.22 05410 Hypertrophic cardiomyopathy 82 9.39 83 9.16 05412 Arrhythmogenic right ventricular cardiomyopathy 73 9.56 72 9.92 05414 Dilated cardiomyopathy 90 9.84 86 9.79 05416 Viral myocarditis 50 5.84 66 13.94 [1] C.-Y. Ma and C.-S. Liao, Computational and Structural Biotechnology Journal 18 , 2647 (2020). [2] R. Singh, J. Xu, and B. Berger, Proceedings of the Na-tional Academy of Sciences 105 , 12763 (2008). [3] G. Levi, Calcolo 9, 341 (1973). [4] H. G. Barrow and R. M. Burstall, Information Processing Letters 4, 83 (1976). [5] R. M. Karp, in Complexity of Computer Computations ,edited by R. E. Miller and J. W. Thatcher (Plenum Press, 1972) pp. 85–103. [6] V. Vijayan, V. Saraph, and T. Milenkovi´ c, Bioinformatics 
+
+31 , 2409 (2015). [7] S. Hashemifar and J. Xu, Bioinformatics 30 , i438 (2014). [8] N. Malod-Dognin and N. Prˇ zulj, Bioinformatics 31 , 2182 (2015). [9] N. Mamano and W. B. Hayes, Bioinformatics 33 , 2156 (2017). [10] G. Rodr´ ıguez-Corominas, M. J. Blesa, and C. Blum, Ap-plied Soft Computing 132 , 109832 (2023). [11] M. El-Kebir, J. Heringa, and G. W. Klau, Algorithms 8,1035 (2015). [12] C. McCreesh, P. Prosser, and J. Trimble, in Proceedings 30 
+
+of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI-17) (2017) pp. 712–719. [13] J. Zhou, K. He, J. Zheng, C.-M. Li, and Y. Liu, in 
+
+Proceedings of the Thirty-First International Joint Con-ference on Artificial Intelligence (IJCAI-22) (2022) pp. 1908–1914. [14] K. Yu, K. Wang, C. Long, L. V. S. Lakshmanan, and R. Cheng, Proceedings of the ACM on Management of Data 3, 160:1 (2025). [15] E. Farhi, J. Goldstone, and S. Gutmann, arXiv preprint arXiv:1411.4028 (2014). [16] S. Hadfield, Z. Wang, B. O’Gorman, E. G. Rieffel, D. Venturelli, and R. Biswas, Algorithms 12 , 34 (2019). [17] Z. Wang, N. C. Rubin, J. M. Dominy, and E. G. Rieffel, Physical Review A 101 , 012320 (2020). [18] A. B¨ artschi and S. Eidenbenz, in IEEE International Conference on Quantum Computing and Engineering (QCE) (2020) pp. 72–82. [19] A. Daskin, A. Grama, and S. Kais, Quantum Information Processing 13 , 2653 (2014). [20] A. Daskin, arXiv preprint arXiv:1506.05905 (2015). [21] N. Huang and D. Roje, SN Computer Science 2, 186 (2021). [22] Y. J. D. S. Prasad, Quantum branch-and-bound with QAOA-enhanced upper bounds for the maximum clique problem: A hybrid framework for conditional exponen-tial speedup, TechRxiv, article 1337482 (2025). [23] K. Marwaha, Quantum 5, 437 (2021). [24] J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush, and H. Neven, Nature Communications 9, 4812 (2018). [25] S. Wang, E. Fontana, M. Cerezo, K. Sharma, A. Sone, L. Cincio, and P. J. Coles, Nature Communications 12 ,6961 (2021). [26] J. Basso, E. Farhi, K. Marwaha, B. Villalonga, and L. Zhou, in 17th Conference on the Theory of Quantum Computation, Communication and Cryptography (TQC 2022) , LIPIcs, Vol. 232 (2022) pp. 7:1–7:21. [27] E. Farhi, S. Gutmann, D. Ranard, and B. Villalonga, arXiv preprint arXiv:2503.12789 (2025). [28] R. Shaydulin, C. Li, S. Chakrabarti, M. DeCross, D. Her-man, N. Kumar, J. Larson, D. Lykov, P. Minssen, Y. Sun, 
+
+et al. , Science Advances 10 , eadm6761 (2024). [29] Z. He, A. Apte, B. Augustino, A. Babakhani, A. Khan, S. Omanakuttan, and R. Shaydulin, arXiv preprint arXiv:2603.10191 (2026). [30] G. G. Guerreschi and A. Y. Matsuura, Scientific Reports 
+
+9, 6903 (2019). [31] S. Omanakuttan, Z. He, Z. Zhang, T. Hao, A. Babakhani, S. Boulebnane, S. Chakrabarti, D. Herman, J. Sulli-van, M. A. Perlin, R. Shaydulin, and M. Pistoia, arXiv preprint arXiv:2504.01897 (2025). [32] H.-M. Woo, H. Jeong, and B.-J. Yoon, PLOS ONE 15 ,e0227598 (2020). [33] M. Kanehisa and S. Goto, Nucleic Acids Research 28 , 27 (2000). [34] F. E. Faisal, L. Meng, J. Crawford, and T. Milenkovi´ c, EURASIP Journal on Bioinformatics and Systems Biol-ogy 2015 , 3 (2015). [35] G. W. Klau, BMC Bioinformatics 10 , S59 (2009). [36] C. Clark and J. Kalita, Bioinformatics 30 , 2351 (2014). [37] A. Lucas, Frontiers in Physics 2, 5 (2014). [38] J. A. Monta˜ nez-Barrera and K. Michielsen, npj Quantum Information 11 , 131 (2025). [39] A. Javadi-Abhari, M. Treinish, K. Krsulich, C. J. Wood, J. Lishman, J. Gacon, S. Martiel, P. D. Nation, L. S. Bishop, A. W. Cross, B. R. Johnson, and J. M. Gam-betta, arXiv preprint arXiv:2405.08810 (2024). [40] K. Ender, A. Messinger, M. Fellner, C. Dlaska, and W. Lechner, PRX Quantum 3, 030304 (2022). [41] Z. Galil, ACM Computing Surveys 18 , 23 (1986). [42] N. Prˇ zulj and D. J. Higham, Journal of the Royal Society Interface 3, 711 (2006). [43] D. Szklarczyk, R. Kirsch, M. Koutrouli, K. Nastou, F. Mehryary, et al. , Nucleic Acids Research 51 , D638 (2023). [44] S. F. Altschul, W. Gish, W. Miller, E. W. Myers, and D. J. Lipman, Journal of Molecular Biology 215 , 403 (1990). [45] C. Camacho, G. Coulouris, V. Avagyan, N. Ma, J. Pa-padopoulos, K. Bealer, and T. L. Madden, BMC Bioin-formatics 10 , 421 (2009). [46] D. Ochoa, A. Hercules, M. Carmona, D. Suveges, J. Baker, et al. , Nucleic Acids Research 51 , D1353 (2023). [47] A. Buniello, D. Suveges, C. Cruz-Castillo, et al. , Nucleic Acids Research 53 , D1467 (2025). [48] A. Federico, A. Pavel, L. M¨ obus, D. McKean, G. del Giudice, V. Fortino, H. Niehues, J. Rastrick, K. Eyerich, S. Eyerich, E. van den Bogaard, C. Smith, S. Weidinger, E. de Rinaldis, and D. Greco, Human Genomics 16 , 62 (2022). [49] V. Saraph and T. Milenkovi´ c, Bioinformatics 30 , 2931 (2014). [50] O. Kuchaiev, T. Milenkovi´ c, V. Memiˇ sevi´ c, W. Hayes, and N. Prˇ zulj, Journal of the Royal Society Interface 7,1341 (2010). [51] R. Patro and C. Kingsford, Bioinformatics 28 , 3105 (2012). [52] M. Ashburner, C. A. Ball, J. A. Blake, D. Botstein, H. Butler, et al. , Nature Genetics 25 , 25 (2000). [53] The Gene Ontology Consortium, Nucleic Acids Research 
+
+54 , D1779 (2026). [54] R. P. Huntley, T. Sawford, P. Mutowo-Meullenet, A. Shypitsyna, C. Bonilla, M. J. Martin, and C. O’Donovan, Nucleic Acids Research 43 , D1057 (2015). [55] P. Resnik, in Proceedings of the 14th International Joint Conference on Artificial Intelligence (1995) pp. 448–453. [56] D. Lin, in Proceedings of the Fifteenth International Con-ference on Machine Learning (ICML) (Morgan Kauf-mann, 1998) pp. 296–304. [57] A. Schlicker, F. S. Domingues, J. Rahnenf¨ uhrer, and T. Lengauer, BMC Bioinformatics 7, 302 (2006). [58] M. H. Schaefer, L. Serrano, and M. A. Andrade-Navarro, Frontiers in Genetics 6, 260 (2015). [59] A. M. Pickrell and R. J. Youle, Neuron 85 , 257 (2015). [60] P. Ge, V. L. Dawson, and T. M. Dawson, Molecular Neu-rodegeneration 15 , 20 (2020). [61] L. A. Robak, I. E. Jansen, J. van Rooij, et al. , Brain 140 ,3191 (2017). [62] R. A. Nixon and D. C. Rubinsztein, Nature Reviews Molecular Cell Biology 25 , 926 (2024). [63] Y. Yamazaki, N. Zhao, T. R. Caulfield, C.-C. Liu, and G. Bu, Nature Reviews Neurology 15 , 501 (2019). [64] C. Bellenguez, F. K¨ u¸ c¨ ukali, I. E. Jansen, et al. , Nature Genetics 54 , 412 (2022). [65] C. M. Deus, K. F. Yambire, P. J. Oliveira, and N. Raimundo, Trends in Molecular Medicine 26 , 71 (2020). [66] T. Kitada, Y. Tong, C. A. Gautier, and J. Shen, Journal 31 
+
+of Neurochemistry 111 , 696 (2009). [67] P. M. Sullivan, H. Mezdour, Y. Aratani, C. Knouff, J. Na-jib, R. L. Reddick, S. H. Quarfordt, and N. Maeda, Jour-nal of Biological Chemistry 272 , 17972 (1997). [68] J. Menche, A. Sharma, M. Kitsak, et al. , Science 347 ,1257601 (2015). [69] T. Kitada, S. Asakawa, N. Hattori, H. Matsumine, Y. Ya-mamura, S. Minoshima, M. Yokochi, Y. Mizuno, and N. Shimizu, Nature 392 , 605 (1998). [70] M. J. A. Schuetz, R. Yalovetzky, R. S. Andrist, G. Salton, Y. Sun, R. Raymond, S. Chakrabarti, A. Acharya, R. Shaydulin, M. Pistoia, and H. G. Katzgraber, qReduMIS: A quantum-informed reduction algorithm for the maximum independent set problem (2025), arXiv:2503.12551 [quant-ph]. [71] E. Pelofske, G. Hahn, and H. Djidjev, Solving large max-imum clique problems on a quantum annealer, in Quan-tum Technology and Optimization Problems (Springer In-ternational Publishing, 2019) pp. 123–135. [72] E. Pelofske, G. Hahn, and H. Djidjev, in Proceedings of the 16th ACM International Conference on Computing Frontiers (CF ’19) (2019) pp. 76–84. [73] E. Pelofske, G. Hahn, and H. Djidjev, Journal of Signal Processing Systems 93 , 405 (2020). [74] E. Pelofske, G. Hahn, and H. N. Djidjev, Quantum In-formation Processing 22 , 219 (2023). [75] F. V. Fomin, F. Grandoni, and D. Kratsch, Journal of the ACM 56 , Article 25 (2009). [76] T. Akiba and Y. Iwata, Theoretical Computer Science 
+
+609 , 211 (2016). [77] S. Butenko, P. Pardalos, I. Sergienko, V. Shylo, and P. Stetsyuk, in Proceedings of the 2002 ACM Symposium on Applied Computing (SAC ’02) (2002) pp. 542–546. [78] Y. Iwata, K. Oka, and Y. Yoshida, in Proceedings of the Twenty-Fifth Annual ACM-SIAM Symposium on Dis-crete Algorithms (SODA) (2014) pp. 1749–1761. [79] A. Ozaeta, W. van Dam, and P. L. McMahon, Quantum Science and Technology 7, 045036 (2022). [80] E. Farhi, J. Goldstone, S. Gutmann, and M. Sipser, Quantum computation by adiabatic evolution (2000), arXiv:quant-ph/0001106 [quant-ph]. [81] T. Albash and D. A. Lidar, Reviews of Modern Physics 
+
+90 , 015002 (2018). [82] R. Babbush, N. Wiebe, J. McClean, J. McClain, H. Neven, and G. K.-L. Chan, Physical Review X 8,011044 (2018). [83] G. Aigner, B. Klaver, M. Lanthaler, and W. Lech-ner, Fermion lattices can be simulated by same-size qubit lattices with O(1) interaction overhead (2026), arXiv:2605.12600 [quant-ph]. [84] R. R. Tucci, An introduction to Cartan’s KAK de-composition for QC programmers (2005), arXiv:quant-ph/0507171 [quant-ph]. [85] P. K. Barkoutsos, J. F. Gonthier, I. Sokolov, N. Moll, G. Salis, A. Fuhrer, M. Ganzhorn, D. J. Egger, M. Troyer, A. Mezzacapo, S. Filipp, and I. Tavernelli, Physical Re-view A 98 , 022322 (2018). [86] D. Cruz, R. Fournier, F. Gremion, A. Jeannerot, K. Komagata, T. Tosic, J. Thiesbrummel, C. L. Chan, N. Macris, M.-A. Dupertuis, and C. Javerzac-Galy, Ad-vanced Quantum Technologies 2, 1900015 (2019).

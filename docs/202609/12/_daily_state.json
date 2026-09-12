@@ -1,0 +1,121 @@
+{
+  "date": "20260912",
+  "date_label": "",
+  "generated_at": "2026-09-12 20:56:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.05818v1",
+      "route": "202609/12/2609.05818v1-agentic-baim-llm-evaluation-able-benchmarking-llm-use-of-protein-design-tools",
+      "title": "Agentic BAIM-LLM Evaluation (ABLE): Benchmarking LLM Use of Protein Design Tools",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评测LLM智能体使用生物AI模型进行蛋白质设计",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.08696v1",
+      "route": "202609/12/2609.08696v1-morphoorgaagent-a-foundation-model-based-multi-agent-system-for-autonomous-organoid-analysis",
+      "title": "MorphoOrgaAgent: A Foundation-Model-Based Multi-Agent System for Autonomous Organoid Analysis",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用于自主类器官分析的多智能体系统，属于生物研究中的自主智能体",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.05238v1",
+      "route": "202609/12/2609.05238v1-quantum-optimisation-for-protein-protein-interaction-network-alignment",
+      "title": "Quantum Optimisation for Protein-Protein Interaction Network Alignment",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "计算生物学蛋白质相互作用网络比对",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.04999v1",
+      "route": "202609/12/2609.04999v1-bitua-at-bioasq-14b-modular-retrieval-with-pgtextsearch-and-qdrant-and-agent-based-answer-generation",
+      "title": "BIT.UA at BioASQ 14B: Modular Retrieval with pg_textsearch and Qdrant, and Agent-Based Answer Generation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于智能体答案生成的生物医学问答与模块化检索",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.09203v1",
+      "route": "202609/12/2609.09203v1-opendiscoverytrace-process-traces-for-evaluating-ai-scientist-workflows",
+      "title": "OpenDiscoveryTrace: Process Traces for Evaluating AI Scientist Workflows",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "涵盖基因组学与药物发现的AI科学智能体轨迹",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.04658v1",
+      "route": "202609/12/2609.04658v1-vizit-a-multi-view-framework-for-exploring-single-cell-spatial-and-genetic-data-online",
+      "title": "VizIt: A multi-view framework for exploring single-cell, spatial, and genetic data online",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向单细胞、空间与遗传数据探索的开源多视图框架",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    },
+    {
+      "paper_id": "2609.06366v1",
+      "route": "202609/12/2609.06366v1-autokd-autonomous-knowledge-discovery",
+      "title": "AutoKD: Autonomous Knowledge Discovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向自主科学知识发现的多智能体框架",
+      "first_seen_at": "2026-09-12 20:56:20 UTC",
+      "updated_at": "2026-09-12 20:56:20 UTC"
+    }
+  ]
+}
