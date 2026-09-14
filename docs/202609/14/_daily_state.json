@@ -1,0 +1,41 @@
+{
+  "date": "20260914",
+  "date_label": "",
+  "generated_at": "2026-09-14 22:46:11 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.12260v1",
+      "route": "202609/14/2609.12260v1-hypokg-evidence-disciplined-biomedical-hypothesis-generation-beyond-endpoint-knowledge",
+      "title": "HypoKG: Evidence-Disciplined Biomedical Hypothesis Generation Beyond Endpoint Knowledge",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "LLM在统一生化知识图谱上生成生物医学假设",
+      "first_seen_at": "2026-09-14 22:46:11 UTC",
+      "updated_at": "2026-09-14 22:46:11 UTC"
+    },
+    {
+      "paper_id": "2609.06779v1",
+      "route": "202609/14/2609.06779v1-drugreason-dynamic-multi-view-reasoning-over-knowledge-graph-and-language-evidence-for-drug-repurposing",
+      "title": "DrugReason: Dynamic Multi-View Reasoning over Knowledge Graph and Language Evidence for Drug Repurposing",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向生物医学药物重定位的LLM与知识图谱推理",
+      "first_seen_at": "2026-09-14 22:46:11 UTC",
+      "updated_at": "2026-09-14 22:46:11 UTC"
+    }
+  ]
+}

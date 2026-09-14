@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-14",
+  "date": "2026-09-14",
+  "generated_at": "2026-09-14T22:46:12",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/14/2609.12260v1-hypokg-evidence-disciplined-biomedical-hypothesis-generation-beyond-endpoint-knowledge",
+      "section": "quick",
+      "title_en": "HypoKG: Evidence-Disciplined Biomedical Hypothesis Generation Beyond Endpoint Knowledge",
+      "authors": "Dominic Okonkwo, Adetayo Okunoye, Ismailcem Budak Arpinar",
+      "date": "2026-09-10",
+      "pdf": "https://arxiv.org/pdf/2609.12260v1",
+      "score": "7.0",
+      "evidence": "LLM在统一生化知识图谱上生成生物医学假设",
+      "tldr": "研究将KEGG、Rhea、UniProt整合为统一生化知识图谱，构建550条酶源到罕见病终点的路径基准，并让六个LLM在四种信息条件下生成13200个假设。结果显示，仅给源和终点时假设评分高但证据接地弱；给完整生物路径时更符合已知机制，即证据约束推理。打乱中间步骤后证据接地显著下降（delta=-0.793，p<0.001），证明模型利用路径结构。该工作表明知识图谱可发现文献缺失的终点配对，并以机制路径引导LLM推理。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language models (LLMs) can generate biomedical hypotheses, but it remains unclear whether they truly reason from scientific evidence or simply produce convincing-sounding ideas. To study this, we combine three major biological databases: the Kyoto Encyclopedia of Genes and Genomes (KEGG), Rhea, and UniProt, into a unified biochemical knowledge graph and construct a benchmark of 550 paths connecting enzyme sources to rare disease endpoints, yielding 13,200 hypotheses from six LLMs under four conditions varying the biological information each model receives: source enzyme only, full biological path, or source and disease endpoint only. Hypotheses are scored using an expert-derived five-criterion rubric on a 1-5 scale per criterion. We find that models given both the source and disease endpoint often produce the highest-scoring hypotheses, showing that LLMs can generate compelling ideas from minimal information. However, these hypotheses are less grounded in the evidence. In contrast, models given the full biological path generate hypotheses more consistent with known mechanistic relationships. We call this evidence-disciplined reasoning. To confirm this effect, we shuffled intermediate path steps while keeping endpoints fixed. Evidence grounding dropped significantly (delta = -0.793, p < 0.001), confirming models genuinely used path structure during reasoning. Our findings show that knowledge graphs support hypothesis generation in two ways: they identify biological endpoint pairs absent from the literature, and their mechanistic paths guide how LLMs reason between them.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/14/2609.06779v1-drugreason-dynamic-multi-view-reasoning-over-knowledge-graph-and-language-evidence-for-drug-repurposing",
+      "section": "quick",
+      "title_en": "DrugReason: Dynamic Multi-View Reasoning over Knowledge Graph and Language Evidence for Drug Repurposing",
+      "authors": "Zijie Liu, Hongxuan Li, Zhen Tan, Jinhao Duan, Baixiang Huang, Zunpeng Liu, Kai Shu, Tianlong Chen",
+      "date": "2026-09-06",
+      "pdf": "https://arxiv.org/pdf/2609.06779v1",
+      "score": "6.0",
+      "evidence": "面向生物医学药物重定位的LLM与知识图谱推理",
+      "tldr": "药物重定位候选对规模庞大且依赖复杂多跳机制，现有知识图谱方法受限于观测结构，LLM方法则缺乏事实 grounding 且易幻觉。DrugReason 提出多视角推理框架，融合知识图谱 grounded 推理与 LLM 生成机制推断，并按查询上下文自适应路由到专家，辅以跨专家蒸馏。在 PharmaDB、DDInter、DrugBank 上，它优于强单视角基线，并媲美或超越图方法，提供可解释路由预测。",
+      "tags": "query:llmagt",
+      "abstract_en": "Drug repurposing aims to identify new therapeutic uses for existing compounds and, compared with de novo drug discovery, offers a faster and more cost-effective path to clinical translation. However, the space of candidate drug-disease pairs is enormous and their underlying relationships often depend on complex multi-hop biological mechanisms, making it difficult to reliably predict which pairs represent true therapeutic relationships. Existing approaches tackle this from two directions: knowledge graph-based methods organize curated biomedical evidence into structured relational networks for grounded multi-hop reasoning, while LLM-based methods leverage pretrained knowledge to generate flexible mechanistic rationales. Yet neither is sufficient alone - KGs are confined to observed graph structure while LLMs lack factual grounding and risk hallucination. To address this gap, we propose DrugReason, a multi-view reasoning framework that integrates grounded KG reasoning with LLM-generated mechanistic inference for drug repurposing. DrugReason adaptively routes diverse reasoning paths to specialized experts conditioned on the query context, while a cross-expert distillation objective enables knowledge sharing without sacrificing expert specialization. Experiments on PharmaDB, DDInter, and DrugBank show that DrugReason improves average performance over strong single-view reasoning baselines and achieves competitive or superior results compared with graph-based alternatives, while providing interpretable routing-based predictions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
