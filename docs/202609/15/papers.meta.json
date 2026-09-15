@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-15",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T21:54:04",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/15/2609.14147v1-ragcell-retrieval-augmented-generation-as-supervision-for-versatile-single-cell-analysis",
+      "section": "deep",
+      "title_en": "RAGCell: Retrieval-Augmented Generation as Supervision for Versatile Single-cell Analysis",
+      "authors": "Tianyu Liu, Fan Zhang, Jiayuan Chen, Kun Wang, Haoxuan Li, Shengju Qian, Zhihong Zhu, Donghao Zhou, Hao Wu, Ziheng Zhang, Zhenxi Lin, Xian Wu, Yefeng Zheng",
+      "date": "2026-09-12",
+      "pdf": "https://arxiv.org/pdf/2609.14147v1",
+      "score": "8.0",
+      "evidence": "面向单细胞分析的RAG框架，属计算生物学",
+      "tldr": "单细胞基础模型面临预训练成本高昂、LLM型模型文本与细胞空间异质鸿沟两大问题。RAGCell利用LLM构建细胞级与特征级知识数据库，作为监督信号，并将细胞表示与文本嵌入对齐。在六项下游单细胞任务中，其性能优于现有scFMs，训练成本不足预训练型模型的约1/10。该框架实现成本与性能双赢，为通用单细胞分析提供高效方案。",
+      "tags": "query:llmagt",
+      "abstract_en": "Single-cell foundation models (scFMs) are transforming computational biology by enabling generalizable, task-agnostic representations for versatile single-cell analysis. Despite their progress in facilitating rapid deployment for downstream tasks, off-the-shelf scFMs still have some overlooked concerns: (I) (Pretraining Cost.) Pretrain-based scFMs necessitate pretraining on a vast volume of cells, rendering it draining resources in applications. (II) (Heterogeneous Gap.) Large Language Models (LLM)-based scFMs ignore the tremendous heterogeneous gap between LLM textual and raw cellular spaces, leading to insufficient capability when facing downstream tasks.   To this end, we introduce RAGCell, a versatile single-cell analysis framework that achieves a double-win in both cost-effectiveness and high performance. The success of RAGCell lies in two key aspects: Leveraging LLMs to construct cell-level and feature-level knowledge databases, which serve as supervision signals for training the cell model and significantly reduce the training cost ($>$pretrain-based scFMs). Aligning cell representations with text embeddings from the bi-level knowledge databases, enabling knowledge transfer from textual spaces to cellular spaces and effectively mitigating the heterogeneous gap ($>$LLM-based scFMs). Through extensive experiments on six downstream single-cell analysis tasks, we demonstrate that RAGCell achieves outstanding performance compared to state-of-the-art scFMs while operating at less than $\\sim$1/10 the cost of pretrain-based scFMs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-15 <!--dpr-date:20260915-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/15/2609.14147v1-ragcell-retrieval-augmented-generation-as-supervision-for-versatile-single-cell-analysis" data-sidebar-item="{&quot;title&quot;: &quot;RAGCell: Retrieval-Augmented Generation as Supervision for Versatile Single-cell Analysis&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.14147v1-ragcell-retrieval-augmented-generation-as-supervision-for-versatile-single-cell-analysis&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;面向单细胞分析的RAG框架，属计算生物学&quot;}">RAGCell: Retrieval-Augmented Generation as Supervision for Versatile Single-cell Analysis</a>
   * 2026-09-14 <!--dpr-date:20260914-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/14/2609.12260v1-hypokg-evidence-disciplined-biomedical-hypothesis-generation-beyond-endpoint-knowledge" data-sidebar-item="{&quot;title&quot;: &quot;HypoKG: Evidence-Disciplined Biomedical Hypothesis Generation Beyond Endpoint Knowledge&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.12260v1-hypokg-evidence-disciplined-biomedical-hypothesis-generation-beyond-endpoint-knowledge&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;LLM在统一生化知识图谱上生成生物医学假设&quot;}">HypoKG: Evidence-Disciplined Biomedical Hypothesis Generation Beyond Endpoint Knowledge</a>

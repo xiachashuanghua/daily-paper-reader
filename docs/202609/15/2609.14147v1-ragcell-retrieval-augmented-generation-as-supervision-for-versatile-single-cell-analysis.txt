@@ -1,0 +1,2006 @@
+i
+i
+“main” — 2026/9/15 — 0:58 — page 1 — #1
+i
+i
+i
+i
+i
+i
+Bioinformatics
+doi.10.1093/bioinformatics/xxxxxx
+Advance Access Publication Date: Day Month Year
+Manuscript Category
+Gene expression
+RAGCell: Retrieval-Augmented Generation as
+Supervision for Versatile Single-cell Analysis
+Tianyu Liu1,8,∗,#, Fan Zhang2,#, Jiayuan Chen3,#, Kun Wang4, Haoxuan Li5,
+Shengju Qian2, Zhihong Zhu5, Donghao zhou2, Hao Wu6, Ziheng Zhang6,
+Zhenxi Lin6, Xian Wu6, Yefeng Zheng7,∗
+1Tsinghua University, Beijing, China, 2The Chinese University of Hong Kong, Hong Kong SAR, China, 3The Ohio State University,
+Columbus, OH, USA, 4Nanyang Technological University, Singapore, 5Peking University, Beijing, China, 6Tencent Jarvis Lab,
+Shenzhen, China, 7Westlake University, Hangzhou, China, 8Yale University, New Haven, CT, USA
+∗: To whom correspondence should be addressed.
+#: These authors contribute equally to this work.
+Associate Editor: XXXXXXX
+Received on XXXXX; revised on XXXXX; accepted on XXXXX
+Abstract
+Motivation: Single-cell foundation models (scFMs) are transforming computational biology by enabling
+generalizable, task-agnostic representations for versatile single-cell analysis. Despite their progress
+in facilitating rapid deployment for downstream tasks, off-the-shelf scFMs still have some overlooked
+concerns: (I) (Pretraining Cost.) Pretrain-based scFMs necessitate pretraining on a vast volume of cells,
+rendering it draining resources in applications. (II) (Heterogeneous Gap.) Large Language Models (LLM)-
+based scFMs ignore the tremendous heterogeneous gap between LLM textual and raw cellular spaces,
+leading to insufficient capability when facing downstream tasks.
+Results: To this end, we introduce RAGCell, a versatile single-cell analysis framework that achieves
+a double-win in both cost-effectiveness and high performance. The success of RAGCell lies in two
+key aspects: Leveraging LLMs to construct cell-level and feature-level knowledge databases, which
+serve as supervision signals for training the cell model and significantly reduce the training cost
+(>pretrain-based scFMs). Aligning cell representations with text embeddings from the bi-level knowledge
+databases, enabling knowledge transfer from textual spaces to cellular spaces and effectively mitigating the
+heterogeneous gap (>LLM-based scFMs). Through extensive experiments on six downstream single-cell
+analysis tasks, we demonstrate that RAGCell achieves outstanding performance compared to state-of-the-
+art scFMs while operating at less than ∼1/10 the cost of pretrain-based scFMs.
+Availability: The source code is available at our supplementary file. Embeddings can be found in
+https://sites.google.com/yale.edu/scelmolib/home.
+Contact: tianyu.liu@yale.edu
+Supplementary information: Supplementary data are available at Bioinformatics online.
+1 Introduction
+Recent advances in machine learning and large language models
+(LLMs) Devlin (2018); Brown (2020); Ouyang et al. (2022); Achiam et al.
+(2023); Touvron et al. (2023) have greatly facilitated single-cell analysis.
+Several single-cell foundation models (scFMs) have been proposed to
+obtain task-agnostic cell representations that generalize well to specific
+downstreamsingle-cellanalysistasks. ThesescFMscanbebroadlydivided
+into two groups: pretrain-based scFMs and LLM-based scFMs. Pretrain-
+based scFMs typically leverage a vast volume of single-cell RNA sequence
+(scRNA-seq) data for large-scale pretraining, while LLM-based scFMs
+usually construct cell representations from LLM embeddings. Although
+these scFMs have made significant progress for versatile single-cell
+analysis, there are several limitations that cannot be neglected. Firstly, the
+success of pretrain-based scFMs depends on the pretraining process over
+© The Author 2022. Published by Oxford University Press. All rights reserved. For permissions, please e-mail: journals.permissions@oup.com
+1
+arXiv:2609.14147v1  [q-bio.GN]  12 Sep 2026
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 2 — #2
+i
+i
+i
+i
+i
+i
+2
+Liu et al.
+a large volume of cells, which is time-consuming and resource-intensive
+in practice. Most existing scFMs still require large-scale pretraining on
+massive single-cell corpora before they can be used in a zero-shot manner.
+Thus, while users may not need to fine-tune or retrain the model for every
+new task, the initial development of such models remains computationally
+expensive and data intensive. To obtain scalable embeddings for single-
+cell data from different resources, pretrain-based scFMs often define gene
+vocabularies for data tokenization, which requires genomics knowledge
+from human experts. Despite their outstanding performance, the costs
+associated with them are challenging to bear. Obtaining expert priors is
+difficult and demands labor-intensive efforts, consequently leading to a
+decrease in training efficiency. Secondly, LLM-based scFMs often ignore
+heterogeneity between raw cellular and LLM textual spaces. The LLM
+textual space is constructed based on pretraining in natural language,
+whereas the cellular space is dedicated to modeling biological data, leading
+to inherent significant gaps and heterogeneity. Although LLM-based
+scFMs are cost-effective, their performance often falls short, especially
+in finetuning scenarios.
+Inspired by the recent progress of LLM agents Wang et al. (2024); Durante
+et al. (2024) and the associated techniques like retrieval-augmented
+generation (RAG) Lewis et al. (2020); Zhao et al. (2024a) and its
+applications in biological tasks Yu et al. (2025), we present RAGCell,
+a versatile single-cell analysis framework that achieves a double-win in
+both cost-effectiveness and high performance. Here we define RAG as a
+computational paradigm. RAG is the decoupling of parametric knowledge
+(stored in model weights) from non-parametric knowledge (stored in
+an external, retrievable index), with the latter dynamically queried to
+augment downstream generation or prediction. RAGCell follows precisely
+this paradigm: rather than encoding all biological knowledge in model
+parameters, we maintain an external index of representations that are
+learned at training time to condition the model’s output in the inference
+time. The retrieval mechanism, not the textual nature of the output, is the
+conceptualcoreofRAG.Theretrievedrepresentationsare notonly usedfor
+alignment in the contrastive-learning sense, but also injected into the model
+to augment its prediction for a given query cell. This is functionally parallel
+to a standard RAG pipeline where retrieved documents are concatenated
+into an LLM’s context to inform its output. Our motivation is to reduce this
+upstream pretraining burden by leveraging the knowledge already encoded
+in general-purpose language models and converting cell- or feature-level
+biological information into meaningful textual representations. Different
+from existing LLM-based scFMs that directly leverage LLM embeddings
+for single-cell data modeling, RAGCell firstly generates cell-level and
+feature-level knowledge databases through LLMs. We check the responses
+to ensure that they describe general cell-type and feature biology rather
+than the downstream prediction itself. For cell-level text descriptions,
+the omics and cell type information are included in a prompt template
+as queries, and corresponding responses from LLMs are stored in the
+database. For feature-level text descriptions, the specific functions of
+genes Chen et al. (2019), peaks Zeng et al. (2024), and proteins Wu and
+Singh (2012) are preserved in another database. Then, we employ a patch-
+based light-weighted Transformer Vaswani (2017) as the cell model to
+obtain cell representations. Afterward, the text descriptions from these
+databases are retrieved and projected into a new space to perform cell-
+text alignment Chen et al. (2020b,a,c, 2021); Radford et al. (2021), which
+aims toprovide supervision for thecell model and align cell representations
+from the cellular space with knowledge from the well-defined LLM textual
+space. After alignment, the cell model could be employed for various
+downstream single-cell analysis tasks under both finetuning and zero-shot
+settings. Compared with existing scFMs, RAGCell can model single-
+cell multi-omics data into a general framework and achieve superior
+performance on downstream tasks free of the need for extensive pretraining
+on extra single-cell data or any human expert priors. In comparison to
+pretrain-based scFMs such as scBERT Yang et al. (2022) and scGPT Cui
+et al. (2024), RAGCell can achieve more than a tenfold reduction in
+pretraining costs. In addition, since omics information is included in
+the cell-level database, RAGCell is scalable to both single-omics and
+multi-omics data analysis tasks, such as cell type annotation, batch
+effect correction, multi-omics data integration, rare cell type annotation,
+and drug sensitivity prediction. The superiority of RAGCell against a
+range of cutting-edge scFMs is fully demonstrated through comprehensive
+experiments on many downstream single-cell analysis tasks and datasets.
+To summarize, the main contributions of this paper are threefold:
+1. Novel Perspective. We identify the key limitations of pretrain-based
+and LLM-based scFMs, and then provide a novel perspective to reduce
+the training cost of single-cell analysis framework while maintaining
+its capability by incorporating LLM priors as supervision signals.
+2. Double-WinFramework. WepresentRAGCell, aversatileframework
+that is based on RAG and empowered by LLMs. Leveraging
+LLM-generated information as supervision, RAGCell achieves a
+double-win in high performance and cost-effectiveness for single-cell
+analysis.
+3. Multifaceted Validation. We conduct comprehensive experiments
+on five downstream single-cell analysis tasks and demonstrate the
+superiority of RAGCell against many state-of-the-art scFMs.
+2 Related Work
+2.1 Single-cell Analysis
+Single-cell analysis seeks to characterize cellular states across various
+omics modalities, such as RNA Saliba et al. (2014); Kolodziejczyk
+et al. (2015), DNA Karemaker and Vermeulen (2018); Evrony et al.
+(2021), and proteins Wu and Singh (2012); Suman et al. (2015). As
+a foundational technique in computational biology, it has wide-ranging
+applications in healthcare Hong et al. (2019); Rajewsky et al. (2020)
+and medicine Lim et al. (2020); Paik et al. (2020). For example, single-
+cell analysis enables the identification of cellular heterogeneity, offering
+insights into the complexity of tissues and organs. It also plays a key
+role in elucidating disease progression, thereby supporting the discovery
+of novel therapeutic targets and advancing our understanding of disease
+mechanisms. Numerous computational tasks have been developed for
+analyzing single-omics or multi-omics single-cell data, such as cell
+type annotation Jiang et al. (2023); Hou and Ji (2024), batch effect
+correction Tran et al. (2020); Fei and Yu (2020), and multi-omics data
+integration Lance et al. (2022); Cao and Gao (2022).
+2.2 Foundation Models for Single-cell Biology
+With the rapid advancement of generative artificial intelligence Devlin
+(2018);Brown(2020);Zhaoetal.(2024b)andLLMsTouvronetal.(2023);
+Achiam et al. (2023), numerous FMs have been proposed for single-cell
+biology. For instance, scBERT Yang et al. (2022) applies a bag-of-words
+strategy to discretize gene expression based on transcription frequencies
+and incorporates predefined Gene2Vec embeddings to tokenize single
+cells. It utilizes a Performer encoder Choromanski et al. (2020) to learn
+cell representations and conducts self-supervised pretraining on over one
+million scRNA-seq samples. scGPT Cui et al. (2024) tokenizes data by
+incorporating gene expression values, gene tokens, and condition tokens.
+It employs a Transformer model trained autoregressively with an attention
+masking mechanism. In parallel, models such as GenePT Chen and Zou
+(2023) and scELMo Liu et al. (2023b) leverage LLMs to generate gene-
+level embeddings, which are then integrated with raw single-cell sequences
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 3 — #3
+i
+i
+i
+i
+i
+i
+short Title
+3
+Cell Type Annotation
+Cell A
+Cell B
+Cell C
+Annotation
+Batch Effect Correction
+Batch 
+1
+Batch 2
+Clustering
+Multi-omics Data Integration
+RNA
+Protein
+Clustering
+Rare Cell Type Identification
+Abundant Cell
+Rare Cell
+Identification
+Drug Sensitivity Prediction
+Sensitive?
+or
+Resistant?
+Prediction
+Please summarize the major function of 
+gene: {gene_id}. Use academic language in 
+one paragraph and and think step by step.
+Let me provide the major function of 
+{gene_id}. The {gene_id} gene encodes a 
+member of ...
+Feature Database
+Embedding Model
+Feature-level
+This is a single cell {omics} sample with a 
+cell type of {cell_type}. Please summarize its 
+major function. Use academic language in 
+one paragraph and think step by step.
+Let me provide the major function of 
+{cell_type} cells. It’s a critical component of ...
+Cell Database
+Embedding Model
+Cell-level
+CTA
+CTR
+BEC
+MDI
+RCTI
+DSP
+ASAP-seq
+CITE-seq
+Multiple
+Sclerosis
+Erlotinib
+Cisplatin
+BMMC
+PBMC
+10K
+BMMC
+PBMC
+10K
+BMMC
+PBMC
+1OK
+90261 Cells
+13953 Genes
+134 Proteins
+11990 Cells
+3346 Genes
+11990 Cells
+3346 Genes
+90261 Cells
+13953 Genes
+134 Proteins
+1990 Cells
+3346 Genes
+90261 Cells
+13953 Genes
+134 Proteins
+1302 Cells
+22744 Genes
+2739 Cells
+8380 Genes
+13468 Cells
+3000 Genes
+4644 Cells
+17441 Genes
+4502 Cells
+17441 Peaks
+Incorporated Data
+𝑯𝒄𝒆𝒍𝒍
+𝟏
+𝑯𝒄𝒆𝒍𝒍
+𝟐
+𝑯𝒄𝒆𝒍𝒍
+𝟑
+. . .
+𝑯𝒄𝒆𝒍𝒍
+𝒏
+𝑯𝒕𝒆𝒙𝒕
+𝟏
+𝑯𝒕𝒆𝒙𝒕
+𝟐
+𝑯𝒕𝒆𝒙𝒕
+𝟑
+. . .
+𝑺𝒄*𝒕
+𝟏*𝟏
+𝑺𝒄*𝒕
+𝟐*𝟐
+𝑺𝒄*𝒕
+𝟑*𝟑
+. . .
+𝑺𝒄*𝒕
+𝒏*𝒏
+𝑯𝒕𝒆𝒙𝒕
+𝒏
+𝑺𝒄*𝒕
+𝟐*𝟏
+𝑺𝒄*𝒕
+𝟑*𝟏
+. . .
+𝑺𝒄*𝒕
+𝒏*𝟏
+𝑺𝒄*𝒕
+𝟏*𝟐
+𝑺𝒄*𝒕
+𝟏*𝟑
+. . .
+𝑺𝒄*𝒕
+𝟏*𝒏
+𝑺𝒄*𝒕
+𝟐*𝟑
+. . .
+𝑺𝒄*𝒕
+𝟐*𝒏
+𝑺𝒄*𝒕
+𝟑*𝒏
+. . .
+. . .
+𝑺𝒄*𝒕
+𝟑*𝟐
+. . .
+𝑺𝒄*𝒕
+𝒏*𝟐
+. . .
+𝑺𝒄*𝒕
+𝒏*𝟑
+. . .
+Cell-Text Alignment
+Cell Database
+Feature Database
+Cell Embeddings
+Feature Embeddings
+Normalized Exp
+Weighted
+Avg
+Retrieved Knowledge
+Retrieval
+Retrieval
+Concat
+Text 
+Projector
+Single-cell Multi-omics Data
+scRNA-seq
+CITE-seq
+......
+Cell 
+Projector
+Cell Model
+Data Modeling
+Downstream Single-cell Analysis Tasks
+More applications…
+Fig. 1. An overview of RAGCell. RAGCell utilizes multi-source single-cell data to construct both cell-level and feature-level knowledge databases. Subsequently, it retrieves bi-level
+knowledge as supervision signals for training the cell model. Following alignment of cell representations with the LLM textual space, the pretrained cell model can be applied to various
+single-cell analysis tasks.
+to enhance representation learning and task performance. LangCell Zhao
+et al. (2024b) aims to enhance single-cell models by combining text
+descriptions and pre-training. In comparison with these methods, our
+RAGCell utilizes RAG techniques to achieve superior performance in
+versatile single-cell analysis with limited budgets.
+3 The RAGCell Framework
+The proposed framework RAGCell comprises a cell model and two
+associated knowledge databases. For each sample, we first create text
+descriptions with rich external information at both the cell and feature
+levels. These descriptions are then vectorized to obtain embeddings via
+embedding models and stored in databases for future use. Subsequently,
+we retrieve the generated text embeddings to perform cell-text alignment.
+In this stage, knowledge from LLM-based databases is utilized to guide
+the training process of a cell model, with the objective of injecting priors
+from the LLM textual space into the cellular space. Once the alignment is
+complete, the cell model can be employed to execute various downstream
+single-cell analysis tasks. An overview of our framework is provided in
+Figure 1.
+Regarding novelty,
+RAGCell’s main contribution lies in its dual-
+granularity contrastive learning strategy,
+which embeds biological
+semantics directly into the gene/protein/peak representation space at both
+thecellandfeaturelevels, presentingasafundamentallydifferentinductive
+bias from prior cell-language models. This is enabled by a purpose-built
+patch-based encoder whose patching scheme is designed to interact with
+feature-level supervision, as patches inherit aggregated descriptions from
+their constituent features. Therefore, the architecture and the supervision
+signal are mutually reinforcing rather than borrowed independently, which
+is also not trivial. The resulting model unlocks capabilities that the
+individual components cannot achieve in isolation, including zero-shot
+generalization to features unseen during training, cross-modality transfer,
+and biologically interpretable representations, as demonstrated in our
+applications and in the additional comparisons against other baselines.
+Cell Model. Since there is no need for extensive pretraining, we employ
+a lightweight Transformer model Dosovitskiy (2020) as the cell model.
+For a cell sample X ∈R1×Nf , we begin by splitting it into M patches,
+and each patch is a P dimensional vector where Nf = M × P. Then
+we add a classification token Xcls to learn global representations and a 1D
+positional encoding Epos to capture the relative position information:
+Xt = [Xcls; X1
+pE; X2
+pE; ...; XM
+p E] + Epos,
+(1)
+where Xi
+p and E represent patch embedding and linear transformation,
+respectively.
+Afterward,
+we could employ a standard Transformer
+model Vaswani (2017) to capture the cell representations:
+Zcell = Transformer(Xt).
+(2)
+Then, Zcell can be utilized to perform cell-text alignment and downstream
+tasks.
+LLMs. LLMs are used to generate cell-level and feature-level text
+descriptions and to extract bi-level text embeddings, which introduce
+prior knowledge into the entire framework and thus eliminate the need
+for pretraining on large-scale data. In this paper, we opt for the GPT-
+4o mini model to generate cell-level text descriptions and the ‘text-
+embedding-3-large’ model to extract embeddings. For feature-level text
+descriptions, we use the GPT-3.5 model to obtain the specific function for
+each gene or protein and the ‘text-embedding-ada-002’ model to extract
+embeddings. To minimize hallucination and ensure biological accuracy
+in LLM-generated feature descriptions, four strategies are employed:
+context-aware generation that explicitly specifies modality and task setting
+to reduce entity ambiguity; post-generation validation against curated
+databases (with NCBI Schoch et al. (2020)) to flag mismatched or
+inconsistent descriptions for regeneration or removal; manual inspection
+of high-impact examples used in figures or case studies; and treating
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 4 — #4
+i
+i
+i
+i
+i
+i
+4
+Liu et al.
+generated descriptions as auxiliary rather than ground-truth supervision,
+with robustness checks and ablation analyses to assess sensitivity to
+individual descriptions.
+Bi-level Knowledge Databases Construction. The core of our framework
+is to construct cell-level and feature-level knowledge databases. For each
+cell sample, we consider multiple aspects of information to be crucial for
+constructing high-quality representations, including omics information,
+cell type information, and specific feature information (such as gene or
+protein). Therefore, it is necessary to include all these types of information
+in the text descriptions. First, we apply a text template: “This is a single-
+cell <omics> sequence sample with a cell type of <cell type>. Please
+summarize its major function. Use academic language in one paragraph
+and think step by step.". We then fill in the omics and cell type information
+for each cell into this template. Next, we utilize an embedding model (EM)
+to obtain text embeddings. The entire process can be formulated as:
+Zc
+text = EM(LLM(Prompt(Qc))),
+(3)
+where Qc denotes cell-level prompts and Zc
+text ∈R1×F1 represents the
+correspondingcell-levelF1 dimensionaltextembeddings. Next, we follow
+previous works GenePT Chen and Zou (2023) and scELMo Liu et al.
+(2023b), to obtain feature-level text embeddings. There are generally two
+ways to acquire feature-level text descriptions: using text descriptions from
+the NCBI database as prompts or using human-designed prompts in a
+dialogue with an LLM. Here, we illustrate the second approach as an
+example. We begin by using a prompt following Liu et al. (2023a); Jia
+et al. (2022); Ekin (2023) to ask the LLM for specific feature information
+(using a gene as an example): “Please summarize the major function of
+gene: <gene>. Use academic language in one paragraph and think step
+by step.". Subsequently, we utilize the LLM’s response to this query as the
+feature-level text descriptions and obtain its corresponding embeddings.
+This process can be formulated as:
+Zfi
+text = EM(LLM(Prompt(Qfi))),
+(4)
+where Qfi denotes the query for each feature and Zfi
+text ∈R1×F2
+represents the corresponding F2 dimensional text embeddings. For a cell
+sample with Nf features, we could stack Zfi
+text ∈R1×F2 for each feature
+and obtain the final feature-level text embeddings Zf
+text ∈RNf ×F2.
+For each specific dataset, we can store these cell-level and feature-
+level embeddings in two databases. During the training process, the
+corresponding embeddings can be retrieved to provide supervision signals.
+Cell-Text Alignment. After constructing bi-level knowledge databases, we
+then transfer knowledge from the databases to the cell model by retrieving
+relevant information. To begin, we need to concatenate the cell-level and
+feature-level text embeddings:
+Zf′
+text = X × Zf
+text,
+Ztext = Concat(Zc
+text, Zf′
+text),
+(5)
+where Zf′
+text ∈R1×F2 and Ztext ∈R1×(F1+F2). Then, two separate
+multilayer perceptrons (MLPs) are utilized to project cell representations
+and text embeddings into new low-dimensional spaces:
+Hcell = MLP(Zcell),
+Htext = MLP(Ztext),
+(6)
+where Hcell ∈R1×D and Htext ∈R1×D have same code length.
+Following prior works Chen et al. (2020b); He et al. (2020); Radford
+et al. (2021); Xiong et al. (2023), we set D = 128 by default. After
+getting Hcell and Htext for each cell, we then perform cell-text alignment
+via instance-level matching:
+LC2T = −1
+B
+B
+X
+i
+log
+exp(cos(Hi
+cell, Hi
+text))
+PB
+j=1 exp(cos(Hi
+cell, Hj
+text))
+,
+(7)
+LT2C = −1
+B
+B
+X
+i
+log
+exp(cos(Hi
+text, Hi
+cell))
+PB
+j=1 exp(cos(Hi
+text, Hj
+cell))
+,
+(8)
+where B denotes the number of samples within a mini-batch, exp(·)
+represents exponential transformation, and cos(·) represents cosine
+similarity. The final loss objective can be formulated as:
+L = 1
+2 (LC2T + LT2C).
+(9)
+The loss function ensures that the distance between cell-text pairs is
+minimized in the representation space, while the distance between non-
+paired cell and text representations is maximized. Through pretraining
+on specific datasets, we inject semantic knowledge from LLMs into the
+cell model. After training, the cell model can be employed for many
+downstream single-cell analysis tasks.
+Downstream Single-cell Analysis Tasks. We evaluate the performance of
+RAGCell on several downstream single-cell data analysis tasks. For tasks
+like cell type annotation and drug sensitivity prediction, we first leverage
+a classification head to obtain the predictions for each cell:
+Pcell = MLP(Hcell).
+(10)
+Then we finetune the cell model and classification head on specific datasets
+with cross-entropy loss:
+Lcls = CE(Pcell, Ycell),
+(11)
+where Ycell denotes the corresponding cell type labels or drug sensitivity
+labels. For batch effect correction and multi-omics data integration tasks,
+we directly employ the cell representations for evaluation, without the
+need for finetuning. For the rare cell type identification task, we employ
+the SOTA method scCAD Xu et al. (2024) as a baseline, which starts
+from clustering. Our modified scCAD is based on embeddings from
+RAGCell, and is a purely zero-shot method. Then we replace the original
+cell embeddings with our cell representations. All other algorithm settings
+are kept consistent.
+Inference-time retrieval and representation fusion. At inference time,
+RAGCell uses the encoded cell representation (Hcell) as a query to retrieve
+relevant textual knowledge from the external database. Specifically, all
+database entries are encoded in advance using the text encoder and stored
+in a searchable embedding index, and cosine similarity is used to rank their
+relevance to the query cell. The top-(k) text representations are selected
+and aggregated using similarity-normalized attention weights, yielding
+a retrieved knowledge representation (Hret = Pk
+i=1 αiH(i)
+text), where
+αi = softmax(sim(Hcell, H(i)
+text)). The retrieved representation is then
+fused with the original cell representation through a learnable projection,
+(Haug = MLP([Hcell; Hret])), and (Haug), rather than Hcell alone,
+is provided to the downstream prediction head. The retrieval database
+and text embeddings are constructed without using test-set labels, and
+model parameters remain fixed during inference. This is implemented in
+the training process.
+4 Experiment
+4.1 Cell Type Annotation
+Cell type annotation Cao et al. (2020a); Chen et al. (2022b, 2023); Shao
+et al. (2021) is known as a crucial task in single-cell analysis. However,
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 5 — #5
+i
+i
+i
+i
+i
+i
+short Title
+5
+a
+b
+c
+d
+e
+Fig. 2. Cell Type Annotation Results. a. UMAP plot of the embeddings finetuned by five methods on CITE-seq data. b. UMAP plot of the embeddings finetuned by five methods on
+ASAP-seq data. c. Precision, Recall, F1, and Accuracy comparisons of different methods on CITE-seq data. d. Precision, Recall, F1, and Accuracy comparisons of different methods on
+ASAP-seq data. e. Cost comparisons.
+most existing scFMs focused exclusively on scRNA-seq data and lacked
+validation across other omics modalities. To address this gap, we evaluated
+RAGCell against other scFMs using CITE-seq Stoeckius et al. (2017),
+ASAP-seq Mimitou et al. (2021) and Liver data Lin et al. (2020); Aizarani
+et al. (2019). For fair comparisons, we randomly partitioned CITE-seq
+and ASAP-seq into three subsets: 80% for training, 10% for validation,
+and 10% for testing. The Liver dataset is tested by using different
+batch for training/testing. The liver evaluation uses two independent
+studies, MacParland et al. (2018) (GSE115469) and Aizarani et al. (2019)
+(GSE124395), and is therefore a cross-study rather than a cross-batch
+transfer. Their annotations were harmonised to seven cell types shared
+by both (B/plasma, cholangiocytes, hepatocytes, LSEC, macrophages,
+macrovascular/portal, T/NK), and both datasets were restricted to the
+17,146 genes common to them. Each study was split 80/10/10 into
+training, validation and test partitions, stratified by cell type; a classifier
+is trained on one study and evaluated on the held-out test partition of the
+other, in both directions. Fig. 2 (a) and (b) illustrate cell embeddings
+finetuned by the five methods. The UMAP visualizations McInnes
+et al. (2018) demonstrated that RAGCell achieved superior separation
+of distinct cell types for both CITE-seq and ASAP-seq data, confirming
+its effectiveness for multi-omics cell type annotation. We subsequently
+conducted comprehensive quantitative comparisons using four evaluation
+metrics. As depicted in Fig. 2 (c) and (d), pretrain-based scFMs (scBERT
+Yang et al. (2022), scGPT Cui et al. (2024)) outperform LLM-based
+scFMs (GenePT Chen and Zou (2023), scELMo Liu et al. (2023b)) by
+a large margin, consistent with expectations given the computationally
+intensive pretraining required for Transformer-based models. Remarkably,
+RAGCell consistently surpassed all other scFMs across every metric. We
+also compare more baseline based on both Liver and ASAP-seq datasets
+to test RAGCell with more biological context. Figure 15 shows that
+RAGCell performs better than Cell2Sentence, Geneformer, and UCE, and
+comparable with scFoundation. Training scFMs requires larger resources,
+and thus RAGCell works more efficiently. Figures 15 (a) and (b) show the
+cross-datasetperformancesbasedontheLiverdataset, whereRAGCellstill
+presents as top performers. Therefore, RAGCell still servers as a strong
+method for cell-type annotation under more complicated scenarios. Based
+on the ASAP-seq dataset, we also test whether using different LLMs to
+generate feature embeddings will affect the results obviously or not. We
+compare the embeddings generated based on descriptions from GPT 3.5
+and GPT 4o-mini, as shown in Figure 17, there is no obvious difference
+between these two methods.
+To test whether the gains hold beyond a single tissue and at a larger scale,
+we added two datasets. Tabula Sapiens Immune Consortium* et al. (2022)
+is the immune compartment of the Tabula Sapiens atlas, drawn across
+multiple organs and donors, and Fetal Bone Marrow Jardine et al. (2021)
+is a developmental haematopoietic atlas; the former therefore probes
+generality across tissues and the latter across developmental stages. From
+each atlas we retained the cell types represented by at least 100 cells
+and then drew a uniform random subsample of 100,000 cells without
+replacement under a fixed seed, giving 46 types over 58,604 genes and
+40 types over 32,922 genes respectively. We use the similar split setting,
+and results are shown in Figures 18 (a) and (b). Both label sets are
+considerably finer than those used elsewhere in this study and both are
+strongly imbalanced, which is what makes them informative: in Fetal
+Bone Marrow the largest type accounts for 18,480 cells while the rarest
+sit near the 100-cell floor. On Tabula Sapiens Immune RAGCell attains
+the best score on all four metrics, with a macro-F1 of 0.723 against 0.691
+for scFoundation and 0.663 for UCE, and the margin is consistent across
+the supervised, neighbourhood and clustering metrics rather than confined
+to one of them. On Fetal Bone Marrow the picture is mixed: RAGCell
+is second on accuracy but third on macro-F1, behind scFoundation and
+UCE. The discrepancy is informative rather than incidental. Accuracy and
+the neighbourhood metric are dominated by the abundant erythroid and
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 6 — #6
+i
+i
+i
+i
+i
+i
+6
+Liu et al.
+b
+c
+a
+d
+zero-shot
+tuning
+Fig. 3. Batch Effect Correction Results on PBMC 10K under Zero-shot Settings. a. UMAP plot of the embeddings by five methods across cell types. b. UMAP plot of the embeddings by
+five methods across batches. c. Batch Effect Correction performance comparisons among five methods. We list both tuning methods and zero-shot methods. d. Heatmap visualizations of
+similarity between cell and text embeddings on randomly selected 50 cells.
+precursor populations, on which RAGCell is competitive, whereas macro-
+F1 weights every type equally and is therefore governed by the rarest types,
+which here are lymphoid subsets such as natural killer and CD8 T cells
+sitting near the 100-cell floor.
+It is worth noting that RAGCell achieved this performance without
+requiring supplemental pretraining data, supported by the comparison for
+GPU resource and single-cell data corpus size (Fig. 2 (e)). Its bi-level
+knowledge databases were constructed exclusively from training sets of
+theCITE-seqandASAP-seqdatasets, contrastingsharplywithpretraining-
+based scFMs (e.g., scBERT, scGPT) that relied on massive pretraining
+corpora (millions to tens of millions of cells). These results indicate
+that RAGCell effectively synthesized strengths from both paradigms:
+leveraging external knowledge from LLM-based databases enabled state-
+of-the-art performance with manageable training costs.
+4.2 Batch Effect Correction
+Batch effect correction represents another fundamental challenge in
+single-cell analysis. To assess whether RAGCell effectively addresses
+batch effect issues Tran et al. (2020); Goh et al. (2017); Fei and Yu
+(2020), we conducted experiments on the PBMC 10K dataset Gayoso
+et al. (2022) containing samples from two distinct batches and consider
+metrics which can evaluate both cell-type preservation and batch effect
+correction. All metrics were computed with the standard scIB toolkit
+(v1.1.6) Luecken et al. (2022) under identical settings across all methods.
+Generalization capability was evaluated under zero-shot settings, with
+RAGCell pretrained on around 65,000 cells from the NeurIPS 2021
+Multimodal Single-Cell Data Integration competition Luecken et al.
+(2021). This approach demonstrates significantly higher GPU resource
+efficiency compared to scBERT and scGPT. The visualization results
+in Fig. 3 (a) reveal that RAGCell generates more discriminative cell-
+type clusters than alternative scFMs. scBERT exhibited the weakest
+performance among these scFMs, failing to form distinct clusters.
+This limitation stems from its masked value reconstruction pretraining
+strategy, which is no help for dealing with batch effects or forming
+discriminative clusters. While GenePT, scELMo, and scGPT produced
+partial clusters, their cluster counts fell substantially below the true number
+of cell types. In contrast, RAGCell generated clusters corresponding
+closely to the actual cell type count with well-separated cluster centers,
+indicating superior batch integration capability.
+This enhancement
+stems from integrating prior knowledge retrieved from LLM-based
+databases, effectively suppressing batch-specific variations. The results
+in Fig. 3 (b) further confirm substantial overlap between batches within
+RAGCell’s latent space. Collectively, these results demonstrate RAGCell’s
+effectiveness in batch effect correction and clustering improvement for
+PBMC 10K data. Quantitative validation results in Fig. 3 (c) using
+standardized metrics (NMI, ARI for cell-type preservation, and iLISI score
+for batch effect removal Luecken et al. (2022)) indicate that RAGCell
+consistently outperforms baseline methods in batch effect correction.
+Despite a marginal ARI deficit, its dominant advantages in other metrics
+substantiate its robust capabilities. Moreover, RAGCell serves as a zero-
+shot-based methods, and presents as a top performer under this category.
+We also illustrate ASW score comparisons (Figure 19), and the results
+are consistent. In Fig. 3 (d), we can observe that cell-text alignment
+induces high similarity between embeddings of biologically similar cells,
+effectively disentangling biological signals from technical batch effects.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 7 — #7
+i
+i
+i
+i
+i
+i
+short Title
+7
+c
+a
+b
+d
+Fig. 4. Multi-omics Data Integration Results on BMMC data under Zero-shot Settings. a. UMAP plot of the embeddings by different methods across cell types. b. UMAP plot of the
+embeddings by different methods across batches. c. Cluster performance comparisons. d. Heatmap visualizations of similarity between cell and text embeddings on randomly selected 50
+cells.
+a
+BMMC
+PBMC
+BMMC
+PBMC
+b
+c
+Fig. 5. Rare Cell Type Identification Results under Zero-shot Settings. a. UMAP plot of the cell embeddings related to abundant and rare cell types. b. Quantitative performance comparison
+between the original cell embeddings and ours using the scCAD algorithm. c. Heatmap visualizations of similarity between average embeddings of rare cells and abundant cells.
+4.3 Multi-omics Data Integration
+By leveraging an LLM to derive text embeddings capturing omic-specific
+information, the cell model within RAGCell acquires inherent multi-omic
+representational capabilities during the alignment process. Consequently,
+RAGCell excels at multi-omics data integration. To validate this capability,
+we utilized RNA and Protein modalities from the BMMC dataset Luecken
+et al. (2021) to evaluate zero-shot clustering performance, employing the
+same pretraining data as described in the previous section’s batch effect
+correctionexperiment. HereLLM-producedembeddingsareusedtomodel
+both RNA and Protein modalities, with text descriptions correspondingly.
+Fig. 4 (a) visualizes cell embeddings from GenePT, scELMo, scGPT,
+and RAGCell. While all methods distinguished CD14+ monocytes,
+other scFMs proved unable to resolve CD8+ T cells. LLM-based
+scFMs (GenePT, scELMo) exhibited highly overlapping embeddings
+for remaining cell types, suggesting insufficient discriminative power
+despite underlying gene expression differences. scGPT showed marginal
+improvement by disambiguating CD4+ T cells, yet remained incapable of
+distinguishing other cell populations. In contrast, RAGCell successfully
+transferred semantic knowledge from the LLM to the cell model,
+yielding well-separated clusters for nearly all cell types and superior
+visualization quality. Fig. 4 (b) demonstrates RAGCell’s robust batch
+integration, evidenced by the highest degree of inter-batch embedding
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 8 — #8
+i
+i
+i
+i
+i
+i
+8
+Liu et al.
+overlap. Conversely, GenePT, scELMo, and scGPT persistently exhibited
+batch-specific structures, indicating inconsistent capture of biologically
+relevant features amidst technical noise. Quantitative validation in Fig. 4
+(c) using NMI, ARI, and ASW metrics revealed RAGCell’s dominant
+performance, with all scores exceeding 0.8. The remaining methods
+consistently fell below this threshold (scores < 0.8), further confirming
+RAGCell’s superiority in multi-omics integration. Finally, Fig. 4 (d)
+illustrates elevated embedding similarity between biologically similar
+cells post-alignment. This correlation demonstrates that text embeddings
+provide effective semantic regularization, enabling RAGCell to seamlessly
+integrate both RNA and protein data while simultaneously mitigating batch
+effects.
+4.4 Rare Cell Type Identification
+Advances in sequencing technologies have yielded vast quantities of
+scRNA-seq data Hwang et al. (2018); Cao et al. (2020b), which frequently
+contain both abundant and rare cell populations. Although rare cell
+types Travaglini et al. (2020); Wu et al. (2019); Kiselev et al. (2019)
+exhibit low abundance, they play pivotal roles in biological processes
+such as disease pathogenesis and drug discovery. Consequently, rare
+cell identification has emerged as a critical challenge in single-cell
+analysis Jiang et al. (2016); Jindal et al. (2018); Dong and Yuan (2020).
+By leveraging prior knowledge from LLMs to derive high-quality cell
+representations, RAGCell provides an effective framework for rare cell
+identification. We adopted the state-of-the-art scCAD algorithm Xu
+et al. (2024) as our baseline, which initially clusters cells via principal
+component analysis (PCA). To evaluate RAGCell’s capability, we replaced
+scCAD’s original embeddings with RAGCell’s zero-shot representations.
+Fig. 5 (a) (left) illustrates BMMC data visualizations. Whereas baseline
+results show abundant cells clustered distantly from most rare cells
+(with partial overlap), RAGCell (right) achieves clear separation between
+abundant and rare populations while enhancing discrimination among
+rare cell subtypes. Similarly, for PBMC data (Fig. 5 (a) (right)),
+baseline embeddings exhibit substantial mixing of rare and abundant cells,
+whereas RAGCell maintains distinct inter-group distances and intra-group
+dispersion—significantly improving scCAD’s rare cell identification
+capacity. In Fig. 5 (b), we selected three metrics to quantitatively compare
+the effectiveness of RAGCell in enhancing the identification of rare cell
+types. The results show that, compared to the original cell embeddings, the
+embeddingsobtainedfromourframeworkachieveimprovementsacrossall
+metricsontheBMMCdataset. OnthePBMCdataset, whileourrecallscore
+is slightly lower than that of the original embeddings, our performance on
+the other two metrics is superior. Quantitative analysis in Fig. 5 (b) using
+three metrics demonstrates RAGCell’s consistent improvement across all
+measures on BMMC data. For PBMC data, while recall shows marginal
+reduction, RAGCell outperforms baselines in two other metrics. Further
+validation in Fig. 5 (c) reveals substantially reduced cosine similarity
+between abundant/rare cells and among distinct rare cell types, confirming
+RAGCell’s discriminative power. We also include more baselines in the
+Figure 20, which showcases that embeddings from other methods cannot
+surpass the settings introduced by RAGCell especially based on F1 score,
+and thus RAGCell can provide strong embeddings to identify rare cell
+types.
+4.5 Drug Sensitivity Prediction
+Accurate prediction of cellular drug sensitivity represents a critical
+challenge in precision biomedicine Cortes-Ciriano et al. (2016); Ahmed
+et al. (2020).
+To evaluate RAGCell’s capabilities,
+we conducted
+experiments on the GSE149383-Erlotinib Aissa et al. (2021) and
+GSE117872-Cisplatin Sharma et al. (2018); Ravasio et al. (2020);
+Suphavilai et al. (2021) datasets.
+The train/validation/test split is
+performed before any cell–text alignment or fine-tuning, and that both
+stages use only the training split, with no test-set sensitivity labels
+used for text database construction, alignment, model selection, or
+downstream training. Fig. 6 (a) and (b) demonstrates RAGCell’s superior
+performance over both specialist models (Transformer Vaswani (2017),
+scDEAL Chen et al. (2022a)), generalist foundation models (GPT-3.5-
+turbo), as well as machine learning models such as Random Forest
+(RF). Across all four metrics, comparator methods scored below 0.8,
+while RAGCell consistently exceeded 0.9, demonstrating significant
+improvements. This enhancement stems from our framework’s ability
+to leverage inherent biological patterns within knowledge databases,
+strengthening cell-drug sensitivity associations. Due to the limitation of
+dataset number, we can only perform randomly and in-distribution split
+to create training/validation/testing datasets. The visualization results in
+Fig. 6 (c) further substantiate this advantage. As it can be found, the
+raw cell embeddings often tend to mix the drug sensitivity property to
+a specific drug. However, the cell embeddings generated by our RAGCell
+illustrate the discernibility of cell sensitivity to various drugs. Cells
+with similar sensitivities typically aggregate together, whereas cells with
+distinct sensitivities are dispersed throughout. The confusion matrix results
+in Fig. 6 (d) reveal near-perfect sensitivity prediction accuracy, with
+only minor degradation in resistance classification. Overall, RAGCell
+significantly surpasses other specialist and generalist models in drug
+sensitivity prediction.
+5 Conclusion and Limitations
+Here we identify the shortcomings of both pretrain-based and LLM-based
+scFMs, and propose a double-win framework termed RAGCell that excels
+in both cost-effectiveness and high-performance for versatile single-cell
+analysis. The core of RAGCell is generating bi-level biological knowledge,
+which is retrieved as additional supervision signals during the pretraining
+phase. Remarkably, RAGCell outperforms cutting-edge scFMs across
+multiple downstream tasks.
+We also admit limitations. The power of RAGCell is depended by the
+choicesofLLMstoproduceembeddingsanddescriptions, whichmeanthat
+we need to track the development very frequently. Powerful LLMs are also
+closed-source, and thus using open-source LLMs for further exploration
+should be encouraged. In future work, we aim to further explore scaling
+laws for single-cell foundation models, with the goal of developing a
+unified, all-in-one framework.
+6 Credit Taxonomy
+F.Z. and T.L. proposed this study. T.L. and F.Z. designed the method.
+T.L., F.Z., J.C. performed experiments. All authors wrote and reviewed
+the manuscript. T.L. and Y.Z. supervised this study.
+References
+Achiam, J. et al. (2023).
+Gpt-4 technical report.
+arXiv preprint
+arXiv:2303.08774.
+Ahmed, K. T. et al. (2020). Network-based drug sensitivity prediction.
+BMC medical genomics, 13, 1–10.
+Aissa, A. F. et al. (2021). Single-cell transcriptional changes associated
+with drug tolerance and response to combination therapies in cancer.
+Nature communications, 12(1), 1628.
+Aizarani, N. et al. (2019). A human liver cell atlas reveals heterogeneity
+and epithelial progenitors. Nature, 572(7768), 199–204.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 9 — #9
+i
+i
+i
+i
+i
+i
+short Title
+9
+a
+b
+c
+Erlotinib
+Cisplatin
+Cisplatin
+Erlotinib
+d
+Fig. 6. Drug Sensitivity Prediction Results on Erlotinib and Cisplatin data. a. Quantitative performance comparisons on Erlotinib data. b. Quantitative performance comparisons on Cisplatin
+data. c. UMAP plot of the raw embeddings and ours. d. Confusion matrix results.
+Brown, T. B. (2020).
+Language models are few-shot learners.
+arXiv
+preprint arXiv:2005.14165.
+Cao, Y. et al. (2020a). Scsa: a cell type annotation tool for single-cell
+rna-seq data. Frontiers in genetics, 11, 490.
+Cao, Z.-J. and Gao, G. (2022). Multi-omics single-cell data integration
+and regulatory inference with graph-linked embedding.
+Nature
+Biotechnology, 40(10), 1458–1466.
+Cao, Z.-J. et al. (2020b). Searching large-scale scrna-seq databases via
+unbiased cell embedding with cell blast. Nature communications, 11(1),
+3458.
+Chen, G. et al. (2019).
+Single-cell rna-seq technologies and related
+computational data analysis. Frontiers in genetics, 10, 317.
+Chen, J. et al. (2022a). Deep transfer learning of cancer drug responses by
+integrating bulk and single-cell rna-seq data. Nature Communications,
+13(1), 6494.
+Chen, J. et al. (2023). Transformer for one stop interpretable cell type
+annotation. Nature Communications, 14(1), 223.
+Chen, T. et al. (2020a).
+Big self-supervised models are strong semi-
+supervised learners. Advances in neural information processing systems,
+33, 22243–22255.
+Chen, T. et al. (2020b). A simple framework for contrastive learning of
+visual representations. In Proceedings of the International Conference
+on Machine Learning.
+Chen, X. et al. (2020c). Improved baselines with momentum contrastive
+learning. arXiv preprint arXiv:2003.04297.
+Chen, X. et al. (2021). An empirical study of training self-supervised
+vision transformers.
+In Proceedings of the IEEE/CVF international
+conference on computer vision, pages 9640–9649.
+Chen, X. et al. (2022b). Cell type annotation of single-cell chromatin
+accessibility data via supervised bayesian embedding. Nature Machine
+Intelligence, 4(2), 116–126.
+Chen, Y. and Zou, J. (2023). Genept: A simple but effective foundation
+model for genes and cells built from chatgpt. bioRxiv.
+Choromanski, K. et al. (2020). Rethinking attention with performers.
+arXiv preprint arXiv:2009.14794.
+Consortium*, T. T. S. et al. (2022).
+The tabula sapiens: A multiple-
+organ, single-cell transcriptomic atlas of humans. Science, 376(6594),
+eabl4896.
+Cortes-Ciriano, I. et al. (2016).
+Current trends in drug sensitivity
+prediction. Current pharmaceutical design, 22(46), 6918–6927.
+Cui, H. et al. (2024).
+scgpt: toward building a foundation model for
+single-cellmulti-omicsusinggenerativeai. NatureMethods, pages1–11.
+Devlin, J. (2018). Bert: Pre-training of deep bidirectional transformers for
+language understanding. arXiv preprint arXiv:1810.04805.
+Dong, R. and Yuan, G.-C. (2020). Giniclust3: a fast and memory-efficient
+tool for rare cell type identification. BMC bioinformatics, 21, 1–7.
+Dosovitskiy, A. (2020). An image is worth 16x16 words: Transformers
+for image recognition at scale. arXiv preprint arXiv:2010.11929.
+Durante, Z. et al. (2024). Agent ai: Surveying the horizons of multimodal
+interaction. arXiv preprint arXiv:2401.03568.
+Ekin, S. (2023).
+Prompt engineering for chatgpt: a quick guide to
+techniques, tips, and best practices. Authorea Preprints.
+Evrony, G. D. et al. (2021). Applications of single-cell dna sequencing.
+Annual review of genomics and human genetics, 22(1), 171–197.
+Fei, T. and Yu, T. (2020). scbatch: batch-effect correction of rna-seq data
+through sample distance matrix adjustment.
+Bioinformatics, 36(10),
+3115–3123.
+Franzén, O. et al. (2019). Panglaodb: a web server for exploration of
+mouse and human single-cell rna sequencing data. Database, 2019,
+baz046.
+Gayoso, A. et al. (2022). A python library for probabilistic analysis of
+single-cell omics data. Nature biotechnology, 40(2), 163–166.
+Goh, W. W. B. et al. (2017). Why batch effects matter in omics data, and
+how to avoid them. Trends in biotechnology, 35(6), 498–507.
+Hao, M. et al. (2024).
+Large-scale foundation model on single-cell
+transcriptomics. Nature Methods, pages 1–11.
+He, K. et al. (2020).
+Momentum contrast for unsupervised visual
+representation learning. In Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition.
+Hong, S. P. et al. (2019). Single-cell transcriptomics reveals multi-step
+adaptations to endocrine therapy. Nature communications, 10(1), 3840.
+Hou, W. and Ji, Z. (2024). Assessing gpt-4 for cell type annotation in
+single-cell rna-seq analysis. Nature Methods, pages 1–4.
+Hwang, B. et al. (2018). Single-cell rna sequencing technologies and
+bioinformatics pipelines. Experimental & molecular medicine, 50(8),
+1–14.
+Jardine, L. et al. (2021). Blood and immune development in human fetal
+bone marrow and down syndrome. Nature, 598(7880), 327–331.
+Jia, M. et al. (2022). Visual prompt tuning. In European Conference on
+Computer Vision, pages 709–727. Springer.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 10 — #10
+i
+i
+i
+i
+i
+i
+10
+Liu et al.
+Jiang, L. et al. (2016). Giniclust: detecting rare cell types from single-cell
+gene expression data with gini index. Genome biology, 17, 1–13.
+Jiang, Y. et al. (2023). scatanno: automated cell type annotation for single-
+cell atac sequencing data. bioRxiv, pages 2023–06.
+Jindal, A. et al. (2018). Discovery of rare cells from voluminous single
+cell expression data. Nature communications, 9(1), 4719.
+Karemaker,
+I. D. and Vermeulen,
+M. (2018).
+Single-cell dna
+methylation profiling: technologies and biological applications. Trends
+in biotechnology, 36(9), 952–965.
+Kiselev, V. Y. et al. (2019). Challenges in unsupervised clustering of
+single-cell rna-seq data. Nature Reviews Genetics, 20(5), 273–282.
+Kolodziejczyk, A. A. et al. (2015). The technology and biology of single-
+cell rna sequencing. Molecular cell, 58(4), 610–620.
+Lance, C. et al. (2022). Multimodal single cell data integration challenge:
+results and lessons learned. BioRxiv, pages 2022–04.
+Levine, D. et al. (2023). Cell2sentence: Teaching large language models
+the language of biology. bioRxiv, pages 2023–09.
+Lewis, P. et al. (2020). Retrieval-augmented generation for knowledge-
+intensive nlp tasks. Advances in neural information processing systems,
+33, 9459–9474.
+Lim, B. et al. (2020).
+Advancing cancer research and medicine with
+single-cell genomics. Cancer cell, 37(4), 456–470.
+Lin, Y. et al. (2020). scclassify: sample size estimation and multiscale
+classification of cells using single and multiple reference. Molecular
+systems biology, 16(6), MSB199389.
+Liu, P. et al. (2023a). Pre-train, prompt, and predict: A systematic survey
+of prompting methods in natural language processing. ACM Computing
+Surveys, 55(9), 1–35.
+Liu, T. et al. (2023b). scelmo: Embeddings from language models are
+good learners for single-cell data analysis. bioRxiv, pages 2023–12.
+Luecken, M. D. et al. (2021). A sandbox for prediction and integration of
+dna, rna, and proteins in single cells. In Thirty-fifth conference on neural
+information processing systems datasets and benchmarks track (Round
+2).
+Luecken, M. D. et al. (2022). Benchmarking atlas-level data integration
+in single-cell genomics. Nature methods, 19(1), 41–50.
+MacParland, S. A. et al. (2018). Single cell rna sequencing of human
+liver reveals distinct intrahepatic macrophage populations.
+Nature
+communications, 9(1), 4383.
+McInnes, L. et al. (2018). Umap: Uniform manifold approximation and
+projection for dimension reduction. arXiv preprint arXiv:1802.03426.
+Mimitou, E. P. et al. (2021). Scalable, multimodal profiling of chromatin
+accessibility, gene expression and protein levels in single cells. Nature
+biotechnology, 39(10), 1246–1258.
+Ouyang, L. et al. (2022). Training language models to follow instructions
+with human feedback.
+Advances in neural information processing
+systems, 35, 27730–27744.
+Paik, D. T. et al. (2020). Single-cell rna sequencing in cardiovascular
+development, disease and medicine. Nature Reviews Cardiology, 17(8),
+457–473.
+Radford, A. et al. (2021). Learning transferable visual models from natural
+language supervision. In Proceedings of the International Conference
+on Machine Learning, pages 8748–8763.
+Rajewsky, N. et al. (2020). Lifetime and improving european healthcare
+through cell-based interceptive medicine. Nature, 587(7834), 377–386.
+Ravasio, A. et al. (2020).
+Single-cell analysis of epha clustering
+phenotypes to probe cancer cell heterogeneity.
+Communications
+Biology, 3(1), 429.
+Rosen, Y. et al. (2023). Universal cell embeddings: A foundation model
+for cell biology. bioRxiv, pages 2023–11.
+Saliba, A.-E. et al. (2014).
+Single-cell rna-seq: advances and future
+challenges. Nucleic acids research, 42(14), 8845–8860.
+Satija, R. et al. (2015).
+Spatial reconstruction of single-cell gene
+expression data. Nature biotechnology, 33(5), 495–502.
+Schoch, C. L. et al. (2020). Ncbi taxonomy: a comprehensive update on
+curation, resources and tools. Database, 2020, baaa062.
+Shao, X. et al. (2021).
+scdeepsort: a pre-trained cell-type annotation
+method for single-cell transcriptomics using deep learning with a
+weighted graph neural network.
+Nucleic acids research, 49(21),
+e122–e122.
+Sharma, A. et al. (2018).
+Longitudinal single-cell rna sequencing of
+patient-derived primary cells reveals drug-induced infidelity in stem cell
+hierarchy. Nature communications, 9(1), 4931.
+Stoeckius, M. et al. (2017).
+Simultaneous epitope and transcriptome
+measurement in single cells. Nature methods, 14(9), 865–868.
+Suman, G. et al. (2015). Single cell protein production: a review. Int. J.
+Curr. Microbiol. App. Sci, 4(9), 251–262.
+Suphavilai, C. et al. (2021). Predicting heterogeneity in clone-specific
+therapeutic vulnerabilities using single-cell transcriptomic signatures.
+Genome Medicine, 13, 1–14.
+Theodoris, C. V. et al. (2023). Transfer learning enables predictions in
+network biology. Nature, 618(7965), 616–624.
+Touvron, H. et al. (2023). Llama: Open and efficient foundation language
+models. arXiv preprint arXiv:2302.13971.
+Tran, H. T. N. et al. (2020).
+A benchmark of batch-effect correction
+methods for single-cell rna sequencing data. Genome biology, 21, 1–32.
+Travaglini, K. J. et al. (2020). A molecular cell atlas of the human lung
+from single-cell rna sequencing. Nature, 587(7835), 619–625.
+Vaswani, A. (2017).
+Attention is all you need.
+Advances in Neural
+Information Processing Systems.
+Virshup, I. et al. (2023). The scverse project provides a computational
+ecosystem for single-cell omics data analysis. Nature biotechnology,
+41(5), 604–606.
+Wang, L. et al. (2024).
+A survey on large language model based
+autonomous agents. Frontiers of Computer Science, 18(6), 186345.
+Wu, H. et al. (2019). Advantages of single-nucleus over single-cell rna
+sequencing of adult kidney: rare cell types and novel cell states revealed
+in fibrosis. Journal of the American Society of Nephrology, 30(1), 23–32.
+Wu, M. and Singh, A. K. (2012). Single-cell protein analysis. Current
+opinion in biotechnology, 23(1), 83–88.
+Xiong, L.et al. (2023). scclip: Multi-modalsingle-cellcontrastivelearning
+integration pre-training. In NeurIPS 2023 AI for Science Workshop.
+Xu, Y. et al. (2024).
+sccad: Cluster decomposition-based anomaly
+detection for rare cell identification in single-cell expression data. Nature
+Communications, 15(1), 7561.
+Yang, F. et al. (2022). scbert as a large-scale pretrained deep language
+model for cell type annotation of single-cell rna-seq data.
+Nature
+Machine Intelligence, 4(10), 852–866.
+Yu, Z. et al. (2025). scrag: Hybrid retrieval-augmented generation for llm-
+based cross-tissue single-cell annotation. In Findings of the Association
+for Computational Linguistics: ACL 2025, pages 954–970.
+Zeng, Y. et al. (2024). Deciphering cell types by integrating scatac-seq data
+with genome sequences. Nature computational science, 4(4), 285–298.
+Zhao, P. et al. (2024a). Retrieval-augmented generation for ai-generated
+content: A survey. arXiv preprint arXiv:2402.19473.
+Zhao, S. et al. (2024b). Langcell: Language-cell pre-training for cell
+identity understanding. arXiv preprint arXiv:2405.06708.
+Zhao, S. et al. (2024c).
+Langcell: language-cell pre-training for cell
+identity understanding.
+In Proceedings of the 41st International
+Conference on Machine Learning, ICML’24. JMLR.org.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 11 — #11
+i
+i
+i
+i
+i
+i
+short Title
+11
+1 Introduction to Incorporated Datasets
+CITE-seq and ASAP-seq PBMC dataset. The CITE-seq and ASAP-seq
+PBMC datasets contain multimodal data from both control and stimulated
+conditions. After preprocessing, 4,644 CITE-seq cells and 4,502 ASAP-
+seq cells associated with 17,441 genes are included in the experiments. The
+CITE-seq data includes seven categories: B cells, Effector CD4+ T cells,
+Effector CD8+ T cells, Monocytes cells, NK cells, Naive CD4+ T cells,
+and Naive CD8+ T cells. The ASAP-seq data includes nine categories: B
+cells, DC cells, Effector CD4+ T cells, Effector CD8+ T cells, Monocytes
+cells, NK cells, Naive CD4+ T cells, Naive CD8+ T cells, and others. This
+dataset can be downloaded from GSE156478 (https://www.ncbi.
+nlm.nih.gov/geo/query/acc.cgi?acc=GSE156478).
+Liver dataset. We create a Liver dataset with two batches from two
+different studies. We manually unify the cell type labels of two datasets
+by regular expressions to remove the mismatched spelling. We use the
+same Scanpy pre-processing step to normalize gene expression, unify
+gene names and create two batches including MacParland and Aizarani
+for training/testing. We have considered both directions.
+PBMC 10K dataset. The PBMC 10K dataset includes two batches
+of scRNA-seq data from human PBMCs of a healthy donor. After
+preprocessing, this dataset features 3,346 differentially expressed genes.
+The first batch and the second batch comprise 7,982 cells and 4,008
+cells, respectively. Cell groups were labeled by Seurat Satija et al. (2015)
+and categorized into nine types: B cells, CD4+ T cells, CD8+ T cells,
+CD14+ monocytes, dendritic cells, NK cells, FCGR3A+ monocytes,
+megakaryocytes, and others. This dataset can be downloaded from the
+scVI tools Virshup et al. (2023); Gayoso et al. (2022) (https://
+scvi-tools.org/) using the API scvi.data.pbmc_dataset.
+BMMC dataset. The BMMC dataset uses the CITE-seq protocol and
+comprises paired measurements of scRNA-seq and protein abundance
+in BMMCs. This dataset includes cells from 12 healthy human donors,
+organized into 12 batches. After preprocessing, the data encompass
+90,261 cells and each cell contains 13,953 genes and 134 surface
+proteins. There are 45 distinct cell types in this dataset. This dataset can
+be downloaded from GSE194122 (https://www.ncbi.nlm.nih.
+gov/geo/query/acc.cgi?acc=GSE194122).
+GSE149383-Erlotinib. The GSE149383 dataset comprises 2,739 human
+lung cancer cells and 8,380 associated genes,
+along with their
+respective sensitivity properties to the drug Erlotinib. This dataset can
+be downloaded from GSE149383 (https://www.ncbi.nlm.nih.
+gov/geo/query/acc.cgi?acc=GSE149383).
+GSE117872-Cisplatin. The GSE117872 dataset comprises 1,302 human
+oral squamous cancer cells and 22,744 associated genes, along with their
+respective sensitivity properties to the drug Cisplatin. This dataset can
+be downloaded from GSE117872 (https://www.ncbi.nlm.nih.
+gov/geo/query/acc.cgi?acc=GSE117872).
+2 Introduction to Compared Methods
+To evaluate the performance of RAGCell for downstream tasks, we
+benchmarked our method against a range of state-of-the-art (SOTA)
+approaches. For tasks like cell type annotation, batch effect correction,
+and multi-omics data integration, we compared RAGCell with four
+scFMs, including scBERT, scGPT, GenePT, and scELMo. For the rare
+cell type identification task, we employed scCAD as the framework and
+replaced the original cell embeddings with cell representations obtained
+by our approach. For the drug sensitivity prediction task, we compared
+RAGCell with both specialist models like vanilla Transformer, scDEAL,
+and generalist models like GPT-3.5.
+scBERT
+Yang
+et
+al.
+(2022). scBERT
+is
+a
+pretrain-based
+scFM
+that utilizes a Performer cell encoder and employs masked gene
+modeling for pretraining on one million cells from the Panglao
+dataset Franzén et al. (2019). We used the pretrained model provided
+by the authors from (https://drive.weixin.qq.com/s?k=
+AJEAIQdfAAoUxhXE7r#) and validated downstream tasks according
+to their publicly available code from (https://github.com/
+TencentAILabHealthcare/scBERT). All other settings were kept
+consistent with those provided by the authors.
+scGPT Cui et al. (2024). scGPT is another pretrain-based scFM
+that employs a decoder-based architecture combined with attention
+mask for autoregressive pretraining on 33 million cells. The authors
+provided several pretrained model weights,
+with pretraining data
+ranging from 1.8 million heart cells to 33 million normal human
+cells.
+We utilized the model pretrained on the largest dataset
+from (https://drive.google.com/drive/folders/1oWh_
+-ZRdhtoGQ2Fw24HP41FgLoomVo-y) and conducted downstream
+task experiments following the authors’ publicly available code from
+(https://github.com/bowang-lab/scGPT). All other settings
+were kept consistent with those provided by the authors.
+Geneformer Theodoris et al. (2023). Geneformer is a pretrain-based
+scFM that uses a transformer encoder architecture for context-
+aware gene representation learning from rank-value encoded single-
+cell transcriptomes. The model was pretrained on approximately 30
+million human single-cell transcriptomes from the Genecorpus-30M
+dataset, enabling transfer to diverse downstream tasks such as cell
+type annotation, perturbation prediction, and gene network analysis.
+The authors provided pretrained model weights through Hugging Face,
+and we utilized the publicly available pretrained Geneformer model
+from (https://huggingface.co/ctheodoris/Geneformer)
+for downstream task experiments.
+scFoundation Hao et al. (2024). scFoundation is a pretrain-based scFM
+that employs a transformer-based architecture to learn universal cell
+representations from large-scale single-cell gene expression profiles. The
+model was pretrained on over 50 million human single-cell transcriptomes,
+enabling broad transferability across downstream tasks such as cell
+type annotation, perturbation response prediction, and gene expression
+reconstruction. The authors provided pretrained model weights, and
+we utilized the publicly available pretrained scFoundation model from
+(https://github.com/biomap-research/scFoundation)for
+downstream task experiments.
+UCE Rosen et al. (2023). UCE is a pretrain-based scFM that employs a
+large transformer-based architecture to generate universal cell embeddings
+for single-cell transcriptomic data. The model was pretrained in a
+self-supervised manner on more than 36 million cells from over 300
+datasets across human and seven other species, aiming to learn a
+unified biological latent space across tissues, datasets, and species. A
+key feature of UCE is that it tokenizes genes using protein-language-
+model-derived embeddings, enabling cross-species and even new-species
+generalization. The authors provided pretrained model weights and
+released the implementation publicly, and we utilized the pretrained UCE
+model from (https://github.com/snap-stanford/UCE) for
+downstream task experiments.
+Cell2Sentence Levine et al. (2023). Cell2Sentence is a pretrain-based
+scFM that reframes single-cell transcriptomes as natural-language-like
+sentences where genes are ordered according to their expression ranks
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 12 — #12
+i
+i
+i
+i
+i
+i
+12
+Liu et al.
+and processed using large language models. Instead of directly modeling
+continuous gene expression matrices, Cell2Sentence converts each cell
+into a sequence of gene tokens,
+enabling decoder-based language
+models to learn gene-gene context and generate biologically meaningful
+cell representations. The authors provided pretrained C2S models and
+tutorials for rank transformation, reconstruction, and downstream analysis,
+and we utilized the publicly available implementation from (https:
+//github.com/vandijklab/cell2sentence) for downstream
+task experiments.
+GenePT Chen and Zou (2023). GenePT is an LLM-based scFM that
+obtains text embeddings of features (such as genes and proteins) from
+LLM using text descriptions from the NCBI database as prompts. It
+then directly uses these LLM embeddings to construct cell embeddings.
+We employed the GenePT-w method, as provided by the authors from
+(https://github.com/yiqunchen/GenePT), to construct cell
+embeddings and validate them for downstream tasks. All other settings
+were kept consistent with those provided by the authors.
+scELMo Liu et al. (2023b). scELMo is another LLM-based scFM,
+which can be considered as an improved version of GenePT. It obtains
+embeddings through enhanced prompts to construct high-quality cell
+embeddings.
+We utilized the code provided by the authors from
+(https://github.com/HelloWorldLTY/scELMo) to build cell
+embeddings and validate them for downstream tasks. All other settings
+were kept consistent with those provided by the authors.
+scCAD Xu et al. (2024). scCAD is a SOTA algorithm for rare cell type
+identification. It employs the PCA method for clustering to obtain cell
+embeddings. We conducted experiments using the publicly available code
+from (https://github.com/xuyp-csu/scCAD) and replaced the
+original cell embeddings with representations from our framework.
+Experimental analysis was performed using the cell embeddings generated
+by ourapproach. Allotherparametersofthealgorithm were kept consistent
+with the original implementation.
+Transformer Vaswani (2017). Transformer is a famous architecture and
+was initially designed for natural language processing tasks. It introduces
+self-attention mechanisms and provides standards for many other fields,
+including vision, audio, and scientific research. For the drug sensitivity
+prediction task, all settings and parameters were kept consistent with the
+standard implementation.
+scDEAL Chen et al. (2022a). scDEAL is a specialist model designed for
+the drug sensitivity prediction task. It employs a neural network and tries
+to establish connections between genes and drug responses. The source
+code and implementation can be found at (https://github.com/
+OSU-BMBL/scDEAL). All settings and parameters were kept consistent
+with the original implementation.
+LangCell Zhao et al. (2024c). LangCell is a cell-text pretrained model that
+couples a Geneformer-style cell encoder with a text encoder and aligns the
+two through contrastive learning over cell-type descriptions, so that a cell
+can be annotated by matching it to type descriptions rather than to a fixed
+label set. Of the published methods it is the closest in design to RAGCell,
+since both introduce textual descriptions of cell identity into representation
+learning, and it is therefore the most informative comparison for isolating
+what the retrieval component contributes (https://github.com/
+PharMolix/LangCell).
+GPT-3.5 and GPT-4o mini. GPT-3.5 is a reliable LLM developed by
+OpenAI. Based on the GPT-3 architecture, GPT-3.5 can understand and
+generate human-liked text, which could be employed for many tasks and
+applications, including the drug sensitivity prediction task. The use of
+GPT-3.5 API can be found at (https://platform.openai.com/
+docs/models/gpt-3.5-turbo). We also test the usage of GPT-
+4o mini in our ablation studies. API: https://platform.openai.
+com/docs/models/gpt-4o-mini
+3 Implementation Details
+RAGCell employs the patch-based Transformer model as the cell model.
+Each cell is split into 128 patches for data tokenization. For cell-level
+knowledge databases, we employ the GPT-4o mini model to generate
+function descriptions and use the ‘text-embedding-3-large’ model to
+extract embeddings, with an embedding dimension of 3072. For feature-
+level knowledge databases, we leverage the GPT-3.5 model to generate
+function descriptions and use the ‘text-embedding-ada-002’ model to
+extract embeddings, with an embedding dimension of 1536. To map cell
+and text representations into a shared space, we use two MLPs as projection
+layers, reducing both representations to a low-dimensional space of 128
+dimensions. All experiments are conducted using Pytorch with 80GB
+A100 GPUs as support. For cell-text alignment, we set the batch size to
+256 and trained the cell model with the AdamW optimizer for 100 epochs.
+For finetuning tasks, we randomly split the datasets into 80% for training,
+10% for validation, and 10% for testing. For zero-shot tasks, we ensure
+that there is no data leakage or overlap during the pretraining phase. The
+learning rate is set to 1.5e-4 during the pretraining stage and 1e-4 during
+the finetuning stage, respectively.
+4 Evaluation Metrics
+Cell Type Annotation. For the cell type annotation task, we evaluated the
+model’s performance using four common metrics for classification tasks:
+Accuracy, Precision, Recall, and F1 score. The calculation processes for
+each metric are as follows:
+Accuracy =
+TP + TN
+TP + TN + FP + FN ,
+(12)
+Precision = 1
+N
+N
+X
+i=1
+TPi
+TPi + FPi
+,
+(13)
+Recall = 1
+N
+N
+X
+i=1
+TPi
+TPi + FNi
+,
+(14)
+F1 Score = 1
+N
+N
+X
+i=1
+2 × Precisioni × Recalli
+Precisioni + Recalli
+,
+(15)
+where TP, TN, FP, and FN are short for true positives, true negatives,
+false positives, and false negatives, respectively. N denotes the number of
+samples per cell type.
+Batch Effect Correction. For the batch effect correction task, we evaluated
+the model’s performance using several common cell clustering metrics,
+specifically normalized mutual information (NMI), adjusted rand index
+(ARI), and average silhouette width (ASW). NMI can be calculated as:
+I(U, V ) =
+|U|
+X
+i=1
+|V |
+X
+j=1
+P(i, j) log
+ P(i, j)
+P(i)P(j)
+
+,
+(16)
+NMI(U, V ) =
+I(U, V )
+mean(H(U), H(V )) ,
+(17)
+where P(i, j) is the probability that the i-th cluster in clustering U and the
+j-th cluster in clustering V occur simultaneously. P(i) and P(j) are the
+probabilities of the i-th cluster in U and the j-th cluster in V , respectively.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 13 — #13
+i
+i
+i
+i
+i
+i
+short Title
+13
+Fig. 7. Ablation study on CITE-seq and ASAP-seq data.
+ARI can be calculated as:
+RI =
+TP + TN
+TP + TN + FP + FN ,
+(18)
+ARI =
+RI −E[RI]
+max(RI) −E[RI] ,
+(19)
+where TP, TN, FP, and FN are short for true positives, true negatives, false
+positives, and false negatives, respectively. E[RI] is the expected RI of
+random labeling.
+The calculation process for ASW can be represented as follows:
+a(i) =
+1
+|Ci| −1
+X
+j∈Ci,j̸=i
+d(i, j),
+(20)
+b(i) = min
+k̸=i
+1
+|Ck|
+X
+j∈Ck
+d(i, j),
+(21)
+s(i) =
+b(i) −a(i)
+max{a(i), b(i)} ,
+(22)
+ASW = 1
+N
+N
+X
+i=1
+s(i),
+(23)
+where Ci and Ck are clusters containing sample points i and k, and d(i, j)
+is the distance between sample points i and j. N denotes the number of
+cell samples.
+Multi-omics Data Integration. For the multi-omics data integration task,
+we employed three metrics, namely NMI, ARI, and ASW, to evaluate the
+performance of the models. The calculation processes for these metrics
+have been previously described.
+Rare Cell Type Identification. For the rare cell type identification task,
+we employed three metrics, namely Precision, Recall, and F1 score, to
+evaluate the performance of the models. The calculation processes for
+these metrics have been previously described.
+Drug Sensitivity Prediction. For the drug sensitivity prediction task, we
+employed four metrics, namely Precision, Recall, F1 score, and Accuracy,
+to evaluate the performance of the models. The calculation processes for
+these metrics have been previously described.
+5 Additional Experiments
+5.1 Ablation Study
+To verify the effectiveness of incorporating priors from LLMs, we also
+provide some model variants by gradually removing text descriptions at
+each level, with results shown in Fig. 7. As illustrated in the figure, ‘w/o
+feature-level’ signifies that only cell-level descriptions were included,
+whereas ‘w/o feature&cell-level’ indicates the absence of all textual
+information. The results indicate performance declines among various
+model variants, which suggests the need of both cell-level and feature-level
+text descriptions in enhancing cell representations.
+5.2 Additional Cell Type Annotation Results
+We also present the cell type annotation confusion matrix results in
+Fig. 8, which highlights the superior performance of RAGCell compared to
+other scFMs. RAGCell achieves significantly higher annotation accuracy
+consistently across diverse cell types.
+6 Examples of Text Descriptions
+Here we provide some examples of cell-level and feature-level text
+descriptions on different datasets in Fig. 9, Fig. 10, Fig. 11, Fig. 12, Fig. 13,
+and Fig. 14.
+6.1 Additional experiments.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 14 — #14
+i
+i
+i
+i
+i
+i
+14
+Liu et al.
+CITE-seq Data
+ASAP-seq Data
+Fig. 8. Confusion matrix results on CITE-seq and ASAP-seq data.
+CITE-seq Data
+## Feature-level
+Human: Please summarize the major function of gene: CDK11B. Use academic language in one paragraph and 
+and think step by step.
+LLM: The CDK11B gene encodes a member of the cyclin-dependent kinase (CDK) family, which is integral to the 
+regulation of the cell cycle, particularly in the G2 and M phases. Specifically, CDK11B functions as a 
+serine/threonine kinase that associates with cyclins to phosphorylate target proteins, thereby facilitating various 
+cellular processes including transcription regulation, cell proliferation, and differentiation. Notably, CDK11B also 
+plays a crucial role in mRNA processing and spliceosome assembly, underscoring its involvement not only in cell 
+cycle progression but also in the post-transcriptional modification of RNA. Dysregulation of CDK11B activity has 
+been implicated in various cancers, highlighting its potential as a therapeutic target.
+## Cell-level
+Human: This is a single cell CITE sequence sample with a cell type of B. Please summarize its major function. 
+Use academic language in one paragraph and think step by step.
+LLM: B cells, a critical component of the adaptive immune system, primarily function to mediate humoral immunity 
+through the production of antibodies. Derived from hematopoietic stem cells in the bone marrow, these 
+lymphocytes undergo a complex maturation process, during which they develop the ability to recognize and bind 
+specific antigens presented by pathogens. Upon activation by antigenic stimulation, often facilitated by T helper 
+cells, B cells differentiate into plasma cells, which are responsible for secreting large quantities of antibodies. 
+These antibodies play an essential role in neutralizing toxins, opsonizing pathogens for enhanced phagocytosis, 
+and activating the complement system, thereby orchestrating an effective immune response. Additionally, B cells 
+contribute to immune memory, enabling a more rapid and robust response upon subsequent exposures to the 
+same antigen through the generation of memory B cells. Overall, the primary function of B cells is to provide 
+protection against infections and to maintain immunological memory.
+Fig. 9. Examples of cell-level and feature-level (using gene as an example) text descriptions on CITE-seq data.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 15 — #15
+i
+i
+i
+i
+i
+i
+short Title
+15
+ASAP-seq Data
+## Feature-level
+Human: Please summarize the major function of gene: SCNN1D. Use academic language in one paragraph and 
+and think step by step.
+LLM: The gene SCNN1D encodes the delta subunit of the epithelial sodium channel (ENaC), which plays a pivotal 
+role in regulating sodium and fluid homeostasis in various epithelial tissues, particularly in the kidney and 
+respiratory system. The major function of SCNN1D involves its contribution to the assembly and functional activity 
+of the ENaC complex, which is essential for sodium absorption across epithelial cell membranes. This process is 
+critical in maintaining extracellular fluid volume, blood pressure, and the overall electrolyte balance within the body. 
+Dysregulation or mutations in SCNN1D can lead to pathophysiological conditions, such as 
+pseudohypoaldosteronism type 1, characterized by impaired sodium reabsorption, hyperkalemia, and metabolic 
+acidosis. Thus, SCNN1D is fundamentally important for cardiovascular and renal physiology, as well as overall 
+homeostatic mechanisms.
+## Cell-level
+Human: This is a single cell ASAP sequence sample with a cell type of DC. Please summarize its major function. 
+Use academic language in one paragraph and think step by step.
+LLM: Dendritic cells (DCs) are pivotal antigen-presenting cells within the immune system, characterized primarily 
+by their ability to capture, process, and present antigens to naïve T lymphocytes, thereby initiating and modulating 
+adaptive immune responses. These cells reside in peripheral tissues and serve as sentinels, detecting pathogens 
+and environmental changes. Upon encountering antigens, DCs undergo a maturation process that enhances their 
+capacity to migrate to lymphoid tissues, where they express co-stimulatory molecules and major histocompatibility 
+complex (MHC) molecules crucial for T cell activation. Additionally, DCs can secrete a variety of cytokines and 
+chemokines, which not only fortify T cell responses but also influence the differentiation of other immune cells, 
+such as B cells and natural killer cells. Importantly, the interaction between DCs and T cells is critical for 
+establishing immune tolerance and preventing autoimmune reactions, highlighting the dual role of DCs in both 
+instigating protective immunity and maintaining homeostasis within the immune landscape.
+Fig. 10. Examples of cell-level and feature-level (using gene as an example) text descriptions on ASAP-seq data.
+PBMC 10K Data
+## Feature-level
+Human: Please summarize the major function of gene: ISG15. Use academic language in one paragraph and 
+think step by step.
+LLM: ISG15 (Interferon-Stimulated Gene 15) is an important ubiquitin-like protein that plays a crucial role in the 
+innate immune response, primarily acting as a mediator of antiviral activity. Upon stimulation by interferons, ISG15 
+is highly induced and subsequently conjugated to target proteins through a process known as ISGylation, which 
+modulates their function and stability. This post-translational modification not only enhances the immune response 
+against viral infections but also regulates various cellular processes, including protein degradation, gene 
+expression, and inflammation. Furthermore, ISG15 has been implicated in the modulation of pathways leading to 
+apoptosis and cell signaling, thereby influencing the overall cellular stress response. Collectively, the multifaceted 
+functions of ISG15 position it as a critical player in the host defense mechanisms against pathogens and in the 
+maintenance of cellular homeostasis.
+## Cell-level
+Human: This is a single cell RNA sequence sample with a cell type of Megakaryocytes. Please summarize its 
+major function. Use academic language in one paragraph and think step by step.
+LLM: Megakaryocytes are large, polyploid bone marrow-derived cells primarily responsible for the production of 
+platelets, which are critical components of the hemostatic system. They originate from hematopoietic stem cells 
+and undergo a process of endomitosis, resulting in an increase in nuclear DNA content without cell division, thus 
+enhancing their functional capacity. The primary function of megakaryocytes is to synthesize and release platelets 
+into the bloodstream, which is essential for the initiation and regulation of blood clotting, thereby preventing 
+excessive bleeding during vascular injury. In addition to their role in hemostasis, megakaryocytes and platelets 
+also participate in immune responses, inflammation, and wound healing, showcasing their multifaceted biological 
+importance within the hematopoietic system. Furthermore, understanding megakaryocyte biology is crucial for the 
+development of therapeutic strategies targeting platelet-related disorders and other hematological conditions.
+Fig. 11. Examples of cell-level and feature-level text descriptions on PBMC 10K data.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 16 — #16
+i
+i
+i
+i
+i
+i
+16
+Liu et al.
+BMMC Data
+## Feature-level
+Human: Please summarize the major function of gene: FAM41C. Use academic language in one paragraph and 
+think step by step.
+LLM: FAM41C (Family with Sequence Similarity 41 Member C) is a gene that encodes a protein implicated in 
+various cellular processes, notably in the regulation of protein homeostasis and cellular stress responses. Its 
+expression is noted to influence autophagy, a critical mechanism for maintaining cellular integrity through the 
+degradation and recycling of damaged organelles and proteins. Additionally, FAM41C has been associated with 
+the modulation of signaling pathways related to cell proliferation and apoptosis, suggesting a role in maintaining 
+cellular health and viability. Recent research has also indicated its potential involvement in pathological conditions, 
+including various cancers, where dysregulation of FAM41C expression may contribute to tumorigenesis and 
+cancer progression. Overall, FAM41C serves as a pivotal factor in cellular maintenance and responses to stress, 
+with implications for both normal physiological processes and disease states. 
+## Cell-level
+Human: This is a single cell sample with a cell type of B1 B IGKC+. Please summarize its major function. Use 
+academic language in one paragraph and think step by step.
+LLM: The B1 B IGKC+ cell type represents a subset of B lymphocytes characterized by the expression of 
+immunoglobulin kappa chain (IGKC) and is primarily involved in the production of antibodies, particularly in the 
+context of innate-like immune responses. These cells are known for their ability to rapidly produce immunoglobulin 
+M (IgM) antibodies in response to polysaccharide antigens, which are often found on the surface of pathogens. 
+This rapid antibody production is crucial for the early defense against infections, particularly in mucosal tissues. 
+Furthermore, B1 B cells play a significant role in maintaining immune homeostasis and contribute to the regulation 
+of immune responses through the secretion of cytokines and the modulation of other immune cell types. Their 
+unique developmental origin and functional properties distinguish them from conventional B2 cells, highlighting 
+their importance in both innate and adaptive immunity.
+Fig. 12. Examples of cell-level and feature-level text descriptions on BMMC data.
+GSE149383_Erlotinib
+## Cell-level
+Human: This is a single cell RNA sequence sample and its sensitivity to the drug Erlotinib is resistant. Please 
+summarize its major function. Use academic language in one paragraph and think step by step.
+LLM: The single-cell RNA sequencing analysis of the sample reveals a distinct transcriptional profile that underlies 
+its resistance to the drug Erlotinib, an epidermal growth factor receptor (EGFR) inhibitor. This resistance may be 
+attributed to several cellular mechanisms, including the aberrant activation of alternative signaling pathways, 
+upregulation of efflux transporters, or mutations in the EGFR or downstream mediators that negate the therapeutic 
+effects of Erlotinib. Furthermore, the expression of immune checkpoint molecules and inflammatory cytokines 
+could indicate an adaptive immune response that counteracts the drug's efficacy. The identified gene expression 
+patterns suggest that this cell type may play a critical role in tumor microenvironment dynamics, contributing to 
+therapeutic failure through cell-autonomous survival strategies and modulation of local inflammation, thereby 
+presenting significant implications for the development of alternative therapeutic strategies targeting resistance 
+mechanisms in cancer treatment.
+Fig. 13. Examples of cell-level and feature-level text descriptions on GSE149383 data.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 17 — #17
+i
+i
+i
+i
+i
+i
+short Title
+17
+GSE117872_Cisplatin
+## Feature-level
+Human: Please summarize the major function of gene: DENND6B. Use academic language in one paragraph and 
+think step by step.
+LLM: DENND6B (DENN domain-containing 6B) is a gene that encodes a protein characterized by the presence of 
+a DENN domain, which is implicated in the regulation of small GTPases, particularly those within the Rab family 
+that are critical for vesicular trafficking processes. The major function of DENND6B involves facilitating the 
+activation and subsequent signaling pathways of specific Rab GTPases, which are essential for the transport of 
+vesicles within cells. This process plays a pivotal role in mediating intracellular communication and the regulated 
+secretion of molecules, influencing cellular response mechanisms to various stimuli. Furthermore, DENND6B has 
+been associated with various physiological processes, including neuronal development and immune system 
+function, highlighting its potential significance in health and disease states. Overall, the regulation of Rab GTPases 
+by DENND6B underscores its fundamental role in maintaining cellular homeostasis and proper cellular 
+functionality.
+## Cell-level
+Human: This is a single cell RNA sequence sample and its sensitivity to the drug Cisplatin is sensitive. Please 
+summarize its major function. Use academic language in one paragraph and think step by step.
+LLM: Cisplatin is a chemotherapeutic agent predominantly utilized in the treatment of various solid tumors, and its 
+effectiveness hinges upon its ability to induce DNA damage, thereby triggering cellular apoptosis in cancerous 
+cells. In the context of a single-cell RNA sequencing sample characterized by sensitivity to Cisplatin, several key 
+functional pathways may be implicated. These include the activation of DNA repair mechanisms, regulation of 
+apoptosis, and cellular stress response pathways. A sensitive response typically suggests an upregulation of 
+intrinsic pro-apoptotic signals and downregulation of survival pathways, facilitating the eradication of malignant 
+cells. Furthermore, gene expression profiling may reveal alterations in cell cycle regulation and metabolic 
+pathways that enhance vulnerability to Cisplatin-induced cytotoxicity, thereby underscoring the complex interplay 
+between pharmacological intervention and the molecular landscape of the tumor microenvironment. Overall, the 
+major function of this sensitive sample can be framed within the context of promoting programmed cell death in 
+response to genotoxic stress, thereby elucidating potential therapeutic targets for optimizing cancer treatment 
+outcomes.
+Fig. 14. Examples of cell-level and feature-level text descriptions on GSE117872 data.
+Fig. 15. Benchmarking results with more methods for cell-type annotation.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 18 — #18
+i
+i
+i
+i
+i
+i
+18
+Liu et al.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Score
+scvi
+genept_w_ada
+scelmo_gpt4o_wa
+geneformer_v2_104m
+cell2sentence_pythia_1b
+top200
+LangCell
+scfoundation_t4
+scgpt_cp
+RAGCell
+uce_4layer
+a
+Cross-study performance: macparland 
+ aizarani
+Accuracy
+Precision
+Recall
+F1
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Score
+genept_w_ada
+scvi
+scelmo_gpt4o_wa
+scfoundation_t4
+geneformer_v2_104m
+LangCell
+RAGCell
+uce_4layer
+cell2sentence_pythia_1b
+top200
+scgpt_cp
+b
+Cross-study performance: aizarani 
+ macparland
+Accuracy
+Precision
+Recall
+F1
+Fig. 16. Benchmarking results with more methods for cell-type annotation based on the Liver dataset (cross-study comparison and 5 seeds update).
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 19 — #19
+i
+i
+i
+i
+i
+i
+short Title
+19
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+Acc
+Precision
+Recall
+F1
+Modal comparison-feature embeddings
+RAGCell (3.5)
+RAGCell (4omini)
+Fig. 17. Ablation studies for embedding model selection.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 20 — #20
+i
+i
+i
+i
+i
+i
+20
+Liu et al.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Score
+GenePT
+scELMo
+PCA50
+Geneformer
+LangCell
+scGPT
+UCE
+scFoundation
+RAGCell
+a
+Tabula Sapiens Immune (46 cell types)
+Accuracy
+Macro-F1
+k-NN accuracy
+NMI
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Score
+GenePT
+scELMo
+PCA50
+LangCell
+scGPT
+Geneformer
+RAGCell
+UCE
+scFoundation
+b
+Fetal Bone Marrow (40 cell types)
+Accuracy
+Macro-F1
+k-NN accuracy
+NMI
+Fig. 18. CTA results on two additional atlases. a, Tabula Sapiens Immune. b, Fetal Bone Marrow. Bars are means over five seeds; error bars are standard deviations.
+Fig. 19. ASW score comparison for batch effect correction with more baselines.
+
+
+i
+i
+“main” — 2026/9/15 — 0:58 — page 21 — #21
+i
+i
+i
+i
+i
+i
+short Title
+21
+0.00
+0.10
+0.20
+0.30
+0.40
+0.50
+0.60
+0.70
+0.80
+0.90
+precision
+recall
+f1
+Comparison with different models based on PBMC dataset
+Geneformer V2
+UCE
+scFoundation
+Cell2Sentence
+scGPT-CP
+GenePT
+scELMo
+scCAD
+RAGCell
+Fig. 20. A more comprehensive comparison for rare cell type identification.

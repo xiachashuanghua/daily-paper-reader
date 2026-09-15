@@ -1,0 +1,25 @@
+{
+  "date": "20260915",
+  "date_label": "",
+  "generated_at": "2026-09-15 21:54:00 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.14147v1",
+      "route": "202609/15/2609.14147v1-ragcell-retrieval-augmented-generation-as-supervision-for-versatile-single-cell-analysis",
+      "title": "RAGCell: Retrieval-Augmented Generation as Supervision for Versatile Single-cell Analysis",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向单细胞分析的RAG框架，属计算生物学",
+      "first_seen_at": "2026-09-15 21:54:00 UTC",
+      "updated_at": "2026-09-15 21:54:00 UTC"
+    }
+  ]
+}
