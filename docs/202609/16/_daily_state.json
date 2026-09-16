@@ -1,0 +1,41 @@
+{
+  "date": "20260916",
+  "date_label": "",
+  "generated_at": "2026-09-16 22:12:24 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.13127v1",
+      "route": "202609/16/2609.13127v1-making-models-that-matter-how-to-build-trustworthy-and-useful-systems-biology-models",
+      "title": "Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "系统生物学计算模型复用与FAIR原则，属核心计算生物学",
+      "first_seen_at": "2026-09-16 22:12:24 UTC",
+      "updated_at": "2026-09-16 22:12:24 UTC"
+    },
+    {
+      "paper_id": "2609.15161v1",
+      "route": "202609/16/2609.15161v1-emr-self-evolving-medical-multi-agent-system-via-experience-mining-and-reuse",
+      "title": "EMR: Self-Evolving Medical Multi-Agent System via Experience Mining and Reuse",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向临床推理的自进化 LLM 多智能体系统",
+      "first_seen_at": "2026-09-16 22:12:24 UTC",
+      "updated_at": "2026-09-16 22:12:24 UTC"
+    }
+  ]
+}

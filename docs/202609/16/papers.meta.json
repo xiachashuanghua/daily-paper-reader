@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-16",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T22:12:26",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/16/2609.13127v1-making-models-that-matter-how-to-build-trustworthy-and-useful-systems-biology-models",
+      "section": "quick",
+      "title_en": "Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models",
+      "authors": "John M. Hancock, Mihail Anton, Frank T. Bergmann, Irina Balaur, Carissa Bleker, Thomas C. Collin, Oscar Dias, Elena Dominguez-Romero, Chris Evelo, Gavin Farrell, Martina Kutmon, Vitor Martins dos Santos, Anna Matuszynska, Sebastien Moretti, Sara Morsy, Anna Niarakis, Marek Ostaszewski, Miguel Rocha, David Safranek, William Scott, Rahuman Sheriff, Silvio Tosatto, Dagmar Waltemath, Ulrike Wittig, Jan Zrimec, Anze Zupanic",
+      "date": "2026-09-11",
+      "pdf": "https://arxiv.org/pdf/2609.13127v1",
+      "score": "6.0",
+      "evidence": "系统生物学计算模型复用与FAIR原则，属核心计算生物学",
+      "tldr": "系统生物学计算模型日益用于机制理解、行为预测和实验设计，但已发表模型常难复现与复用，严重限制其科学价值。本文以领域内CURE框架和通用FAIR原则为线索，梳理模型复用要求，指出现有指南在可查找、可访问、可互操作上较一致，却对可复用性仍缺乏共识。作者聚焦模型科学质量与可用性，讨论支撑共享和复用的六项关键实践，并将FAIR与CURE映射到模型生命周期。最终提出十条建议，帮助构建和共享同时符合FAIR与CURE的系统生物学模型。",
+      "tags": "query:llmagt",
+      "abstract_en": "Computational models supporting mechanistic understanding of (complex) biological systems, systems behaviour prediction, and experimental design are becoming more and more embedded in research on complex biological systems. Reuse and refinement of models, rather than continuous reinvention, is becoming increasingly important as models' demands on computational infrastructure increase. However published models - despite the variety of efforts taken so far - are frequently difficult to reproduce or reuse, substantially limiting their scientific value. Here we address the requirements for model reusability in the light of the field-specific CURE framework (Credible, Understandable, Reproducible, Extensible) and the more general FAIR principles (Findable, Accessible, Interoperable, Reusable). Considering published guidance we identify broad agreement on requirements for findability, accessibility, and interoperability, but continued lack of clarity and consensus around reusability. Focusing on the scientific quality and usability of computational models we discuss six key practices underpinning model sharing and re-use. Mapping the FAIR and CURE principles onto the model lifecycle we propose ten recommendations for building and sharing systems biology models that are both FAIR- and CURE-compliant.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/16/2609.15161v1-emr-self-evolving-medical-multi-agent-system-via-experience-mining-and-reuse",
+      "section": "quick",
+      "title_en": "EMR: Self-Evolving Medical Multi-Agent System via Experience Mining and Reuse",
+      "authors": "Dongsheng Shi, Yue Li, Xin Yi, Linlin Wang",
+      "date": "2026-09-14",
+      "pdf": "https://arxiv.org/pdf/2609.15161v1",
+      "score": "6.0",
+      "evidence": "面向临床推理的自进化 LLM 多智能体系统",
+      "tldr": "现有LLM医疗多智能体依赖静态策略、缺乏持久临床记忆，难以从既往诊断成败中自我进化。EMR通过分层临床经验库（临床原则、诊断模式、代表性案例）挖掘并复用经验：推理时规划智能体协调专科智能体，汇总智能体合成决策。系统自动从多智能体轨迹提取正确见解与失败警示，增量更新经验库以指导后续病例。在医疗推理基准上持续超越先进医疗多智能体基线，并展现跨专科泛化与跨LLM骨干迁移能力。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language model (LLM) driven multi-agent systems have shown promise in complex clinical reasoning, yet existing approaches rely on static strategies and lack persistent clinical memory, preventing self-evolving from prior diagnostic successes and failures. We present EMR, a self-evolving medical multi-agent system via Experience Mining and Reuse. EMR introduces a hierarchical clinical experience library that organizes accumulated knowledge into three levels: clinical principles, diagnostic patterns, and representative cases. During inference, EMR emulates multidisciplinary consultation: a planner agent coordinates domain-specific department agents for specialized reasoning, while a summary agent synthesizes their analyses into a final decision. Critically, EMR automatically extracts correct diagnostic insights and failure-related warnings from multi-agent reasoning trajectories, incrementally updating the experience library to guide future cases. Experiments on medical reasoning benchmarks demonstrate that EMR consistently outperforms state-of-the-art medical multi-agent baselines. Further analysis reveals that the hierarchical experience enables cross-specialty generalization and transfer across diverse LLM backbones, offering a scalable and in",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

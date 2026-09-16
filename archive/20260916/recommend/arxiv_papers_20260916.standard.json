@@ -1,0 +1,116 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-16T22:10:56.300871+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.13127v1",
+      "source": "arxiv",
+      "title": "Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models",
+      "abstract": "Computational models supporting mechanistic understanding of (complex) biological systems, systems behaviour prediction, and experimental design are becoming more and more embedded in research on complex biological systems. Reuse and refinement of models, rather than continuous reinvention, is becoming increasingly important as models' demands on computational infrastructure increase. However published models - despite the variety of efforts taken so far - are frequently difficult to reproduce or reuse, substantially limiting their scientific value. Here we address the requirements for model reusability in the light of the field-specific CURE framework (Credible, Understandable, Reproducible, Extensible) and the more general FAIR principles (Findable, Accessible, Interoperable, Reusable). Considering published guidance we identify broad agreement on requirements for findability, accessibility, and interoperability, but continued lack of clarity and consensus around reusability. Focusing on the scientific quality and usability of computational models we discuss six key practices underpinning model sharing and re-use. Mapping the FAIR and CURE principles onto the model lifecycle we propose ten recommendations for building and sharing systems biology models that are both FAIR- and CURE-compliant.",
+      "authors": [
+        "John M. Hancock",
+        "Mihail Anton",
+        "Frank T. Bergmann",
+        "Irina Balaur",
+        "Carissa Bleker",
+        "Thomas C. Collin",
+        "Oscar Dias",
+        "Elena Dominguez-Romero",
+        "Chris Evelo",
+        "Gavin Farrell",
+        "Martina Kutmon",
+        "Vitor Martins dos Santos",
+        "Anna Matuszynska",
+        "Sebastien Moretti",
+        "Sara Morsy",
+        "Anna Niarakis",
+        "Marek Ostaszewski",
+        "Miguel Rocha",
+        "David Safranek",
+        "William Scott",
+        "Rahuman Sheriff",
+        "Silvio Tosatto",
+        "Dagmar Waltemath",
+        "Ulrike Wittig",
+        "Jan Zrimec",
+        "Anze Zupanic"
+      ],
+      "primary_category": "q-bio.OT",
+      "categories": [
+        "q-bio.OT"
+      ],
+      "published": "2026-09-11T17:52:01+00:00",
+      "link": "https://arxiv.org/pdf/2609.13127v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Systems biology computational model reuse and FAIR principles, core computational biology",
+      "llm_evidence_cn": "系统生物学计算模型复用与FAIR原则，属核心计算生物学",
+      "llm_evidence": "系统生物学计算模型复用与FAIR原则，属核心计算生物学",
+      "canonical_evidence": "系统生物学计算模型复用与FAIR原则，属核心计算生物学",
+      "llm_tldr_en": "This paper addresses the poor reproducibility and reuse of published systems biology models, which limits their scientific value. It reviews reusability requirements through the CURE framework and FAIR principles, offering guidance for building credible, understandable, reproducible and extensible models. It is a computational biology modeling practices contribution.",
+      "llm_tldr_cn": "针对系统生物学计算模型虽日益嵌入复杂生物系统研究、却普遍难以复现和复用的问题，论文指出这严重限制了模型科学价值。作者结合领域CURE框架与FAIR原则，系统梳理可信、可理解、可复现与可扩展的模型构建要求，并提出复用与精炼模型而非重复造轮子的实践建议。该工作为计算生物学与系统生物学建模提供了规范化指导。",
+      "llm_tldr": "针对系统生物学计算模型虽日益嵌入复杂生物系统研究、却普遍难以复现和复用的问题，论文指出这严重限制了模型科学价值。作者结合领域CURE框架与FAIR原则，系统梳理可信、可理解、可复现与可扩展的模型构建要求，并提出复用与精炼模型而非重复造轮子的实践建议。该工作为计算生物学与系统生物学建模提供了规范化指导。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.15161v1",
+      "source": "arxiv",
+      "title": "EMR: Self-Evolving Medical Multi-Agent System via Experience Mining and Reuse",
+      "abstract": "Large language model (LLM) driven multi-agent systems have shown promise in complex clinical reasoning, yet existing approaches rely on static strategies and lack persistent clinical memory, preventing self-evolving from prior diagnostic successes and failures. We present EMR, a self-evolving medical multi-agent system via Experience Mining and Reuse. EMR introduces a hierarchical clinical experience library that organizes accumulated knowledge into three levels: clinical principles, diagnostic patterns, and representative cases. During inference, EMR emulates multidisciplinary consultation: a planner agent coordinates domain-specific department agents for specialized reasoning, while a summary agent synthesizes their analyses into a final decision. Critically, EMR automatically extracts correct diagnostic insights and failure-related warnings from multi-agent reasoning trajectories, incrementally updating the experience library to guide future cases. Experiments on medical reasoning benchmarks demonstrate that EMR consistently outperforms state-of-the-art medical multi-agent baselines. Further analysis reveals that the hierarchical experience enables cross-specialty generalization and transfer across diverse LLM backbones, offering a scalable and in",
+      "authors": [
+        "Dongsheng Shi",
+        "Yue Li",
+        "Xin Yi",
+        "Linlin Wang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-09-14T07:41:56+00:00",
+      "link": "https://arxiv.org/pdf/2609.15161v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "self-evolving LLM multi-agent system for clinical reasoning with experience reuse",
+      "llm_evidence_cn": "面向临床推理的自进化 LLM 多智能体系统",
+      "llm_evidence": "面向临床推理的自进化 LLM 多智能体系统",
+      "canonical_evidence": "面向临床推理的自进化 LLM 多智能体系统",
+      "llm_tldr_en": "EMR is a self-evolving medical multi-agent system that mines and reuses hierarchical clinical experience, letting a planner coordinate department agents and a summary agent to improve complex diagnostic reasoning.",
+      "llm_tldr_cn": "现有 LLM 多智能体系统在临床推理中依赖静态策略且缺乏持久记忆，难以从既往诊断成败中自我进化。本文提出 EMR 自进化医疗多智能体系统，通过经验挖掘与复用构建包含临床原则、诊断模式与典型案例的三层经验库。推理时由规划智能体协调各科室智能体，再由总结智能体汇成最终决策。实验表明经验复用能提升复杂临床推理表现，为可自我进化的医疗智能体提供了框架。",
+      "llm_tldr": "现有 LLM 多智能体系统在临床推理中依赖静态策略且缺乏持久记忆，难以从既往诊断成败中自我进化。本文提出 EMR 自进化医疗多智能体系统，通过经验挖掘与复用构建包含临床原则、诊断模式与典型案例的三层经验库。推理时由规划智能体协调各科室智能体，再由总结智能体汇成最终决策。实验表明经验复用能提升复杂临床推理表现，为可自我进化的医疗智能体提供了框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
