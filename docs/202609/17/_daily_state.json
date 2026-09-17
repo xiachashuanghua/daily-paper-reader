@@ -1,0 +1,25 @@
+{
+  "date": "20260917",
+  "date_label": "",
+  "generated_at": "2026-09-17 22:36:57 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.15938v1",
+      "route": "202609/17/2609.15938v1-hypoevolve-genetic-algorithms-enable-multi-agent-llms-to-discover-scientific-hypotheses",
+      "title": "HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "遗传算法驱动多智能体LLM发现科学假设",
+      "first_seen_at": "2026-09-17 22:36:57 UTC",
+      "updated_at": "2026-09-17 22:36:57 UTC"
+    }
+  ]
+}

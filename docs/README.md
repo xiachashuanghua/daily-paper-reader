@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-16</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-17</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-16 22:12:24 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-17 22:36:57 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读挂零、速读两篇且均为6.0分，方向落在可信系统生物学建模与自进化医疗多智能体。</p>
-<p>最值得看的是“如何让系统生物学模型既可信又实用”，以及医疗多智能体如何通过经验挖掘与复用实现自我进化。</p>
-<p>普通读者可先读这两篇摘要，重点看可信度评估和经验复用机制，再按自身场景决定是否深入。</p>
+<p>今天速读 1 篇：HypoEvolve 尝试用遗传算法让多智能体 LLM 发现科学假设，评分 6.0/10。</p>
+<p>最值得看的是“遗传算法 + 多智能体 LLM”这一 AI for Science 方向，关注它如何组织多个智能体协作提出假设。</p>
+<p>建议普通读者先读摘要与方法，判断这种自动假设发现思路是否值得跟进或复现。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -86,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models">Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="EMR: Self-Evolving Medical Multi-Agent System via Experience Mining and Reuse">EMR: Self-Evolving Medical Multi-Agent System via Experience Mining and Reuse</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses">HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
 </section>
 </div>
 

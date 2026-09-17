@@ -1,0 +1,67 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-17T22:36:16.639852+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.15938v1",
+      "source": "arxiv",
+      "title": "HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses",
+      "abstract": "Scientific agents contribute to hypothesis discovery by synthesizing evidence, assessing proposals, and developing new explanations. Recent systems combine scientific agents with evolutionary search through critique, comparison, and revision. However, how different forms of agent collaboration affect hypothesis quality remains an open question. Answering this question requires separating the effects of agents' scientific capabilities from those of their collaboration. A framework must therefore preserve agents' scientific roles and support rules for combining, revising, and retaining hypotheses. Building on this view, we introduce HypoEvolve, which makes collaboration explicit through successive updates to a hypothesis population. Specifically, we propose a generational genetic algorithm to coordinate specialized large language model (LLM) agents that integrate mechanistic arguments, reconsider assumptions, and assess evidence and testability. Each generation specifies how scientific judgments and new proposals reshape the population, making collaboration effects on hypothesis quality directly testable. Moreover, we design our evaluation around scientifically meaningful hypotheses that explain how a proposed intervention could work. Drug repurposing links these explanations to target-level biological claims assessed against external evidence. Specifically, we adapt DepMap and Open Targets into complementary external measures grounded in experimental, genetic, and clinical evidence. Across 34 cancer types, HypoEvolve achieves the highest scores against six baselines on both measures. DepMap selectivity reaches 0.171, versus 0.115 for the strongest baseline. Gains over single-pass generation also generalize to held-out cancer types. HypoEvolve advances a vision of autonomous science in which AI research teams achieve a capacity for discovery beyond that of individual models.",
+      "authors": [
+        "Jieyuan Liu",
+        "Mengzhou Hu",
+        "Jefferson Chen",
+        "JungHo Kong",
+        "Pratibha Jagannatha",
+        "Yiming Gao",
+        "Dexter Pratt",
+        "Hsin-Yuan Lee",
+        "Zhiting Hu",
+        "Trey Ideker",
+        "Wei Wang",
+        "Eric P. Xing",
+        "Zhen Wang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CE",
+        "cs.MA",
+        "cs.NE"
+      ],
+      "published": "2026-09-14T17:44:49+00:00",
+      "link": "https://arxiv.org/pdf/2609.15938v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent LLMs with genetic algorithms discover scientific hypotheses",
+      "llm_evidence_cn": "遗传算法驱动多智能体LLM发现科学假设",
+      "llm_evidence": "遗传算法驱动多智能体LLM发现科学假设",
+      "canonical_evidence": "遗传算法驱动多智能体LLM发现科学假设",
+      "llm_tldr_en": "Introduces HypoEvolve, which makes multi-agent collaboration explicit through successive updates to a hypothesis population, using genetic-algorithm-style search to study how collaboration affects scientific hypothesis quality.",
+      "llm_tldr_cn": "科学智能体通过综合证据、评估提案与构建解释来发现假设，但不同协作形式如何影响假设质量仍不清楚，且需区分智能体能力与协作本身的作用。作者提出HypoEvolve，以遗传算法式的假设种群迭代更新显式刻画协作，保留各智能体的科学角色并支持假设的组合、修订与保留规则。该框架用于研究多智能体协作对科学假设质量的影响，对自主科研智能体方向有参考价值，但与生物信息学具体应用关联有限。",
+      "llm_tldr": "科学智能体通过综合证据、评估提案与构建解释来发现假设，但不同协作形式如何影响假设质量仍不清楚，且需区分智能体能力与协作本身的作用。作者提出HypoEvolve，以遗传算法式的假设种群迭代更新显式刻画协作，保留各智能体的科学角色并支持假设的组合、修订与保留规则。该框架用于研究多智能体协作对科学假设质量的影响，对自主科研智能体方向有参考价值，但与生物信息学具体应用关联有限。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

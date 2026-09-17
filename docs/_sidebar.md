@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-17 <!--dpr-date:20260917-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/17/2609.15938v1-hypoevolve-genetic-algorithms-enable-multi-agent-llms-to-discover-scientific-hypotheses" data-sidebar-item="{&quot;title&quot;: &quot;HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.15938v1-hypoevolve-genetic-algorithms-enable-multi-agent-llms-to-discover-scientific-hypotheses&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;遗传算法驱动多智能体LLM发现科学假设&quot;}">HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses</a>
   * 2026-09-16 <!--dpr-date:20260916-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/16/2609.13127v1-making-models-that-matter-how-to-build-trustworthy-and-useful-systems-biology-models" data-sidebar-item="{&quot;title&quot;: &quot;Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.13127v1-making-models-that-matter-how-to-build-trustworthy-and-useful-systems-biology-models&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;系统生物学计算模型复用与FAIR原则，属核心计算生物学&quot;}">Making Models That Matter: How to Build Trustworthy and Useful Systems Biology Models</a>
