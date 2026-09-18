@@ -1,0 +1,41 @@
+{
+  "date": "20260918",
+  "date_label": "",
+  "generated_at": "2026-09-18 22:09:47 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.19569v1",
+      "route": "202609/18/2609.19569v1-large-language-model-agents-for-evidence-based-genetic-disease-severity-classification",
+      "title": "Large Language Model Agents for Evidence Based Genetic Disease Severity Classification",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "面向基因组筛查的遗传病严重程度分类自主LLM智能体",
+      "first_seen_at": "2026-09-18 22:09:47 UTC",
+      "updated_at": "2026-09-18 22:09:47 UTC"
+    },
+    {
+      "paper_id": "2609.16213v1",
+      "route": "202609/18/2609.16213v1-artificial-intelligence-and-biosecurity-capabilities-threat-pathways-and-defense-in-depth-governance",
+      "title": "Artificial intelligence and biosecurity: capabilities, threat pathways, and defense-in-depth governance",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "生物研究中的LLM、生物基础模型与智能体",
+      "first_seen_at": "2026-09-18 22:09:47 UTC",
+      "updated_at": "2026-09-18 22:09:47 UTC"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-18T22:06:47.321640+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.19569v1",
+      "source": "arxiv",
+      "title": "Large Language Model Agents for Evidence Based Genetic Disease Severity Classification",
+      "abstract": "Disease severity classification for genetic conditions is subjective and labor-intensive, creating bottlenecks in genomic screening, where commercial panels vary widely in size and overlap. We developed an autonomous AI agent integrating Reasoning and Acting (ReAct) with Retrieval-Augmented Generation (RAG) to classify 10,211 Human Phenotype Ontology terms. It uses American College of Medical Genetics (ACMG)-endorsed severity guidelines and American College of Obstetricians and Gynecologists (ACOG) quality-of-life criteria to retrieve PubMed literature, generate interpretable reasoning chains, and independently verify claims. At the phenotype level, using expert-curated cohorts, the agent achieved 93.55% accuracy (MCC 0.9237) with 82.6% to 91.4% of claims supported by direct evidence or valid inferences. Gene-level severity was aggregated across 8,738 pairs, identifying 3,283 autosomal recessive pairs with severe or profound presentations. External validation showed 95.2% concordance with Mackenzie's Mission gene list. This system enables standardized panel design by providing reliable, automated classification supported by direct evidence.",
+      "authors": [
+        "Tohid Ghasemnejad",
+        "Ahmadreza Argha",
+        "Mark Grosser",
+        "John Wang",
+        "Min Yang",
+        "Thantrira Porntaveetus",
+        "Tony Roscioli",
+        "Nigel H. Lovell",
+        "Mahmoud Aarabi",
+        "Hamid Alinejad-Rokny"
+      ],
+      "primary_category": "q-bio.GN",
+      "categories": [
+        "q-bio.GN",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-09-17T01:56:38+00:00",
+      "link": "https://arxiv.org/pdf/2609.19569v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autonomous LLM agent for genetic disease severity classification in genomic screening",
+      "llm_evidence_cn": "面向基因组筛查的遗传病严重程度分类自主LLM智能体",
+      "llm_evidence": "面向基因组筛查的遗传病严重程度分类自主LLM智能体",
+      "canonical_evidence": "面向基因组筛查的遗传病严重程度分类自主LLM智能体",
+      "llm_tldr_en": "An autonomous ReAct+RAG agent classifies 10,211 Human Phenotype Ontology terms using ACMG/ACOG guidelines and PubMed evidence, reaching 93.55% accuracy (MCC 0.9237) to ease genomic screening bottlenecks.",
+      "llm_tldr_cn": "遗传病严重程度分类主观且耗时，成为基因组筛查的瓶颈。该工作构建了融合ReAct推理与检索增强生成的自主AI智能体，依据ACMG与ACOG指南检索PubMed文献并生成可解释推理链。在专家标注队列上，其对10,211个HPO术语的分类准确率达93.55%，MCC为0.9237。结果有助于缓解基因组筛查中的严重程度判读瓶颈。",
+      "llm_tldr": "遗传病严重程度分类主观且耗时，成为基因组筛查的瓶颈。该工作构建了融合ReAct推理与检索增强生成的自主AI智能体，依据ACMG与ACOG指南检索PubMed文献并生成可解释推理链。在专家标注队列上，其对10,211个HPO术语的分类准确率达93.55%，MCC为0.9237。结果有助于缓解基因组筛查中的严重程度判读瓶颈。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.16213v1",
+      "source": "arxiv",
+      "title": "Artificial intelligence and biosecurity: capabilities, threat pathways, and defense-in-depth governance",
+      "abstract": "Artificial intelligence is reshaping biological research across an increasingly connected digital-to-physical workflow. General-purpose large language models can retrieve and integrate scientific information, support experimental planning, and computational analysis; biological foundation models can predict, optimize, and generate proteins, genes, and genome-scale sequences; agentic systems can coordinate multistep research tasks; automated laboratories can partially close the design-build-test-learn cycle. These technologies could greatly benefit medicine, public health, and biotechnology. However, their biosecurity risk depends not only on what the AI can do, but also on who uses it, their expertise and intent, their access to laboratory tools and materials, and the safeguards in place. Current evidence shows that AI uplift exists but primarily affects digital rather than physical tasks. Frontier systems have exceeded expert baselines on in-silico, and screening-evasion benchmarks, whereas controlled wet-laboratory studies find that tacit knowledge and physical execution remain substantial barriers. This review describes the different biological threats from AI tool use, from information gathering and biological design to procurement, synthesis, testing, scale-up, and potential release. We further examine why alignment techniques for general-purpose models transfer poorly to biological ones, and the emerging role of interpretability in auditing whether hazardous capabilities are genuinely removed. We argue for defense-in-depth governance that links capability thresholds to proportionate responsibilities across the biological AI ecosystem, reducing high-consequence risk while preserving beneficial use.",
+      "authors": [
+        "Candace S. Y. Chan",
+        "Aris Karatzikos",
+        "Ilias Georgakopoulos-Soares"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-14T18:44:00+00:00",
+      "link": "https://arxiv.org/pdf/2609.16213v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLMs, biological foundation models and agents in biological research",
+      "llm_evidence_cn": "生物研究中的LLM、生物基础模型与智能体",
+      "llm_evidence": "生物研究中的LLM、生物基础模型与智能体",
+      "canonical_evidence": "生物研究中的LLM、生物基础模型与智能体",
+      "llm_tldr_en": "This review examines how LLMs, biological foundation models and agentic systems are reshaping biological research and analyzes biosecurity threat pathways, proposing defense-in-depth governance.",
+      "llm_tldr_cn": "人工智能正重塑生物研究，从数字到物理的工作流日益连通：通用大语言模型可检索整合科学信息、支持实验规划与计算分析，生物基础模型能预测、优化和生成蛋白质、基因与基因组尺度序列，智能体系统可协调多步研究任务，自动化实验室部分闭合设计-构建-测试-学习循环。这些技术有望造福医学、公共卫生与生物技术，但其生物安全风险不仅取决于AI能做什么，还取决于谁在使用、其专业水平与意图。本文系统梳理相关能力与威胁路径，并提出纵深防御式治理框架，与LLM和智能体在生物信息学中的应用主题密切相关。",
+      "llm_tldr": "人工智能正重塑生物研究，从数字到物理的工作流日益连通：通用大语言模型可检索整合科学信息、支持实验规划与计算分析，生物基础模型能预测、优化和生成蛋白质、基因与基因组尺度序列，智能体系统可协调多步研究任务，自动化实验室部分闭合设计-构建-测试-学习循环。这些技术有望造福医学、公共卫生与生物技术，但其生物安全风险不仅取决于AI能做什么，还取决于谁在使用、其专业水平与意图。本文系统梳理相关能力与威胁路径，并提出纵深防御式治理框架，与LLM和智能体在生物信息学中的应用主题密切相关。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
