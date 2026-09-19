@@ -1,0 +1,25 @@
+{
+  "date": "20260919",
+  "date_label": "",
+  "generated_at": "2026-09-19 21:36:58 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.14072v1",
+      "route": "202609/19/2609.14072v1-multi-modal-tumor-survival-prediction-via-graph-guided-mixture-of-experts",
+      "title": "Multi-Modal Tumor Survival Prediction via Graph-Guided Mixture of Experts",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "利用LLM融合基因组、病理与临床数据进行生存预测",
+      "first_seen_at": "2026-09-19 21:36:58 UTC",
+      "updated_at": "2026-09-19 21:36:58 UTC"
+    }
+  ]
+}

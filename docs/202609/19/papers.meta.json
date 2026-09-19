@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-19",
+  "date": "2026-09-19",
+  "generated_at": "2026-09-19T21:37:00",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/19/2609.14072v1-multi-modal-tumor-survival-prediction-via-graph-guided-mixture-of-experts",
+      "section": "quick",
+      "title_en": "Multi-Modal Tumor Survival Prediction via Graph-Guided Mixture of Experts",
+      "authors": "H Mathavan, H Liu",
+      "date": "2026-09-12",
+      "pdf": "https://arxiv.org/pdf/2609.14072v1",
+      "score": "7.0",
+      "evidence": "利用LLM融合基因组、病理与临床数据进行生存预测",
+      "tldr": "多模态肿瘤生存预测需要整合临床数据、病理切片与基因组信息，但现有方法常难以同时处理缺失模态、模态差异与数据融合问题。受大语言模型与专家混合启发，提出图引导专家混合（Graph-Guided MoE）框架，用图结构管理预测，并以MoE引导集成自动调用现有模型作为工具。在TCGA-LUAD数据集上，该框架性能优于单模态模型和普通集成模型。为复杂真实场景下的多模态生存预测提供了新思路。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large Language Models (LLMs) have displayed impressive capabilities in handling tasks that require few demonstration examples, making them effective few-shot learners. Despite their potential, LLMs face challenges when it comes to addressing complex real-world tasks that involve multiple modalities or reasoning steps. For example, predicting cancer patients' survival period based on clinical data, cell slides, and genomics poses significant logistical complexities. Although several approaches have been proposed to tackle these challenges, they often fall short in achieving promising performance due to their inability to consider all modalities simultaneously or account for missing modalities, variations in modalities, and the integration of multi-modal data, ultimately compromising their effectiveness. This thesis proposes a novel approach for multi-modal tumor survival prediction to address these limitations. Taking inspiration from recent advancements in LLMs, particularly Mixture of Experts (MoE)-based models, a graph-guided MoE framework is introduced. This framework utilizes a graph structure to manage the predictions effectively and combines multiple models to enhance predictive power. Rather than training a single foundation model for end-to-end survival prediction, the approach leverages a MOE-guided ensemble to manage model callings as tools automatically. By leveraging the strengths of existing models and guiding them through a MOE framework, the aim is to achieve better performance and more accurate predictions in complex real-world tasks. Experiments and analysis on the TCGA-LUAD dataset show improved performance over the individual modal and vanilla ensemble models.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

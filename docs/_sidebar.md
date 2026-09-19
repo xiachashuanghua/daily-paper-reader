@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-19 <!--dpr-date:20260919-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/19/2609.14072v1-multi-modal-tumor-survival-prediction-via-graph-guided-mixture-of-experts" data-sidebar-item="{&quot;title&quot;: &quot;Multi-Modal Tumor Survival Prediction via Graph-Guided Mixture of Experts&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.14072v1-multi-modal-tumor-survival-prediction-via-graph-guided-mixture-of-experts&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;利用LLM融合基因组、病理与临床数据进行生存预测&quot;}">Multi-Modal Tumor Survival Prediction via Graph-Guided Mixture of Experts</a>
   * 2026-09-18 <!--dpr-date:20260918-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/18/2609.19569v1-large-language-model-agents-for-evidence-based-genetic-disease-severity-classification" data-sidebar-item="{&quot;title&quot;: &quot;Large Language Model Agents for Evidence Based Genetic Disease Severity Classification&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.19569v1-large-language-model-agents-for-evidence-based-genetic-disease-severity-classification&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;面向基因组筛查的遗传病严重程度分类自主LLM智能体&quot;}">Large Language Model Agents for Evidence Based Genetic Disease Severity Classification</a>

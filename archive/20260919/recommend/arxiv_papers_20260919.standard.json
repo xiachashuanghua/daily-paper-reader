@@ -1,0 +1,54 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-19T21:35:00.464299+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.14072v1",
+      "source": "arxiv",
+      "title": "Multi-Modal Tumor Survival Prediction via Graph-Guided Mixture of Experts",
+      "abstract": "Large Language Models (LLMs) have displayed impressive capabilities in handling tasks that require few demonstration examples, making them effective few-shot learners. Despite their potential, LLMs face challenges when it comes to addressing complex real-world tasks that involve multiple modalities or reasoning steps. For example, predicting cancer patients' survival period based on clinical data, cell slides, and genomics poses significant logistical complexities. Although several approaches have been proposed to tackle these challenges, they often fall short in achieving promising performance due to their inability to consider all modalities simultaneously or account for missing modalities, variations in modalities, and the integration of multi-modal data, ultimately compromising their effectiveness. This thesis proposes a novel approach for multi-modal tumor survival prediction to address these limitations. Taking inspiration from recent advancements in LLMs, particularly Mixture of Experts (MoE)-based models, a graph-guided MoE framework is introduced. This framework utilizes a graph structure to manage the predictions effectively and combines multiple models to enhance predictive power. Rather than training a single foundation model for end-to-end survival prediction, the approach leverages a MOE-guided ensemble to manage model callings as tools automatically. By leveraging the strengths of existing models and guiding them through a MOE framework, the aim is to achieve better performance and more accurate predictions in complex real-world tasks. Experiments and analysis on the TCGA-LUAD dataset show improved performance over the individual modal and vanilla ensemble models.",
+      "authors": [
+        "H Mathavan",
+        "H Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-09-12T17:43:01+00:00",
+      "link": "https://arxiv.org/pdf/2609.14072v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based multi-modal fusion of genomics, slides and clinical data for survival prediction",
+      "llm_evidence_cn": "利用LLM融合基因组、病理与临床数据进行生存预测",
+      "llm_evidence": "利用LLM融合基因组、病理与临床数据进行生存预测",
+      "canonical_evidence": "利用LLM融合基因组、病理与临床数据进行生存预测",
+      "llm_tldr_en": "Tumor survival prediction must integrate clinical, pathology and genomic modalities, yet missing and heterogeneous modalities remain hard; this paper proposes a graph-guided mixture-of-experts framework for multi-modal fusion.",
+      "llm_tldr_cn": "肿瘤生存预测需同时利用临床记录、细胞切片与基因组等多模态数据，但现有方法常难以兼顾模态缺失与异质性。本文提出图引导的专家混合框架，借助大语言模型的少样本能力融合多模态信息进行生存预测。实验表明该方法在整合多模态数据时表现更优，并能缓解模态缺失带来的性能下降。该工作为多模态计算生物学与精准肿瘤学预测提供了可扩展的融合方案。",
+      "llm_tldr": "肿瘤生存预测需同时利用临床记录、细胞切片与基因组等多模态数据，但现有方法常难以兼顾模态缺失与异质性。本文提出图引导的专家混合框架，借助大语言模型的少样本能力融合多模态信息进行生存预测。实验表明该方法在整合多模态数据时表现更优，并能缓解模态缺失带来的性能下降。该工作为多模态计算生物学与精准肿瘤学预测提供了可扩展的融合方案。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
