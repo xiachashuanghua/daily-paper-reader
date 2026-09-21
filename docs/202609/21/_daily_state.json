@@ -1,0 +1,41 @@
+{
+  "date": "20260921",
+  "date_label": "",
+  "generated_at": "2026-09-21 23:07:15 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.19180v1",
+      "route": "202609/21/2609.19180v1-biophys-bridge-a-benchmark-for-interdisciplinary-scientific-reasoning-in-physics-grounded-biological-research",
+      "title": "BioPhys-Bridge: A Benchmark for Interdisciplinary Scientific Reasoning in Physics-Grounded Biological Research",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向生物物理文献LLM推理的基准，含问答与RAG评测",
+      "first_seen_at": "2026-09-21 23:07:15 UTC",
+      "updated_at": "2026-09-21 23:07:15 UTC"
+    },
+    {
+      "paper_id": "2609.19944v1",
+      "route": "202609/21/2609.19944v1-mascod-a-multi-agent-framework-for-structural-context-guided-candidate-causal-graph-generation",
+      "title": "MaSCoD: A Multi-Agent Framework for Structural-Context-Guided Candidate Causal Graph Generation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体大模型因果发现框架，在生物Sachs数据集上评估",
+      "first_seen_at": "2026-09-21 23:07:15 UTC",
+      "updated_at": "2026-09-21 23:07:15 UTC"
+    }
+  ]
+}

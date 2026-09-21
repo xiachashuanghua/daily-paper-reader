@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-21",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T23:07:16",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/21/2609.19180v1-biophys-bridge-a-benchmark-for-interdisciplinary-scientific-reasoning-in-physics-grounded-biological-research",
+      "section": "quick",
+      "title_en": "BioPhys-Bridge: A Benchmark for Interdisciplinary Scientific Reasoning in Physics-Grounded Biological Research",
+      "authors": "Qingyang Xu",
+      "date": "2026-09-15",
+      "pdf": "https://arxiv.org/pdf/2609.19180v1",
+      "score": "6.0",
+      "evidence": "面向生物物理文献LLM推理的基准，含问答与RAG评测",
+      "tldr": "生物物理文献推理要求将观测数据锚定到证据，并用定量物理模型解释、再连接生物机制，语言模型难以忠实完成。为此提出 BioPhys-Bridge 基准，包含证据块、稳定证据 ID、数值/单位、方程、假设、机制与后续决策等接地目标，支持 QA 和 RAG。首版有 500 个案例、1517 个面向智能体任务，覆盖六大生物领域和九类物理模型。初步评测中 DeepSeek-V4-Flash 证据 ID F1 最高 0.360，Qwen3.7-Max 0.316，GPT-4o-mini 0.294。",
+      "tags": "query:llmagt",
+      "abstract_en": "Language models face unique challenges in analyzing interdisciplinary scientific research literature. In biophysics research, faithful answers require grounding observed data in source evidence, interpreting it through a quantitative physics model, and linking it to a biological mechanism. To address this challenge, we introduce BioPhys-Bridge, a novel benchmark dataset for evidence-grounded scientific reasoning over biophysical literature. Each case contains evidence blocks, stable evidence IDs, quantitative values, units, equations, assumptions, mechanisms, and next decisions as grounding targets for question answering (QA) and retrieval-augmented generation (RAG). The initial release contains 500 cases, 1,517 agent-facing tasks, and covers six biological domains and nine physical model families, including three sparse families reserved for future expansion. We enforce strict quality gates for all cases in schema, evidence-integrity, quantitative-grounding, source-license, duplicate, unit-normalization, with domain expert review and annotation for 81 cases. Preliminary evaluations show that DeepSeek-V4-Flash obtain the highest evidence-ID $F_1$ score (0.360), followed by Qwen3.7-Max (0.316) and GPT-4o-mini (0.294). BioPhys-Bridge is an interdisciplinary benchmark for evaluating attribution, faithfulness, hallucination reduction, and biological experiment design with complex, multi-step scientific reasoning. Future works will increase the size and complexity of the dataset and perform comprehensive evaluations. Code and data are available in the GitHub repository and on Hugging Face.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/21/2609.19944v1-mascod-a-multi-agent-framework-for-structural-context-guided-candidate-causal-graph-generation",
+      "section": "quick",
+      "title_en": "MaSCoD: A Multi-Agent Framework for Structural-Context-Guided Candidate Causal Graph Generation",
+      "authors": "Yudai Nakada, Yuichiro Nishiura, Jin Michael Splichal",
+      "date": "2026-09-17",
+      "pdf": "https://arxiv.org/pdf/2609.19944v1",
+      "score": "6.0",
+      "evidence": "多智能体大模型因果发现框架，在生物Sachs数据集上评估",
+      "tldr": "LLM因果发现中，候选图生成很少将过早遗漏潜在因果关系作为显式设计目标。MaSCoD用多智能体框架先组织候选第三变量与局部结构模式，再进行直接边判断。在Auto-MPG、DWD、Sachs上以GPT-5.4为主、GPT-4o复现，Full较No Phase 1在六种设置下均提升平均Recall与F1，但假阳性增加；额外参考边保留仅在部分设置出现。这表明结构预组织可作为遗漏控制的显式设计与评估目标。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language models (LLMs) have been applied to causal discovery, but candidate-graph generation rarely treats premature omission of potentially relevant causal relations as an explicit design objective. We propose MaSCoD, a multi-agent framework that organizes candidate third variables and local structural patterns before direct-edge judgment. We evaluate MaSCoD on Auto-MPG, DWD, and Sachs using GPT-5.4 as the primary backbone and GPT-4o for replication. MaSCoD exhibits a dataset- and backbone-dependent retention-selectivity profile rather than uniform superiority. Across all six dataset-backbone settings, Full, which supplies structural hypotheses before direct-edge judgment, achieved higher mean Recall and F1 than No Phase 1, which instead constructs them within the judgment procedure, while also increasing false-positive rates. Additional reference-edge retention over all evaluated baselines was observed on DWD with GPT-5.4 and on Sachs with GPT-4o, rather than uniformly across settings. Partial ablations showed that supplying both information components did not always outperform supplying only one. For GPT-5.4, stage-wise analysis showed that the Full-No Phase 1 retention gap was already present after direct-edge judgment, while reconciliation introduced additional reference-edge loss for Full on Sachs. These findings support structural pre-organization as an explicit design and evaluation target for omission control and motivate evaluating context construction jointly with its utilization in judgment.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

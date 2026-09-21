@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-21T23:05:36.960012+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.19180v1",
+      "source": "arxiv",
+      "title": "BioPhys-Bridge: A Benchmark for Interdisciplinary Scientific Reasoning in Physics-Grounded Biological Research",
+      "abstract": "Language models face unique challenges in analyzing interdisciplinary scientific research literature. In biophysics research, faithful answers require grounding observed data in source evidence, interpreting it through a quantitative physics model, and linking it to a biological mechanism. To address this challenge, we introduce BioPhys-Bridge, a novel benchmark dataset for evidence-grounded scientific reasoning over biophysical literature. Each case contains evidence blocks, stable evidence IDs, quantitative values, units, equations, assumptions, mechanisms, and next decisions as grounding targets for question answering (QA) and retrieval-augmented generation (RAG). The initial release contains 500 cases, 1,517 agent-facing tasks, and covers six biological domains and nine physical model families, including three sparse families reserved for future expansion. We enforce strict quality gates for all cases in schema, evidence-integrity, quantitative-grounding, source-license, duplicate, unit-normalization, with domain expert review and annotation for 81 cases. Preliminary evaluations show that DeepSeek-V4-Flash obtain the highest evidence-ID $F_1$ score (0.360), followed by Qwen3.7-Max (0.316) and GPT-4o-mini (0.294). BioPhys-Bridge is an interdisciplinary benchmark for evaluating attribution, faithfulness, hallucination reduction, and biological experiment design with complex, multi-step scientific reasoning. Future works will increase the size and complexity of the dataset and perform comprehensive evaluations. Code and data are available in the GitHub repository and on Hugging Face.",
+      "authors": [
+        "Qingyang Xu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-09-15T12:53:16+00:00",
+      "link": "https://arxiv.org/pdf/2609.19180v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for LLM reasoning over biophysical literature with QA and RAG",
+      "llm_evidence_cn": "面向生物物理文献LLM推理的基准，含问答与RAG评测",
+      "llm_evidence": "面向生物物理文献LLM推理的基准，含问答与RAG评测",
+      "canonical_evidence": "面向生物物理文献LLM推理的基准，含问答与RAG评测",
+      "llm_tldr_en": "Language models struggle to ground interdisciplinary literature in evidence, physics models and biological mechanisms. BioPhys-Bridge is a benchmark of 500 cases with evidence blocks, stable IDs, quantitative values and equations for QA and RAG, evaluating evidence-grounded biophysical reasoning.",
+      "llm_tldr_cn": "语言模型在分析跨学科科研文献时，难以把观测数据与源证据、定量物理模型和生物机制可靠关联。作者提出BioPhys-Bridge基准，每条案例包含证据块、稳定证据ID、定量数值与单位、方程、假设、机制及后续决策等标注，用于问答与检索增强生成（RAG）评估。首版含500个案例与1517条以上标注。该基准为物理-生物跨学科文献推理提供评测手段，推动LLM在计算生物学中的应用评估。",
+      "llm_tldr": "语言模型在分析跨学科科研文献时，难以把观测数据与源证据、定量物理模型和生物机制可靠关联。作者提出BioPhys-Bridge基准，每条案例包含证据块、稳定证据ID、定量数值与单位、方程、假设、机制及后续决策等标注，用于问答与检索增强生成（RAG）评估。首版含500个案例与1517条以上标注。该基准为物理-生物跨学科文献推理提供评测手段，推动LLM在计算生物学中的应用评估。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.19944v1",
+      "source": "arxiv",
+      "title": "MaSCoD: A Multi-Agent Framework for Structural-Context-Guided Candidate Causal Graph Generation",
+      "abstract": "Large language models (LLMs) have been applied to causal discovery, but candidate-graph generation rarely treats premature omission of potentially relevant causal relations as an explicit design objective. We propose MaSCoD, a multi-agent framework that organizes candidate third variables and local structural patterns before direct-edge judgment. We evaluate MaSCoD on Auto-MPG, DWD, and Sachs using GPT-5.4 as the primary backbone and GPT-4o for replication. MaSCoD exhibits a dataset- and backbone-dependent retention-selectivity profile rather than uniform superiority. Across all six dataset-backbone settings, Full, which supplies structural hypotheses before direct-edge judgment, achieved higher mean Recall and F1 than No Phase 1, which instead constructs them within the judgment procedure, while also increasing false-positive rates. Additional reference-edge retention over all evaluated baselines was observed on DWD with GPT-5.4 and on Sachs with GPT-4o, rather than uniformly across settings. Partial ablations showed that supplying both information components did not always outperform supplying only one. For GPT-5.4, stage-wise analysis showed that the Full-No Phase 1 retention gap was already present after direct-edge judgment, while reconciliation introduced additional reference-edge loss for Full on Sachs. These findings support structural pre-organization as an explicit design and evaluation target for omission control and motivate evaluating context construction jointly with its utilization in judgment.",
+      "authors": [
+        "Yudai Nakada",
+        "Yuichiro Nishiura",
+        "Jin Michael Splichal"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-17T09:17:15+00:00",
+      "link": "https://arxiv.org/pdf/2609.19944v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent LLM framework for causal discovery evaluated on biological Sachs dataset",
+      "llm_evidence_cn": "多智能体大模型因果发现框架，在生物Sachs数据集上评估",
+      "llm_evidence": "多智能体大模型因果发现框架，在生物Sachs数据集上评估",
+      "canonical_evidence": "多智能体大模型因果发现框架，在生物Sachs数据集上评估",
+      "llm_tldr_en": "MaSCoD is a multi-agent LLM framework that organizes structural context before causal edge judgment, improving recall on Auto-MPG, DWD and biological Sachs datasets.",
+      "llm_tldr_cn": "针对大模型因果发现中候选图易过早遗漏潜在因果边的问题，论文提出 MaSCoD 多智能体框架，先组织候选第三变量与局部结构模式，再进行直接边判定。作者在 Auto-MPG、DWD 和生物 Sachs 数据集上以 GPT-5.4 与 GPT-4o 评估，发现提供结构假设的 Full 配置在全部六种设置中召回与 F1 更高。该工作为生物数据等多领域的多智能体因果分析提供了可复用框架。",
+      "llm_tldr": "针对大模型因果发现中候选图易过早遗漏潜在因果边的问题，论文提出 MaSCoD 多智能体框架，先组织候选第三变量与局部结构模式，再进行直接边判定。作者在 Auto-MPG、DWD 和生物 Sachs 数据集上以 GPT-5.4 与 GPT-4o 评估，发现提供结构假设的 Full 配置在全部六种设置中召回与 F1 更高。该工作为生物数据等多领域的多智能体因果分析提供了可复用框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Multi-agent systems in biological data analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
