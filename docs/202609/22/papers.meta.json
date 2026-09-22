@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-22",
+  "date": "2026-09-22",
+  "generated_at": "2026-09-22T22:14:10",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/22/2609.23435v1-tool-augmented-on-policy-distillation-for-llm-domain-adaptation-in-sequence-based-omics-tasks",
+      "section": "deep",
+      "title_en": "Tool-Augmented On-Policy Distillation for LLM Domain Adaptation in Sequence-Based Omics Tasks",
+      "authors": "Jie Ying, Zhefan Wang, Zihong Chen, Zhengqing Li, Jinzhe Li, Gang Li, Jian Liu, Fang Hu, Tao Luo, Zhonghang Yuan, Wanli Ouyang, Stan Z. Li, Fan Yang, Nanqing Dong",
+      "date": "2026-09-20",
+      "pdf": "https://arxiv.org/pdf/2609.23435v1",
+      "score": "9.0",
+      "evidence": "面向DNA、RNA与蛋白质序列任务的LLM适配与推理基准",
+      "tldr": "多组学序列蕴含复杂生物模式，但现有评测只看分类回归指标，忽视模型能否给出可追溯的生物学证据。为此，作者提出OmicsBench推理基准，含1160道专家验证问题，覆盖DNA调控、RNA加工与蛋白功能六类任务。评估17个LLM发现，科学LLM预测更准却常无法提供有效证据，疑似捷径学习。基于此提出工具增强同策略蒸馏TA-OPD，在0.8B至27B的Qwen3.5上同时提升证据锚定与多数任务预测性能，表明证据感知训练可跨规模改善序列推理。",
+      "tags": "query:llmagt",
+      "abstract_en": "Multi-omics sequences contain complex biological patterns, yet deciphering their mechanisms for automated scientific discovery remains challenging. As large language models (LLMs) interpret these sequences, evaluating both predictions and scientific reasoning is critical. However, existing benchmarks for multi-omics sequence tasks rely on classification and regression metrics, neglecting whether models grasp the underlying biological evidence. We introduce OmicsBench, the first reasoning benchmark for multi-omics sequences, comprising 1,160 expert-validated questions across six tasks spanning DNA regulation, RNA processing, and protein function. OmicsBench requires traceable evidence chains, evaluated using instance-specific rubrics developed with domain experts. Evaluating 17 LLMs reveals an inverse relationship: while scientific LLMs outperform general-purpose LLMs in sequence classification accuracy, they fail to provide valid evidence to support their predictions. One plausible interpretation is shortcut learning: specialized models may rely on statistical patterns rather than the biological mechanisms needed for scientific discovery. Motivated by this finding, we introduce tool-augmented on-policy distillation (TA-OPD), a post-training method to align sequence prediction with evidence-grounded biological reasoning. Across five Qwen3.5 models spanning 0.8B to 27B parameters, TA-OPD consistently strengthens biological evidence grounding while improving predictive performance on most tasks. These gains persist across model scales, indicating that stronger sequence reasoning does not arise solely from increased model capacity, but can be improved through evidence-aware training. Together, OmicsBench and TA-OPD provide a framework for diagnosing reasoning failures in multi-omics LLMs and a path toward models whose predictions are better grounded in biologically meaningful evidence.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/22/2609.24620v1-ascent-an-agentic-system-over-the-model-context-protocol-for-real-world-clinical-data-analysis",
+      "section": "quick",
+      "title_en": "Ascent: An Agentic System over the Model Context Protocol for Real-World Clinical Data Analysis",
+      "authors": "Angelo Ziletti, Leonardo D'Ambrosi, Melanie Tuchardt, Tim Kondziella",
+      "date": "2026-09-21",
+      "pdf": "https://arxiv.org/pdf/2609.24620v1",
+      "score": "6.0",
+      "evidence": "面向真实世界临床与流行病学数据分析的智能体系统",
+      "tldr": "从真实临床数据回答流行病学问题，需处理医学编码、模式感知SQL及人群、分母和时间等隐含选择。Ascent通过Model Context Protocol统一暴露医学编码、问答与队列分析工具，覆盖原生与标准化模式。作者提出EpiTrap数据集，检验系统能否规避已知药物流行病学错误。在强模型下，智能体较固定流水线在两类模式上平均提升27和20个百分点，但需更多工具调用与更长运行时间。",
+      "tags": "query:llmagt",
+      "abstract_en": "Answering epidemiological questions from real-world clinical data requires medical coding, schema-aware SQL, and validation of implicit choices about populations, denominators, and time. We present Ascent, an agentic system that exposes medical coding, question answering, and cohort analysis through a shared Model Context Protocol tool surface for standardized and native schemas. We introduce EpiTrap, a dataset testing whether systems avoid recognized pharmacoepidemiological errors, and compare a fixed pipeline with agents across models and orchestrators. With capable models, agents improve accuracy over the fixed pipeline by an average of 27 and 20 percentage points on native and standardized schemas, respectively. These gains require more tool calls and longer runtimes. Experience from real projects highlights the system's value for feasibility assessment, diagnostic iteration, and expert-guided analysis.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
