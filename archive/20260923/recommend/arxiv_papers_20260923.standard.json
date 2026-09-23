@@ -1,0 +1,95 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-23T22:03:24.285885+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2609.25620v1",
+      "source": "arxiv",
+      "title": "ChatT2: An Adaptive Framework for Developing a Large Language Model-Based Agent for Natural Product Domain Research",
+      "abstract": "Scientific investigations into microbial natural products (NPs) present significant challenges for novices, largely due to the complexity of microbial systems, biochemical diversity, technical skill requirements, and the demands of bioinformatics and data analysis processes. To address these issues, we introduce ChatT2, a large language model (LLM)-based agent that is specifically tailored to the unique characteristics of bacterial type II polyketides. These polyketides form a structurally distinct and therapeutically important NP family. ChatT2 was developed within an autonomous multiagent framework composed of a mentor, an executor, and an evaluator, each with defined responsibilities. The mentor acts as an intermediary between ChatT2 and the user, utilizing chain-of-thought prompting to refine the intent of the user. Under the guidance of the mentor, the executor synthesizes multimodal information via retrieval-augmented generation techniques and seamlessly integrates bioinformatics and cheminformatics tools. The evaluator ultimately assesses the output of the executor to ensure the richness and accuracy of the retrieved information. Our research highlights how ChatT2, designed with this multiagent framework, addresses the challenges faced by general LLMs in terms of understanding limited, specialized corpora and complex biological information and provides both experts and novices with a valuable tool for exploring various NPs of interest. The ChatT2 webserver can be accessed at https://chatt2.site/#/chat.",
+      "authors": [
+        "Yihan Wang",
+        "Qiandi Gao",
+        "Yihui Zhuang",
+        "Liangjun Ge",
+        "Heqian Zhang",
+        "Jiaquan Huang",
+        "Zhiwei Qin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-22T03:25:32+00:00",
+      "link": "https://arxiv.org/pdf/2609.25620v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-based multi-agent framework for natural product bioinformatics",
+      "llm_evidence_cn": "面向天然产物生物信息学的LLM多智能体框架",
+      "llm_evidence": "面向天然产物生物信息学的LLM多智能体框架",
+      "canonical_evidence": "面向天然产物生物信息学的LLM多智能体框架",
+      "llm_tldr_en": "ChatT2 is an LLM agent for bacterial type II polyketide research, built on an autonomous multi-agent framework of mentor, executor and evaluator roles.",
+      "llm_tldr_cn": "针对微生物天然产物研究因体系复杂、生化多样、技术门槛高且需大量生物信息学与数据分析而对新手困难重重的问题，作者提出ChatT2，一个面向细菌II型聚酮化合物的LLM智能体，构建了由导师、执行者与评估者组成的自主多智能体框架，各角色职责明确并协同工作。该框架帮助新手完成天然产物领域的复杂研究与数据分析流程。其贡献在于验证了LLM多智能体框架在天然产物与生物信息学领域的实用价值。",
+      "llm_tldr": "针对微生物天然产物研究因体系复杂、生化多样、技术门槛高且需大量生物信息学与数据分析而对新手困难重重的问题，作者提出ChatT2，一个面向细菌II型聚酮化合物的LLM智能体，构建了由导师、执行者与评估者组成的自主多智能体框架，各角色职责明确并协同工作。该框架帮助新手完成天然产物领域的复杂研究与数据分析流程。其贡献在于验证了LLM多智能体框架在天然产物与生物信息学领域的实用价值。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.24538v1",
+      "source": "arxiv",
+      "title": "QLoRA Fine-Tuning of Ministral LLM for Sequence-to-Function Protein Annotation",
+      "abstract": "Functional annotation of newly sequenced proteins remains a bottleneck in molecular biology: the number of sequences in public repositories grows far faster than the capacity for manual curation. Most computational approaches consider annotation as multi-label classification over a fixed ontology, which constrains predictions to a predefined label set. In this work we study the the protein annotation as a sequence-to-text generation problem. We fine-tune the 3B-parameter Ministral 3 base model with QLoRA (4-bit NF4 quantization with low-rank adapters) on sequence annotation pairs. We assess predictions with an LLM-as-expert protocol: a GPT model prompted as a senior molecular-biology curator scores organism identification as binary and function annotation quality. We conclude that QLoRA-fine-tuned compact LLMs can generate curator-style annotations with genuine biological value for a substantial subset of proteins. We also discuss future directions in data quality, model scaling, and evidence grounding that are needed to make the approach sufficiently reliable for practical use.",
+      "authors": [
+        "Demian Pavlyshenko",
+        "Bohdan Pavlyshenko"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.NE",
+        "q-bio.QM"
+      ],
+      "published": "2026-09-21T13:09:59+00:00",
+      "link": "https://arxiv.org/pdf/2609.24538v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM fine-tuning for protein sequence annotation",
+      "llm_evidence_cn": "面向蛋白序列注释的LLM微调",
+      "llm_evidence": "面向蛋白序列注释的LLM微调",
+      "canonical_evidence": "面向蛋白序列注释的LLM微调",
+      "llm_tldr_en": "Casting protein annotation as sequence-to-text generation, the authors QLoRA fine-tune a 3B Ministral model and evaluate with an LLM-as-expert curator protocol.",
+      "llm_tldr_cn": "针对新测序蛋白功能注释严重滞后于序列增长、且传统固定本体多标签分类限制预测标签集的问题，作者将蛋白注释重构为序列到文本生成任务，采用QLoRA对30亿参数的Ministral基座模型进行4位量化低秩适配微调，并在序列-注释对上训练。评估时让GPT模型扮演资深分子生物学策展人，对生物体识别与功能注释打分。结果显示轻量LLM经高效微调可有效完成序列到功能注释，为缓解人工策展瓶颈提供了可行路径。",
+      "llm_tldr": "针对新测序蛋白功能注释严重滞后于序列增长、且传统固定本体多标签分类限制预测标签集的问题，作者将蛋白注释重构为序列到文本生成任务，采用QLoRA对30亿参数的Ministral基座模型进行4位量化低秩适配微调，并在序列-注释对上训练。评估时让GPT模型扮演资深分子生物学策展人，对生物体识别与功能注释打分。结果显示轻量LLM经高效微调可有效完成序列到功能注释，为缓解人工策展瓶颈提供了可行路径。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

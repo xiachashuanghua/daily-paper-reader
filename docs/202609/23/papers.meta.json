@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-23",
+  "date": "2026-09-23",
+  "generated_at": "2026-09-23T22:06:37",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/23/2609.25620v1-chatt2-an-adaptive-framework-for-developing-a-large-language-model-based-agent-for-natural-product-domain-research",
+      "section": "deep",
+      "title_en": "ChatT2: An Adaptive Framework for Developing a Large Language Model-Based Agent for Natural Product Domain Research",
+      "authors": "Yihan Wang, Qiandi Gao, Yihui Zhuang, Liangjun Ge, Heqian Zhang, Jiaquan Huang, Zhiwei Qin",
+      "date": "2026-09-22",
+      "pdf": "https://arxiv.org/pdf/2609.25620v1",
+      "score": "9.0",
+      "evidence": "面向天然产物生物信息学的LLM多智能体框架",
+      "tldr": "微生物天然产物研究因系统复杂、生化多样且依赖生物信息学与数据分析，对新手门槛很高。ChatT2 是面向细菌 II 型聚酮的 LLM 智能体，采用导师、执行者与评估者组成的自主多智能体框架。导师用思维链澄清用户意图，执行者通过检索增强生成整合多模态信息并调用生物信息学与化学信息学工具，评估者校验输出的丰富性与准确性。它缓解通用 LLM 对专业语料和复杂生物信息理解不足的问题，为专家和新手提供天然产物探索工具。",
+      "tags": "query:llmagt",
+      "abstract_en": "Scientific investigations into microbial natural products (NPs) present significant challenges for novices, largely due to the complexity of microbial systems, biochemical diversity, technical skill requirements, and the demands of bioinformatics and data analysis processes. To address these issues, we introduce ChatT2, a large language model (LLM)-based agent that is specifically tailored to the unique characteristics of bacterial type II polyketides. These polyketides form a structurally distinct and therapeutically important NP family. ChatT2 was developed within an autonomous multiagent framework composed of a mentor, an executor, and an evaluator, each with defined responsibilities. The mentor acts as an intermediary between ChatT2 and the user, utilizing chain-of-thought prompting to refine the intent of the user. Under the guidance of the mentor, the executor synthesizes multimodal information via retrieval-augmented generation techniques and seamlessly integrates bioinformatics and cheminformatics tools. The evaluator ultimately assesses the output of the executor to ensure the richness and accuracy of the retrieved information. Our research highlights how ChatT2, designed with this multiagent framework, addresses the challenges faced by general LLMs in terms of understanding limited, specialized corpora and complex biological information and provides both experts and novices with a valuable tool for exploring various NPs of interest. The ChatT2 webserver can be accessed at https://chatt2.site/#/chat.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/23/2609.24538v1-qlora-fine-tuning-of-ministral-llm-for-sequence-to-function-protein-annotation",
+      "section": "deep",
+      "title_en": "QLoRA Fine-Tuning of Ministral LLM for Sequence-to-Function Protein Annotation",
+      "authors": "Demian Pavlyshenko, Bohdan Pavlyshenko",
+      "date": "2026-09-21",
+      "pdf": "https://arxiv.org/pdf/2609.24538v1",
+      "score": "8.0",
+      "evidence": "面向蛋白序列注释的LLM微调",
+      "tldr": "蛋白质功能注释是分子生物学瓶颈，公共序列增长远超人工审编能力，多数方法受限于固定本体多标签分类。本文把注释视为序列到文本生成，用QLoRA以4-bit NF4量化与低秩适配器微调3B Ministral 3。评估采用LLM-as-expert，由GPT扮演资深策展人判定生物体识别与功能注释质量。结果显示紧凑LLM可为相当一部分蛋白生成有生物学价值的策展式注释，但实际可靠应用仍需改善数据质量、模型扩展与证据支撑。",
+      "tags": "query:llmagt",
+      "abstract_en": "Functional annotation of newly sequenced proteins remains a bottleneck in molecular biology: the number of sequences in public repositories grows far faster than the capacity for manual curation. Most computational approaches consider annotation as multi-label classification over a fixed ontology, which constrains predictions to a predefined label set. In this work we study the the protein annotation as a sequence-to-text generation problem. We fine-tune the 3B-parameter Ministral 3 base model with QLoRA (4-bit NF4 quantization with low-rank adapters) on sequence annotation pairs. We assess predictions with an LLM-as-expert protocol: a GPT model prompted as a senior molecular-biology curator scores organism identification as binary and function annotation quality. We conclude that QLoRA-fine-tuned compact LLMs can generate curator-style annotations with genuine biological value for a substantial subset of proteins. We also discuss future directions in data quality, model scaling, and evidence grounding that are needed to make the approach sufficiently reliable for practical use.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
