@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-24",
+  "date": "2026-09-24",
+  "generated_at": "2026-09-24T22:18:29",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/24/2609.27234v1-discover-falsify-revise-auditing-input-use-claims-from-source-code-to-predictive-contribution-in-agent-discovered-cell-models",
+      "section": "deep",
+      "title_en": "Discover, Falsify, Revise: Auditing Input-Use Claims from Source Code to Predictive Contribution in Agent-Discovered Cell Models",
+      "authors": "Mengran Li, Bo Li, Chengyang Zhang, Yang Yan, Jinfeng Xu, Zhenchao Tang",
+      "date": "2026-09-23",
+      "pdf": "https://arxiv.org/pdf/2609.27234v1",
+      "score": "8.0",
+      "evidence": "语言模型智能体发现并修正虚拟细胞模型",
+      "tldr": "AI虚拟细胞仅靠留出集预测性能，无法证明模型真正使用了给定扰动信息。CELLAUDIT通过源码检查、替换干预和贡献检验，审计输入使用声明。在BBBC047上，高PCC预测器对化合物替换不变，48个候选中仅20个在双折目标损失上显著获益；sci-Plex中审计增强反馈提升性能与化合物/剂量贡献。该框架将智能体模型发现从生成-评分-修正推进到发现-证伪-修正。",
+      "tags": "query:llmagt",
+      "abstract_en": "AI virtual cells aim to predict cellular responses to specified interventions, yet held-out predictive performance alone does not establish use of the supplied perturbation information. This prediction-claim gap matters in agentic model discovery, where language-model agents generate and revise predictors using score-based feedback. We introduce CELLAUDIT, which audits input-use claims by asking whether an input can enter the cited computation, whether fitted predictions depend on it, and whether that dependence improves prediction of observed response. On a paired morphology-transcriptomics perturbation benchmark (BBBC047), an agent-selected predictor attains a mean held-out Global Pearson correlation coefficient (PCC) of 0.3153 but remains invariant to compound replacement; a control-profile-only predictor reaches 0.3142. Source inspection identifies a compound-query pathway blocked by singleton key-value attention, and the invariance persists after refitting with disjoint control wells. In a stratified audit of 48 candidates across two linked tasks, 47 change predictions under compound replacement on both held-out folds, but only 20 show target-loss gains with intervals above zero on both folds. On BBBC047, falsification-guided revisions recover positive mean compound contributions while retaining gains over the control-profile-only baseline. In matched sci-Plex searches, audit-enriched feedback yields higher held-out performance and larger mean compound and dose contributions across five trajectories, although paired intervals span zero. Refitting fixed designs on an independently acquired cohort shows predictive generalization need not imply generalization of input-use claims: dose contribution persists, whereas support for compound identity does not. CELLAUDIT adds a falsification layer to agentic model discovery, moving from generate-score-revise toward discover-falsify-revise.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
