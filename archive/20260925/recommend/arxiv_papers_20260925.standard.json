@@ -1,0 +1,238 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-25T22:13:44.563968+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.28557v1",
+      "source": "arxiv",
+      "title": "BaseCamp --- An Agentic AI Framework for Automating DNA Sequencing Data Pipelines",
+      "abstract": "DNA sequencing pipelines, spanning quality control, alignment, variant calling, and annotation, are now reliably executed by workflow management systems that orchestrate established bioinformatics tools at scale. What remains manual is the decision layer surrounding that execution: selecting quality thresholds appropriate to a sample and platform, adjudicating borderline variant calls, diagnosing anomalies, and determining which findings warrant expert review. These decisions are repetitive, judgment-intensive, inconsistent across operators, and frequently undocumented. This paper introduces BaseCamp, a novel agentic AI framework for automating the decision layer of DNA sequencing pipelines. The framework decomposes the pipeline into six specialized AI agents, covering sample intake and quality control, alignment, variant calling, annotation, cross-stage monitoring, and reporting. Critically, BaseCamp agents do not perform sequence analysis: established tools execute alignment, calling, and annotation, while the agents select among them, configure them, interpret their output, and decide what follows. This confines language model reasoning to the judgment layer where it is reliable and preserves the reproducibility existing tooling guarantees. Agent reasoning is powered by a consortium of fine-tuned, domain-specialized large language models coordinated by a central reasoning LLM, executing locally so no sequencing data leaves the operating environment, under human-in-the-loop orchestration. Evaluation shows agent-generated configurations are concordant with expert practice, that an explicit filtering ledger renders inspectable what filtering otherwise removes without trace, and that cross-stage anomaly detection surfaces conditions execution monitoring misses. BaseCamp offers a generalizable blueprint for agentic automation of scientific data pipelines.",
+      "authors": [
+        "Eranga Bandara",
+        "Xueping Liang",
+        "Asanga Gunaratna",
+        "Tharaka Hewa",
+        "Abdul Rahman",
+        "Peter Foytik",
+        "Safdar H. Bouk",
+        "Sachini Rajapakse",
+        "Isurunima Kularathna",
+        "Pramoda Karunarathna",
+        "Chalani Rajapakse",
+        "Ng Wee Keong",
+        "Kasun De Zoysa",
+        "Amin Hass",
+        "Wathsala Herath",
+        "Ross Gore",
+        "Ravi Mukkamala",
+        "Nihal Siriwardanagea",
+        "Gihan Siriwardanagea",
+        "Aruna Withanage",
+        "Nilaan Loganathan",
+        "Sachin Shetty"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "q-bio.GN"
+      ],
+      "published": "2026-09-23T08:55:17+00:00",
+      "link": "https://arxiv.org/pdf/2609.28557v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "agentic AI framework automating DNA sequencing pipeline decision layer",
+      "llm_evidence_cn": "自动化DNA测序流程决策层的智能体AI框架",
+      "llm_evidence": "自动化DNA测序流程决策层的智能体AI框架",
+      "canonical_evidence": "自动化DNA测序流程决策层的智能体AI框架",
+      "llm_tldr_en": "BaseCamp introduces an agentic AI framework that automates the judgment-intensive decision layer of DNA sequencing pipelines, covering quality thresholds, variant adjudication and anomaly diagnosis.",
+      "llm_tldr_cn": "DNA测序流程虽已由工作流系统自动执行，但其质量阈值选择、边界变异判定与异常诊断等决策环节仍依赖人工，且不一致、缺乏记录。本文提出BaseCamp智能体AI框架，将测序流程分解为六个可自动化的决策步骤，用LLM智能体承担判断密集型任务。该框架在流程各环节实现自动化决策，减少操作者差异并提升可追溯性，为生物信息学中智能体落地提供了可复用的范式。",
+      "llm_tldr": "DNA测序流程虽已由工作流系统自动执行，但其质量阈值选择、边界变异判定与异常诊断等决策环节仍依赖人工，且不一致、缺乏记录。本文提出BaseCamp智能体AI框架，将测序流程分解为六个可自动化的决策步骤，用LLM智能体承担判断密集型任务。该框架在流程各环节实现自动化决策，减少操作者差异并提升可追溯性，为生物信息学中智能体落地提供了可复用的范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.29221v1",
+      "source": "arxiv",
+      "title": "PRAXIS-VirtualCell: A Programmable and Trustworthy Framework for Agentic Virtual Cell Experiments",
+      "abstract": "Virtual cells are evolving from single-task predictive models toward programmable biological simulation systems, yet heterogeneous data, models, and validation evidence still lack a unified organizational framework. Here, we present PRAXIS-VirtualCell, a modular framework that organizes biological data, predictive models, perturbations, adapters, execution environments, and validation evidence to enable reproducible and auditable virtual experiments. The system supports cross-species tasks spanning Escherichia coli, Saccharomyces cerevisiae, and human K562 cells, while using biological contracts and evidence-aware execution to distinguish supported predictions from extrapolation and abstention. By further integrating agentic orchestration, PRAXIS-VirtualCell automatically translates natural-language questions into traceable virtual experiments, providing a unified runtime foundation for trustworthy and scalable Virtual Cell systems.",
+      "authors": [
+        "Zhenyu Ma",
+        "Xukai Jiang"
+      ],
+      "primary_category": "q-bio.QM",
+      "categories": [
+        "q-bio.QM"
+      ],
+      "published": "2026-09-24T08:29:53+00:00",
+      "link": "https://arxiv.org/pdf/2609.29221v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "agentic framework for virtual cell experiments",
+      "llm_evidence_cn": "面向虚拟细胞实验的智能体框架",
+      "llm_evidence": "面向虚拟细胞实验的智能体框架",
+      "canonical_evidence": "面向虚拟细胞实验的智能体框架",
+      "llm_tldr_en": "PRAXIS-VirtualCell is a modular agentic framework organizing biological data, models and validation evidence into reproducible, auditable virtual-cell experiments across species, separating supported predictions from extrapolation.",
+      "llm_tldr_cn": "虚拟细胞正从单任务预测模型走向可编程生物仿真系统，但异构数据、模型与验证证据缺乏统一组织框架。作者提出PRAXIS-VirtualCell模块化框架，将生物数据、预测模型、扰动、适配器与验证证据统一编排，并通过生物契约与证据感知执行区分可靠预测与推断。系统支持大肠杆菌、酿酒酵母与人K562细胞等跨物种任务，并集成智能体能力。该工作为可复现、可审计的智能体虚拟细胞实验提供了统一平台。",
+      "llm_tldr": "虚拟细胞正从单任务预测模型走向可编程生物仿真系统，但异构数据、模型与验证证据缺乏统一组织框架。作者提出PRAXIS-VirtualCell模块化框架，将生物数据、预测模型、扰动、适配器与验证证据统一编排，并通过生物契约与证据感知执行区分可靠预测与推断。系统支持大肠杆菌、酿酒酵母与人K562细胞等跨物种任务，并集成智能体能力。该工作为可复现、可审计的智能体虚拟细胞实验提供了统一平台。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Frameworks for multi agent systems in computational biology",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.28723v1",
+      "source": "arxiv",
+      "title": "How Spatial Biologists Direct and Verify AI-Assisted Analyses",
+      "abstract": "Spatial biologists use visualization to assess computational analyses of tissue data. We examine how they direct and verify analyses when an AI agent performs this work. We synthesized workflows from fourteen contextual inquiries and conducted a formative pilot followed by an observational study with ten spatial biologists using Claude Science on their own data. Participants valued help with plotting, locating cells of interest, and tasks they found laborious or could not otherwise perform. Assessing the agent's work involved obtaining suitable evidence, sometimes through additional work in external tools, and interpreting it using knowledge of the tissue and its markers. Scientists also sought information about ongoing computation to decide how analysis should proceed. We contribute a workflow synthesis, an empirical account of scientists directing and verifying agentic analyses, and four design directions addressing execution control, familiar interactive views, source and execution information, and accessible verification across computing setups and experience.",
+      "authors": [
+        "Ella Hugie",
+        "Alexandra Irger",
+        "Chiara Schiller",
+        "Lukas Hatscher",
+        "Denis Schapiro",
+        "Hanspeter Pfister"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-09-23T19:01:14+00:00",
+      "link": "https://arxiv.org/pdf/2609.28723v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Study of how spatial biologists direct and verify AI-agent-assisted tissue analyses",
+      "llm_evidence_cn": "研究空间生物学家如何指导并验证AI智能体辅助的组织分析",
+      "llm_evidence": "研究空间生物学家如何指导并验证AI智能体辅助的组织分析",
+      "canonical_evidence": "研究空间生物学家如何指导并验证AI智能体辅助的组织分析",
+      "llm_tldr_en": "This study examines how spatial biologists direct and verify an AI agent performing tissue-data analyses, via contextual inquiries and an observational study with ten scientists.",
+      "llm_tldr_cn": "针对AI智能体执行空间生物学组织数据分析时科学家如何指导与验证缺乏理解的问题，论文综合14次情境访谈梳理工作流，并开展形成性试点与10位空间生物学家的观察研究。参与者使用Claude Science处理自身数据，认可绘图、定位目标细胞等帮助，但验证需在外部工具中额外取证并结合组织与标记物知识解读。研究揭示了科学家对计算过程信息的需求，为生物研究中自主智能体的交互与可信设计提供了实证依据。",
+      "llm_tldr": "针对AI智能体执行空间生物学组织数据分析时科学家如何指导与验证缺乏理解的问题，论文综合14次情境访谈梳理工作流，并开展形成性试点与10位空间生物学家的观察研究。参与者使用Claude Science处理自身数据，认可绘图、定位目标细胞等帮助，但验证需在外部工具中额外取证并结合组织与标记物知识解读。研究揭示了科学家对计算过程信息的需求，为生物研究中自主智能体的交互与可信设计提供了实证依据。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.28921v1",
+      "source": "arxiv",
+      "title": "PFArena: Benchmarking Language Models for Protein Modification",
+      "abstract": "Protein modification requires navigating an immense sequence space, yet wet-lab validation remains low-throughput and costly. Although computational paradigms including protein language models (PLMs), large language models (LLMs), and LLM-based agents have shown promise in protein modification, their relative efficacy across realistic experimental decision-making settings remains unclear. To bridge this gap, we introduce PFArena, a benchmark comprising four controlled task interfaces that cover single-mutant generation and multi-mutant ranking. By providing varying levels of mutation fitness data, PFArena reflects four representative research scenarios characterized by differing degrees of prior experimental context. We assess six PLMs, six LLMs, and five LLM-based agents using complementary metrics to measure both peak and overall protein modification performance. Our evaluation reveals that model performance shifts systematically with the availability of target-specific experimental evidence: PLMs demonstrate proficiency in open-ended single-mutant generation by leveraging protein-specific priors, whereas LLMs and agents perform strongly in multi-mutant ranking, particularly when target-specific fitness data are available. Nevertheless, all model families face fundamental challenges with increasing search-space size and mutation depth. We release our code and benchmark suite to facilitate reproducible research in model-assisted protein modification.",
+      "authors": [
+        "Yawen Ouyang",
+        "Xinbo Zhang",
+        "Ziyuan Ma",
+        "Yixin Wu",
+        "Wenbin Liao",
+        "Feiran Zhang",
+        "Wenjie Li",
+        "Lihao Wang",
+        "Hao Wang",
+        "Xiaoqing Zheng",
+        "Xuefeng Yan",
+        "Lei Bai",
+        "Ya-Qin Zhang",
+        "Shuyi Zhang",
+        "Wei-Ying Ma",
+        "Dahua Lin",
+        "Bowen Zhou",
+        "Hao Zhou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "q-bio.BM"
+      ],
+      "published": "2026-09-24T02:05:02+00:00",
+      "link": "https://arxiv.org/pdf/2609.28921v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmark for protein language models, LLMs and LLM-based agents in protein modification",
+      "llm_evidence_cn": "评估蛋白质语言模型、大语言模型与LLM智能体在蛋白质改造中的表现",
+      "llm_evidence": "评估蛋白质语言模型、大语言模型与LLM智能体在蛋白质改造中的表现",
+      "canonical_evidence": "评估蛋白质语言模型、大语言模型与LLM智能体在蛋白质改造中的表现",
+      "llm_tldr_en": "Protein modification is costly to validate in wet lab, and the relative value of PLMs, LLMs and LLM-based agents remains unclear. PFArena is a benchmark with four controlled task interfaces covering single-mutant generation and multi-mutant ranking under varying fitness-data context. It evaluates six PLMs, six LLMs and five LLM-based agents, revealing how prior experimental context changes performance.",
+      "llm_tldr_cn": "蛋白质改造需在巨大的序列空间中搜索，而湿实验验证通量低、成本高，蛋白质语言模型、大语言模型与LLM智能体在此类任务中的相对优劣尚不清楚。为此作者提出PFArena基准，包含四类受控任务接口，覆盖单突变生成与多突变排序，并通过提供不同水平的突变适应度数据模拟四种典型实验情境。研究系统评测了六种蛋白质语言模型、六种大语言模型和五种LLM智能体，揭示了先验实验信息多寡对模型表现的影响。该工作为计算生物学中LLM与智能体的应用提供了标准化评估基础。",
+      "llm_tldr": "蛋白质改造需在巨大的序列空间中搜索，而湿实验验证通量低、成本高，蛋白质语言模型、大语言模型与LLM智能体在此类任务中的相对优劣尚不清楚。为此作者提出PFArena基准，包含四类受控任务接口，覆盖单突变生成与多突变排序，并通过提供不同水平的突变适应度数据模拟四种典型实验情境。研究系统评测了六种蛋白质语言模型、六种大语言模型和五种LLM智能体，揭示了先验实验信息多寡对模型表现的影响。该工作为计算生物学中LLM与智能体的应用提供了标准化评估基础。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.28692v1",
+      "source": "arxiv",
+      "title": "Driving Epidemic Models with AI Agents: the Epydemix Agent Framework",
+      "abstract": "Artificial Intelligence agents based on large language models provide convenient natural language interfaces to scientific software, but reliability is not automatic. Here we introduce the Epydemix Agent Framework, an additive layer over Epydemix, an open-source Python library for stochastic compartmental epidemic modeling. The framework extends the library with four capabilities to facilitate interaction with an AI agent: discovery of available models and parameters, preventive validation of a declarative scenario specification, execution through tested library code, and inspectability of results. These capabilities let an agent handle the entire modeling process, from the natural-language description of the scenario to quantitative results, figures, and interpretation of findings without writing custom code. Each step reads input files and saves results in a separate output bundle, making the process auditable and reproducible. First, we show the end-to-end workflow with a case study comparing vaccination strategies for a novel respiratory virus. Second, we assessed the framework across 50 agent sessions and five modeling tasks by comparing the agent use of the framework against the direct use of the Python interface. The framework reduced turns, output tokens, and cost on most tasks, unless it trades resources for per-point reproducibility.",
+      "authors": [
+        "Nicolò Gozzi",
+        "Ciro Cattuto",
+        "Alessandro Vespignani"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-09-23T18:31:43+00:00",
+      "link": "https://arxiv.org/pdf/2609.28692v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI agents autonomously drive epidemic modeling software for biological research",
+      "llm_evidence_cn": "AI智能体自主驱动流行病建模软件用于生物研究",
+      "llm_evidence": "AI智能体自主驱动流行病建模软件用于生物研究",
+      "canonical_evidence": "AI智能体自主驱动流行病建模软件用于生物研究",
+      "llm_tldr_en": "The Epydemix Agent Framework adds an AI-agent layer over the Epydemix epidemic modeling library, providing model discovery, scenario validation, tested execution and inspectable results so agents can drive modeling from natural language to figures.",
+      "llm_tldr_cn": "基于大语言模型的智能体虽能为科学软件提供自然语言接口，但其可靠性难以自动保证。作者在开源随机仓室流行病建模库Epydemix之上构建智能体框架，加入模型与参数发现、声明式场景预防性验证、经测试代码执行以及结果可检查四项能力。实验表明智能体能端到端完成从自然语言描述到定量结果与图表的建模流程。该工作为智能体可靠驱动科学计算软件提供了可复用范式，可迁移至生物信息学建模任务。",
+      "llm_tldr": "基于大语言模型的智能体虽能为科学软件提供自然语言接口，但其可靠性难以自动保证。作者在开源随机仓室流行病建模库Epydemix之上构建智能体框架，加入模型与参数发现、声明式场景预防性验证、经测试代码执行以及结果可检查四项能力。实验表明智能体能端到端完成从自然语言描述到定量结果与图表的建模流程。该工作为智能体可靠驱动科学计算软件提供了可复用范式，可迁移至生物信息学建模任务。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

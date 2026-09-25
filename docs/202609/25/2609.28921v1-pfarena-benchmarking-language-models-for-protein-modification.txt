@@ -1,0 +1,1221 @@
+Title: PFArena: Benchmarking Language Models for Protein Modification
+
+URL Source: https://arxiv.org/pdf/2609.28921v1
+
+Published Time: Fri, 25 Sep 2026 00:33:11 GMT
+
+Number of Pages: 42
+
+Markdown Content:
+# PFArena: Benchmarking Language Models for Protein Modification 
+
+Shanghai Artificial Intelligence Laboratory Generative Symbolic Intelligence Lab (GenSI), Tsinghua University Institute for AI Industry Research (AIR), Tsinghua University School of Pharmaceutical Sciences, Tsinghua University 
+
+§ Github õ Dataset  Leaderboard Single-mutant generation T1 
+
+#1 VenusREM 0.043 
+
+#2 ProSST 0.041 
+
+#3 Biomni + GPT 0.039 
+
+#4 AMixKit + GPT 0.039 
+
+#5 ESM2 0.037 
+
+#6 AMixKit + AMix-2.1 0.037 
+
+#7 S3F 0.036 
+
+#8 S3F-MSA 0.036 
+
+#9 AMixKit + Claude 0.035 
+
+#10 Biomni + Claude 0.031 
+
+#11 ProGen2 0.027 
+
+#12 GPT-6 Astra 0.025 
+
+#13 Gemini 3.1 Pro 0.021 
+
+#14 Claude Opus 5 0.021 
+
+#15 Kimi K3 0.020 
+
+#16 DeepSeek V4 Pro 0.018 
+
+#17 GLM-5.2 0.018 Measurement-free multi-mutant ranking T2 
+
+AMixKit + Claude 0.333 
+
+Biomni + GPT 0.319 
+
+Biomni + Claude 0.306 
+
+AMixKit + AMix-2.1 0.296 
+
+AMixKit + GPT 0.285 
+
+Claude Opus 5 0.284 
+
+VenusREM 0.280 
+
+S3F-MSA 0.280 
+
+S3F 0.278 
+
+ProSST 0.278 
+
+GPT-6 Astra 0.273 
+
+ESM2 0.254 
+
+Gemini 3.1 Pro 0.224 
+
+DeepSeek V4 Pro 0.219 
+
+Kimi K3 0.197 
+
+GLM-5.2 0.161 
+
+ProGen2 0.141 Anchor-informed multi-mutant ranking T3 
+
+Biomni + Claude 0.451 
+
+ProSST 0.384 
+
+AMixKit + GPT 0.383 
+
+VenusREM 0.370 
+
+Biomni + GPT 0.369 
+
+AMixKit + Claude 0.367 
+
+AMixKit + AMix-2.1 0.362 
+
+Claude Opus 5 0.354 
+
+GPT-6 Astra 0.352 
+
+S3F 0.336 
+
+S3F-MSA 0.316 
+
+Kimi K3 0.313 
+
+ESM2 0.313 
+
+Gemini 3.1 Pro 0.287 
+
+GLM-5.2 0.268 
+
+DeepSeek V4 Pro 0.263 
+
+ProGen2 0.187 Single-mutant-informed multi-mutant ranking T4 
+
+AMixKit + Claude 0.646 
+
+Biomni + Claude 0.645 
+
+AMixKit + GPT 0.638 
+
+Biomni + GPT 0.637 
+
+GPT-6 Astra 0.599 
+
+Claude Opus 5 0.582 
+
+AMixKit + AMix-2.1 0.553 
+
+Gemini 3.1 Pro 0.533 
+
+DeepSeek V4 Pro 0.531 
+
+GLM-5.2 0.496 
+
+Kimi K3 0.479 
+
+VenusREM 0.382 
+
+ProSST 0.378 
+
+S3F-MSA 0.366 
+
+S3F 0.349 
+
+ESM2 0.315 
+
+ProGen2 0.257 
+
+Figure 1 Benchmark performance across the four protein modification tasks in PFArena. Method classes are distinguished by cell background color: protein language models, large language models, and agents. For agents, Claude denotes Claude Opus 5 and GPT denotes GPT-6 Astra. Methods are ranked by Recall@ 40 for task T1 and by Spearman correlation for tasks T2 –T4 . Results for the remaining metrics are detailed in the experiments section. 
+
+Correspondence: zhouhao@air.tsinghua.edu.cn 
+
+1arXiv:2609.28921v1 [cs.AI] 24 Sep 2026 Contents 
+
+1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32 PFArena . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2.1 Task Suite . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42.1.1 T1: Single-mutant generation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52.1.2 T2: Measurement-free multi-mutant ranking . . . . . . . . . . . . . . . . . . . . . . . 62.1.3 T3: Anchor-informed multi-mutant ranking . . . . . . . . . . . . . . . . . . . . . . . . 62.1.4 T4: Single-mutant-informed multi-mutant ranking . . . . . . . . . . . . . . . . . . . . 72.2 Evaluation Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 72.3 Data Construction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82.3.1 Assay Collection and Harmonization . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82.3.2 Quality Control . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+
+3 Experimental Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 
+
+3.1 Baselines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 3.2 Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 3.3 Implementation Details . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11 
+
+4 Main Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13 
+
+4.1 Overall Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13 4.2 Task-specific Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 4.2.1 T1: Single-mutant generation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 4.2.2 T2: Measurement-free multi-mutant ranking . . . . . . . . . . . . . . . . . . . . . . . 14 4.2.3 T3: Anchor-informed multi-mutant ranking . . . . . . . . . . . . . . . . . . . . . . . . 16 4.2.4 T4: Single-mutant-informed multi-mutant ranking . . . . . . . . . . . . . . . . . . . . 16 
+
+5 Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17 
+
+5.1 Comparing PLMs and LLMs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17 5.1.1 Divergent Single-mutant Proposal Strategies . . . . . . . . . . . . . . . . . . . . . . . 17 5.1.2 Utilization of Multi-mutant Component Additivity . . . . . . . . . . . . . . . . . . . . 18 5.1.3 Common Limitations across Single-mutant and Multi-mutant Tasks . . . . . . . . . . 19 5.2 Dive into LLMs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20 5.2.1 Feedback-guided In-context Adaptation . . . . . . . . . . . . . . . . . . . . . . . . . . 20 5.2.2 Uncertainty Estimation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 5.2.3 Test-time Scaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23 
+
+6 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23 7 Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24 A Evaluation Templates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30 
+
+A.1 Single-mutant Generation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30 A.2 Multi-mutant Ranking . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31 A.3 Confidence Elicitation for Uncertainty Estimation . . . . . . . . . . . . . . . . . . . . . . . . . 34 
+
+B Experimental Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 
+
+B.1 PLM Deployment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 B.2 Test-time Scaling Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37 
+
+C Extended Experimental Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 
+
+C.1 Evaluation Completeness and Missing-Query Handling . . . . . . . . . . . . . . . . . . . . . . 39 C.2 Complementary Strengths and Failure Modes of LLMs and PLMs . . . . . . . . . . . . . . . . 40 2Abstract 
+
+Protein modification requires navigating an immense sequence space, yet wet-lab validation remains low-throughput and costly. Although computational paradigms including protein language models (PLMs), large language models (LLMs), and LLM-based agents have shown promise in protein modification, their relative efficacy across realistic experimental decision-making settings remains unclear. To bridge this gap, we introduce PFArena , a benchmark comprising four controlled task interfaces that cover single-mutant generation and multi-mutant ranking. By providing varying levels of mutation fitness data, PFArena reflects four representative research scenarios characterized by differing degrees of prior experimental context. We assess six PLMs, six LLMs, and five LLM-based agents using complementary metrics to measure both peak and overall protein modification performance. Our evaluation reveals that model performance shifts systematically with the availability of target-specific experimental evidence: PLMs demonstrate proficiency in open-ended single-mutant generation by leveraging protein-specific priors, whereas LLMs and agents perform strongly in multi-mutant ranking, particularly when target-specific fitness data are available. Nevertheless, all model families face fundamental challenges with the increase of search space and mutation depth. We release our code and benchmark suite to facilitate reproducible research in model-assisted protein modification. 
+
+## 1 Introduction 
+
+Protein modification is central to protein engineering, fundamentally relying on sequence mutations to alter protein properties. This process results in an enormous number of possible substitutions and combinations, making experimental characterization costly, time-consuming, and limited in throughput. Reliable fitness predictions allow researchers to prioritize mutants with the highest expected value and focus measurements on informative regions of the sequence–fitness landscape, thereby accelerating iterative design–build–test-learn cycles and supporting the discovery of mutations difficult to identify through empirical screening alone. Computational models, including protein language models (PLMs) and large language models (LLMs), have shown substantial potential for protein modification. PLMs learn sequence, structural, and evolutionary constraints from large-scale protein data, enabling zero-shot prediction and prioritization of functional mutants [1–6]. General-purpose LLMs have also advanced rapidly on protein-specific prediction tasks. On ProteinGym Hard, the reported score increased from 37.7% for Claude Opus 4.7 to 39.6% for Claude Opus 4.8, followed by a further 7.7-percentage-point gain for Claude Opus 5 [7, 8]. This sustained improvement highlights the growing ability of LLMs to interpret protein sequences through natural-language interaction. Nevertheless, it remains unclear when specialized PLMs, general-purpose LLMs, or LLM-based agents are preferable across the diverse decision settings encountered in protein modification. To answer this question, we introduce PFArena , an assay-grounded benchmark that systematically eval-uates these model families under four protein modification settings: T1: Single-mutant generation , T2: Measurement-free multi-mutant ranking , T3: Anchor-informed multi-mutant ranking and T4: Single-mutant-informed multi-mutant ranking . These settings vary along two axes: the action space and the available experimental evidence. They encompass both open-ended generation and fixed-pool ranking tasks, and cover conditions with different mutant information supplied. This design enables a systematic comparison between PLMs and LLMs across single- and multi-mutant prioritization, while testing whether LLMs can translate target-specific experimental evidence into better mutation ranking. We evaluate six PLMs and six LLMs across four tasks covering 202 unique assays and 293 task instances. Furthermore, to combine the reasoning capabilities of LLMs with protein-specific tools, we evaluate five LLM-based agents built on both the pioneering Biomni framework [9] and our lightweight AMixKit toolkit, detailed in Section 3.3. Our study yields two main findings: • Divergent strengths. No single model family dominates across all four tasks. PLMs hold an overall advantage in the open-ended T1 setting, where no target-specific fitness measurements are available and performance depends largely on protein-specific sequence, structural, and evolutionary priors. Their predictions also span a broader range of residue-class substitutions. In contrast, LLM-based systems perform strongly in the multi-mutant ranking tasks ( T2 –T4 ). Their advantage is most evident when 3Single mutant generation 
+
+> Which single mutation should I test first?
+
+PFArena: How to obtain better mutants? 
+
+> How should I use my DMS map? What improves my measured anchor? PLM / LLM / Agent
+> WT Aim: Good single-mutant
+
+INPUT : OUTPUT : 
+
+> Best candidates
+> Measurement-free
+> K115M W55D T97I
+> Sequence Space Sequence Space Which multi-mutant is the best choice?
+
+T1 
+
+Measurement-free multi-mutant ranking 
+
+> Aim: Good multi-mutant without supplementary info
+
+INPUT :  
+
+> WT
+> E26K+D162N V31H+K115M R33S+G145D V10I+D25G+A119T ...
+> Candidate library Measurement-free
+
+OUTPUT : 
+
+> 1. V31H+K115M 2. V10I+D25G+A119T 3. E26K+D162N 4. R33S+G145D ...
+> Ranked library
+
+T2 
+
+INPUT :  
+
+> WT Anchor info
+
+Anchor-informed multi-mutant ranking 
+
+> Aim: Good multi-mutant based on one measured mutant (anchor)
+> E26K+D162N E26K+K115M E26K+G145D V10I+E26K+A119T ...
+> Candidate library
+
+OUTPUT : 
+
+> 1. E26K+G145D 2. V10I+E26K+A119T 3. E26K+D162N 4. E26K+K115M ...
+> Ranked library
+
+T3 
+
+Single-mutant-informed multi-mutant ranking 
+
+> Aim: Good multi-mutant with sufficient single mutant info
+
+INPUT :  
+
+> WT Candidate library
+> R38D+W55D R38E+W55D Y10W+R38D E16D+R38E+W55D ...
+> Mutation info
+
+OUTPUT : 
+
+> 1. E16D+R38E+W55D 2. R38D+W55D 3. Y10W+R38D 4. R38E+W55D ...
+> Ranked library
+
+T4 
+
+> 1 Anchor: E26K Fitness: 1.28
+
+Figure 2 PFArena evaluates protein modification from the perspective of experimental scientists. The benchmark is organized around four representative research scenarios that correspond to the questions scientists ask when deciding which mutants to study next. T1: Single-mutant generation generates high-performing single mutations without candidate input. T2: Measurement-free multi-mutant ranking ranks multi-mutant candidates without prior fitness measurements. T3: Anchor-informed multi-mutant ranking ranks multi-mutant successors conditioned on a tested anchor mutant. T4: Single-mutant-informed multi-mutant ranking ranks multi-mutant candidates using measured single-mutant fitness information. These scenarios span single- and multi-mutant discovery under progressively richer experimental evidence, enabling systematic comparison of PLMs, LLMs, and agents in realistic protein-engineering workflows. The protein structure depicted here corresponds to PDB entry 1RQC [10]. 
+
+comprehensive target-specific experimental evidence is provided ( T4 ). Together, these results highlight the complementary strengths of protein-specific representations and evidence-guided reasoning. • Convergent bottlenecks. Despite these distinct strengths, all three model families encounter shared limitations. In T1 , even the best-performing method recovers fewer than 5% of the ground-truth top-40 
+
+mutations, showing that the single-mutant search space remains difficult to cover under a limited prediction budget. Across T2 –T4 , all model families show a substantial drop in ranking accuracy beyond two substitutions, revealing a shared sensitivity to mutation depth. 
+
+## 2 PFArena 
+
+Conventional mutant-effect benchmarks typically assess whether a model can assign fitness scores to prespecified mutations [11, 12]. In contrast, PFArena evaluates whether PLMs, LLMs, and agents can prioritize mutants across four task interfaces. These interfaces vary in candidate space, spanning single substitutions and mutation combinations, and the amount and form of target-specific evidence available in each task. 
+
+2.1 Task Suite 
+
+As summarized in Figure 2, PFArena defines four task interfaces that correspond to common decisions in protein-engineering workflows. T1 considers the open-ended generation of single-mutant candidates from the full legal substitution space, whereas T2 –T4 consider the ranking of a supplied pool of multi-mutant candidates under different levels of target-specific experimental evidence. 4Task component Specification                    
+
+> Definition Budgeted generation of legal single substitutions without target-specific mutation mea-surements. Input Wild-type sequence x, assay context cand proposed budget K.Output Proposed mutation set of at most Ksingle substitutions. Instance Input:
+> Wild-type sequence: MSSSLGKE...AMV
+> Assay context: - Primary task class: activity function. - Fitness type: organismal or cellular fitness. - Readout subclass: growth or selection proxy. Proposed budget K: 40
+> Output:
+> Proposed mutation set: P557L ,K369Y ,N434D ,... .Statistics Assays: 123; measured single mutants: 594,695.
+> Table 1 Task specification for T1: Single-mutant generation .
+
+Formal task definitions are provided in the following subsections, and the specification tables summarize the information available at the benchmark level. Because model families expose different native interfaces, this information is presented through model-appropriate interfaces. Natural-language task inputs are provided directly to LLMs and agents, whereas PLMs receive the subset supported by their architectures. 
+
+2.1.1 T1: Single-mutant generation 
+
+In a single-mutant campaign like deep mutational scanning (DMS), researchers assay a broad panel of legal single substitutions around a wild-type protein and use the measurements to identify mutants with favorable assay-specific phenotypes. Task T1 evaluates the analogous budgeted prioritization problem: given the wild-type sequence and assay context but no target-specific mutation measurements, which single substitutions should be selected first under a fixed experimental budget? Table 1 summarizes the task specification. Formally, given a wild-type sequence x, assay context c, and a generation budget K, the model implements a generation function: 
+
+fθ : ( x, c, K ) 7 → bO, bO ⊆ V (x), | bO| ≤ K, 
+
+where V(x) denotes the legal single-substitution space of a canonical wild-type sequence x. For a sequence of length L, this space contains 19 L possible substitutions under the standard amino-acid alphabet. The model must therefore return a limited set of legal candidates rather than a complete ordering of the entire space. 
+
+T1 assesses highly selective discovery in a large single-mutant space under a finite experimental budget. A successful system should identify at least one highly promising mutation while also exploring a sufficiently broad region of the high-fitness landscape. For smaller PLMs, the task can be approached by evaluating all legal substitutions individually and ranking their scores. For LLMs and agents, exhaustive evaluation is generally impractical because of the associated computational and financial costs, so these systems must directly generate a small candidate set from the full substitution space. Single-mutant discovery provides a natural starting point for protein engineering, but many desired phenotypes depend on combinations of substitutions that may reinforce, compensate for, or interfere with one another. The remaining tasks therefore move from open-ended single-mutant generation to fixed-pool ranking of multi-mutant candidates with progressively richer levels of target-specific experimental evidence made available. 5Task component Specification                  
+
+> Definition Ranking multi-mutant candidates without target-specific mutation measurements. Input Wild-type sequence x, assay context c, and a score-blind candidate pool. Output Complete ranking of the supplied candidate pool. Instance Input:
+> Wild-type sequence: MLEGKVKW...KEA
+> Assay context: - Primary task class: stability. - Fitness type: stability. - Readout subclass: folding free energy stability readout. Candidate pool: { V28C+V63L ,V28Q+V63P ,V28M+V63F ,... }.
+> Output:
+> Ranked candidate set: V28C+V63L ,V28M+V63F ,V28Q+V63P ,... .Statistics Assays: 74; candidate number: 6,288.
+> Table 2 Task specification for T2: Measurement-free multi-mutant ranking .
+
+2.1.2 T2: Measurement-free multi-mutant ranking 
+
+Task T2 evaluates multi-mutant prioritization as fixed-pool ranking rather than open-ended generation. Given the wild-type sequence, assay context and a score-blind pool sampled from measured multi-mutants, the model returns a permutation of that pool for downstream experimental evaluation. Table 2 summarizes the task specification. Formally, given a wild-type sequence x, assay context c, and a score-blind multi-mutant candidate pool C, the model implements a ranking function: 
+
+fθ :  x, c, C 7 → bO, bO ∈ Π C.
+
+Here, Π( C) denotes the set of all permutations of the candidate pool. 
+
+T2 assesses measurement-free combinatorial reasoning. Specifically, the model must prioritize variants using the available protein information and assay description while accounting for possible interactions among substitutions. It does not test whether a model can generate new combinations outside the supplied pool or assign calibrated fitness values to arbitrary mutants. 
+
+2.1.3 T3: Anchor-informed multi-mutant ranking 
+
+Task T3 evaluates successor ranking conditional on one measured sequence background. In the current release, 65 of 67 anchors are single substitutions; one anchor contains two substitutions and one contains three. Table 3 summarizes the task specification. Formally, given a wild-type sequence x, assay context c, and a measured anchor mutant u with score yu, let C denote the supplied score-blind successor pool. Every candidate 
+
+v ∈ C strictly contains the substitutions in u and introduces at least one additional substitution relative to this measured background. The model then implements a ranking function: 
+
+fθ :  x, c, u, y u, C 7 → bO, bO ∈ Π C.
+
+T3 assesses anchor-conditioned reasoning. The measured anchor provides a local experimental reference; thus, the model must determine whether additional substitutions are likely to improve or reduce fitness relative to the measured sequence background. This setting tests whether information from one experimentally characterized mutant can be transferred to the prioritization of related multi-mutant candidates. 6Task component Specification                       
+
+> Definition Ranking strict successors of a measured anchor mutant. Input Wild-type sequence x, assay context c, a measured anchor mutant uwith score yu, and a score-blind successor pool C.Output Complete ranking of the supplied candidate pool. Instance Input:
+> Wild-type sequence: QVQLVQSG...VSS
+> Assay context: - Primary task class: binding. - Fitness type: binding. - Readout subclass: binding. Anchor: T28P with score -1.586. Successor pool: {T28P+S30R+N59K+T76A ,T28P+S30R+N59K+Q62P+S75F ,T28P+S30R+L104V ,... }.
+> Output:
+> Ranked candidate set:
+> T28P+S30R+N59K+Q62P+S75F ,T28P+S30R+N59K+T76A ,T28P+S30R+L104V ,... .Statistics Assays: 67; candidate number: 3,648.
+> Table 3 Task specification for T3: Anchor-informed multi-mutant ranking .
+
+2.1.4 T4: Single-mutant-informed multi-mutant ranking 
+
+Whereas T3 exposes one measured anchor, T4 exposes a broader set of measured single-mutant scores. This context is not required to cover the complete 19 L single-substitution space. Instead, the construction requirement is candidate-specific completeness: every component substitution represented in a candidate has a corresponding measured single-mutant entry. Table 4 summarizes the task specification. Formally, given a wild-type sequence x and assay context c, let 
+
+S map each provided measured single substitution s to its assay score y(s), and let C denote the supplied score-blind multi-mutant candidate pool, whose component substitutions are all represented in S. The model then implements a ranking function: 
+
+fθ :  x, c, S, C 7 → bO, bO ∈ Π C.
+
+T4 assesses component-informed combination ranking. Given the measured effects of all individual mutations, the model must prioritize multi-mutant combinations. Rather than simply adding individual scores, the system must account for non-additive interactions to translate distributed evidence into accurate rankings. 
+
+2.2 Evaluation Objectives 
+
+Table 5 summarizes the objective of each metric and its applicability to each task. Implementation details of the corresponding metrics are provided in Section 3.2. • Global ranking with Spearman Correlation. Measures whether the predicted ordering agrees with the experimental ordering across the complete candidate pool, evaluating a model’s ability to distinguish relative fitness throughout the library rather than only among the candidates placed at the top. • Top-weighted ranking with NDCG. Measures the quality of the upper part of the predicted list by assigning greater importance to candidates near the top, evaluating whether a model places the most promising variants in positions that are most useful for downstream experimental testing. 7Task component Specification                             
+
+> Definition Multi-mutant ranking with measured context for every component substitution. Input Wild-type sequence x, assay context c, a measured single-mutant context map S, and a score-blind multi-mutant candidate pool C.Output Complete ranking of the supplied candidate pool. Instance Input:
+> Wild-type sequence: EVKLDETG...EIK
+> Assay context: - Primary task class: stability. - Fitness type: abundance or expression. - Readout subclass: cellular abundance stability proxy. Single-mutant context: { W108E : -0.354, G109P : -1.062, M34Q : 0.605, N35S : 1.154, ... }. Candidate pool: { W108E+G109P ,Y102P+M105K ,M34Q+N35S ,... }.
+> Output:
+> Ranked candidate set: M34Q+N35S ,Y102P+M105K ,W108E+G109P ,... .Statistics Assays: 29; candidate number: 2,638; visible single-mutant context rows: 28,609.
+> Table 4 Task specification for T4: Single-mutant-informed multi-mutant ranking .
+> Objective Metric T1 T2 T3 T4
+
+Global ranking Spearman Correlation × ✓ ✓ ✓
+
+Top-weighted ranking NDCG × ✓ ✓ ✓
+
+Peak discovery Normalized Maximum Score@ K ✓ ✓ ✓ ✓
+
+Peak coverage Recall@ K ✓ ✓ ✓ ✓   
+
+> Table 5 Evaluation objectives, corresponding metrics, and metric applicability across the four tasks. Ranking metrics are not used for T1 because it is a generation task instead of a ranking task.
+
+• Peak discovery with Normalized Maximum Score@ K. Measures the highest assay-normalized fitness among the K submitted candidates, evaluating whether a model can identify at least one strong candidate within the available budget of K proposed mutations. • Peak coverage with Recall@ K. Measures how broadly a model recovers the ground-truth top-performing candidates within a prediction budget K, complementing peak discovery by assessing whether the model identifies multiple candidates from the high-fitness region rather than only a single strong candidate. 
+
+2.3 Data Construction 
+
+2.3.1 Assay Collection and Harmonization 
+
+We assembled assay-level protein fitness landscapes from ProteinGym [11], MaveDB [13], MegaScale [14], FLAb [15], Human Domainome [16], and CombinGym [17]. The collection also includes manually curated target DMS studies for CDKN2A [18], SLC13A5 [19], and TrpB [20]. These sources provide stability, binding, activity or organismal function measurements spanning single-mutant and combinatorial sequence–fitness landscapes. An assay is defined by its wild-type construct, experimental condition, readout, and score semantics, so measurements for one protein remain separate assays when they represent distinct experimental settings or engineering objectives. Each assay record contains biological and experimental metadata together with one or more assay-linked A3M alignments generated with MMseqs2 [21] against UniRef100 [22]. We 8curated an assay’s primary task class, fitness type and readout subclass based on DMS databases and papers, where primary task class is artificially set to 3 different types: stability, binding, or activity function. We harmonized mutant representations and score semantics across sources. A single substitution is encoded as 
+
+A12V , and a multi-mutant as a plus-separated combination such as A12V+G35L . We retained mutants composed of the 20 standard amino acids and removed synonymous substitutions, stop codons, deletions, non-finite scores, repeated mutation sites within a mutant, and mutations that could not be reconstructed from the assay-specific wild-type sequence. Repeated measurements of the same canonical mutant within an assay were averaged. Assay-specific score semantics are retained for the score-construction step below. For each assay, we calculate DMS_score from the assay-level effect values obtained from the source file or reconstructed from the source readout specified in the assay metadata. Published processed effect columns are imported directly; assays requiring reconstruction are converted according to their measurement semantics. For example, affinity values reported as Kd are expressed as − log 10 (Kd), and expression ratios are expressed as log 10 (ER) . The resulting effect values are standardized within each assay using a population z-score. For readouts in which lower values indicate better performance, the corresponding effect values are sign-reversed, so larger DMS_score values consistently indicate better assay performance. The resulting assay-level scores populate the measured single-mutant tables and the candidate records used by T1 –T4 .
+
+2.3.2 Quality Control 
+
+Every constructed assay–task instance underwent three groups of quality-control checks covering instance integrity, task consistency, and evaluation reliability: • Instance integrity. We first verified the correctness and completeness of each individual instance. Checks included mutation–sequence consistency, finite fitness values, complete metadata, absence of duplicate mutants or rows, and valid links to the corresponding A3M alignments. These checks ensure that each instance faithfully represents the underlying assay data, contains information required for downstream evaluation, and avoids malformed or incomplete records that could introduce artificial errors during model inference or metric computation throughout the evaluation pipeline. • Task consistency. We then validated whether each assay was correctly instantiated under the corre-sponding task definition. This included checking task-specific inputs, candidate-set construction, and mutation constraints, and task-specific formatting and consistency requirements. For assays shared across multiple task interfaces, we additionally cross-checked sequence, measurement, and visual data to ensure that the same underlying assay information remained consistent across tasks and that no discrepancies were introduced during task-specific preprocessing or instance conversion. • Evaluation reliability. Finally, we examined whether individual instances supported stable and meaningful assessment across all reported evaluation metrics. We excluded severe tie-heavy T2 –T4 instances and T1 
+
+instances in which exact top-region ties made top-K membership ambiguous. Local near-ties that did not alter the relevant ranking boundary were retained and documented. We also tested for accidental order leakage by measuring monotonicity and rank correlation between row position and DMS_score ,ensuring that benchmark ordering did not provide unintended information about the target labels or create spurious performance gains unrelated to genuine mutant prioritization ability. After quality filtering, PFArena comprises 202 unique assays, 293 assay–task instances, and 607,269 target candidate rows. Per-task instance counts are listed in the task specification tables. Since tasks impose different evidence and candidate constraints, the same assay may contribute to multiple tasks. At the assay–task level, the current benchmark contains 124 stability, 101 activity or organismal function, and 68 binding instances. Its source composition comprises 76 MegaScale, 78 ProteinGym, 44 MaveDB, 34 FLAb, 36 Human Domainome, 19 CombinGym and 6 manually curated DMS instances. 93 Experimental Setup 
+
+3.1 Baselines 
+
+We compare four baseline families: random selection, zero-shot protein language models, standalone general-purpose LLMs, and LLM-based scientific agents. 
+
+Random For T1 , the random baseline uniformly samples K legal single substitutions without replacement. For T2 –T4 , it produces a uniformly random permutation of the supplied candidate pool. 
+
+Protein Language Models We evaluated six zero-shot protein language models spanning complementary biological input modalities. ESM-2 (650M) [1] and ProGen2-base (764M) [2] use protein sequences alone; ProSST-2048 [3] incorporates discrete structure tokens; S3F [4] integrates sequence, backbone, and surface representations; and VenusREM [5] additionally incorporates MSA-derived evolutionary information. S3F-MSA combines S3F with an ensemble of five independently trained EVE models [6]. 
+
+LLMs We evaluated six general-purpose LLMs from diverse model families: GPT-6 Astra [23], Claude Opus 5 [8], Gemini 3.1 Pro [24], Kimi K3 [25], GLM-5.2 [26], and DeepSeek-V4-Pro [27]. All models were evaluated without any fine-tuning. For each task, they received the same prompt template and the same model-visible inputs defined in Section 2.1, and were required to return predictions in the prescribed structured format. 
+
+Agents We additionally evaluated scientific agent frameworks Biomni [9] and our AMixKit toolkit. They received the same task-visible inputs and followed the same structured-output requirements as the standalone LLMs, while retaining the ability to orchestrate the tools and scientific resources provided by their frameworks. 
+
+3.2 Metrics 
+
+We compute all metrics independently for each assay-level instance and then macro-average the resulting values, so that every instance contributes equally to the reported performance. After score harmonization during data construction, larger DMS_score values consistently indicate better fitness. We use task-specific values of K to account for differences in task formulation and candidate-space size. In T1 , models generate candidates from a large single-mutant space, so we set K = 40 to provide a sufficiently broad generation budget. In T2 –T4 , models rank a smaller supplied candidate pool, so we set K = 5 to maintain a selective evaluation of the top-ranked candidates within the reduced candidate space. 
+
+Spearman Correlation Measures agreement between the predicted and experimental rankings over the complete candidate pool. For an instance with n candidates, we assign each candidate an experimental rank and a predicted rank, and compute the Pearson correlation between the two rank vectors. Ties in the experimental scores are assigned their average rank. 
+
+NDCG Evaluates ranking quality by placing greater weight on high-fitness candidates near the top of the list. We first apply min-max normalization to the DMS_score values to map them into relevance scores 
+
+ri = ( si − smin )/(smax − smin ) ∈ [0 , 1] . For a predicted permutation π of n candidates, NDCG is defined as: 
+
+NDCG( π) = DCG( π)IDCG , DCG( π) = 
+
+> n
+
+X
+
+> j=1
+
+2rπ(j) − 1log 2(j + 1) ,
+
+and IDCG represents the ideal maximum possible DCG , computed by evaluating the same discounted gain formula after sorting all candidates in decreasing order of true relevance ri.
+
+Normalized Maximum Score Measures peak discovery among the submitted candidates. Let HK denote the legal candidates occurring within the first K submitted positions. We define 
+
+NMS @ K = max i∈H K si − smin 
+
+smax − smin 
+
+.
+
+10 For T1 , H40 is the submitted single-mutant set under the fixed generation budget. In this task, smin and 
+
+smax denote the minimum and maximum experimental scores over the full measured single-mutant space. For 
+
+T2 –T4 , H5 consists of the leading candidates in the predicted multi-mutant ranking, and smin and smax are computed over the corresponding supplied candidate pool. 
+
+Recall Measures coverage of the experimentally high-fitness region. Let TK denote the ground-truth top-K
+
+candidates, with all candidates tied at the ground-truth cutoff included as relevant. For an instance with candidate-pool size n, we compute Recall@ K as: 
+
+Recall @ K = |H K ∩ T K |
+
+min( K, n ) .
+
+The denominator remains min( K, n ) when ties expand the ground-truth relevant set. Recall complements NMS, which depends only on the strongest recovered candidate. LLM and agent outputs are not fully controllable and may include refusals, incomplete responses, or outputs that cannot be parsed successfully. The post-processing procedures for missing or incomplete assay responses are described in Section C.1 and applied uniformly across all models. 
+
+3.3 Implementation Details 
+
+We used a common evaluation pipeline across all baseline families. Task-visible inputs and required output formats followed Section 2.1, while the model-specific inference procedures are described below. 
+
+PLM Inference PLM inference used label-free, zero-shot mutation scores under fixed model-specific configurations, without natural-language assay descriptions or task-specific auxiliary information. Wild-type structures were generated with AlphaFold 3 [28], and evolutionary alignments were constructed against UniRef100 [22] using MMseqs2 [21]. For T1 , the scores were used to rank all legal single substitutions; for 
+
+T2 –T4 , they were used to rank the supplied candidate sets. Model-specific checkpoints, scoring definitions, and protocols for multi-substitution, multi-chain, and long-sequence inputs are documented in Section B.1. 
+
+LLM Inference Each prompt was instantiated from a task-specific template, provided in Section A, and submitted as a single non-streaming request through an asynchronous OpenAI-compatible client. The models 
+
+gpt-6-astra , claude-opus-5 , gemini-3.1-pro-preview , kimi-k3 , glm-5.2 , and deepseek-v4-pro were required to return a task-specific structured output: a proposed mutation set for T1 and a proposed ranking for T2 –T4 . Default maximum completion lengths were set to 65,536 tokens for gemini-3.1-pro-preview ,
+
+kimi-k3 and glm-5.2 , and 32,768 tokens for the remaining models. Sampling parameters and reasoning-effort settings were left at their API defaults for all evaluated model configurations. Responses that could be successfully parsed into the required structure were recorded as results, without repairing, replacing, or filtering predicted mutations before evaluation. Failed instances were retried for up to 10 complete inference runs, until all pending instances succeeded or a run produced no additional successful results. 
+
+Agent Inference We used Biomni [9] to instantiate each instance as an independent task with a task-specific agent prompt. We evaluated two backbone models: gpt-6-astra and claude-opus-5 . Unlike standalone LLM inference, each agent operated in a multi-turn loop with iterative tool use and intermediate feedback. At each turn, the agent either emitted an <execute> block to invoke a Biomni tool, inspect public database or model outputs, or run focused Python/Bash code, or emitted a final <solution> block. After each tool-use turn, the observation was returned to the agent before the next turn. We required at least one execution–observation round before accepting a final answer and allowed at most 40 tool-use rounds. Each model call was limited to a maximum of 24,576 output tokens. Once the tool-use budget was exhausted, further tool calls were disabled and the agent was required to return the final answer in the specified structured-JSON format. GPU-intensive Biomni tools and eligible code-execution blocks were dispatched to a remote GPU worker, while the agent remained responsible for selecting actions and producing the final ranking. Only the structured JSON object within the <solution> block was parsed as the final response. 11 UniProt Features 
+
+> Retrieve the protein’s functional sites, domains, structures, or variants
+> Feature Tools
+
+Centroid Distance 
+
+> Rank residue positions by distance to the protein structure centroid
+
+Assay Features 
+
+> Retrieve MSA conservation info or AlphaFold pLDDT confidence
+
+PLM Mutant Suggestion 
+
+> Suggest top-scoring single mutants at selected positions with a PLM
+
+PLM Mutant Scoring 
+
+> Score candidate mutants by their fitness scores with a PLM
+
+# AMixKit 
+
+Amino Acid Retrieval 
+
+> Retrieve wild-type amino acid by 1-based residue position (e.g., 57 →S)
+
+Build Mutant 
+
+> Build validated single-substitution mutant annotations (e.g., L4N) PLM Tools Construction Tools
+> 57
+> S
+> L4N 41.82 S57R
+> L4N
+
+Figure 3 Overview of AMixKit, integrating protein features, PLM inference, and mutant construction. 
+
+AMixKit Toolset We additionally evaluated agents equipped with AMixKit , a lightweight toolkit that provides standardized protein-specific operations for evidence retrieval, mutation construction, and PLM-based prediction. As illustrated in Figure 3, AMixKit contains seven tools: • UniProt Features: retrieves functional sites, domains, structural annotations, natural variants, and curated mutagenesis records for a specified protein accession. • Assay Features: summarizes assay-specific evolutionary or structural evidence, including MSA coverage and conservation or AlphaFold pLDDT confidence for an exact benchmark assay. • Centroid Distance: ranks residue positions by their distance to the structural centroid, with chain-aware handling of multichain proteins, to identify structurally central or peripheral sites. • Amino Acid Retrieval: retrieves the wild-type amino acid at specified sequence positions. • Build Mutant: constructs and validates single-substitution annotations from selected positions and target amino acids while enforcing wild-type sequence consistency. • PLM Mutant Suggestion: generates and ranks the 19 possible non-wild-type substitutions at selected positions using a specified PLM and reports the highest-scoring candidates per position. • PLM Mutant Scoring: assigns PLM-based fitness scores to a set of single- or multi-mutant candidates. The PLM tools support ESM-2, ProGen2, ProSST, S3F, S3F-MSA, and VenusREM, using cached scores when available and the scoring service otherwise. Collectively, these tools allow agents to gather biological evidence, construct valid mutations, and incorporate protein-model predictions in one workflow. AMixKit 
+
+agents followed the same multi-turn execution–observation protocol as the Biomni agents. We evaluate AMixKit with both frontier LLMs and our in-house model, AMix-2.1. Frontier LLMs demonstrate strong capabilities, but may still exhibit over-refusal or false refusals on biology-related tasks. Moreover, their API costs can become substantial when deployed at scale. Motivated by these limitations, we developed AMix-2.1 by scaling AMix-2 [29] to hundreds of billions of parameters and applying multi-task agentic RL. We will release further technical details and open-source both AMix-2.1 and AMixKit in future work. 12 Random VenusREM S3F-MSA ProSST-2048 S3F ESM-2 ProGen2-base GPT-6 Astra Claude Opus 5 Gemini 3.1 Pro Kimi K3 GLM-5.2 DeepSeek-V4-Pro Biomni + GPT Biomni + Claude AMixKit + GPT AMixKit + Claude AMixKit + AMix-2.1 
+
+Model T1 T2 T3 T4 
+
+Task-level           
+
+> NMS Recall Spear. NDCG NMS Recall Spear. NDCG NMS Recall Spear. NDCG NMS Recall
+> T1 T2 T3 T4
+
+Metric-level 
+
+> 1510 15 18
+> Rank
+
+Figure 4 Task-level and metric-level rank-based model capability. For each task and metric, all methods are ranked according to their performance, with rank = 1 indicating the best method. 
+
+## 4 Main Results 
+
+4.1 Overall Results 
+
+We use Figure 4 to summarize benchmark performance at two levels: at the metric level, each method is ranked based on each metric for fine-grained comparison; at the task level, metric-specific ranks are aggregated into a task-level mean rank for comprehensive performance. The random baseline, PLMs, LLMs, and tool-augmented agents are compared rank-based, demonstrating how method performance changes with task formulation, available experimental evidence, and evaluation objective. Two qualitative observations emerge: • At the task level, relative strengths vary with task formulation and available evidence. In T1 , PLMs lead overall. Agents lead in T2 , whereas T3 shows a more interleaved ordering between PLMs and agents. In T4 , agents achieve their clearest overall advantage under comprehensive target-specific evidence. This non-monotonic pattern highlights task formulation alongside experimental evidence availability. • At the metric level, overall standing does not guarantee leadership on every metric. In T1 , PLMs hold the strongest overall positions, yet GPT-6 Astra leads NMS@ 40 . In T3 , agents rank highest on global and top-weighted ordering, whereas ProSST-2048 ranks highest on peak discovery and top-candidate recovery. Even where agents lead at the task level, as in T2 and T4 , the leading agent configuration varies across the four evaluation metrics. Task-level mean ranks therefore summarize overall strength but cannot identify the best method for every evaluation objective. 13 Category Model NMS@ 40 Recall@ 40                                                    
+
+> Statistic Random 0.7749 0.0142
+> PLM
+> VenusREM 0.7932 0.0427
+> S3F-MSA 0.7816 0.0364
+> ProSST-2048 0.7847 0.0407 S3F 0.7804 0.0364
+> ESM-2 0.7854 0.0370
+> ProGen2-base 0.7709 0.0274
+> LLM
+> GPT-6 Astra 0.7966 0.0254
+> Claude Opus 5 0.7729 0.0205
+> Gemini 3.1 Pro 0.7620 0.0211
+> Kimi K3 0.7739 0.0199
+> GLM-5.2 0.7734 0.0185
+> DeepSeek-V4-Pro 0.7703 0.0185
+> Agent
+> Biomni +GPT-6 Astra 0.7677 0.0388
+> Biomni +Claude Opus 5 0.7651 0.0307
+> AMixKit +GPT-6 Astra 0.7866 0.0386
+> AMixKit +Claude Opus 5 0.7858 0.0354
+> AMixKit +AMix-2.1 0.7872 0.0368
+> Table 6 Performance on T1: Single-mutant generation . The best results are in bold and the second-best results are underlined. The same convention is used in the tables below.
+
+4.2 Task-specific Results 
+
+4.2.1 T1: Single-mutant generation 
+
+As shown in Table 6, single-mutant generation remains challenging under a fixed generation budget, with limited recovery of top-ranked mutants and only modest gains in peak discovery over random selection. Learned methods achieve higher Recall@ 40 than random selection, but the best value increases from only 
+
+0.0142 to 0.0427 , still recovering fewer than 5% of the ground-truth top-40 mutations. The relative gains in NMS@ 40 are noticeably smaller, rising at most from 0.7749 to 0.7966 , with numerous models showing no competitive edge over random guessing in this setting. Across model categories, all six PLMs achieve higher Recall@ 40 than the evaluated standalone LLMs. PLMs also outperform standalone LLMs in NMS@ 40 , with the exception of ProGen2-base and GPT-6 Astra, while  
+
+> AMixKit
+
+agents outperform all PLMs except VenusREM. Taken together, PLMs remain competitive in measurement-free mutant generation, while frontier LLMs and AMixKit tool-use supports identification of highly promising individual candidates. 
+
+4.2.2 T2: Measurement-free multi-mutant ranking 
+
+As shown in Table 7, all learned measurement-free ranking methods outperform the random baseline across all metrics, with the best Spearman correlation improving from −0.0215 to 0.3330 . However, the best Recall@ 5
+
+reaches only 0.2351 , recovering fewer than one quarter of the ground-truth top-five candidates. While models can extract useful information regarding multi-mutant fitness, they cannot reliably reconstruct the ordering or consistently recover the most promising candidates without target-specific measurements. Agents achieve the best score on all four T2 metrics. AMixKit + Claude Opus 5 achieves the highest Spearman correlation, NMS@ 5, and Recall@ 5, at 0.3330 , 0.8120 , and 0.2351 , while Biomni + GPT-6 Astra achieves the highest NDCG at 0.8767 . The strongest non-agent competitors are distributed across the LLM and PLM families: Claude Opus 5 is competitive in Spearman and NMS@ 5, whereas S3F-MSA leads in NDCG. 14 Category Model Spearman NDCG NMS@ 5 Recall@ 5 
+
+> Statistic
+
+Random −0.0215 0.8196 0.7113 0.0811 
+
+> PLM
+
+VenusREM 0.2804 0.8684 0.8003 0.2162 
+
+S3F-MSA 0.2803 0.8700 0.7964 0.2027 
+
+ProSST-2048 0.2777 0.8657 0.7829 0.2108 
+
+S3F 0.2785 0.8626 0.7751 0.1757 
+
+ESM-2 0.2539 0.8634 0.7831 0.1892 
+
+ProGen2-base 0.1405 0.8563 0.7887 0.1784 
+
+> LLM
+
+GPT-6 Astra 0.2726 0.8635 0.7967 0.2216 Claude Opus 5 0.2841 0.8653 0.8031 0.1919 
+
+Gemini 3.1 Pro 0.2239 0.8595 0.7723 0.1973 
+
+Kimi K3 0.1973 0.8507 0.7499 0.1919 
+
+GLM-5.2 0.1607 0.8519 0.7706 0.2000 
+
+DeepSeek-V4-Pro 0.2187 0.8587 0.7760 0.2135 
+
+> Agent
+
+Biomni + GPT-6 Astra 0.3194 0.8767 0.8038 0.2162 
+
+Biomni + Claude Opus 5 0.3064 0.8689 0.8016 0.2351 
+
+AMixKit + GPT-6 Astra 0.2851 0.8702 0.7781 0.2027 
+
+AMixKit + Claude Opus 5 0.3330 0.8764 0.8120 0.2351 
+
+AMixKit + AMix-2.1 0.2960 0.8706 0.7911 0.2000  
+
+> Table 7
+
+Performance on T2: Measurement-free multi-mutant ranking .      
+
+> Category Model Spearman NDCG NMS@ 5Recall@ 5
+> Statistic
+
+Random 0.0411 0.8216 0.7659 0.1970 
+
+> PLM
+
+VenusREM 0.3698 0.8897 0.8578 0.3612 S3F-MSA 0.3159 0.8860 0.8382 0.3224 
+
+ProSST-2048 0.3836 0.8903 0.8620 0.3672 
+
+S3F 0.3357 0.8842 0.8523 0.2955 
+
+ESM-2 0.3128 0.8840 0.8099 0.3045 
+
+ProGen2-base 0.1870 0.8606 0.7835 0.2716 
+
+> LLM
+
+GPT-6 Astra 0.3516 0.8886 0.8258 0.3134 
+
+Claude Opus 5 0.3540 0.8858 0.8263 0.3015 
+
+Gemini 3.1 Pro 0.2865 0.8814 0.8019 0.2806 
+
+Kimi K3 0.3131 0.8857 0.8124 0.2925 
+
+GLM-5.2 0.2676 0.8701 0.8149 0.2866 
+
+DeepSeek-V4-Pro 0.2627 0.8698 0.8106 0.2687 
+
+> Agent
+
+Biomni + GPT-6 Astra 0.3687 0.8828 0.7925 0.3045 
+
+Biomni + Claude Opus 5 0.4511 0.8985 0.8511 0.3463 
+
+AMixKit + GPT-6 Astra 0.3833 0.8907 0.8323 0.3433 
+
+AMixKit + Claude Opus 5 0.3665 0.8875 0.8515 0.3433 
+
+AMixKit + AMix-2.1 0.3616 0.8902 0.8515 0.3254  
+
+> Table 8
+
+Performance on T3: Anchor-informed multi-mutant ranking .
+
+15 Category Model Spearman NDCG NMS@ 5 Recall@ 5                                                                                     
+
+> Statistic Random −0.0204 0.8124 0.6371 0.0552
+> PLM
+> VenusREM 0.3821 0.8809 0.8212 0.2552
+> S3F-MSA 0.3662 0.9005 0.8686 0.2897
+> ProSST-2048 0.3779 0.8725 0.8078 0.2483
+> S3F 0.3487 0.8836 0.8410 0.2759
+> ESM-2 0.3153 0.8828 0.8129 0.2276
+> ProGen2-base 0.2568 0.8736 0.8357 0.1793
+> LLM
+> GPT-6 Astra 0.5988 0.9274 0.8935 0.4483
+> Claude Opus 5 0.5823 0.9244 0.8723 0.4276
+> Gemini 3.1 Pro 0.5329 0.9059 0.8595 0.4000
+> Kimi K3 0.4794 0.8956 0.8337 0.3586
+> GLM-5.2 0.4959 0.8984 0.8338 0.3862
+> DeepSeek-V4-Pro 0.5308 0.9059 0.8595 0.4000
+> Agent
+> Biomni +GPT-6 Astra 0.6373 0.9347 0.9145 0.4828 Biomni +Claude Opus 5 0.6446 0.9293 0.9015 0.4345
+> AMixKit +GPT-6 Astra 0.6382 0.9336 0.9131 0.4897
+> AMixKit +Claude Opus 5 0.6462 0.9336 0.9090 0.4690
+> AMixKit +AMix-2.1 0.5531 0.9115 0.8642 0.3862
+> Table 9 Performance on T4: Single-mutant-informed multi-mutant ranking .
+
+4.2.3 T3: Anchor-informed multi-mutant ranking 
+
+As shown in Table 8, models of all categories perform better under the anchor-informed setting, as compared to the measurement-free setting. All evaluated methods outperform random ranking across the four metrics, showing that anchor-conditioned reasoning can improve multi-mutant prioritization, while the effects of additional mutations remain difficult to infer reliably. The leading method depends on the evaluation objective, revealing complementary strengths of agents and PLMs. Biomni + Claude Opus 5 achieves the highest Spearman correlation at 0.4511 and NDCG at 0.8985 ;whereas ProSST-2048 attains the highest NMS@ 5 and Recall@ 5, with scores of 0.8620 and 0.3672 , respectively, and outperforms most other agents across metrics. When an anchor measurement is available, no model family consistently dominates; therefore, the choice of model should be guided by specific experiment objectives. 
+
+4.2.4 T4: Single-mutant-informed multi-mutant ranking 
+
+As shown in Table 9, providing candidate-complete single-mutant fitness context shifts the strongest results toward LLM-based systems, particularly tool-augmented agents, which generally outperform PLMs across all metrics. Unlike T3 , which provides the measured score of one anchor variant, this task supplies evidence for every candidate component, directly testing whether models can integrate distributed assay information. Nevertheless, single-mutant scores do not uniquely determine multi-mutant fitness because non-additive interactions may alter substitution effects in combined sequences. Thus, this setting highlights both the value of component-level experimental evidence and the challenge of extrapolating it to combinatorial variants. Tool augmentation through both Biomni and AMixKit consistently improves performance across metrics and backbones, while the best agent depends on the objective. AMixKit + Claude Opus 5 achieves the highest Spearman correlation at 0.6462 ; Biomni + GPT-6 Astra leads in NDCG at 0.9347 and NMS@ 5 at 0.9145 ;and AMixKit + GPT-6 Astra attains the highest Recall@ 5 at 0.4897 . Tool-augmented agents demonstrate the broadest advantage on T4 , while the differing leaders for global ordering, top-weighted ranking, peak discovery, and candidate coverage underscore that these metrics capture complementary ranking aspects. 16 NP P0 P+ P- Ar G/P Mutant Class NP P0 P+ P-Ar G/P Wild-Type Class                                
+
+> 11.3 6.8 3.4 2.1 1.3 2.2 10.6 8.0 5.0 4.5 1.4 2.6 3.1 3.8 3.2 1.8 0.8 1.8 2.0 3.1 1.5 2.1 0.4 1.3 3.0 2.4 1.4 1.0 1.1 0.7 1.7 2.3 0.9 1.0 0.1 0.2
+> (a)
+
+PLM (Same Class = 25.8%)                                     
+
+> NP P0 P+ P-Ar G/P Mutant Class
+> 28.4 1.5 0.2 0.5 1.1 0.2 14.3 7.6 2.0 6.3 0.9 0.4 1.0 1.7 8.9 0.8 0.5 0.1 1.2 3.6 1.8 5.3 0.2 0.2 0.8 0.5 0.3 0.1 3.0 0.1 4.7 1.1 0.3 0.1 0.3 0.1
+> (b)
+
+LLM (Same Class = 53.3%)                                     
+
+> NP P0 P+ P-Ar G/P Mutant Class
+> 15.4 6.0 2.8 1.6 1.0 1.6 9.7 10.1 4.8 5.1 0.7 2.5 1.9 4.0 5.6 2.1 0.5 1.4 1.3 2.8 1.2 4.1 0.1 1.1 2.8 1.5 1.0 0.4 1.4 0.4 1.4 1.9 0.7 1.0 0.1 0.2
+> (c)
+
+Agent (Same Class = 36.8%) 
+
+> 10 0
+> 10 1
+> % Transitions
+
+Residue-Class Conservation Differs across Model Families Figure 5 Directional six-class amino-acid transitions across model families. The three panels present 6 × 6
+
+wild-type-to-mutant class transition matrices for PLMs, LLMs, and agents. The residue classes comprise nonpolar (NP), polar uncharged (P0), polar positively charged (P+), polar negatively charged (P-), aromatic (Ar), and Gly/Pro (G/P). Each cell denotes the percentage of successful T1 hits within the respective model-family matrix (normalized to 
+
+100% ). Color intensity follows an exponential scale, with frequencies below 0.5% depicted in white. Charge-separated states are preserved, maintaining distinct off-diagonal transitions for acidic-to-basic and basic-to-acidic substitutions. 
+
+## 5 Analysis 
+
+5.1 Comparing PLMs and LLMs 
+
+As discussed in Section 4, PLMs and LLMs exhibit distinct performance trajectories across task environments. Mechanistically, this divergence stems from their contrasting modes of information processing: PLMs rely primarily on sequential and homologous signals, whereas LLMs demonstrate superior capacity in leveraging contextual and textual auxiliary conditions. From a biological perspective, the underlying driver of this disparity is task-dependent, displaying a pronounced demarcation between the single-mutant task of T1 and multi-mutant tasks of T2 –T4 . Nevertheless, both model families encounter shared operational bottlenecks. Specifically, Section 5.1.1 investigates family-specific preferences for amino-acid mutation types; Section 5.1.2 reveals that the utility of single-mutant fitness values in LLMs and agentic systems is largely constrained to additive landscapes; and Section 5.1.3 evaluates how search space complexity governs performance across architectures. We systematically analyze each aspect in the subsequent sections. 
+
+5.1.1 Divergent Single-mutant Proposal Strategies 
+
+As T1: Single-mutant generation lacks target-specific mutation measurements, models prioritize candidates using the supplied assay context and protein-specific evolutionary information when available; agents may also incorporate tool-derived evidence. We evaluated each model by the proportion of top-30% experimental hits within its top-40 predictions, aggregating results by model family. Mean success rates reached 48 .0% for PLMs, 42 .5% for LLMs, and 50 .4% for agents. While overall predictive accuracy remains comparable across architectures, the underlying mutational strategies diverge substantially. To profile candidate selections, we quantified directed transitions across six physicochemical residue classes among successful variants: nonpolar (NP) , polar uncharged (P0) , polar positively charged (P+) , polar negatively charged (P-) , aromatic (Ar) , and Gly/Pro (G/P) . As shown in Figure 5, the 6 × 6 transition matrices capture all 36 wild-type-to-mutant class shifts, normalized within each model family. Distinguishing P+ from P- preserves critical charge-reversal dynamics, whereas Gly and Pro are grouped together for compactness. Class-preserving substitutions along the main diagonal accounted for 25 .8% of successful PLM proposals, compared to 53 .3% for LLMs and 36 .8% for agents. Successful LLM proposals were thus predominantly 17 −1.0 −0.5 0.0 0.5 1.0 Spearman(sum, combination) −0.75 −0.50 −0.25 0.00 0.25 0.50 0.75 1.00 Model performance            
+
+> ρ = 0.38
+> performance avg. ○ = 0.38 avg. □ = 0.24
+> (a) PLM
+> −1.0 −0.5 0.0 0.5 1.0 Spearman(sum, combination)
+> ρ = 0.73
+> performance avg. ○ = 0.70 avg. □ = 0.01
+> (b) LLM
+> −1.0 −0.5 0.0 0.5 1.0 Spearman(sum, combination)
+> ρ = 0.65
+> performance avg. ○ = 0.74 avg. □ = 0.31
+> (c) Agent
+
+Conditional Use of Single-Mutant Evidence in T4   
+
+> Additive assays Non-additive assays Linear fit
+
+Figure 6 Conditional utilization of single-mutant evidence in multi-mutant ranking. Panels (a)–(c) show PLMs, LLMs and agents, respectively, with each point corresponding to one T4 assay. The horizontal axis is the Spearman correlation between the sum of measured component single-mutant fitness and the measured multi-mutant fitness. This is an information-transfer diagnostic, not a direct estimate of a mechanistic epistasis coefficient. Circles 
+
+mark assays with ρsum ,combination ≥ 0 and squares mark assays below this operational threshold. The line marks a linear fit, while ρ is the ranking correlation between the diagnostic and model performance. 
+
+conservative, whereas PLM successes spanned a broader spectrum of class-altering transitions, with LLM-based agents occupying an intermediate regime. This disparity is not an artifact of classification grouping, as intra-G/P transitions contribute minimally ( 0.21% , 0.06% , and 0.18% , respectively). Practically, these patterns indicate that PLMs explore a wider substitution landscape, whereas LLM-based architectures preferentially propose mutations that conserve fundamental physicochemical properties. Both behaviors reflect plausible biological heuristics conditioned on available inputs. Sequence-based PLMs effectively identify substitutions compatible with evolutionary alignments and structural stability, which frequently transcend rigid residue classes. The conservative substitutions observed for standalone LLMs are consistent with general biochemical heuristics, although these results do not identify the source of their internal priors. AMixKit agents can additionally call PLMs through tools. However, neither prior explicitly captures assay-specific determinants (e.g., active-site geometry, interface kinetics, or conformational dynamics) that ultimately dictate measured phenotypes. Consequently, these trends reflect contrasting search strategies rather than an intrinsic hierarchy in model quality. 
+
+5.1.2 Utilization of Multi-mutant Component Additivity 
+
+For multi-mutant ranking tasks, the experimental context supplied to the model increases progressively. A key observation is that while PLMs, LLMs and agents exhibit comparable performance when single-mutant evidence is limited, LLMs and agents gain a distinct advantage as component-level measurements become available. Across T2: Measurement-free multi-mutant ranking and T3: Anchor-informed multi-mutant ranking , the three model families achieve mean assay-level Spearman correlations of 0.271 vs. 0.331 (PLMs), 
+
+0.223 vs. 0.311 (LLMs), and 0.317 vs. 0.383 (agents). However, this performance gap widens dramatically in 
+
+T4: Single-mutant-informed multi-mutant ranking —where measured single-mutant effects are explicitly provided—with LLMs and agents achieving 0.535 and 0.635 , substantially outperforming PLMs at 0.349 .This performance trajectory suggests that LLM-based architectures leverage individual component DMS_score 
+
+values through an additive heuristic. To test this hypothesis, we computed the sum of measured single-mutant 
+
+DMS_score values for each multi-mutant candidate in T4 and evaluated its correlation with actual combination fitness. As depicted in Figure 6, a high correlation indicates that combination rankings can be reliably approximated via additive components, whereas a low correlation denotes poor transferability. 18 ≤2,000 2,001–8,000 >8,000 Legal variants per assay 0.0 2.5 5.0 7.5 10.0 12.5 Top-40 hits       
+
+> (a) Sequence Search Space
+> PLM LLM Agent Model family 0.0 0.1 0.2 0.3 0.4 0.5 Mean Spearman
+> 0.31 0.35 0.41 0.10 0.16 0.19
+> (b) Mutation Depth
+> 2 substitutions >2 substitutions
+
+Common Limitations across Model Families    
+
+> PLM LLM Agent Figure 7 Common limitations across model families. (a)
+
+Sequence search space. Verified T1 top-40 hit counts, stratified by the number of legal variants per assay into three bins ( ≤2,000; 2,001–8,000; >8,000). Each violin shows the distribution of hit counts across assays for one family (PLMs, LLMs or agents), with a horizontal line marking the median; the three families are offset within each bin and share a common color coding. (b) Mutation depth. Mean assay-level Spearman ranking accuracy for double mutants (solid) versus candidates with more than two substitutions (hatched), shown per family with the mean value labeled above each bar. PLMs, LLMs and agents use the same family colors in both panels. 
+
+The predictive accuracy of LLMs ( ρ = 0 .733 , P = 6 .12 × 10 −6) and agents ( ρ = 0 .649 , P = 1 .39 × 10 −4)strongly correlates with the applicability of this additive heuristic, whereas PLMs display a much weaker coupling ( ρ = 0 .378 , P = 0 .043 ). On the non-additive regime of ρsum ,combination < 0, comprising 7 of 29 assays, LLM performance drops sharply to 0.015 , compared to 0.242 for PLMs and 0.314 for agents. Conversely, on the high-transfer split, mean performance reaches 0.701 for LLMs, 0.737 for agents, but only 0.384 for PLMs. These findings reveal a conditional dependency on component evidence: LLMs and agents excel when combination fitness is well-approximated by additive single-mutant values, but LLMs collapse when this assumption fails. Although agentic workflows provide partial robustness in non-additive regimes, neither LLMs nor agents show evidence of modeling complex non-additive residue interactions. PLMs are less coupled to this diagnostic and therefore show smaller performance degradation, but not a general advantage on the low-transfer assays. Consequently, the dominance of LLM-based systems in T4 reflects effective utilization of transferable component evidence rather than a comprehensive understanding of residue coupling. 
+
+5.1.3 Common Limitations across Single-mutant and Multi-mutant Tasks 
+
+Whether through distinct strategies for selecting amino-acid mutations, the application of single-mutation fitness values, or the response mechanisms to additive effects, these differences ultimately reflect variations in the models’ capabilities across diverse tasks. Yet all models face the same two dilemmas: sensitivity to sequence length, and a decline in prediction accuracy for variants of higher-orders. 
+
+High-dimensional Search Spaces Navigating the search space of a protein sequence presents a severe challenge. In T1: Single-mutant generation , a single assay features a median of 2,964 valid single-point substitutions (ranging from 1,093 to 22 ,536 ). However, each model proposes only its top 40 candidates, thereby sampling a mere 1.35% of the median search space. As depicted in Figure 7(a), the average number of top-40 hits in the single-mutant scenario of T1 is only 1.21 , with even the highest-performing case recovering only 13 .Furthermore, this recovery rate degrades rapidly with increasing sequence length and search space size. This weak performance only marginally outperforms random sampling, and indicates that current models fall far short of truly mastering sequence space or providing reliable candidate fitness evaluations. Extending this 19 1 2 3 4Round 0.700 0.725 0.750 0.775 0.800 0.825 0.850 NMS@40    
+
+> Best Mutant Score
+> Multi-Round Single-Round
+> 1234Round 0.00 0.01 0.02 0.03 0.04 0.05 Recall@40
+> Top Mutant Recovery
+> Multi-Round Single-Round
+
+Round-wise Single Mutant Generation Cumulative Performance     
+
+> GPT-6 Astra Claude Opus 5 Gemini 3.1 Pro DeepSeek-V4-Pro Figure 8 Cumulative performance comparison of round-wise single mutant generation. Single-round
+
+refers to the original T1: Single-mutant generation setting, where all 40 mutations are proposed in a single pass, and is indicated with dotted horizontal lines. Multi-round refers to the results after a complete four-round feedback-guided generation protocol, with 10 mutations proposed each round, where proposed mutants with an assay-recorded DMS_-score are used as scored context for the next model pass, and is depicted in solid lines. 
+
+task to multi-mutant proposal across full-length sequences will exacerbate this challenge, as the combinatorial search space expands exponentially. 
+
+High-order Combinations The mutation depth within a variant (i.e., the number of substituted sites per combination) significantly impacts model ranking performance. Across the multi-mutant ranking tasks of 
+
+T2 –T4 , ranking accuracy declines monotonically as mutation count increases ( ρ = −0.430 , P = 4 .75 × 10 −9), as shown in Figure 7(b). Specifically, in T4: Single-mutant-informed multi-mutant ranking , the mean Spearman correlation for LLMs drops from 0.669 on 2 mutations to 0.514 for 3–4 mutations, and down to 
+
+0.222 for variants with over 5 mutated sites, demonstrating superior efficacy on lower-order combinations. PLMs exhibit a parallel reduction from 0.353 to 0.236 and 0.051 , while LLM-based agents also show decay from 0.674 to 0.536 and 0.386 . Notably, even when augmented with single-mutant fitness values—which substantially improve double-mutant ranking capabilities—models fail to generalize to higher-order variants involving complex epistatic interactions. This pervasive performance drop highlights the fundamental difficulty of modeling high-order combinations. Together, these findings highlight how sequence dimension and mutation depth compound search pressure on computational models. Given how heavily performance degrades even within the controlled settings of 
+
+T1 –T4 , unconstrained multi-site generation—a common scenario in practical protein engineering—presents an exponentially higher barrier. Addressing real-world bio-design problems requires robust predictive capability across high-dimensional search spaces and higher-order combinations. This underscores the core motivation behind our task design: models must maintain reliable analytical and judgment capabilities when subjected to simultaneous scaling in sequence length and mutation depth. PFArena reveals the shortcomings of existing models along these crucial dimensions. 
+
+5.2 Dive into LLMs 
+
+5.2.1 Feedback-guided In-context Adaptation 
+
+To emulate a sequential wet-laboratory campaign, in which mutation fitness is measured in batches and later candidates are selected using earlier outcomes, we extended the single-round T1: Single-mutant generation 
+
+into a four-round adaptive search. This experiment tests whether assay-specific fitness measurements supplied in context help models refine subsequent generations and identify higher-fitness mutants within a fixed 20 T1 (n=116) T2 (n=74) T3 (n=67) T4 (n=29) 020 40 60 80 100 Self-reported confidence score                  
+
+> (a) Confidence Scale Usage
+> Spearman NDCG NMS@k Recall@k T1 T2 T3 T4
+> N/A N/A 0.35 0.23 0.57 0.54 0.37 0.28 0.49 0.33 0.32 0.34 0.69 0.67 0.37 0.34
+> (b) Confidence-quality Alignment
+> −0.70 −0.35 0.00 0.35 0.70 Spearman ρ
+
+Overall-confidence distribution and alignment Figure 9 Confidence distribution and quality alignment. (a) GPT-6 Astra’s self-reported confidence across T1 –T4 . 
+
+> (b)
+
+Within-setting Spearman correlations between confidence and ranking-quality metrics. 
+
+screening budget. In each round, the model proposed 10 single mutants unselected in earlier rounds. For the next round, the ground-truth DMS_score fitness of all previously proposed mutants was added to the prompt as in-context feedback, if the fitness value of the mutant is available. Both settings therefore used the same total budget of 40 proposed mutations, but only the multi-round setting allowed later generations to condition on intermediate fitness measurements. As shown in Figure 8, the multi-round protocol shows monotonic improvements in both NMS@ 40 and Recall@ 40 across rounds for every model. Relative to single-round generation, the final Round-4 endpoint NMS@ 40 increased from 0.7966 to 0.8367 for GPT-6 Astra, highest across all models, and increased by 0.0168 
+
+for Claude Opus 5, 0.0244 for Gemini 3.1 Pro, and 0.0076 for DeepSeek-V4-Pro. Recall@ 40 increased by 
+
+0.0211 , 0.0175 , 0.0128 , and 0.0087 respectively, with GPT-6 Astra achieving the highest recovery of 0.0465 .Averaged across the four models, multi-round feedback-guided generation improved NMS@ 40 by 0.0222 and Recall@ 40 by 0.0150 . All Round-4 results exceeded the random baseline on both metrics, whereas three of the four single-round models remained below random sampling in NMS@ 40 .Across rounds, GPT-6 Astra exceeded its single-round NMS@ 40 baseline after two rounds, Claude Opus 5 and Gemini 3.1 Pro after three rounds, and DeepSeek-V4-Pro after four rounds. The first three models exceeded their single-round baselines in Recall@ 40 after three rounds, whereas DeepSeek-V4-Pro after the fourth. As the cumulative candidate budget increases across rounds, the earlier rounds alone do not establish the value of feedback; the decisive comparison is the Round-4 endpoint against single-round generation. The consistent performance gains demonstrate the effectiveness of feedback-guided in-context adaptation, particularly for GPT-6 Astra, which substantially surpassed its already strong single-round baseline, highlighting its capability in knowledge-based work tasks. Notably, LLMs frequently revisited previously high-scoring sites with alternative amino-acid mutations, indicating that further exploration of promising positions in subsequent rounds may help identify mutants of higher fitness. 
+
+5.2.2 Uncertainty Estimation 
+
+We evaluated self-reported confidence from GPT-6 Astra to examine whether LLMs can estimate their own predictive uncertainty. For queries in T1 –T4 , the model was prompted to assign an overall confidence score from 0 to 100 reflecting its confidence in identifying and prioritizing high-fitness mutations. Following five API policy refusals and two safety exclusions in T1 , confidence was available for 116 , 74 , 67 , and 29 queries in T1 –T4 , respectively. We treated this score as an inverse measure of relative query-level uncertainty and assessed its association with predictive performance using Spearman correlation. The confidence elicitation prompt used in our experiments is provided in Appendix A.3. As shown in Figure 9(a), confidence varied substantially across settings, with mean scores of 22 .5, 35 .6,21 1 2 4 8 16 Number of Samples (n) 0.765 0.770 0.775 0.780 0.785 0.790 NMS@40     
+
+> Best Mutant Score
+> 124816 Number of Samples (n) 0.018 0.019 0.020 0.021 0.022 Recall@40
+> Top Mutant Recovery
+
+Test-Time Scaling Performance by Sample Count       
+
+> Sample Avg Best-of-N Approval Borda RRF Hierarchical RRF Figure 10 Test-time scaling performance across sample counts.
+
+The panels show NMS@ 40 (left) and Recall@ 40 
+
+(right) as the number of sampled mutation lists increases, with the dotted line representing the sample average.        
+
+> Setting Method NMS@ 40 ↑Recall@ 40 ↑Invalid per Assay
+
+↓
+
+Vanilla Sample Avg 0.7696 0.0186 2.2805 
+
+RRF 0.7847 0.0199 1.4472 
+
+Clean Sample Avg 0.7771 0.0189 1.0531 
+
+RRF 0.7845 0.0197 1.1057 
+
+In-Assay Sample Avg 0.7745 0.0172 0.0000 
+
+RRF 0.7842 0.0191 0.0000  
+
+> Table 10
+
+Validity-controlled RRF analysis at n = 16 . Clean requires 40 unique and sequence-valid mutations. In-Assay further requires all mutations to appear in the assay’s DMS table. 
+
+38 .3, and 63 .0 for T1 –T4 , respectively, and no response reaching 90 . T1: Single-mutant generation elicited relatively conservative judgments, whereas T4: Single-mutant-informed multi-mutant ranking produced a relatively high-confidence distribution. These absolute values should not be interpreted as success probabilities or directly compared across settings, which differ in data and evaluation objectives. The more meaningful test is whether confidence distinguishes higher- from lower-quality predictions within each setting. Self-reported confidence provides a partial, task- and context-dependent estimate of ranking reliability. Figure 9(b) shows positive evidence in T3: Anchor-informed multi-mutant ranking , where confidence aligned with all four quality dimensions ( ρ ≈ 0.32 –0.49 ) after multiple-testing correction. In T2: Measurement-free multi-mutant ranking , confidence also aligned with all four dimensions ( ρ ≈ 0.28 –0.57 ), with stronger associations for global ordering than top-five selection. T1 showed weak-to-moderate associations with its top-40 metrics ( ρ = 0 .35 for NMS@ 40 and 0.23 for Recall@ 40 ), which remained significant after filtering dirty outputs. T4 showed the largest correlations for full-list Spearman and NDCG quality ( ρ = 0 .69 and 
+
+0.67 ), whereas neither top-five metric passed multiple-testing correction. Assay-level examples reinforce this limitation: one protein-stability query in T4 received high confidence ( 78 ) despite limited top-five recovery (Recall@ 5=0.2), whereas a fluorescence query received lower confidence ( 45 ) but substantially better recovery (Recall@ 5=0.8). These cases show that confidence does not uniformly track top-candidate recovery, even when it aligns with global ranking quality. It can therefore support coarse query triage within a fixed task, but should not be treated as a generally reliable or cross-assay uncertainty estimate. 22 5.2.3 Test-time Scaling 
+
+To test whether additional inference-time computation improves single-mutation generation without exper-imental feedback, we independently sampled 16 responses from DeepSeek-V4-Pro using exactly the same input for each T1: Single-mutant generation query. We extracted a ranked top-40 mutation list from each response and applied aggregation to nested prefixes with n ∈ { 1, 2, 4, 8, 16 }. Aggregation used no ground-truth 
+
+DMS_score , candidate labels, or evaluator metrics, and the mean performance of the corresponding raw samples at each prefix size served as the Sample Avg baseline. We compared five TTS aggregation strategies. Best-of-N selected the complete sampled ranking most consistent with the other samples. Approval Voting prioritized mutations that appeared repeatedly across samples, whereas Borda Fusion and Reciprocal Rank Fusion (RRF) additionally incorporated within-sample rank using linear and reciprocal weighting, respectively. Hierarchical RRF further pooled evidence across different mutations at the same residue position. In the main scaling experiments, all methods operated directly on the extracted candidate strings without explicit sequence-validity or DMS-membership filtering. Complete method details and hyperparameters used in our experiments are provided in Section B.2. As shown in Figure 10, increasing sample count generally improved performance. Approval scaled most consistently, reaching 0.7876 NMS@ 40 and 0.0222 Recall@ 40 at n = 16 , versus 0.7696 and 0.0186 for Sample Avg. Borda and RRF also improved with more samples, while Best-of-N was less stable and Hierarchical RRF mainly benefited small n. All five methods outperformed Sample Avg at n = 16 .One source of improvement was invalid-candidate suppression. LLM-proposed mutations may be locally invalid due to sequence inconsistency or formatting errors, or assay invalid when they do not appear in the assay’s DMS table. In the main setting, TTS aggregation substantially suppressed invalid outputs. As shown in Table 10, RRF reduced invalid predictions from 2.2805 to 1.4472 , without explicit validity filtering. To determine whether this fully explains the gain, we further evaluated Clean and In-Assay settings. Clean retained only samples with 40 unique and locally valid candidates, while In-Assay further required all candidates to appear in the assay’s DMS table. Under Clean , RRF improved NMS from 0.7771 to 0.7845 
+
+and recall from 0.0189 to 0.0197 , despite slightly more assay-absent predictions ( 1.0531 to 1.1057 ). Under 
+
+> In-Assay
+
+, where both methods had zero invalid predictions, RRF still improved NMS from 0.7745 to 0.7842 
+
+and recall from 0.0172 to 0.0191 . Thus, although invalid-candidate suppression significantly contributes to the TTS gain, it does not fully account for the improvement; even when validity is controlled, aggregation helps identify and prioritize higher-quality valid candidates across repeated samples from the same query. Despite the gains from TTS at larger sample counts, a substantial oracle gap remains. At n = 16 , best-sample oracles reached 0.8474 NMS@ 40 and 0.0461 Recall@ 40 , compared with 0.7876 and 0.0222 for the best practical TTS method. This gap suggests that repeated sampling can already produce substantially better predictions, but reliably identifying them without experimental feedback remains challenging. 
+
+## 6 Related Work 
+
+Protein Fitness Benchmarks Protein fitness benchmarks have established standardized evaluation of computational models for predicting experimentally measured mutation effects. FLIP [12] evaluates fitness-landscape inference under low-resource and extrapolative generalization settings, while FLIP2 [30] extends this framework to unseen mutation identities, positions, mutation counts, wild-type proteins, and high-fitness regions. ProteinGym [11] further enables large-scale evaluation of zero-shot and supervised mutation-effect predictors across diverse DMS assays and clinical labels. Together, these benchmarks characterize how accurately PLMs score and rank predefined mutants across heterogeneous fitness landscapes. Recent benchmarks have extended protein fitness evaluation to general-purpose LLMs and LLM-based agents. ProteinGym-LLM [31] evaluates whether LLMs can rank a fixed set of protein mutants from the wild-type sequence and assay description, providing a direct assessment of LLM-based mutation prioritization. BioDesignBench [32] evaluates tool-using LLM agents across expert-curated protein-design workflows, with an emphasis on candidate generation, tool use, and iterative evaluation. These studies extend protein engineering benchmarks from specialized fitness predictors to general-purpose reasoning and agentic design systems. 23 Despite these advances, existing benchmarks typically focus on either fixed-list mutant ranking or end-to-end protein-design workflows, leaving systematic comparison across different mutation-discovery settings underexplored. PFArena addresses this gap by evaluating PLMs, general-purpose LLMs, and LLM-based agents through one single-mutant generation task ( T1 ) and three multi-mutant ranking tasks under measurement-free (T2 ), anchor-informed ( T3 ), and single-mutant-informed ( T4 ) conditions, applying consistent task interfaces and evaluation criteria across all model families. 
+
+Protein Fitness Methods Target-specific supervised methods provide the most direct approach to protein fitness prediction by learning sequence–fitness relationships from experimentally measured mutants. The Low-N framework [33] uses pretrained UniRep representations and as few as 24 assayed mutants to guide protein engineering, while Hsu et al. [34] combine site-specific amino-acid features with evolutionary density estimates to predict fitness from limited measurements. Because these methods are trained against the phenotype of interest, they can directly adapt to the assay-specific objective, but their performance depends on the number, diversity, and sequence-space coverage of available labels. Zero-shot PLMs avoid target-specific training by deriving mutation scores from general biological priors learned from sequence, evolutionary, and structural data. Evolutionary models such as EVmutation [35], DeepSequence [36], and EVE [6] infer family-specific constraints from homologous sequences. Protein language models, including ESM-1v [37], ESM-2 [1], ProGen2 [2], Tranception [38], and DPLM-Evo [39] instead learn sequence compatibility across large protein corpora. Structure-aware models such as ProSST [3], S3F [4], and VenusREM [5] further incorporate geometric and evolutionary information. These models can score mutations without assay-specific labels, but their scores primarily reflect general protein plausibility rather than the phenotype and experimental evidence associated with a particular engineering objective. General-purpose LLMs and scientific agents have also shown substantial potential for protein mutation discovery. Successive Claude releases have demonstrated continued progress in protein mutation-effect prediction, with Claude Opus 5 further improving upon previous generations on ProteinGym Hard [8]. LLMs have also been incorporated into budget-constrained protein optimization procedures [40], suggesting that their biological knowledge can support mutation selection beyond direct fitness scoring. Scientific agents further extend these capabilities through retrieval and tool use: ProtAgents [41] coordinates specialized agents for protein analysis and design, while Biomni [9] integrates biomedical databases, scientific software, and code execution. These developments motivate systematic evaluation of whether LLMs and agents can convert assay context, experimental evidence, and specialized protein-model outputs into effective mutation priorities. Given the rapidly expanding set of PLMs, LLMs, and scientific agents, our evaluation focuses on representative methods spanning sequence-based, structure-based, evolution-based, and tool-based paradigms. 
+
+## 7 Conclusion  
+
+> PFArena
+
+provides a unified evaluation of PLMs, LLMs, and LLM-based agents across realistic protein modification decisions. Taken together, our results show that the preferred model family depends on the task interface. Protein-specific representations are particularly effective for open-ended single-mutant search, whereas general-purpose reasoning and tool use become more useful for ranking mutation combinations, especially when measured single-mutant context is available. This complementarity does not eliminate shared bottlenecks: high-fitness candidate recovery remains sparse under limited prediction budgets, and ranking becomes substantially less reliable beyond double mutants. Our additional analyses show that feedback-guided adaptation and test-time scaling can improve LLM-based inference. We release our code and benchmark suite to support reproducible progress on these open problems. 
+
+Limitations Despite its broad coverage, PFArena has several limitations. • Potential label leakage. All assays in PFArena are derived from publicly available datasets and publications. Their sequences, mutation labels, or experimental results may therefore have appeared in the pretraining corpora of the evaluated LLMs, making it impossible to fully exclude memorization or other forms of data contamination that could influence the evaluation results. 24 • Stochasticity and single-run evaluation. Because evaluating frontier LLMs and tool-augmented agents is computationally and financially expensive, each LLM or agent configuration was run only once for main evaluation. The reported results may therefore depend on sampling randomness. • Missing outputs, refusals, and comparison fairness. Some LLMs, particularly proprietary systems such as GPT and Claude, refuse to answer a subset of assays because of their safety policies. To retain a fixed evaluation set and avoid selectively excluding difficult cases, we replace such outputs with a deterministic random baseline result, as detailed in Section C.1. This protocol measures the end-to-end usability of each deployed system, but it also conflates underlying protein-reasoning ability with provider-specific refusal policies and output reliability. • Retrospective rather than prospective evaluation. PFArena is constructed from previously measured assays. Improvements in benchmark metrics consequently do not establish higher prospective wet-lab hit rates or guarantee that the selected mutations will succeed in a new experimental campaign. Prospective validation will be required to determine whether the observed performance gains translate into practical reductions in experimental cost and design cycles. • Dataset coverage and heterogeneity. The assays vary in experimental protocol, measurement noise, sequence coverage, candidate-library construction, and phenotype definition. Harmonization and qual-ity control reduce but cannot eliminate these differences. Moreover, publicly available datasets may overrepresent well-studied proteins, and assay types that are convenient to measure, while underrepre-senting negative results, rare protein families, and complex cellular or organism-level phenotypes. The conclusions may therefore not generalize to all protein-engineering settings. 25 Contributions 
+
+> Project Lead
+
+Yawen Ouyang 1,2
+
+> Co-first Authors
+
+Yawen Ouyang 1,2, Xinbo Zhang 1,2, Ziyuan Ma 1,4
+
+> Task Design and Data Collection
+
+Ziyuan Ma 1,4, Xinbo Zhang 1,2, Yawen Ouyang 1,2
+
+> Main Results
+
+Yawen Ouyang 1,2, Yixin Wu 1,2, Wenbin Liao 1,5, Xinbo Zhang 1,2
+
+> Analysis
+
+Ziyuan Ma 1,4, Yixin Wu 1,2, Wenjie Li 1, Feiran Zhang 1,6, Yawen Ouyang 1,2
+
+> Other Contributors
+
+Lihao Wang 1,2, Hao Wang 2,3, Xiaoqing Zheng 6, Xuefeng Yan 5, Lei Bai 1, Ya-Qin Zhang 3, Shuyi Zhang 4,Wei-Ying Ma 3,7, Dahua Lin 1, Bowen Zhou 1
+
+> Correspondence
+
+Hao Zhou 1,2,3
+
+Affiliation 
+
+> 1
+
+Shanghai Artificial Intelligence Laboratory 
+
+> 2
+
+Generative Symbolic Intelligence Lab (GenSI), Tsinghua University 
+
+> 3
+
+Institute for AI Industry Research (AIR), Tsinghua University 
+
+> 4
+
+School of Pharmaceutical Sciences, Tsinghua University 
+
+> 5
+
+School of Information Science and Engineering, East China University of Science and Technology 
+
+> 6
+
+College of Computer Science and Artificial Intelligence, Fudan University 
+
+> 7
+
+City University of Hong Kong 
+
+## Acknowledgments 
+
+This work is supported by Shanghai Artificial Intelligence Laboratory and NSFC (Grant No. 62406170). 26 References 
+
+[1] Zeming Lin, Halil Akin, Roshan Rao, Brian Hie, Zhongkai Zhu, Wenting Lu, Nikita Smetanin, Robert Verkuil, Ori Kabeli, Yaniv Shmueli, Allan dos Santos Costa, Maryam Fazel-Zarandi, Tom Sercu, Salvatore Candido, and Alexander Rives. Evolutionary-scale prediction of atomic-level protein structure with a language model. 
+
+> Science
+
+, 379(6637):1123–1130, March 2023. doi: 10.1126/science.ade2574. URL https://doi.org/10.1126/ science.ade2574 .[2] Erik Nijkamp, Jeffrey A. Ruffolo, Eli N. Weinstein, Nikhil Naik, and Ali Madani. ProGen2: Exploring the boundaries of protein language models. Cell Systems , 14(11):968–978.e3, November 2023. doi: 10.1016/j.cels. 2023.10.002. URL https://doi.org/10.1016/j.cels.2023.10.002 .[3] Mingchen Li, Yang Tan, Xinzhu Ma, Bozitao Zhong, Huiqun Yu, Ziyi Zhou, Wanli Ouyang, Bingxin Zhou, Pan Tan, and Liang Hong. ProSST: Protein language modeling with quantized structure and disentangled attention. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, 
+
+> Advances in Neural Information Processing Systems
+
+, volume 37, pages 35700–35726. Curran Associates, Inc., 2024. doi: 10.52202/079017-1126. URL https://proceedings.neurips.cc/paper_files/paper/2024/file/ 3ed57b293db0aab7cc30c44f45262348-Paper-Conference.pdf .[4] Zuobai Zhang, Pascal Notin, Yining Huang, Aurélie Lozano, Vijil Chenthamarakshan, Debora Marks, Payel Das, and Jian Tang. Multi-scale representation learning for protein fitness prediction. In A. Glober-son, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, Advances in Neural Information Processing Systems , volume 37, pages 101456–101473. Curran Associates, Inc., 2024. doi: 10.52202/079017-3217. URL https://proceedings.neurips.cc/paper_files/paper/2024/file/ b7d795e655c1463d7299688d489e8ef4-Paper-Conference.pdf .[5] Yang Tan, Ruilin Wang, Banghao Wu, Liang Hong, and Bingxin Zhou. From high-throughput evaluation to wet-lab studies: advancing mutation effect prediction with a retrieval-enhanced model. Bioinformatics , 41 (Supplement_1):i401–i409, July 2025. doi: 10.1093/bioinformatics/btaf189. URL https://doi.org/10.1093/ bioinformatics/btaf189 .[6] Jonathan Frazer, Pascal Notin, Mafalda Dias, Aidan Gomez, Joseph K. Min, Kelly Brock, Yarin Gal, and Debora S. Marks. Disease variant prediction with deep generative models of evolutionary data. Nature , 599(7883):91–95, October 2021. doi: 10.1038/s41586-021-04043-8. URL https://doi.org/10.1038/s41586-021-04043-8 .[7] Anthropic. Claude opus 4.8 system card. https://www-cdn.anthropic.com/ 0b4915911bb0d19eca5b5ee635c80fef830a37ea.pdf , May 2026. [8] Anthropic. Introducing claude opus 5. https://www.anthropic.com/news/claude-opus-5 , 2026. [9] Kexin Huang, Serena Zhang, Hanchen Wang, Yuanhao Qu, Yingzhou Lu, Yusuf Roohani, Ryan Li, Lin Qiu, Junze Zhang, Yin Di, et al. Biomni: A general-purpose biomedical AI agent. bioRxiv , 2025. doi: 10.1101/2025.05.30. 656746. URL https://doi.org/10.1101/2025.05.30.656746 . Preprint. [10] Mark A. Robien, Kiet T. Nguyen, Abhinav Kumar, Irwin Hirsh, Stewart Turley, Dehua Pei, and Wim G. J. Hol. An improved crystal form of Plasmodium falciparum peptide deformylase. Protein Science , 13(4):1155–1163, 2004. doi: 10.1110/ps.03456404. [11] Pascal Notin, Aaron Kollasch, Daniel Ritter, Lood van Niekerk, Steffanie Paul, Han Spinner, Nathan Rollins, Ada Shaw, Rose Orenbuch, Ruben Weitzman, Jonathan Frazer, Mafalda Dias, Dinko Franceschi, Yarin Gal, and Debora S. Marks. ProteinGym: Large-scale benchmarks for protein fitness prediction and design. In 
+
+> Advances in Neural Information Processing Systems
+
+, 2023. URL https://mlanthology.org/neurips/2023/ notin2023neurips-proteingym/ .[12] Christian Dallago, Jody Mou, Kadina E. Johnston, Bruce J. Wittmann, Nicholas Bhattacharya, Samuel Goldman, Ali Madani, and Kevin K. Yang. FLIP: Benchmark tasks in fitness landscape inference for proteins. In Neural Information Processing Systems Datasets and Bench-marks Track , 2021. URL https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/ 2b44928ae11fb9384c4cf38708677c48-Abstract-round2.html .[13] Daniel Esposito, Jochen Weile, Jay Shendure, Lea M. Starita, Anthony T. Papenfuss, Frederick P. Roth, Douglas M. Fowler, and Alan F. Rubin. MaveDB: an open-source platform to distribute and interpret data from 
+
+27 multiplexed assays of variant effect. Genome Biology , 20(1):223, 2019. doi: 10.1186/s13059-019-1845-6. URL 
+
+https://doi.org/10.1186/s13059-019-1845-6 .[14] Kotaro Tsuboyama, Justas Dauparas, Jonathan Chen, Elodie Laine, Yasser Mohseni Behbahani, Jonathan J. Weinstein, Niall M. Mangan, Sergey Ovchinnikov, and Gabriel J. Rocklin. Mega-scale experimental analysis of protein folding stability in biology and design. Nature , 620:434–444, 2023. doi: 10.1038/s41586-023-06328-6. [15] Michael Chungyoun, Jeff Ruffolo, and Jeffrey J. Gray. Flab: Benchmarking tasks in fitness landscape inference for antibodies. bioRxiv , 2024. doi: 10.1101/2024.01.13.575504. [16] Antoni Beltran, Xiang’er Jiang, Yue Shen, and Ben Lehner. Site-saturation mutagenesis of 500 human protein domains. Nature , 637(8047):885–894, 2025. doi: 10.1038/s41586-024-08370-4. [17] Yongcan Chen, Lihao Fu, Xuchao Lu, Wenzhuo Li, Yuan Gao, Yibo Wang, Zhicheng Ruan, and Tong Si. Combingym: a benchmark platform for machine learning-assisted design of combinatorial protein variants. 
+
+> bioRxiv
+
+, 2026. doi: 10.64898/2026.03.24.714074. [18] Hirokazu Kimura, Kamel Lahouel, Cristian Tomasetti, and Nicholas Jason Roberts. Functional characterization of all cdkn2a missense variants and comparison to in silico models of pathogenicity. eLife , 13:RP95347, 2024. doi: 10.7554/eLife.95347. [19] Wen-An Wang, Evandro Ferrada, Christoph Klimek, Tanja Osthushenrich, Aidan MacNamara, Tabea Wiedmer, and Giulio Superti-Furga. Large-scale experimental assessment of variant effects on the structure and function of the citrate transporter slc13a5. Science Advances , 11(26):eadx3011, 2025. doi: 10.1126/sciadv.adx3011. [20] Kadina E. Johnston, Patrick J. Almhjell, Ella J. Watkins-Dulaney, Grace Liu, Nicholas J. Porter, Jason Yang, and Frances H. Arnold. A combinatorially complete epistatic fitness landscape in an enzyme active site. Proceedings of the National Academy of Sciences , 121(32):e2400439121, 2024. doi: 10.1073/pnas.2400439121. [21] Martin Steinegger and Johannes Söding. MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology , 35(11):1026–1028, October 2017. doi: 10.1038/nbt.3988. URL 
+
+https://doi.org/10.1038/nbt.3988 .[22] Baris E. Suzek, Yuqi Wang, Hongzhan Huang, Peter B. McGarvey, Cathy H. Wu, and UniProt Consortium. UniRef clusters: a comprehensive and scalable alternative for improving sequence similarity searches. Bioinformatics , 31 (6):926–932, March 2015. doi: 10.1093/bioinformatics/btu739. URL https://doi.org/10.1093/bioinformatics/ btu739 .[23] Openai. Gpt-6 astra: A new generation of intelligence. https://openai.com/index/gpt-6-astra/ , 2026. [24] Google DeepMind. Gemini 3.1 pro. https://deepmind.google/models/gemini/pro , 2026. [25] Kimi Team. Kimi k3: Open frontier intelligence, 2026. URL https://arxiv.org/abs/2607.24653 .[26] Z.ai. Glm-5.2: Built for long-horizon tasks. https://z.ai/blog/glm-5.2 , 2026. [27] DeepSeek AI. Deepseek-v4: Towards highly efficient million-token context intelligence. https://huggingface. co/deepseek-ai/DeepSeek-V4-Pro , 2026. [28] Josh Abramson, Jonas Adler, Jack Dunger, Richard Evans, Tim Green, Alexander Pritzel, Olaf Ronneberger, Lindsay Willmore, Andrew J. Ballard, Joshua Bambrick, Sebastian W. Bodenstein, David A. Evans, Chia-Chun Hung, Michael O’Neill, David Reiman, Kathryn Tunyasuvunakool, Zachary Wu, Akvil˙ e Žemgulyt˙ e, Eirini Arvaniti, Charles Beattie, Ottavia Bertolli, Alex Bridgland, Alexey Cherepanov, Miles Congreve, Alexander I. Cowen-Rivers, Andrew Cowie, Michael Figurnov, Fabian B. Fuchs, Hannah Gladman, Rishub Jain, Yousuf A. Khan, Caroline M. R. Low, Kuba Perlin, Anna Potapenko, Pascal Savy, Sukhdeep Singh, Adrian Stecula, Ashok Thillaisundaram, Catherine Tong, Sergei Yakneen, Ellen D. Zhong, Michal Zielinski, Augustin Žídek, Victor Bapst, Pushmeet Kohli, Max Jaderberg, Demis Hassabis, and John M. Jumper. Accurate structure prediction of biomolecular interactions with AlphaFold 3. Nature , 630(8016):493–500, May 2024. doi: 10.1038/s41586-024-07487-w. URL 
+
+https://doi.org/10.1038/s41586-024-07487-w .[29] Keyue Qiu, Yixin Wu, Lihao Wang, Yawen Ouyang, Jixiang Yu, Zihan Zhou, Changze Lv, Dongyu Xue, Yuxuan Song, Xinbo Zhang, et al. Amix-2: Establishing protein as a native modality in large language models. arXiv preprint arXiv:2605.30963 , 2026. 
+
+28 [30] Kieran Didi, Sarah Alamdari, Alex X. Lu, Bruce Wittmann, Kadina E. Johnston, Ava A. Amini, Ali Madani, Maya Czeneszew, Christian Dallago, and Kevin K. Yang. FLIP2: Expanding protein fitness landscape benchmarks for real-world machine learning applications. In Forty-third International Conference on Machine Learning ,2026. URL https://flip.protein.properties/ .[31] Rohit Krishan Arora, Leo Tianlai Chen, Melissa Du, Debora Marks, and George Church. PG-LLM: Benchmarking general-purpose language models for protein variant ranking. bioRxiv , 2026. doi: 10.64898/2026.07.27.741045. URL https://www.biorxiv.org/content/10.64898/2026.07.27.741045v1 .[32] Jeonghyeon Kim and Philip Romero. Evaluating LLM-driven protein design: Agents lack iterative evaluation depth. GitHub repository, 2026. URL https://github.com/RomeroLab/BioDesignBench . BioDesignBench. [33] Surojit Biswas, Grigory Khimulya, Ethan C. Alley, Kevin M. Esvelt, and George M. Church. Low-N protein engi-neering with data-efficient deep learning. Nature Methods , 18(4):389–396, 2021. doi: 10.1038/s41592-021-01100-y. URL https://doi.org/10.1038/s41592-021-01100-y .[34] Chloe Hsu, Hunter Nisonoff, Clara Fannjiang, and Jennifer Listgarten. Learning protein fitness models from evolu-tionary and assay-labeled data. Nature Biotechnology , 40(7):1114–1122, 2022. doi: 10.1038/s41587-021-01146-5. URL https://doi.org/10.1038/s41587-021-01146-5 .[35] Thomas A. Hopf, John B. Ingraham, Frank J. Poelwijk, Charlotta P. I. Schärfe, Michael Springer, Chris Sander, and Debora S. Marks. Mutation effects predicted from sequence co-variation. Nature Biotechnology , 35(2): 128–135, 2017. doi: 10.1038/nbt.3769. URL https://doi.org/10.1038/nbt.3769 .[36] Adam J. Riesselman, John B. Ingraham, and Debora S. Marks. Deep generative models of genetic variation capture the effects of mutations. Nature Methods , 15(10):816–822, 2018. doi: 10.1038/s41592-018-0138-4. URL 
+
+https://doi.org/10.1038/s41592-018-0138-4 .[37] Joshua Meier, Roshan Rao, Robert Verkuil, Jason Liu, Tom Sercu, and Alexander Rives. Language models enable zero-shot prediction of the effects of mutations on protein function. In Advances in Neural Information Processing Systems , volume 34, pages 29287–29303, 2021. URL https://proceedings.neurips.cc/paper/ 2021/hash/f51338d736f95dd42427296047067694-Abstract.html .[38] Pascal Notin, Mafalda Dias, Jonathan Frazer, Javier Marchena-Hurtado, Aidan N. Gomez, Debora S. Marks, and Yarin Gal. Tranception: Protein fitness prediction with autoregressive transformers and inference-time retrieval. In Proceedings of the 39th International Conference on Machine Learning , volume 162 of Proceedings of Machine Learning Research , pages 16990–17017. PMLR, 2022. URL https://proceedings.mlr.press/v162/ notin22a.html .[39] Xinyou Wang, Liang Hong, Jiasheng Ye, Zaixiang Zheng, Shujian Huang, and Quanquan Gu. Towards a generative protein evolution machine with DPLM-evo. In ICLR 2026 Workshop on Generative and Experimental Perspectives for Biomolecular Design , 2026. URL https://openreview.net/forum?id=xqnTGzQmfB .[40] Yinkai Wang, Jiaxing He, Yuanqi Du, Xiaohui Chen, Jianan Canal Li, Li-Ping Liu, Xiaolin Xu, and Soha Hassoun. Large language model is secretly a protein sequence optimizer. In ICLR 2025 Workshop on Learning Meaningful Representations of Life , 2025. URL https://arxiv.org/abs/2501.09274 .[41] Alireza Ghafarollahi and Markus J. Buehler. ProtAgents: Protein discovery via large language model multi-agent collaborations combining physics and machine learning. Digital Discovery , 3(7):1389–1409, 2024. doi: 10.1039/D4DD00013G. URL https://doi.org/10.1039/D4DD00013G .
+
+29 Appendix 
+
+## A Evaluation Templates 
+
+To support standardized and reproducible evaluation, we provide the prompt templates used for the evaluation of general-purpose language models on PFArena . Agentic models use similar core templates, supplemented with additional instructions for tool calling. 
+
+A.1 Single-mutant Generation 
+
+Task T1: Single-mutant generation provides the language model with the wildtype_sequence of the evaluated protein, its sequence_length , and its UniProt identifier ( uniprot_id , e.g., “P11413”). A concise description of its experimental assay context is also passed to the model, including the primary_task_class 
+
+(e.g., “activity_function”), fitness_type (e.g., “enzymatic_activity”), and assay_readout_subclass (e.g., “activity_proxy”). The model is instructed to generate a list of plausible mutations and rank them according to their expected fitness based on its own internal knowledge. 
+
+Single-mutant Generation Prompt Template 
+
+You are an expert protein engineer and computational biologist specializing in deep mutational scanning (DMS) and mutation -effect prediction. ### TASK GOAL Given a wild-type protein sequence and its experimental assay context, predict the **top 40 single point mutations** ( WTposMUT format) that optimize the target fitness metric, ordered from highest expected fitness to lowest expected fitness .### REASONING & EVIDENCE BOUNDARIES 1. **Biochemical Deductions**: Analyze residue chemistry, conservation, secondary structure propensities, steric packing, hydrophobic cores, electrostatic interactions, and sequence motifs within the supplied wild-type sequence. 2. **Assay Alignment**: Align every ranked mutation strictly with the supplied assay readout. For example, if evaluating stability/abundance, prioritize mutations that improve hydrophobic packing or thermostability without disrupting necessary structural dynamics. 3. **No Hallucination**: Do NOT invent or claim specific numerical model scores, experimental PDB coordinates, literature measurements, or alignments that are not logically derivable from sequence biochemistry. 4. **Single-Response Constraint**: You have no external tools, browsing, or follow-up turns. Complete the analysis in this single response. ### STRICT MUTATION & FORMAT CONSTRAINTS 1. **Ranking Size**: The output list MUST contain **exactly 40 mutations**, ordered from best to worst. 2. **Format**: Every mutant MUST be represented in standard 1-indexed ‘WTposMUT‘ format (e.g., ‘H24R‘, ‘A15V‘). 3. **Alphabet**: Both ‘WT‘ and ‘MUT‘ must be standard 20 amino acid single-letter codes: ‘A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y‘. 4. **Uniqueness**: Every mutation string MUST appear exactly once (no duplicates, no omissions within your top-40 list). 5. **Strict Validation**: - Every mutation position follows ‘1 <= position <= Length‘. - ‘WT‘ MUST strictly match the character at ‘wildtype_sequence[position - 1]‘. - ‘MUT‘ MUST be strictly different from ‘WT‘ (no synonymous/no-op mutations). 6. **Search Space**: Consider all valid single amino acid substitutions across the full wild-type sequence, then return only the top 40. 7. **Prohibited Formats**: Multi-site mutations, insertions (‘ins‘), deletions (‘del‘), stop codons (‘*‘), HGVS notations, or numerical confidence scores. ---### OUTPUT FORMAT Return a **valid JSON object ONLY** with NO markdown code block wrappers, prefix, or conversational text. Use the following exact JSON schema: {"ranking": [ "<best mutant>", "<second-best mutant>", "..." ]}---
+
+30 ### INSTANCE DATA 1. ASSAY CONTEXT & TARGET METRICS - **UniProt ID**: {uniprot_id} - **Primary Task Class**: {primary_task_class} - **Fitness Metric Type**: {fitness_type} - **Assay Readout Subclass**: {readout_subclass} 2. INPUT WILD-TYPE SEQUENCE (Length: {sequence_length}) ‘{wildtype_sequence}‘ 
+
+A.2 Multi-mutant Ranking 
+
+For the mutation-ranking tasks of T2 –T4 , the protein and assay metadata included in T1 is similarly provided. Additionally, the model receives the total amount of candidates to rank num_candidates , and a shuffled list of candidate_mutants , each specified with the original amino-acid and position in the wild-type sequence followed by the mutant, in a “WTposMUT” format like “ E19H ”. 
+
+Measurement-free Ranking No additional experimental measurements are provided for T2: Measurement-free multi-mutant ranking . The model ranks the candidate mutants using only the shared information on the protein and assay context. 
+
+Measurement-free Multi-mutant Ranking Prompt Template 
+
+You are an expert protein engineer and computational biologist specializing in deep mutational scanning (DMS) and mutation -effect prediction. ### TASK GOAL Given a wild-type protein sequence, its experimental assay context, and a specific list of candidate multi-mutations, ** rank all candidate multi-mutations from best to worst** according to their expected target fitness metric. ### REASONING & EVIDENCE BOUNDARIES 1. **Biochemical Deductions**: Compare the candidates based on residue chemistry, conservation, secondary structure propensities, steric packing, hydrophobic cores, electrostatic interactions, and sequence motifs within the supplied wild-type sequence. 2. **Assay Alignment**: Evaluate relative effects of these specific substitutions on the supplied assay readout. Rank mutations that better preserve or enhance structural/functional requirements above those that introduce severe clashes, charge mismatch, or instability. 3. **No Hallucination**: Do NOT invent or claim specific numerical model scores, experimental PDB coordinates, literature measurements, or alignments that are not logically derivable from sequence biochemistry. 4. **Single-Response Constraint**: You have no external tools, browsing, or follow-up turns. Complete the ranking in this single response. ### STRICT MUTATION & FORMAT CONSTRAINTS 1. **Closed Set Principle**: You MUST ONLY rank the mutations provided in the list above. Do NOT introduce new mutations, insertions, deletions, or wild-type strings. 2. **Multi-Mutation Candidates**: A candidate contains multiple mutations joined by + (e.g., K23A+A40P+T52S). When ranking multi-mutation candidates, account for their combined effects. 3. **Exact Copy & Completeness**: - The output list MUST contain **exactly ‘total_candidates‘ items**. - Every candidate from the input list MUST appear **exactly once** (no duplicates, no omissions). - Each mutation string MUST be copied **exactly as provided**. 4. **Strict Validation**: - Every mutation position follows ‘1 <= position <= Length‘. - ‘WT‘ MUST strictly match the character at ‘wildtype_sequence[position - 1]‘. - ‘MUT‘ MUST be strictly different from ‘WT‘ (no synonymous/no-op mutations). ---### OUTPUT FORMAT Return a **valid JSON object ONLY** with NO markdown code block wrappers, prefix, or conversational text. Use the following exact JSON schema: {"ranking": [ "<best mutant copied exactly from the provided list>", "<second-best mutant copied exactly from the provided list>", "..." ]}
+
+31 ---### INSTANCE DATA 1. ASSAY CONTEXT & TARGET METRICS - **UniProt ID**: {uniprot_id} - **Primary Task Class**: {primary_task_class} - **Fitness Metric Type**: {fitness_type} - **Assay Readout Subclass**: {readout_subclass} 2. INPUT WILD-TYPE SEQUENCE (Length: {sequence_length}) ‘{wildtype_sequence}‘ 3. CANDIDATE MUTATIONS TO RANK (Total Candidates: {num_candidates}) {candidate_mutants} 
+
+Anchor-informed Ranking In task T3: Anchor-informed multi-mutant ranking , the model addition-ally receives an anchor_mutant shared by all candidates and its ground-truth anchor_DMS_score . This measurement provides a common experimental reference for ranking the candidate mutations. 
+
+Anchor-informed Multi-mutant Ranking Prompt Template 
+
+You are an expert protein engineer and computational biologist specializing in deep mutational scanning (DMS) and mutation -effect prediction. ### TASK GOAL Given a wild-type protein sequence, its experimental assay context, and a specific list of candidate multi-mutations, ** rank all candidate multi-mutations from best to worst** according to their expected target fitness metric. The ground-truth DMS score of an anchor mutant appearing in every candidate, which may be single-site or multi-site, will also be provided. ### REASONING & EVIDENCE BOUNDARIES 1. **Biochemical Deductions**: Compare the candidates based on residue chemistry, conservation, secondary structure propensities, steric packing, hydrophobic cores, electrostatic interactions, and sequence motifs within the supplied wild-type sequence. 2. **Assay Alignment**: Evaluate relative effects of these specific substitutions on the supplied assay readout. Rank mutations that better preserve or enhance structural/functional requirements above those that introduce severe clashes, charge mismatch, or instability. 3. **No Hallucination**: Do NOT invent or claim specific numerical model scores, experimental PDB coordinates, literature measurements, or alignments that are not logically derivable from sequence biochemistry. 4. **Single-Response Constraint**: You have no external tools, browsing, or follow-up turns. Complete the ranking in this single response. ### STRICT MUTATION & FORMAT CONSTRAINTS 1. **Closed Set Principle**: You MUST ONLY rank the mutations provided in the list above. Do NOT introduce new mutations, insertions, deletions, or wild-type strings. 2. **Multi-Mutation Candidates**: A candidate contains multiple mutations joined by + (e.g., K23A+A40P+T52S), with the anchor mutant included. When ranking multi-mutation candidates, account for their combined effects. 3. **Exact Copy & Completeness**: - The output list MUST contain **exactly ‘total_candidates‘ items**. - Every candidate from the input list MUST appear **exactly once** (no duplicates, no omissions). - Each mutation string MUST be copied **exactly as provided**. 4. **Strict Validation**: - Every mutation position follows ‘1 <= position <= Length‘. - ‘WT‘ MUST strictly match the character at ‘wildtype_sequence[position - 1]‘. - ‘MUT‘ MUST be strictly different from ‘WT‘ (no synonymous/no-op mutations). ---### OUTPUT FORMAT Return a **valid JSON object ONLY** with NO markdown code block wrappers, prefix, or conversational text. Use the following exact JSON schema: {"ranking": [ "<best mutant copied exactly from the provided list>", "<second-best mutant copied exactly from the provided list>", "..." ]}---
+
+32 ### INSTANCE DATA 1. ASSAY CONTEXT & TARGET METRICS - **UniProt ID**: {uniprot_id} - **Primary Task Class**: {primary_task_class} - **Fitness Metric Type**: {fitness_type} - **Assay Readout Subclass**: {readout_subclass} 2. INPUT WILD-TYPE SEQUENCE (Length: {sequence_length}) ‘{wildtype_sequence}‘ 3. ANCHOR MUTANT CONTEXT - **Anchor Mutant**: {anchor_mutant} - **Anchor DMS Score**: {anchor_DMS_score} 4. CANDIDATE MUTATIONS TO RANK (Total Candidates: {num_candidates}) {candidate_mutants} 
+
+Single-mutant-informed Ranking Task T4: Single-mutant-informed multi-mutant ranking addi-tionally provides the ground-truth fitness scores of every component mutation appearing in the candidates as 
+
+single_mutant_DMS_score . Each mutation–score pair is formatted as “ <mutant>: <dms_score> ”, and the pairs are joined by newline characters (“ \n ”). These measurements provide mutation-level evidence for ranking the multi-mutant combinations. 
+
+Single-mutant-informed Multi-mutant Ranking Prompt Template 
+
+You are an expert protein engineer and computational biologist specializing in deep mutational scanning (DMS) and mutation -effect prediction. ### TASK GOAL Given a wild-type protein sequence, its experimental assay context, and a specific list of candidate multi-mutations, ** rank all candidate multi-mutations from best to worst** according to their expected target fitness metric. The ground-truth single-mutant DMS scores of every component appearing in any candidate will also be provided. ### REASONING & EVIDENCE BOUNDARIES 1. **Biochemical Deductions**: Compare the candidates based on residue chemistry, conservation, secondary structure propensities, steric packing, hydrophobic cores, electrostatic interactions, and sequence motifs within the supplied wild-type sequence. 2. **Assay Alignment**: Evaluate relative effects of these specific substitutions on the supplied assay readout. Rank mutations that better preserve or enhance structural/functional requirements above those that introduce severe clashes, charge mismatch, or instability. 3. **No Hallucination**: Do NOT invent or claim specific numerical model scores, experimental PDB coordinates, literature measurements, or alignments that are not logically derivable from sequence biochemistry. 4. **Single-Response Constraint**: You have no external tools, browsing, or follow-up turns. Complete the ranking in this single response. ### STRICT MUTATION & FORMAT CONSTRAINTS 1. **Closed Set Principle**: You MUST ONLY rank the mutations provided in the list above. Do NOT introduce new mutations, insertions, deletions, or wild-type strings. 2. **Multi-Mutation Candidates**: A candidate contains multiple mutations joined by + (e.g., K23A+A40P+T52S). When ranking multi-mutation candidates, account for their combined effects. 3. **Exact Copy & Completeness**: - The output list MUST contain **exactly ‘total_candidates‘ items**. - Every candidate from the input list MUST appear **exactly once** (no duplicates, no omissions). - Each mutation string MUST be copied **exactly as provided**. 4. **Strict Validation**: - Every mutation position follows ‘1 <= position <= Length‘. - ‘WT‘ MUST strictly match the character at ‘wildtype_sequence[position - 1]‘. - ‘MUT‘ MUST be strictly different from ‘WT‘ (no synonymous/no-op mutations). ---### OUTPUT FORMAT Return a **valid JSON object ONLY** with NO markdown code block wrappers, prefix, or conversational text. Use the following exact JSON schema: {"ranking": [ "<best mutant copied exactly from the provided list>", "<second-best mutant copied exactly from the provided list>", "..." 
+
+33 ]}---### INSTANCE DATA 1. ASSAY CONTEXT & TARGET METRICS - **UniProt ID**: {uniprot_id} - **Primary Task Class**: {primary_task_class} - **Fitness Metric Type**: {fitness_type} - **Assay Readout Subclass**: {readout_subclass} 2. INPUT WILD-TYPE SEQUENCE (Length: {sequence_length}) ‘{wildtype_sequence}‘ 3. SINGLE MUTANT CONTEXT {single_mutant_dms_scores} 4. CANDIDATE MUTATIONS TO RANK (Total Candidates: {num_candidates}) {candidate_mutants} 
+
+A.3 Confidence Elicitation for Uncertainty Estimation 
+
+To elicit list-level confidence, we inserted the confidence elicitation instruction immediately before the original output contract. The original JSON ranking schema was retained, with one confidence field added after the ranking array; the non-numerical placeholder <your confidence> was used to avoid anchoring the model to an example value. The same confidence instruction was used in all settings. In T1 , the original prohibition on “numerical confidence scores” was changed to “per-mutation confidence scores” to permit the required list-level value. All other task instructions, ranking constraints, assay information, sequences, candidate data, and contextual scores remained unchanged. 
+
+Confidence Elicitation Prompt Template 
+
+You are an expert protein engineer and computational biologist specializing in deep mutational scanning (DMS) and mutation -effect prediction. ### TASK GOAL Given a wild-type protein sequence and its experimental assay context, predict the **top 40 single point mutations** ( WTposMUT format) that optimize the target fitness metric, ordered from highest expected fitness to lowest expected fitness .### REASONING & EVIDENCE BOUNDARIES 1. **Biochemical Deductions**: Analyze residue chemistry, conservation, secondary structure propensities, steric packing, hydrophobic cores, electrostatic interactions, and sequence motifs within the supplied wild-type sequence. 2. **Assay Alignment**: Align every ranked mutation strictly with the supplied assay readout. For example, if evaluating stability/abundance, prioritize mutations that improve hydrophobic packing or thermostability without disrupting necessary structural dynamics. 3. **No Hallucination**: Do NOT invent or claim specific numerical model scores, experimental PDB coordinates, literature measurements, or alignments that are not logically derivable from sequence biochemistry. 4. **Single-Response Constraint**: You have no external tools, browsing, or follow-up turns. Complete the analysis in this single response. ### STRICT MUTATION & FORMAT CONSTRAINTS 1. **Ranking Size**: The output list MUST contain **exactly 40 mutations**, ordered from best to worst. 2. **Format**: Every mutant MUST be represented in standard 1-indexed ‘WTposMUT‘ format (e.g., ‘H24R‘, ‘A15V‘). 3. **Alphabet**: Both ‘WT‘ and ‘MUT‘ must be standard 20 amino acid single-letter codes: ‘A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y‘. 4. **Uniqueness**: Every mutation string MUST appear exactly once (no duplicates, no omissions within your top-40 list). 5. **Strict Validation**: - Every mutation position follows ‘1 <= position <= Length‘. - ‘WT‘ MUST strictly match the character at ‘wildtype_sequence[position - 1]‘. - ‘MUT‘ MUST be strictly different from ‘WT‘ (no synonymous/no-op mutations). 6. **Search Space**: Consider all valid single amino acid substitutions across the full wild-type sequence, then return only the top 40. 7. **Prohibited Formats**: Multi-site mutations, insertions (‘ins‘), deletions (‘del‘), stop codons (‘*‘), HGVS notations, or per-mutation confidence scores. ---### CONFIDENCE 
+
+34 After producing the ranking, report an overall confidence score from 0 to 100 indicating how confident you are in the predictive quality of the top-40 list for this specific protein and assay. The score should reflect confidence that the list contains and prioritizes genuinely high-fitness mutations, rather than confidence in formatting or instruction following. Report exactly one list-level ‘confidence‘ JSON number in [0,100]. Do not add per-mutation confidence scores or any other fields. This confidence instruction must not change the ranking or item-count rules. ### OUTPUT FORMAT Return a **valid JSON object ONLY** with NO markdown code block wrappers, prefix, or conversational text. Use the following exact JSON schema: {"ranking": [ "<best mutant>", "<second-best mutant>", "..." ], "confidence": <your confidence> }---### INSTANCE DATA 1. ASSAY CONTEXT & TARGET METRICS - **UniProt ID**: <uniprot_id> - **Primary Task Class**: <primary_task_class> - **Fitness Metric Type**: <fitness_type> - **Assay Readout Subclass**: <assay_readout_subclass> 2. INPUT WILD-TYPE SEQUENCE (Length: <sequence_length>) ‘<wildtype_sequence>‘ 
+
+35 Model Inputs and Checkpoint Core Configuration Candidate Score                                                              
+
+> ESM-2 [1] Wild-type sequence; esm2_t33_650M_-UR50D
+> Masked inference with a 1,024-token context (at most 1,022 residues); de-terministic mutation-centered win-dows for longer chains Sum of wild-type-context masked-marginal log odds, log p(xmut
+> i)−
+> log p(xwt
+> i), over substituted sites ProGen2-base [2] Complete wild-type and mutant se-quences; progen2-base
+> Forward and reversed causal se-quence scoring with a 2,048-token context; all evaluated chains were processed at full length Difference between the bidirectional sequence scores of the complete mu-tant and wild-type chains ProSST-2048 [3] Wild-type sequence and AlphaFold 3 structure; AI4Protein/ProSST-2048
+> Official GVP quantizer with a 2,048-code structural vocabulary; all eval-uated chains were processed at full length within the 2,046-residue limit Sum of structure-conditioned wild-type-context marginal log odds over substituted sites S3F [4] Wild-type sequence, AlphaFold 3structure, and the corresponding molecular surface; released S3F checkpoint Mutation-centered windows of at most 1,022 residues; sequence logits replace structure-conditioned logits where AF3 pLDDT is below 70 Sum of masked-marginal log-odds contributions over substituted sites VenusREM [5] Wild-type sequence, ProSST-2048 structural tokens, and aUniRef100/MMseqs2 MSA
+> aa_seq_aln retrieval; α= 0 .8, sam-pling ratio 1.0,and one sampling pass; full-chain inference for all eval-uated contexts Sum of mutant-minus-wild-type val-ues from the fused sequence, struc-ture, and MSA representation S3F-MSA [4, 6] S3F score and an EVE ensemble trained on the corresponding wild-type-chain MSA Five EVE seeds; 400,000 optimiza-tion steps, batch size 256, learning rate 10 −4; 20,000 Monte Carlo sam-ples per seed at scoring time Equal average of query-wise stan-dardized S3F and EVE scores, where the EVE score is the negative mean evolution index across seeds
+
+Table 11 Deployment and scoring configurations of the protein-model baselines. 
+
+## B Experimental Setup 
+
+B.1 PLM Deployment 
+
+Table 11 summarizes the model-specific inputs, checkpoints, inference configurations, and scoring definitions. Neural-network inference used FP32 precision, and all scores were oriented such that larger values indicate more favorable candidates. Each run was validated for input consistency, complete candidate coverage, finite outputs, and agreement between aggregate and component scores. Multi-substitution scoring followed each baseline’s formulation. For ESM-2, ProSST-2048, S3F, and VenusREM, substitutions on the same chain were evaluated in a shared wild-type context and their sitewise contributions were summed. ProGen2-base instead evaluated the complete mutant sequence, whereas the EVE component of S3F-MSA assigned a joint score to the complete within-chain mutation set. For candidates spanning multiple chains, each naturally mutated chain was scored separately and the chain-level contributions were summed. Thus, the protocol preserves native chain boundaries but does not explicitly model inter-chain epistasis. The MSAs used by VenusREM and EVE were generated against UniRef100 [22] with MMseqs2 [21]. One A3M alignment was associated with each wild-type chain; lowercase insertion symbols were removed where required by the parser, while alignment gaps were retained. For EVE, the focus-column and sequence-fragment gap thresholds were 1.0 and 0.5, respectively, and the sequence-reweighting threshold was 0.01 for viral proteins and 0.2 otherwise. Five EVE models were associated with each input context. Existing EVE ensembles were reused only when the wild-type sequence, processed MSA, and reweighting configuration were identical; all benchmark mutation sets were scored anew. Structure tokens, molecular surfaces, and MSA-derived models were prepared once per wild-type context rather than for every candidate mutation. We generated a consistent set of wild-type structures with AlphaFold 3 (AF3) [28] for the structure-dependent baselines. Each natural chain was modeled independently as a monomer using random seed 1, 10 recycles, and five diffusion samples. The corresponding UniRef100/MMseqs2 unpaired MSA was supplied directly; templates and additional database searches were disabled. The highest-ranked sample provided the PDB input used to derive ProSST structural tokens and S3F molecular surfaces. The canonical mmCIF files, confidence outputs, sample rankings, and all five samples were retained for reproducibility. For the benchmark release, AF3 was run for all unique wild-type chains. Each result was required to reproduce 36 the exact target sequence and residue mapping and to contain a complete protein backbone and valid confidence arrays. Of these, 184 structures passed the primary confidence criteria; the remaining 12 had lower pTM or mean pLDDT and were retained with a review flag because they remained sequence-consistent, structurally complete, and free of detected clashes. These flags were propagated with the structural resources so that confidence-dependent analyses can be performed without changing the benchmark coverage. 
+
+B.2 Test-time Scaling Methods 
+
+For each T1: Single-mutant generation assay, let the i-th independently sampled top-40 ranking be 
+
+Ri = [ mi1, m i2, . . . , m i40 ],
+
+and let ri(m) denote the one-indexed rank of mutation m in Ri. We evaluated n ∈ { 1, 2, 4, 8, 16 } using nested prefixes of the same 16 samples. Sample Avg was computed by evaluating each eligible raw ranking independently and averaging its assay-level metric. All aggregation methods received the same extracted candidate strings. Candidates were deduplicated within each ranking while preserving their first occurrence. In the main scaling experiments, no explicit sequence-validity or DMS-membership filtering was applied. Incomplete rankings were padded to 40 entries using sample-specific invalid placeholders, preventing missing outputs from creating artificial agreement across samples. The aggregated top-40 output was mapped and scored only by the common evaluator. 
+
+Best-of-N We first computed the cross-sample reciprocal-rank consensus of each candidate, 
+
+c(m) = X
+
+> i:m∈Ri
+
+1
+
+k + ri(m) ,
+
+with k = 10 . Each complete ranking received the mean consensus score 
+
+qi = 1
+
+|Ri|
+
+X
+
+> m∈Ri
+
+c(m),
+
+and the ranking with the largest qi was selected. Thus, Best-of-N always returned one intact sampled ranking and never recombined candidates across samples. Remaining ties were resolved in favor of the lower sample index. 
+
+Approval Voting Each mutation received one vote from every top-40 ranking in which it appeared, 
+
+sapproval (m) = X
+
+> i
+
+I[m ∈ Ri].
+
+Candidates were sorted by vote count, followed by their mean observed rank, best observed rank, and mutation string. The 40 highest-ranked candidates from the union were returned. 
+
+Borda Fusion A mutation at rank r received 41 − r points, giving 
+
+sBorda (m) = X
+
+> i:m∈Ri
+
+(41 − ri(m)) .
+
+This score jointly reflects occurrence frequency and a linear preference for mutations placed near the top of each sampled ranking. 37 Reciprocal Rank Fusion RRF assigned each mutation the score 
+
+sRRF (m) = X
+
+> i:m∈Ri
+
+1
+
+k + ri(m) ,
+
+where k = 10 . Compared with Borda Fusion, reciprocal weighting places relatively greater emphasis on the highest-ranked candidates. 
+
+Hierarchical RRF To aggregate evidence shared by different substitutions at the same residue, we defined 
+
+p(m) as the residue position of mutation m and rpos  
+
+> i
+
+(p) as the first rank at which position p occurred in Ri.Position-level support was 
+
+spos (p) = X
+
+> i:∃m∈Ri, p (m)= p
+
+1
+
+k + rpos  
+
+> i
+
+(p) ,
+
+and the final score was 
+
+shier (m) = sRRF (m) + λ s pos (p(m)) ,
+
+with k = 10 and λ = 0 .35 . Candidates whose strings could not be parsed into residue positions retained their exact-mutation RRF support but received no position-level contribution. For Borda, RRF, and Hierarchical RRF, ties were resolved by higher occurrence frequency, better mean observed rank, and then mutation string. We used no per-position diversity cap, so multiple substitutions at the same residue could appear in the final top-40 ranking. 38 Category Model Baseline Adaptive T1 T2 T3 T4 Statistic Total 123 74 67 29 123                                                                     
+
+> LLM
+> GPT-6 Astra 70005Claude Opus 5 12 6619Gemini 3.1 Pro 00000Kimi K3 2321—GLM-5.2 0420—DeepSeek-V4-Pro 00100
+> Agent
+> Biomni +GPT-6 Astra 9111—Biomni +Claude Opus 5 0410—AMixKit +GPT-6 Astra 2000—AMixKit +Claude Opus 5 1201—AMixKit +AMix-2.1 0001—
+> Table 12 Number of assay-level queries replaced by the deterministic SHA-256 random baseline during evaluation, for the baseline PFArena setting and the multi-round adaptive search setting. A dash indicates that the corresponding task was not run for that model.
+
+## C Extended Experimental Analysis 
+
+C.1 Evaluation Completeness and Missing-Query Handling 
+
+Despite repeated retries, some model–task pairs involving general-purpose LLMs produced no prediction that satisfied the required output format and evaluation constraints. These failures occurred particularly when the content-filtering policies of certain general-purpose LLMs restricted specific inputs, observed most frequently for Claude Opus 5, GPT-6 Astra, Kimi K3 and GLM-5.2, with frequency varying across models and tasks. 
+
+Fallback Substitutions To handle this issue, we distinguished successful predictions from missing assay-level queries rather than assigning a score of zero to failed queries. Missing queries were replaced by a deterministic SHA-256 random baseline. For each missing query, the evaluator collected all measured mutants in the corresponding ground-truth table and computed its SHA-256 digest. The measured mutants were ordered lexicographically by these hexadecimal digests. For T1 , the first 40 mutants in this order were used as the substitute prediction list. For T2 –T4 , the same procedure was applied independently to each candidate query, after which the evaluator applied the corresponding task-specific ranking budget. The numbers of substituted queries are summarized in Table 12. Because this fallback ordering is independent of the DMS_score ranking requirement, the reported aggregate metrics combine model predictions from successfully completed queries with the random-baseline lists for missing queries. Consequently, a larger number of missing queries will generally depress the aggregate score. 
+
+Matched-query Analysis To isolate intrinsic model performance from the effects of incomplete outputs, we curated the multi-round adaptive search evaluation of Section 5.2.1 on all 123 ground-truth assay queries to a common cohort of 113 assays, as shown in Figure 11. The common cohort contained only assays for which every model produced a valid cumulative prediction prefix across all four rounds; no random substitution was used for these assays. By contrast, the original multi-round evaluation retained all 123 assays and used the deterministic random fallback whenever a model lacked a complete prediction. At the fourth round, complete-prefix coverage ranged from 114 assays for Claude Opus 5 and 118 assays for GPT-6 Astra to all complete 123 assays for Gemini 3.1 Pro and DeepSeek-V4-Pro. Across the common cohort, all models showed progressive improvements in both NMS@ 40 and Recall@ 40 
+
+39 1 2 3 4Round 0.700 0.725 0.750 0.775 0.800 0.825 0.850 NMS@40    
+
+> Best Mutant Score
+> Full-Queries Full-Common Gap
+> 1234Round 0.00 0.01 0.02 0.03 0.04 0.05 Recall@40
+> Top Mutant Recovery
+> Full-Queries Full-Common Gap
+
+Round-wise Performance Gap on Full-Queries and Common-Queries Set     
+
+> GPT-6 Astra Claude Opus 5 Gemini 3.1 Pro DeepSeek-V4-Pro Figure 11
+
+Matched-query analysis of round-wise single-mutant generation. Marker lines show cumulative performance on all 123 assay queries, with deterministic random-baseline substitutions used for missing queries. Thin curves show performance on the common cohort of 113 assays completed by every model in all four rounds. Shaded regions indicate the performance gap between the full and matched evaluations. 
+
+over successive rounds. At round four, common-cohort NMS@ 40 exceeded the corresponding full-cohort value by 0.018 for GPT-6 Astra and by approximately 0.015 for the other three models. Recall@ 40 was boosted by approximately 0.0011 to 0.0023 across models. The higher common-cohort scores for Gemini 3.1 Pro and DeepSeek-V4-Pro, which had complete coverage of all 123 assays, suggest that the 10 assays excluded from the matched cohort due to incomplete predictions from other models were more difficult on average. These common-cohort results therefore provide a cleaner comparison of intrinsic model quality, whereas the full-cohort curves preserve performance under the original evaluation protocol. 
+
+C.2 Complementary Strengths and Failure Modes of LLMs and PLMs 
+
+We tested whether PLMs and LLMs identify the same useful mutants and make the same ranking errors. GPT-6 Astra represented the LLM family, and VenusREM represented the PLM family. The comparison had two parts: T1 measured overlap and experimental quality among generated single-mutant candidates, whereas 
+
+T2 –T4 measured whether one model could correct extreme ranking errors made by the other. This design separates complementary exploration in T1 from complementary error correction in multi-mutant ranking. 
+
+T1: Single-mutant Exploration GPT-6 Astra and VenusREM selected largely different single-mutant candidates, but their small consensus set was the most reliable. As shown in Figure 12, across 116 paired assays, VenusREM and GPT-6 Astra produced 4,640 and 4,501 evaluable top-40 selections, respectively, with 273 shared mutant–assay pairs. The shared candidates therefore represented only a small fraction of the selections made by either model. Nevertheless, the consensus set had the highest experimental quality: the median true rank score was 0.79 for shared candidates, compared with 0.66 for VenusREM-only candidates and 0.67 for GPT-6 Astra-only candidates, where 1 denotes the best experimental rank. Thus, agreement was uncommon but informative: consensus candidates can provide a high-confidence shortlist, whereas model-specific candidates expand the explored sequence space. 
+
+T2–T4: Ranking Errors We next examined whether LLMs and PLMs make complementary ranking errors in the multi-mutant tasks. For each task, experimental fitness and model predictions were converted into within-assay rank scores, with 1 denoting the best mutant. In Figure 13, the x-axis shows the true fitness rank score and the y-axis shows the predicted rank score. The diagonal corresponds to perfect rank agreement, while vertical arrows connect the two predictions for the same mutant. We defined an extreme error as placing a true bottom-30% mutant in the predicted top 10% or a true top-30% mutant in the predicted bottom 40 Top-40 candidate overlap   
+
+> PLM 4,640 LLM 4,501 Shared 273
+> PLM only Shared LLM only 0.0 0.2 0.4 0.6 0.8 1.0 True fitness rank score
+> n=4367 median=0.66
+> n=273 median=0.79
+> n=4228 median=0.67
+
+Fitness distribution of top-40 selections      
+
+> PLM only Shared LLM only Figure 12 Complementary single-mutant selection in T1 .Left, overlap between evaluable top-40 selections from VenusREM (PLM) and GPT-6 Astra (LLM) across 116 paired assays. Right, experimental fitness-rank distributions of PLM-only, shared and LLM-only selections. Rank scores were normalized within each assay from 1 (best) to 0 (worst). n denotes mutant–assay selections.
+
+10%. A correction was counted when the other model assigned the same mutant a substantially less extreme rank, moving it closer to its measured rank. This paired, case-level analysis distinguishes shared failures from model-specific errors that can be rescued by the other model. The direction-specific counts further show that the corrected cases include both low-fitness over-rankings and high-fitness under-rankings, indicating that the complementarity is not restricted to a single type of ranking failure. The error-correction patterns in T2 and T3 indicate that VenusREM remains at least as reliable as GPT-6 Astra when limited or localized experimental evidence is available, while they still provide complementary predictions. In T2 , VenusREM corrected 45 extreme GPT-6 Astra errors, including 24 low-fitness over-rankings and 21 high-fitness under-rankings, whereas GPT-6 Astra corrected 30 VenusREM errors, including 24 and 6 of these two types, respectively. In T3 , the two models corrected the same total number of extreme errors, with GPT-6 Astra correcting 16 low-fitness over-rankings and 5 high-fitness under-rankings, and VenusREM correcting 11 and 10, respectively. The availability of complete single-mutant context reverses the direction of error correction in favor of GPT-6 Astra. In T4 , GPT-6 Astra corrected 39 extreme VenusREM errors, including 29 low-fitness over-rankings and 10 high-fitness under-rankings, whereas VenusREM corrected 24 GPT-6 Astra errors, including 13 and 11 of these two types, respectively. This reversal mirrors the higher aggregate performance of LLM-based systems in T4 , where measured fitness values for the component single mutations are available as additional evidence for ranking multi-mutant candidates. The results therefore support a context-dependent shift in model utility rather than a universal superiority of either model family. Taken together, VenusREM and GPT-6 Astra exhibit complementary ranking errors across T2 –T4 , with each correcting both low-fitness over-rankings and high-fitness under-rankings made by the other. These patterns motivate combined or agent-mediated approaches, but this descriptive analysis does not establish that an ensemble would improve aggregate performance. 41 LLM rescues PLM errors 
+
+> PLM extreme rank; LLM closer to truth
+
+PLM rescues LLM errors 
+
+> LLM extreme rank; PLM closer to truth
+> T2
+
+0.0 0.2 0.4 0.6 0.8 1.0 Predicted rank score   
+
+> 30 mutants 24 645 mutants 24 21
+> T3
+
+0.0 0.2 0.4 0.6 0.8 1.0 Predicted rank score   
+
+> 21 mutants 16 521 mutants 11 10
+> T4
+
+0.0 0.2 0.4 0.6 0.8 1.0 True fitness rank score 0.0 0.2 0.4 0.6 0.8 1.0 Predicted rank score  
+
+> 39 mutants 29 10
+
+0.0 0.2 0.4 0.6 0.8 1.0 True fitness rank score  
+
+> 24 mutants 13 11
+> True bottom 30%, predicted top 10% True top 30%, predicted bottom 10% PLM rank LLM rank Same mutant correction Perfect rank agreement
+
+Figure 13 Complementary correction of extreme ranking errors by GPT-6 Astra and VenusREM across T2 –T4 .
+
+The left column shows mutants for which GPT-6 Astra corrected extreme VenusREM ranking errors, and the right column shows the converse. True fitness rank scores range from 0 (worst) to 1 (best), whereas predicted rank scores range from 0 (bottom) to 1 (top). Orange crosses and blue circles denote VenusREM and GPT-6 Astra predictions, respectively; grey arrows connect predictions for the same mutant. Shaded regions indicate true bottom-30% mutants predicted in the top 10% or true top-30% mutants predicted in the bottom 10%. Central labels report the total number of mutants in each direction. 
+
+42
