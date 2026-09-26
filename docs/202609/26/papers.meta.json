@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-26",
+  "date": "2026-09-26",
+  "generated_at": "2026-09-26T21:57:37",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/26/2609.26836v1-silent-failures-in-agent-tool-interaction-an-audit-of-tooluniverse",
+      "section": "quick",
+      "title_en": "Silent Failures in Agent-Tool Interaction: An Audit of ToolUniverse",
+      "authors": "Shreya Gopalan, Devansh Singh, Sundaraparipurnan Narayanan",
+      "date": "2026-09-21",
+      "pdf": "https://arxiv.org/pdf/2609.26836v1",
+      "score": "7.0",
+      "evidence": "生物学智能体-工具工作流静默失败审计",
+      "tldr": "Agentic AI常将多工具串成流程，但工具调用表面成功、关键数据或功能缺失且无告警的静默失败常被忽视。本文构建审计机制，围绕7类失败位点，检查ToolUniverse中15个科学工具的API与封装文档，并经LLM候选发现与自动测试验证。识别91个静默失败，集中于API层(51)和wrapper层(25)，多为字段缺失及搜索、过滤、排序不一致。失败从上游产生并传播为看似有效的科学输出；提出上下文可靠性及测试、披露、监控与度量机制。",
+      "tags": "query:llmagt",
+      "abstract_en": "Agentic AI systems are increasingly adopting automated pipelines that integrate multiple tools. While prior research and benchmarks have studied about task success and task completion of these agentic systems, the research about agent to tool interaction, specifically in biology agentic workflow is limited. This study investigates specific failures in agent to tool interaction where a tool invocation appears successful, some or all of the information or functionality from the tool via API/ wrapper is incomplete or missing and there are no communications / notifications to the user or the agent about such missing information. We call this a silent failures as the user or the agents are not aware that such failure has occurred. For the purposes of this study we developed an audit mechanism to identify such silent failures in Agent to tool interaction, by examining 15 scientific tools (and their associated API documentation and tool documentations) integrated within ToolUniverse environment (ToolUniverse serves as our experimental environment rather than the object of the study itself). We structure our study around 7 failure locus characterising where the failure occurs in the chain. We observed 91 failures (manually validated post LLM based candidate discovery and automated testing), most frequent of them being missing data or fields and inconsistencies in search, filtering or ranking criteria. Most of the 91 failures occurred in API layer (51) or wrapper layer (25), with a potential of silent failure amplification downstream. The results show that silent failures originate upstream of the event and propagate downstream into apparently valid scientific outputs. We propose a concept of contextual reliability to handle such failures and suggest mechanisms for testing, disclosing, monitoring, and measuring such failures across the agent-tool interaction pipeline.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

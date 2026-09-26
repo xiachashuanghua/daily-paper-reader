@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-26 <!--dpr-date:20260926-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/26/2609.26836v1-silent-failures-in-agent-tool-interaction-an-audit-of-tooluniverse" data-sidebar-item="{&quot;title&quot;: &quot;Silent Failures in Agent-Tool Interaction: An Audit of ToolUniverse&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.26836v1-silent-failures-in-agent-tool-interaction-an-audit-of-tooluniverse&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;生物学智能体-工具工作流静默失败审计&quot;}">Silent Failures in Agent-Tool Interaction: An Audit of ToolUniverse</a>
   * 2026-09-25 <!--dpr-date:20260925-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/25/2609.28557v1-basecamp-----an-agentic-ai-framework-for-automating-dna-sequencing-data-pipelines" data-sidebar-item="{&quot;title&quot;: &quot;BaseCamp --- An Agentic AI Framework for Automating DNA Sequencing Data Pipelines&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.28557v1-basecamp-----an-agentic-ai-framework-for-automating-dna-sequencing-data-pipelines&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;自动化DNA测序流程决策层的智能体AI框架&quot;}">BaseCamp --- An Agentic AI Framework for Automating DNA Sequencing Data Pipelines</a>

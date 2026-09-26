@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-26T21:56:27.197040+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.26836v1",
+      "source": "arxiv",
+      "title": "Silent Failures in Agent-Tool Interaction: An Audit of ToolUniverse",
+      "abstract": "Agentic AI systems are increasingly adopting automated pipelines that integrate multiple tools. While prior research and benchmarks have studied about task success and task completion of these agentic systems, the research about agent to tool interaction, specifically in biology agentic workflow is limited. This study investigates specific failures in agent to tool interaction where a tool invocation appears successful, some or all of the information or functionality from the tool via API/ wrapper is incomplete or missing and there are no communications / notifications to the user or the agent about such missing information. We call this a silent failures as the user or the agents are not aware that such failure has occurred. For the purposes of this study we developed an audit mechanism to identify such silent failures in Agent to tool interaction, by examining 15 scientific tools (and their associated API documentation and tool documentations) integrated within ToolUniverse environment (ToolUniverse serves as our experimental environment rather than the object of the study itself). We structure our study around 7 failure locus characterising where the failure occurs in the chain. We observed 91 failures (manually validated post LLM based candidate discovery and automated testing), most frequent of them being missing data or fields and inconsistencies in search, filtering or ranking criteria. Most of the 91 failures occurred in API layer (51) or wrapper layer (25), with a potential of silent failure amplification downstream. The results show that silent failures originate upstream of the event and propagate downstream into apparently valid scientific outputs. We propose a concept of contextual reliability to handle such failures and suggest mechanisms for testing, disclosing, monitoring, and measuring such failures across the agent-tool interaction pipeline.",
+      "authors": [
+        "Shreya Gopalan",
+        "Devansh Singh",
+        "Sundaraparipurnan Narayanan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-09-21T16:34:08+00:00",
+      "link": "https://arxiv.org/pdf/2609.26836v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Audit of silent failures in biology agent-tool workflows",
+      "llm_evidence_cn": "生物学智能体-工具工作流静默失败审计",
+      "llm_evidence": "生物学智能体-工具工作流静默失败审计",
+      "canonical_evidence": "生物学智能体-工具工作流静默失败审计",
+      "llm_tldr_en": "This audit of ToolUniverse characterizes silent failures in biology agent-tool interactions, where tool calls appear successful but return incomplete data without notification.",
+      "llm_tldr_cn": "针对智能体AI系统集成多工具时，工具调用看似成功但返回信息不完整且不告警的问题，本文以ToolUniverse为对象审计生物学智能体工作流中的智能体-工具交互。研究定义并刻画了静默失败：用户与智能体均未察觉信息缺失。结果揭示此类失败对生物学自动化流程的潜在危害，呼吁建立工具交互的可靠性检测与通知机制，以保障智能体工作流的可信度。",
+      "llm_tldr": "针对智能体AI系统集成多工具时，工具调用看似成功但返回信息不完整且不告警的问题，本文以ToolUniverse为对象审计生物学智能体工作流中的智能体-工具交互。研究定义并刻画了静默失败：用户与智能体均未察觉信息缺失。结果揭示此类失败对生物学自动化流程的潜在危害，呼吁建立工具交互的可靠性检测与通知机制，以保障智能体工作流的可信度。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
