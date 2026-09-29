@@ -1,0 +1,2144 @@
+Title: M3OS: A Monte Carlo Graph Search-Orchestrated Multi-Agent LLM System for Evidence-Traced Molecular Optimization
+
+URL Source: https://arxiv.org/pdf/2609.34491v1
+
+Published Time: Tue, 29 Sep 2026 03:13:16 GMT
+
+Number of Pages: 33
+
+Markdown Content:
+## M3OS: A Monte Carlo Graph Search–Orchestrated Multi-Agent LLM System for Evidence-Traced Molecular Optimization 
+
+Junjie Wang 1,2 †, Yaowei Jin 1†, Ruohui Tang 1†, Guonan Cui 1,Haojie Wang 1, Penglei Wang 1, Dingyan Wang 1, Duo An 1,Shuangjia Zheng 1,3 , Qian Shi 1* 
+
+> 1
+
+Lingang Laboratory, Shanghai, 200031, China. 
+
+> 2
+
+School of Information Science and Technology, ShanghaiTech University, Shanghai, 201210, China. 
+
+> 3
+
+Global Institute of Future Technology, Shanghai Jiao Tong University, Shanghai, 200240, China. *Corresponding author(s). E-mail(s): shiqian@lglab.ac.cn; 
+
+> †
+
+These authors contributed equally to this work. 
+
+Abstract 
+
+Small-molecule optimization integrates medicinal-chemistry reasoning and com-putational evidence through iterative, multi-objective decisions. When large language models (LLMs) reason over optimization histories stored primarily in conversational context, they must recover candidate identities, prior evalu-ations, and task constraints to guide subsequent decisions. We present M3OS, a multi-agent LLM system that decouples molecular-design reasoning from optimization-state management through Monte Carlo graph search. A persistent graph links evaluated candidates, parent–child transformations and evaluation evidence, while rewards and visit statistics guide LLM-assisted parent selection. Two branches combine tool-driven candidate generation with knowledge- and case-guided medicinal-chemistry editing. An execution harness controls graph updates through structured output extraction, molecular validation and task-bound evaluation. Agents receive role-specific contexts, while the graph preserves optimization trajectories beyond their active contexts. Across three molecular optimization benchmarks, M3OS achieves higher success rates than baselines, supporting the integration of persistent search state, specialized agents and controlled execution for multi-constraint optimization. 
+
+1arXiv:2609.34491v1 [cs.LG] 28 Sep 2026 Keywords: molecular optimization, multi-agent systems, Monte Carlo graph search 
+
+1 Introduction 
+
+Early-stage drug discovery requires the simultaneous optimization of multiple, often competing objectives that collectively determine the therapeutic potential and devel-opability of molecular candidates [1]. In practice, medicinal chemists progressively refine candidate molecules by preserving favorable structural motifs and pharma-cophores, mitigating physicochemical liabilities, and balancing bioactivity against absorption, distribution, metabolism, excretion, and toxicity (ADMET) properties [2, 3]. Medicinal-chemistry knowledge and accumulated experimental evidence guide both the choice of structural modifications and the selection of candidates for further optimization. Many existing studies formulate molecular optimization as a combinatorial opti-mization problem and employ techniques such as Bayesian optimization [4], genetic algorithms [5], Monte Carlo tree search [6], and reinforcement learning [7, 8]. Gen-erative approaches, including diffusion models and Bayesian Flow Networks, further expand the methods available for proposing molecular structures [9, 10]. Large language models (LLMs) provide a means of combining natural-language objectives with chemical knowledge and tool-assisted reasoning for molecular design [11]. Agent frameworks extend this capability through planning, memory and inter-action with external tools, allowing computational feedback to inform successive decisions [12]. ChemLLM [13], LlaSMol [14] and MolX [15] develop chemical language and repre-sentation capabilities through domain-specific training and multimodal learning. For molecular optimization, MOLLEO integrates chemistry-aware LLMs into evolutionary mutation and crossover [16], while MT-Mol combines specialized agents with tool-guided reasoning and iterative molecular refinement [17]. DrugAgent [18], PharmA-gents [19] and DrugPilot [20] extend agent-based methods to broader drug-discovery workflows. However, iterative molecular optimization requires more than proposing a plausible edit at each step. Each new decision must remain connected to previously evaluated structures, their transformation history and the task requirements. When this infor-mation is carried primarily in conversational context, agents must repeatedly recover it from an evolving text record, creating opportunities for omitted evidence, incorrect candidate–result associations or inconsistent constraint interpretation. The challenge is therefore to maintain a persistent, candidate-linked optimization state while present-ing each agent with the information needed for its current decision, without making each design agent responsible for reconstructing the overall optimization history. M3OS addresses this challenge by decoupling molecular-design reasoning from optimization-state management through a persistent molecular search graph (Fig. 1a). Canonical molecular identities define nodes that retain generation provenance, eval-uation evidence and search statistics, while edges explicitly record parent–child 2transformations. Rediscovered molecules reuse existing nodes while preserving alter-native incoming transformations. This graph serves as the operational state for subsequent decisions, rather than only a retrospective record. Monte Carlo graph search (MCGS) [21] uses accumulated rewards and visit statistics to shortlist expansion parents, and an LLM selects among them using task context and node-level evidence. Previously evaluated intermediates remain available for further expansion, connecting the local decision of which molecular edit to propose with the longer-term decision of which optimization trajectory to continue. Within each expansion, two specialized agents contribute distinct proposal mech-anisms to this shared state. The Creative Molecule Explorer generates and screens candidate pools using molecular-design tools, whereas the Rational Medicinal Designer develops targeted edits supported by medicinal-chemistry knowledge and scaffold-matched optimization cases. Both receive the same selected parent, shared molecular analysis and completed-round screening feedback, including remaining target gaps and failure reasons, while retaining separate role-specific reasoning memories. The Med-Chem Retrieval Agent supplies concise, source-linked guidance while keeping detailed retrieval context local. A common Critic evaluates both branches against the same task contract. This organization lets each design agent focus on its proposal mech-anism while sharing the evaluated outcomes needed to continue optimization across rounds and branches. An execution harness connects this open-ended reasoning process to controlled updates of the shared state. The Chief Architect formalizes objectives and constraints as a task contract, while procedural instructions and role-specific tool restrictions guide execution. Agents provide natural-language design and evaluation rationales; an extraction-only Auditor converts their finalized outputs into predefined records using only explicitly stated molecules and evidence. Molecular validation, canonical iden-tity checks and structured-evaluation requirements govern graph admission, without excluding valid, evaluated intermediates solely because they do not yet satisfy the task. This separates the flexibility of free-text reasoning from the consistency require-ments of persistent records: LLMs remain involved in parent selection, molecular design and comparative assessment, while the harness governs execution boundaries and state updates. Recorded molecular transformations, rationales and evaluations remain linked for subsequent decisions and inspection by an on-demand Reporter. In summary, our contributions are as follows: 
+
+• Persistent-state graph-search orchestration. We introduce M3OS, an MCGS-orchestrated framework that decouples molecular-design reasoning from optimization-state management. A persistent graph explicitly links molecular identi-ties, transformation trajectories and evaluation evidence, retaining reusable history beyond individual agents’ conversational contexts. Accumulated rewards and visit statistics guide LLM-assisted parent selection, enabling subsequent rounds to revisit and extend previously evaluated intermediates. 
+
+• Specialized collaboration with controlled execution. We develop an execu-tion harness that coordinates tool-driven candidate generation and knowledge- and case-guided medicinal-chemistry editing under a common task contract and shared 3evaluation feedback. Role-specific contexts support complementary design strate-gies, while free-form design rationales are retained alongside structured molecular and evaluation records. Structured extraction and molecular validation govern graph updates, coupling flexible agent reasoning with controlled execution and traceable optimization. 
+
+• Improved performance across three optimization benchmarks. Exper-iments on MolOpt-120, MuMOInstruct-100 and SMDD-Bench-93 demonstrate higher mean candidate-pool success in property optimization and higher final-solution success in activity-constrained lead optimization than Codex and Claude Code using the same LLM backbone and molecular-tool access. 
+
+2 Results 
+
+2.1 Overview of M3OS 
+
+Each optimization round expands a selected molecular parent and incorporates the evaluated proposals into the persistent search graph (Fig. 1). The Chief Architect translates the starting molecule, objectives and constraints into a task brief. MCGS uses accumulated evaluations and visit statistics to rank expansion candidates, and an LLM selects a parent from the resulting shortlist using task context. The selected parent and previous screening feedback are provided to both gen-eration branches. The Creative Molecule Explorer builds and screens proposals with molecular-generation tools. The Rational Medicinal Designer develops molecular edits using medicinal-chemistry guidance and scaffold-matched transformation examples. Proposals from both branches undergo molecular validation, deduplication and Critic evaluation against the task contract. The execution harness converts finalized proposals and evaluations into structured graph records. Candidate identity, parent transformations, tool results and search statistics remain available for subsequent selection and expansion. For post-search inspection, the Reporter converts a graph snapshot into a molecular decision report. Before delivery, deterministic checks verify one graph node and one detail record per molecule, one rendered edge per valid graph relationship, consistent molecule identifiers, complete SMILES and direct-parent comparisons (Appendix D). 
+
+2.2 Benchmark Datasets and Subset Construction 
+
+We evaluated M3OS on three benchmark subsets covering property optimization and activity-constrained lead optimization. MolOpt-120 contains 120 starting molecules across eight single- or double-property tasks [22], while MuMOInstruct-100 contains 100 records across five tasks involving three or four properties [23]. SMDD-Bench-93 comprises 93 lead-optimization tasks requiring improved predicted target activity while satisfying physicochemical, ADMET and structural constraints [24]. Subset construction and adaptations to the original evaluation are detailed in Appendix F. 4User ：I want to optimize the molecule with SMILES: Cc1ccccc1CNC(=O)c1cnc(NC(C)c2ccccc2)nc1. The optimization goal is to improve hERG. Please generate 5 optimized molecules 
+
+Context Management 
+
+Functional Groups :
+
+IUPAC Name : N-[(2-methylphenyl)methyl]-2-(1-phenylethylamino)pyrimidine-5-carboxamide 
+
+MedChem Knowledge : 'Header 1': 'hERG Blocking', 'Header 2': '16.1 INTRODUCTION … - Basic Secondary Amine : High pKa … - Dual Aromatic Rings : Enable π-stacking with Phe656 ... - High Lipophilicity : cLogP strongly ... - Lack of Polar Groups : Insufficient H-bond acceptors … - ..…… 
+
+Structural Features & hERG Risk :
+
+MedChem Knowledge 
+
+Level 1 ：
+
+Core document Level 2: MedChem Wiki Level 3: Online search Books Papers 
+
+MinerU 
+
+Chief Architect Rational Medicinal Designer Critic Creative Molecule Explorer 
+
+Auditor Auditor 
+
+MCGS Procedure Control Overview 
+
+Reporter 
+
+TOP-UCB Candidates 1 234
+
+Selected Molecule Max Score 
+
+Critic Agent: Simulation 
+
+MCGS Procedure: 
+
+Selection 
+
+MCGS Procedure: 
+
+Backpropagation 
+
+Rational Medicinal Designer & Creative Molecule Explorer: 
+
+Expansion 
+
+… The pyridine replacement is a conservative, well-validated modification that … … a GOOD incremental improvement over the Current Molecule (hERG reduced from 0.698 to 0.045) … 
+
+Update UCT [Quantitative Metric Analysis] [Qualitative Structural Inspection] 
+
+Rational: Iteration 1 Iteration 2 hERG: 0.077 89.04% hERG: 0.045 93.55% MOLECULE SEARCH GRAPH 
+
+CoT: 
+
+Diagnosis Relevant Cases Strategy Generation 
+
+2-methylbenzyl → 2 -methylpyridyl 
+
+(↑H -bond, ↓Lipophilicity). 
+
+Cc1cccnc1CNC(=O)… 
+
+High lipophilicity and π-stacking of the 2-methylbenzyl group pose a hERG-mediated cardiotoxicity risk … hERG: 0.698 
+
+Evaluation 
+
+Structural departure Increase lipophilicity … 
+
+Precisely targets the liability… 
+
+CoT: AGENTs +MONTE CARLO GRAPH SEARCH 
+
+Creative : Generation Screen 
+
+Reporter Agent 
+
+Tools 
+
+REINVENT Boltz ADMET-AI PLIP 
+
+…
+
+AccFG STOUT Nesso 
+
+Skills 
+
+Mol. Generation Report Gen. MedChem Retrieval Activity Scoring 
+
+…
+
+Optimization Case Library 
+
+13,921 + Molecular Pairs Functional groups & Differences Optimization principle Optimization template 
+
+Prompt Files User 
+
+Project Brief 
+
+Molecular Context Validation Text to JSON 
+
+Diagnosis 
+
+Optimization Results Search Graph Base Node Top-5 UCT Nodes First round / User-selected Bottom-up Reasoning Top-down Reasoning 
+
+Invalid SMILES Invalid SMILES 
+
+Evaluation Text to JSON 
+
+Node Insertion Backpropagation 
+
+Later rounds 
+
+Selection 
+
+ Functional Groups 
+
+ IUPAC Name 
+
+ Topology Image 
+
+Task Information Extraction 
+
+ SMILES 
+
+ Optimization Goal 
+
+ Constraints 
+
+ Resource Budget 
+
+ Protein Sequence 
+
+ …… 
+
+Information Integration 
+
+Request Response Conversa-tion Project Brief Writing 
+
+PDF, Word, Excel, SDF, PDB, …… 
+
+Processed by tools 
+
+ Fragments (Keep / Modify) 
+
+ Risks 
+
+ Optimization directions 
+
+abFig. 1 M3OS architecture and optimization loop. a, Specialized agents share a persistent molecular graph that links candidates, structural transformations and evaluation evidence. b, Node selection, parallel Creative and Rational generation, molecular validation, common Critic evaluation and reward updates connect successive optimization rounds. Knowledge resources, tools and procedural skills support these operations. 
+
+2.3 Baselines 
+
+We compare M3OS with chemistry-specific language models, direct general-purpose language models, and general-purpose coding agents. The chemistry-specific base-lines include: (1) ChemLLM-7B-Chat-1.5-SFT [13], a conversational language model instruction-tuned for chemical knowledge and reasoning; (2) DrugAssist-7B [22], an interactive Llama-2 model fine-tuned on MolOpt-Instructions for single- and multi-property molecule optimization; (3) GeLLM 3O-P6-Mistral [23], a Mistral-based model instruction-tuned on MuMOInstruct to generalize across combinations of molecu-lar properties; (4) LlaSMol-CodeLlama-7B [14], which is instruction-tuned on the 5multi-task SMolInstruct corpus for chemical generation, prediction, conversion and reaction tasks; (5) mCLM-3B [25], a modular chemical language model that repre-sents molecules using functional and synthesis-oriented building blocks. The direct general-purpose language-model baselines include: (1) GPT-5.5; (2) Claude Opus 4.6; (3) Gemini 3.5 Flash; (4) Kimi-K3 Low (Reasoning effort=Low); (5) Kimi-K3 High (Reasoning effort=High). The general-purpose coding-agent baselines are (1) Codex and (2) Claude Code. Both use Kimi-K3 Low as their underlying LLM and have access to the full MCP tool set. Candidate-pool construction and benchmark-specific evaluation are described in Section 2.4. 
+
+2.4 Metrics 
+
+For MolOpt-120 and MuMOInstruct-100, we evaluate candidate pools produced under method-specific generation and selection protocols. Fixed-pool baselines generate 20 candidates per record, and coding agents return up to 20. M3OS pools contain up to 20 non-root, canonical-unique molecules selected post hoc from each cumulative search graph using system-ranked results for benchmark success, directional property gains and similarity. Repeated baseline outputs are counted separately. RDKit [26] evaluates molecular validity and physicochemical descriptors; similarity T (x, y ) is the Tanimoto coefficient [27] of 2,048-bit Morgan fingerprints [28] with radius 2 and no chirality encoding. ADMET-AI [29] supplies ADMET predictions. 
+
+MolOpt-120. 
+
+Loose success requires every requested property to improve strictly relative to the initial molecule. Strict success additionally requires all applicable thresholds: increases 
+
+> 0.1 for QED and BBBP, increases of at least two for Hydrogen Bond Acceptor (HBA) and Hydrogen Bond Donor (HBD), a solubility increase strictly between 0.5 and 1.5, and an hERG decrease > 0.1. For QED or BBBP with an initial value above 0.9, and for hERG with an initial value below 0.1, strict directional improvement satisfies the corresponding property criterion. For task t with 15 records, SR (q) 
+
+> t
+
+= 115 
+
+X
+
+> i∈I t
+
+1
+
+niniX
+
+> j=1
+
+s(q) 
+
+> ij
+
+, q ∈ { loose , strict }, (1) where It indexes task records, ni is the candidate-pool size, and s(q) 
+
+> ij
+
+indicates candidate success. Invalid candidates count as failures and remain in the denomi-nator. Validity uses the same averaging with a validity indicator. Overall rates are macro-averaged across the eight tasks. 
+
+MuMOInstruct-100. 
+
+For record i, let xi be the initial molecule, yij a candidate, Vi the valid-candidate indices and Pi the requested properties. SR is the fraction of valid candidates that strictly improve every requested property. Sim is the mean T (xi, y ij ) over all valid 6candidates. Directional relative improvement is RI i = 1
+
+|V i| |P i|
+
+X
+
+> j∈V i
+
+X
+
+> p∈P i
+
+dp
+
+ fp(yij ) − bip 
+
+
+
+|bip | , (2) where fp is the candidate property value, bip is its nonzero source baseline, and dp = +1 for BBBP, HIA, pLogP and QED, and −1 for mutagenicity. Similarity and RI include valid candidates that fail joint success. Each metric is averaged over records with valid candidates and then across the five tasks. Reported SR × Sim multiplies the corresponding values. 
+
+SMDD-Bench-93. 
+
+A candidate succeeds only if it satisfies all benchmark physicochemical, structural, ADMET optimization and hold constraints, including similarity ≥ 0.7 to the reference ligand. Nesso replaces Boltz for activity evaluation across all methods due to its faster speed and more accurate predictions, requiring binding probability > 0.7 and affinity improvement aref  
+
+> i
+
+−ai(y) ≥ 0.30. Both affinity values are predicted for the same protein target, with lower values preferred. Let Pi(y) indicate satisfaction of all requirements. For final output yfinal  
+
+> i
+
+and the set of recorded graph molecules V graph  
+
+> i
+
+,SR single = 193 
+
+> 93
+
+X
+
+> i=1
+
+Pi(yfinal  
+
+> i
+
+),
+
+SR graph -any = 193 
+
+> 93
+
+X
+
+> i=1
+
+1
+
+h
+
+∃y ∈ V graph  
+
+> i
+
+: Pi(y) = 1 
+
+i
+
+.
+
+(3) Graph-any evaluates the full graph without a 20-candidate cap, with each task contributing at most one success. 
+
+2.5 Performance Comparison 
+
+R1–R3 denote successive M3OS search rounds; MolOpt-120 and MuMOInstruct-100 report system-ranked cumulative candidate pools, whereas SMDD-Bench-93 separately evaluates final single-solution and graph-any success (Section 2.4). 
+
+2.5.1 Threshold-based property improvement on MolOpt-120. 
+
+The system-ranked M3OS R3 pools achieve the highest loose success rates on seven of the eight MolOpt-120 tasks and the highest strict success rates on five tasks (Table 1). Mean strict success across the eight tasks increases from approximately 0.47 at R1 to 0.70 at R3; the submitted Claude Code and Codex pools achieve approximately 0.61 and 0.60, respectively. 7Table 1 MolOpt-120 success rates (0–1; 15 records per task). L/S: loose/strict success; HBA/HBD: hydrogen-bond acceptors/donors. Rates average candidates, then records; invalid candidates count as failures. M3OS uses up to 20 system-ranked, unique non-root candidates per cumulative graph; critic-score ties at the cutoff are resolved by graph insertion order. Baseline duplicates are retained. Solubility, BBBP and hERG use ADMET-AI 1.3.1. Bold/underline mark the best/second-best unrounded rates; ties share emphasis.                                                                                                                                                                                                                                                                        
+
+> QED HBD HBA Sol. BBBP hERG Sol.+HBA QED+BBBP Model L↑S↑L↑S↑L↑S↑L↑S↑L↑S↑L↑S↑L↑S↑L↑S↑
+> Direct general-purpose language models
+> GPT-5.5 0.94 0.79 0.92 0.28 0.85 0.32 0.83 0.37 0.86 0.67 0.66 0.32 0.65 0.17 0.68 0.37 Claude Opus 4.6 0.95 0.78 0.93 0.24 0.83 0.18 0.89 0.31 0.88 0.71 0.72 0.41 0.68 0.09 0.73 0.42 Gemini 3.5 Flash 0.87 0.69 0.93 0.14 0.88 0.25 0.86 0.38 0.87 0.66 0.61 0.29 0.74 0.18 0.71 0.42 Kimi-K3 Low 0.90 0.76 0.89 0.16 0.87 0.17 0.83 0.41 0.83 0.70 0.67 0.35 0.65 0.14 0.61 0.33 Kimi-K3 Max 0.96 0.77 0.99 0.36 0.95 0.28 0.88 0.41 0.91 0.77 0.78 0.48 0.72 0.12 0.71 0.44
+> General chemistry language models
+> ChemLLM 0.49 0.32 0.11 0.02 0.29 0.08 0.48 0.25 0.24 0.15 0.43 0.34 0.23 0.02 0.32 0.17 LlaSMol 0.68 0.33 0.12 0.00 0.10 0.01 0.68 0.23 0.67 0.57 0.78 0.65 0.08 0.00 0.57 0.37 mCLM 0.26 0.17 0.52 0.26 0.40 0.30 0.73 0.02 0.55 0.46 0.85 0.75 0.38 0.19 0.40 0.20
+> Molecular-optimization models
+> DrugAssist 0.69 0.69 0.65 0.14 0.40 0.07 0.45 0.09 0.56 0.34 0.49 0.44 0.23 0.08 0.63 0.34 GeLLM 3O0.83 0.51 0.11 0.00 0.11 0.02 0.43 0.24 0.64 0.48 0.42 0.19 0.06 0.00 0.58 0.37
+> Agents with full MCP tools
+> Kimi-K3 Low (CC) 0.98 0.87 0.99 0.56 0.95 0.53 0.94 0.33 0.97 0.93 0.97 0.80 0.72 0.25 0.88 0.64 Kimi-K3 Low (Codex) 0.99 0.92 0.99 0.49 0.98 0.61 0.93 0.40 0.98 0.87 0.95 0.81 0.79 0.18 0.83 0.52
+> Ours
+> Kimi-K3 Low (R1) 0.98 0.84 0.96 0.24 0.84 0.26 0.91 0.30 0.95 0.85 0.87 0.59 0.74 0.21 0.78 0.50 Kimi-K3 Low (R2) 0.97 0.86 0.98 0.60 0.94 0.63 0.95 0.34 0.97 0.93 0.91 0.74 0.84 0.32 0.86 0.63 Kimi-K3 Low (R3) 0.99 0.89 0.99 0.70 0.99 0.77 1.00 0.33 1.00 1.00 0.99 0.88 0.89 0.28 0.94 0.71
+
+2.5.2 Joint optimization of multiple properties on MuMOInstruct-100. 
+
+On MuMOInstruct-100, the system-ranked M3OS R3 pools achieve the highest joint success rate on three of the five tasks, with a mean joint success rate of approximately 0.85 across tasks; the submitted Claude Code and Codex pools achieve approximately 0.80 and 0.74, respectively (Table 2). Both joint success rate and relative improve-ment increase from R1 to R3 across all five tasks under cumulative pool evaluation. On BMPQ, for example, joint success rises from 0.76 to 0.83, while mean similarity decreases from 0.46 to 0.34. 
+
+2.5.3 Activity-constrained lead optimization. 
+
+With Kimi-K3 Low as the shared LLM backbone, M3OS achieves the highest final single-solution success rate on SMDD-Bench-93, reaching 0.59 compared with 0.48 for Codex and 0.42 for Claude Code (Table 3). Graph-any success rates are 0.61, 0.57 and 0.47, respectively. M3OS therefore combines the highest final-solution success with the smallest difference between graph-any and final-solution success: approximately 0.02, compared with 0.09 for Codex and 0.05 for Claude Code. 
+
+2.6 Ablation Study 
+
+2.6.1 Generator composition and reasoning effort. 
+
+Combining the Creative and Rational branches yields the highest third-round joint success rate among the low-effort generator configurations on MuMOInstruct-100: 8Table 2 MuMOInstruct-100 results (20 records per task). Metrics average valid candidates, then records with valid outputs. SR: joint success rate (0–1); Sim.: Tanimoto similarity; RI: signed relative improvement. Task letters B/H/M/P/Q denote BBBP/HIA/mutagenicity/penalized logP/QED. M3OS uses up to 20 unique non-root candidates per cumulative graph, ranked in descending order by the system score; ties at the cutoff are resolved by graph insertion order. Baseline duplicates are retained. Bold/underline mark the best/second-best displayed values; ties share emphasis. Dashes indicate no valid candidates.                                                                                                                                                                                                                                                     
+
+> BPQ MPQ BHMQ BMPQ HMPQ Model SR ↑Sim. ↑RI ↑SR ↑Sim. ↑RI ↑SR ↑Sim. ↑RI ↑SR ↑Sim. ↑RI ↑SR ↑Sim. ↑RI ↑
+> Direct general-purpose language models
+> GPT-5.5 0.77 0.46 1.76 0.50 0.58 0.25 0.60 0.29 3.71 0.57 0.43 0.38 0.65 0.40 1.48 Claude Opus 4.6 0.73 0.51 1.68 0.65 0.58 0.45 0.62 0.35 4.24 0.58 0.49 0.80 0.70 0.42 1.93 Gemini 3.5 Flash 0.75 0.56 0.85 0.61 0.55 0.41 0.63 0.43 3.35 0.66 0.45 0.73 0.65 0.46 2.23 Kimi-K3 Low 0.50 0.57 0.51 0.61 0.54 0.36 0.59 0.43 3.22 0.51 0.46 0.66 0.66 0.37 1.87 Kimi-K3 High 0.76 0.40 0.72 0.81 0.42 0.68 0.70 0.34 4.90 0.66 0.34 1.00 0.72 0.39 1.92
+> General chemistry language models
+> ChemLLM 0.18 0.66 0.10 0.18 0.52 -0.13 0.15 0.59 0.83 0.20 0.43 0.03 0.09 0.55 0.24 LlaSMol 0.38 0.46 0.38 0.27 0.50 0.18 0.35 0.42 1.64 0.19 0.39 0.23 0.12 0.49 0.24 mCLM 0.12 0.25 0.02 0.00 0.23 -0.39 0.07 0.22 2.57 0.09 0.24 -0.06 0.10 0.12 2.21
+> Molecular-optimization models
+> DrugAssist 0.11 0.63 0.19 0.11 0.64 -0.13 0.00 0.68 0.38 0.22 0.63 0.40 0.28 0.62 0.57 GeLLM 3O0.57 0.66 0.43 0.52 0.59 0.41 0.44 0.64 1.34 0.38 0.64 0.45 0.38 0.67 0.74
+> Agents with full MCP tools
+> Kimi-K3 Low (CC) 0.88 0.41 1.14 0.79 0.47 0.63 0.78 0.34 4.83 0.75 0.40 0.93 0.82 0.37 2.73
+> Kimi-K3 Low (Codex) 0.67 0.55 0.91 0.90 0.44 0.75 0.71 0.37 4.52 0.68 0.43 0.86 0.72 0.41 2.56
+> Ours
+> Kimi-K3 Low (R1) 0.63 0.57 0.76 0.66 0.46 0.29 0.72 0.45 2.97 0.76 0.46 0.89 0.59 0.52 1.50 Kimi-K3 Low (R2) 0.74 0.49 0.92 0.75 0.41 0.54 0.84 0.38 3.99 0.79 0.37 1.01 0.70 0.46 2.17 Kimi-K3 Low (R3) 0.84 0.43 1.16 0.79 0.38 0.68 0.94 0.33 4.80 0.83 0.34 1.10 0.83 0.44 2.55
+
+Table 3 SMDD-Bench-93 task success rates. Single solution evaluates the final molecule; graph-any tests whether any recorded candidate satisfies all task constraints and Nesso activity criteria. SR is on a 0–1 scale. Bold/underline mark the best/second-best values. 
+
+Model Single solution SR ↑ Graph-any SR ↑
+
+Kimi-K3 Low (Claude Code) 0.42 0.47 Kimi-K3 Low (Codex) 0.48 0.57 Kimi-K3 Low (M3OS R3) 0.59 0.61 
+
+0.91 for complete M3OS, compared with 0.74 for Creative-only and 0.70 for Rational-only (Fig. 2a). The complete system progresses from 0.67 at R1 to 0.91 at R3, while Creative-only and Rational-only progress from 0.72 to 0.74 and from 0.58 to 0.70, respectively. The complete configuration’s advantage lies in joint success: a larger frac-tion of its selected candidates improves every requested property simultaneously. The configurations retain distinct property-improvement and structural-similarity profiles, with third-round RI of 2.24 for Creative-only, similarity of 0.42 for Rational-only, and RI/similarity of 2.19/0.37 for complete M3OS. Higher reasoning effort further improves third-round performance, increasing joint SR from 0.91 to 0.94 and RI from 2.19 to 2.40 (Fig. 2a). Mean similarity is 0.37 at low reasoning effort and 0.35 at high reasoning effort. 9R1 R2 R3 Round                   
+
+> 0.75 0.80 0.85 0.90 0.95
+> Loose success
+> 0.78 0.88 0.91 0.84 0.91 0.94 0.86 0.92 0.94
+> R1 R2 R3 Round
+> 0.50 0.55 0.60 0.65 0.70 0.75 0.80
+> Strict success
+> 0.54 0.69 0.76 0.57 0.72 0.79 0.60 0.73 0.80
+> Without Case Library Without MedChem Retrieval All
+> R1 R2 R3 Round
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Success rate
+> 0.58 0.66 0.70 0.72 0.72 0.74 0.67 0.77 0.91 0.70 0.84 0.94
+> R1 R2 R3 Round
+> 0.0 0.1 0.2 0.3 0.4 0.5
+> Similarity
+> 0.51 0.45 0.42 0.45 0.41 0.39 0.49 0.42 0.37 0.47 0.40 0.35
+> R1 R2 R3 Round
+> 0.0 0.5 1.0 1.5 2.0 2.5 3.0
+> Relative improvement
+> 1.45 1.66 1.77 2.07 2.18 2.24 1.28 1.76 2.19 1.46 1.97 2.40 Rational only Creative only M3OS M3OS (high reasoning)
+
+1 2 3 4 5 6 7 8 9 10 MCGS round 
+
+1.2 1.6 2.0 2.4 
+
+> RI
+
+60 70 80 90 100 
+
+> Success rate (%)
+> Directional RI (valid; left axis) Success / valid (right axis)
+
+acbFig. 2 Ablation study. a, MuMOInstruct SR, similarity and RI for Rational-only, Creative-only and complete M3OS at low reasoning effort, plus complete high-effort M3OS. SR: success rate; RI: relative improvement. b, Loose/strict success on BBBP/hERG (15 records each), all using Rational-only generation; “All” retains both retrieval sources. c, Ten-round complete low-effort M3OS: RI on the left axis, SR (%) on the right. Panels use cumulative oracle top-20 selection and equal task averaging; MuMOInstruct conditions on valid candidates. 
+
+2.6.2 Retrieved context. 
+
+On the 30-record hERG/BBBP subset, Rational-only generation with both retrieval sources achieves first-round loose/strict success of 0.86/0.60, compared with 0.78/0.54 without case retrieval and 0.84/0.57 without medicinal-chemistry retrieval (Fig. 2b). At R3, the corresponding rates are 0.94/0.80, 0.91/0.76 and 0.94/0.79. Across these two tasks, the observed success-rate differences are larger when case retrieval is removed. 
+
+2.6.3 Search depth. 
+
+M3OS reaches a joint SR of 96.0% within five search rounds and 97.5% within ten rounds on MuMOInstruct (Fig. 2c). SR increases from 67.1% at R1 to 91.4% at R3, while RI rises from 1.28 to 2.19, 2.45 and 2.63 at R1, R3, R5 and R10, respectively. The trajectories characterize how joint success and property improvement change as the cumulative search graph expands. 10 2.7 Case Study 
+
+The DHFR 16 task from SMDD-Bench illustrates molecular optimization under cou-pled activity, structural and ADMET requirements. It requires a reduction of at least 0.30 in the Nesso-predicted activity score, from 0 .4098 to ≤ 0.1098, while maintain-ing Morgan-fingerprint Tanimoto similarity Tc ≥ 0.70 and satisfying four ADMET windows and thirteen hard constraints. ADMET properties were evaluated with ADMET-AI [29]. Within three search rounds, M3OS identified 19 candidates satisfying the complete task contract (Fig. 3a). The graph links these candidates to their parent transforma-tions, including two representative paths involving distal hydroxyl-arm extension and a change in benzimidazole N -substitution connectivity that preserves the molecular formula (Fig. 3b). Across the run, 766 proposals yielded 111 structures passing the basic filters and 26 evaluated graph candidates, alongside the reference root. The diaminoquinazoline anchor remained unchanged across all 19 qualified molecules. In their Boltz-2-predicted hDHFR complexes [30], contacts to Glu30, Ile7, Val115, Tyr121, Phe31 and Asn64 were retained throughout the population, whereas Arg70 contacts occurred in four complexes (Fig. 3c). The representative pocket views show distinct distal geometries: mol15 places its terminal hydroxyl oxygen 3 .10 ˚ A from Arg70 Nη2, while mol21 places its terminal hydroxyl oxygen 2 .79 ˚ A from the Phe31 backbone carbonyl oxygen (Fig. 3d). Across the N -inverted series, longer arms were associated with shorter hydroxyl–Arg70 distances (Spearman ρ = −0.47, n = 14; Fig. 3e). The two edit series preserve the diaminoquinazoline anchor while varying distal-arm geometry and benzimidazole N -substitution. 
+
+3 Discussion 
+
+M3OS makes the evaluated molecular candidate the shared unit of coordination across agents: proposals are associated with a specific parent, assessed against a common task contract and retained for subsequent expansion. This organization connects the local decision of which structural edit to propose with the longer-term decision of which molecular trajectory to continue. The generator comparison identifies joint property improvement as the clearest advantage of the complete configuration, while SMDD-Bench-93 tests whether the system delivers a final molecule satisfying the coupled design constraints. These results support the evaluated system configuration; isolating the effect of MCGS parent selection requires comparisons with alternative selection policies under a common budget. The current evaluation uses predicted properties, so prospective synthesis and assays are needed to establish the experimental activity and ADMET profiles of selected candidates. Prediction errors and heuristic Critic scores can influence sub-sequent search priorities, motivating uncertainty-aware evaluation and independent experimental feedback. Incorporating measured properties into the same molecular state would extend the workflow toward iterative design–make–test cycles. M3OS pro-vides a concrete architecture for keeping molecular proposals, evaluations and search decisions connected throughout this process. 11 Arg70 Phe31 Glu30 Tyr121 Ile7 Val115 2.79 Å Arg70 Asn64 Phe31 Glu30 Tyr121 Ile7 Val115 3.10 Å                 
+
+> (d) Pocket views
+> mol15 mol21
+> root mol5 mol15 root mol6 Distal-arm extension N-substitution inversion Nesso | T cNesso | T cNesso | T c
+> Nesso | T cNesso | T c
+> +0.410 | 1.000 -0.707 | 0.818 -0.793 | 0.794 +0.410 | 1.000 -0.396 | 0.934
+> (b) Molecular-edit trajectories
+> Distal-arm extension
+> (a) Search graph (c) Contact conversation (e) Arg70 geometric trend
+> 766 → 111 → 27 → 19 proposal filtered nodes qualified
+
+Fig. 3 Constrained molecular optimization on hDHFR. (a) Search graph and candidate counts for three optimization rounds. Purple circles denote task-qualified candidates; crossed red circles denote critic-rejected candidates. Highlighted edges trace the molecular-edit paths shown in 
+
+(b) . (b) Representative molecular-edit trajectories, with modified regions highlighted and search-time Nesso scores and Tanimoto similarities shown below each structure. (c) Fraction of qualified complexes contacting each residue; labels give counts. (d) Predicted pocket views of mol15 and mol21. Ligands are yellow and orange, respectively, and selected pocket residues are cyan. Annotated heavy-atom distances connect the terminal hydroxyl oxygen to Arg70 Nη2 in mol15 and to the Phe31 backbone carbonyl oxygen in mol21. (e) Terminal hydroxyl–Arg70 distance grouped by distal-arm length and N -substitution series. Points represent molecules, vertical ticks indicate row medians, and right-hand labels give sample sizes. Residues use mature hDHFR numbering. 
+
+4 Methods 
+
+4.1 Task representation and shared search state 
+
+A task specifies an initial molecule m0, a natural-language objective, explicit structural or property requirements, and optional protein context. The Chief Architect con-verts these inputs into a task brief and search budget. Relevant ADMET optimization directions are specified at initialization; supplied thresholds, intervals, baseline-relative objectives and hold tolerances become an executable task contract. Numerical eligi-bility thresholds are taken from the supplied task requirements; objectives specified by direction are represented as directional criteria. The persistent directed graph Gt = ( Vt, E t) links candidate identity to design his-tory. Nodes are identified by canonical SMILES and retain generation provenance, evaluations and search statistics; edges record parent–child transformations. The ini-tial molecule is the root; evaluated intermediate structures remain available alongside selected final candidates. Rediscovered molecules reuse existing nodes with additional incoming transformation edges. Both generator branches receive completed-round screening history, including remaining target gaps and failure reasons, while main-taining separate reasoning memories. The graph supplies candidate-level evidence and 12 search statistics for subsequent node selection, while preserving the transformation history for analysis (Appendix E). 
+
+4.2 Graph-guided optimization loop 
+
+After evaluating the initial molecule, MCGS ranks reachable nodes using an upper-confidence score computed from accumulated rewards, node visits and parent visits. An LLM selects the expansion base from this shortlist using task context and node-level evidence; the choice must identify a shortlisted, existing node. Appendix E specifies the selection and update equations. A shared analysis identifies conserved fragments, modifiable regions and opti-mization priorities. The Creative Molecule Explorer builds and screens a candidate pool, while the Rational Medicinal Designer proposes edits using molecular evidence, medicinal-chemistry knowledge and optimization cases. The branches run in parallel. Their proposals are structurally extracted by the Auditor, validated and dedupli-cated before common Critic evaluation against the task contract. The Critic integrates computational evidence to assess each candidate’s improvements and satisfaction of the task constraints. Parent-aligned structural comparisons accompany candidate representations. The Critic combines tool records with medicinal-chemistry reasoning to assign a heuristic score Scritic (m) ∈ [0 , 1]. Search uses 
+
+Sgraph (m) = αS critic (m) + (1 − α)Ssim (m, m 0), (4) where Ssim is radius-2, 2,048-bit Morgan-fingerprint Tanimoto similarity to the initial molecule and α controls the weighting. Critic, similarity and graph scores remain separate from task-gate outcomes. Molecularly valid, evaluated candidates enter the graph with their task-satisfaction status, preserving intermediate structures for further optimization. The highest graph score in each nonempty expansion supplies the reward propagated along the selected root-to-candidate path: visits increase by one and accumulated rewards by that score. Search ends at the requested expansion budget or task-specific stopping criteria, and final candidates are selected by graph score. 
+
+4.3 Controlled updates and evidence interfaces 
+
+An extraction-only Auditor converts finalized generator and Critic responses into structured records, using only explicitly stated molecules and evidence. Graph updates require valid molecular representations and structured evaluations. Role-specific tool allowlists and local wrappers enforce execution restrictions, while procedural skills guide decisions (Appendix A). Audited outputs, tool evidence and transformation records retain the provenance of candidate evaluations. We organize medicinal-chemistry sources into an optimization-oriented document collection and a concept-oriented knowledge base (Fig. B1a). The MedChem Retrieval Agent returns concise, source-linked guidance while retaining detailed retrieval con-text within the agent. This interface supplies focused evidence for design decisions; construction and retrieval procedures are detailed in Appendix B. 13 We organize property-specific molecular optimization relations into directed graphs and retrieve scaffold-matched connected components for the Rational Medicinal Designer (Fig. B1b,c). These subgraphs provide related transformation examples and model-generated rationales for candidate edits, connecting retrieved cases to the cur-rent molecular context. Graph construction, preprocessing and resource statistics are detailed in Appendix C. On request, the Reporter converts a read-only graph snapshot into an HTML report subject to identity, coverage and consistency checks (Appendix D). 
+
+Competing interests 
+
+The authors declare no competing interests. 
+
+Data availability 
+
+The benchmark task identifiers, generated molecules, search-graph traces and evalua-tion scripts supporting the reported results are available at https://drive.google.com/ drive/folders/12m4yYNW5deKtYipsdaqmWrdZkbIr2Hi6?usp=drive link. 
+
+Code availability 
+
+The code of M3OS and MCP Server is freely available at https://github.com/ wwwangjunjie/M3OS and https://github.com/wwwangjunjie/M3OS MCP. 
+
+Acknowledgements 
+
+This work was supported by the National Natural Science Foundation of China (Grant No. 82607511) and Eastern Talent Plan (QNZH2025122). 
+
+Appendix A Tools and procedural instructions 
+
+A.1 Computational capabilities and execution boundaries 
+
+The tool layer combines external computational services exposed through MCP with local functions that bind the current task and enforce role-specific restrictions. Table A1 summarizes the computational capabilities. Generators propose and screen structures, the Critic evaluates the complete valid candidate set, and the MedChem Retrieval Agent mediates external medicinal-chemistry retrieval. The Auditor extracts information from finalized responses, and the Reporter consumes the graph handoff. Procedural instructions specify role-level decision rules, and interface allowlists define the operations available to each role. 
+
+A.2 Procedural skills 
+
+Procedural skills guide recurring decisions during molecular optimization: selecting generation and screening strategies, assessing the applicability of retrieved transfor-mations, applying common evaluation criteria, and organizing molecular evidence 14 Table A1 Computational capabilities used by the current M3OS workflow. Task Primary Tool Components Molecular and protein data retrieval UniProt [31], ChEMBL [32], STOUT [33] Medicinal-chemistry knowl-edge retrieval Curated MedChem Resources, Synto [34] Literature search and question answering DuckDuckGo, PubMed, Semantic Scholar, MinerU [35] SMILES processing, valida-tion, and topological graph generation RDKit [26] Molecular generation REINVENT4 [36] with Mol2Mol [37], LinkInvent [38], and Lib-Invent [39] ADMET prediction and con-straint screening ADMET-AI [29]; RDKit Optimization case retrieval Custom-built Molecular optimization case library Target-activity prediction and screening Nesso-1 [40] Complex structure and inter-action analysis Boltz-2 [30] and PLIP [41] 
+
+for search and reporting. Table A2 lists the skills and role assignments used by the implementation. 
+
+A.3 Callable interface inventory 
+
+Table A3 lists the current M3OS orchestration functions, task-specific wrappers and supporting MCP domain interfaces. The callable set in a session depends on configured endpoints, successful discovery, disabled-tool settings and role allowlists. Local wrap-pers that reuse an MCP function name are represented by the corresponding service entry, with their restrictions described in Section 4.3. The general molecular utilities and source-path resolver remain supporting interfaces even when absent from default reasoning-agent allowlists. Operational health checks, framework planning/filesystem utilities, broad wiki administration and verbatim-source wiki interfaces are excluded from this domain inventory. Routine wiki retrieval exposes only the five article/concept interfaces listed below. 
+
+Table A3 : M3OS orchestration functions and supporting MCP domain interfaces. Function Description 
+
+Local M3OS orchestration 
+
+get uploaded file info Documents and metadata uploaded to the session. ask medchem knowledge Concise, source-aware guidance from the MedChem Retrieval Agent. run mcgs search Graph search with the requested objective, generator mode, expansion-round limit and candidate target. Continued on next page 
+
+15 Table A3 (continued) Function Description generate optimization report Validated self-contained HTML decision report from the current graph and optimization trace. screen reinvent candidates by constraints Hard/ADMET screening of the current generation CSV; returns at most five passing Creative candidates. screen reinvent candidates by intersection Nesso activity gates over the qualified set; retains at most ten candidates with screening evidence. evaluate candidate constraints Scores the full current-round candidate set against the task contract, including failures. evaluate nesso activity Nesso prediction with initial and current ligand references; returns raw metrics, task gates, scores and ranks. 
+
+General molecular and retrieval MCP server 
+
+web search, get protein uniprot ids, get protein sequence, get molecule smiles, answer research paper question, download research papers Web, UniProt and ChEMBL lookup; retrieval-augmented question answering over open-access papers. molecular similarity search, validate smiles string, validate smiles batch, clean smiles dataset Morgan-fingerprint similarity and RDKit SMILES valida-tion utilities. smiles to fragments str, generate molecule topology image, generate molecule difference image, generate molecule pair difference image Functional-group decomposition (AccFG) and molecular depiction with difference highlighting. 
+
+IUPAC naming MCP server 
+
+generate iupac name IUPAC names for molecular SMILES by STOUT. 
+
+ADMET-AI MCP server 
+
+admet filter by admetai, admet predict by admetai, admet filter by task constraints ADMET endpoint prediction and explicit RDKit/AD-MET constraint screening. 
+
+Nesso activity MCP server 
+
+nesso filter by cofolding, nesso predict by cofolding Binding-probability and affinity prediction with cached protein–ligand results. 
+
+REINVENT4 MCP server 
+
+setup generation Mol2Mol LinkInvent, prepare smi input, run generation, generate similarity constrained mol2mol, setup libinvent, prepare scaffold Mol2Mol, LinkInvent and LibInvent configuration and generation runs. Continued on next page 
+
+16 Table A3 (continued) Function Description 
+
+Medicinal-chemistry source-catalog MCP server 
+
+list medchem sources, resolve medchem source paths, read medchem sources Listing, path resolution and provenance-aware reading of curated MedChem sources. 
+
+Molecular-evolution-case-graph MCP server 
+
+query evolutionary optimization cases, extract molecule scaffold Scaffold-similar evolution-subgraph retrieval and Bemis– Murcko scaffold extraction. 
+
+Boltz/PLIP MCP server 
+
+generate protein ligand complex, analyze protein ligand interactions Protein–ligand complex generation and PLIP contact extraction. 
+
+M3OS wiki MCP server by Synto 
+
+read article, find concept, search articles, get concept, answer question Approved-article and concept retrieval over the concept-oriented knowledge base. 
+
+Appendix B Medicinal-Chemistry Knowledge Base Construction and Retrieval 
+
+Fig. B1a summarizes knowledge construction; panels b,c show the case-graph con-struction and retrieval described in Appendix C. The optimization-oriented knowledge collection was constructed from 1,221 doc-uments covering medicinal chemistry, pharmacology, drug-design methodology and drug-development case studies, supplemented by 45 chapters describing functional groups and privileged scaffolds. An instruction-guided distillation procedure was applied to retain only information directly relevant to molecular optimization with instructions to exclude unrelated material and not introduce chemical claims unsup-ported by the source documents. This process yielded 86 core documents, comprising 16 documents on structural optimization strategies and empirical rules, eight on con-temporary molecular-design tactics, 17 on optimization of drug-like properties, eight on functional groups and 37 on privileged scaffolds. Each distilled document was accompanied by a concise description of its scope, which was used during retrieval to identify relevant documents before introducing their full content into the model context. The persistent concept-oriented knowledge base was implemented using Synto [34] following the LLM Wiki framework [42]. During source ingestion, each document was assigned a summary, language label and quality category. A language model then extracted a bounded set of candidate concepts, with the maximum number determined by source quality: up to eight concepts were retained from high-quality sources, four from medium-quality sources and two from low-quality sources. Candidate terms were 17 Table A2 Active procedural skills and their role assignments in M3OS. 
+
+Skill Assigned agent(s) Description Candidate-quality gating Critic Evaluates all current-round candidates with frozen ADMET endpoints or explicit task con-straints, then combines quantitative evidence with medicinal-chemistry risk review. Nesso activity evalu-ation Critic Evaluates both generator branches with Nesso, adds comparison baselines, and preserves deter-ministic activity gates, scores and ranks. Case-guided medici-nal design Rational Converts pharmacophore and SAR hypotheses, medicinal-chemistry knowledge and retrieved optimization cases into interpretable, goal-calibrated molecular edits. Medicinal-chemistry knowledge retrieval Retrieval Routes focused questions through shared mem-ory, curated sources, the concept-oriented knowl-edge base and, when required, external litera-ture. Molecular optimiza-tion case retrieval Rational Retrieves scaffold-similar subgraphs from property-specific evolution graphs and extracts transferable transformation signals with their applicability limits. Concept-oriented knowledge retrieval Retrieval Selects concept, article or multi-article retrieval according to query scope. Protein-context assessment Rational Interprets initial-complex PLIP contacts as evi-dence for conserved features and modification hypotheses, retaining uncertainty about pre-dicted structures and unmodeled candidates. REINVENT candi-date generation and filtering Creative Selects LibInvent, LinkInvent or Mol2Mol gener-ation and one task-appropriate ADMET, activ-ity or constraint-screening route. Lead-optimization intersection screen-ing Creative Applies explicit hard, ADMET and hold con-straints; for activity tasks, screens the complete qualified set with Nesso before final selection. SMILES validity gat-ing Creative, Rational, Critic Validates final SMILES in batch; generators may attempt up to three intent-preserving repairs, while the Critic may only correct copied struc-tures against valid input candidates. Optimization report synthesis Reporter Converts the versioned molecular-search-graph handoff and programmatically generated molec-ular assets into a self-contained HTML decision report while preserving complete graph cov-erage, molecular numbering and parent–child provenance. 
+
+reconciled against an existing registry of canonical concepts and aliases so that syn-onyms, abbreviations and spelling variants could be mapped to the same concept. Each source-level record retained its summary, quality assessment and associated canonical 18 Raw MedChem Sources MinerU Header Rectification Split Relevant Content Filtering Core Documents LLM Wiki for Molecule Optimization (Books & Papers) 
+
+Refined Markdown Files 
+
+Clean 
+
+Markdown ver. 
+
+Core Documents 
+
+LLM-based Distillation Metadata Generation Curated MedChem Knowledge Base 
+
+Core Documents (YAML Frontmatter) 
+
+1. Ingest & Concept Extraction Summary Source Concepts …… 
+
+2. Concept Compilation 
+
+Source Segments Published Articles Feedback Drafts Verified Drafts Published Articles 
+
+3. Evolution 
+
+Change Source Re-analysis Associated Concept Retrieval 
+
+Mark for Compilation 
+
+WIKI Index 
+
+Curated MedChem Knowledge Base 
+
+Filtering 
+
+> (Drug-like Properties, Functional Groups, Privileged Scaffolds, Strategies ……)
+
+Patents MMPAS MMPs Threshold Filtering Node Info. Curated MMPs (Single-Site) 
+
+MMPs (Single-Site) 
+
+1. Case Collection DAG Construction Transitive Reduction 2. Graph Construction & Refining 
+
+Edge Info. 
+
+Canonical SMILES IUPAC Name Functional Groups BM Scaffold …… Functional Group Change Optimization Site Labeling MMP comparison image Source/Target Info. Modification &Medchem Reason 
+
+Connected Components 3. Create Scaffold-Conponents Dict. Scaffold: S1 S2 S3 Sn ...
+
+Component: C1 C3 C2 
+
+ab
+
+Optimization Case Retrieval Queried Molecules Queried Scaffold 
+
+Greedy Search Initial Remaining Conponents 
+
+Most Similar Scaffold: S1 C2 C1 C3 C2 C3 After Remove C1 
+
+Second Most Similar Scaffold: S2 Select C1 
+
+S1 in C1 Select C2 
+
+S2 in C2 
+
+After Remove C2 C3 Third Most Similar Scaffold: Sn Select C3 
+
+Sn in C3 BM Algo. 
+
+Component to Markdown 
+
+### Evolution Subgraph 1 Matched scaffold: `c1ccccc1` Similarity: 0.82 Size: 12 nodes, 15 edges 1. `<Source SMILES>` → `<Target SMILES>` - Modification: Benzylic fluorination - Reason: Reduce metabolic oxidation …… 
+
+cFig. B1 Knowledge and case resources. a, Source documents form an optimization-oriented collec-tion and concept wiki. b, Matched molecular pairs form annotated optimization graphs. c, Scaffold matching retrieves connected transformation examples for rational design. Case-graph construction is detailed in Appendix C. 
+
+concepts, thereby preserving an explicit connection between the original source and the resulting knowledge representation. Concept articles were generated by jointly considering all sources associated with a canonical concept. A higher-capacity language model integrated this evidence with the previous version of the article, when available, to produce a single synthesized rep-resentation. Articles contained links to related concepts and statement-level references to supporting sources. Their metadata included aliases, subject tags, contributing sources, source-quality information, confidence, review status and generation history. Newly generated or updated articles were assigned draft status and excluded from routine retrieval until approval. Automated structural quality control additionally 19 Table C4 Property-specific molecular evolution graphs used by M3OS. Components are weakly connected components of the directed graph. Property Nodes Edges Roots Components Largest component BBBP 674 665 331 155 35 hERG 1,934 2,651 1,063 360 54 Human liver microsomal stability 2,391 3,956 1,228 388 80 Apparent permeability ( Papp ) 2,171 5,349 1,019 293 163 
+
+identified incomplete metadata, unresolved inter-concept relationships, isolated con-cepts and weakly connected regions of the knowledge graph for subsequent review. At the time of analysis, the knowledge base contained 1,199 source documents, 1,197 source-level records, 829 approved concept articles and 202 articles awaiting review. A dedicated MedChem Retrieval Agent mediated access to these resources. The agent first inspected relevant information retained in short-term memory to avoid redundant retrieval. When additional information was required, it queried both the optimization-oriented collection and the concept-oriented knowledge base. Focused questions concerning a specific chemical concept were resolved primarily against the corresponding concept article. When query terminology was ambiguous, a small set of candidate concepts was retrieved and compared before selecting the most relevant rep-resentation. Broader questions requiring information distributed across several topics were addressed by synthesizing evidence from multiple concept articles. Only approved concept-level articles were available during routine retrieval; draft articles, corpus-wide inventories and verbatim source passages were excluded from this retrieval pathway. Public web search and research-paper retrieval supplement the curated resources when a question requires additional coverage, recent findings or primary evidence. Detailed documents remain within the MedChem Retrieval Agent, which returns a concise synthesis of task-relevant evidence, source references and applicability conditions. 
+
+Appendix C Construction of Molecular Evolutionary Graphs 
+
+Historical molecular-optimization cases were curated from proprietary patents and organized into property-specific directed graphs for BBBP, hERG liability, human liver microsomal stability, and apparent permeability ( Papp ). For each property p, a graph 
+
+Gp = ( Vp, E p) was constructed, where nodes represent unique molecules and directed edges encode reported before–after optimization relationships. Each edge is directed toward the molecule with the improved target-property value. To derive these rela-tionships, molecular pairs were extracted using the Matched Molecular Pair Analysis (MMPA) tool [43, 44], retaining only those involving a single-site change that con-ferred a measurable improvement in property value. Table C4 summarizes the resulting resources, and Fig. B1b,c illustrates the construction and retrieval workflow. 20 Input SMILES were parsed with RDKit and converted to canonical isomeric SMILES. Invalid structures and molecular pairs that became identical after canonical-ization were excluded. Duplicate directed relations were merged while retaining their evidence counts and annotations. Each property-specific graph was constrained to be acyclic. Transitive reduction was then applied so that redundant direct edges were removed while preserving reachability; the corresponding evidence and replacement paths were stored separately. Each node was annotated with a structure-preserving Bemis–Murcko scaffold [45]. For every retained edge, the molecular pair was aligned using a maximum common substructure with complete ring matching and compatible valence states. The paired depiction highlighted conserved and modified structural features and was used by a vision-capable language model to generate a structural-transformation description and property-specific medicinal-chemistry rationale. For retrieval, query and graph scaffolds were represented using radius-2, 2,048-bit Morgan fingerprints and compared by Tanimoto similarity [27, 46]. Weakly connected components were ranked by their best scaffold match to the query, and up to three distinct components were returned for each requested property. The transformation descriptions and medicinal-chemistry rationales are model-generated annotations of the source-derived molecular relations. They serve as design hypotheses presented to the Rational Medicinal Designer rather than verified medicinal-chemistry claims; whether a suggested edit is adopted is determined by the subsequent tool-based candidate evaluation, not by the annotation itself. 
+
+Appendix D Optimization Report Generation and Validation 
+
+Fig. D2 summarizes the graph-to-report generation and validation workflow, while Fig. D3 presents an example report for the DHFR 16 task, illustrating how recorded optimization trajectories and candidate-level evidence are organized for post-search inspection. 
+
+D.1 Graph snapshot and handoff. 
+
+When a report is requested, M3OS deep-copies the current search-graph snapshot and, when the live graph is available, enriches it with parent-specific transformation metadata. The resulting versioned JSON handoff contains the task objective, complete node and edge sets, molecular representations, search scores and properties, structural edits, generator and Critic rationales, and report-coverage controls. The graph remains the source of candidate identities, optimization outcomes and design rationales in the report; generated molecular assets provide deterministic depictions and descriptors of those recorded structures. 21 Interactive Search Graph Template Search Graph     
+
+> {"nodes": [ {"id": "MOL_xxx", "smiles": "...", "parent_ids": ["MOL_parent"], "parent_smiles": ["..."], "iteration": 2, "agent_type": "rational_...", "critic_score": 0.86, "root_similarity": 0.71, "visit_count": 2, "uct_value": 0.82, "action": "...", "generator_rationale": "...", "critic_rationale": "...", "properties": {}, …… }], "edges": [ {"source": "MOL_parent", "target": "MOL_child", "action": "...", "score_delta": 0.12 }], "summary": { "node_count": 12, "edge_count": 14, "optimization_goal": "..." }"root_id": "MOL_xxx", "root_smiles": "...", "best_smiles": "...", }
+> Snapshot Filesystem Sandbox
+> Deterministic Component Generation Molecule Assets
+> 2D Structure SVGs Descriptors Parent-Child Comparison SVGs
+> HTML Coding Report Skill
+> Independent Temporary Workspace Verification
+> Output Directory
+> PASS Interactive Self-contained Report
+> Organization Summary Candidate Cards Audit Table
+> FAIL
+
+aFig. D2 Search-report generation. Molecular depictions, predictions, rationales and an interactive graph are assembled from a graph snapshot into an HTML report. Validation gates delivery; PASS/-FAIL indicate check outcomes. 
+
+D.2 Molecular assets and graph rendering. 
+
+Before invoking the coding agent, M3OS assigns each graph node a deterministic, report-wide molecule number. The Full-Node Audit provides the authoritative map-ping from these numbers to topology diagrams and full canonical SMILES, while summaries, recommendations and synthesis lists refer primarily to molecule num-bers. RDKit-based routines generate unhighlighted topology depictions, deterministic molecular descriptors and parent-aligned structure-difference SVGs. A separate ren-derer constructs the complete Molecular Search Graph component from all graph nodes and valid parent–child edges, supporting node selection, detail inspection, zooming, panning, dragging and view fitting. 
+
+D.3 Isolated document assembly. 
+
+The coding agent runs in a disposable workspace containing the versioned JSON hand-off, molecular assets, the prebuilt search-graph component and a dedicated reporting skill. The project source tree and private development references are not exposed to the reporting task. The agent implements the document structure, styling and inter-actions and embeds the prebuilt graph component verbatim. The report contains a summary of the main findings, a root profile, branch- and round-level analysis, focused parent–child candidate cards, the complete node audit, recommendation tiers, a synthesis shortlist, risk analysis and proposed next experiments. Interactive features include molecule filtering, synchronized reviewer selections and notes, CSV export and re-export of a self-contained HTML document. All CSS, JavaScript, molecular SVGs and state required for review are embedded in the report, eliminating runtime dependencies on external web resources. 22 M3OS Optimization Decision Report - DHFR_16 (5SD6) 
+
+Binding-focused lead optimization for DHFR (complex 5SD6). Activity evaluator: Nesso only (lower affinity prediction is better; initial 0.4098, 
+
+target ≤ 0.1098, probability > 0.7). Generated 2026-08-31T06:52:56.373341+00:00 from the complete three-round M3OS molecular search graph. 
+
+Decision summary 27 
+
+Graph nodes 
+
+3
+
+Optimization rounds 
+
+19 
+
+Candidates passing all gates (computed) 
+
+25 
+
+Meeting the Nesso activity target 
+
+(computed) Bottom line: Molecule 21 is the recommended lead. Among the 19 candidates that pass every computed task gate, it carries the strongest Nesso activity prediction (predicted affinity -0.8426 vs goal ≤ 0.1098, probability 0.953 > 0.7) with all hold-constant, similarity, and hard-constraint checks satisfied. Molecule 22 (Nesso pred -0.8323) is the strongest backup. The five-compound synthesis shortlist below is selected from all 26 non-root candidates across the full three-round graph. All activity, ADMET, and similarity figures are computational predictions recorded in the search graph (Nesso activity model; hold-constant property 
+
+predictors). RDKit descriptors are deterministic calculations from molecule_assets.json . No experimental measurements are present in this dataset; nothing here is wet-lab evidence. 
+
+Root baseline - Molecule 1 
+
+Unhighlighted RDKit depiction of the reference ligand (DHFR complex 5SD6 series). 
+
+Canonical SMILES 
+
+COc1cc2c(cc1CO)nc(-c1nccs1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Search-graph properties supplied search values Nesso affinity pred (search) 
+
+0.4098 
+
+Nesso improvement vs initial (search) 
+
+N/A 
+
+Nesso probability (search) 
+
+0.7883 
+
+Nesso activity rank (search) 
+
+N/A 
+
+Tanimoto similarity (search) 
+
+N/A 
+
+hERG (pred) (search) 
+
+0.901 
+
+BBB (pred) (search) 
+
+N/A 
+
+Solubility (pred) (search) 
+
+-3.0206 
+
+CYP3A4 (pred) (search) 
+
+0.5361 
+
+Critic score (search) 
+
+N/A 
+
+RDKit descriptors deterministic RDKit calculations 
+
+MW (Da) 
+
+419.47 
+
+cLogP 
+
+2.757 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+4
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.1 
+
+Interactive evolution graph 
+
+Prebuilt M3OS Molecular Search Graph component (embedded verbatim). Select nodes for details; zoom, pan, drag, and fit are supported. Iteration 0 is the root baseline; the graph covers 3 optimization rounds. 
+
+M 3 O S 
+
+Molecular Search Graph Molecular Search Graph Nodes 27 Edges 33 Best score 0.8686 Rounds 3 Molecule 21 Best · R ound 3 
+
+CCC(O)c1cc2c(cc1OC)nc(-c1nccs1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+DIRECT PARENT 
+
+Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc(N)nc4c3)c2cc1CCO 
+
+EDIT 
+
+Carbinol ethyl (secondary alcohol, Ar–CH(OH)CH2CH3) 
+
+Generator rationale 
+
+Adds hydrophobic ethyl adjacent to OH toward Phe31 shelf 
+
+Critic rationale 
+
+Nesso rank 1 among gate-passing candidates (pred -0.843, +1.252 vs initial, prob 0.953); preserves full pharmacophore; all holds pass; solubility margin 0.086 thinnest Molecular weight 
+
+447.52 
+
+cLogP 
+
+3.709 
+
+TPSA 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+5
+
+Aromatic rings 
+
+5
+
+Fsp3 
+
+0.182 Branch & round analysis 
+
+Iteration 0 ( Molecule 1 ) is the root baseline and is not an optimization round. Counts, pass rates, and round-best values are derived in code from the search graph. MCGS iteration is recorded as provenance only 
+
+and was never used to filter candidates. 
+
+1 13 10 -0.7072 Molecule 5 
+
+2 6 3 -1.0376 Molecule 19 
+
+3 7 6 -0.8426 Molecule 21 
+
+Root Layer 1 Layer 2 
+
+benzimidazole 5-CH 2O H extended benzimidazole 5-CH 2O H extended benzimidazole 5-CH 2O H replaced benzimidazole 5-CH 2O H replaced 6-OM e replaced wit h
+
+6-OM e replaced wit h
+
+6-OM e extended to 6-OM e extended to 6-OM e replaced wit h
+
+6-OM e replaced wit h
+
+benzimidazole substituent regioisomer benzimidazole substituent regioisomer 6-OM e extended to 6-OM e extended to 
+
+OM e→OE t (met hoxy to CH 2O H→CH 2OM e ( hydroxymet hyl capping) 
+
+Th iazole 4-met hyl addition Quinazoline 5-met hyl addition Quinazoline 5-fluoro substitution Combined OM e→OE t and Quinazoline 5-met hyl addition 
+
+Th iazole 4-met hyl addition 
+
+Ethanol tail alp ha-met hyl 
+
+Ethanol tail homologation 
+
+OM e to OE tDual met hyl addition Carbinol et hyl (secondary Branc hed butanol ( homologation CH 2O H replaced wit hα-Met hyl propanol (branc hα-Met hyl s hift to 
+
+Tertiary carbinol Ar –C(CH 3)2O H
+
+> Terminal cyclopropanol rigidification
+
+1
+
+0.6 2
+
+3
+
+0. 73 66 
+
+14 
+
+0. 2888 
+
+8
+
+0.66 79
+
+10 
+
+0.6 27 8
+
+9
+
+0.646 7
+
+13 
+
+0. 33 06 
+
+12 
+
+0. 3486 
+
+7
+
+0. 7009 
+
+6
+
+0. 7069 
+
+5
+
+0. 723 6
+
+4
+
+0. 72 67
+
+11 
+
+0.6 162
+
+2
+
+0. 77 4
+
+20 
+
+0. 2505 
+
+17 
+
+0.6548 
+
+18 
+
+0. 364 3
+
+19 
+
+0. 3611 
+
+15 
+
+0.8 388 
+
+16 
+
+0. 7408 
+
+24 
+
+0.5 284 
+
+25 
+
+0.5086 
+
+22 
+
+0.858 3
+
+27 
+
+0. 269 3
+
+23 
+
+0.5 37 8
+
+26 
+
+0. 3689 
+
+21 
+
+0.8686 
+
+Root Rounds Best score Best Current Layered by generation / parent ROUND CANDIDATES PASSING ALL GATES (COMPUTED) LOWEST RAW NESSO PRED IN ROUND RAW NESSO LEADER (IRRESPECTIVE OF GATES) Focused candidate cards 
+
+Top 10 candidates by the shared ranking (gate compliance, then Nesso activity). Every depiction pair shows the unhighlighted direct parent beside the highlighted child. 
+
+Molecule 21 Tier A 
+
+Round 3 · score 0.8686 · rational_medicinal_designer 
+
+Edit: Carbinol ethyl (secondary alcohol, Ar–CH(OH)CH2CH3) 
+
+Parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCO 
+
+→
+
+Child: Molecule 21 
+
+CCC(O)c1cc2c(cc1OC)nc(-c1nccs1)n2-c 1ccc2c(N)nc(N)nc2c1 
+
+orange: structural change vs direct parent purple: stereochemical change (RDKit strict_mcs, MCS 30 atoms, 4 atoms / 2 bonds changed) 
+
+Activity target: PASS Similarity: PASS hERG hold: PASS BBB hold: PASS Solubility hold: PASS CYP3A4 hold: PASS 
+
+SUPPLIED SEARCH-GRAPH SCORES 
+
+Nesso affinity pred 
+
+-0.8426 
+
+Nesso improvement vs initial 
+
+1.2524 
+
+Nesso probability 
+
+0.953 
+
+Nesso activity rank 
+
+1
+
+Tanimoto similarity 
+
+0.7429 
+
+hERG (pred) 
+
+0.8983 
+
+BBB (pred) 
+
+0.1668 
+
+Solubility (pred) 
+
+-3.431 
+
+CYP3A4 (pred) 
+
+0.5351 
+
+Critic score 
+
+0.9 
+
+SCORE / PROPERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Nesso pred Δ vs Molecule 5 
+
+-0.1354 
+
+hER G Δ vs Molecule 5 
+
+-0.0218 
+
+Solubility Δ vs Molecule 5 
+
+-0.6591 
+
+CYP3A4 Δ vs Molecule 5 
+
+-0.0553 
+
+RDKIT DESCRIPTORS deterministic calculations MW (Da) 
+
+447.52 
+
+cLogP 
+
+3.709 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+5
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.182 
+
+SUPPLIED EVIDENCE Generator: Adds hydrophobic ethyl adjacent to OH toward Phe31 shelf 
+
+Critic: Nesso rank 1 among gate-passing candidates (pred -0.843, +1.252 vs initial, prob 0.953); preserves full pharmacophore; all holds pass; solubility margin 0.086 thinnest 
+
+Recommendation (agent judgment, computed): Tier A · Pass every computed task gate including the Nesso activity target. 
+
+Molecule 22 Tier A 
+
+Round 3 · score 0.8583 · rational_medicinal_designer 
+
+Edit: Branched butanol (homologation + terminal branch) 
+
+Parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCO 
+
+→
+
+Child: Molecule 22 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCC(C)O 
+
+orange: structural change vs direct parent purple: stereochemical change (RDKit strict_mcs, MCS 30 atoms, 4 atoms / 3 bonds changed) 
+
+Activity target: PASS Similarity: PASS hERG hold: PASS BBB hold: PASS Solubility hold: PASS CYP3A4 hold: PASS 
+
+SUPPLIED SEARCH-GRAPH SCORES 
+
+Nesso affinity pred 
+
+-0.8323 
+
+Nesso improvement vs initial 
+
+1.2421 
+
+Nesso probability 
+
+0.9582 
+
+Nesso activity rank 
+
+2
+
+Tanimoto similarity 
+
+0.7714 
+
+hERG (pred) 
+
+0.9166 
+
+BBB (pred) 
+
+0.1814 
+
+Solubility (pred) 
+
+-3.0949 
+
+CYP3A4 (pred) 
+
+0.5258 
+
+Critic score 
+
+0.88 
+
+SCORE / PROPERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Nesso pred Δ vs Molecule 5 
+
+-0.1251 
+
+hER G Δ vs Molecule 5 
+
+-0.0035 
+
+Solubility Δ vs Molecule 5 
+
+-0.3230 
+
+CYP3A4 Δ vs Molecule 5 
+
+-0.0646 
+
+RDKIT DESCRIPTORS deterministic calculations MW (Da) 
+
+461.55 
+
+cLogP 
+
+3.579 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+6
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.217 
+
+SUPPLIED EVIDENCE Generator: Combines two best single signals (propanol +1.203, branch +0.865) at moderate 
+
+combined sim risk 
+
+Critic: Nesso rank 2; pred -0.832 meets goal; prob 0.958; balanced margins (min 0.064 BBB); 
+
+strong second 
+
+Recommendation (agent judgment, computed): Tier A · Pass every computed task gate including the Nesso activity target. 
+
+Molecule 15 Tier A 
+
+Round 2 · score 0.8388 · rational_medicinal_designer 
+
+Edit: Ethanol tail homologation to propanol 
+
+Parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCO 
+
+→
+
+Child: Molecule 15 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCCO 
+
+orange: structural change vs direct parent purple: stereochemical change (RDKit strict_mcs, MCS 30 atoms, 3 atoms / 2 bonds changed) 
+
+Activity target: PASS Similarity: PASS hERG hold: PASS BBB hold: PASS Solubility hold: PASS CYP3A4 hold: PASS 
+
+SUPPLIED SEARCH-GRAPH SCORES 
+
+Nesso affinity pred 
+
+-0.7934 
+
+Nesso improvement vs initial 
+
+1.2032 
+
+Nesso probability 
+
+0.9573 
+
+Nesso activity rank 
+
+3
+
+Tanimoto similarity 
+
+0.7941 
+
+hERG (pred) 
+
+0.9265 
+
+BBB (pred) 
+
+0.1801 
+
+Solubility (pred) 
+
+-2.91 
+
+CYP3A4 (pred) 
+
+0.546 
+
+Critic score 
+
+0.85 
+
+SCORE / PROPERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Nesso pred Δ vs Molecule 5 
+
+-0.0862 
+
+hER G Δ vs Molecule 5 
+
++0.0064 
+
+Solubility Δ vs Molecule 5 
+
+-0.1381 
+
+CYP3A4 Δ vs Molecule 5 
+
+-0.0444 
+
+RDKIT DESCRIPTORS deterministic calculations MW (Da) 
+
+447.52 
+
+cLogP 
+
+3.19 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+6
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.182 
+
+SUPPLIED EVIDENCE Generator: Extends the terminal OH toward the Arg70/Asn64 solvent-facing region; adds one 
+
+C only, keeping solubility and logP within windows 
+
+Critic: Top recommendation: Nesso rank 3 among gate-passing candidates (pred -0.793, 
+
++1.203 vs initial, prob 0.957); balanced ADMET margins 
+
+Recommendation (agent judgment, computed): Tier A · Pass every computed task gate including the Nesso activity target. 
+
+Molecule 16 Tier A 
+
+Round 2 · score 0.7408 · rational_medicinal_designer 
+
+Edit: OMe to OEt extension on the ethanol-tail node 
+
+Parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1CCO 
+
+→
+
+Child: Molecule 16 
+
+CCOc1cc2nc(-c3nccs3)n( (N)nc4c3)c2cc1CCO 
+
+orange: structural change vs direct parent purple: stereochemical chan strict_mcs, MCS 31 atoms, 2 atoms / 1 bonds changed) 
+
+Activity target: PASS Similarity: PASS hERG hold: PASS BBB hold: PASS So CYP3A4 hold: PASS 
+
+SUPPLIED SEARCH-GRAPH SCORES 
+
+Nesso affinity pred 
+
+-0.7147 
+
+Nesso improvement vs initial 
+
+1.1245 
+
+Nesso probability 
+
+0.9398 
+
+Nesso activity rank 
+
+4
+
+Tanimoto similarity 
+
+0.7042 
+
+hERG (pred) 
+
+0.9045 
+
+BBB (pred) 
+
+0.2038 
+
+Solubility (pred) 
+
+-2.7903 
+
+CYP3A4 (pred) 
+
+0.4718 
+
+Critic score 
+
+0.75 
+
+SCORE / PROPERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Nesso pred Δ vs Molecule 5 
+
+-0.0075 
+
+hER G Δ vs Molecule 5 
+
+-0.0156 
+
+Solubility Δ vs Molecule 5 
+
+-0.0184 
+
+CYP3A4 Δ vs Molecule 5 
+
+-0.1186 
+
+RDKIT DESCRIPTORS deterministic calculations MW (Da) 
+
+447.52 
+
+cLogP 
+
+3.19 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+6
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.182 
+
+SUPPLIED EVIDENCE Generator: Combines the two best similarity-safe single edits (each ~0.86 s 
+
+toward the Tyr121/Phe31 lipophilic shelf 
+
+Critic: Passes gates; strong activity (+1.125) but similarity margin only 0.004 
+
+Recommendation (agent judgment, computed): Tier A · Pass ev task gate including the Nesso activity target. 
+
+a b c
+
+4 Tier A 
+
+0.5284 · rational_medicinal_designer 
+
+propanol (branch + homolog combo) 
+
+ule 5 
+
+-c3nccs3)n(-c3ccc4c(N)nc 2cc1CCO 
+
+→
+
+Child: Molecule 24 
+
+COc1cc2nc(-c3nccs3)n(-c3ccc4c(N)nc (N)nc4c3)c2cc1C(C)CCO 
+
+uctural change vs direct parent purple: stereochemical change (RDKit CS 30 atoms, 4 atoms / 3 bonds changed) 
+
+PASS Similarity: PASS hERG hold: PASS BBB hold: PASS Solubility hold: PASS ASS 
+
+ARCH-GRAPH SCORES 
+
+red Nesso improvement vs initial 
+
+0.9087 
+
+ty Nesso activity rank 
+
+7
+
+rity hERG (pred) 
+
+0.9298 
+
+Solubility (pred) 
+
+-3.4087 
+
+Critic score 
+
+0.48 
+
+PERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Molecule 5 hERG Δ vs Molecule 5 
+
++0.0097 
+
+Molecule 5 CYP3A4 Δ vs Molecule 5 
+
+-0.0193 
+
+IPTORS deterministic calculations 
+
+cLogP 
+
+3.751 
+
+HBA 
+
+9
+
+Rotatable bonds 
+
+6
+
+Fraction Csp3 
+
+0.217 
+
+DENCE 
+
+ernative combination geometry of the two proven safe edits 
+
+ank 7; pred -0.499; similarity margin only 0.022 
+
+ation (agent judgment, computed): Tier A · Pass every computed uding the Nesso activity target. 
+
+Molecule 4 Tier A 
+
+Round 1 · score 0.7267 · creative_molecule_explorer 
+
+Edit: 6-OMe replaced with O-isopropyl 
+
+Parent: Molecule 1 
+
+COc1cc2c(cc1CO)nc(-c1nccs1)n2-c1ccc 2c(N)nc(N)nc2c1 
+
+→
+
+Child: Molecule 4 
+
+CC(C)Oc1cc2c(cc1CO)nc(-c1nccs1)n2-c 1ccc2c(N)nc(N)nc2c1 
+
+Direct parent shown: Molecule 1 (primary parent). Other recorded parent comparison(s): 
+
+Molecule 5 .
+
+orange: structural change vs direct parent purple: stereochemical change (RDKit strict_mcs, MCS 30 atoms, 3 atoms / 2 bonds changed) 
+
+Activity target: PASS Similarity: PASS hERG hold: PASS BBB hold: PASS Solubility hold: PASS CYP3A4 hold: PASS 
+
+SUPPLIED SEARCH-GRAPH SCORES 
+
+Nesso affinity pred 
+
+-0.4899 
+
+Nesso improvement vs initial 
+
+0.8996 
+
+Nesso probability 
+
+0.9236 
+
+Nesso activity rank 
+
+6
+
+Tanimoto similarity 
+
+0.8333 
+
+hERG (pred) 
+
+0.883 
+
+BBB (pred) 
+
+0.1507 
+
+Solubility (pred) 
+
+-3.2657 
+
+CYP3A4 (pred) 
+
+0.3885 
+
+Critic score 
+
+0.78 
+
+SCORE / PROPERTY DELTAS VS DIRECT PARENT (COMPUTED) 
+
+Nesso pred Δ vs Molecule 1 
+
+-0.8997 
+
+hERG Δ vs Molecule 1 
+
+-0.0180 
+
+Solubility Δ vs Molecule 1 
+
+-0.2451 
+
+CYP3A4 Δ vs Molecule 1 
+
+-0.1476 
+
+RDKIT DESCRIPTORS deterministic calculations 
+
+MW (Da) 
+
+447.52 
+
+cLogP 
+
+3.536 
+
+TPSA (A^2) 
+
+137.99 
+
+HBA 
+
+9
+
+HBD 
+
+3
+
+Rotatable bonds 
+
+5
+
+Aromatic rings 
+
+5
+
+Fraction Csp3 
+
+0.182 
+
+SUPPLIED EVIDENCE Generator: Branched alkoxy adds lipophilic contact; Nesso improvement +0.88 
+
+Critic: Branched alkoxy adds lipophilic contact; Nesso improvement +0.900; best CYP3A4 0.389; logP 3.54 creeping up 
+
+Recommendation (agent judgment, computed): Tier A · Pass every computed task gate including the Nesso activity target. 
+
+audit 
+
+cule-number lookup: every graph node exactly once, root first, ascending molecule number. SMILES strings are complete and wrap without truncation. 
+
+Molecule 1 COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+N/A 0 N/A (root) Root baseline scor 
+
+prob 
+
+BBB 0.53 
+
+Molecule 2 COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1C (C)O COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1C (C)O 
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 benzimidazole 5-CH2OH replaced with CH(CH3)OH Tier A scor 
+
+prob 
+
+0.88 
+
+CYP 
+
+3.32 
+
+Molecule 3 CCOc1cc2nc(-c3nccs3)n(-c3 ccc4c(N)nc(N)nc4c3)c2cc1C OCCOc1cc2nc(-c3nccs3)n(-c3 ccc4c(N)nc(N)nc4c3)c2cc1C O
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 6-OMe extended to OEt (with regioisomer shift) Tier A scor 
+
+prob 
+
+0.88 
+
+CYP 
+
+3.15 
+
+Molecule 4 CC(C)Oc1cc2c(cc1CO)nc(-c1 nccs1)n2-c1ccc2c(N)nc(N)n c2c1 CC(C)Oc1cc2c(cc1CO)nc(-c1 nccs1)n2-c1ccc2c(N)nc(N)n c2c1 
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 6-OMe replaced with O-isopropyl Tier A scor 
+
+prob 
+
+0.88 
+
+CYP 
+
+3.54 
+
+Molecule 5 COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC OCOc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 benzimidazole 5-CH2OH extended to CH2CH2OH (with benzimidazole regioisomer shift) Tier A scor 
+
+prob 0.92 CYP 
+
+2.8 
+
+Molecule 6 COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CO COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CO 
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 benzimidazole substituent 
+
+regioisomer rearrangement 
+
+Tier A scor 
+
+prob 0.90 CYP 2.76 
+
+Molecule 7 CCc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 CCc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 6-OMe replaced with ethyl Tier A scor 
+
+prob 0.87 CYP 
+
+3.31 
+
+Molecule 8 CCOc1cc2c(cc1CO)nc(-c1ncc s1)n2-c1ccc2c(N)nc(N)nc2c 1CCOc1cc2c(cc1CO)nc(-c1ncc s1)n2-c1ccc2c(N)nc(N)nc2c 1
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+1 OMe→OEt (methoxy to ethoxy extension) Tier A scor 
+
+prob 
+
+0.88 0.42 
+
+Molecule 9 CCCOc1cc2c(cc1CO)nc(-c1nc cs1)n2-c1ccc2c(N)nc(N)nc2 c1 CCCOc1cc2c(cc1CO)nc(-c1nc cs1)n2-c1ccc2c(N)nc(N)nc2 c1 
+
+Direct parent: Molecule 1 
+
+(primary) 
+
+COc1cc2c(cc1CO)nc(-c1nccs 1)n2-c1ccc2c(N)nc(N)nc2c1 
+
+Direct parent: Molecule 5 
+
+COc1cc2nc(-c3nccs3)n(-c3c cc4c(N)nc(N)nc4c3)c2cc1CC O
+
+1 6-OMe extended to O-n-propyl Tier A scor 
+
+prob 0.89 CYP 
+
+3.54 
+
+MOLECULE TOPOLOGY FULL CANONICAL SMILES CHILD SMILES DIRECT-PARENT SMILES ROUND EDIT RECOMMENDATION (COMPUTED) SCO Tier A - Priority synthesis 
+
+Pass every computed task gate including the Nesso activity target. 
+
+19 candidate(s) 
+
+Molecule 21 Nesso pred -0.8426 · sim 0.7429 
+
+Molecule 22 Nesso pred -0.8323 · sim 0.7714 
+
+Molecule 15 Nesso pred -0.7934 · sim 0.7941 
+
+Molecule 16 Nesso pred -0.7147 · sim 0.7042 
+
+Molecule 5 Nesso pred -0.7072 · sim 0.8182 
+
+Molecule 2 Nesso pred -0.6842 · sim 0.75 
+
+Molecule 7 Nesso pred -0.591 · sim 0.7846 
+
+Molecule 3 Nesso pred -0.5891 · sim 0.803 
+
+Molecule 24 Nesso pred -0.4989 · sim 0.7222 
+
+Molecule 4 Nesso pred -0.4899 · sim 0.8333 
+
+Molecule 17 Nesso pred -0.455 · sim 0.7941 
+
+Molecule 23 Nesso pred -0.4447 · sim 0.7692 
+
+Molecule 25 Nesso pred -0.4317 · sim 0.7429 
+
+Molecule 6 Nesso pred -0.3956 · sim 0.9344 
+
+Molecule 9 Nesso pred -0.3549 · sim 0.8333 
+
+Molecule 10 Nesso pred -0.2747 · sim 0.7391 
+
+Molecule 26 Nesso pred -0.1135 · sim 0.7246 
+
+Molecule 8 Nesso pred -0.1018 · sim 0.8594 
+
+Molecule 11 Nesso pred -0.0975 · sim 0.7612 
+
+Tier B - Backup / follow-up 
+
+Pass all hold-constant and similarity gates but miss the Nesso activity target; useful SAR backups. 
+
+0 candidate(s) 
+
+None 
+
+Tier C - Do not advance 
+
+Fail at least one hard gate (similarity, ADMET holds, or binding probability) as computed from supplied scores and critic text. 
+
+7 candidate(s) 
+
+Molecule 19 Nesso pred -1.0376 · sim 0.6053 
+
+Molecule 20 Nesso pred -1.0156 · sim 0.4524 
+
+Molecule 18 Nesso pred -0.6496 · sim 0.6216 
+
+Molecule 13 Nesso pred -0.521 · sim 0.6528 
+
+Molecule 27 Nesso pred -0.3169 · sim 0.7465 
+
+Molecule 12 Nesso pred -0.2753 · sim 0.7429 
+
+Molecule 14 Nesso pred 0.6658 · sim 0.8438 
+
+Synthesis shortlist (top 5) 
+
+Molecule 21 Carbinol ethyl (secondary alcohol, Ar–CH(OH)CH2CH3) -0.8426 0.953 0.7429 passes every computed task gate; Nesso pred -0.8426 (improvement 1.252 vs initial); probability 0.953; similarity 0.7429. 
+
+Molecule 22 Branched butanol (homologation + terminal branch) -0.8323 0.9582 0.7714 passes every computed task gate; Nesso pred -0.8323 (improvement 1.242 vs initial); probability 0.9582; similarity 0.7714. 
+
+Molecule 15 Ethanol tail homologation to propanol -0.7934 0.9573 0.7941 passes every computed task gate; Nesso pred -0.7934 (improvement 1.203 vs initial); probability 0.9573; similarity 0.7941. 
+
+Molecule 16 OMe to OEt extension on the ethanol-tail node -0.7147 0.9398 0.7042 passes every computed task gate; Nesso pred -0.7147 (improvement 1.125 vs initial); probability 0.9398; similarity 0.7042. 
+
+Molecule 5 benzimidazole 5-CH2OH extended to CH2CH2OH (with benzimidazole regioisomer shift) -0.7072 0.944 0.8182 passes every computed task gate; Nesso pred -0.7072 (improvement 1.117 vs initial); probability 0.944; similarity 0.8182. 
+
+Risks 
+
+Model risk: all activity/ADMET values are predictions. Thin-margin candidates may flip gate status under experimental measurement. Stereochemical notes (e.g. racemic centers) come from the supplied critic text. 
+
+MOLECULE EDIT NESSO PRED NESSO PROBABILITY SIMILARITY SELECTION RATIONALE Hard-gate failures (computed + critic-confirmed) 
+
+7 molecule(s); critic rationale quoted verbatim, negation-aware grouping. 
+
+Molecule 12 - “Fails: solubility -3.802 below -3.5173 floor despite Nesso pass (+0.685)” 
+
+Molecule 13 - “Fails: Tanimoto similarity 0.653 < 0.7 hard constraint despite Nesso pass (+0.931)” 
+
+Molecule 14 - “Fails: BBB 0.344 out of 0.0455-0.2455 range, CYP3A4 0.639 > 0.6348, Nesso prob 0.651 < 0.7, affinity regressed” 
+
+Molecule 18 - “Fails hard gate: Tanimoto 0.622 < 0.7 despite Nesso +1.059” 
+
+Molecule 19 - “Fails hard gate: Tanimoto 0.605 < 0.7 despite best Nesso affinity (+1.447, pred -1.038)” 
+
+Molecule 20 - “Fails hard gate: Tanimoto 0.452 < 0.7 despite second-best Nesso affinity (+1.425)” 
+
+Molecule 27 - “FAILS ADMET holds: BBB 0.435 vs cap 0.2455, solubility -3.606, CYP3A4 0.688 all outside windows; Nesso rank 12 (pred -0.317)” 
+
+Thin ADMET / property margins 
+
+10 molecule(s); critic rationale quoted verbatim, negation-aware grouping. 
+
+Molecule 4 - “Branched alkoxy adds lipophilic contact; Nesso improvement +0.900; best CYP3A4 0.389; logP 3.54 creeping up” 
+
+Molecule 5 - “Longer hydroxyl arm fills pocket and preserves H-bond donor; highest Nesso improvement +1.117; passes all hard/ADMET constraints; CYP3A4 margin thin (0.044)” 
+
+Molecule 7 - “Converts ether oxygen to carbon, small lipophilic pocket-filling edit; Nesso improvement +1.001; BBB margin razor-thin (0.003) to 0.2455 ceiling” 
+
+Molecule 9 - “Linear alkoxy extension for pocket filling; Nesso improvement +0.765; solubility margin thin (0.19)” 
+
+Molecule 10 - “Hydrophobic contact toward the Phe31/Phe34-side region close to the anchor; Nesso improvement +0.684; CYP3A4 margin thin (0.059); sim 0.739” 
+
+Molecule 16 - “Passes gates; strong activity (+1.125) but similarity margin only 0.004 — fragile” 
+
+Molecule 17 - “Passes gates; Nesso +0.865; CYP3A4 0.621 margin only 0.014 to cap” 
+
+Molecule 23 - “Nesso rank 9; pred -0.445; CYP3A4 margin thin (0.042)” 
+
+Molecule 24 - “Nesso rank 7; pred -0.499; similarity margin only 0.022” 
+
+Molecule 25 - “Nesso rank 10; pred -0.432; CYP3A4 margin only 0.011” 
+
+Similarity fragility / loss 
+
+2 molecule(s); critic rationale quoted verbatim, negation-aware grouping. 
+
+Molecule 16 - “Passes gates; strong activity (+1.125) but similarity margin only 0.004 — fragile” 
+
+Molecule 24 - “Nesso rank 7; pred -0.499; similarity margin only 0.022” 
+
+Stereochemistry flags 
+
+6 molecule(s) contain an unassigned stereocenter in the reported canonical SMILES; stereochemistry should be resolved before stereospecific interpretation or synthesis. 
+
+Molecule 2 - new stereocenter; reported as unspecified/racemic. 
+
+Molecule 17 - secondary alcohol stereocenter is unspecified. 
+
+Molecule 21 - lead candidate; secondary alcohol stereocenter is unspecified. 
+
+Molecule 22 - backup candidate; alcohol-bearing stereocenter is unspecified. 
+
+Molecule 24 - alcohol-bearing stereocenter is unspecified. 
+
+Molecule 25 - alcohol-bearing stereocenter is unspecified. 
+
+Next experiments 
+
+1. Synthesize the five-compound shortlist ( Molecule 21 , Molecule 22 , Molecule 15 , Molecule 16 , Molecule 5 ) and run DHFR biochemical binding/IC50 assays to validate the Nesso activity predictions, prioritizing Tier A ( Molecule 21 and Molecule 22 ). 2. Experimentally confirm the model-predicted hold-constant properties (hERG, BBB, solubility, CYP3A4) for Tier A and other thin-margin candidates; these are currently predictions, not measurements. 3. Resolve and test stereoisomers for Molecules 2, 17, 21, 22, 24, and 25 (see stereochemistry risk theme). 4. If Tier A confirms, explore close analogs around the winning carbinol series using the recorded SAR (round 2-3 alcohol-arm edits) while keeping similarity ≥ 0.7. 
+
+RDKit descriptors (MW, cLogP, TPSA, HBA/HBD, etc.) are deterministic calculations and do not require experimental confirmation. M3OS decision report. Search-graph properties are supplied computational predictions; descriptors in molecule_assets.json are deterministic RDKit calculations. Recommendations are agent judgments derived in code from the supplied data; no experimental evidence is present. 
+
+d e fFig. D3 Example of an M3OS optimization decision report. Selected views of the self-contained HTML report generated from the three-round search graph for the DHFR 16 task. a, Decision sum-mary and reference-molecule profile. b, Interactive molecular search graph with node-level details and round-wise statistics. c, Focused candidate cards showing direct-parent structural comparisons with highlighted edits, predicted activity and ADMET properties, task-constraint checks, and generator and Critic rationales. d, Excerpt from the full-node audit, linking molecule identifiers to structures, complete canonical SMILES and recorded parent–child relationships. e, Recommendation tiers and a five-compound synthesis shortlist. f, Risk summaries and proposed follow-up experiments. Activ-ity and ADMET values are computational predictions, whereas RDKit descriptors are deterministic calculations; recommendations remain subject to experimental validation. 
+
+D.4 Validation before delivery. 
+
+The generated report is released only after deterministic validation. Checks cover doc-ument completeness, absence of external stylesheets and remote assets, and verbatim inclusion of the prebuilt graph component. The validator requires exactly one graph node and detail record for every molecule and one rendered edge for every valid graph relationship. It also checks stable molecule numbering, direct-parent comparisons, 23 complete non-truncated SMILES, candidate-card and audit coverage, synthesis-list consistency and persistent review state. Failure of any required check prevents report delivery. 
+
+Appendix E Multi-agent Monte Carlo Graph Search Implementation 
+
+E.1 Task Initialization 
+
+An information-extraction module processes the user request and session context to identify the initial molecule, optimization objective, candidate-generation require-ments, search budget and optional protein context. A task brief summarizes the objectives, constraints and permitted or prohibited modifications. For monotonic ADMET objectives, the workflow selects directly relevant endpoints from the avail-able metadata and freezes their optimization directions for downstream agents. A structured task contract represents executable thresholds, intervals, baseline-relative objectives and hold tolerances when supplied. 
+
+E.2 Session state, memory and structured records 
+
+The centralized session state contains the optimization objective and constraints, task contract and protein context, molecular search graph, current proposals, evaluation results and role-specific memories. Molecule-associated records use canonical SMILES, and target-dependent predictions retain protein identity. Completed-round screening records accumulate qualified-set metrics, target gaps and failure reasons for reuse by both generator branches. Graph nodes contain molecular representations, generation provenance, property and evaluation records, and search statistics. Parent–child edges contain transforma-tion and generation metadata, including alternative incoming transformations when a molecule is rediscovered. The extraction-only Auditor maps explicitly stated genera-tor proposals and Critic results into predefined records without introducing additional molecules or evidence. Persistent records retain audited outputs, tool-grounded evidence, validation outcomes, graph changes and recovery events. SMILES validation uses RDKit parsing and canonicalization. Generators may attempt up to three intent-preserving repairs of their final molecular representations. The Critic may only correct a copied structure against a valid input candidate. Failed representations are excluded before evaluation; failures in evaluation or structured extraction do not produce a valid candidate record for graph insertion. An evaluated candidate that fails task requirements may still be recorded in the graph, keeping record validity separate from task feasibility. 
+
+E.3 Search Lifecycle 
+
+E.3.1 Overview. 
+
+The canonical initial molecule initializes the graph as its root, and an initial Critic evaluation establishes the graph state. Each subsequent iteration selects an expansion 24 base, generates and evaluates candidates, incorporates valid results into the graph and updates the search statistics. 
+
+E.3.2 Node selection. 
+
+We adapt the MCGS node-selection rule to the persistent molecular search graph in M3OS. Equations (E1)–(E3) specify this system-specific formulation, which retains graph-based state reuse, accumulated reward and visit statistics, and UCB-guided candidate ranking. For a node v with accumulated reward Rv and visit count nv , the exploitation value is 
+
+Qv =
+
+(
+
+Rv /n v , nv > 0,Rv , nv = 0 . (E1) The corresponding parent-based visit statistic is 
+
+Nv =
+
+(max 
+
+
+
+1, P 
+
+> u∈Parent( v)
+
+nu
+
+
+
+, v is non-root ,
+
+max(1 , n v ), v is root . (E2) A molecular node may have multiple parents because the same molecule can be reached through different transformations. We therefore sum the visit counts of its direct parents to represent the aggregate search activity in its predecessor neigh-borhood, providing a single node-level reference for exploration without choosing an arbitrary incoming parent. This parent-aggregated statistic is a heuristic adaptation for our molecular search graph. The exploration term still depends on the node-specific denominator max(1 , n v ), so sharing the same parent statistic does not necessarily produce identical exploration bonuses. The adapted UCB score is 
+
+Uv = Qv + c
+
+s
+
+ln Nv
+
+max(1 , n v ) , (E3) where c controls exploration strength. Before each expansion, M3OS updates these scores for all reachable nodes and ranks them accordingly. An LLM-based selection module chooses the expansion base from the highest-ranked nodes using task context and node-level evidence. The selection is accepted only if it identifies both a shortlisted candidate and an existing graph node. 
+
+E.3.3 Parallel molecular expansion. 
+
+A shared analysis of the selected parent identifies conserved fragments, modifiable regions, structural risks and optimization priorities. The Creative Molecule Explorer constructs and screens a REINVENT candidate pool, while the Rational Medicinal Designer proposes modifications using medicinal-chemistry knowledge and retrieved optimization cases. Both agents receive the shared analysis and accumulated screening history from completed rounds, while retaining separate role-specific memories. The Auditor converts each finalized generator output into structured molecular proposals, which are then aggregated for validation. 25 E.3.4 Candidate validation and Critic evaluation. 
+
+RDKit parses and canonicalizes the generated candidates; invalid representations and duplicate canonical structures are removed before evaluation. Each valid candidate is visually compared with its parent using maximum-common-substructure align-ment when available, highlighting conserved and modified regions and stereochemical changes. The depiction is associated with the canonical SMILES and supplied to the Critic alongside the symbolic representation. The Critic submits the complete valid candidate set from both branches to the applicable evaluation tools. Monotonic ADMET tasks use the frozen endpoint policy, tasks with executable contracts use deterministic constraint evaluation, and target-activity tasks additionally use the Nesso wrapper with initial and current ligand references. Backends reuse cached predictions, and prior Creative screening does not exclude candidates from Critic evaluation. The Critic combines these records with comparative medicinal-chemistry reasoning to return a candidate-specific rationale, property record and heuristic score Scritic (m) ∈ [0 , 1]. The deterministic activity rank remains a separate tool output. The Auditor converts the finalized response into structured evaluation records. 
+
+E.3.5 Graph insertion and reward propagation. 
+
+The graph search score combines Critic evaluation and similarity to the initial molecule 
+
+m0 as defined in Eq. (4), where α controls their relative contributions. Critic and graph scores are retained separately. The search implementation computes Ssim with radius-2, 2,048-bit Morgan bit vectors and rounds the Tanimoto coefficient to four decimal places. If similarity computation fails, its contribution to the graph score is zero. Candidates with valid molecular representations and structured evaluations are incorporated into the graph, including evaluated candidates that fail task objectives or constraints. An unseen molecule creates a new node connected to the selected parent; an existing molecule receives an additional incoming transformation edge. Let Bt denote the candidates generated in expansion t with valid molecular repre-sentations and structured Critic evaluations. For a nonempty Bt, the highest-scoring candidate and its reward are 
+
+v∗ 
+
+> t
+
+= arg max 
+
+> v∈B t
+
+Sgraph (v), rt = Sgraph (v∗ 
+
+> t
+
+). (E4) The reward is propagated along the selected root-to-candidate path. Each node v on that path is updated as 
+
+nv ← nv + 1 , Rv ← Rv + rt. (E5) These statistics inform upper-confidence-based selection in subsequent iterations. 26 E.3.6 Termination and final selection. 
+
+Search terminates when the requested expansion budget is reached or task-specific stopping criteria are satisfied. The final candidate set is then selected according to graph search scores. 
+
+E.4 Benchmark instruction content 
+
+Benchmark inputs comprise the starting molecular structure and the requested prop-erty directions or task constraints. MolOpt-120 uses eight single- or double-property tasks; MuMOInstruct-100 uses five combinations of three or four properties; SMDD-Bench-93 additionally provides the protein target and coupled lead-optimization requirements. Candidate-output protocols differ by method class and are specified in Section 2.4: fixed-pool baselines generate 20 candidates per MolOpt or MuMOInstruct record, coding agents return up to 20, and M3OS is evaluated on a selected pool from its cumulative graph. Within M3OS, the task brief carries objectives and permitted or prohibited modi-fications. Generator inputs include the selected parent, shared molecular analysis and prior screening feedback. Critic inputs comprise validated candidate structures, par-ent comparisons and tool evaluation records. Retrieval requests are focused knowledge questions; Auditor inputs are finalized generator or Critic responses. 
+
+E.5 Baseline prompting 
+
+Baseline prompts convey the starting molecule and optimization objectives through interfaces appropriate to each model or agent. Prompt wording, conversational structure and response conventions are adapted to the respective baseline. 
+
+Chemistry-specific language models. 
+
+Prompts follow the styles and input conventions of the respective original works. DrugAssist uses natural-language molecule-editing questions, while GeLLM 3O retains its input, property-adjustment and response structure. ChemLLM and LlaSMol use their model-specific chat or instruction templates, and mCLM follows its molecule-generation input and output conventions. The benchmark molecule and requested property changes are incorporated into these formats. When a benchmark objective extends beyond a model’s original task set, the instruction is adapted within that model’s prompt style. 
+
+General-purpose language models. 
+
+Direct LLM baselines use a common medicinal-chemistry expert system prompt and a shared task template containing the initial SMILES, optimization goal, requested candidate count and any additional task requirements. The prompt asks for chemi-cally valid, distinct candidates and a structured response containing each candidate’s SMILES, modification type, concise rationale and confidence score. This is a direct generation setting without access to external molecular-evaluation tools. 27 General-purpose coding agents. 
+
+Codex and Claude Code receive the benchmark task together with instructions for tool use, candidate screening and final submission. Available protein and ligand structure files are identified when relevant to the task. The instructions include guidance to generate a candidate pool, apply inexpensive local filters, batch property predictions and prioritize candidates for activity evaluation within the stated tool-call budgets (Appendix F). The agents plan and execute tool calls within these instructions and can use returned evidence to refine their candidates. Final outputs comprise a ranked list of candidate SMILES and a designated best molecule. The shared task requirements are accompanied by the instructions and domain skills available in each agent runtime. 
+
+Appendix F Evaluation and run configuration 
+
+F.1 Benchmark subset construction 
+
+For MolOpt-120, starting molecules were sampled at random without replacement from the 500-molecule MolOpt-Instructions test pool [22] and assigned to nonover-lapping task groups. The original iDrug endpoint was unavailable, so the reported solubility, BBBP and hERG evaluations use surrogate predictions. For MuMOInstruct-100, records were sampled without replacement within each task from the official test split [23]. Sampling at the record level yielded 96 unique start-ing molecules. Of the task combinations in Table 2, BBBP/pLogP/QED is in-domain and the remaining four are out-of-domain under the source benchmark’s definitions. 
+
+F.2 Search settings, model configuration, and token usage 
+
+F.2.1 Search settings. 
+
+The Monte Carlo graph search used a UCB exploration constant of c = 0 .01. For each evaluated molecule m, the Critic–similarity weight was α = 0 .8. At each expansion, the 5 highest-UCB eligible non-root nodes formed the shortlist from which an LLM selected one expansion base. This search shortlist is distinct from the 20-candidate pool used for benchmark evaluation. A newly inserted node started with zero visits and an accumulated reward equal to its initial graph score, n(0)  
+
+> v
+
+= 0 and R(0)  
+
+> v
+
+= Sgraph (v). The root instead started with the score assigned by its initial Critic evaluation. No additional backpropagated reward was assigned at initialization. 
+
+F.2.2 Model and decoding configuration. 
+
+M3OS and the two coding-agent baselines used the Kimi API model identifier kimi-k3 
+
+with reasoning effort=low . Kimi K3 always operates in thinking mode. The requests did not explicitly set temperature, nucleus-sampling probability, sampling seed, or a completion-token cap. The official Kimi-K3 API documentation specifies fixed values of temperature = 1.0, top p = 0.95, n = 1, presence penalty = 0, and frequency penalty = 0; these parameters are omitted from requests. The documenta-tion currently lists 131,072 as the default max completion tokens , but this was not an explicitly enforced limit in our runs. The API identifier was recorded, whereas an 28 Table F5 Aggregate token consumption across the three benchmarks. All values are in millions of tokens.                                        
+
+> Benchmark Harness Input Output MolOpt-120 Claude Code 61.03 1.33 MolOpt-120 Codex 123.91 1.12 MolOpt-120 M3OS 63.46 2.71 MuMOInstruct-100 Claude Code 57.20 1.31 MuMOInstruct-100 Codex 169.43 1.17 MuMOInstruct-100 M3OS 60.27 2.40 SMDD-Bench-93 Claude Code 163.14 2.44 SMDD-Bench-93 Codex 747.52 3.51 SMDD-Bench-93 M3OS 224.21 2.47 All three Claude Code 281.37 5.09 All three Codex 1040.86 5.80 All three M3OS 347.94 7.58
+
+immutable served-weight revision was not exposed in the experiment logs. The generic benchmark parser’s temperature=0.0 default was not forwarded to Kimi K3. 
+
+F.2.3 Token accounting. 
+
+Table F5 summarizes the aggregate token consumption of Claude Code, Codex, and M3OS on the three benchmarks. All values are reported in millions of tokens. Output counts include the tokens used for internal thinking or reasoning in addition to the final visible responses. These totals characterize the computational footprint of each complete harness rather than the efficiency of the underlying language model in isolation. The three harnesses differ in their interaction patterns, numbers of model turns, retry behavior, context construction, and use of prompt caching. In particular, the substantially larger Codex input count on SMDD-Bench-93 reflects longer agent trajectories and repeated attempts. 
+
+F.3 Run configuration details 
+
+For SMDD-Bench-93, each method is limited to eight Nesso batch submissions and 15 ADMET-AI batch submissions per instance. Each submission counts as one call regardless of the number of molecules in the batch. The retrieval ablations in Section 2.6 use Kimi-K3 Low. The extended-search runs retain all knowledge components. 
+
+References 
+
+[1] Zhang, O. et al. Deep lead optimization: leveraging generative ai for struc-tural modification. Journal of the American Chemical Society 146 , 31357–31370 (2024). 29 [2] Segall, M. D. Multi-parameter optimization: identifying high quality compounds with a balance of properties. Current pharmaceutical design 18 , 1292–1310 (2012). [3] R´ acz, A. et al. The changing landscape of medicinal chemistry optimization. 
+
+Nature Reviews Drug Discovery 24 , 870–887 (2025). [4] Korovina, K. et al. Chiappa, S. & Calandra, R. (eds) Chembo: Bayesian opti-mization of small organic molecules with synthesizable recommendations . (eds Chiappa, S. & Calandra, R.) Proceedings of the Twenty Third International Con-ference on Artificial Intelligence and Statistics , Vol. 108 of Proceedings of Machine Learning Research , 3393–3403 (PMLR, 2020). URL https://proceedings.mlr. press/v108/korovina20a.html. [5] Jensen, J. H. A graph-based genetic algorithm and generative model/monte carlo tree search for the exploration of chemical space. Chemical science 10 , 3567–3572 (2019). [6] Zhang, C., Dai, C. & Lei, X. Molecular optimization based on a monte carlo tree search and multiobjective genetic algorithm. Journal of Chemical Information and Modeling 65 , 5973–5988 (2025). [7] Zhou, Z., Kearnes, S., Li, L., Zare, R. N. & Riley, P. Optimization of molecules via deep reinforcement learning. Scientific reports 9, 10752 (2019). [8] You, J., Liu, B., Ying, Z., Pande, V. & Leskovec, J. Graph convolutional pol-icy network for goal-directed molecular graph generation. Advances in neural information processing systems 31 (2018). [9] Dorna, V. et al. Tagmol: target-aware gradient-guided molecule generation. arXiv preprint arXiv:2406.01650 (2024). [10] Qiu, K. et al. Empower structure-based molecule optimization with gradient guided bayesian flow networks. arXiv preprint arXiv:2411.13280 (2024). [11] Wang, Z. et al. Liakata, M., Moreira, V. P., Zhang, J. & Jurgens, D. (eds) 
+
+A survey of large language models for text-guided molecular discovery: From molecule generation to optimization . (eds Liakata, M., Moreira, V. P., Zhang, J. & Jurgens, D.) Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , 43738–43769 (Association for Computational Linguistics, San Diego, California, United States, 2026). URL https://aclanthology.org/2026.acl-long.2026/. [12] Wang, G. et al. Voyager: An open-ended embodied agent with large language models. arXiv preprint arXiv:2305.16291 (2023). 30 [13] Zhang, D. et al. Chemllm: A chemical large language model. arXiv preprint arXiv:2402.06852 (2024). [14] Yu, B., Baker, F. N., Chen, Z., Ning, X. & Sun, H. Llasmol: Advancing large language models for chemistry with a large-scale, comprehensive, high-quality instruction tuning dataset. arXiv preprint arXiv:2402.09391 (2024). [15] Le, K. et al. Molx: Enhancing large language models for molecular understanding with a multi-modal extension. arXiv preprint arXiv:2406.06777 (2024). [16] Wang, H. et al. Efficient evolutionary search over chemical space with large lan-guage models (2025). URL https://arxiv.org/abs/2406.16976. arXiv:2406.16976. [17] Kim, H., Jang, Y. & Ahn, S. Christodoulopoulos, C., Chakraborty, T., Rose, C. & Peng, V. (eds) MT-mol: Multi agent system with tool-based reasoning for molecular optimization . (eds Christodoulopoulos, C., Chakraborty, T., Rose, C. & Peng, V.) Findings of the Association for Computational Linguistics: EMNLP 2025 , 11544–11573 (Association for Computational Linguistics, Suzhou, China, 2025). URL https://aclanthology.org/2025.findings-emnlp.619/. [18] Inoue, Y., Song, T., Wang, X., Luna, A. & Fu, T. Drugagent: Multi-agent large language model-based reasoning for drug-target interaction prediction. ArXiv 
+
+arXiv–2408 (2025). [19] Gao, B. et al. Pharmagents: Building a virtual pharma with large language model agents. arXiv preprint arXiv:2503.22164 (2025). [20] Li, K. et al. Drugpilot: Llm-based parameterized reasoning agent for drug discovery. arXiv preprint arXiv:2505.13940 (2025). [21] Czech, J., Korus, P. & Kersting, K. Monte-carlo graph search for alphazero. arXiv preprint arXiv:2012.11045 (2020). [22] Ye, G. et al. Drugassist: A large language model for molecule optimization. 
+
+Briefings in Bioinformatics 26 , bbae693 (2025). [23] Dey, V., Hu, X. & Ning, X. Che, W., Nabende, J., Shutova, E. & Pilehvar, M. T. (eds) GeLLM ³O: Generalizing large language models for multi-property molecule optimization . (eds Che, W., Nabende, J., Shutova, E. & Pilehvar, M. T.) 
+
+Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , 25192–25221 (Association for Computa-tional Linguistics, Vienna, Austria, 2025). URL https://aclanthology.org/2025. acl-long.1225/. [24] Han, K. et al. Smdd-bench: Can llms solve real-world small molecule drug design tasks? arXiv preprint arXiv:2605.21740 (2026). 31 [25] Edwards, C. et al. mclm: A modular chemical language model that generates func-tional and makeable molecules (2025). URL https://arxiv.org/abs/2505.12565. arXiv:2505.12565. [26] Bento, A. P. et al. An open source chemical structure curation pipeline using rdkit. Journal of cheminformatics 12 , 51 (2020). [27] Bajusz, D., R´ acz, A. & H´ eberger, K. Why is tanimoto index an appropriate choice for fingerprint-based similarity calculations? Journal of cheminformatics 
+
+7, 20 (2015). [28] Rogers, D. & Hahn, M. Extended-connectivity fingerprints. Journal of chemical information and modeling 50 , 742–754 (2010). [29] Swanson, K. et al. ADMET-AI: a machine learning ADMET platform for evaluation of large-scale chemical libraries. Bioinformatics 40 , btae416 (2024). [30] Passaro, S. et al. Boltz-2: Towards accurate and efficient binding affinity prediction. bioRxiv (2025). [31] Consortium, U. Uniprot: a hub for protein information. Nucleic acids research 
+
+43 , D204–D212 (2015). [32] Gaulton, A. et al. Chembl: a large-scale bioactivity database for drug discovery. 
+
+Nucleic acids research 40 , D1100–D1107 (2012). [33] Rajan, K., Zielesny, A. & Steinbeck, C. Stout v2. 0: Smiles to iupac name conversion using transformer models. Journal of Cheminformatics 16 , 146 (2024). [34] Synto contributors. Synto: Build a local wiki from your notes and query it via MCP. https://github.com/kytmanov/synto (2026). Version 0.6.3, accessed 4 August 2026. [35] Wang, B. et al. Mineru: An open-source solution for precise document content extraction. arXiv preprint arXiv:2409.18839 (2024). [36] Loeffler, H. H. et al. Reinvent 4: Modern ai–driven generative molecule design. 
+
+Journal of Cheminformatics 16 , 20 (2024). [37] Tibo, A., He, J., Janet, J. P., Nittinger, E. & Engkvist, O. Exhaustive local chemical space exploration using a transformer model. Nature Communications 
+
+15 , 7315 (2024). [38] Guo, J. et al. Link-invent: generative linker design with reinforcement learning. 
+
+Digital Discovery 2, 392–408 (2023). 32 [39] Fialkov´ a, V. et al. Libinvent: reaction-based generative scaffold decoration for in silico library design. Journal of Chemical Information and Modeling 62 , 2046– 2063 (2021). [40] Shenoy, N. et al. Nesso-1: Accelerating open-source binding affinity predictions. 
+
+bioRxiv 2026–08 (2026). [41] Salentin, S., Schreiber, S., Haupt, V. J., Adasme, M. F. & Schroeder, M. Plip: fully automated protein–ligand interaction profiler. Nucleic acids research 43 ,W443–W447 (2015). [42] Karpathy, A. LLM Wiki. GitHub Gist (2026). URL https://gist.github.com/ karpathy/442a6bf555914893e9891c11519de94f. Accessed: 2026-09-08. [43] Geng, Z. et al. De novo molecular generation via connection-aware motif mining. 
+
+arXiv preprint arXiv:2302.01129 (2023). [44] Griffen, E., Leach, A. G., Robb, G. R. & Warner, D. J. Matched molecular pairs as a medicinal chemistry tool: miniperspective. Journal of medicinal chemistry 
+
+54 , 7739–7750 (2011). [45] Bemis, G. W. & Murcko, M. A. The properties of known drugs. 1. molecular frameworks. Journal of medicinal chemistry 39 , 2887–2893 (1996). [46] Morgan, H. L. The generation of a unique machine description for chemi-cal structures-a technique developed at chemical abstracts service. Journal of chemical documentation 5, 107–113 (1965). 33
