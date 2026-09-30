@@ -1,0 +1,186 @@
+Title: APOLO: Automatic Prompt Optimization for Ontology Learning
+
+URL Source: https://arxiv.org/pdf/2609.34540v1
+
+Published Time: Tue, 29 Sep 2026 03:36:24 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# APOLO: Automatic Prompt Optimization for Ontology Learning 
+
+Huu Tan Mai 1,3 ,*,†, Roman Kochnev 1,4 ,*,†, Cuong Xuan Chu 1, Lukas Lange 2, Heiko Paulheim 4
+
+and Daria Stepanova 1
+
+> 1
+
+Bosch Center for Artificial Intelligence, Robert-Bosch-Campus 1, 71272 Renningen, Germany 
+
+> 2
+
+Bosch Research North America, Sunnyvale, California, USA 
+
+> 3
+
+University of Mannheim, Schloss, 68131 Mannheim, Germany 
+
+> 4
+
+University of Würzburg, Sanderring 2, 97070 Würzburg, Germany 
+
+Abstract 
+
+Ontology Learning (OL) from text has advanced with the emergence of Large Language Models (LLMs), but it remains challenging due to the limited availability of annotated training data and the difficulty of adapting LLMs to perform OL effectively. We address this via APOLO – Automatic Prompt Optimization for Ontology Learning, by casting OL as an explicit prompt optimization problem over LLM modules. To obtain training data, we employ a multi-agent system that generates text-ontology pairs from existing expert-curated ontologies. We then propose two ontology learner architectures: a greedy and an autoregressive learner, and optimize both using GEPA, a greedy evolutionary prompt optimizer built on DSPy. Experiments on two ontologies – a biomedical (DOID) and a plant ontology (PO) show consistent improvements after optimization across nearly all model and mode combinations, with autoregressive learners achieving the largest gains. Our results demonstrate that prompt optimization is a viable and lightweight alternative to fine-tuning for OL, and that the autoregressive formulation better captures ontological structure than the greedy approach. 
+
+Keywords 
+
+Ontology Learning, Automatic Prompt Optimization, Large Language Models, DSPy, 
+
+# 1. Introduction 
+
+Ontologies are formal frameworks for representing knowledge, enabling trustworthy AI services, seam-less integration of heterogeneous data, and symbolic reasoning [1]. Yet constructing domain ontologies remains a costly, expertise-intensive process [2]. Ontology Learning (OL) seeks to automatically extract formal knowledge from text, with the goal of reducing this burden. Recent advances in Large Language Models (LLMs) and agentic AI are enabling the automation of OL [3, 4, 5]. However, the search for the right setup to carry out the task optimally is time-consuming and resource-intensive. For instance, given a pipeline of agents that execute subtasks (e.g., systems [5] following the LLMs4OL paradigm [3]), fine-tuning each LLM for its respective subtask is costly. Similarly, although it has been shown that the performance of LLMs on downstream tasks is highly sensitive to the choice of prompt [6], manually searching for a high-performance prompt is time-consuming. To address these challenges, automatic 
+
+prompt optimization offers a lightweight alternative: it improves model behavior without any weight updates, making it significantly cheaper than supervised fine-tuning or reinforcement learning while remaining applicable to any LLM. Building on this motivation, we make the following contributions: • We formalize OL as an explicit prompt optimization problem with respect to LLM prompts over text-ontology pairs – a framing that directly supports this approach. • We propose two learner architectures: a greedy learner and an autoregressive (AR) learner – both optimized using GEPA [7], an evolutionary prompt optimizer built on DSPy [8]. 
+
+ISWC 2026 Companion Volume, October 25–29, 2026, Bari, Italy 
+
+> *
+
+Corresponding author. 
+
+> †
+
+These authors contributed equally. 
+
+$ huutan.mai@de.bosch.com (H. T. Mai); roman.kochnev@stud-mail.uni-wuerzburg.de (R. Kochnev) 
+
+> © 2026 Copyright for this paper by its authors. Use permitted under Creative Commons License Attribution 4.0 International (CC BY 4.0).
+
+Input Text
+Chunk 𝐶 
+
+## Ontology Learning LLM ℒ
+
+
+
+
+> Prompt 𝜋
+> Ground Truth Ontology Chunk
+
+Predicted
+Ontology Ô 
+
+Updated Prompt 𝜋 
+
+> Scoring function 𝜇
+
+## Evaluation 
+
+## Reflection LLM 
+
+Score 
+
+Feedback Figure 1: Overview of APOLO’s prompt optimization framework. An ontology learner predicts an ontology from an input text chunk using prompt 𝜋 . The prediction is evaluated against a ground-truth ontology chunk to produce a score and actionable feedback; a reflection LLM uses both to iteratively improve 𝜋 while keeping the underlying LLM fixed. 
+
+• We empirically show that APOLO yields consistent improvements for OL across all LLM and method combinations on a challenging OL benchmark. 
+
+# 2. Approach 
+
+Ontology Learning as Optimization. An ontology formally represents domain concepts and their relationships as a collection of axioms over classes, properties, and individuals in Description Logics [9, 10]. We assume access to document-ontology pairs (𝐷, 𝒪 ), where 𝐷 is an input document, and 𝒪 its ground-truth ontology, drawn from a distribution 𝒫 (e.g., where 𝐷 is generated by an LLM from 𝒪 ). An ontology learner ℒ maps a document 𝐷 to a predicted ontology ˆ𝒪 = ℒ(𝐷 ). Given an evaluation metric 𝜇 ( ˆ𝒪 , 𝒪 ) that scores a prediction against ground truth, casting OL as an optimization problem amounts to optimizing max ℒ E(𝐷, 𝒪 )∼𝒫 [𝜇 (ℒ(𝐷 ), 𝒪 )] . Alternatively, a document 𝐷 and its ontology 
+
+𝒪 can be split into corresponding text chunks 𝐶 ∈ chunks( 𝐷 ), each paired with the subontology 𝒪 𝐶 
+
+grounded in 𝐶 . When inference must operate on chunks (e.g., due to context length limits), the learner predicts over a single chunk 𝐶 in the context of 𝐷 . Concretely, given multiple pairs (𝐷 (𝑖 ), 𝒪 (𝑖 )), we form a chunk-level dataset by pairing every chunk with its parent document and the subontology it grounds, 𝒯 ={︀ (𝐶, 𝐷 (𝑖 ), 𝒪 (𝑖 ) 
+
+> 𝐶
+
+) : 𝐶 ∈ chunks( 𝐷 (𝑖 ))}︀ , where 𝒪 (𝑖 ) 
+
+> 𝐶
+
+⊆ 𝒪 (𝑖 ) denotes a subontology of 
+
+𝒪 (𝑖 ) grounded in chunk 𝐶 . We then optimize the following objective 
+
+max  
+
+> ℒ
+
+E(𝐶,𝐷, 𝒪 𝐶 )∼𝒯 [𝜇 (ℒ𝜋 (𝐶, 𝐷 ), 𝒪 𝐶 )] . (1) 
+
+Prompt Optimization for OL. We now fix the learner’s prompt 𝜋 as the only tunable parameter. More specifically, let ℒ𝜋 denote the learner parametrized by its prompt 𝜋 with the underlying weights kept fixed. Prompt optimization searches for a prompt 𝜋 ⋆ that maximizes the expected score 
+
+𝜋 ⋆ = arg max  
+
+> 𝜋
+
+E(𝐶, 𝐷, 𝒪 𝐶 ) ∼ 𝒯 [𝜇 (ℒ𝜋 (𝐶, 𝐷 ), 𝒪 𝐶 )] , (2) i.e., the empirical objective of Eq. 1 restricted to prompt-level parameters. GEPA [7] is one such optimizer: it iteratively mutates prompt candidates and uses a separate LLM to reflect on failure cases and propose improvements. Crucially, prompt optimization leaves model weights unchanged, making it a lightweight alternative to fine-tuning or reinforcement learning with a limited budget of rollouts. Prior work applied this paradigm to knowledge graph construction [11] using different prompt optimizers; Predicted Ontology   
+
+> Chunking Combine Input Text
+> Ontology Learner Ontology Chunks Text Chunks
+
+Figure 2: Overview of Greedy and Autoregressive learners at inference time. The Greedy learner splits documents into manageable chunks, each of which is turned into a corresponding ontology chunk. Once all chunks are constructed, they are concatenated into the resulting ontology. The Autoregressive learner 
+
+additionally takes prior ontology chunks as context when generating a new chunk (dashed blue lines ‧‧➡ ). 
+
+we extend it to the more general setting of extracting ontological elements, and in particular, classes, individuals and OWL 2 axioms from text. This framework, which forms the core of APOLO, is directly applicable to OL over text chunks. Figure 1 illustrates the proposed application of the GEPA prompt optimization loop to OL. Given an input text, the learner predicts an ontology using the current prompt 
+
+𝜋 , which is manually initialized. The prediction is evaluated against the ground-truth ontology to produce both a quality score and actionable feedback, which are used by a reflection LLM to iteratively improve the prompt. Next, we define (a) an ontology learning architecture to optimize w.r.t. a prompt, (b) an evaluation metric 𝜇 , and (c) actionable feedback in the context of GEPA. 
+
+Ontology Learning LLM. We propose two single-module (and therefore single-prompt) APOLO learners, whose prompts can be optimized with GEPA [7]. An overview is presented in Figure 2. 
+
+Greedy Learner. This learner consists of a chunk-level base learner ℒgbase  
+
+> 𝜋
+
+that processes each chunk 
+
+𝐶 separately conditioned on the full text 𝐷 , and the resulting ontologies are concatenated. In essence, this assumes that the global solution can be reached by combining locally optimal ones. We optimize the chunk-level surrogate objective (as per Equation 1) w.r.t. the prompt 𝜋 of ℒgbase  
+
+> 𝜋
+
+(see Equation 2). 
+
+Autoregressive Learner. This learner likewise constructs an ontology from chunk-level predictions, but its base learner additionally conditions each chunk on axioms predicted for preceding chunks, maintaining continuity across the document. During optimization, teacher forcing is applied: ground-truth axioms from preceding chunks serve as context instead of the model’s own predictions to prevent error accumulation. 
+
+Evaluation. While in the presented framework any evaluation function 𝜇 for comparing the predicted ontology with the ground truth can be plugged in, we instantiate 𝜇 as follows. Entity precision (EnP) and recall (EnR) measure how well classes and individuals are recovered. Axiom precision (AxP) and recall (AxR) use entailment-based matching computed with the help of a reasoner, and measure the correctness, i.e., predicted axioms that are entailed by 𝒪 , and the completeness, i.e., ground-truth axioms that are entailed by ˆ𝒪 , of the prediction. The scoring function with hyperparameters 𝛽 ∈ [0 , ∞)
+
+and 𝛿 ∈ (0 , 1) is defined as follows: 
+
+𝜇 ( ˆ𝒪 , 𝒪 ) = {︃ 0 if ˆ𝒪 is inconsistent or unparsable, 
+
+𝛿 · EnF( 𝛽 ) + (1 −𝛿 ) · AxF( 𝛽 ) otherwise, (3) where EnF( 𝛽 ) and AxF( 𝛽 ) are the F-𝛽 scores induced by the respective precision/recall pairs. Feedback should include error diagnostics such as: (a) explanations if ˆ𝒪 is inconsistent or unparsable; (b) axioms Figure 3: Example of a text-ontology training pair used for prompt optimization. A text chunk generated from a subontology of the initial domain ontology is annotated with corresponding entities and axioms, each grounded in a supporting quote from the text. 
+
+from 𝒪 not entailed by ˆ𝒪 ; (c) axioms from ˆ𝒪 not entailed by 𝒪 ; (d) entities from 𝒪 missing from ˆ𝒪 .
+
+# 3. Experiments 
+
+Setup. A key obstacle for LLM-based OL from text is the near-absence of text-ontology pairs in which sentences are grounded in formal OWL axioms. Thus, we use a multi-agent system to generate annotated text-ontology pairs from 12 publicly available ontologies spanning diverse domains (biomedical, e-commerce, chemistry, building services). The system comprises a Planner and Verifier for ontology decomposition and consistency checking, and a Writer and Critic for the generation of textual snippets from ontology axioms and their refinement. Figure 3 shows an example of a generated text-ontology pair. Two held-out ontologies serve as the common testbed: DOID [12] (human diseases, 1,407 words, 45 atomic axioms) and PO [13] (plant structure, 2,384 words, 53 atomic, 10 complex axioms). The remaining 10 ontologies, spanning different domains, are used for prompt optimization. GEPA optimization uses gpt-5-mini as the reflection LLM. We evaluate two prominent open-source LLMs as representatives: Qwen3.5-27B [14] and Devstral-Small-2-24B [15]. We set 𝛽 = 3 and 𝛿 = 0 .2 for the scoring function used during optimization. 
+
+Results. Table 1 shows that established OL baselines struggle on our benchmark, while APOLO’s prompt-optimized learners achieve consistent improvements. Most baselines result in near-zero axiom-level scores, with several timing out or producing invalid syntax. Bakker et al. (A) – the strongest baseline on DOID (AxP = 0.583) – collapses on PO (AxP = 0.027), revealing a lack of cross-domain generalization. For our learners, two findings stand out: (i) Improvements after GEPA optimization are consistent across nearly all model/mode combinations, confirming that the generated data provides a reliable training signal. (ii) APOLO’s AR learners benefit most: Qwen3.5-27B AR achieves a 47% improvement in AxP on DOID after optimization (i.e., from AxP = 0.569 to AxP = 0.838), and surpasses all off-the-shelf baselines across most axiom-level metrics. A qualitative inspection reveals that optimized prompts typically become very verbose (e.g., from 14 words to 1474 words for Qwen3.5-27B AR), thoroughly detailing common patterns, formatting rules, quality goals, successful strategies, and pitfalls to avoid for ontology extraction. Unlike weight-update approaches, prompt optimization is compute-friendly: hosting one model with 𝑀 optimized prompts is substantially cheaper than 𝑀 fine-tuned models. In our experiments, GEPA optimization completed in approximately 3–4 hours with no GPU memory required for weight updates. Furthermore, GEPA is known to achieve large quality gains from few rollouts [7], making it especially practical under limited compute budgets. Table 1 
+
+Comparison of baseline OL methods and prompt-optimized learners (Ours) on DOID and PO. ✓/✗ denote after/before GEPA optimization; improvements over unoptimized in bold. Results are from a single run.                                                                                                                                                                                   
+
+> Model Method Opt. DOID PO AxP AxR EnP EnR AxP AxR EnP EnR Qwen3.5-27B AutoRAGLearner [16] N/A .006 .044 .026 .071 .006 .048 .057 .141 SBU-NLP [5] N/A .000 .000 .074 .143 .023 .063 .155 .324 Kommineni et al. [17] N/A .064 .111 .552 .381 .000 .000 .189 .099 Bakker et al. (A) [4] N/A .583 .622 .725 .690 .027 .048 .322 .282 Bakker et al. (B) [4] N/A .667 .578 .675 .643 .018 .048 .180 .282 Greedy (Ours) ✗.457 .689 .569 .690 .063 .063 .337 .493
+> ✓.585 .689 .580 .690 .071 .111 .281 .507
+> AR (Ours) ✗.569 .690 .457 .689 .092 .079 .362 .479
+> ✓.838 .689 .829 .690 .174 .159 .425 .521
+> Devstral-Small-2-24B AutoRAGLearner [16] N/A .000 .067 .018 .071 .005 .063 .022 .085 SBU-NLP [5] N/A .037 .000 .102 .143 Timed out Kommineni et al. [17] N/A .209 .267 .579 .524 .028 .032 .276 .113 Bakker et al. (A) [4] N/A .000 .000 .700 .666 .000 .000 .000 .000 Bakker et al. (B) [4] N/A .000 .000 .286 .667 .000 .000 .183 .324 Greedy (Ours) ✗.326 .667 .367 .690 .035 .079 .174 .338
+> ✓.284 .622 .412 .667 .051 .063 .218 .366
+> AR (Ours) ✗.500 .577 .533 .571 .009 .016 .244 .422
+> ✓.644 .622 .528 .667 .094 .047 .326 .408
+
+Limitations. While we attempt to operationalize our evaluation as much as possible, our scoring method has limitations: it does not penalize redundant axioms – that is, predicted axioms entailed by 𝒪 
+
+are counted as correct regardless of redundancy; since optimization tends to produce verbose prompts, predicted ontologies may become overgenerated. Furthermore, to obtain ground-truth data for our text-ontology pairs, we use existing domain ontologies; however, these underlying ontologies may have been seen by the backbone LLMs during pretraining, which could inflate performance estimates. 
+
+# 4. Conclusion 
+
+We formalized Ontology Learning as an explicit prompt optimization problem over LLM modules, proposed two learner architectures – greedy and autoregressive – and optimized both with GEPA using generated text-ontology pairs. Experiments on two domain-specific benchmarks (DOID, PO) show that prompt optimization yields consistent improvements across nearly all model/mode combinations without any weight updates, with autoregressive learners benefiting most. Prompt-optimized Qwen3.5-27B AR surpasses all tested off-the-shelf baselines across most axiom-level metrics, demonstrating that even single-module APOLO learners can be meaningfully improved through this paradigm. These results suggest that combining automatic data generation with prompt optimization is a promising path towards better ontology learners – one that scales naturally to multi-agent architectures and arbitrary ontology domains. Future work will explore synthetic ontology generation to further reduce data leakage concerns, and more robust evaluation metrics for complex OWL 2 constructs. 
+
+# Declaration on Generative AI 
+
+Claude (Anthropic) was used exclusively for grammar and spelling checks, as well as minor stylistic improvements. After using this tool, the authors reviewed and edited the paper as needed and take full responsibility for the content. References 
+
+[1] A. Hogan, E. Blomqvist, M. Cochez, C. D’amato, G. D. Melo, C. Gutierrez, S. Kirrane, J. E. L. Gayo, R. Navigli, S. Neumaier, A.-C. N. Ngomo, A. Polleres, S. M. Rashid, A. Rula, L. Schmelzeisen, J. Sequeda, S. Staab, A. Zimmermann, Knowledge Graphs, ACM Comput. Surv. 54 (2021). URL: https://doi.org/10.1145/3447772. doi: 10.1145/3447772 .[2] P. Buitelaar, P. Cimiano, B. Magnini, Ontology Learning from Text: Methods, Evaluation and Applications, volume 123, IOS press Amsterdam, 2005. [3] H. B. Giglou, J. D’Souza, S. Auer, LLMs4OL: Large Language Models for Ontology Learning, 2023. URL: https://arxiv.org/abs/2307.16648. arXiv:2307.16648 .[4] R. M. Bakker, D. L. Di Scala, M. H. de Boer, Ontology Learning from Text: an Analysis on LLM Performance, in: NLP4KGC@ SEMANTiCS, 2024, pp. 70–87. [5] R. Rahnamoun, M. Shamsfard, SBU-NLP at LLMs4OL 2025 Tasks A, B, and C: Stage-Wise Ontology Construction Through LLMs Without any Training Procedure, in: Open Conference Proceedings, volume 6, 2025. [6] P. Liu, W. Yuan, J. Fu, Z. Jiang, H. Hayashi, G. Neubig, Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing, ACM computing surveys 55 (2023) 1–35. [7] L. A. Agrawal, S. Tan, D. Soylu, N. Ziems, R. Khare, K. Opsahl-Ong, A. Singhvi, H. Shandilya, M. J. Ryan, M. Jiang, et al., GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning, arXiv preprint arXiv:2507.19457 (2025). [8] O. Khattab, A. Singhvi, P. Maheshwari, Z. Zhang, K. Santhanam, S. Haq, A. Sharma, T. Joshi, H. Moazam, H. Miller, et al., DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines, in: International Conference on Learning Representations, volume 2024, 2024, pp. 54928–54958. [9] F. Baader, The Description Logic Handbook: Theory, Implementation, and Applications, Cambridge university press, 2003. [10] M. Krötzsch, F. Simancik, I. Horrocks, A Description Logic Primer, arXiv preprint arXiv:1201.4089 (2012). [11] N. Mihindukulasooriya, N. S. D’Souza, F. Chowdhury, H. Samulowitz, Automatic Prompt Op-timization for Knowledge Graph Construction: Insights from an Empirical Study, 2025. URL: https://arxiv.org/abs/2506.19773. arXiv:2506.19773 .[12] L. M. Schriml, C. Arze, S. Nadendla, Y.-W. W. Chang, M. Mazaitis, V. Felix, G. Feng, W. A. Kibbe, Disease Ontology: a backbone for disease semantic integration, Nucleic acids research 40 (2012) D940–D946. [13] S. Avraham, C.-W. Tung, K. Ilic, P. Jaiswal, E. A. Kellogg, S. McCouch, A. Pujar, L. Reiser, S. Y. Rhee, M. M. Sachs, et al., The Plant Ontology Database: a community resource for plant structure and developmental stages controlled vocabulary and annotations, Nucleic acids research 36 (2008) D449–D454. [14] Qwen Team, Qwen3.5: Towards Native Multimodal Agents, 2026. URL: https://qwen.ai/blog?id= qwen3.5. [15] A. Rastogi, A. Yang, A. Q. Jiang, A. H. Liu, A. Sablayrolles, A. Héliou, A. Martin, A. Agarwal, A. Ehrenberg, A. Lo, et al., Devstral: Fine-tuning Language Models for Coding Agent Applications, arXiv preprint arXiv:2509.25193 (2025). [16] H. Babaei Giglou, J. D’Souza, A. Aioanei, N. Mihindukulasooriya, S. Auer, OntoLearner: A Modular Python Library for Ontology Learning with LLMs, 2025. URL: https://doi.org/10.5281/zenodo. 15399783. doi: 10.5281/zenodo.15399783 .[17] V. K. Kommineni, B. König-Ries, S. Samuel, From human experts to machines: An LLM supported approach to ontology and knowledge graph construction, arXiv preprint arXiv:2403.08345 (2024).

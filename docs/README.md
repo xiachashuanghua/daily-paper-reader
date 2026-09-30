@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-29</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-30</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-29 23:34:23 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-30 22:49:51 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读2篇、速读3篇，聚焦基因组疾病推理与生物医学AI工程化。最值得看的是GenoMorph（9.0分）用通路驱动的自适应潜在计算做基因组疾病推理，以及BioDyad（8.0分）同步生物医学发现与机器学习工程。普通读者可先读这两篇的精读摘要，再按需浏览分子优化与AI科研智能体的速读文章。</p>
+<p>今日速读2篇、精读0篇，两篇均6.0分，聚焦AI智能体科研与本体学习提示优化。</p>
+<p>最值得看：AI Agent系统如何重塑科学工作流程，以及APOLO用自动提示优化降低本体学习门槛。</p>
+<p>普通读者可先读摘要，重点判断AI代理协作和提示优化是否适合自己的科研或知识整理场景。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="GenoMorph: Pathway-Grounded Genomic Disease Reasoning via Adaptive Latent Computation">GenoMorph: Pathway-Grounded Genomic Disease Reasoning via Adaptive Latent Computation</span></li><li><span class="dpr-home-dashboard-paper-title" title="BioDyad: Synchronize Biomedical Discovery and Machine Learning Engineering">BioDyad: Synchronize Biomedical Discovery and Machine Learning Engineering</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
+
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="M3OS: A Monte Carlo Graph Search-Orchestrated Multi-Agent LLM System for Evidence-Traced Molecular Optimization">M3OS: A Monte Carlo Graph Search-Orchestrated Multi-Agent LLM System for Evidence-Traced Molecular Optimization</span></li><li><span class="dpr-home-dashboard-paper-title" title="LLM sequential decision making under uncertainty in biochemical domains">LLM sequential decision making under uncertainty in biochemical domains</span></li><li><span class="dpr-home-dashboard-paper-title" title="DISCERN: Can AI Agents Work Like Scientists and Guide Discovery?">DISCERN: Can AI Agents Work Like Scientists and Guide Discovery?</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Research with AI Agents: How Agentic Systems Are Changing Scientific Work">Research with AI Agents: How Agentic Systems Are Changing Scientific Work</span></li><li><span class="dpr-home-dashboard-paper-title" title="APOLO: Automatic Prompt Optimization for Ontology Learning">APOLO: Automatic Prompt Optimization for Ontology Learning</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
 </div>
 

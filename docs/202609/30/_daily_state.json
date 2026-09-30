@@ -1,0 +1,41 @@
+{
+  "date": "20260930",
+  "date_label": "",
+  "generated_at": "2026-09-30 22:49:51 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.31219v1",
+      "route": "202609/30/2609.31219v1-research-with-ai-agents-how-agentic-systems-are-changing-scientific-work",
+      "title": "Research with AI Agents: How Agentic Systems Are Changing Scientific Work",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "智能体AI系统如何改变科研与临床工作的综述",
+      "first_seen_at": "2026-09-30 22:49:51 UTC",
+      "updated_at": "2026-09-30 22:49:51 UTC"
+    },
+    {
+      "paper_id": "2609.34540v1",
+      "route": "202609/30/2609.34540v1-apolo-automatic-prompt-optimization-for-ontology-learning",
+      "title": "APOLO: Automatic Prompt Optimization for Ontology Learning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向生物医学本体DOID的LLM与多智能体本体学习",
+      "first_seen_at": "2026-09-30 22:49:51 UTC",
+      "updated_at": "2026-09-30 22:49:51 UTC"
+    }
+  ]
+}
