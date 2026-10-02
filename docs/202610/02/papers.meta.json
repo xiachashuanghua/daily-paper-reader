@@ -1,0 +1,69 @@
+{
+  "label": "2026-10-02",
+  "date": "2026-10-02",
+  "generated_at": "2026-10-02T22:51:24",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202610/02/2609.36406v1-from-retrieval-to-reasoning-agentic-mechanism-prediction-from-cell-painting-profiles",
+      "section": "deep",
+      "title_en": "From Retrieval to Reasoning: Agentic Mechanism Prediction from Cell Painting Profiles",
+      "authors": "Jiayuan Chen, Botao Yu, Tianyu Liu, Thai-Hoang Pham, Meng Wu, Ping Zhang",
+      "date": "2026-09-29",
+      "pdf": "https://arxiv.org/pdf/2609.36406v1",
+      "score": "8.0",
+      "evidence": "基于生物Cell Painting数据的智能体推理机制预测",
+      "tldr": "Cell Painting形态学图谱用于MOA预测，但检索式方法把邻近扰动当作可靠证据，受批次效应、非特异性毒性和表型趋同影响，邻居噪声大且误导。为此提出PhenoAIR，将MOA预测重构为校准证据推理，用可靠性感知多智能体框架维护候选证据记忆，由控制器引导精炼表型与机制证据，借助离线参考集按来源可靠性、表型稳定性和机制混淆加权。在JUMP Cell Painting受控、真实与开放世界基准上，PhenoAIR优于表征匹配和LLM基线。",
+      "tags": "query:llmagt",
+      "abstract_en": "Cell Painting is a high-content morphological profiling assay widely used for phenotype-based biological inference, with mechanism of action (MOA) prediction as a central application. Existing approaches largely formulate Cell Painting-based inference as representation matching, assigning predictions from nearby reference perturbations in morphological feature space. However, retrieved neighbors are often noisy and partially misleading evidence due to batch effects, non-specific cytotoxicity, phenotypic convergence, and source-dependent variability. We reformulate Cell Painting-based MOA prediction as a calibrated evidence reasoning problem, where retrieved neighbors are treated as uncertain observations that must be evaluated, compared, and sometimes rejected before supporting a mechanistic conclusion. We propose PhenoAIR, a reliability-aware multi-agent framework that maintains a candidate-centric evidence memory and performs controller-guided refinement over phenotype- and mechanism-side evidence. PhenoAIR uses offline reference-set calibration to weight evidence by source reliability, phenotype stability, and mechanism-level confusion. We evaluate PhenoAIR on a benchmark constructed from JUMP Cell Painting profiles and annotations, covering controlled, realistic, and discovery-oriented open-world MOA prediction settings. PhenoAIR outperforms representation-matching and LLM-based baselines across all settings.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/02/2610.00898v1-when-do-biological-reasoning-models-use-their-biological-inputs",
+      "section": "deep",
+      "title_en": "When Do Biological Reasoning Models Use Their Biological Inputs?",
+      "authors": "Ada Fang, Nikitha Thoduguli, Lukas Fesser, Hanlin Zhang, Sham M. Kakade, Marinka Zitnik",
+      "date": "2026-10-01",
+      "pdf": "https://arxiv.org/pdf/2610.00898v1",
+      "score": "8.0",
+      "evidence": "LLM在DNA、蛋白质与单细胞输入上的生物推理",
+      "tldr": "生物推理模型通过后训练把LLM与生物基础模型表征及生物文本连接起来，其基准准确率常被当作模型确实利用生物输入进行推理的证据。作者在DNA、蛋白质和单细胞任务上检验六个模型，方法包括扰动单一生物输入、构造表征与文本冲突、训练线性探针并分析推理轨迹。结果显示Evo2和ESM3对BioReason/BioReason-Pro贡献有限，打乱DNA几乎不影响疾病预测，冲突时两模型分别有97.9%和99.7%跟随文本；ChatNT等模型则依赖基础模型输入。准确率提升并不代表生物输入贡献更大，当前后训练策略无法保证基础模型表征真正参与任务性能。",
+      "tags": "query:llmagt",
+      "abstract_en": "Biological reasoning models use post-training to connect LLMs to biological foundation model representations and biological text. Their benchmark accuracy is taken as evidence that LLMs reason over these inputs. We test this assumption in six biological reasoning models across DNA, protein, and single-cell tasks. We perturb one biological input while holding the query and other inputs fixed, construct evidence conflicts that pair the foundation model representation of one genome, protein, or cell with the text of another, fit linear probes to the representations the language model receives, and analyze reasoning traces against the biological inputs. Evo2 and ESM3 contribute little to BioReason and BioReason-Pro performance on the evaluated tasks. Shuffling the DNA sequence barely changes BioReason disease prediction accuracy, and in evidence conflicts the two models follow the text in 97.9% and 99.7% of cases. Linear probes trained on the Evo2 and ESM3 representations predict the task targets, so these foundation models encode information relevant to the task, but provide limited overall performance improvement to BioReason and BioReason-Pro. In contrast, foundation model inputs contribute to ChatNT, Prot2Text-V2, and CellWhisperer performance, and differentially expressed genes in the gene sentence contribute to Cell2Sentence-Scale performance. Across SFT and RL checkpoints of BioReason-Pro and 42 BioReason checkpoints, increases in accuracy do not imply greater performance contributions from biological inputs. BioReason traces misstate nucleotide changes, while BioReason-Pro traces describe functions omitted from final predictions under evidence conflicts. We find that current post-training strategies do not ensure that foundation model representations contribute to task performance.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/02/2609.31562v1-agentic-economies-for-autonomous-scientific-discovery",
+      "section": "quick",
+      "title_en": "Agentic Economies for Autonomous Scientific Discovery",
+      "authors": "Nenad Tomasev, Matija Franklin, Atoosa Kasirzadeh, Vivek Natarajan, Alan Karthikesalingam, Sebastien Krier, Simon Osindero",
+      "date": "2026-09-25",
+      "pdf": "https://arxiv.org/pdf/2609.31562v1",
+      "score": "6.0",
+      "evidence": "面向自主科学发现的多智能体系统",
+      "tldr": "AI for Science正从单任务工具转向可编排端到端流程的多智能体自主科研，但现有研究多聚焦推理与假设生成等认知能力，忽视实验验证所需资源有限这一瓶颈。本文提出科学智能体经济、市场与制度的基础设施，将资源管理嵌入自主发现流程，支撑人机协作、优先级设定、贡献分配、问责追溯与信息安全。该框架旨在打通闭环自动化与增强人机协同，并进一步讨论宏观社会影响与治理政策，以促进AI驱动发现及其衍生技术的公平分配。",
+      "tags": "query:llmagt",
+      "abstract_en": "Recent advances in agentic Artificial Intelligence (AI) systems have marked a shift in AI for Science: moving away from the use of individual AI systems for narrow task execution, toward multi-agent systems capable of orchestrating complex, end-to-end research workflows and performing (semi-)autonomous scientific discovery. The development of multi-agent AI-for-science systems has primarily focused on improving the cognitive capabilities of AI systems, specifically by making advanced reasoning and hypothesis generation more reliable. However, focusing only on cognitive capability improvement could ignore appropriate management of resources, a key bottleneck in scientific discovery. Testing and validating scientific hypotheses and experiments is, physically and economically, resource-intensive and resources are limited. This means that to make significant advancements in autonomous scientific discovery, such as improving human-AI co-scientist complementarity or reaching a truly closed-loop automated process, we must pair ongoing improvements in reasoning capabilities with robust resource management. In this paper, we outline an infrastructure for AI resource management by developing the necessary foundations of scientific agent economies, markets, and institutions. The aim of this infrastructure is to empower AI agents and human scientists to effectively (i) collaborate and establish research priorities, (ii) assign credit, (iii) track accountability and liability, and (iv) safeguard against malicious use and information security risks. Finally, we engage with the macro-level societal implications. of (semi-)autonomous scientific discovery to inform the development of governance policies ensuring an equitable distribution of AI-driven discoveries and derivative future technologies.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/02/2609.35315v1-collaborative-principle-evolution-via-evidence-transfer-for-scientific-discovery",
+      "section": "quick",
+      "title_en": "Collaborative Principle Evolution via Evidence Transfer for Scientific Discovery",
+      "authors": "Yingming Pu, Hongyu Chen, Tao Lin",
+      "date": "2026-09-28",
+      "pdf": "https://arxiv.org/pdf/2609.35315v1",
+      "score": "6.0",
+      "evidence": "LLM智能体协作加速科学发现",
+      "tldr": "基于大语言模型的智能体有望自动化科学发现，但假设空间庞大导致探索代价高，现有原理演化方法串行运行，限制了探索广度并浪费时间。本文提出 COEVOLVE，把协作式科学发现建模为并行原理演化分支间的证据迁移，通过协调核心实现信息价值门控路由与上下文折扣似然注入，让各分支共享测量但保持原理后验独立。在六个科学发现任务上，平均解质量从 57.0% 提升至 66.5%，墙钟时间平均加速 1.80 倍；在五个自动研究任务上，是唯一每项都超过已发表 SOTA 基线的方案，并明确了证据共享何时有效、何时需迁移保护。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large Language Model (LLM)-based agents promise to automate scientific discovery, yet exploring the vast hypothesis space remains costly. Existing principle-evolution methods accelerate this loop, but operate sequentially, which caps exploration breadth and wastes wall-clock time on challenging problems. To address this, we formulate collaborative scientific discovery as evidence transfer between parallel principle-evolution branches. We present COEVOLVE, which realizes this transfer through a coordination core over parallel branches. By integrating value-of-information-gated routing and context-discounted likelihood injection, COEVOLVE enables branches to collaborate through shared measurements while keeping their principle posteriors separate. Across six scientific-discovery tasks under a matched evaluation budget, COEVOLVE attains a mean solution quality of 66.5% versus 57.0% for single-branch principle evolution, with a 1.80x mean wall-clock speedup on the GPT-5.6-Terra backbone; on five auto-research tasks delegated to an autonomous research harness, it is the only arm whose mean stays above the published SOTA anchor on every task. These results establish when evidence sharing accelerates parallel discovery and when transfer safeguards are necessary to limit negative or inert transfers",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
