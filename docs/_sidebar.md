@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-10-04 <!--dpr-date:20261004-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202610/04/2609.37773v1-omnivcbench-benchmarking-evidence-grounded-multimodal-reasoning-towards-ai-virtual-cells" data-sidebar-item="{&quot;title&quot;: &quot;OmniVCBench: Benchmarking Evidence-Grounded Multimodal Reasoning Towards AI Virtual Cells&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.37773v1-omnivcbench-benchmarking-evidence-grounded-multimodal-reasoning-towards-ai-virtual-cells&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力&quot;}">OmniVCBench: Benchmarking Evidence-Grounded Multimodal Reasoning Towards AI Virtual Cells</a>
   * 2026-10-02 <!--dpr-date:20261002-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202610/02/2609.36406v1-from-retrieval-to-reasoning-agentic-mechanism-prediction-from-cell-painting-profiles" data-sidebar-item="{&quot;title&quot;: &quot;From Retrieval to Reasoning: Agentic Mechanism Prediction from Cell Painting Profiles&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.36406v1-from-retrieval-to-reasoning-agentic-mechanism-prediction-from-cell-painting-profiles&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;llmagt&quot;}], &quot;evidence&quot;: &quot;基于生物Cell Painting数据的智能体推理机制预测&quot;}">From Retrieval to Reasoning: Agentic Mechanism Prediction from Cell Painting Profiles</a>

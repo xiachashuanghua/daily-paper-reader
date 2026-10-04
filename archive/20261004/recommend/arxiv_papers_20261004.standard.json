@@ -1,0 +1,57 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-10-04T22:48:18.319971+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.37773v1",
+      "source": "arxiv",
+      "title": "OmniVCBench: Benchmarking Evidence-Grounded Multimodal Reasoning Towards AI Virtual Cells",
+      "abstract": "Artificial Intelligence Virtual Cells (AIVCs) are envisioned as scientific agents that simulate cellular responses, explain underlying mechanisms, and support hypothesis-driven discovery. Existing AIVC benchmarks, however, operate primarily at the simulation layer, motivating complementary evaluation of how models interpret experimental evidence and formulate biological hypotheses. We introduce OmniVCBench, a figure-centric, source-traceable benchmark for the interpretation component of an AIVC. It contains 6,077 curated single- and multi-subfigure question--answer pairs derived from figures and experimental contexts in the scientific literature. Guided by Bloom's taxonomy, we instantiate interpretation-layer counterparts of the AIVC Predict--Explain--Discover agenda through three scientific reasoning tasks. We further introduce AIVC-Judge, a task-conditioned MLLM-as-a-judge framework with category-specific, reference-aware rubrics for evaluating open-ended responses. A complementary Model-Derived Hard-Negative Mining (MDHNM) strategy converts plausible errors observed during model inference into MCQ distractors for lower-cost evaluation. Within the evaluated heterogeneous model pool, MCQ accuracy correlates positively with AIVC-Judge scores, providing a complementary view of performance alongside open-response evaluation. Code and data demo are available at https://anonymous.4open.science/r/OmniVCBench.",
+      "authors": [
+        "Manyu Li",
+        "Xunkai Li",
+        "Yongfu Xiong",
+        "Yi Liu",
+        "Rong-Hua Li",
+        "Guoren Wang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "q-bio.QM"
+      ],
+      "published": "2026-09-29T15:13:51+00:00",
+      "link": "https://arxiv.org/pdf/2609.37773v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark for AI virtual cells as scientific agents interpreting biological evidence",
+      "llm_evidence_cn": "面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力",
+      "llm_evidence": "面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力",
+      "canonical_evidence": "面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力",
+      "llm_tldr_en": "OmniVCBench addresses the missing interpretation layer in AI Virtual Cell evaluation by providing 6,077 source-traceable figure-centric QA pairs that test how models read experimental evidence and form biological hypotheses.",
+      "llm_tldr_cn": "AI虚拟细胞被设想为可模拟细胞响应、解释机制并支持假设驱动发现的科学智能体，但现有基准多停留在模拟层，缺乏对其解读实验证据与提出假设能力的评估。作者提出OmniVCBench，一个以图为中心、可溯源的基准，包含6077个源自文献图表与实验背景的单图与多子图问答对，并按Bloom分类法设计解读层任务。该基准为AI虚拟细胞的证据理解与假设生成能力提供了系统评测手段，推动其评估从模拟层扩展到解读层。",
+      "llm_tldr": "AI虚拟细胞被设想为可模拟细胞响应、解释机制并支持假设驱动发现的科学智能体，但现有基准多停留在模拟层，缺乏对其解读实验证据与提出假设能力的评估。作者提出OmniVCBench，一个以图为中心、可溯源的基准，包含6077个源自文献图表与实验背景的单图与多子图问答对，并按Bloom分类法设计解读层任务。该基准为AI虚拟细胞的证据理解与假设生成能力提供了系统评测手段，推动其评估从模拟层扩展到解读层。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

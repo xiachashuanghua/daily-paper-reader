@@ -1,0 +1,25 @@
+{
+  "date": "20261004",
+  "date_label": "",
+  "generated_at": "2026-10-04 22:49:41 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.37773v1",
+      "route": "202610/04/2609.37773v1-omnivcbench-benchmarking-evidence-grounded-multimodal-reasoning-towards-ai-virtual-cells",
+      "title": "OmniVCBench: Benchmarking Evidence-Grounded Multimodal Reasoning Towards AI Virtual Cells",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力",
+      "first_seen_at": "2026-10-04 22:49:41 UTC",
+      "updated_at": "2026-10-04 22:49:41 UTC"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "label": "2026-10-04",
+  "date": "2026-10-04",
+  "generated_at": "2026-10-04T22:49:42",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202610/04/2609.37773v1-omnivcbench-benchmarking-evidence-grounded-multimodal-reasoning-towards-ai-virtual-cells",
+      "section": "quick",
+      "title_en": "OmniVCBench: Benchmarking Evidence-Grounded Multimodal Reasoning Towards AI Virtual Cells",
+      "authors": "Manyu Li, Xunkai Li, Yongfu Xiong, Yi Liu, Rong-Hua Li, Guoren Wang",
+      "date": "2026-09-29",
+      "pdf": "https://arxiv.org/pdf/2609.37773v1",
+      "score": "7.0",
+      "evidence": "面向作为科学智能体的AI虚拟细胞，评测其解读生物证据能力",
+      "tldr": "AI虚拟细胞应能模拟细胞响应、解释机制并支持假设发现，但现有基准多停留在模拟层，缺少对实验证据解读与假设生成的评测。为此提出OmniVCBench，一个以图表为中心、来源可追溯的基准，包含6077个单/多子图问答对，并依据Bloom分类法设计三类科学推理任务。该基准还引入AIVC-Judge，用任务条件化、类别特异且参考感知的评分准则评估开放式回答；配合MDHNM把模型推理中的合理错误转为选择题干扰项，实现低成本评测。在异构模型池中，选择题准确率与AIVC-Judge得分正相关，为AIVC解释层提供了可追溯、互补的评测基础。",
+      "tags": "query:llmagt",
+      "abstract_en": "Artificial Intelligence Virtual Cells (AIVCs) are envisioned as scientific agents that simulate cellular responses, explain underlying mechanisms, and support hypothesis-driven discovery. Existing AIVC benchmarks, however, operate primarily at the simulation layer, motivating complementary evaluation of how models interpret experimental evidence and formulate biological hypotheses. We introduce OmniVCBench, a figure-centric, source-traceable benchmark for the interpretation component of an AIVC. It contains 6,077 curated single- and multi-subfigure question--answer pairs derived from figures and experimental contexts in the scientific literature. Guided by Bloom's taxonomy, we instantiate interpretation-layer counterparts of the AIVC Predict--Explain--Discover agenda through three scientific reasoning tasks. We further introduce AIVC-Judge, a task-conditioned MLLM-as-a-judge framework with category-specific, reference-aware rubrics for evaluating open-ended responses. A complementary Model-Derived Hard-Negative Mining (MDHNM) strategy converts plausible errors observed during model inference into MCQ distractors for lower-cost evaluation. Within the evaluated heterogeneous model pool, MCQ accuracy correlates positively with AIVC-Judge scores, providing a complementary view of performance alongside open-response evaluation. Code and data demo are available at https://anonymous.4open.science/r/OmniVCBench.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
