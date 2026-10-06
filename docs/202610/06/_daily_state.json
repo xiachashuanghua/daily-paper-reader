@@ -1,9 +1,9 @@
 {
   "date": "20261006",
   "date_label": "",
-  "generated_at": "2026-10-06 00:55:37 UTC",
+  "generated_at": "2026-10-06 23:41:27 UTC",
   "recommend_exists": true,
-  "run_count": 1,
+  "run_count": 2,
   "papers": [
     {
       "paper_id": "2610.03029v1",
@@ -17,9 +17,9 @@
         }
       ],
       "score": 9.0,
-      "evidence": "基于LLM与蛋白语言模型的基因集注释",
+      "evidence": "蛋白质语言模型增强的LLM基因集注释",
       "first_seen_at": "2026-10-06 00:55:37 UTC",
-      "updated_at": "2026-10-06 00:55:37 UTC"
+      "updated_at": "2026-10-06 23:41:27 UTC"
     },
     {
       "paper_id": "2610.02970v1",
@@ -35,7 +35,87 @@
       "score": 8.0,
       "evidence": "面向生物医学命名实体识别的多智能体LLM框架",
       "first_seen_at": "2026-10-06 00:55:37 UTC",
-      "updated_at": "2026-10-06 00:55:37 UTC"
+      "updated_at": "2026-10-06 23:41:27 UTC"
+    },
+    {
+      "paper_id": "2610.05600v1",
+      "route": "202610/06/2610.05600v1-an-llm-in-the-loop-rl-framework-for-bioinformatics-feature-selection",
+      "title": "An LLM-in-the-loop RL Framework for Bioinformatics Feature Selection",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向生物信息学特征选择的大模型在环强化学习框架",
+      "first_seen_at": "2026-10-06 23:41:27 UTC",
+      "updated_at": "2026-10-06 23:41:27 UTC"
+    },
+    {
+      "paper_id": "2610.06190v1",
+      "route": "202610/06/2610.06190v1-bridging-the-evidence-to-execution-gapa-reflective-agent-for-multi-objective-peptide-design",
+      "title": "Bridging the Evidence-to-Execution Gap:A Reflective Agent for Multi-Objective Peptide Design",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "面向生物序列设计的反思型LLM智能体",
+      "first_seen_at": "2026-10-06 23:41:27 UTC",
+      "updated_at": "2026-10-06 23:41:27 UTC"
+    },
+    {
+      "paper_id": "2610.02949v1",
+      "route": "202610/06/2610.02949v1-enhancing-biomedical-named-entity-recognition-via-multiple-programming-languages-instruction-tuning-and-ensemble-method",
+      "title": "Enhancing Biomedical Named Entity Recognition via Multiple Programming Languages Instruction Tuning and Ensemble Method",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向生物医学命名实体识别的LLM指令微调与集成方法",
+      "first_seen_at": "2026-10-06 00:55:37 UTC",
+      "updated_at": "2026-10-06 23:41:27 UTC"
+    },
+    {
+      "paper_id": "2610.03853v1",
+      "route": "202610/06/2610.03853v1-can-llm-agents-select-and-engage-with-biological-tools",
+      "title": "Can LLM Agents Select and Engage with Biological Tools?",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "大模型智能体选择并使用生物研究工具",
+      "first_seen_at": "2026-10-06 23:41:27 UTC",
+      "updated_at": "2026-10-06 23:41:27 UTC"
+    },
+    {
+      "paper_id": "2610.04740v1",
+      "route": "202610/06/2610.04740v1-toward-a-locally-deployable-agentic-co-scientist-small-model-planning-for-early-stage-drug-discovery",
+      "title": "Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向药物发现的可本地部署智能体协同科学家",
+      "first_seen_at": "2026-10-06 23:41:27 UTC",
+      "updated_at": "2026-10-06 23:41:27 UTC"
     },
     {
       "paper_id": "2609.38879v1",
@@ -50,22 +130,6 @@
       ],
       "score": 6.0,
       "evidence": "以蛋白质折叠为试验台训练LLM可迁移推理",
-      "first_seen_at": "2026-10-06 00:55:37 UTC",
-      "updated_at": "2026-10-06 00:55:37 UTC"
-    },
-    {
-      "paper_id": "2610.02949v1",
-      "route": "202610/06/2610.02949v1-enhancing-biomedical-named-entity-recognition-via-multiple-programming-languages-instruction-tuning-and-ensemble-method",
-      "title": "Enhancing Biomedical Named Entity Recognition via Multiple Programming Languages Instruction Tuning and Ensemble Method",
-      "section": "quick",
-      "tags": [
-        {
-          "kind": "query",
-          "label": "llmagt"
-        }
-      ],
-      "score": 6.0,
-      "evidence": "用大语言模型指令微调做生物医学命名实体识别",
       "first_seen_at": "2026-10-06 00:55:37 UTC",
       "updated_at": "2026-10-06 00:55:37 UTC"
     }

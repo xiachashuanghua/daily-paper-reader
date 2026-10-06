@@ -1,0 +1,945 @@
+Title: Bridging the Evidence-to-Execution Gap:A Reflective Agent for Multi-Objective Peptide Design
+
+URL Source: https://arxiv.org/pdf/2610.06190v1
+
+Published Time: Tue, 06 Oct 2026 03:30:39 GMT
+
+Number of Pages: 24
+
+Markdown Content:
+# Bridging the Evidence-to-Execution Gap: A Reflective Agent for Multi-Objective Peptide Design 
+
+Haosen Zhang 1 Yang Yang 2,∗
+
+> 1
+
+School of Agriculture and Biology, Shanghai Jiao Tong University 
+
+> 2
+
+School of Computer Science, Shanghai Jiao Tong University 
+
+> ∗
+
+Corresponding author 
+
+Abstract 
+
+Large language models (LLMs) can reason over scientific literature and formulate complex design strategies, yet they struggle to translate these strategies into reliable biological sequence manipulations. Protein language models and related generators capture complex sequence patterns but are not inherently equipped to integrate literature evidence into multi-step reasoning and reflective decision-making. This separation creates an evidence-to-execution gap between scientific reasoning and sequence-level control. We introduce EASER (Evidence-Aware Sequence Engineering with Reflection), a reflective agent that connects scientific reasoning with sequence generation through a learned property interface. The interface consists of property-specific low-rank matrices trained offline and kept fixed during search. The agent combines these matrices to steer a specialized diffusion generator. Using retrieved biological evidence, sequence context, and prior outcomes, it proposes intervention hypotheses specifying anchors, editable positions, and control coefficients. Probe-and-Steer tests these interventions and uses predicted property responses to allocate further samples. The agent reflects on the outcomes to guide subsequent decisions. We evaluate EASER on computational antimicrobial peptide design, balancing activity, non-hemolysis, and non-toxicity. At matched decision states, explicit hypothesis formulation yields larger multi-objective gains than direct action generation. Ablations support the contributions of evidence retrieval, episodic history, reflection, and Probe-and-Steer. Across six independent runs, EASER achieves the highest mean hypervolume and lowest mean IGD+ among the evaluated search policies and generators on screened candidates. The AMP experiments illustrate how an executable property interface and iterative feedback connect scientific reasoning with specialized sequence generation. 
+
+# 1 Introduction 
+
+Scientific literature offers interventional principles for biological sequence design, specifying changes and the conditions under which they may help. Residue substitutions, for example, can alter both antibacterial activity and hemolysis [Chen et al., 2007]. Applying this knowledge requires an interface for making executable changes to a particular sequence. Large language models (LLMs) can reason over these principles, but textual plans do not reliably produce sequences with the intended properties [Ge et al., 2026]. Sequence generators learn complex sequence patterns [Wang et al., 2024b], yet generation alone does not interpret evidence, select inter-ventions, or reflect on outcomes. We call the difficulty of translating scientific evidence into executable sequence interventions the evidence-to-execution gap. Antimicrobial peptide (AMP) design makes the gap concrete: activity must be balanced against hemolysis and toxicity, and hydrophobicity changes can affect antibacterial activity and hemolysis differently [Chen et al., 2007]. Applying general principles therefore requires sequence-specific decisions and evaluation of their joint consequences. Existing approaches connect language and generation through paired text–sequence learning, reward-based optimization, or tool-using agents. ProteinDT aligns text and protein representations, while ProtDAT conditions generation on protein descriptions [Liu et al., 2025, Guo et al., 2025]. Reward and preference methods specify desired outcomes [Wang et al., 2025a, Widatalla et al., 2026], while 1arXiv:2610.06190v1 [cs.AI] 5 Oct 2026 Figure 1: EASER overview. Offline-trained matrices steer a frozen generator during sampling and refinement. Evidence and internal predictor feedback guide agent decisions; external predictors score candidates after search. The diagram uses schematic matrices, sequences, and plots; the molecular example is PDB 2MAG. ProtoCycle combines reflective planning with tool feedback [Ge et al., 2026]. We study an interface through which an agent uses retrieved evidence and observed responses to select property-trained controls, sequence anchors, and editable positions. We introduce EASER (Evidence-Aware Sequence Engineering with Reflection), a reflective agent with composable controls over a frozen peptide diffusion generator (Figure 1). Property-specific low-rank matrices are learned offline at the output projection. The agent combines them through bounded coefficients while selecting anchors and editable positions. The matrices define the available operations; evidence guides the agent’s choice of when and where to apply them. Because controls interact, the agent treats interventions as testable hypotheses. Probe-and-Steer tests small batches and allocates further samples from their joint predicted responses. Reflection links actions to outcomes for subsequent decisions. The agent checks literature-derived expectations against computational feedback while keeping the generator and matrices fixed. We test whether interventions chosen from evidence improve AMP search using matched-state comparisons, component ablations, and analyses of coupled property responses. Across six runs of 2,560 candidates per method, EASER achieves the highest mean screened hypervolume and lowest mean IGD+ among the evaluated policies and generators. 
+
+Contributions. We provide (1) an executable interface of composable low-rank property controls; (2) an evidence-grounded reflective agent that tests interventions through Probe-and-Steer; and (3) empirical validation of improved AMP search and intervention decisions, supported by component ablations and analysis of coupled responses. 
+
+# 2 Related Work 
+
+Generative peptide models. AMPGAN v2 and AMPGPT2 use adversarial and autoregressive generation [Van Oort et al., 2021, Clemens et al., 2026], while ProT-Diff and AMPGen use diffusion [Wang et al., 2024a, Jin et al., 2025]. AMP-Designer combines prompt tuning and reinforcement learning [Wang et al., 22025b]; HMAMP and MOFormer address multiple objectives through hypervolume optimization and Pareto ranking [Wang et al., 2025d,c]. EASER focuses on the agent’s decision process: using domain evidence and search history to select interventions and revising decisions from observed responses. 
+
+Controllable generation. Preference optimization learns from paired outputs; DRAKES combines rewards with divergence regularization, and ProteinDPO uses experimental stability preferences [Rafailov et al., 2023, Wang et al., 2025a, Widatalla et al., 2026]. TR2-D2 trains on tree-selected trajectories, while token-aligned preference optimization learns property-conditioned preferences [Tang et al., 2025b, Zervou et al., 2025]. Classifier and classifier-free guidance steer diffusion sampling; PepTune and MP2D incorporate multi-objective tree search [Dhariwal and Nichol, 2021, Ho and Salimans, 2022, Tang et al., 2025a, Kong et al., 2026]. LoRA, model soups, and Rewarded Soups support compact updates and combinations of adapted models [Hu et al., 2022, Wortsman et al., 2022, Rame et al., 2023]. These controls express desired outcomes through rewards, labels, conditioning, or predictor-guided search. EASER connects residue- and property-level evidence to decisions about anchors, editable positions, and coefficients for property-trained matrices. 
+
+Scientific agents. ReAct interleaves reasoning with actions, while Reflexion incorporates textual feedback into subsequent decisions [Yao et al., 2023, Shinn et al., 2023]. In scientific applications, ChemCrow and Coscientist connect language models to chemistry tools and experimental execution, and SciToolAgent uses a tool knowledge graph to support workflow selection [M. Bran et al., 2024, Boiko et al., 2023, Ding et al., 2025]. ProtAgents, OSDA Agent, and the Virtual Lab coordinate domain expertise and tools for scientific tasks [Ghafarollahi and Buehler, 2024, Hu et al., 2025, Swanson et al., 2025]. For peptide design, PepCraft coordinates generation and verification, while Pepti-Agent connects generation, prediction, and mutation through feedback [Jung et al., 2026, Chen et al., 2026]. ProtoCycle couples reflective planning with scaffold retrieval, functional-site design, and evaluation, and trains its planner through supervised fine-tuning and online reinforcement learning [Ge et al., 2026]. These systems connect planning, tools, and feedback in scientific workflows. In multi-objective sequence design, evidence can support competing modifications to the same candidate. EASER addresses this decision by testing hypotheses through learned property controls and revising subsequent interventions from their joint responses. MAC-AMP connects multi-agent assessment to generator adaptation through dynamically designed rewards and successive PPO updates [Zhou et al., 2026a]. Reward selection uses Pareto comparisons, but each PPO stage optimizes a scalar objective that need not preserve diverse activity–safety trade-offs. EASER tests evidence-informed interventions on a frozen generator and uses joint property responses to guide sampling. 
+
+# 3 Method 
+
+EASER searches for favorable predicted activity–safety trade-offs under a fixed generation budget. The agent uses evidence and prior outcomes to select anchors, editable positions, and property-control coefficients, then uses observed responses to guide further sampling (Figure 1). 
+
+3.1 Low-rank output interventions 
+
+Low-rank updates at the output projection alter amino-acid sampling preferences while the pretrained transformer supplies contextual features. Weighted combinations apply several property controls in one generation call. Our AMP-adapted Diffusion Protein Language Model (DPLM) [Wang et al., 2024b] undergoes sequential LoRA adaptation on short peptides and an AMP-oriented corpus (Appendix B.2). It remains frozen during direction training and search; Appendix B.1 describes the data. For contextual state 
+
+hi,t ∈ Rd at position i and denoising step t, the base logits are W0hi,t +b. For each property k ∈ { a, h, t },we learn 
+
+∆Wk = UkV ⊤ 
+
+> k
+
+, Uk ∈ Rv×r, Vk ∈ Rd×r. (1) 3With v = 33 , d = 1280 , and r = 16 , the three factor pairs contain 3r(v + d) = 63 ,024 trainable parameters. Once learned, these matrices remain fixed while the agent changes their coefficients during search. Bounded multipliers αk combine fixed, norm-calibrated matrices (Appendix B.2): 
+
+Weff = W0 + X
+
+> k
+
+αk∆Wk, ℓi,t = Weff hi,t + b. (2) Zero coefficients recover the base projection; calibration is fixed across comparisons. Anchored refinement masks and denoises selected residues while preserving the rest; de novo sampling masks every position. The contextual intervention ∆Wkhi,t varies by position and denoising step. Logits are linear in coefficients at fixed hidden states. Generated properties also depend on normalization, denoising, and sampling, so we evaluate their responses empirically. 
+
+Figure 2: Evidence-informed agent loop. Specialists organize evidence; the LLM proposes interventions, Probe tests responses, and Steer allocates samples. Outcomes update the archive, reflection, and memory. Sequences, controls, and plots are schematic. 
+
+3.2 Evidence-informed intervention hypotheses 
+
+Sequence-conditioned retrieval supplies organism, residue, and motif evidence to three property specialists (Figure 2). The specialists aggregate supporting and adverse evidence deterministically; LLM calls generate joint proposals, allocate samples, and reflect on outcomes. The LLM combines candidate sequences, predicted properties, physicochemical summaries, specialist recommendations, and previous outcomes to formulate intervention hypotheses. Each hypothesis specifies anchor sequences P , editable positions M , control coefficients c, and shared strength η, together with expected effects and risks. For example, modifying a hydrophobic region may reduce hemolysis while risking a loss of activity. An empty anchor set specifies controlled de novo sampling. Appendix C.1 describes the evidence resource. Probe-and-Steer evaluates four hypotheses before committing further samples to them. Probe gener-ates 16 candidates per hypothesis; their joint predicted responses guide the allocation of 160 Steer samples, with each intervention held fixed. Another 32 unsteered de novo samples introduce new candidates, bringing the round total to 256. The archive supplies anchors for subsequent refinement. 4After Steer sampling, the agent summarizes which actions succeeded or failed and what to try next. These summaries and numerical history inform the next proposal. Appendix C.1 describes this context and gives the procedure in Algorithm 1; Appendix F traces its use in a recorded run. 
+
+3.3 Learning the property directions 
+
+We learn each control offline from preferred and dispreferred peptide pairs matched by coarse physico-chemical descriptors. Activity preferences use MIC, low-hemolysis preferences use HC50, and toxicity preferences use curated labels. A reference-relative masked preference objective trains the low-rank factors using shared diffusion corruption, replay, and norm regularization. We select checkpoints by validation performance and calibrate their norms before search. Appendix B.2 details the objective, preference pairs, and training settings. 
+
+# 4 Experimental Setup 
+
+Task and comparisons. We compared EASER with five generators (AMPGAN, AMPGPT2, AMPGen, AMPDesigner, and AMP-adapted DPLM) on predicted AMP activity, non-hemolysis, and non-toxicity. To examine intervention selection, we compared EASER with fixed coefficients, random actions, LinUCB, and NSGA-II using the same frozen generator and matrices. LinUCB and NSGA-II selected anchors, masks, coefficients, and strength within the shared action space. Component ablations and matched-information comparisons examined the roles of evidence and feedback; random-matrix controls tested the learned interventions. 
+
+Evaluation protocol. Main comparisons used six runs of 2,560 candidates per method, with lengths of 15–35 residues and ten rounds of 256 candidates. Component ablations and full-search matrix replacement used three matched seeds. Internal predictors supplied feedback; external predictors and the evaluation front were withheld from decisions. Common normalization and physicochemical penalties applied to all methods, with screening requiring all three adjusted utilities above 0.5 (Appendices A.1 and A.2). 
+
+Metrics. Hypervolume (HV) and modified inverted generational distance (IGD+) [Ishibuchi et al., 2015] measured joint performance on screened candidates using normalized scores before penalty. HV used reference (0 .5, 0.5, 0.5) ; IGD+ used a fixed empirical front (Appendix A.2). Property-specific top-ten means used separate selected sets. We report equal-weight run means and sample SD; sensitivity analyses reuse the same candidates. 
+
+# 5 Results 
+
+5.1 Multi-objective peptide design 
+
+EASER improved joint activity–safety performance under the common evaluation protocol (Table 2). It achieved the highest mean HV, 0.0450 versus 0.0301–0.0362 for the baseline generators, and the lowest mean IGD+.                                                             
+
+> Table 1. External-generator property scores. Mean ±sample SD of per-seed top-ten means over six seeds, after screening and before penalty. Each property selects its own sequences.
+> Method Activity score ↑
+> Non-hemolysis score ↑
+> Non-toxicity score ↑
+> AMPGAN 0.843 ±0.019 0.704 ±0.008 0.963 ±0.001
+> AMPGPT2 0.908 ±0.012 0.688 ±0.014 0.958 ±0.001
+> AMPGen 0.809 ±0.049 0.668 ±0.016 0.962 ±0.000
+> AMPDesigner 0.884 ±0.017 0.705 ±0.014 0.963 ±0.001
+> AMP-adapted DPLM 0.856 ±0.029 0.689 ±0.016 0.962 ±0.001
+> EASER 0.901 ±0.067 0.731 ±0.024 0.963 ±0.003
+
+5Table 2. External-generator frontier quality. Each seed retains 2,560 candidates; Passed is the total. HV/IGD+ report mean        
+
+> ±sample SD on screened, unpenalized scores with the fixed reference front.
+> Method Seeds Passed HV ↑IGD+ ↓
+
+AMPGAN 6 1,100 0.0362 ± 0.0044 0.0543 ± 0.0182 
+
+AMPGPT2 6 1,717 0.0330 ± 0.0026 0.0603 ± 0.0090 
+
+AMPGen 6 395 0.0301 ± 0.0065 0.0739 ± 0.0307 
+
+AMPDesigner 6 1,409 0.0356 ± 0.0041 0.0519 ± 0.0106 
+
+AMP-adapted DPLM 6 560 0.0350 ± 0.0042 0.0518 ± 0.0131 
+
+EASER 6 1,947 0.0450 ± 0.0086 0.0277 ± 0.0177 
+
+EASER led the joint frontier metrics, while property-specific rankings varied across methods (Table 1). EASER had the highest non-hemolysis top-ten mean, whereas AMPGPT2 led activity and several generators had similar non-toxicity means at the reported precision. Each property ranking selects its own candidates, whereas HV and IGD+ measure the joint property combinations attained by the generated sets. Appendix E.4 reports their physicochemical distributions. 
+
+5.2 Agent decisions shape the search frontier 
+
+Choosing interventions on a shared generator. With the generator and matrices held fixed, EASER achieved the highest mean HV and lowest mean IGD+ (Table 3; Figure 3). Mean HV was 0.0450, approximately 15.7% above random actions (0.0389), versus 0.0373 for LinUCB and 0.0344 for NSGA-II. The trade-off sets varied with how each policy selected interventions and used the available information, even with the same learned controls (Appendices E.5 and E.3). 0.6 0.8 1.0      
+
+> Activity score
+> 0.6 0.8 1.0
+> Non-hemolysis score
+> (a)
+> 0.6 0.8 1.0
+> Activity score
+> 0.6 0.8 1.0
+> Non-toxicity score
+> (b)
+> 0.6 0.8 1.0
+> Non-hemolysis score
+> 0.6 0.8 1.0
+> Non-toxicity score
+> (c)
+> Fixed coefficients Random actions LinUCB NSGA-II AMPGPT2 EASER
+
+Figure 3: Pareto-front projections. Pairwise projections of screened three-objective fronts, using normalized scores before penalty. Each method contributes all six run-level fronts. 
+
+Formulating hypotheses from the same evidence. We compared explicit hypothesis formulation with direct action generation at 30 saved decision states. Both protocols used the same LLM, sequences, evidence, and history, and proposed four actions with matched sampling seeds and allocations. Explicit formulation additionally stated expected effects, supporting evidence, and risks before specifying the actions. Explicit formulation increased mean HV gain over each state’s existing candidates from 0.001510 to 0.002447, with screened yield rising from 162 to 261 (Table 4). The matched-input comparison favored stating testable expectations before selecting interventions (Appendix C.3). 
+
+Using feedback to revise subsequent decisions. Removing reflection feedback reduced mean HV by 14.1% with similar screened yield (1,025 versus 1,076; Table 5). Removing action and outcome details from round-history inputs, while retaining reflections and retrieved experience, reduced HV by 15.2% and yield to 574 (Appendix C.4). 6Table 3. Search policies on a shared generator and learned controls. Mean ± sample SD across six runs of 2,560 candidates. Metrics use screened, unpenalized scores and the fixed reference (Appendix A.2).     
+
+> Method Exact HV ↑IGD+ ↓
+
+Fixed coefficients 0.0282 ± 0.0076 0.0781 ± 0.0329 
+
+Random actions 0.0389 ± 0.0068 0.0414 ± 0.0162 
+
+LinUCB 0.0373 ± 0.0087 0.0540 ± 0.0260 
+
+NSGA-II 0.0344 ± 0.0069 0.0588 ± 0.0240 
+
+EASER 0.0450 ± 0.0086 0.0277 ± 0.0177      
+
+> Table 4. Hypothesis formulation with matched information. Mean HV gain over pre-existing candidates at 30 states; screened counts sum across 1,920 draws per protocol.
+> Policy Mean ∆HV ↑
+> Screened candidates ↑
+
+Direct action generation 0.001510 162 
+
+Explicit hypothesis formulation 0.002447 261         
+
+> Table 5. Targeted LLM-input ablations. Mean ±sample SD across three seeds, paired with EASER. Passed is pooled across 7,680 candidates per condition. Appendix C.4 defines the removed inputs.
+> Condition HV ↑IGD+ ↓Passed
+
+EASER 0.0462 ± 0.0066 0.0243 ± 0.0069 1,076 
+
+Without reflection feedback 0.0397 ± 0.0042 0.0408 ± 0.0152 1,025 
+
+Without round-history details 0.0392 ± 0.0034 0.0389 ± 0.0186 574 
+
+Testing interventions and using evidence. Removing Probe-and-Steer’s multi-proposal evaluation and adaptive allocation increased screened yield from 871 to 1,089 and reduced mean HV by 33.2% (Table 6). Removing retrieval reduced HV by 18.2% with similar yield (867 versus 871). Jointly removing memory and cross-round anchor reuse reduced HV by 20.2% (Appendix C.4). 
+
+5.3 Learned controls produce coupled property responses 
+
+Property-specific control. Each learned matrix increased its target score under positive control in de novo sampling. At c = 1 , mean gains were 0.03188 for activity, 0.03170 for non-hemolysis, and 0.06996 for non-toxicity, exceeding all three spectrum-matched random controls. Target means increased monotonically across the five nonnegative coefficients. These means include all 500 draws per condition before screening, with matched lengths and sampling schedules (Appendices D.2 and D.3). 
+
+Combining controls expands the observed trade-offs. Joint settings reached mean property combi-nations unavailable in single-matrix scans. At the common 62,500-draw grid budget, learned controls produced pooled screened HV of 0.04957 versus 0.03516–0.03844 for random sets. Across 124 nonzero combinations, more learned settings improved each adjusted mean by over 0.01 (Appendix D.3). The coefficient settings that maximized each KDE-adjusted property mean differed across objectives. Ap-pendix D.1 examines the underlying residue preferences and contextual variation. 
+
+Control orientation matters within adaptive search. Replacing all three learned matrices with spectrum- and norm-matched random directions reduced mean search HV by 21.4% and increased screened yield (Table 6). The agent selected actions using feedback from each fixed random matrix set (Appendix C.5). 
+
+5.4 Lightweight transfer to cell-penetrating peptides 
+
+To examine transfer to another peptide property, we trained a rank-16 CPP matrix using CPP924 [Wei et al., 2017] and the frozen AMP-adapted backbone. Across three training and sampling seeds, positive 7Table 6. Component ablations and matrix replacement. Mean ± sample SD across three seeds, paired with EASER. This panel and Table 5 use disjoint three-run subsets of the main comparison. Metrics use screened, unpenalized scores and the common reference; Pass is pooled across 7,680 candidates.      
+
+> Method HV ↑IGD+ ↓Pass
+
+EASER 0.0439 ± 0.0117 0.0310 ± 0.0265 871 
+
+Without memory and anchor reuse 0.0350 ± 0.0084 0.0558 ± 0.0267 524 
+
+Without retrieval 0.0359 ± 0.0080 0.0544 ± 0.0321 867 
+
+Without Probe-and-Steer 0.0293 ± 0.0065 0.0692 ± 0.0299 1,089 
+
+All matrices randomized 0.0345 ± 0.0025 0.0499 ± 0.0128 1,076 
+
+control increased the independently trained evaluator’s mean CPP score from 0.4257 to 0.7067. It exceeded zero and spectrum-matched random control in every run, while reversing the coefficient reduced the score (Appendix G.1, Table 22). The CPP experiment tested the property interface with a fixed coefficient sweep. 
+
+# 6 Discussion and Conclusion 
+
+EASER connects evidence-grounded decisions to sequence generation through learned property controls. Learned matrices produced larger property responses than spectrum-matched random controls, while hypothesis formulation improved intervention outcomes under matched information. EASER learns reusable sequence operations offline, then uses evidence and feedback to choose interventions during search. The control grid revealed property-dependent coefficient optima and both favorable and adverse trade-offs. Probe-and-Steer observes these joint responses before allocating further samples. Reflection links the responses to executed actions so later proposals can use this experience. 
+
+Evaluation scope. The results quantify predicted AMP activity–safety trade-offs and classifier-predicted CPP scores. Appendix G.2 describes the scope of the agent and interface evaluations. 8References 
+
+D. Bae, M. Kim, J. Seo, and H. Nam. AI-guided discovery and optimization of antimicrobial peptides through species-aware language model. Briefings in Bioinformatics , 26(4):bbaf343, 2025. doi: 10.1093/bib/bbaf343. D. A. Boiko, R. MacKnight, B. Kline, and G. Gomes. Autonomous chemical research with large language models. Nature , 624(7992):570–578, 2023. doi: 10.1038/s41586-023-06792-0. URL https://doi.org/10.1038/ s41586-023-06792-0. H. Chen, A. Chandrasekhar, and A. Barati Farimani. Pepti-Agent: An AI Agent for Peptide Design and Optimization. 
+
+arXiv preprint arXiv:2606.15422 , 2026. URL https://arxiv.org/abs/2606.15422. Y. Chen, M. T. Guarnieri, A. I. Vasil, M. L. Vasil, C. T. Mant, and R. S. Hodges. Role of Peptide Hydrophobicity in the Mechanism of Action of α-Helical Antimicrobial Peptides. Antimicrobial Agents and Chemotherapy , 51(4): 1398–1406, 2007. doi: 10.1128/AAC.00925-06. S. Clemens, H. F. Löchel, N. Häußer, F. Wannemacher, W. Bertrams, B. Schmeck, and D. Heider. Harnessing generative AI for predicting and optimizing antimicrobial peptides against drug-resistant infections. npj Antimicrobials and Resistance , 4(1):42, 2026. doi: 10.1038/s44259-026-00218-3. K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan. A fast and elitist multiobjective genetic algorithm: NSGA-II. 
+
+IEEE Transactions on Evolutionary Computation , 6(2):182–197, 2002. doi: 10.1109/4235.996017. P. Dhariwal and A. Nichol. Diffusion Models Beat GANs on Image Synthesis. In Advances in Neural Information Processing Systems , volume 34, pages 8780–8794, 2021. URL https://proceedings.neurips.cc/paper/2021/hash/ 49ad23d1ec9fa4bd8d77d02681df5cfa-Abstract.html. K. Ding, J. Yu, J. Huang, Y. Yang, Q. Zhang, and H. Chen. SciToolAgent: a knowledge-graph-driven scientific agent for multitool integration. Nature Computational Science , 5(10):962–972, 2025. doi: 10.1038/s43588-025-00849-y. URL https://doi.org/10.1038/s43588-025-00849-y. D. Eisenberg, R. M. Weiss, and T. C. Terwilliger. The helical hydrophobic moment: a measure of the amphiphilicity of a helix. Nature , 299(5881):371–374, 1982. doi: 10.1038/299371a0. U. Gawde, S. Chakraborty, F. H. Waghu, R. S. Barai, A. Khanderkar, R. Indraguru, T. Shirsat, and S. Idicula-Thomas. CAMPR4: a database of natural and synthetic antimicrobial peptides. Nucleic Acids Research , 51(D1): D377–D383, 2023. doi: 10.1093/nar/gkac933. Y. Ge, G. Zhao, S. Li, Z. Cheng, Z. Zhao, H. Xia, G. Ke, L. Zhang, Z. Gao, and Y. G. Wang. ProtoCycle: Reflective Tool-Augmented Planning for Text-Guided Protein Design. In Findings of the Association for Computational Linguistics: ACL 2026 , pages 15562–15586. Association for Computational Linguistics, 2026. doi: 10.18653/v1/2026.findings-acl.763. URL https://aclanthology.org/2026.findings-acl.763/. A. Ghafarollahi and M. J. Buehler. ProtAgents: protein discovery via large language model multi-agent collaborations combining physics and machine learning. Digital Discovery , 3(7):1389–1409, 2024. doi: 10.1039/D4DD00013G. X.-Y. Guo, Y.-F. Li, Y. Liu, X. Pan, and H.-B. Shen. Ab-initio amino acid sequence design from protein text description with ProtDAT. Nature Communications , 16(1):10544, 2025. doi: 10.1038/s41467-025-65562-w. J. Ho and T. Salimans. Classifier-Free Diffusion Guidance. arXiv preprint arXiv:2207.12598 , 2022. URL https://arxiv.org/abs/2207.12598. E. J. Hu, Y. Shen, P. Wallis, Z. Allen-Zhu, Y. Li, S. Wang, L. Wang, and W. Chen. LoRA: Low-Rank Adaptation of Large Language Models. In International Conference on Learning Representations , 2022. URL https: //openreview.net/forum?id=nZeVKeeFYf9. Z. Hu, Y. Zhou, Z. Wang, X. Li, W. Yang, H. Fan, and Y. Yang. OSDA Agent: Leveraging Large Language Models for De Novo Design of Organic Structure Directing Agents. In International Conference on Learning Representations , pages 98109–98141, 2025. URL https://proceedings.iclr.cc/paper_files/paper/2025/hash/ f38fbf326eb71f4749d04102323f7f79-Abstract-Conference.html. H. Ishibuchi, H. Masuda, Y. Tanigaki, and Y. Nojima. Modified Distance Calculation in Generational Distance and Inverted Generational Distance. In Evolutionary Multi-Criterion Optimization , volume 9019 of Lecture Notes in Computer Science , pages 110–125. Springer, 2015. doi: 10.1007/978-3-319-15892-1_8. S. Jin, Z. Zeng, X. Xiong, B. Huang, L. Tang, H. Wang, X. Ma, X. Tang, G. Shao, X. Huang, and F. Lin. AMPGen: an evolutionary information-reserved and diffusion-driven generative model for de novo design of antimicrobial peptides. Communications Biology , 8(1):839, 2025. doi: 10.1038/s42003-025-08282-7. J. Jung, X. Zhang, S. Song, M. Sayedahmed, C. Xiang, Y. Xu, A. AbdelKhalek, S. T. Schneebeli, M. J. Wargo, J. Li, and S. Wshah. Agentic Discovery of Non-Canonical Antimicrobial Peptides with AMPGAN v3. arXiv 
+
+9preprint arXiv:2606.17127 , 2026. URL https://arxiv.org/abs/2606.17127. Z. Kong, Y. Dong, Y. Wu, Z. Liang, J. Wu, and H. Xu. MP2D: Constrained Monte Carlo Tree-Guided Diffusion for Multi-Objective Protein Sequence Design. In Proceedings of the Thirty-Fifth International Joint Conference on Artificial Intelligence , pages 5540–5548, 2026. doi: 10.24963/ijcai.2026/617. URL https://www.ijcai.org/ proceedings/2026/617. L. Li, W. Chu, J. Langford, and R. E. Schapire. A Contextual-Bandit Approach to Personalized News Article Recommendation. In Proceedings of the 19th International Conference on World Wide Web , pages 661–670, 2010. doi: 10.1145/1772690.1772758. Z. Lin, H. Akin, R. Rao, B. Hie, Z. Zhu, W. Lu, N. Smetanin, R. Verkuil, O. Kabeli, Y. Shmueli, A. dos Santos Costa, M. Fazel-Zarandi, T. Sercu, S. Candido, and A. Rives. Evolutionary-scale prediction of atomic-level protein structure with a language model. Science , 379(6637):1123–1130, 2023. doi: 10.1126/science.ade2574. S. Liu, Y. Li, Z. Li, A. Gitter, Y. Zhu, J. Lu, Z. Xu, W. Nie, A. Ramanathan, C. Xiao, J. Tang, H. Guo, and A. Anandkumar. A text-guided protein design framework. Nature Machine Intelligence , 7(4):580–591, 2025. doi: 10.1038/s42256-025-01011-z. A. M. Bran, S. Cox, O. Schilter, C. Baldassari, A. D. White, and P. Schwaller. Augmenting large language models with chemistry tools. Nature Machine Intelligence , 6(5):525–535, 2024. doi: 10.1038/s42256-024-00832-8. URL https://doi.org/10.1038/s42256-024-00832-8. M. Pirtskhalava, A. A. Amstrong, M. Grigolava, M. Chubinidze, E. Alimbarashvili, B. Vishnepolsky, A. Gabrielian, A. Rosenthal, D. E. Hurt, and M. Tartakovsky. DBAASP v3: database of antimicrobial/cytotoxic activity and structure of peptides as a resource for development of new therapeutics. Nucleic Acids Research , 49(D1): D288–D297, 2021. doi: 10.1093/nar/gkaa991. R. Rafailov, A. Sharma, E. Mitchell, S. Ermon, C. D. Manning, and C. Finn. Direct Preference Optimiza-tion: Your Language Model is Secretly a Reward Model. In Advances in Neural Information Processing Systems , volume 36, pages 53728–53741, 2023. URL https://proceedings.neurips.cc/paper_files/paper/2023/ hash/a85b405ed65c6477a4fe8302b5e06ce7-Abstract-Conference.html. A. Rame, G. Couairon, M. Shukor, C. Dancette, J.-B. Gaya, L. Soulier, and M. Cord. Rewarded soups: towards Pareto-optimal alignment by interpolating weights fine-tuned on diverse rewards. In Advances in Neural Information Processing Systems 36 , pages 71095–71134, 2023. doi: 10.52202/075280-3114. URL https: //doi.org/10.52202/075280-3114. A. S. Rathore, S. Choudhury, A. Arora, P. Tijare, and G. P. Raghava. ToxinPred 3.0: An improved method for predicting the toxicity of peptides. Computers in Biology and Medicine , 179:108926, 2024. doi: 10.1016/j. compbiomed.2024.108926. G. Shi, X. Kang, F. Dong, Y. Liu, N. Zhu, Y. Hu, H. Xu, X. Lao, and H. Zheng. DRAMP 3.0: an enhanced comprehensive data repository of antimicrobial peptides. Nucleic Acids Research , 50(D1):D488–D496, 2022. doi: 10.1093/nar/gkab651. N. Shinn, F. Cassano, A. Gopinath, K. Narasimhan, and S. Yao. Reflexion: language agents with verbal rein-forcement learning. In Advances in Neural Information Processing Systems 36 , pages 8634–8652, 2023. doi: 10.52202/075280-0377. URL https://doi.org/10.52202/075280-0377. K. Swanson, W. Wu, N. L. Bulaong, J. E. Pak, and J. Zou. The Virtual Lab of AI agents designs new SARS-CoV-2 nanobodies. Nature , 646(8085):716–723, 2025. doi: 10.1038/s41586-025-09442-9. S. Tang, Y. Zhang, and P. Chatterjee. PepTune: De Novo Generation of Therapeutic Peptides with Multi-Objective-Guided Discrete Diffusion. In Proceedings of the 42nd International Conference on Machine Learning , volume 267, pages 59017–59065. PMLR, 2025a. URL https://proceedings.mlr.press/v267/tang25n.html. S. Tang, Y. Zhu, M. Tao, and P. Chatterjee. TR2-D2: Tree Search Guided Trajectory-Aware Fine-Tuning for Discrete Diffusion. arXiv preprint arXiv:2509.25171 , 2025b. URL https://arxiv.org/abs/2509.25171. The UniProt Consortium. UniProt: the Universal Protein Knowledgebase in 2025. Nucleic Acids Research , 53(D1): D609–D617, 2025. doi: 10.1093/nar/gkae1010. M. D. Torres, L. T. Chen, F. Wan, P. Chatterjee, and C. de la Fuente-Nunez. Generative latent diffusion language modeling yields anti-infective synthetic peptides. Cell Biomaterials , 1(9):100183, 2025. doi: 10.1016/j.celbio. 2025.100183. C. M. Van Oort, J. B. Ferrell, J. M. Remington, S. Wshah, and J. Li. AMPGAN v2: Machine Learning-Guided Design of Antimicrobial Peptides. Journal of Chemical Information and Modeling , 61(5):2198–2207, 2021. doi: 10.1021/acs.jcim.0c01441. 
+
+10 C. Wang, M. Uehara, Y. He, A. Wang, A. Lal, T. Jaakkola, S. Levine, A. Regev, H. Wang, and T. Biancalani. Fine-Tuning Discrete Diffusion Models via Reward Optimization with Applications to DNA and Protein Design. In International Conference on Learning Representations , pages 47871–47899, 2025a. URL https://proceedings. iclr.cc/paper_files/paper/2025/hash/771e09dd204ea339da0d8114c48afd21-Abstract-Conference.html. J. Wang, J. Feng, Y. Kang, P. Pan, J. Ge, Y. Wang, M. Wang, Z. Wu, X. Zhang, J. Yu, X. Zhang, T. Wang, L. Wen, G. Yan, Y. Deng, H. Shi, C.-Y. Hsieh, Z. Jiang, and T. Hou. Discovery of antimicrobial peptides with notable antibacterial potency by an LLM-based foundation model. Science Advances , 11(10):eads8932, 2025b. doi: 10.1126/sciadv.ads8932. L. Wang, X. Fu, J. Yang, X. Zhang, X. Ye, T. Sakurai, X. Zeng, and Y. Liu. MOFormer: navigating the antimicrobial peptide design space with Pareto-based multi-objective transformer. Briefings in Bioinformatics , 26(6):bbaf376, 2025c. doi: 10.1093/bib/bbaf376. URL https://doi.org/10.1093/bib/bbaf376. L. Wang, Y. Liu, X. Fu, X. Ye, J. Shi, G. G. Yen, Q. Zou, X. Zeng, and D. Cao. HMAMP: Designing Highly Potent Antimicrobial Peptides Using a Hypervolume-Driven Multiobjective Deep Generative Model. Journal of Medicinal Chemistry , 68(8):8346–8360, 2025d. doi: 10.1021/acs.jmedchem.4c03073. URL https://doi.org/10. 1021/acs.jmedchem.4c03073. X. Wang, J. Tang, J. Sun, S. Dorje, T. Sun, B. Peng, X. Ji, Z. Li, X. Zhang, and D. Wang. ProT-Diff: A Modularized and Efficient Strategy for De Novo Generation of Antimicrobial Peptide Sequences by Integrating Protein Language and Diffusion Models. Advanced Science , 11(43):2406305, 2024a. doi: 10.1002/advs.202406305. X. Wang, Z. Zheng, F. Ye, D. Xue, S. Huang, and Q. Gu. Diffusion Language Models Are Versatile Protein Learners. In International Conference on Machine Learning , volume 235, pages 52309–52333. PMLR, 2024b. URL https://proceedings.mlr.press/v235/wang24ct.html. L. Wei, J. Tang, and Q. Zou. SkipCPP-Pred: an improved and promising sequence-based predictor for predicting cell-penetrating peptides. BMC Genomics , 18(S7):742, 2017. doi: 10.1186/s12864-017-4128-1. T. Widatalla, A. A. Borah, S. H. King, C. L. Driscoll, R. Rafailov, and B. L. Hie. Aligning protein-generative models to experimental fitness with ProteinDPO. Nature Methods , 23(9):1805–1813, 2026. doi: 10.1038/ s41592-026-03137-3. J. Witten and Z. Witten. Deep learning regression model for antimicrobial peptide design. bioRxiv preprint , 2019. doi: 10.1101/692681. M. Wortsman, G. Ilharco, S. Y. Gadre, R. Roelofs, R. Gontijo-Lopes, A. S. Morcos, H. Namkoong, A. Farhadi, Y. Carmon, S. Kornblith, and L. Schmidt. Model soups: Averaging weights of multiple fine-tuned models improves accuracy without increasing inference time. In International Conference on Machine Learning , volume 162, pages 23965–23998. PMLR, 2022. URL https://proceedings.mlr.press/v162/wortsman22a.html. P. Xie, L. Yao, J. Guan, C.-R. Chung, Z. Zhao, F. Long, Z. Sun, T.-Y. Lee, and Y.-C. Chiang. ConsAMPHemo: A computational framework for predicting hemolysis of antimicrobial peptides based on machine learning approaches. Protein Science , 34(7):e70087, 2025. doi: 10.1002/pro.70087. S. Yang and P. Xu. HemoDL: Hemolytic peptides prediction by double ensemble engines from Rich sequence-derived and transformer-enhanced information. Analytical Biochemistry , 690:115523, 2024. doi: 10.1016/j.ab. 2024.115523. S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao. ReAct: Synergizing Reasoning and Acting in Language Models. In International Conference on Learning Representations , 2023. URL https: //openreview.net/forum?id=WE_vluYUL-X. M. A. Zervou, F. Teufel, Y. Pantazis, P. Tsakalides, and O. Winther. Multi-Objective Peptide Design via Token-Aligned Preference Optimization. In AI for Science Workshop at NeurIPS , 2025. URL https://openreview.net/ forum?id=ehoFUfpy2l. G. Zhou, S. Janarthanan, L. Chen, and P. Hu. MAC-AMP: A Closed-Loop Multi-Agent Collaboration System for Multi-Objective Antimicrobial Peptide Design. In International Conference on Learning Representations , pages 7731–7767, 2026a. URL https://proceedings.iclr.cc/paper_files/paper/2026/file/ 0d230e3015b806e7c9cc9afd5ac2c4a9-Paper-Conference.pdf. Z. Zhou, H. Luo, X. Zhu, N. Wang, X. Qin, C. Zhang, and J. Yan. AMPBench-MT: A Homology-Controlled Bench-mark for Antimicrobial Peptide Potency, Spectrum, and Safety Prediction. arXiv preprint arXiv:2607.25518 ,2026b. URL https://arxiv.org/abs/2607.25518. 
+
+11 Appendix contents 
+
+Section Contents Page A Scoring and evaluation 12 B Data and offline training 13 C Agent and comparison protocols 16 D Learned control analyses 18 E Additional sequence and search comparisons 20 F Illustrative search trace 23 G CPP transfer and evaluation scope 24 
+
+A Scoring and evaluation 
+
+A.1 Predictors and score normalization 
+
+Table 7 summarizes the internal and external predictors, including models based on ESM-2 representations [Lin et al., 2023]. Internal scores guide intervention selection, while external predictors assess the generated candidates after search.    
+
+> Table 7. Predictor overview. Released models remain frozen during search; locally trained evaluators are fitted offline.
+> Target Predictor Training data and method Internal feedback
+
+Activity LLAMP [Bae et al., 2025] Released MIC-trained model combining peptide ESM-2 representations with bacterial genomic features. 
+
+Hemolysis Calibrated ConsAMPHemo [Xie et al., 2025] Released HC50 regression model; we fit a gradient-boosted hemolysis classifier using its score and physicochemical features. 
+
+Toxicity ToxinPred3 [Rathore et al., 2024] Released toxic/non-toxic sequence classifier; the native hybrid score supplies toxicity feedback. 
+
+> External evaluation
+
+Activity MIC regression model Augmented experimental MIC records from four bacterial species; ESM-2 and sequence features feed a neural regressor. Evaluated for E. coli .
+
+Hemolysis HemoDL [Yang and Xu, 2024] Double-LightGBM classifier trained on labeled peptide hemolysis data using sequence-derived features and protein language-model embeddings. 
+
+Toxicity ESM-2 toxicity classifier Cleaned, balanced toxicity labels (5,882 training; 1,261 validation; 1,261 test records); logistic regression on ESM-2 features. 
+
+Normalization. We map predictions to utilities in [0 , 1] , with larger values indicating greater activity, non-hemolysis, and non-toxicity. With σ(z) = (1 + e−z )−1, activity and external non-hemolysis scores are 
+
+uact = σ \pMIC − 50.5
+
+!
+
+, uext nh = σ log 10 \HC50 − 20.5
+
+!
+
+,
+
+where HC50 is in μM, capped at 500. Internal non-hemolysis uses the calibrated non-hemolytic probability. Non-toxicity uses uint nt = clip(1 − thybrid , 0, 1) for ToxinPred3 hybrid score thybrid , and uext nt = 1 − σ(−3.35259 + 6.70517 t) for ESM-2 toxicity probability t.
+
+Distribution penalty and screening. A Gaussian kernel density estimate (KDE; bandwidth 0.5) fits 27,733 AMP reference points in standardized GRAVY, Eisenberg hydrophobic moment [Eisenberg et al., 1982], charge density 
+
+(nK + nR − nD − nE )/L , and length. For log density ℓ(x) and its tenth-percentile reference threshold τ10 ,
+
+p(x) = 0 .3 clip( τ10 − ℓ(x), 0, 1) , τ10 = −6.46797246 .
+
+Subtracting this physicochemical support correction from each utility, screening requires all three uk(x) − p(x) >
+
+0.5. Primary metrics use unpenalized utilities; penalized sensitivity analysis uses the same screened candidates. 
+
+12 Appendix A.2 defines frontier metrics and seed-wise aggregation. 
+
+A.2 Metrics, aggregation, and resources 
+
+Budgets and seeds. Search spans 15–35 residues, ten rounds of 256 candidates, and six main seeds. Bundled ablations and matrix replacement use a matched three-seed subset; targeted input ablations use the other three matched seeds. Policies share the frozen AMP-adapted DPLM and learned controls. Each of six AMPGPT2 seeds retains 2,560 canonical, length-valid, within-seed unique candidates, without property preselection (temperature 1, top-k 50, top-p 1, repetition penalty 1.2, maximum 40 new tokens). Duplicates can require additional draws. 
+
+Frontier metrics. For a feasible score set S and reference r = (0 .5, 0.5, 0.5) ,
+
+HV( S; r) = vol 
+
+ [
+
+> s∈S
+> 3
+
+Y
+
+> j=1
+
+[rj , s j ]
+
+ . (A1) We compute exact three-dimensional volume. For the shared empirical reference set R,
+
+IGD +(S, R ) = 1
+
+|R|
+
+X
+
+> r∈R
+
+min  
+
+> s∈S
+
+∥ max( r − s, 0) ∥2. (A2) The empirical reference is the nondominated union of screened candidates from all ten methods in Tables 2 and 3, using six runs per method (153,600 candidate records). It contains 80 points in unpenalized coordinates and is fixed across all main and ablation comparisons. Penalty sensitivity uses a 79-point reference constructed from the same screened candidates in KDE-adjusted coordinates.        
+
+> Table 8. Sensitivity to score penalties. The search-policy samples match Table 3; AMPGPT2 samples match Table 2. Only the evaluation coordinates change. Mean ±sample SD across six seeds.
+> Method Exact HV ↑IGD+ ↓
+> Search-policy baselines
+
+Fixed coefficients 0.0277 ± 0.0079 0.0801 ± 0.0339 
+
+Random actions 0.0373 ± 0.0086 0.0485 ± 0.0222 
+
+LinUCB 0.0373 ± 0.0087 0.0544 ± 0.0261 
+
+NSGA-II 0.0344 ± 0.0069 0.0591 ± 0.0246 
+
+> External generators
+
+AMPGPT2 0.0328 ± 0.0027 0.0613 ± 0.0096 
+
+> Proposed framework
+
+EASER 0.0448 ± 0.0085 0.0287 ± 0.0180 
+
+Aggregation and sensitivity. Top-k scores are selected independently per property within each seed by stable ordering, then averaged equally across seeds with sample SD. Source data report k ∈ { 10 , 30 , 50 , 100 }, with the available count specified when fewer than k candidates pass. Nondominated sets are computed per run before projection. Screening thresholds 0.45/0.50/0.55 use fixed HV reference 0.45; reference sensitivity uses the same coordinates at screen 0.50 (Figure 4; six-run mean and sample SD). 
+
+Resource use. Across three runs with resource measurements, 90 LLM calls consumed 1,449,915 input tokens and 472,363 output tokens, averaging about 0.64 million tokens per run. The combined RTX 4090 D usage window was about 0.60 device-hours, including waiting and scoring; concurrent use was counted once. The controller used service-managed API aliases without pinned checkpoint versions. 
+
+B Data and offline training 
+
+B.1 Data sources 
+
+Table 9 summarizes the data sources and principal processing steps. Preference construction and predictor training are described in Appendices B.2 and A.1, respectively. 
+
+13 0.45 0.50 0.55    
+
+> Common screening threshold
+> 0.04 0.05 0.06 0.07 0.08
+> Hypervolume
+> 0.45 0.50 0.55
+> Common reference coordinate
+> 0.02 0.04 0.06 0.08
+> Hypervolume
+> Fixed coefficients Random actions LinUCB NSGA-II AMPGPT2 EASER
+
+Figure 4: Screening and reference sensitivity. Left: vary the common screening threshold with the HV reference fixed at 0.45. Right: vary the common HV reference coordinate with screening fixed at 0.50. All HV calculations use normalized scores before penalty and exact volume. Points and error bars are run means and sample SD across six seeds.  
+
+> Table 9. Data sources and processing. Use Source and processing
+
+Generator adaptation Reviewed UniProtKB/Swiss-Prot [The UniProt Consortium, 2025] short proteins and mature peptides, followed by a curated AMP collection. Sequences are deduplicated and restricted to 7–50 residues; the Swiss-Prot pool is split by sequence clusters. 
+
+Activity preferences Experimental MIC records from AMPBench-MT [Zhou et al., 2026b], including DBAASP, GRAMPA, CAMPR4, and DRAMP sources [Pirtskhalava et al., 2021, Witten and Witten, 2019, Gawde et al., 2023, Shi et al., 2022]. The cleaned E. coli 
+
+subset supplies physicochemically matched preference pairs. 
+
+Safety preferences A combined experimental HC50 collection and a curated binary toxicity collection. Sequences are cleaned, filtered, and paired by the corresponding safety labels and physicochemical features. 
+
+Activity evaluator Integrated experimental MIC data, supplemented with GRAMPA [Witten and Witten, 2019], AMP-Diffusion data [Torres et al., 2025], and published in-vitro measurements. Sequence, species, and MIC records are consolidated for regression. 
+
+AMP reference AMP-Diffusion [Torres et al., 2025], AMPBench-MT [Zhou et al., 2026b], and curated peptide activity collections are merged and deduplicated. The 27,733 sequences of length 15–35 provide the physicochemical KDE reference. 
+
+Agent knowledge Curated property evidence, amino-acid guidance, motif-risk cards, and intervention strategies are organized into retrievable entries. 
+
+Code and data availability. Code, learned property matrices, preprocessing and evaluation scripts, and generated candidates will be released with source identifiers, split assignments, sequences, seeds, scores, and screening outcomes. 
+
+B.2 Training configuration 
+
+Offline adaptation of the generative prior. DPLM-650M undergoes two offline LoRA stages. Stage 1 trains query and value projections on general short peptides; its step-1800 checkpoint initializes AMP-oriented Stage 2. The selected Stage-2 adapter is merged into the prior, then frozen for output-direction training and search. Both stages minimize masked denoising cross-entropy with DPLM’s corruption mask and token weights: 
+
+Ladapt = −
+
+P 
+
+> i
+
+miwi log pθ (xi | ex)max(1 , P 
+
+> i
+
+mi) . (B1) Here mi marks prediction positions and wi is the DPLM loss weight. Both stages use AdamW, batch size 8, four-step accumulation, weight decay 0.01, and gradient clipping at 1.0. Training spans 7–50 residues; online 
+
+14 design spans 15–35. Optimizer and sampling configurations are specified in the code.  
+
+> Table 10. Offline backbone adaptation. Training settings for the two adaptation stages. Counts denote sequence records.
+> Setting Stage 1 Short peptides Stage 2 AMP-oriented
+
+Train / validation records 7,453 / 848 8,725 / 1,255 LoRA rank / scaling alpha 8 / 16 4 / 8 LoRA dropout 0.05 0.10 Target projections Query, value Query, value Learning rate 10 −5 5 × 10 −6
+
+Warmup steps 300 150 Maximum steps 3,000 1,500 Evaluation interval / patience 300 / 5 100 / 3 Validation loss selects the Stage-2 checkpoint; all direction-training and controller experiments share the resulting prior. 
+
+Output-direction training. Masked preference objective. Directions are learned offline from preference pairs matched by coarse physico-chemical descriptors. Activity uses minimum inhibitory concentration (MIC), low hemolysis uses the concentration causing 50% hemolysis (HC50), and toxicity uses curated source labels. For each training pair, sample t uniformly from {1, . . . , T } and mask each position eligible in both sequences with probability t/T . The pair and both projections share this mask M . For the resulting corrupted peptide xt,define the masked conditional score 
+
+qW (x; t, M ) = X
+
+> i∈M
+
+log pW (xi | xt, t ). (B2) Pairwise training increases the score margin of the preferred member using a logistic preference loss, together with replay and factor regularization. The reference-relative score measures the change in masked conditional log likelihood under the intervention: 
+
+sk(x) = qW0+∆ Wk (x) − qW0 (x).
+
+Subscripts identify the output-projection weights used to evaluate q; shared corruption arguments are implicit. Training minimizes 
+
+Lk = −E log σ sk(x+) − sk(x−) + λrep Lreplay + λnorm 
+
+ ∥Uk∥2 
+
+> F
+
++ ∥Vk∥2
+
+> F
+
+ + λbad Lbad . (B3) The expectation averages over training pairs and this corruption distribution. Validation pair accuracy selects the checkpoint before offline norm rescaling. Replay uses denoising negative log likelihood. For the low-hemolysis direction, Lbad penalizes likelihood gains on replay sequences from a low-support region of the low-hemolysis physicochemical reference. 
+
+Inference calibration. The controller emits ck ∈ [−1, 1] and shared strength η, clipped to ¯η = clip( η, 0, 0.5) .Matrices are rescaled offline to Frobenius norm approximately 0.225305. A fixed scale factor g = 8 maps controller outputs to multipliers αk = g ¯ηc k ∈ [−4, 4] in Equation 2. All three matrices use the reference-relative masked preference loss (Eq. B3). Only 33 × 16 and 1280 × 16 
+
+factors are trainable: one starts at zero, the other at Gaussian noise (standard deviation 0.02). AdamW uses learning rate 3 × 10 −4, cosine annealing to 5% of that rate, factor-norm coefficient 10 −4, and gradient clipping at 1.0. Activity preferences pair E. coli records with 5 ≤ pMIC < 6 (preferred) and 4 ≤ pMIC < 5 (dispreferred), with gaps ≥0.8. Both require length 20–35, charge density 0.10–0.45, hydrophobic fraction 0.25–0.55 (AILVFYW), and GRAVY [−1.2, 0.1] . Supplied identity30 clusters are capped at four preferred and eight dispreferred sequences. Activity pairs use coarse physicochemical matching and connected-component splits over role-tagged cluster identifiers. Toxicity pairs retain source training, validation, and external-test partitions, pairing non-toxic label 0 with toxic label 1 within the same composition window at lengths 15–35. Low-hemolysis training uses HC50 preferences and replay-based distribution regularization. 
+
+15 Table 11. Property-matrix training data and configuration. Preference-pair counts, selected checkpoints, and trainable factor parameters for each property.      
+
+> Property Preference pairs Selected step Parameters Train Valid. Test
+
+Activity 324 14 20 140 21 ,008 
+
+Low hemolysis 406 49 44 170 21 ,008 
+
+Low toxicity 200 58 30 210 21 ,008 
+
+Activity and low-toxicity training use batch size 8, replay weight 0.1, and at most 400 steps; low-hemolysis uses 16, 0.25, and 500. Generated property responses and random-matrix controls assess effectiveness (Table 14; Appendix D.3). Low-hemolysis replay combines high-HC50 sequences with sequences from a low-support region of its physicochemical reference. Its additional loss is 0.6 softplus(5 gB ), where gB is the batch-level denoising NLL decrease from base to intervened projection. Base and adapted evaluations use independently sampled corruptions, so the replay penalty regularizes their denoising likelihood difference. We also express the effective control strength as βk = ¯ ηc k, with the calibrated projection multiplier given by 
+
+αk = 8 βk.
+
+C Agent and comparison protocols 
+
+C.1 Evidence and memory 
+
+Knowledge graph and retrieval architecture. The evidence resource contains 12,445 property-evidence records and 75 residue/motif guidance records. Deduplicating source identifiers and identical files leaves 3,582 source records. Each entry links property, organism, residue, or motif statements to their sources and confidence assessments. Retrieval combines lexical relevance with sequence and physicochemical context to identify supporting and adverse evidence for each property. Literature evidence and within-run experience are maintained separately. 
+
+Agent roles and episodic context. 
+
+Algorithm 1 EASER: online Probe-and-Steer 
+
+Require: Frozen generator G and calibrated directions {∆Wk};internal evaluator F , evidence resource K, initial sequence records R 
+
+> 1:
+
+Initialize online archive A and episodic context H from available records  
+
+> 2:
+
+for r = 1 , . . . , 10 do  
+
+> 3:
+
+Xnovo ← DENOVO SAMPLE (G, 32) ; evaluate F (Xnovo ) 
+
+> 4:
+
+S ← BUILD _C ONTEXT (R, A, H, X novo ) ▷ Sequences, properties, and experience  
+
+> 5:
+
+Ek ← DOMAIN SPECIALIST (k, S, K ) for k ∈ { a, h, t } 
+
+> 6:
+
+{aj }4 
+
+> j=1
+
+← LLMP ROPOSE (S, {Ek}) ▷ a j = ( Pj , M j , cj , η j ) 
+
+> 7:
+
+Xprobe  
+
+> j
+
+← GENERATE (G, a j , 16 , {∆Wk}) for each j 
+
+> 8:
+
+Y probe ← F ({Xprobe  
+
+> j
+
+}4
+
+> j=1
+
+) 
+
+> 9:
+
+n ← LLMS TEER (S, {aj }, Y probe ), with nj ≥ 0, P 
+
+> j
+
+nj = 160  
+
+> 10:
+
+Xsteer  
+
+> j
+
+← GENERATE (G, a j , n j , {∆Wk}) for each j 
+
+> 11:
+
+X ← Xnovo ∪ S 
+
+> j
+
+(Xprobe  
+
+> j
+
+∪ Xsteer  
+
+> j
+
+); score with F 
+
+> 12:
+
+Update R, A with outcomes, retaining eligible candidates for further refinement  
+
+> 13:
+
+Record actions and outcomes; reflect and update H under the memory policy  
+
+> 14:
+
+end for  
+
+> 15:
+
+return All generated sequences and execution records for post-hoc external evaluation 
+
+Domain specialists. Three specialists deterministically synthesize supporting, adverse, and mixed evidence into property-specific recommendations, confidence, and risks; conflicts reduce confidence. The LLM controller makes the joint design decision. 
+
+Main controller. The deepseek-v4-flash controller proposes four interventions per round from property evidence, visible sequences, and prior outcomes. Probe feedback guides further sampling among them. 
+
+History and reflection. After each round, the LLM summarizes successes and failures, suggesting parent, mask, and coefficient changes. Summaries and numerical outcomes enter the next proposal context. Memory is initialized 
+
+16 independently for each run and accumulates within-run experience. Appendix F traces reflection into subsequent proposals. 
+
+Execution and budgets. Algorithm 1 allocates 32/64/160 samples per round. The frozen 650M backbone uses 63,024 learned factor parameters stored as 126,720 matrix entries, without online gradients. Candidates failing final screening remain eligible parents. 
+
+C.2 Numerical controllers 
+
+Numerical controllers share EASER’s generator, matrices, length range, and six run seeds. Runs comprise ten rounds of 256 candidates: 32 de novo, 64 Probe, and 160 Steer per round. 
+
+Shared action space. Both baselines select from all candidates in the same design context. Random-key encoding supports any parent subset, including none for de novo sampling, and any nonempty position subset up to half each parent’s length. Coefficients span [−1, 1] 3; strength spans [0 , 0.5] . The prior favors small parent sets with nonzero support for every legal subset. 
+
+NSGA-II. Online NSGA-II uses nondominated sorting and crowding [Deb et al., 2002]. Round one probes four random actions; later rounds probe two survivors, remapped to the current context and reevaluated, plus two offspring. Simulated binary crossover uses index 15; polynomial mutation uses index 20 and probability 1/d for encoding dimension d. Twenty percent of offspring proposals are fresh random actions; each round selects two survivors. 
+
+LinUCB. The contextual-bandit rule of Li et al. [2010] selects interventions. Each round pools 256 fresh actions with retained and mutated survivors, without generating peptides. Features summarize effective coefficients, parent properties and composition, masked residues, position statistics, and context. An identity ridge prior and exploration multiplier 1 rank actions by reward plus uncertainty; four distinct actions are probed. Reward is 0.4a + 0 .3h + 0 .3t.Distinct sequence-level actions can share the same feature vector. 
+
+Feedback and allocation. Both algorithms batch-center KDE-penalized internal activity, non-hemolysis, and non-toxicity objectives (a, h, t ), without KL penalties or external evaluation during search. Steer allocation follows nondomination ranks in eight-sample quanta, with at least eight and at most 120 per proposal, conserving the 160-sample budget. 
+
+C.3 Matched-information comparison 
+
+The comparison in Table 4 uses the ten pre-Probe states from each of three campaigns. Both policies receive identical sequences, internal scores, specialist claims, and history, augmented with residue counts, indexed sequences, and descriptors for this comparison. Explicit formulation states four hypotheses with supporting observations and risks; direct generation returns four actions. Both use DeepSeek Flash (API identifier deepseek-flash ) at temperature zero with the API thinking option disabled. The generator and matrices are fixed, and sampling seeds are paired. Each action produces 16 candidates, giving 64 candidates per state and 1,920 per policy. The hypotheses cited 360 observations, all consistent with the supplied values. After bounded correction, one proposal had a mismatch between its mask and rationale. Full masking specifies de novo sampling. We measure each state’s HV gain over all pre-Probe candidates, including the current round’s initial de novo batch. Both policies use equal sampling allocations, the common external screen, and the unpenalized HV reference (0 .5, 0.5, 0.5) .
+
+C.4 Input and memory ablations 
+
+The targeted ablations in Table 5 retain the generator, property matrices, anchor-selection procedure, evidence retrieval, and Probe-and-Steer. The reflection-feedback ablation clears reflection fields from LLM inputs. The round-history-details ablation removes action and outcome fields from history entries, retaining round identifiers, reflection texts, retrieved episodes, promoted rules, and historical anchors. The memory-and-anchor ablation in Table 6 removes round-history inputs, experience storage and retrieval, rule promotion, and historical anchor reuse. The anchor pool consists of the current round’s 32 de novo candidates. Reflection summaries are generated each round and excluded from subsequent proposal contexts. The archive collects candidates for final evaluation. Each panel pairs its ablations with EASER on three seeds; the panels use disjoint subsets of the six main runs. 
+
+C.5 Random-matrix replacement 
+
+Each ∆Wk = UkΣkV ⊤ 
+
+> k
+
+is replaced by QkΣkR⊤ 
+
+> k
+
+with randomized orthonormal factors, preserving norm and spectrum. Three fixed random matrix sets are paired with three matched runs; generator, agent, feedback, screen, reference front, and 2,560-candidate budget are unchanged, while actions adapt to feedback. Learned matrices achieved higher mean HV and lower mean IGD+ under both score conventions (Table 6). Random replacement performed better in one of the three matched runs and produced more screened candidates overall (1,076 versus 871). 
+
+17 D Learned control analyses 
+
+D.1 Residue preferences and context 
+
+We compared learned and spectrum-matched random matrices on identical zero-control hidden states from 500 peptides at 25%, 50%, 75%, and 100% masking. Two 50%-mask controls shuffled residue order; the stricter shuffle preserved total and visible composition, length, and masked positions. For each masked position, let zn be 3.2∆ Wkh over the 20 amino-acid logits after removing its across-residue mean. The fraction N ∥¯z∥22/ P
+
+n ∥zn∥22 measures squared shift energy captured by the mean vector, where N
+
+counts positions and ¯z is their mean. At 50% masking (6,258 positions), these fractions were 96.4%, 60.4%, and 96.9% for activity, low hemolysis, and low toxicity. F, K, and V had the largest increases at 99.6%, 98.7%, and 100.0% of positions. Mean cosine similarities after the stricter shuffle were 0.9973, 0.9781, and 0.9994. Context changed shift magnitude more than direction, especially for activity and low toxicity. A C D E F G H I K L M N P Q R S T V W Y−0.3 −0.2 −0.1 0.0 0.1 0.2                                                
+
+> Mean centered logit shift
+> Activity control
+> ACDEFGHIKLMNPQRSTVWY−0.2 −0.1 0.0 0.1 0.2
+> Low-hemolysis control
+> ACDEFGHIKLMNPQRSTVWY−0.4 −0.2 0.0 0.2 0.4
+> Low-toxicity control
+> 25 50 75 100
+> Masked positions (%)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Energy captured by constant mean
+> Learned Random 1 Random 2 Random 3
+> 25 50 75 100
+> Masked positions (%)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> 25 50 75 100
+> Masked positions (%)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+
+Figure 5: Residue preferences and contextual variation of output interventions. Top: mean centered logit shifts for learned matrices at 50% masking across 6,258 masked positions from 500 peptides. Bottom: fraction of squared shift energy captured by a constant mean vector, evaluated separately at each mask fraction. Each random control preserves the corresponding learned matrix’s spectrum. 
+
+D.2 Single-matrix dose responses 
+
+Single-matrix responses are measured by de novo sampling from fully masked sequences. Learned matrices and three spectrum-matched random sets use the same 500 lengths and paired sampling schedules, including identical zero-control sequences. Each scan uses c ∈ {− 1, −0.5, 0, 0.25 , 0.5, 0.75 , 1} and η = 0 .4 (α = 3 .2c), with the other controls zero. Sharing the zero-control condition gives 19 conditions per set and 38,000 generated records overall. Means are computed before screening and retain duplicate draws. 
+
+Table 12. Learned target means across the full signed dose grid. Normalized scores before penalty, 500 draws per condition; only the named property matrix is active. 
+
+c
+
+Activity score Non-hemolysis score Non-toxicity score 
+
+−1 0.24837 0.44792 0.66840 
+
+−0.5 0.26753 0.44699 0.71803 0 0.25784 0.45066 0.75425 0.25 0.25859 0.45472 0.77322 0.5 0.28017 0.46308 0.79254 0.75 0.28755 0.47216 0.79798 1 0.28972 0.48236 0.82420 
+
+18 Table 13. Cross-property effects at c = 1 . Learned c = 1 minus zero control, averaged over all 500 de novo draws before screening. 
+
+> Active matrix Activity score Non-hemolysis score Non-toxicity score
+
+Activity +0 .03188 −0.00133 +0 .02242 
+
+Low hemolysis +0 .02132 +0 .03170 +0 .04748 
+
+Low toxicity −0.01280 +0 .02733 +0 .06996 
+
+Positive activity and low-hemolysis controls increased mean charge density from 0.0459 to 0.1081 and 0.1066; low-toxicity control reduced it to 0.0305. Target gains remained positive after KDE subtraction. 
+
+D.3 Joint coefficient responses       
+
+> Table 14. Target responses under full de novo sampling. Mean target-score change before penalty from c= 0 to c= 1 , with the other coefficients zero. Each condition contains 500 draws; the three random sets preserve each learned matrix's singular-value spectrum and norm.
+> Matrix set Activity score Non-hemolysis score Non-toxicity score
+
+Learned +0 .03188 +0 .03170 +0 .06996 
+
+Random 1 +0 .00261 +0 .00448 +0 .01503 
+
+Random 2 +0 .00461 +0 .00701 +0 .00057 
+
+Random 3 +0 .00577 −0.00398 +0 .01226 
+
+The joint sweep reuses the 500-draw length and sampling schedule with all positions masked and η = 0 .4
+
+(αk = 3 .2ck). Coefficients ck ∈ {− 1, −0.5, 0, 0.5, 1} yield 125 settings per set and 250,000 records across learned and three spectrum-matched random sets. Means include all draws before screening; zero-control sequences are identical.  
+
+> Table 15. Best objective-specific mean gains in the joint coefficient sweep. Changes in KDE-adjusted utilities relative to zero control. Each cell is the maximum over 125 combinations evaluated on the same 500-draw schedule. The three columns can select different combinations.
+> Matrix set Activity score Non-hemolysis score Non-toxicity score
+
+Learned +0 .06525 +0 .03074 +0 .08807 
+
+Random 1 +0 .01832 +0 .01226 +0 .01455 
+
+Random 2 +0 .01296 +0 .01353 +0 .02000 
+
+Random 3 +0 .01834 +0 .01517 +0 .01579 
+
+Learned objective-specific maxima occur at (1 , 0, −1) , (0 , 1, 1) , and (0 , 0.5, 1) for activity, non-hemolysis, and non-toxicity, respectively. All-positive control (1 , 1, 1) changes adjusted means by +0 .00789 , +0 .01192 , and 
+
++0 .07955 , so it maximizes none of the three.      
+
+> Table 16. Response coverage and pooled candidate quality in the full grid. The first three columns give percentages of 124 nonzero settings whose adjusted target mean increased by more than 0.01. HV pools 62,500 draws per set, screens on adjusted scores, and uses unpenalized normalized coordinates with reference (0 .5,0.5,0.5) .
+> Matrix set Activity score (%) Non-hemolysis score (%) Non-toxicity score (%) Pooled HV
+
+Learned 41 .9 26 .6 44 .4 0.04957 
+
+Random 1 10 .5 2.4 8.9 0.03686 
+
+Random 2 4.0 3.2 12 .9 0.03516 
+
+Random 3 14 .5 3.2 12 .9 0.03844 
+
+Learned controls produced a wider response range that included adverse trade-offs. Twenty learned settings increased all three adjusted means over zero control, compared with 30, 29, and 46 settings for the random sets. 
+
+19 Among 112 learned multi-matrix settings, 55 response vectors were not weakly dominated by any single-matrix or zero-control vector. Settings using multiple matrices accounted for 14 of the 15 nondominated mean vectors in the full grid. Single-matrix adjusted maxima were 0.03451, 0.02145, and 0.06407 for activity, non-hemolysis, and non-toxicity, respectively; joint maxima were 0.06525, 0.03074, and 0.08807. The axis subset and full joint grid contained 13 and 125 settings, respectively. Learned and random matrices were compared on the same 125-setting grid. Source data include condition means, draw-level scores, and response thresholds of 0 and 0.005 in addition to 0.01. −0.04 −0.02 0.00 0.02 0.04 0.06           
+
+> Change in adjusted mean
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Fraction of 124 settings
+> Activity score
+> Learned Random 1 Random 2 Random 3
+> −0.06 −0.04 −0.02 0.00 0.02
+> Change in adjusted mean
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Non-hemolysis score
+> −0.20 −0.15 −0.10 −0.05 0.00 0.05 0.10
+> Change in adjusted mean
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Non-toxicity score
+> Learned Random 1 Random 2 Random 3 0.00 0.01 0.02 0.03 0.04 0.05 0.06
+> Largest adjusted mean gain Single matrix Full grid
+> Learned Random 1 Random 2 Random 3 0.000 0.005 0.010 0.015 0.020 0.025 0.030 Learned Random 1 Random 2 Random 3 0.00 0.02 0.04 0.06 0.08
+
+Figure 6: Distribution of control responses. Empirical cumulative distributions of adjusted mean changes from zero control across 124 nonzero settings, each with 500 draws. Learned controls produce larger beneficial and adverse responses. 
+
+E Additional sequence and search comparisons 
+
+E.1 Property-specific selection 
+
+Table 17. Search-policy top ten after screening. Each column ranks by its own normalized score before penalty within each seed. Mean ± sample SD across six seeds; every included run had at least ten feasible candidates. 
+
+Method Activity score ↑
+
+Non-hemolysis score ↑
+
+Non-toxicity score ↑
+
+Search-policy baselines 
+
+Fixed coefficients 0.842 ± 0.089 0.667 ± 0.036 0.959 ± 0.003 
+
+Random actions 0.837 ± 0.026 0.717 ± 0.039 0.963 ± 0.003 
+
+LinUCB 0.861 ± 0.027 0.725 ± 0.026 0.961 ± 0.002 
+
+NSGA-II 0.830 ± 0.060 0.694 ± 0.017 0.961 ± 0.001 
+
+Proposed framework 
+
+EASER 0.901 ± 0.067 0.731 ± 0.024 0.963 ± 0.003 
+
+Source data provide top-k profiles for k ∈ { 10 , 30 , 50 , 100 }, companion-property scores, and the available counts for each selected set. 
+
+20 E.2 External-generator Top-50    
+
+> Table 18. External generator Top-50 after screening. Mean ±sample SD of six within-seed target means; each column selects its own sequences. All seeds contain at least 50 screened candidates.
+> Method Activity score Non-hemolysis score Non-toxicity score
+
+AMPGPT2 0.831 ± 0.010 0.640 ± 0.007 0.945 ± 0.002 
+
+AMPGAN 0.757 ± 0.011 0.651 ± 0.005 0.956 ± 0.001 
+
+AMPGen 0.667 ± 0.038 0.595 ± 0.016 0.945 ± 0.004 
+
+AMPDesigner 0.806 ± 0.011 0.653 ± 0.008 0.959 ± 0.001 
+
+AMP-adapted DPLM 0.723 ± 0.025 0.620 ± 0.013 0.946 ± 0.003 
+
+EASER 0.824 ± 0.095 0.686 ± 0.038 0.959 ± 0.006 
+
+E.3 Reference-front coverage 
+
+Screened sequences are deduplicated within each of six runs per condition, and each run's three-objective front Fs
+
+is computed before projection. With the fixed empirical reference R used for IGD+, coverage is 
+
+Cϵ(Fs; R) = 1
+
+|R|
+
+X
+
+> r∈R
+
+1
+
+
+
+min 
+
+> z∈Fs
+
+∥r − z∥∞ ≤ ϵ
+
+
+
+. (E1) Coverage measures proximity to observed trade-offs. Occupancy counts score-space cubes anchored at 0.5 in each coordinate. The reference includes evaluated methods.         
+
+> Table 19. Within-run Pareto counts and coverage. Mean ±sample SD across six runs. Coverage uses ϵ= 0 .025 and is reported in percent; occupied cells have side length 0.05. Sequence counts are deduplicated within each run.
+> Method Pareto sequences Occupied cells Coverage (%) Search-policy baselines
+
+Fixed coefficients 23 .3 ± 15 .3 15 .2 ± 7.9 11 .9 ± 10 .8
+
+Random actions 15 .5 ± 6.2 13 .8 ± 3.9 16 .9 ± 11 .0
+
+LinUCB 26 .0 ± 12 .6 17 .8 ± 6.0 18 .3 ± 8.3
+
+NSGA-II 12 .7 ± 4.2 11 .7 ± 3.8 11 .2 ± 4.5
+
+> External generators
+
+AMPGPT2 20 .3 ± 2.6 18 .2 ± 1.9 9.8 ± 4.0
+
+> Proposed framework
+
+EASER 28 .7 ± 14 .9 21 .3 ± 8.2 36 .0 ± 21 .9
+
+E.4 Physicochemical profiles 
+
+Figure 7 compares the physicochemical profiles of candidates passing the common screen with those of the real-AMP reference. Descriptors retain their original units; source data include candidate identities, per-seed summaries, amino-acid composition, and charge at pH 7.4. 
+
+E.5 Search progress 
+
+Figure 8 reconstructs cumulative external HV from recorded generation rounds. The same learned matrices support all controllers; numerical policies choose parents, masks, coefficients, and strength. The fixed-coefficient baseline uses predefined (0 .5, 0.5, 0.5) controls and an editing policy throughout search. Across the six main-search seeds (Table 3), EASER’s final mean HV exceeds LinUCB and NSGA-II by 20.7% and 30.9% under the same retained-candidate budget. 
+
+21 AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference 
+
+−4 −2 02
+
+> GRAVY
+
+a
+
+> AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference
+
+0.00 0.25 0.50 0.75 1.00 
+
+> Helix-prone fraction
+
+b
+
+> AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference
+
+020 40 60 80 
+
+> Length (residues)
+
+c
+
+> AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference
+
+0.0 0.5 1.0 
+
+> Hydrophobic moment
+
+d
+
+> AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference
+
+0200 400 
+
+> Instability index
+
+e
+
+> AMPGPT2 AMPGAN AMPGen AMPDesigner AMP-adapted DPLM Reference
+
+−2 −1 01
+
+> Global hydrophobicity
+
+f EASER EASER EASER EASER EASER EASER Figure 7: Physicochemical profiles after screening. Three seeds and 7,680 candidate records per generator before screening; retained counts: EASER 871, AMPGPT2 846, AMPGAN 530, AMPGen 189, AMPDesigner 691, and AMP-adapted DPLM 293. The real-AMP reference has 2,000 sequences, separate from the 27,733-point KDE reference. Boxes show median and interquartile range; whiskers extend to 1.5 IQR and points mark remaining observations. Helix-prone fraction uses EMALK; hydrophobic moment uses the Eisenberg scale and 100 ◦ angle. 500 1000 1500 2000 2500 
+
+Candidates 
+
+0.00 0.01 0.02 0.03 0.04 0.05 
+
+> HV
+
+(a) Search progress (3 seeds) 
+
+> LinUCB NSGA-II Fixed coefficients
+
+0.02 0.03 0.04 
+
+HV 
+
+LinUCB NSGA-II Random actions Fixed coefficients 
+
+(b) Final HV (6 seeds) 
+
+LinUCB NSGA-II Random actions 
+
+(c) Final IGD+ (6 seeds) 
+
+Without episodic context Without retrieval 
+
+(d) Ablations (3 seeds)  
+
+> EASER
+
+EASER EASER EASER 
+
+Figure 8: Search progress. Cumulative screened HV across the matched three-seed diagnostic panel; lines show means and bands sample SD. Coordinates are normalized scores before penalty, with the reference from Table 3. Endpoint and ablation comparisons appear in Tables 3 and 6. 22 F Illustrative search trace 
+
+Selection and evidence. We examine an offspring from round 3, proposal 3. A fixed ordering by round, seed, proposal, and row selected it from 32 mask-consistent, single-parent offspring on the final externally screened fronts of the three-seed panel. The deterministic specialists (Appendix C.1) each cited six records. Source identifiers appeared in specialist recommendations and were omitted from the controller’s proposal. Recommendations for activity, low hemolysis, and low toxicity were 0.350 , −0.248 , and −0.233 , with respective confidence scores of 
+
+0.423 , 0.689 , and 0.421 . Activity and toxicity evidence conflicted, whereas hemolysis evidence supported the specialist’s recommendation. 
+
+Hypothesis and execution. The parent’s internal scores were (0 .697 , 0.402 , 1.000) . The agent targeted its C-terminal hydrophobic/aromatic region with coefficients (0 .65 , 0.80 , 0.90) , hypothesizing reduced hemolysis with retained activity and recording the risk of activity loss. All nine substitutions respected the mask; both sequences have 27 residues: Parent MKKKKGTKRKNLRVKPWTPLVIHWHSS 
+
+Offspring MKKKKGTKRKNTRGKPVTPAMPVNPSS 
+
+Each proposal received 16 probes; Steer then allocated (0 , 0, 40 , 120) samples. Proposal 4 used balanced controlled de novo sampling.  
+
+> Table 20. Recorded Probe feedback and subsequent budgets. Scores are internal feedback means under the online scoring convention; penalties can make values negative. Each proposal used 16 probes.
+> Proposal Activity score Non-hemolysis score Non-toxicity score Steer samples
+
+1 0.338 −0.020 0.148 0
+
+2 −0.036 0.642 0.283 0
+
+3 0.226 0.544 0.528 40 
+
+4 0.279 0.628 0.917 120   
+
+> Table 21. Parent and offspring under the common external evaluation. Before penalty denotes normalized scores before KDE subtraction; adjusted scores determine eligibility. The three utility dimensions are all maximized.
+> Score convention Sequence Activity score Non-hemolysis score Non-toxicity score
+
+Before penalty Parent 0.6487 0.4792 0.9575 
+
+Before penalty Offspring 0.6456 0.6811 0.9559 
+
+After penalty Parent 0.6487 0.4792 0.9575 
+
+After penalty Offspring 0.5368 0.5723 0.8471 
+
+Outcome and reflection. The offspring passed all external screening thresholds after a KDE penalty of 0.1088 and entered the final external front; its parent failed the non-hemolysis threshold. Its internal adjusted scores were 
+
+(0 .2524 , 0.6946 , 0.6312) , and the proposal contributed no new online nondominated candidates. Reflection recommended selecting another parent for the C-terminal intervention and retesting balanced de novo sampling. The next round selected a parent from proposal 4’s lineage, citing that branch’s earlier frontier expansion. 
+
+23 G CPP transfer and evaluation scope 
+
+G.1 CPP interface transfer      
+
+> Table 22. CPP control-interface transfer. Mean ±SD across three seeds, with 128 de novo samples per condition and seed.
+> Control Predicted CPP score Score ≥0.5
+> (%)
+
+Zero 0.4257 ± 0.0344 40 .4 ± 5.2
+
+Matched random ( +1 ) 0.4427 ± 0.0356 42 .2 ± 3.9
+
+Learned ( +1 ) 0.7067 ± 0.0220 76 .8 ± 0.9
+
+Learned ( −1) 0.1970 ± 0.0229 13 .5 ± 3.7
+
+CPP924 [Wei et al., 2017] contains reported CPPs and length-matched randomly generated negatives. Filtering for canonical residues and lengths of 7–50 yields 914 sequences; four noncanonical records were excluded. Groups at normalized Levenshtein similarity ≥ 0.8 are assigned to fixed stratified folds: 549 sequences for matrix/internal-predictor training, 182 for evaluator training, and 183 for diagnostics. Balanced logistic classifiers use length, amino-acid/dipeptide composition, and terminal features. Their training groups are disjoint, and the predictor split is shared with development. Evaluator diagnostic AUROC is 0.9237. For each of three seeds, 270 positive training sequences are paired with same-length negatives. A rank-16 matrix is trained for 200 fixed steps with a cached contextual preference surrogate, KL regularization, and Frobenius cap 0.9 on the frozen AMP-adapted generator. Checkpoints and coefficients are fixed before evaluator scoring. For each seed, we generate 128 fully masked sequences under zero, learned +1 , learned −1, and spectrum- and norm-matched random +1 controls. Lengths and sampling seeds are shared across conditions. The CPP evaluator scores all 1,536 candidates, with AMP screening and KDE penalties disabled. Training and sampling vary across runs; data, predictors, and coefficient settings remain fixed. 
+
+G.2 Evaluation scope 
+
+The experiments evaluated predicted AMP activity–safety trade-offs and CPP classification scores. AMP design used the complete agent; CPP transfer used a fixed matrix-control sweep. The matched-state analysis checked cited observations against supplied values and compared proposed masks with their rationales. 
+
+24

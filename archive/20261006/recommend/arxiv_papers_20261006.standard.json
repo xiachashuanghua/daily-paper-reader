@@ -1,15 +1,15 @@
 {
   "mode": "standard",
-  "generated_at": "2026-10-06T00:51:09.956929+00:00",
+  "generated_at": "2026-10-06T23:36:40.271401+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 2,
+    "deep_divecandidates": 4,
     "deep_cap": 6,
-    "deep_selected": 2,
-    "quick_candidates": 2,
+    "deep_selected": 4,
+    "quick_candidates": 3,
     "quick_skim_target": 11,
-    "quick_selected": 2
+    "quick_selected": 3
   },
   "deep_dive": [
     {
@@ -35,13 +35,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "LLM-based gene set annotation with protein language model",
-      "llm_evidence_cn": "基于LLM与蛋白语言模型的基因集注释",
-      "llm_evidence": "基于LLM与蛋白语言模型的基因集注释",
-      "canonical_evidence": "基于LLM与蛋白语言模型的基因集注释",
-      "llm_tldr_en": "Gene set analysis is labor-intensive and depends on expert curation, while existing LLM methods use symbolic gene names and ignore protein sequence structure. SoftGene builds a hierarchical attention encoder on the ESM protein language model and injects it as soft prompts so an LLM performs interpretable gene set annotation, capturing domain-specific biological structure.",
-      "llm_tldr_cn": "基因集分析是功能基因组学基石，却依赖大量人工整理与专家解读，而现有基于LLM的方法多依赖符号基因名，忽略了决定基因功能的蛋白序列等结构信息。作者提出SoftGene框架，用基于ESM蛋白语言模型的层次注意力编码器结合软提示，将基因集层次结构注入LLM注释过程。实验表明该框架能实现更准确且可解释的基因集功能注释，为LLM在基因组学中的应用提供新范式。",
-      "llm_tldr": "基因集分析是功能基因组学基石，却依赖大量人工整理与专家解读，而现有基于LLM的方法多依赖符号基因名，忽略了决定基因功能的蛋白序列等结构信息。作者提出SoftGene框架，用基于ESM蛋白语言模型的层次注意力编码器结合软提示，将基因集层次结构注入LLM注释过程。实验表明该框架能实现更准确且可解释的基因集功能注释，为LLM在基因组学中的应用提供新范式。",
+      "llm_evidence_en": "LLM-based gene set annotation enhanced by protein language model",
+      "llm_evidence_cn": "蛋白质语言模型增强的LLM基因集注释",
+      "llm_evidence": "蛋白质语言模型增强的LLM基因集注释",
+      "canonical_evidence": "蛋白质语言模型增强的LLM基因集注释",
+      "llm_tldr_en": "SoftGene couples a protein language model with soft prompting for LLM-based gene set annotation, capturing sequence structure to improve interpretable functional genomics analysis.",
+      "llm_tldr_cn": "基因集分析依赖人工整理，现有大模型方法多依赖符号化基因名，难以刻画蛋白质序列等生物结构。作者提出SoftGene，用基于ESM的层级注意力编码器融合蛋白质序列信息，并以软提示增强大模型的基因集注释。该框架提升了对基因功能的可解释注释能力。研究为基因组序列与大模型结合的功能基因组学分析提供了新思路。",
+      "llm_tldr": "基因集分析依赖人工整理，现有大模型方法多依赖符号化基因名，难以刻画蛋白质序列等生物结构。作者提出SoftGene，用基于ESM的层级注意力编码器融合蛋白质序列信息，并以软提示增强大模型的基因集注释。该框架提升了对基因功能的可解释注释能力。研究为基因组序列与大模型结合的功能基因组学分析提供了新思路。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -74,65 +74,94 @@
         "query:LLMAGT"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "multi-agent LLM framework for biomedical named entity recognition",
+      "llm_evidence_en": "guideline-augmented multi-agent LLM framework for biomedical NER",
       "llm_evidence_cn": "面向生物医学命名实体识别的多智能体LLM框架",
       "llm_evidence": "面向生物医学命名实体识别的多智能体LLM框架",
       "canonical_evidence": "面向生物医学命名实体识别的多智能体LLM框架",
-      "llm_tldr_en": "GAMA is a guideline-augmented multi-agent framework for schema-as-code biomedical NER, addressing ambiguous annotation semantics and weak structural control in LLM-based BioNER.",
-      "llm_tldr_cn": "针对LLM生物医学命名实体识别中标注语义不清与自由生成缺乏结构控制导致边界错误、幻觉与重复的问题，本文提出GAMA，一种指南增强的多智能体、模式即代码框架。该方法通过多智能体协作与显式模式约束强化实体边界与类型规范。实验表明其能减少无效格式与幻觉提及，提升生物医学实体识别质量，为LLM在生物信息学数据抽取中的应用提供可复用框架。",
-      "llm_tldr": "针对LLM生物医学命名实体识别中标注语义不清与自由生成缺乏结构控制导致边界错误、幻觉与重复的问题，本文提出GAMA，一种指南增强的多智能体、模式即代码框架。该方法通过多智能体协作与显式模式约束强化实体边界与类型规范。实验表明其能减少无效格式与幻觉提及，提升生物医学实体识别质量，为LLM在生物信息学数据抽取中的应用提供可复用框架。",
+      "llm_tldr_en": "GAMA addresses ambiguity and weak structural control in LLM-based biomedical NER by using a guideline-augmented multi-agent framework with schema-as-code to constrain typed entity extraction.",
+      "llm_tldr_cn": "LLM通过指令跟随与上下文学习在生物医学命名实体识别上展现潜力，但检索示例与外部知识难以支撑数据集特有的标注语义，实体边界与类型范围模糊；同时自由生成缺乏结构控制，易产生格式错误与幻觉。本文提出GAMA，一个以指南增强的多智能体框架，采用schema-as-code方式对生物医学实体抽取施加结构化约束。该框架缓解了标注歧义与生成失控问题，提升了生物医学信息抽取的可靠性与规范性。",
+      "llm_tldr": "LLM通过指令跟随与上下文学习在生物医学命名实体识别上展现潜力，但检索示例与外部知识难以支撑数据集特有的标注语义，实体边界与类型范围模糊；同时自由生成缺乏结构控制，易产生格式错误与幻觉。本文提出GAMA，一个以指南增强的多智能体框架，采用schema-as-code方式对生物医学实体抽取施加结构化约束。该框架缓解了标注歧义与生成失控问题，提升了生物医学信息抽取的可靠性与规范性。",
       "llm_tags": [
         "query:llmagt"
       ],
       "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Multi-agent systems in biological data analysis",
-      "matched_requirement_id": "req-6",
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
       "selection_source": "fresh_fetch"
-    }
-  ],
-  "quick_skim": [
+    },
     {
-      "id": "2609.38879v1",
+      "id": "2610.05600v1",
       "source": "arxiv",
-      "title": "Does Learning Protein Folding Generalize to Broader Reasoning?",
-      "abstract": "Large language models rely heavily on human text, which often conveys surface answers rather than the spatial and structural logic behind them. Protein folding is a natural testbed, because one solved structure yields thousands of exactly checkable spatial and topological statements. We ask: can learning to fold proteins teach general models reusable reasoning capabilities? To answer this, we build FoldingCorpus, a protein-derived question-answer dataset, and Fold2Reason, a recipe that post-trains on it through two complementary signals: discrete structural answers predicted via the model's native language head, and continuous 3D geometry decoded from the same shared representations. On FoldBench, Fold2Reason achieves structure prediction scores 2.7 to 3.5 times those of Qwen3.5-9B. Beyond protein structure prediction, it improves performance on all 10 benchmarks spanning spatial, graph, scientific, and general reasoning, raising macro-average accuracy from 45.09% to 48.33% (+3.23 pp), with positive gains on all 10 benchmarks, while matched controls built from random, synthetic, and shuffled structure yield substantially smaller or negative gains. Our work shows that non-linguistic, structure-dense scientific data can systematically improve broad reasoning in language models, making a solved scientific problem a practical source of post-training supervision.",
+      "title": "An LLM-in-the-loop RL Framework for Bioinformatics Feature Selection",
+      "abstract": "High-dimensional bioinformatics data, characterized by a large number of features relative to the number of samples, pose major challenges such as the ``curse of dimensionality,'' leading to overfitting, high computational cost, and poor generalization. Traditional feature selection methods often suffer from limited scalability and adaptability in such domains. We propose an LLM-in-the-loop reinforcement learning (RL) framework for bioinformatics feature selection, where the RL agent formulates feature selection as a sequential decision-making task, while the large language model (LLM) enhances the process in two ways: (1) guiding exploration through domain-informed advice, and (2) providing hybrid rewards that integrate data-driven performance with knowledge-driven evaluation. The LLM also produces explanations to improve interpretability for human experts without altering the RL policy update. Experiments on diverse bioinformatics datasets show that the LLM-in-the-loop framework outperforms baselines, achieves stable performance across downstream models, and converges faster than pure RL.",
       "authors": [
-        "Yong Liu",
-        "Zhanpeng Shi",
-        "Yizhou Dang",
-        "Zhongyue Zhang",
-        "Xiaoliang Shi",
-        "Zhijian Wei",
-        "Shuangjia Zheng"
+        "Xinyuan Wang",
+        "Deepti Agrawal",
+        "Yanjie Fu"
       ],
       "primary_category": "cs.LG",
       "categories": [
         "cs.LG",
         "cs.AI"
       ],
-      "published": "2026-09-30T03:28:40+00:00",
-      "link": "https://arxiv.org/pdf/2609.38879v1",
+      "published": "2026-10-04T23:05:21+00:00",
+      "link": "https://arxiv.org/pdf/2610.05600v1",
       "tags": [
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "protein folding as testbed to teach LLMs transferable reasoning",
-      "llm_evidence_cn": "以蛋白质折叠为试验台训练LLM可迁移推理",
-      "llm_evidence": "以蛋白质折叠为试验台训练LLM可迁移推理",
-      "canonical_evidence": "以蛋白质折叠为试验台训练LLM可迁移推理",
-      "llm_tldr_en": "Fold2Reason post-trains LLMs on the protein-derived FoldingCorpus using discrete structural answers and continuous 3D geometry, testing whether folding teaches general reasoning.",
-      "llm_tldr_cn": "大语言模型主要依赖人类文本，缺乏空间与结构逻辑，难以获得可迁移的推理能力。本文以蛋白质折叠为试验台，构建FoldingCorpus问答数据集与Fold2Reason后训练方法，通过离散结构答案与连续三维几何两种互补信号进行训练。在FoldBench上取得约2.7至3.5的结构预测分数提升，探讨了蛋白质折叠学习能否赋予模型可迁移的通用推理能力，为生物数据驱动的推理训练提供思路。",
-      "llm_tldr": "大语言模型主要依赖人类文本，缺乏空间与结构逻辑，难以获得可迁移的推理能力。本文以蛋白质折叠为试验台，构建FoldingCorpus问答数据集与Fold2Reason后训练方法，通过离散结构答案与连续三维几何两种互补信号进行训练。在FoldBench上取得约2.7至3.5的结构预测分数提升，探讨了蛋白质折叠学习能否赋予模型可迁移的通用推理能力，为生物数据驱动的推理训练提供思路。",
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-in-the-loop RL framework for bioinformatics feature selection",
+      "llm_evidence_cn": "面向生物信息学特征选择的大模型在环强化学习框架",
+      "llm_evidence": "面向生物信息学特征选择的大模型在环强化学习框架",
+      "canonical_evidence": "面向生物信息学特征选择的大模型在环强化学习框架",
+      "llm_tldr_en": "High-dimensional bioinformatics data cause overfitting and poor generalization in feature selection. The paper proposes an LLM-in-the-loop RL framework where the agent treats selection as sequential decisions, while the LLM guides exploration with domain advice and supplies hybrid rewards.",
+      "llm_tldr_cn": "高维生物信息学数据特征远多于样本，易导致维度灾难、过拟合与泛化不佳，传统特征选择方法扩展性与适应性有限。作者提出大模型在环的强化学习框架，将特征选择建模为序列决策任务，由RL智能体执行选择，LLM则通过领域知识引导探索并提供融合数据性能与先验知识的混合奖励。该设计在生物信息学数据上缓解了高维特征选择难题。工作展示了LLM与强化学习结合用于生物信息学分析的可行路径，对相关任务具有方法借鉴意义。",
+      "llm_tldr": "高维生物信息学数据特征远多于样本，易导致维度灾难、过拟合与泛化不佳，传统特征选择方法扩展性与适应性有限。作者提出大模型在环的强化学习框架，将特征选择建模为序列决策任务，由RL智能体执行选择，LLM则通过领域知识引导探索并提供融合数据性能与先验知识的混合奖励。该设计在生物信息学数据上缓解了高维特征选择难题。工作展示了LLM与强化学习结合用于生物信息学分析的可行路径，对相关任务具有方法借鉴意义。",
       "llm_tags": [
         "query:llmagt"
       ],
       "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Computational biology applications of LLMs",
-      "matched_requirement_id": "req-3",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
+      "matched_query_text": "Large Language Models in bioinformatics",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
     },
+    {
+      "id": "2610.06190v1",
+      "source": "arxiv",
+      "title": "Bridging the Evidence-to-Execution Gap:A Reflective Agent for Multi-Objective Peptide Design",
+      "abstract": "Large language models (LLMs) can reason over scientific literature to devise design strategies, yet fail to reliably implement them for biological sequences. While protein generative models learn sequence patterns, they lack the capacity to incorporate literature evidence for multi-step reflective reasoning, forming an evidence-to-execution gap between scientific reasoning and sequence manipulation. We present EASER (Evidence-Aware Sequence Engineering with Reflection), a reflective agent bridging reasoning and sequence generation via a learned property interface of offline-trained, fixed low-rank matrices. The agent steers a diffusion generator by combining these matrices, proposing intervention hypotheses (anchors, editable positions, control coefficients) grounded in retrieved evidence, sequence context and past results. A Probe-and-Steer mechanism validates interventions and allocates samples according to predicted property responses, with outcome reflection informing subsequent decisions. Evaluated on multi-objective antimicrobial peptide design (optimizing activity, non-hemolysis and non-toxicity), explicit hypothesis formulation delivers better multi-objective performance than direct action generation under identical decision conditions. Ablation studies verify the importance of evidence retrieval, episodic history, reflection and Probe-and-Steer. Over six repeated trials, EASER obtains the highest mean hypervolume and lowest mean IGD+ on screened candidates compared with competing baselines. Our work demonstrates how an executable property interface and iterative feedback link scientific reasoning to targeted peptide sequence generation.",
+      "authors": [
+        "Haosen Zhang",
+        "Yang Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-10-05T12:07:21+00:00",
+      "link": "https://arxiv.org/pdf/2610.06190v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Reflective LLM agent for biological sequence design",
+      "llm_evidence_cn": "面向生物序列设计的反思型LLM智能体",
+      "llm_evidence": "面向生物序列设计的反思型LLM智能体",
+      "canonical_evidence": "面向生物序列设计的反思型LLM智能体",
+      "llm_tldr_en": "EASER is a reflective LLM agent that bridges literature reasoning and protein sequence generation via low-rank property matrices, enabling multi-objective peptide design with evidence-grounded reflection.",
+      "llm_tldr_cn": "该工作针对大语言模型虽能依据文献推理设计策略、却难以可靠落到生物序列操作这一证据到执行断层问题，提出EASER反思型智能体。它借助离线训练的固定低秩矩阵构建可学习性质接口来引导扩散生成模型，并提出锚点与可编辑位点等干预假设。实验表明该智能体能在多目标肽设计任务中把文献证据转化为序列生成操作，弥合科学推理与序列操作之间的鸿沟。该工作为基于LLM的自主智能体在生物分子设计中的应用提供了可反思的范式。",
+      "llm_tldr": "该工作针对大语言模型虽能依据文献推理设计策略、却难以可靠落到生物序列操作这一证据到执行断层问题，提出EASER反思型智能体。它借助离线训练的固定低秩矩阵构建可学习性质接口来引导扩散生成模型，并提出锚点与可编辑位点等干预假设。实验表明该智能体能在多目标肽设计任务中把文献证据转化为序列生成操作，弥合科学推理与序列操作之间的鸿沟。该工作为基于LLM的自主智能体在生物分子设计中的应用提供了可反思的范式。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
     {
       "id": "2610.02949v1",
       "source": "arxiv",
@@ -156,14 +185,14 @@
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "instruction tuning of LLMs for biomedical named entity recognition",
-      "llm_evidence_cn": "用大语言模型指令微调做生物医学命名实体识别",
-      "llm_evidence": "用大语言模型指令微调做生物医学命名实体识别",
-      "canonical_evidence": "用大语言模型指令微调做生物医学命名实体识别",
-      "llm_tldr_en": "LLMs are instruction-tuned with multi-programming-language prompts plus an ensemble for biomedical NER, adding structural constraints and robustness to overcome flat serialization and scarce annotations.",
-      "llm_tldr_cn": "针对生物医学命名实体识别中指令微调的两大难题——扁平文本序列化缺乏结构约束、高质量标注稀缺且输出形式单一，本文提出以多种编程语言作为指令形式并融合集成方法进行指令微调。该方法通过编程语言序列化提供更强的结构约束，并结合集成提升鲁棒性。实验表明可提升类型化实体抽取性能，为LLM在生物医学文本挖掘中的结构化微调提供新范式。",
-      "llm_tldr": "针对生物医学命名实体识别中指令微调的两大难题——扁平文本序列化缺乏结构约束、高质量标注稀缺且输出形式单一，本文提出以多种编程语言作为指令形式并融合集成方法进行指令微调。该方法通过编程语言序列化提供更强的结构约束，并结合集成提升鲁棒性。实验表明可提升类型化实体抽取性能，为LLM在生物医学文本挖掘中的结构化微调提供新范式。",
+      "llm_score": 7.0,
+      "llm_evidence_en": "instruction tuning of LLMs for biomedical NER with ensemble method",
+      "llm_evidence_cn": "面向生物医学命名实体识别的LLM指令微调与集成方法",
+      "llm_evidence": "面向生物医学命名实体识别的LLM指令微调与集成方法",
+      "canonical_evidence": "面向生物医学命名实体识别的LLM指令微调与集成方法",
+      "llm_tldr_en": "This paper improves LLM-based biomedical NER by using multiple programming-language instruction tuning and an ensemble, addressing weak structural constraints and limited annotation diversity without costly external knowledge.",
+      "llm_tldr_cn": "指令微调已成为将大语言模型用于生物医学命名实体识别的常用范式，但自然语言指令把标注序列化为扁平文本，结构化约束不足；高质量生物医学标注稀缺，单一序列化形式限制结构多样性并降低鲁棒性，而引入外部知识又成本高昂。本文提出用多编程语言指令微调并结合集成方法，以增强结构多样性与模型鲁棒性。该工作在不依赖昂贵外部资源的前提下提升了生物医学实体识别性能。",
+      "llm_tldr": "指令微调已成为将大语言模型用于生物医学命名实体识别的常用范式，但自然语言指令把标注序列化为扁平文本，结构化约束不足；高质量生物医学标注稀缺，单一序列化形式限制结构多样性并降低鲁棒性，而引入外部知识又成本高昂。本文提出用多编程语言指令微调并结合集成方法，以增强结构多样性与模型鲁棒性。该工作在不依赖昂贵外部资源的前提下提升了生物医学实体识别性能。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -171,7 +200,94 @@
       "matched_query_text": "Large Language Models in bioinformatics",
       "matched_requirement_id": "req-5",
       "selection_source": "fresh_fetch",
-      "quick_tier": "6"
+      "quick_tier": "7"
+    },
+    {
+      "id": "2610.03853v1",
+      "source": "arxiv",
+      "title": "Can LLM Agents Select and Engage with Biological Tools?",
+      "abstract": "Computational tools for biological research (biological tools, or BTs) are advancing rapidly in both quantity and demonstrated capability. While these technologies offer many benefits for scientific advancement, malicious actors may seek to exploit them to design and develop biological weapons (BWs). Generally, BTs require specialized expertise to operate successfully, presenting a barrier to nefarious use by nonexperts. Large language model (LLM) Agents may erode this barrier by enabling actors with limited domain expertise to successfully use BTs. Assessments of how AI could change bioweapons development pathways should examine how LLM Agents interact with BTs on relevant biological design tasks, but such assessments are limited. In this report, we present an assessment of the abilities of LLM Agents in the early stages of interaction with BTs. First, we evaluate seven frontier LLM Agents on their ability to select appropriate BTs for a given task. Second, we assess how these LLM Agents engage with two BTs, EVEscape and ESM3, through targeted case studies. These case studies probe the enabling capabilities required for autonomous BT operation, a potential entry point to a wide range of risk pathways. We identify and assess technical barriers at the intersection of LLM Agents and BTs, offering the biosecurity community and AI developers a foundation for further risk and capability assessments as technologies progress.",
+      "authors": [
+        "Jeffrey Lee",
+        "Alyssa Wordland",
+        "Kyle Brady",
+        "Grant Ellison",
+        "Henry Alexander Bradley",
+        "Christopher Rodriguez",
+        "CASEY MICHAEL O'DAY BARKAN",
+        "SUNISHCHAL DEV",
+        "Dawid Maciorowski",
+        "Jordan Despanie",
+        "Barbara Del Castello",
+        "Bria Persaud",
+        "Amar Pandya",
+        "Ella Guest",
+        "Steph Guerra"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-10-02T17:04:44+00:00",
+      "link": "https://arxiv.org/pdf/2610.03853v1",
+      "tags": [
+        "keyword:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agents selecting and engaging with biological research tools",
+      "llm_evidence_cn": "大模型智能体选择并使用生物研究工具",
+      "llm_evidence": "大模型智能体选择并使用生物研究工具",
+      "canonical_evidence": "大模型智能体选择并使用生物研究工具",
+      "llm_tldr_en": "This report assesses whether LLM agents can select and operate biological tools, arguing they may lower the expertise barrier for biological design tasks and thus warrant biosecurity evaluation.",
+      "llm_tldr_cn": "该报告关注大模型智能体能否选择并使用各类生物研究工具这一尚缺乏评估的问题。作者构建评估框架，考察LLM智能体在相关生物设计任务中调用生物工具的能力。结果显示智能体可能降低非专家使用生物工具的门槛，从而改变生物武器开发路径。研究强调需系统评估此类能力带来的生物安全风险。",
+      "llm_tldr": "该报告关注大模型智能体能否选择并使用各类生物研究工具这一尚缺乏评估的问题。作者构建评估框架，考察LLM智能体在相关生物设计任务中调用生物工具的能力。结果显示智能体可能降低非专家使用生物工具的门槛，从而改变生物武器开发路径。研究强调需系统评估此类能力带来的生物安全风险。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2610.04740v1",
+      "source": "arxiv",
+      "title": "Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery",
+      "abstract": "Early-stage computational drug discovery requires coordinating heterogeneous scientific tools across multi-step workflows. We present a lightweight, tool-augmented framework in which a locally deployable compact language model plans calls to 18 modular tools. A Unified Molecular Schema maintains shared molecular records, while a plug-in interface supports tool replacement and extension. We construct 1,263 manually refined query-plan pairs through workflow-graph path coverage and apply LoRA fine-tuning to three compact model families. Under the query-level split, all fine-tuned models generate fully parseable and schema-compliant plans on 47 held-out cross-group queries. Llama 3.2-3B achieves a tool-selection F1 of 0.998, sequence exact match of 0.979, and argument F1 of 0.960. Under the stricter workflow-grouped split, which excludes identical ordered tool sequences across partitions, sequence exact match reaches 0.452 to 0.548, highlighting the remaining difficulty for compact models in generating complete workflow paths unseen during training. These results demonstrate the feasibility of compact, locally deployable planning while identifying compositional generalization as an important direction for further improvement.",
+      "authors": [
+        "Tian Liang",
+        "Jiayu Chang",
+        "Alejandro F. Frangi",
+        "Mobarak I. Hoque",
+        "Richard A. Bryce"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-10-03T20:09:34+00:00",
+      "link": "https://arxiv.org/pdf/2610.04740v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "locally deployable agentic co-scientist for drug discovery",
+      "llm_evidence_cn": "面向药物发现的可本地部署智能体协同科学家",
+      "llm_evidence": "面向药物发现的可本地部署智能体协同科学家",
+      "canonical_evidence": "面向药物发现的可本地部署智能体协同科学家",
+      "llm_tldr_en": "This paper builds a locally deployable agentic co-scientist where a compact language model plans calls to 18 modular tools for early-stage drug discovery, achieving high tool-selection accuracy.",
+      "llm_tldr_cn": "早期计算药物发现需在多步流程中协调异构科学工具，现有方法难以在本地高效部署。作者提出轻量工具增强框架，由紧凑语言模型规划对18个模块化工具的调用，并以统一分子模式维护共享记录。实验构建1263条查询-计划对并微调多个小模型，Llama 3.2-3B工具选择F1达0.998。该工作为本地化、可扩展的智能体科研助手提供了可行方案。",
+      "llm_tldr": "早期计算药物发现需在多步流程中协调异构科学工具，现有方法难以在本地高效部署。作者提出轻量工具增强框架，由紧凑语言模型规划对18个模块化工具的调用，并以统一分子模式维护共享记录。实验构建1263条查询-计划对并微调多个小模型，Llama 3.2-3B工具选择F1达0.998。该工作为本地化、可扩展的智能体科研助手提供了可行方案。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
     }
   ]
 }

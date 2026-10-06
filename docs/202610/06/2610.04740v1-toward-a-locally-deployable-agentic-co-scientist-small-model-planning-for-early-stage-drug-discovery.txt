@@ -1,0 +1,657 @@
+Title: Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery
+
+URL Source: https://arxiv.org/pdf/2610.04740v1
+
+Published Time: Tue, 06 Oct 2026 01:08:51 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery 
+
+Tian Liang 1,2,4 Jiayu Chang 5 Alejandro F. Frangi 2,3,4,6,7 Mobarak I. Hoque 3,4,6,∗ Richard A. Bryce 1,∗ 
+
+> 1
+
+Division of Pharmacy and Optometry, University of Manchester, UK  
+
+> 2
+
+Department of Computer Science, University of Manchester, UK  
+
+> 3
+
+Division of Informatics, Imaging and Data Science, University of Manchester, UK  
+
+> 4
+
+Centre for Computational Imaging and Modelling in Medicine (CIMIM), University of Manchester, UK  
+
+> 5
+
+Department of Electrical Engineering, Stanford University, USA  
+
+> 6
+
+Christabel Pankhurst Institute, University of Manchester, UK  
+
+> 7
+
+NIHR Manchester Biomedical Research Centre, Manchester Academic Health Sciences Centre, Manchester, UK 
+
+{tian.liang, alejandro.frangi, mobarak.hoque, Richard.Bryce}@manchester.ac.uk cjy1125@stanford.edu 
+
+Abstract 
+
+Early-stage computational drug discovery requires coordinating heterogeneous sci-entific tools across multi-step workflows. We present a lightweight, tool-augmented framework in which a locally deployable compact language model plans calls to 18 modular tools. A Unified Molecular Schema maintains shared molecular records, while a plug-in interface supports tool replacement and extension. We construct 1,263 manually refined query–plan pairs through workflow-graph path coverage and apply LoRA fine-tuning to three compact model families. Under the query-level split, all fine-tuned models generate fully parseable and schema-compliant plans on 47 held-out cross-group queries. Llama 3.2-3B achieves a tool-selection F1 of 0.998, sequence exact match of 0.979, and argument F1 of 0.960. Under the stricter workflow-grouped split, which excludes identical ordered tool sequences across partitions, sequence exact match reaches 0.452–0.548, highlighting the remaining difficulty for compact models in generating complete workflow paths unseen during training. These results demonstrate the feasibility of compact, locally deployable planning while identifying compositional generalization as an important direction for further improvement. 
+
+1 Introduction 
+
+1.1 Motivation and Contributions 
+
+Early-stage computational drug discovery combines molecular generation, physicochemical and ADMET assessment, novelty evaluation, target-engagement analysis, and synthesis planning [Chang et al., 2022]. These tasks depend on heterogeneous models, databases, and scientific software, while their ordering often changes as intermediate evidence and user-defined constraints become available. Effective workflows therefore require not only accurate individual predictors, but also reliable task orchestration, information exchange, and persistent molecular state across repeated evaluation and prioritization. 
+
+> *Corresponding authors 40th Conference on Neural Information Processing Systems (NeurIPS 2026). Workshop: AI for Drug Discovery: Bridging the Translation Gap. arXiv:2610.04740v1 [cs.AI] 3 Oct 2026
+
+General-purpose large language models (LLMs), such as GPT-5.5, Claude Opus 5, and Gemini 3.1 Pro [OpenAI, 2026, Anthropic, 2026, DeepMind, 2026], provide a flexible interface for interpreting scientific requests and coordinating external tools. However, repeatedly invoking remotely hosted models throughout iterative screening can introduce substantial API costs and dependence on model providers and network connectivity. Transmitting tool sequences, filtering criteria, intermediate evaluations, and refinement decisions may also expose project-level research strategies rather than only individual molecular structures. These considerations motivate compact, task-specialized Planners that can perform routine and structurally constrained orchestration on locally controlled infrastructure, while retaining access to specialized external services when required. Despite the growing use of language-model agents in computational drug discovery, several system-level challenges remain insufficiently addressed. First, early-stage discovery comprises interdependent tasks, yet these capabilities are often integrated as isolated tools without an explicit organization of the underlying task space or their execution dependencies. Second, training data for scientific tool use commonly emphasize individual function calls or manually designed examples, providing limited coverage of the valid multi-step paths that can arise in a realistic discovery workflow. This makes it difficult to train compact planners that can consistently map diverse user requests to appropriate sequences of agents and tools. Furthermore, as molecular candidates move across generation, evaluation, retrieval, and target-analysis stages, different components frequently produce incompatible or loosely structured outputs. Without a unified representation for molecular identity, intermediate evidence, and agent-specific results, information exchange becomes fragile, and the state of a long-running workflow is difficult to maintain. Addressing these gaps requires a systematic organization of early-stage discovery capabilities, workflow-aware supervision for planner specialization, and a shared molecular data structure that supports reliable information flow across the system. We address these challenges with a lightweight agentic framework in which a fine-tuned compact language model translates user objectives into executable plans across 18 modular tools. A Unified Molecular Schema (UMS) establishes a molecule-centric, block-structured state representation through which heterogeneous tools exchange results across iterative workflows. The framework supports hybrid deployment: routine orchestration and open-source scientific tools can operate locally, while selected capabilities remain accessible through specialized services. Our contributions are: 
+
+(1) a task-oriented organization and modular tool ecosystem for early-stage drug discovery; (2) apath-coverage-based strategy for constructing supervision and specializing compact Planners; and 
+
+(3) a shared molecular schema for structured state management across heterogeneous and iterative workflows. Experiments across three model families show that this supervision enables reliable planning with a model as small as 3B parameters in the evaluated tool space. 
+
+1.2 Related Work Agentic AI systems for drug discovery. LLM-based agentic systems have progressed from single-agent tool-use frameworks such as ChemCrow [M. Bran et al., 2024] and CoScientist [Boiko et al., 2023] to multi-agent architectures spanning the DMTA cycle, including broad surveys of industrial deployments [Seal et al., 2025], end-to-end pipeline proposals [Vichentijevikj et al., 2026], and narrower domain-specific agents for tasks such as ADMET/HTS/DTI prediction [Liu et al., 2024] and pharmaceutical data analysis [Guan et al., 2025]. However, two aspects remain comparatively underexplored. First, many existing systems rely on general-purpose, remotely hosted LLMs such as GPT-5.5 or Gemini 3.1, while the ability of compact, locally deployable models to perform multi-tool planning has received limited systematic evaluation. Second, workflow knowledge is often encoded through hand-curated tool documentation [Liu et al., 2024], hard-coded pipeline stages in the system prompt [Guan et al., 2025], or ad hoc inter-agent message schemas refined through trial and error [He et al., 2026] rather than as an explicit, machine-checkable dependency structure. Indeed, [He et al., 2026] report that migrating AstraZeneca’s ChatInvent from a single to a multi-agent architecture improved efficiency but increased tool-call errors, and that resolving these failures required largely ad hoc prompt engineering rather than architectural change, with each LLM upgrade demanding further re-validation. This case illustrates the practical difficulty of maintaining reliable orchestration across architectural and model changes. 
+
+Compact models and trajectory-level evaluation. Parameter-efficient fine-tuning methods such as LoRA [Hu et al., 2022] make it practical to specialize compact language models for structured generation and tool use. However, function-calling evaluations commonly emphasize individual 2Unified Molecular Schema 
+
+> shared molecular state
+
+User 
+
+LLM Planner 
+
+Evaluator 
+
+> Evaluates results and decides next action
+> Query
+> Execution
+> plan
+> Execution
+> results
+> Final
+> results
+> feedback /
+> replanning
+> initializes &
+> updates
+> block-based
+> read / write
+> read schema
+
+Toolset              
+
+> Molecular Design and Generation
+> (2 tools)
+> Molecular Developability
+> (5 tools)
+> Target Engagement
+> (6 tools)
+> Knowledge Extraction
+> (4 tools)
+> Cross-group Ranking
+> Multi-Objective Ranker
+> (a) Overall System Architecture
+> Molecular Design and Generation (2)
+> MolGPT Generator Scaffold Diversifier
+> Molecular Developability (5)
+> PhysChem Evaluator ADMET Predictor
+> Toxicity Filter Retrosynthesis Agent
+> Retrieval Agent
+> Target Engagement (6)
+> Pocket Detection Agent Docking Agent
+> Affinity Predictor MD Simulation Agent
+> Engagement Evaluator Consensus Scoring Agent
+> Knowledge Extraction (4)
+> Document Parser Evidence Scorer
+> Extraction Agent Synthesis Agent
+> Cross-group Ranking (1)
+> Multi-Objective Ranker
+> (b) Tool Taxonomy
+> Evaluated Candidates
+> Evaluator Feedback
+> Success / Failure
+> Constraints check
+> Score summary
+> Recommendations
+> (c) End-to-End Example
+> User
+> <SYSTEM PROMPT>
+> Please generate 5 molecules and dock them into
+> the 1IEP’s pocket, return two best candidates to
+> me.
+> Planner
+> Step 1:
+> Action: MolGPTGenerator
+> Arguments: "n_samples": 5, "temperature": 1.05
+> Tool
+> Tool-calling-1: MolGPTGenerator
+> ZINC-15 pretrained MolGPT model generates 5
+> drug-like molecules with temperature=1.05
+> Planner
+> Step 2:
+> Action: PocketDetectionAgent
+> Arguments: "protein_id": "1IEP"
+> Tool
+> Tool-calling-2:
+> Agent call P2Rank to detect possible pockets of
+> 1IEP receptor, return pockets ranked by possibility
+> Planner
+> Step 3:
+> Action: DockingAgent
+> Arguments: "docker": "vina", "receptor_id": "1IEP",
+> "exhaustiveness": "medium"
+> Tool
+> Tool-calling-3:
+> Agent call AutoDock Vina to dock the candidate
+> molecules and receptor, save the docking files
+
+Figure 1: (a) A user query is translated by the fine-tuned LLM Planner into an execution plan, which is executed through the toolset. Tools read from and write to authorized blocks of the Unified Molecular Schema (UMS), which maintains shared state of each molecule. The Evaluator inspects the resulting UMS records and either returns filtered results to the user or provides feedback for replanning to the Planner until completion or the retry limit is reached. (b) The current toolset contains 18 tools organized into four functional groups: Molecular Design and Generation, Molecular Developability, Target Engagement, and Knowledge Extraction, together with a cross-group Multi-Objective Ranker. 
+
+(c) An end-to-end example. Details of this example are shown in the Appendix D.2. tool selection and argument generation, whereas dependency-ordered workflows additionally require the model to compose multiple valid calls in the correct sequence. Evaluation at this level also remains limited. Although BixBench requires agents to conduct long, multi-step analyses, its primary automated evaluation focuses on the final submitted answer rather than the validity of the intermediate tool-calling trajectory [Mitchener et al., 2025]. This distinction is particularly important for scientific orchestration because an invalid intermediate action can propagate errors through subsequent computations even when the final response appears plausible. Accordingly, we address the orchestration gap by deriving supervision through systematic path coverage over an explicit workflow graph and fine-tuning a compact, locally deployable Planner to generate structured execution plans. We evaluate the Planner directly at the trajectory level, measuring output validity, tool selection, execution ordering, and argument generation, including its ability to compose workflow patterns excluded from training. 
+
+2 System Overview 
+
+Fig. 1 presents the overall architecture of our lightweight, tool-augmented drug discovery system, implemented using LangGraph [Wang and Duan, 2024]. At its core, the UMS implements a molecule-centric design pattern in which each molecule is maintained as a persistent, incrementally updated record, while tools act as modular producers and consumers of its typed information blocks. These blocks organize information from different computational tasks, including physicochemical properties, ADMET, novelty, target engagement, and synthesis. Rather than passing tool-specific outputs only between adjacent steps, the UMS preserves a shared molecular state across heterogeneous tools and iterative execution cycles (details provided in the Appendix A.1). Each tool is permitted to read and update only the blocks required by its function, preventing unrelated outputs from being mixed while enabling information exchange through a consistent representation. When external services are required, this block-level access also restricts data transmission to the task-relevant subset of the molecular record, thereby reducing the risk of broad exposure of proprietary project information and intellectual property. The current system integrates 18 tools in four functional groups: Molecular Design and Generation, Molecular Developability, Target Engagement, and Knowledge Extraction, together with a separate Multi-Objective Ranker for results comparisons. Tools are classified by their primary computational function rather than their chronological position in the drug-development pipeline, since physico-chemical, ADMET, and toxicity assessments may also be used during hit discovery. The current 3Tool #1      
+
+> Tool #2
+> Unified Molecular Schema
+> …
+> UMS Block #1
+> UMS Block #2
+> UMS Block #3
+> UMS Block #N
+> Read
+> Write
+> vvv
+> (a) Interactions Between Tools and UMS (b) Schematic Illustrations of Path-Coverage Data Construction
+
+Figure 2: (a) Tools interact with UMS blocks through read (dashed arrows) and write (solid arrows) operations. Each tool can access only its authorized blocks, reducing the risk of unintended data exposure and contamination of molecular records. (b) Three path-coverage workflow examples are illustrated from left to right: a complete workflow spanning molecular generation to ranking and selection of top candidates; a workflow that selects candidates using only a subset of functional layers; and a task-specific workflow that neither begins with molecular generation nor ends with ranking, and may involve more complex sequences within individuals. Colored nodes indicate selected tools, gray nodes indicate unused tools. The functional layers and their color coding are consistent with Fig. 1. toolset comprises both internally implemented or trained tools and integrations of established open-source models and software, with specialized external services used where necessary. Importantly, the architecture is not tied to this particular collection: users may introduce alternative or newly developed tools by adapting their inputs and outputs to the corresponding UMS blocks and execution interface. Detailed descriptions and configurations of the current tools are provided in Appendix A.2. A fine-tuned compact language model acts as the LLM Planner and can be deployed on locally controlled, GPU-equipped hardware. It converts a user query into an executable sequence of parame-terized tool calls, which LangGraph instantiates and runs. Each tool reads the relevant UMS blocks and writes its outputs back to the corresponding blocks. After execution, the Evaluator retrieves the required results from the UMS and determines whether the workflow has produced sufficient information. Successful outputs are filtered by a rule-based reporting layer and returned to the user; otherwise, feedback and execution errors are sent back to the Planner for replanning. This cycle continues until the workflow succeeds or reaches a predefined retry limit, after which a failure report with the corresponding errors is returned. 
+
+3 Lightweight Planner: Data Construction and Evaluation 
+
+3.1 Planning Task 
+
+The Planner maps a user query and the available tool definitions to a structured execution plan in JSON format, containing an ordered sequence of parameterized tool calls. Each step specifies a registered tool name and its associated arguments, making both the execution order and the requested operations explicit and machine-readable. The tool definitions describe the available capabilities and argument schemas, allowing the planner to translate the user’s objective and constraints into concrete computational steps. During replanning, execution feedback and errors are additionally provided as context. Before execution, each plan is validated for registered tool names, schema-compliant arguments, and dependency-consistent ordering. The selected tools, rather than the Planner, perform scientific computations and update their authorized UMS blocks. The complete output schema and examples are provided in Appendix B.2. 
+
+3.2 Path-Coverage Data Construction 
+
+To construct the fine-tuning dataset, we adopt a workflow-generation strategy inspired by path-coverage testing in software engineering [Zhu et al., 1997]. Each tool is represented as a node in a directed graph, and the nodes are arranged according to the functional hierarchy shown in Fig. 1(b). 4Table 1: Planner performance on 47 held-out cross-group queries under the query-level split. Tool-selection, sequence, and argument-generation metrics are averaged over schema-valid outputs. See main text for description of metrics.                                               
+
+> Model Setting Parse Schema Tool F1 Seq. EM Seq. LCS Arg. F1 Llama 3.2-3B Zero-shot 0.553 0.553 0.786 0.000 0.709 0.658 Fine-tuned 1.000 1.000 0.998 0.979 0.996 0.960
+> Qwen3-4B Zero-shot 0.298 0.298 0.778 0.000 0.716 0.736 Fine-tuned 1.000 1.000 0.990 0.915 0.990 0.958 Gemma 3-4B Zero-shot 0.638 0.574 0.871 0.148 0.800 0.576 Fine-tuned 1.000 1.000 0.994 0.936 0.990 0.949
+
+Candidate workflows are then constructed by traversing the graph from higher-level tool groups to lower-level groups. Paths may also connect different tools within the same functional group layer when their operations can be meaningfully combined. Examples of path constructions are shown in Fig. 2(b). For each valid path, the ordered tool sequence and its required arguments are defined before natural-language queries are generated. GPT-5.5 [OpenAI, 2026] is then prompted to produce multiple semantically diverse user requests whose intended execution corresponds to that path. The model is therefore used to generate linguistic variations rather than to determine the target workflow itself. The resulting queries are manually reviewed and refined to improve clarity, remove ambiguity, and ensure consistency with the associated tool sequence. After invalid or operationally inconsistent paths are removed, this process yields 1,263 query–plan pairs, including 467 cross-group workflows. The dataset generated by GPT-5.5 will undergo manual screening and refinement to improve unnatural phrasing and rewrite queries with substantial overlap. 
+
+3.3 Fine-tuning and Evaluation Setup 
+
+We fine-tune Llama 3.2-3B, Qwen3-4B, and Gemma 3-4B [Grattafiori et al., 2024, Yang et al., 2025, Kamath et al., 2025] using Low-Rank Adaptation (LoRA) [Hu et al., 2022]. The 1,263 query-plan pairs are divided into training, validation, and test sets using an 80:10:10 ratio. We configure LoRA with a rank of 16, a scaling parameter α = 32 , and a dropout rate of 0.05. The maximum sequence length is set to 4,096 tokens. Training uses an initial learning rate of 2 × 10 −4 for up to three epochs, and employs early stopping based on validation performance to reduce overfitting. The experiments are conducted on one NVIDIA H200-SXM GPU with 141 GB of memory. Table 1 reports results on 47 cross-group examples in the query-level test split; complete query-level and workflow-grouped results are provided in Appendix C.2. Fine-tuning improves all models: parse and schema success reach 1.000, while tool selection, ordering, and argument prediction also improve substantially. Llama 3.2-3B performs best overall in this setting. Under the stricter workflow-grouped split, which excludes identical ordered tool sequences across partitions, Seq. EM decreases to 0.452– 0.548, showing that generating unseen workflow compositions remains challenging for compact Planners. 
+
+3.4 Case Study 
+
+To illustrate the execution of a cross-group workflow, we asked the system to generate and priori-tize candidate molecules against cyclin-dependent kinase 2 (CDK2). The Planner organized four specialized tools: MolGPTGenerator produced 20 candidates, PhysChemEvaluator calculated their physicochemical properties, AffinityPredictor predicted their CDK2 activities, and the rule-based MultiObjectiveRanker ranked the generated molecules according to how well they satisfy the requirements specified in the user query. The resulting records were maintained in the UMS and subsequently prioritized using a target-focused score that assigned 70% weight to predicted target engagement and 30% to physicochemical developability in the current version of 
+
+MultiObjectiveRanker .The prioritization results are summarized in Table 2. Eight of the 20 generated molecules exceeded the predefined potency threshold of predicted pIC 50 ≥ 6.0. The Rank 1 candidate achieved an overall 5Table 2: Indicative output: top three of twenty candidate ligands generated and evaluated against the protein target, CDK2.               
+
+> Rank SMILES Predicted pIC 50 QED Overall score 1Cc1nc2ccc(C(=O)N3C[C@H](O)[C@H](NC(=O)[C@H ]4COCCO4)C3)cc2n1C
+> 6.578 0.741 0.724 2Cn1cc(CC(=O)N2C[C@H](O)[C@H](NC(=O)C[C@H]3 CCCOC3)C2)cn1
+> 6.381 0.744 0.684 3CCc1cccc(C(=O)NC2(CNC(=O)Cn3cnnn3)CC2)n1 6.263 0.721 0.651
+
+score of 0.724, with a predicted pIC 50 of 6.578, a QED of 0.741, and no Lipinski rule-of-five [Lipinski et al., 1997] violations. Together with the Rank 2 and Rank 3 candidates, it formed a shortlist that balanced predicted CDK2 affinity with physicochemical developability. This case illustrates how the framework coordinates heterogeneous tools, transfers intermediate results through the UMS, and integrates multiple predicted properties into an interpretable ranking. These preliminary results were obtained using the current LightGBM model and may improve with more advanced affinity predictors. Once the evaluation rules are refined, unsatisfactory values will automatically trigger the Evaluator to generate and assess new candidates. We could also note that a pocket-aware molecule generator would likely improve affinity scores. Further details of the case study are provided in Appendix D.1. 
+
+4 Conclusion 
+
+We present a lightweight, tool-augmented framework for organizing early-stage computational drug-discovery workflows. The system combines a locally deployable compact Planner with a modular tool ecosystem that is largely built upon open-source scientific software. This design reduces continuous dependence on remotely hosted general-purpose language models while retaining the flexibility to access specialized external services when required. Its plug-in architecture is not tied to the current toolset: individual tools can be replaced or extended as stronger methods become available, provided that their inputs and outputs are aligned with the execution interface and the corresponding Unified Molecular Schema blocks. The UMS further provides persistent, structured molecular records, addressing the challenge of transferring intermediate results across heterogeneous tools and multiple rounds of evaluation and replanning. Experiments across three compact model families show that path-coverage-based supervision can effectively specialize a model as small as 3B parameters for structured workflow orchestration. The current system nevertheless has several limitations. The compact Planner is specialized for a constrained tool and workflow space and may not generalize reliably to requests, tools, or ex-ecution patterns that are insufficiently represented in the training data. Broader deployment will therefore require a larger and more diverse dataset covering additional tool combinations, argument configurations, failure conditions, and replanning scenarios. Close collaboration with drug-discovery researchers and practitioners will be important for constructing realistic user queries and ensuring that future datasets reflect practical scientific workflows rather than only synthetically enumerated paths. In addition, workflow evaluation and result summarization are currently handled by rule-based components. Replacing them with specialized lightweight language models could enable more context-sensitive assessment and reporting, but would require new task-specific datasets and introduce the challenge of deploying multiple models without imposing excessive computational and memory overhead. Finally, although the scientific accuracy of molecular predictions in the current framework is primarily determined by the underlying domain-specific tools and algorithms rather than by the Planner itself, future work should evaluate the system at the level of complete end-to-end workflows. Such evaluation should examine whether tool selection, execution order, state transfer, and iterative replanning collectively preserve the reliability and practical utility of the resulting drug-discovery outcomes. 
+
+5 Acknowledgment 
+
+TL acknowledges Ph.D. funding from the President’s Doctoral Scholar Award provided by The University of Manchester. AFF acknowledges support from the Royal Academy of Engineering under 6the RAEng Chair in Emerging Technologies (INSILEX CiET191919), ERC Advanced Grant-UKRI Frontier Research Guarantee (INSILICO EPY0304941), the UK Centre of Excellence on in-silico Regulatory Science and Innovation (UK CEiRSI) (10139527), the National Institute for Health and Care Research (NIHR) Manchester Biomedical Research Centre (BRC) (NIHR203308), the BHF Manchester Centre of Research Excellence (RE2430017), and the CRUK RadNet Manchester (C1994A28701). The authors would like to acknowledge the assistance given by Research IT and the use of the Computational Shared Facility at the University of Manchester. The authors acknowledge the use of resources provided by the Isambard-AI National AI Research Resource (AIRR) (AIRR-GW-2026-01-01). Isambard-AI is operated by the University of Bristol and is funded by the UK Government’s Department for Science, Innovation and Technology (DSIT) via UK Research and Innovation; and the Science and Technology Facilities Council [ST/AIRR/I-A-I/1023]. 
+
+References 
+
+Anthropic. System card: Claude opus 5. Anthropic, July 2026. Accessed: 2026-07-26. Christoph Auer, Maksym Lysak, Ahmed Nassar, Michele Dolfi, Nikolaos Livathinos, Panos Vagenas, Cesar Berrospi Ramis, Matteo Omenetti, Fabian Lindlbauer, Kasper Dinkla, et al. Docling technical report. arXiv preprint arXiv:2408.09869 , 2024. Viraj Bagal, Rishal Aggarwal, PK Vinod, and U Deva Priyakumar. Molgpt: molecular generation using a transformer-decoder model. Journal of chemical information and modeling , 62(9):2064– 2076, 2021. Ilyes Batatia, David P Kovacs, Gregor Simm, Christoph Ortner, and Gábor Csányi. Mace: Higher order equivariant message passing neural networks for fast and accurate force fields. Advances in neural information processing systems , 35:11423–11436, 2022. Daniil A Boiko, Robert MacKnight, Ben Kline, and Gabe Gomes. Autonomous chemical research with large language models. Nature , 624:570–578, 2023. Evan E Bolton, Yanli Wang, Paul A Thiessen, and Stephen H Bryant. Pubchem: integrated platform of small molecules and biological activities. In Annual reports in computational chemistry , volume 4, pages 217–241. Elsevier, 2008. Yiqun Chang, Bryson A Hawkins, Jonathan J Du, Paul W Groundwater, David E Hibbs, and Felcia Lai. A guide to in silico drug design. Pharmaceutics , 15(1):49, 2022. Europe PMC Consortium. Europe pmc: a full-text literature database for the life sciences and platform for innovation. Nucleic acids research , 43(D1):D1042–D1048, 2015. Gabriele Corso, Hannes Stärk, Bowen Jing, Regina Barzilay, and Tommi Jaakkola. Diffdock: Diffusion steps, twists, and turns for molecular docking. arXiv preprint arXiv:2210.01776 , 2022. Antoine Daina, Olivier Michielin, and Vincent Zoete. Swissadme: a free web tool to evaluate pharmacokinetics, drug-likeness and medicinal chemistry friendliness of small molecules. Scientific reports , 7(1):42717, 2017. Google DeepMind. Gemini 3.1 pro model card. Google DeepMind, February 2026. Accessed: 2026-07-26. Christian Devereux, Justin S Smith, Kate K Huddleston, Kipton Barros, Roman Zubatyuk, Olexandr Isayev, and Adrian E Roitberg. Extending the applicability of the ani deep learning molecular potential to sulfur and halogens. Journal of chemical theory and computation , 16(7):4192–4202, 2020. Peter Eastman, Raimondas Galvelis, Raúl P Peláez, Charlles RA Abreu, Stephen E Farr, Emilio Gallicchio, Anton Gorenko, Michael M Henry, Frank Hu, Jing Huang, et al. Openmm 8: molecular dynamics simulation with machine learning potentials. The Journal of Physical Chemistry B , 128 (1):109–116, 2024. Jerome Eberhardt, Diogo Santos-Martins, Andreas F Tillack, and Stefano Forli. Autodock vina 1.2. 0: new docking methods, expanded force field, and python bindings. Journal of chemical information and modeling , 61(8):3891, 2021. 7Li Fu, Shaohua Shi, Jiacai Yi, Ningning Wang, Yuanhang He, Zhenxing Wu, Jinfu Peng, Youchao Deng, Wenxuan Wang, Chengkun Wu, et al. Admetlab 3.0: an updated comprehensive online admet prediction platform enhanced with broader coverage, improved performance, api functionality and decision support. Nucleic acids research , 52(W1):W422–W431, 2024. Anna Gaulton, Louisa J Bellis, A Patricia Bento, Jon Chambers, Mark Davies, Anne Hersey, Yvonne Light, Shaun McGlinchey, David Michalovich, Bissan Al-Lazikani, et al. Chembl: a large-scale bioactivity database for drug discovery. Nucleic acids research , 40(D1):D1100–D1107, 2012. Samuel Genheden, Amol Thakkar, Veronika Chadimová, Jean-Louis Reymond, Ola Engkvist, and Esben Bjerrum. Aizynthfinder: a fast, robust and flexible open-source software for retrosynthetic planning. Journal of cheminformatics , 12(1):70, 2020. Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Alex Vaughan, et al. The llama 3 herd of models. arXiv preprint arXiv:2407.21783 , 2024. Zihan Guan, Hanyin Wang, Zhongliang Zhou, Qiaohui Zhou, Peining Tao, and Junshui Ma. Pharmadata-agent: A specialized agent for pharmaceutical data analysis. In 2025 IEEE In-ternational Conference on Data Mining Workshops (ICDMW) , pages 2618–2621. IEEE, 2025. Jiazhen He, Helen Lai, Lakshidaa Saigiridharan, Gian Marco Ghiandoni, Kinga Jenei, Umur Gokalp, Ajša Nukovi´ c, Ola Engkvist, Jon Paul Janet, and Samuel Genheden. Democratising real-world drug discovery through agentic ai. Drug Discovery Today , 31(2):104605, 2026. ISSN 1359-6446. doi: https://doi.org/10.1016/j.drudis.2026.104605. URL https://www.sciencedirect.com/ science/article/pii/S1359644626000103 .Enshuo Hsu and Kirk Roberts. Llm-ie: a python package for biomedical generative information extraction with large language models. JAMIA open , 8(2):ooaf012, 2025. Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and Weizhu Chen. Lora: Low-rank adaptation of large language models. In International Conference on Learning Representations (ICLR) , 2022. Aishwarya Kamath, Johan Ferret, Shreya Pathak, Nino Vieillard, Ramona Merhej, Sarah Perrin, Tatiana Matejovicova, Alexandre Ramé, Morgane Rivière, Louis Rouillard, et al. Gemma 3 technical report. arXiv preprint arXiv:2503.19786 , 4, 2025. Guolin Ke, Qi Meng, Thomas Finley, Taifeng Wang, Wei Chen, Weidong Ma, Qiwei Ye, and Tie-Yan Liu. Lightgbm: A highly efficient gradient boosting decision tree. Advances in neural information processing systems , 30, 2017. Radoslav Krivák and David Hoksza. P2rank: machine learning based tool for rapid and accurate prediction of ligand binding sites from protein structure. Journal of cheminformatics , 10(1):39, 2018. Greg Landrum et al. Rdkit documentation. Release , 1(1-79):4, 2013. Christopher A Lipinski, Franco Lombardo, Beryl W Dominy, and Paul J Feeney. Experimental and computational approaches to estimate solubility and permeability in drug discovery and development settings. Advanced drug delivery reviews , 23(1-3):3–25, 1997. Sizhe Liu, Yizhou Lu, Siyu Chen, Xiyang Hu, Jieyu Zhao, Yingzhou Lu, and Yue Zhao. Drugagent: Automating ai-aided drug discovery programming through llm multi-agent collaboration. arXiv preprint arXiv:2411.15692 , 2024. Hannes H Loeffler, Jiazhen He, Alessandro Tibo, Jon Paul Janet, Alexey Voronov, Lewis H Mervin, and Ola Engkvist. Reinvent 4: Modern ai–driven generative molecule design. Journal of Chemin-formatics , 16(1):20, 2024. Andres M. Bran, Sam Cox, Oliver Schilter, Carlo Baldassari, Andrew D White, and Philippe Schwaller. Augmenting large language models with chemistry tools. Nature machine intelligence ,6(5):525–535, 2024. 8Ludovico Mitchener, Jon M Laurent, Alex Andonian, Benjamin Tenmann, Siddharth Narayanan, Geemi P Wellawatte, Andrew White, Lorenzo Sani, and Samuel G Rodriques. Bixbench: a comprehensive benchmark for llm-based agents in computational biology. arXiv preprint arXiv:2503.00096 , 2025. Hirotomo Moriwaki, Yu-Shi Tian, Norihito Kawashita, and Tatsuya Takagi. Mordred: a molecular descriptor calculator. Journal of cheminformatics , 10(1):4, 2018. Thin Nguyen, Hang Le, Thomas P Quinn, Tri Nguyen, Thuc Duy Le, and Svetha Venkatesh. Graphdta: predicting drug–target binding affinity with graph neural networks. Bioinformatics , 37 (8):1140–1147, 2021. OpenAI. Gpt-5.5 system card. OpenAI, April 2026. Accessed: 2026-07-26. George Papadatos, Mark Davies, Nathan Dedman, Jon Chambers, Anna Gaulton, James Siddle, Richard Koks, Sean A Irvine, Joe Pettersson, Nicko Goncharoff, et al. Surechembl: a large-scale, chemically annotated patent document database. Nucleic acids research , 44(D1):D1220–D1228, 2016. Peter Schmidtke, Vincent Le Guilloux, Julien Maupetit, and Pierre Tuffiery. Fpocket: online tools for protein ensemble pocket detection and tracking. Nucleic acids research , 38(suppl_2):W582–W589, 2010. Srijit Seal, Dinh Long Huynh, Moudather Chelbi, Sara Khosravi, Ankur Kumar, Mattson Thieme, Isaac Wilks, Mark Davies, Jessica Mustali, Yannick Sun, et al. Ai agents in drug discovery. arXiv preprint arXiv:2510.27130 , 2025. Teague Sterling and John J Irwin. Zinc 15–ligand discovery for everyone. Journal of chemical information and modeling , 55(11):2324–2337, 2015. Iurii Sushko, Elena Salmina, Vladimir A Potemkin, Gennadiy Poda, and Igor V Tetko. Toxalerts: a web server of structural alerts for toxic chemicals and compounds with potential adverse reactions. 
+
+Journal of chemical information and modeling , 52(8):2310, 2012. Zhengkai Tu, Sourabh J Choure, Mun Hong Fong, Jihye Roh, Itai Levin, Kevin Yu, Joonyoung F Joung, Nathan Morgan, Shih-Cheng Li, Xiaoqi Sun, et al. Askcos: open-source, data-driven synthesis planning. Accounts of chemical research , 58(11):1764, 2025. Ivana Vichentijevikj, Kostadin Mishev, and Monika Simjanoska Misheva. Prompt-to-pill: Multi-agent drug discovery and clinical simulation pipeline. Bioinformatics Advances , 6(1):vbaf323, 01 2026. ISSN 2635-0041. doi: 10.1093/bioadv/vbaf323. URL https://doi.org/10.1093/bioadv/ vbaf323 .Jialin Wang and Zhihua Duan. Agent ai with langgraph: A modular framework for enhancing machine translation using large language models. arXiv preprint arXiv:2412.03801 , 2024. An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 ,2025. Hong Zhu, Patrick A. V. Hall, and John H. R. May. Software unit test coverage and adequacy. ACM Comput. Surv. , 29(4):366–427, December 1997. ISSN 0360-0300. doi: 10.1145/267580.267590. URL https://doi.org/10.1145/267580.267590 .
+
+A System and Tool Specifications 
+
+A.1 Unified Molecular Schema and State Management 
+
+The UMS separates project-level workflow state from persistent molecule-level records, as sum-marized in Table 3. Each molecular record contains independent tool-populated blocks whose representative contents and workflow roles are listed in Table 4. This block-structured design al-lows tools to access existing evidence and update only their authorized fields without replacing the 9Table 3: Top-level organization of the Unified Molecular Schema (UMS). Representative fields are shown; implementation-specific logging and metadata fields are omitted for brevity. 
+
+Scope Component Representative fields Purpose Pipeline User objective user_query , project_target ,
+
+optimization_goal ,
+
+hard_constraints 
+
+Stores the original request, optimization objective, and user-defined workflow constraints. Pipeline Target state target_id , name , sequence ,receptor artifacts, target pocket, status Maintains target identity, prepared receptor files, detected binding pockets, and target-preparation status. Pipeline Planning and execution execution_plan ,
+
+execution_trace ,
+
+current_step ,
+
+replanning_count ,
+
+terminated 
+
+Records the current plan, execution progress, and information required for iterative replanning or early termination. Pipeline Molecular pool molecules , molecule_index ,
+
+active_molecule_ids 
+
+Maintains all molecular records, enables identifier-based lookup, and tracks the active subset passed between tools. Pipeline Ranking and nomination ranking_strategy ,
+
+top_k_requested ,
+
+shortlisted_ids ,
+
+nomination_candidates ,
+
+global_metrics 
+
+Stores project-level ranking settings, aggregate statistics, and candidate selection results. Pipeline Knowledge state retrieved_documents ,
+
+parsed_documents ,
+
+synthesis_summary 
+
+Preserves retrieved and extracted knowledge that is not restricted to a single molecular record. Pipeline Validation and audit cross_validation_matrix ,
+
+project_confidence_score ,logs, retry requests Records cross-tool consistency, project-level confidence, warnings, failures, and recovery actions. Molecule Identity and provenance molecule_id , smiles ,
+
+input_index , origin 
+
+Provides a persistent molecular identity and records whether the molecule was supplied, generated, or retrieved. Molecule Lifecycle state lifecycle_stage Tracks progression through 
+
+generated , evaluated ,
+
+filtered , ranked ,
+
+shortlisted , nominated , or 
+
+rejected .Molecule Tool-produced blocks physchem , affinity ,
+
+scaffold , pocket , docking ,
+
+md , admet , toxicity ,
+
+retrosynthesis , novelty 
+
+Stores heterogeneous scientific results in independent, typed blocks that can be incrementally populated by authorized tools. Molecule Aggregated assessment consensus_score ,
+
+multiobjective_score ,
+
+final_score 
+
+Integrates results from multiple property blocks for prioritization and candidate selection. Molecule Flags and history structural_alerts ,
+
+rule_violations ,
+
+evaluation_flags ,
+
+evaluation_history ,
+
+artifacts 
+
+Preserves alerts, validation outcomes, block-update history, and molecule-specific generated files. 
+
+complete record. When external services are required, it also restricts data transmission to the task-relevant, authorized subset of the record, thereby reducing the risk of broad exposure of proprietary project information and intellectual property. 
+
+A.2 Tool Registry and Deployment 
+
+Table 5 and Table 6 provide the registry of the 18 tools currently defined in the system, including their principal inputs, corresponding UMS or workflow-state outputs, implementation back ends, and 10 Table 4: Tool-populated blocks within each molecular record in the UMS. The listed fields are representative rather than exhaustive. 
+
+UMS block Representative contents Role in the workflow 
+
+physchem Molecular weight, logP, TPSA, hydrogen-bond donors and acceptors, rotatable bonds, QED, ring statistics, and rule violations Describes physicochemical properties and common drug-likeness criteria used for filtering and multi-objective ranking. 
+
+affinity Target identity, primary endpoint, IC 50 /K i/K d predictions, p-values, potency class, threshold outcome, and confidence Represents predicted target engagement and provides a normalized potency value for filtering and ranking. 
+
+scaffold Scaffold SMILES, scaffold type and key, annotation status, selection status, and removal reason Supports scaffold annotation, diversity control, and per-scaffold candidate quotas. 
+
+pocket Selected pocket, alternative pocket candidates, pocket scores, probabilities, and docking-box coordinates Defines candidate binding sites and provides the search region required by structure-based docking tools. 
+
+docking Docking method, receptor identifier, execution status, score type, top score, ranked poses, and pose files Stores predicted binding poses and structure-based interaction scores for downstream assessment or simulation. 
+
+md Simulation duration, mean and standard deviation of RMSD, binding-energy estimate, and stability decision Summarizes molecular-dynamics evidence concerning pose stability and target engagement. 
+
+admet Absorption, distribution, metabolism, excretion, and toxicity endpoints, together with probabilities, labels, applicability information, and warnings Organizes predicted pharmacokinetic and safety properties for developability assessment. 
+
+toxicity Filter decision, overall risk, risk level, structural alerts, toxicophores, reactive groups, and highest-severity finding Records rule- or model-based safety assessments and supports hard safety filtering. 
+
+retrosynthesis Route feasibility, synthetic-accessibility score, route and step counts, precursors, stock availability, search time, and warnings Represents predicted synthetic feasibility and the availability of candidate synthetic routes. 
+
+novelty Nearest known and patent hits, molecular similarities, structural novelty, IP novelty, evidence coverage, confidence, and retrieval status Summarizes chemical-space novelty and preliminary intellectual-property risk using evidence from multiple databases. 
+
+artifacts Three-dimensional ligand files, docking input files, generation method, optimization method, and artifact status Associates externally generated files with the corresponding molecular record while preserving provenance and failure information. 
+
+deployment requirements. The tools are organized into four functional groups: Molecular Design and Generation, Molecular Developability, Target Engagement, and Knowledge Extraction. The Multi-Objective Ranker is included in the total tool count but is presented separately as a cross-group tool because it integrates results from multiple UMS blocks to prioritize molecular candidates. The registry distinguishes a tool’s scientific function from its underlying implementation. Each tool exposes a standardized execution interface and interacts with typed UMS blocks, allowing its computational back end to be replaced without changing the surrounding workflow. Implementations marked as Current are used in the present system, whereas Alternative are included to illustrate com-patible replacements or extensions and were not evaluated in this work. Depending on computational requirements and data access, tools may be deployed locally, on GPU-equipped hardware, through external services, or in a hybrid configuration. The present tool back ends build on MolGPT [Bagal et al., 2021], RDKit [Landrum et al., 2013], ADMETlab 3.0 [Fu et al., 2024], LightGBM [Ke et al., 2017], AutoDock Vina [Eberhardt et al., 2021], DiffDock [Corso et al., 2022], AiZynthFinder [Genheden et al., 2020], P2Rank [Krivák and Hoksza, 2018], and OpenMM [Eastman et al., 2024]. The interchangeable implementations listed in Tables 5 and 6 include REINVENT 4 [Loeffler et al., 2024], Mordred [Moriwaki et al., 2018], SwissADME [Daina et al., 2017], ToxAlerts [Sushko et al., 2012], GraphDTA [Nguyen et al., 2021], ASKCOS [Tu et al., 2025], fpocket [Schmidtke et al., 2010], ANI-2x [Devereux et al., 2020], MACE 11 Table 5: Registry of molecular design, developability, and target-engagement tools. Current im-plementations are those used in the present system; alternative implementations are illustrative interchangeable back ends and were not evaluated in this work. 
+
+Functional group Tool Principal inputs UMS/state output Implementation Deployment Molecular Design and Generation 
+
+MolGPTGenerator Generation size, sampling temperature, and optional molecular constraints Molecular identity, SMILES, provenance, and generated 
+
+lifecycle state 
+
+Current: MolGPT. Alternative: REINVENT 4 for de novo generation, scaffold decoration, linker design, or reinforcement-learning-based optimization Local/GPU Molecular Design and Generation 
+
+Scaffold-Diversifier 
+
+Candidate SMILES, ranked identifiers, 
+
+max_per_scaffold ,and top_k 
+
+Scaffold annotations and diversity-constrained candidate identifiers 
+
+Current: RDKit Bemis–Murcko scaffold extraction followed by per-scaffold selection. Alternative: 
+
+fingerprint-based Butina clustering or MaxMin selection Local Molecular Developability 
+
+PhysChem-Evaluator 
+
+Molecular SMILES physchem block containing MW, logP, TPSA, QED, hydrogen-bond counts, and rule violations 
+
+Current: RDKit molecular descriptors. Alternative: 
+
+Mordred for an expanded descriptor set Local Molecular Developability 
+
+ADMET-Predictor 
+
+Molecular SMILES admet block containing predicted absorption, distribution, metabolism, excretion, and toxicity endpoints 
+
+Current: ADMETlab 3.0 service. Alternative: SwissADME for complementary pharmacokinetic and drug-likeness assessment External Molecular Developability 
+
+ToxicityFilter Molecular SMILES and strictness setting 
+
+toxicity block, structural alerts, evaluation flags, and filtering decision 
+
+Current: rule-based SMARTS matching. Alternative: 
+
+ToxAlerts or RDKit FilterCatalog -based alert collections Local Molecular Developability 
+
+Retrosynthesis-Agent 
+
+Molecular SMILES, maximum route depth, and route-return setting 
+
+retrosynthesis 
+
+block containing route feasibility, precursors, route steps, and synthetic-accessibility information 
+
+Current: AiZynthFinder. Alternative: ASKCOS for alternative one-step models and multistep synthesis planning Local Molecular Developability 
+
+RetrievalAgent Molecular structure or search terms, similarity threshold, requested databases, and retrieval type 
+
+novelty block, nearest database and patent hits, retrieved-document metadata, and source-specific status 
+
+Current: database adapters for ChEMBL and PubChem; DrugBank access where licensed; SureChEMBL for patent-associated structures; RDKit canonicalization, fingerprints, and Tanimoto similarity; Europe PMC for literature metadata and open full text; recursive filesystem lookup for user-provided files. Alternative: locally indexed database mirrors using PostgreSQL with the RDKit cartridge Hybrid Target Engagement 
+
+AffinityPredictor Molecular SMILES and target identifier or sequence 
+
+affinity block containing predicted potency, endpoint, confidence, and threshold outcome 
+
+Current: LightGBM-based affinity predictor. Alternative: 
+
+GraphDTA or another graph-based drug–target affinity model Local Target Engagement 
+
+PocketDetection-Agent 
+
+Prepared protein structure and protein identifier Target-pocket candidates, ranking scores, probabilities, and docking search boxes 
+
+Current: P2Rank 2.5.1. Alternative: fpocket Local Target Engagement 
+
+DockingAgent Ligand structure, prepared receptor, binding-site box, docking method, and search exhaustiveness 
+
+docking block containing ranked poses, docking scores, status, and pose artifacts 
+
+Current: AutoDock Vina for routine docking and DiffDock for learning-based pose prediction. Alternative: GNINA for CNN-assisted docking and rescoring Local 
+
+[Batatia et al., 2022], Docling [Auer et al., 2024], and biomedical language models for information extraction [Hsu and Roberts, 2025]. The retrieval layer uses programmatic access to chemical, patent, and literature resources, including ChEMBL [Gaulton et al., 2012], PubChem [Bolton et al., 2008], SureChEMBL [Papadatos et al., 2016], and Europe PMC [Consortium, 2015]. 
+
+B Planner Dataset Construction and Fine-Tuning 
+
+B.1 Workflow Graph-Guided Data Construction 
+
+To construct training data for the Planner, we first organize the available tools into a directed workflow graph G = ( V, E ), where each node v ∈ V represents a tool and each directed edge (vi, v j ) ∈ E
+
+indicates that vj can be validly executed after tool vi. The edges are defined according to the input requirements of each tool, the outputs produced by preceding tools, and the corresponding blocks read from or written to the UMS. For example, a physicochemical property predictor can follow a molecular generation tool because the generated SMILES are stored in the molecular pool, whereas docking requires the necessary ligand and target-structure information to have already been provided or generated. The graph therefore captures executable dependencies between tools rather than imposing a fixed chronological drug-discovery pipeline, allowing workflows to move across functional tool groups according to the user objective. Valid tool sequences are then constructed as paths over the workflow graph. We organize the construc-tion process in a hierarchical manner that generally follows a top-down progression across functional 12 Table 6: Registry of the remaining target-engagement, knowledge-extraction, and cross-group tools.      
+
+> Functional group Tool Principal inputs UMS/state output Implementation Deployment Target Engagement
+
+MDSimulation-Agent 
+
+> Protein–ligand complex, simulation duration, and simulation parameters
+
+md block containing RMSD statistics, stability assessment, and optional energetic estimates    
+
+> Current: OpenMM with classical molecular-mechanics force fields. Alternative: OpenMM-ML with ANI-2x or MACE potentials Local/GPU Target Engagement
+
+ConsensusScoring-Agent    
+
+> Available affinity, docking, and MD blocks Consensus score, component contributions, and combined confidence
+> Current: rule-based normalization and weighted aggregation. Alternative: calibrated stacking or a task-specific meta-model Local Target Engagement
+
+Engagement-Evaluation-Agent   
+
+> Target-engagement blocks, confidence values, and execution status Conflict flags, cross-validation outcomes, and escalation or retry request
+> Current: rule-based consistency and escalation criteria.
+> Alternative: calibrated conflict classifier or natural-language-inference model Local Knowledge Extraction
+
+DocumentParser-Agent   
+
+> Local or retrieved PDF, HTML, or XML document Structured document object containing sections, tables, figures, references, and provenance
+> Current: Docling for layout-aware PDF and table parsing, supplemented by Beautiful Soup or
+
+lxml for HTML/XML.  
+
+> Alternative: GROBID for scholarly-document structure and metadata Local Knowledge Extraction
+
+ExtractionAgent Raw text or structured document object and extraction schema Structured experimental claims linking targets, compounds, assays, endpoints, quantitative results, and evidence context   
+
+> Current: schema-constrained local language-model extraction with JSON-schema validation. Alternative:
+> PubMedBERT/Bioformer-based entity and relation extraction or the LLM-IE framework Local Knowledge Extraction
+
+EvidenceScoring-Agent   
+
+> Extracted claims and their provenance Per-claim confidence, evidence-quality components, limitations, and risk-of-bias flags
+> Current: rule-based evidence scoring. Alternative:
+> calibrated evidence classifier or biomedical natural-language-inference model Local Knowledge Extraction
+
+SynthesisAgent Multiple scored claims and detected conflicts Project-level evidence synthesis, consensus statement, unresolved conflicts, and confidence     
+
+> Current: weighted consensus with rule-based conflict detection. Alternative: locally deployed domain language model constrained to the retrieved and scored evidence Local Cross-group
+
+MultiObjective-Ranker    
+
+> Active candidates, available UMS blocks, optimization focus, and requested shortlist size Per-objective scores, final score, candidate rank, shortlist, and updated lifecycle state
+> Current: rule-based normalization, constraints, penalties, and weighted scoring. Alternative: Pareto-front or desirability-based ranking, calibrated learning-to-rank, or LLM-assisted rationale generation Local
+
+group layers, while also allowing intra-group transitions within the same layer. In the top-down setting, paths begin from higher-level functional groups such as molecular generation and progres-sively proceed to downstream stages including physicochemical evaluation, ADMET prediction, and multi-objective ranking. These paths capture common end-to-end early-stage computational screening workflows and ensure coverage of standard execution pipelines. In addition to this hierarchical structure, we also construct cross-layer and reverse-direction paths to improve diversity and better reflect real-world usage patterns. Cross-layer paths connect tools across different functional groups. For example, they may link molecular generation with target-affinity prediction, retrosynthesis analysis, or knowledge retrieval. Moreover, certain workflows do not originate from molecular generation; instead, they may start from bottom-layer or intermediate tools such as text-based molecular retrieval, followed by downstream property prediction or optimization. Such reverse or retrieval-initiated paths are particularly important for scenarios where users begin with known compounds or literature-derived molecules rather than de novo generation. A path is retained only when the required inputs are available from the user query, the initialized system state, or the outputs of preceding tools, thereby excluding incompatible tool combinations and invalid execution orders. Each selected path is subsequently converted into a structured execution plan containing the ordered tool calls and their required arguments. A large language model is then prompted to generate a natural-language user query whose intent and constraints correspond to the target plan. Query generation is therefore conditioned on a valid workflow, rather than producing an arbitrary query and assigning a tool sequence afterwards. For the current version of the dataset, we used GPT-5.5 [OpenAI, 2026] as the model for query generation. This path-to-plan-to-query procedure improves alignment between the natural-language instruction and its supervision signal while allowing variation in molecular targets, input molecules, optimization objectives, constraints, tool arguments, and query phrasing. The resulting query–plan pairs are finally reviewed to remove mismatched intents, invalid tool orderings, malformed arguments, and highly repetitive or unrealistic queries. As summarized in Table 7, the dataset contains 1,263 query-plan pairs, including 232 queries for molecular design and generation, 208 for molecular developability, 185 for target engagement, 171 13 Query – What published studies investigate the role of LRRK2 inhibition in slowing progression of Parkinson's disease?         
+
+> Response –
+> Action: RetrievalAgent
+> Arguments: "query": "LRRK2 inhibition Parkinson's disease progression therapeutic studies”, "databases": ["PubMed",
+> "SemanticScholar"]
+> Query –Generate 20 molecules for me, and predict their physicochemical properties.
+> Response –
+> Step 1:
+> Action: MolGPTGenerator
+> Arguments: n_samples": 20, "temperature": 0.95
+> Step 2:
+> Action: PhyschemEvaluator
+> Arguments: None
+> Query –I have a shortlist of candidates in <PATH>, but ADMET data has not yet been generated. Please compute physicochemical descriptors, predict ADMET properties, and provide a rank.
+> Response –
+> Step 1:
+> Action: PhyschemEvaluator
+> Arguments: None
+> Step 2:
+> Action: ADMETPredictor
+> Arguments: None
+> Step 3:
+> Action: MultiObjectiveRanker
+> Arguments: "optimization_focus": "balanced", "top_k": <n_samples>
+> You are a planner for a multi-agent drug discovery system. Given a user query, output a tool invocation plan in order. Only call necessary agents. Avoid redundant calls when data is already provided.
+> Output format:
+> {"response":{"plan":[{"tool_name":"..." ,"arguments":{...}}, ...]}}
+> DO NOT GENERATE CONTENT OTHER THAN JSON DATA
+> - Do not call unnecessary agents.
+> - Avoid redundant calls when relevant data is already provided.
+> - Ranker must be called in almost all cases except:
+> - query only says to filter out toxic compounds
+> - query only says to diversify an already ranked list
+> <TOOL REGISTRY AND RULES>
+> (a) Dataset Workflow Examples (b) System Prompt
+
+Figure 3: (a) Examples of workflow-guided query–plan pairs in the Planner dataset, with the outer JSONL structure omitted for clarity. Blue text highlights keywords associated with tool calls, while red text indicates keywords corresponding to tool arguments. (b) presents the way to construct the system prompt, while the <TOOL REGISTRY AND RULES> is constructed dynamically according to the tool registry table. for knowledge extraction, and 467 cross-group workflows that combine tools from multiple functional groups. The dataset is stored in JSONL format, with each record pairing a natural-language user query with its corresponding structured Planner output. Each execution plan follows a standardized schema consisting of an ordered list of tool calls, where each step specifies an action , its arguments , and a step_id . For queries that can be answered directly without invoking any tool, the same output format is retained, but the plan field is represented as an empty list. The dataset covers workflows ranging from 0 to 16 steps. Five-step workflows form the largest group, comprising 248 samples (19.64%), while 573 samples (45.37%) contain more than five steps. Only 10 samples use an empty plan for queries that require no tool invocation. Fig. 3(a) presents example workflows with the query-plan pair format omitted for clarity. 
+
+B.2 Planner Output Schema and System Prompt 
+
+The Planner is guided by a system prompt that defines its role, the available computational tools, the rules governing tool selection and ordering, and the required output format. Rather than maintaining a separate manually written description of the toolset, the prompt is instantiated from a structured tool registry used by the framework. For the current system, compact descriptions of all 18 available tools are serialized into the prompt at both training and inference time, ensuring that the Planner operates over a consistent and explicitly defined action space. Each planner-facing registry entry contains only the information required for tool selection and plan construction, including the tool name, its primary function, accepted arguments, required inputs, the UMS blocks it reads from and writes to, and any essential execution prerequisites. Implementation-specific information, such as the underlying model architecture, software dependencies, service endpoints, or internal output fields, is excluded from the Planner prompt. This separation keeps the prompt concise while preserving sufficient information for constructing executable workflows. It also allows the toolset to be extended or modified by updating the structured registry without redesigning the overall prompt format. The system prompt further instructs the Planner to return only a machine-readable execution plan without additional natural-language explanations. A plan is represented as a variable-length JSON array, in which each element corresponds to one tool call and contains three required fields: action ,
+
+arguments , and step_id . The action field must exactly match the name of a registered tool, 14 arguments contains the tool-specific input parameters as key-value pairs, and step_id specifies the intended execution order. An empty argument object is permitted when a tool requires no explicit parameters because the necessary inputs are already available from the shared system state. The way we construct the system prompt is illustrated in Fig. 3(b). For example, given the user request, "Generate 20 candidate molecules for CDK2 and evaluate their physicochemical properties and predicted binding affinity", the Planner is expected to produce the execution plan shown in Listing 1. Listing 1: Example Planner output for a CDK2-related query. 
+
+> [{"action": "MolGPTGenerator", "arguments": { "n_samples": 20, "temperature": 1.05 }, "step_id": 1 }, {"action": "PhysChemEvaluator", "arguments": {}, "step_id": 2 }, {"action": "AffinityPredictor", "arguments": { "target_id": "CDK2" }, "step_id": 3 }, {"action": "MultiObjectiveRanker", "arguments": { "optimization_focus": "target_focused", "top_k": 3 }, "step_id": 4 }]
+
+Before execution, each generated plan is parsed and checked against both the output schema and the active tool registry. The validation process verifies the JSON structure, confirms that every action refers to a registered tool, checks whether the supplied arguments match the corresponding tool interface, and ensures that the step identifiers specify a coherent execution order. Any plan that fails these checks is rejected before tool execution, preventing invalid Planner outputs from modifying the shared molecular state. 
+
+C Evaluation Details 
+
+C.1 Metric Definitions 
+
+The Planner is evaluated in terms of output validity, tool selection, workflow ordering, and argument generation. Let Gi = ( gi, 1, . . . , g i,m ) and Pi = ( pi, 1, . . . , p i,n ) denote the reference and predicted tool sequences for test query i, respectively. 
+
+Parse Success is a binary indicator of whether a structured execution plan can be successfully extracted from the model output. Schema Success applies an additional structural check to the extracted plan, verifying that it conforms to the required Planner output schema. In the current schema, a plan is represented as a list of tool-call objects containing the required action , arguments , and 
+
+step_id fields. 15 Table 7: Summary of the hierarchical coverage of the Planner training dataset. 
+
+Category Num. Key Content 
+
+Molecular Design and Generation 232 De novo molecular generation, scaffold-based diversification, candidate-pool construction, and control of sampling size and temperature. Molecular Developability 208 Physicochemical property profiling, drug-likeness assessment, ADMET prediction, toxicity screening, retrosynthetic feasibility analysis, molecular retrieval, and novelty assessment. Target Engagement 185 Target-specific affinity prediction, binding-pocket detection, pocket-derived search-box construction, molecular docking, molecular-dynamics simulation, engagement evaluation, and consensus scoring. Knowledge Extraction 171 Scientific-document parsing, extraction of molecular and target information, evidence-quality assessment, relation extraction, and synthesis of information across documents. Cross-group Workflows 467 Workflows spanning multiple functional groups, including generation-or retrieval-initiated tasks, developability assessment, target-engagement evaluation, knowledge extraction, and candidate ranking. These workflows emphasize dependency-aware tool ordering and intermediate-result transfer through the UMS. 
+
+Total 1,263 Complete collection of query–plan pairs used for Planner training and evaluation. 
+
+Tool F1 evaluates order-independent tool selection. For each query, the predicted and reference tool sequences are converted into sets, denoted by Pi and Gi. True positives, false positives, and false negatives are defined as 
+
+T P i = |P i ∩ G i|, F P i = |P i \ G i|, F N i = |G i \ P i|. (1) Tool precision, recall, and F1 are then calculated as 
+
+Precision i = T P i
+
+T P i + F P i
+
+, Recall i = T P i
+
+T P i + F N i
+
+, ToolF1 i = 2 × Precision i × Recall i
+
+Precision i + Recall i
+
+. (2) Workflow ordering is evaluated using Sequence Exact Match (Seq. EM) and Sequence Longest Common Subsequence (Seq. LCS) . Let 1{·} denote the indicator function, which returns 1 when the enclosed condition is satisfied and 0 otherwise. Seq. EM is one only when the complete predicted tool sequence is identical to the reference sequence, including its length and ordering: 
+
+SeqEM i = 1{Pi = Gi}. (3) Seq. LCS provides partial credit when only part of the reference ordering is preserved. Let Li be the length of the longest common subsequence between Pi and Gi. The score is normalized by the length of the reference sequence: 
+
+SeqLCS i = Li
+
+|Gi| . (4) If the reference sequence is empty, the score is defined as 1 when the predicted sequence is also empty and 0 otherwise. This reference-normalized formulation measures the proportion of the gold-standard workflow that appears in the predicted plan in the correct relative order. Additional predicted steps are not directly penalized by the denominator, although they can affect Tool F1 and Seq. EM. 
+
+Argument F1 (Arg. F1) evaluates the arguments assigned to tools that occur in both the predicted and reference plans. Tool calls are first associated by tool name. For each shared tool, the predicted 16 Table 8: Planner performance on the full held-out test split ( N = 127 ). Llama, Qwen, and Gemma denote Llama 3.2-3B, Qwen3-4B, and Gemma 3-4B, respectively. ZS and F denote zero-shot and fine-tuned settings. P and R denote precision and recall. Tool-selection, sequence, and argument-generation metrics are averaged over schema-valid outputs. Bold indicates the highest displayed value in each column; ties after rounding are both highlighted.                                                                              
+
+> Model Set. Validity Tool selection Sequence Argument generation Parse Schema PRF1 EM LCS PRF1 Llama ZS 0.606 0.606 0.669 0.734 0.666 0.065 0.670 0.512 0.576 0.539 F1.000 1.000 0.989 0.989 0.988 0.961 0.997 0.936 0.942 0.939
+> Qwen ZS 0.591 0.591 0.666 0.718 0.662 0.080 0.651 0.515 0.568 0.537 F1.000 1.000 0.989 0.984 0.986 0.937 0.991 0.934 0.941 0.937 Gemma ZS 0.803 0.740 0.680 0.779 0.703 0.085 0.732 0.618 0.571 0.584 F1.000 1.000 0.984 0.986 0.982 0.929 0.989 0.926 0.930 0.928
+
+and reference argument dictionaries are compared at the argument-key level. A shared argument key contributes one true positive when its predicted value satisfies the matching rule defined for that tool and argument. A value mismatch contributes both one false positive and one false negative. An additional predicted argument contributes one false positive, whereas an omitted reference argument contributes one false negative. Argument precision, recall, and F1 are calculated from the accumulated counts as 
+
+ArgPrecision i = T P arg 
+
+> i
+
+T P arg  
+
+> i
+
++ F P arg 
+
+> i
+
+, ArgRecall i = T P arg 
+
+> i
+
+T P arg  
+
+> i
+
++ F N arg 
+
+> i
+
+. (5) 
+
+ArgF1 i = 2 × ArgPrecision i × ArgRecall i
+
+ArgPrecision i + ArgRecall i
+
+(6) Most argument values are compared exactly, with leading and trailing whitespace removed from string values. Parameter-specific rules are used where small numerical variation or order-independent list comparison is acceptable. For MolGPTGenerator , n_samples is considered correct when its relative deviation from the reference value does not exceed 30%, while temperature uses an absolute tolerance of 0.15. The similarity_threshold argument of RetrievalAgent uses an absolute tolerance of 0.05. Its databases and retrieval_type arguments are compared as sets, so their ordering and repeated elements are ignored. All remaining arguments use exact matching. Argument evaluation is conditional on tool selection: only tools appearing in both plans are included in the argument comparison. Consequently, arguments associated with a missing or additional tool call do not contribute directly to Argument F1, because the corresponding tool-selection error is captured separately by Tool F1. The current mapping also assumes that each tool occurs at most once in a plan; if a tool is called repeatedly, only the final occurrence is retained by the tool-to-step mapping. 
+
+C.2 Additional Results and Error Analysis C.2.1 Overall Performance on the Full Dataset 
+
+Table 8 reports the results on the complete held-out test set of 127 queries. Fine-tuning substantially improved both output validity and planning accuracy across all three model families. After fine-tuning, every model achieved parse and schema success rates of 1.000, indicating that all generated outputs could be extracted and conformed to the required Planner output structure. Llama 3.2-3B achieved the strongest overall performance, with a Tool F1 of 0.988, a sequence exact-match rate of 0.961, a Sequence LCS score of 0.997, and an Argument F1 of 0.939. Qwen3-4B and Gemma-3-4B performed similarly after fine-tuning, although their sequence exact-match rates were slightly lower at 0.937 and 0.929, respectively. The consistently high Sequence LCS scores, ranging from 0.989 to 0.997, show that even when a predicted plan was not an exact match, its tool ordering generally remained close to the reference workflow. The zero-shot models showed considerably lower output validity and planning accuracy. Llama 3.2-3B and Qwen3-4B produced schema-valid plans for only 60.6% and 59.1% of the test queries, 17 respectively. Gemma-3-4B showed higher zero-shot parse and schema success rates of 80.3% and 74.0%, but its sequence exact-match rate remained only 0.085. The difference between its parse and schema success rates indicates that some outputs contained extractable structured plans but lacked required schema elements, most commonly the arguments field in one or more steps. Thus, the ability to produce parseable JSON did not necessarily imply compliance with the executable Planner output schema. Across all three models, zero-shot sequence exact-match rates remained below 0.09, demonstrating that general instruction-following ability alone was insufficient to reliably reproduce the expected tool composition, ordering, and configuration. Tool-selection, sequence, and argument-generation metrics are calculated only over schema-valid outputs. This conditional denominator is used because these metrics require an explicitly structured plan in which the action , arguments , and step_id fields can be consistently identified. For an output that cannot be parsed or does not satisfy the schema, the predicted tool sequence and argument dictionaries are undefined or structurally incomplete, making direct tool-, order-, and argument-level comparison unreliable. Restricting these metrics to schema-valid outputs therefore measures semantic planning quality after the model has produced an evaluable plan, whereas Parse Success and Schema Success separately quantify how often the model reaches this evaluable state. Reporting both groups of metrics is necessary: the conditional planning scores should not be interpreted as success rates over all 127 queries, particularly for the zero-shot models. Assigning a score of zero to every structurally invalid output would instead combine formatting failure and planning error within the same metric and would duplicate failures already captured by the validity measures. A detailed analysis of Llama-3.2-3B further shows that fine-tuning changed the nature of the remaining errors. The fine-tuned model omitted no required arguments, and most residual errors involved incorrect values rather than structural failures. The most common cases concerned the number of candidates requested from the multi-objective ranker (12 cases), the retrieval query (7), and the target identifier supplied for affinity prediction (5). Unsupported additional arguments were rare, occurring only three times in the ranker and twice in the docking configuration. The zero-shot model, by contrast, exhibited a broader range of configuration errors. These frequently affected the number of ranked candidates (18 cases), the number of molecules to generate (17), the generation temperature (14), the molecular-dynamics simulation duration (12), and the toxicity-filtering mode (12). It also supplied an unsupported candidate-source indicator to the ranker in 28 cases and occasionally omitted required retrieval and docking parameters. These findings suggest that fine-tuning improved not only structural compliance and workflow con-struction, but also the translation of query-specific entities, numerical constraints, and configuration requirements into executable arguments. The remaining errors of the fine-tuned Planner were there-fore concentrated mainly in exact numerical values and target-specific identifiers, rather than in the overall workflow structure. 
+
+C.2.2 Generalization under the Workflow-Grouped Split 
+
+To better understand whether the strong fine-tuning performance is driven by true generalization or by the characteristics of the dataset split, we further conducted a workflow-grouped split analysis. In the original dataset, samples were partitioned randomly at the query level, which means that different natural language variations describing the same underlying workflow could be distributed across training and test sets. This setup may inadvertently make the evaluation easier, as the model could implicitly benefit from seeing semantically similar or structurally equivalent workflows during training, even if the surface-form queries differ. To control for this potential leakage of workflow-level information, we introduce a stricter evaluation setting in which all samples sharing the same ordered tool sequence are assigned to the same partition, ensuring that no identical ordered tool sequence appears in more than one data partition. As shown in Table 9, all fine-tuned models retained perfect parse and schema success rates. Qwen3-4B achieved the highest Tool F1 (0.926), Sequence LCS (0.889), and Argument F1 (0.911), while Llama 3.2-3B obtained the highest Sequence EM (0.548). Although exact workflow reproduction decreased under this more challenging split, the substantially higher LCS scores indicate that most required tools were still generated in the correct relative order. Zero-shot performance remained substantially lower than fine-tuned performance. Llama 3.2-3B achieved the lowest parse and schema success rates (0.556), with 56 outputs failing plan extraction, 18 Table 9: Planner performance on the workflow-grouped test split ( N = 126 ). Samples sharing the same ordered tool sequence are assigned to the same data partition. Llama, Qwen, and Gemma denote Llama-3.2-3B, Qwen3-4B, and Gemma-3-4B, respectively. ZS and F denote zero-shot and fine-tuned settings. P and R denote precision and recall. Parse and Schema are calculated over all 126 test samples; all remaining metrics are averaged only over schema-valid outputs. The corresponding valid sample counts are 70, 82, and 93 for the three zero-shot models and 126 for each fine-tuned model. Bold indicates the best fine-tuned result in each column.                                                                              
+
+> Model Set. Validity Tool selection Sequence Argument generation Parse Schema PRF1 EM LCS PRF1 Llama ZS 0.556 0.556 0.790 0.793 0.749 0.129 0.763 0.626 0.672 0.645 F1.000 1.000 0.955 0.879 0.909 0.548 0.865 0.901 0.907 0.904 Qwen ZS 0.651 0.651 0.681 0.685 0.661 0.110 0.612 0.489 0.555 0.518 F1.000 1.000 0.966 0.896 0.926 0.508 0.889 0.910 0.913 0.911
+> Gemma ZS 0.810 0.738 0.758 0.788 0.761 0.032 0.707 0.596 0.480 0.528 F1.000 1.000 0.969 0.865 0.910 0.452 0.857 0.881 0.880 0.881
+
+but performed relatively well on 70 valid outputs, achieving a Sequence EM of 0.129, a Sequence LCS of 0.763, and an argument F1 of 0.645. Gemma 3-4B produced the highest output validity and Tool F1 (0.761), although some parsed plans omitted the required arguments field. Overall, fine-tuning consistently improved structural validity, tool selection, workflow ordering, and argument generation across all three models. 
+
+Overall discussion. The substantial gains under the query-level split demonstrate the effectiveness of fine-tuning for mapping new query formulations to structured execution plans. However, because different queries derived from the same ordered workflow can occur across data partitions, the strongest results should not be interpreted as generalization to entirely unseen workflow compositions. Under the stricter workflow-grouped split, Seq. EM decreases to 0.452–0.548 across the three fine-tuned models, showing that compositional generalization remains challenging. However, this experiment also provides evidence of the Planner’s robustness: for workflows represented in the training set, it continues to generate accurate plans despite variations in query phrasing. The perfect parse and schema success rates may also partly reflect the explicit output-format instructions, while the detailed tool descriptions provide strong guidance for tool selection and argument generation. Moreover, the dataset remains relatively small, and most queries state the desired operations directly, with limited coverage of ambiguous or context-dependent requests. Future work will therefore expand the dataset with practitioner-informed, implicitly expressed, incomplete, and domain-specific instructions, together with broader coverage of held-out workflow compositions. 
+
+D Case Study Details 
+
+D.1 CDK2 Affinity-Based Candidate Prioritization D.1.1 Case Study Setup 
+
+We constructed a CDK2-targeted molecular design case study in Section 3.4 to demonstrate how the framework translates a natural-language discovery objective into an executable workflow and maintains molecule-level results across successive computational tools. The input task requested the generation of 20 candidate molecules, followed by evaluation of their physicochemical properties and prediction of their affinity toward CDK2, and prioritization of the top three candidates. This setting represents an early-stage virtual screening scenario in which newly generated candidates must be assessed jointly for molecular developability and target engagement. For this case study, the Planner received the following query: "Generate 20 candidate molecules, compare their physicochemical properties and predicted affinities toward CDK2, and return the three highest-ranked candidates." The Planner, a fine-tuned Llama 3.2-3B model, produced a four-step workflow demonstrated in Listing 1. The molecule generator was performed using a version of MolGPT [Bagal et al., 2021] pretrained on the ZINC15 dataset [Sterling and Irwin, 2015], configured with n_samples = 20 and temperature = 1.05 . Affinity prediction was performed 19 using target_id = "CDK2" . For this step, compounds with experimentally measured IC 50 values for CDK2 were retrieved from ChEMBL (ChEMBL Target ID: CHEMBL301). Molecular features derived from their SMILES were paired with the corresponding converted pIC 50 values to train a target-specific LightGBM [Ke et al., 2017] regression model. The trained LightGBM model was then used by AffinityPredictor to predict the pIC 50 values of the generated candidates against CDK2. Each generated molecule was assigned a unique identifier in the UMS, enabling the physicochemical and affinity results produced by subsequent tools to be associated with the same molecular record. As the fourth step of the Planner-generated workflow, MultiObjectiveRanker prioritized the evaluated candidates using a rule-based configuration that assigned 70% of the composite score to predicted CDK2 affinity and 30% to physicochemical developability, with additional penalties applied for molecular liabilities. Predicted affinity was evaluated on an absolute pIC 50 scale rather than being normalized relative to the generated batch, and pIC 50 ≥ 6.0 was used as the potency threshold. 
+
+D.1.2 Workflow Execution and Candidate Prioritization 
+
+During execution, MolGPTGenerator produced 20 candidate molecules, which were registered as individual records in the UMS. For each candidate, PhysChemEvaluator calculated the physico-chemical descriptors and wrote them directly to the physchem block of the corresponding molecular record. AffinityPredictor then predicted activity toward CDK2 and stored the result in the 
+
+affinity block of the same record. Associating both outputs with the same molecule_id allowed the ranking procedure to retrieve and jointly evaluate the physicochemical and affinity information directly from the UMS, without requiring separate tool-specific data structures or intermediate data conversion. Once both blocks had been populated, MultiObjectiveRanker retrieved the affinity and physico-chemical results directly from each molecular record and calculated the composite score using the configuration described above. The affinity component was derived from the absolute predicted 
+
+pIC 50 , while the developability component summarized the physicochemical profile and incorporated penalties for identified molecular liabilities. Because affinity was not normalized against the other molecules in the generated batch, the score assigned to a candidate did not depend on the affinity range of the remaining candidates. The threshold pIC 50 ≥ 6.0 was used to identify candidates with predicted submicromolar activity rather than to determine their ordering solely by potency. Eight of the 20 generated molecules satisfied this potency threshold. The highest-ranked candidate achieved a composite score of 0.724, a predicted pIC 50 of 6.578, and a QED score of 0.741, with no Lipinski Rule-of-Five violations. The corresponding IC 50 was calculated as 10 9−pIC 50 nM, giving approximately 264.06 nM. Some candidates with marginally higher predicted affinity received lower overall scores because of less favorable physicochemical profiles or additional liability penalties. The final ordering therefore reflects a balance between predicted target engagement and developability rather than a potency-only ranking. As all affinity and property values were computationally estimated, the ranking represents candidate prioritization within the framework and not experimentally validated CDK2 inhibition. 
+
+D.2 Structure-Based Docking with PDB 1IEP D.2.1 Case Study Setup and Receptor Preparation 
+
+This case study evaluates whether the framework can coordinate molecular generation, binding-pocket detection, structure-based docking, and candidate prioritization within a single workflow. The Planner received the following query: "Generate five candidate molecules, identify a binding pocket in the 1IEP receptor structure, dock the generated molecules into the detected pocket, and return the two highest-ranked candidates." The Planner generated the workflow shown in Listing 2. PocketDetectionAgent uses P2Rank version 2.5.1, and was configured to return the three highest-ranked pockets using four CPU threads. When docker="vina" , DockingAgent performs molecular docking using AutoDock Vina, implemented via its Python package (version 1.2.7). Listing 2: Planner output for docking-based candidate prioritization. 
+
+> [{
+
+20 "action": "MolGPTGenerator", "arguments": { "n_samples": 5, "temperature": 1.05 }, "step_id": 1 }, {"action": "PocketDetectionAgent", "arguments": { "protein_id": "1IEP" }, "step_id": 2 }, {"action": "DockingAgent", "arguments": { "docker": "vina", "receptor_id": "1IEP", "exhaustiveness": "medium" }, "step_id": 3 }, {"action": "MultiObjectiveRanker", "arguments": { "optimization_focus": "balanced", "top_k": 3 }, "step_id": 4 }](a)  (b)  
+
+> (c) (d)
+
+Figure 4: Predicted binding poses of the two top-ranked candidates in the selected pocket of the c-Abl kinase protein. Panels (a) and (b) show the overall and close-up views of mol1 , respectively, with a Vina score of -9.8 kcal/mol; panels (c) and (d) present the corresponding views of mol2 , with a Vina score of -8.5 kcal/mol. Red boxes indicate the enlarged binding regions, surrounding residues are labeled. 21 The receptor was derived from PDB entry 1IEP (pdb_00001iep), a 2.10 Å X-ray crystal structure of the c-Abl kinase domain in complex with small molecule ligand STI-571. A preprocessed receptor with hydrogen atoms assigned file, 1iep_receptorH.pdb , was provided through the initialized target state rather than downloaded during the workflow execution. This PDB representation was used as the input to PocketDetectionAgent , whereas DockingAgent generated or retrieved the corresponding Vina-compatible receptor representation before docking. Binding-pocket detection was performed using P2Rank version 2.5.1. The predicted pockets were normalized into the UMS pocket block, including their rank, score, probability, center coordinates, and spatial extent. For each pocket, the system constructed a VinaBox containing the box center and dimensions required by AutoDock Vina. The highest-ranked predicted pocket was selected for docking, after which the generated ligands were converted into three-dimensional Vina-compatible representations and docked within the resulting search box. 
+
+D.2.2 Pocket Detection and Docking Workflow 
+
+The workflow shown in Listing 2 first established the ligand-side and receptor-side inputs required for docking. MolGPTGenerator generated five candidate ligands and stored their SMILES represen-tations in the molecular pool, while PocketDetectionAgent analyzed the initialized 1IEP receptor structure using P2Rank and retained the three highest-ranked predicted pockets. Although these tools were executed sequentially, they provided independent and complementary inputs rather than forming a direct dependency. The top-ranked pocket was selected for docking, and its center coordinates and spatial extent were converted into the VinaBox representation required by DockingAgent .For each active candidate molecule, DockingAgent generated a three-dimensional ligand structure, converted it into a Vina-compatible representation, and docked it into the selected pocket using the prepared receptor and pocket-derived search box. The predicted binding affinities and docked poses were written to the corresponding docking block and artifact records in the UMS. Finally, 
+
+MultiObjectiveRanker read the available docking results and prioritized the successfully docked candidates according to the configured docking-based ranking criterion, with more negative Vina bind-ing affinities indicating more favorable predicted binding. Candidates for which ligand preparation or docking failed were excluded from the final ranking. 
+
+D.2.3 Docking Results and Candidate Prioritization 
+
+P2Rank identified the highest-ranked pocket with a pocket score of 16.26 and a probability of 0.774. The pocket was successfully converted into a docking-ready VinaBox and used for docking all generated candidate molecules. Based on the resulting docking scores, MultiObjectiveRanker returned the two candidates with the most favorable predicted binding energies. The top-ranked candidate, mol1 , achieved a Vina score of -9.8 kcal/mol, while the second-ranked candidate, mol2 , achieved a score of -8.5 kcal/mol. Their molecular structures were represented by the following SMILES: • mol1 : C[C@H]1C(=O)N(C)CCN1C(=O)C(=O)Nc1ccc(C(=O)NCCC(=O)O)cc1 
+
+• mol2 : Cc1nc(O)[nH]c1C(=O)N[C@@H]1CN(C(=O)c2cccc3nccn23)C[C@H]1O 
+
+Fig. 4 presents the predicted binding poses of the two candidates. For mol1 , the docked pose is positioned near residues including Val256, Glu286, Val299, Asp381, and Phe382, with the close-up view indicating possible polar contacts within the pocket. The predicted pose of mol2 is surrounded by residues including Val256, Met290, Thr 315, and Ala380. These visualizations illustrate how the workflow connects pocket detection, docking, and candidate prioritization through the shared molecular state. However, the reported scores and poses are computational predictions and should not be interpreted as experimental evidence of binding to c-Abl. 22
