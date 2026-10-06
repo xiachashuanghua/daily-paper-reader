@@ -1,0 +1,1070 @@
+Enhancing Biomedical Named Entity Recognition
+via Multiple Programming Languages Instruction
+Tuning and Ensemble Method
+Songtao Li1, Yijia Zhang1, Jianyuan Yuan2, Shidi Zhang1, Fengyu Zhang3, Hongfei Lin4
+1Dalian Maritime University
+2Beijing Institute of Technology
+{devin lee, zhangyijia, zhangshidi}@dlmu.edu.cn
+jianyuany@bit.edu.cn
+3Northeastern University
+4Dalian University of Technology
+fengyu.felix@gmail.com
+hflin@dlut.edu.cn
+Abstract—Instruction tuning has become a common paradigm
+for applying large language models (LLMs) to biomedical named
+entity recognition (BioNER). However, existing instruction-tuning
+approaches still face two key challenges. First, conventional
+natural-language instructions typically serialize BioNER an-
+notations as flat textual outputs, providing limited structural
+constraints for typed entity extraction. Second, high-quality
+biomedical annotations are limited, and learning from a single
+serialized output form may restrict structural diversity and re-
+duce model robustness. Although external biomedical knowledge
+can be introduced to alleviate data scarcity, it often requires
+costly resource construction. To address these challenges, we
+propose MITE, a Multiple Programming Languages Instruction
+Tuning and Ensemble method for BioNER. MITE reformulates
+BioNER as a structure-to-structure generation task by represent-
+ing both instructions and entity outputs in code-formatted rep-
+resentations. Specifically, each training instance is transformed
+into multiple programming-language formats, including Python,
+C++, and Java, while preserving the same underlying entity
+semantics. These language-specific representations provide struc-
+turally diverse supervision without requiring external biomedical
+knowledge or additional annotations. During inference, MITE
+aggregates predictions from different code formats through an
+entity-level voting strategy, reducing language-specific prediction
+variance and improving robustness. Experiments on six widely
+used BioNER datasets demonstrate that MITE consistently out-
+performs representative BERT-based and LLM-based baselines
+and exhibits strong cross-dataset generalization. Ablation and pa-
+rameter analyses further verify the effectiveness and robustness
+of the proposed components.
+Index Terms—biomedical named entity recognition, large
+language model, supervised fine-tuning, multiple programming
+languages
+I. INTRODUCTION
+Biomedical named entity recognition (BioNER) focuses on
+recognizing biomedical entities such as diseases, chemicals,
+genes, and proteins from unstructured biomedical text [1].
+As a fundamental task in biomedical information extraction,
+BioNER provides structured entity-level knowledge that sup-
+ports a wide range of downstream applications, including
+biomedical relation extraction [2] and biomedical question
+answering [3]. Therefore, reliable BioNER is a key foundation
+Pre-train
+unstructured to unstructured
+Inference
+unstructured to structured
+BRCA1 is a tumor suppressor 
+gene
+involved in DNA damage 
+repair.
+The input text is "...". 
+Extract all biomedical entities 
+from the text.
+(Gene: ...)
+(Disease: ...)
+Pre-train
+structured to structured
+Inference
+structured to structured
+list1 = [1, 2, 3]
+list2 = [5, 6, 7, 8]
+list1.append(...)
+list2.append(...)
+input_text = "..."
+Bioner_list= []
+Bioner_list.append(...)
+Bioner_list.append(...)
+(a) Performing BioNER with NL instructions
+(b) Performing BioNER with code instructions
+Fig. 1.
+Examples of performing structured BioNER task with NL and
+Code instructions. In contrast to prompting with NL instructions, we utilize
+structured Code instructions to mitigate the output discrepancy between the
+pretraining and inference stages.
+for extracting, organizing, and exploiting biomedical knowl-
+edge from large-scale scientific literature and clinical text.
+Recent advances in large language models (LLMs) have
+opened up new opportunities for BioNER by enabling mod-
+els to follow task-specific instructions and generate flexible
+textual outputs. To adapt general-purpose LLMs to biomed-
+ical entity extraction, supervised fine-tuning (SFT) has been
+widely explored, where BioNER instances are converted into
+instruction-following formats and used to teach models how
+to extract entities from biomedical text [4], [5]. Under this
+paradigm, natural language instructions are commonly used
+to describe the extraction task, specify the target entity types,
+and guide the model to produce structured predictions. To
+arXiv:2610.02949v1  [cs.CL]  2 Oct 2026
+
+
+further improve extraction performance, several recent studies
+incorporate external biomedical knowledge or domain-specific
+resources, allowing models to better capture specialized termi-
+nology and biomedical semantics [6], [7].
+Despite notable progress in BioNER, existing studies still
+suffer from two main limitations. First, BioNER is inherently
+a span-type structure prediction task, requiring models to
+identify entity boundaries and assign semantic types under a
+predefined schema. However, current instruction-tuning meth-
+ods usually formulate entity extraction as natural-language-
+to-text generation, where entity annotations are serialized into
+flat textual outputs. Such a formulation weakens the alignment
+between typed entity structures and the code-like structured
+patterns learned by LLMs during pretraining, limiting their
+ability to exploit explicit structural regularities for BioNER
+prediction, as illustrated in Fig. 1(a). Second, high-quality
+biomedical annotations are limited, and existing instruction-
+tuning methods usually learn BioNER from a single serialized
+output form. This restricts the structural diversity of training
+signals and may make models sensitive to specific output
+formats rather than robust entity semantics. Although external
+biomedical knowledge can be introduced to alleviate data
+scarcity, such resources are often costly to construct, limited
+in coverage, and difficult to maintain.
+To address the aforementioned challenges, we propose
+MITE, a Multiple Programming Languages Instruction Tun-
+ing and Ensemble method for BioNER. MITE reformu-
+lates BioNER from natural-language-to-text generation into
+a structure-to-structure generation task, where both task in-
+structions and entity outputs are represented in code-formatted
+structures. Entity mentions and their semantic types are ex-
+pressed as explicit code-style objects, providing a constrained
+output representation that better aligns span-type BioNER
+prediction with the code-like structured patterns learned by
+LLMs during pretraining, as illustrated in Fig. 1(b). To further
+improve robustness, MITE transforms each BioNER instance
+into multiple programming-language representations, includ-
+ing Python, C++, and Java. These representations introduce
+structural diversity through different syntax forms, object
+construction patterns, and list operations, without requiring ex-
+ternal biomedical knowledge or additional annotations. During
+inference, MITE aggregates predictions from different code
+formats through entity-level voting, reducing language-specific
+prediction variance and producing more stable BioNER out-
+puts.
+In summary, the contributions of this paper are as follows:
+• We reformulate BioNER as a structure-to-structure code
+generation task, which represents span-type entity pre-
+dictions as explicit code-style objects and better aligns
+BioNER with the structured patterns learned by LLMs
+during pretraining.
+• We transform original BioNER samples into multiple
+programming-language representations, constructing a
+structurally diverse training corpus without relying on
+external biomedical knowledge or additional annotations.
+• We introduce a multi-language entity-level ensemble
+strategy that aggregates predictions from different code
+representations to improve the stability and reliability of
+BioNER outputs.
+• Extensive experiments on six BioNER benchmarks
+demonstrate that MITE consistently outperforms rep-
+resentative baselines and exhibits strong cross-dataset
+generalization.
+II. RELATED WORK
+A. Biomedical Named Entity Recognition
+BioNER has progressed from feature-based systems to
+neural architectures and domain-specific pretrained language
+models. Early systems relied on handcrafted rules, biomedical
+dictionaries, and manually designed features, requiring sub-
+stantial expert knowledge and generalizing poorly to unseen
+terminology [8]. Neural models based on CNNs and BiL-
+STMs subsequently reduced manual feature engineering by
+learning contextual and character-level representations from
+annotated corpora [9]. More recently, pretrained models such
+as BioBERT, BlueBERT, ClinicalBERT, and PubMedBERT
+have achieved strong performance by learning domain-specific
+representations from large-scale biomedical corpora [10], [11].
+Despite these advances, conventional BioNER methods pre-
+dominantly follow the sequence-labeling paradigm and require
+dataset-specific adaptation. This limits their transferability
+across biomedical corpora with different entity types, anno-
+tation guidelines, and label granularities. Multi-task learning
+methods improve cross-dataset transfer by jointly training on
+multiple corpora [12], [13], while AIONER further maps
+heterogeneous annotations into a unified label space [14].
+However, directly combining multiple datasets may introduce
+annotation inconsistencies because the same biomedical men-
+tion can be assigned different labels or omitted across cor-
+pora. Achieving cross-dataset generalization while preserving
+dataset-specific label semantics therefore remains challenging.
+B. LLM-Based Information Extraction
+LLMs have promoted a shift from task-specific BioNER ar-
+chitectures toward generative and instruction-following infor-
+mation extraction. Existing studies employ zero-shot prompt-
+ing [15], [16], few-shot demonstrations [17], and super-
+vised instruction
+tuning [18], [19]
+to guide
+LLMs in
+extracting structured information. In the biomedical do-
+main, BioNER-LLaMA formulates entity recognition as an
+instruction-following generation task [4], NERLlama3.1 per-
+forms parameter-efficient multi-dataset instruction tuning [5],
+and VANER incorporates external biomedical knowledge into
+natural-language instructions [6]. These approaches demon-
+strate the potential of LLMs for generative BioNER across
+multiple datasets.
+However, natural-language instructions and free-form de-
+coding provide limited explicit control over the structured
+outputs required by BioNER, including entity boundaries,
+semantic types, and output formats [20]. Recent code-oriented
+methods address this issue by expressing extraction schemas
+
+
+{
+  "Instruction" : "Extract all entities of 
+type "Gene" from the given text. For each 
+entity found, return it in the format: 'entity-
+type'."
+ "input" : "Native human fibrinogen was 
+brought to coagulation by adding thrombin"
+ "output" : "human fibrinogen-Gene ## 
+thrombin-Gene"
+}
+def Bio_Named_Entity_Recognition( InputText: 
+str) :
+ '''
+  Task Definition: Please extract all relevant 
+entities from the sentence and indicate their 
+type. The types include: **Gene**.
+  '''
+ return EntityList
+InputText = "Native human fibrinogen was 
+brought to coagulation by adding thrombin" 
+EntityList = Bio_Named_Entity_Recognition(In
+putText)
+Python
+C++
+vector<Entity*> Bio_Named_Entity_Recognition( 
+const string& InputText){
+    /*
+   Task Definition: Please extract all relevant 
+entities from the sentence and indicate their type. 
+The types include: **Gene**.
+    */
+ return EntityList;
+}
+int main(){
+ string InputText = "Native human fibrinogen 
+was brought to coagulation by adding thrombin";
+ vector<Entity*> EntityList 
+= Bio_Named_Entity_Recognition(InputText);
+ 
+Java
+public class Main {
+  public static List<Entity> 
+Bio_Named_Entity_Recognition(String InputText){/*
+  
+ Task Definition: Please extract all relevant 
+entities from the sentence and indicate their type. 
+The types include: **Gene**.
+    */
+   return EntityList;
+ }
+public static void main(String[] args){
+ String InputText = "Native human fibrinogen was 
+brought to coagulation by adding thrombin";
+ List<Entity> EntityList 
+= Bio_Named_Entity_Recognition(InputText);
+ 
+Example of the original instructions
+Multi-Language Code Instruction Modeling
+QLora
+SFT
+Multi-Language Supervised Fine-Tuning
+EntityList.append(Gene("human 
+fibrinogen")
+EntityList.append(Gene("thrombin"))
+EntityList.push_back(new Gene("human 
+fibrinogen"));}
+EntityList.add(new Gene("human 
+fibrinogen"));
+EntityList.add(new Gene(" thrombin "));}}
+Multi-Language Ensemble Inference
+thrombin
+human fibrinogen
+Final Result
+Base LLM
+BioNer LLM
+Fig. 2.
+Overview of the MITE framework. MITE converts each BioNER instance into code-formatted instructions in multiple programming languages,
+fine-tunes an LLM on the resulting multi-language training corpus, and aggregates language-specific predictions through entity-level voting to obtain the final
+BioNER prediction.
+and annotation guidelines through structured code. Know-
+Coder encodes extraction schemas using code representa-
+tions [21], whereas GOLLIE incorporates annotation guide-
+lines into code-style prompts to improve generalization [22].
+Nevertheless, these approaches typically adopt a single code
+formulation, leaving the structural diversity across program-
+ming languages underexplored. In contrast, MITE reformu-
+lates BioNER as a structure-to-structure generation task and
+transforms each instance into Python, C++, and Java represen-
+tations. These representations provide structurally diverse su-
+pervision without requiring additional biomedical knowledge
+and enable ensemble inference across code formats for more
+robust entity extraction.
+III. METHODS
+We propose MITE, a Multiple Programming Languages
+Instruction Tuning and Ensemble method for BioNER. MITE
+reformulates BioNER as a structure-to-structure generation
+problem, where both the input instruction and the target
+entity output are represented in code-like formats. For each
+BioNER instance, MITE constructs language-specific code
+representations in Python, C++, and Java, fine-tunes a large
+language model on the resulting multi-language corpus, and
+aggregates predictions from different code formats during
+inference. As illustrated in Fig. 2, the framework consists
+of four components: (1) task formulation, (2) multi-language
+code instruction modeling, (3) multi-language supervised fine-
+tuning, and (4) multi-language ensemble inference
+A. Task Formulation
+Given a biomedical token sequence X = (x1, x2, . . . , xn)
+and a predefined entity type set T , BioNER aims to extract
+a set of biomedical entities E = {(ej, tj)}m
+j=1. Each entity
+mention ej = (xsj, . . . , xkj) is a contiguous text span in
+X, and tj ∈T denotes its semantic type. Different from
+sequence-labeling methods that predict token-level tags, MITE
+formulates BioNER as a generative structured prediction task,
+where the model directly produces entity objects specifying
+entity mentions and their semantic types.
+B. Multi-Language Code Instruction Modeling
+Natural-language instructions are easy to construct but of-
+ten specify the output schema only implicitly, which may
+lead to unstable entity formats or invalid type assignments.
+To impose stronger structural constraints, MITE represents
+BioNER instances as code-formatted instructions and outputs.
+The key idea is to express the extraction schema through
+function signatures, task descriptions, and entity construction
+statements, so that the model learns to generate structured
+entity objects rather than free-form textual descriptions.
+1) Code-Based Instruction: For each input sentence, we
+construct a function-based instruction template. The function
+name indicates the BioNER task, the input argument stores
+
+
+the biomedical sentence, and the docstring specifies the target
+entity types. The expected output is represented as entity con-
+struction statements added to an EntityList. For example,
+an extracted gene mention is represented as an entity object
+such as Gene("..."), rather than as an unconstrained
+text span. This design makes the output schema explicit and
+provides a unified interface for representing entity mentions
+and semantic types.
+2) Multi-Language Structural Transformation: To further
+increase structural diversity without introducing additional
+annotations or external biomedical knowledge, each original
+BioNER instance is transformed into multiple programming
+language representations. Let C denote the collection of train-
+ing datasets. Each dataset d ∈C is defined as:
+Dd = {(Xi,d, Yi,d)}Nd
+i=1,
+(1)
+where Xi,d is the input biomedical sentence, Yi,d is the
+corresponding set of annotated entities, and Nd is the number
+of samples in dataset d.
+For each programming language l
+∈L, where L =
+{Python, C++, Java}, we define a language-specific trans-
+formation function ϕl(·):
+(C(l)
+i,d, Z(l)
+i,d) = ϕl(Xi,d, Yi,d),
+l ∈L.
+(2)
+Here, C(l)
+i,d denotes the code-formatted instruction in language
+l, and Z(l)
+i,d denotes the corresponding gold structured output
+in the same language. Although different languages have
+different syntactic forms, all transformed outputs preserve the
+same underlying span-type annotations.
+The resulting multi-language training corpus is defined as:
+Dmpl =
+[
+d∈C
+[
+l∈L
+{(C(l)
+i,d, Z(l)
+i,d)}Nd
+i=1.
+(3)
+This corpus expands each BioNER instance into structurally
+diverse code representations while keeping the original label
+semantics unchanged.
+C. Multi-Language Supervised Fine-Tuning
+Given the transformed corpus Dmpl, we fine-tune the LLM
+to generate structured entity outputs conditioned on code-
+formatted instructions. Each training sample consists of a
+language-specific instruction C(l)
+i,d and a gold target output Z(l)
+i,d
+expressed in the same programming language. The model is
+trained autoregressively, where the instruction tokens serve as
+conditioning context and the loss is computed only over the
+target output tokens.
+The supervised fine-tuning objective is:
+LSFT = −
+X
+d∈C
+Nd
+X
+i=1
+X
+l∈L
+log Pθ
+
+Z(l)
+i,d | C(l)
+i,d
+
+.
+(4)
+where Pθ(Z(l)
+i,d | C(l)
+i,d) denotes the autoregressive likelihood
+of generating the language-specific structured output Z(l)
+i,d
+conditioned on the corresponding code-formatted instruction
+C(l)
+i,d. This likelihood is factorized over the target output tokens,
+while the instruction tokens are used only as conditioning
+context and are not included in the loss computation. By
+jointly optimizing samples from different programming lan-
+guages, the model learns unified BioNER behavior across
+heterogeneous code structures.
+D. Multi-Language Ensemble Inference
+At inference time, each input sentence is converted into
+multiple language-specific code instructions. The fine-tuned
+model then generates one structured prediction for each pro-
+gramming language. Since different code formats may produce
+complementary predictions, MITE aggregates them through
+entity-level majority voting.
+Formally, for an input sentence Xi, the model produces a
+prediction ˆY (l)
+i
+for each language l ∈L. Each prediction is
+parsed into a set of span-type pairs:
+ˆE(l)
+i
+= Parse(l)( ˆY (l)
+i
+).
+(5)
+Two predictions are considered to represent the same entity
+only when both their mention spans and entity types match.
+The final entity set is obtained by majority voting:
+ˆEfinal
+i
+=
+(
+(e, t) |
+X
+l∈L
+I
+
+(e, t) ∈ˆE(l)
+i
+
+≥τ
+)
+,
+(6)
+where τ = ⌈|L|/2⌉is the majority threshold. In our setting
+with three programming languages, an entity is retained if it
+is predicted by at least two language-specific representations.
+This entity-level voting strategy retains predictions supported
+by multiple code formats and reduces sensitivity to language-
+specific prediction disagreements.
+IV. EXPERIMENTS
+A. BioNER Datasets
+In this paper, we organize the BioNER benchmarks into
+source-training datasets and external transfer datasets. The
+source-training set consists of three type-specific datasets
+covering different biomedical entity categories: BC2GM [23]
+for gene recognition, BC5CDR-Chemical [24] for chemical
+recognition, and the NCBI Disease Corpus [25] for disease
+recognition. The three source datasets are combined for super-
+vised instruction tuning, yielding a single MITE model shared
+across gene, chemical, and disease recognition tasks.
+To evaluate the generalization capability of the proposed
+method across different datasets within the same entity
+categories, we introduce three additional publicly available
+BioNER datasets as external validation benchmarks: NLM-
+Gene [26] for gene recognition, NLM-Chem-BC7 [27] for
+chemical recognition, and BC5CDR-Disease [24] for disease
+recognition. The trained MITE model is directly used for infer-
+ence on these external transfer datasets. For BC5CDR-Disease,
+only the chemical annotations from BC5CDR-Chemical are
+used during source training, while disease annotations are
+not used, thereby avoiding target-label leakage in the disease
+transfer setting. The detailed statistics and dataset splits for all
+datasets are summarized in Table I.
+
+
+TABLE I
+STATISTICS OF THE BIONER DATASETS USED IN OUR EXPERIMENTS.
+Dataset Name
+Train / Dev / Test
+Type
+Entities
+BC5CDR-Chemical
+4559 / 4580 / 4796
+Chemical
+15828
+NLM-Chem-BC7
+20796 / 5234 / 11514
+Chemical
+40467
+BC2GM
+12632 / 2531 / 5065
+Gene
+24453
+NLM-Gene
+11263 / 1371 / 2729
+Gene
+15553
+NCBI
+5432 / 923 / 942
+Disease
+6861
+BC5CDR-Disease
+4559 / 4580 / 4796
+Disease
+12931
+B. Baselines
+To evaluate the effectiveness of MITE, we compare it
+against two categories of baseline approaches: BERT-based
+methods and LLM-based methods.
+1) BERT-based Methods:
+• BioBERT [10] extends the original BERT architecture
+by further adapting it to the biomedical domain through
+large-scale pretraining on PubMed abstracts and PMC
+full-text articles.
+• PubMedBERT [11] adopts a domain-centric pretraining
+strategy by training the model entirely from scratch on
+PubMed data, including a vocabulary constructed exclu-
+sively from biomedical texts.
+• AIONER [14] integrates annotation labels from multiple
+datasets to construct a unified sequence labeling task,
+enhancing multi-task learning performance.
+2) LLM-based Methods:
+• InstructUIE [18] leverages Flan-T5 to unify a range of
+information extraction tasks under a text-to-text formula-
+tion.
+• UniversalNER [19] distills ChatGPT into LLaMA-2 for
+NER as a natural language generation task across multiple
+domains via instruction tuning.
+• PMC-LLaMA: [28] undergoes domain-specific pretrain-
+ing on biomedical corpora, followed by supervised fine-
+tuning for medical QA and conversational tasks, and is
+finally specialized for BioNER.
+• BioNER-LLaMA [4] transforms biomedical NER into
+a generation task using instruction tuning on LLaMA-2
+across multiple datasets.
+• VANER [6] is a knowledge-enhanced, instruction-tuned
+generative framework based on LLaMA-2 that incorpo-
+rates UMLS entity knowledge and multi-task training.
+• NERLlama3.1
+[5]
+applies
+QLoRA
+for
+parameter-
+efficient multi-task instruction tuning, integrating datasets
+from multiple biomedical domains.
+C. Evaluation Metrics
+Following the standard practice in BioNER literature [29],
+model performance is primarily assessed using the Micro-F1
+score. A prediction is regarded as correct only when both the
+entity boundaries and the assigned label exactly coincide with
+the standard annotations.
+D. Experiment Settings
+In our experiments, we fine-tune several pretrained large
+language models, including LLaMA2-7B [30], CodeLLaMA-
+7B [31], Qwen2.5-7B [32], and Qwen2.5-coder-7B [33]. To
+achieve efficient training with limited resources, we adopt the
+QLoRA approach, setting the rank to 32, alpha to 64, and
+applying a dropout rate of 0.05. Each model undergoes 15
+epochs of training using the AdamW optimizer, with a batch
+size of 8 and a maximum sequence length of 2048 tokens.
+We initialize the learning rate at 6e-5 and adjust it using a
+cosine scheduler with a warm-up proportion of 0.05. All the
+experiments take place on a single NVIDIA RTX 5090 GPU.
+V. RESULTS AND ANALYSIS
+A. Main Results
+Table II reports the main experimental results on three
+widely used BioNER benchmarks. Overall, MITE consistently
+achieves the best performance across all evaluated datasets,
+establishing a new state of the art among both BERT-based and
+LLM-based approaches. Compared with representative BERT-
+based methods, which are pretrained from scratch on PubMed
+biomedical corpora, MITE demonstrates superior performance.
+We attribute this superiority to the strong language understand-
+ing and generalization capabilities inherent in its underlying
+large language model, which is pretrained on a trillion-token
+scale. In comparison with the LLM-based methods such as
+UniversalNER, BioNER-LLaMA, and NERLlama3.1, MITE
+also achieves consistent improvements. These methods for-
+mulate BioNER using natural language prompts and treat the
+task as free-form text generation, while we adopt a code-
+based instruction paradigm that explicitly constrains the output
+structure. This formulation enables the model to leverage the
+structured output capability and context-aware abbreviation
+understanding ability acquired during pretraining on large-
+scale code corpora, leading to more stable entity boundary
+detection and type prediction. In particular, compared with
+VANER, which enhances BioNER performance by incorporat-
+ing external biomedical knowledge, MITE achieves superior
+results without relying on any external resources. Instead, the
+improvements are attributed to the proposed multiple program-
+ming languages data augmentation strategy during training
+and the multiple programming languages ensemble inference
+strategy during testing, which together enhance robustness and
+prediction stability.
+B. Cross-dataset Generalization Performance
+To evaluate the generalization capability of the proposed
+model, we assess MITE on three benchmark datasets that
+are not observed during training: BC5CDR-Disease, NLM-
+Chemical, and NLM-Gene. These datasets exhibit substantial
+distribution shifts in terms of textual domain, annotation
+guidelines, and entity density, making cross-dataset biomedical
+named entity recognition particularly challenging. We compare
+MITE with several strong baselines, including professional
+BioNER models and recent LLM-based methods such as
+NERLlama3.1. As reported in Table III, MITE consistently
+
+
+TABLE II
+MAIN EXPERIMENTAL RESULTS ON THE NCBI-DISEASE, BC2GM-GENE, AND BC5CDR-CHEMICAL DATASETS, EVALUATED USING MICRO-F1. WE
+COMPARE REPRESENTATIVE BERT-BASED AND LLM-BASED METHODS UNDER STANDARD SUPERVISED SETTINGS. THE BEST PERFORMANCE ON EACH
+DATASET IS HIGHLIGHTED IN BOLD.
+Method
+Backbone
+NCBI (Disease)
+BC2GM (Gene)
+BC5CDR (Chemical)
+BERT-based Methods
+BioBERT
+BioBERT
+88.12
+81.94
+83.83
+PubMedBERT
+PubMedBERT
+86.92
+83.36
+93.60
+AIONER
+BioBERT
+89.59
+–
+92.84
+LLM-based Methods
+UniversalNER
+LLaMA2
+86.96
+82.42
+–
+InstructUIE
+T5
+86.21
+80.69
+–
+BioNER-LLaMA
+LLaMA2
+88.00
+83.40
+92.80
+NERLlama3.1
+LLaMA3.1
+89.77
+85.30
+94.02
+VANER
+LLaMA2
+88.03
+83.47
+94.34
+MITE
+LLaMA2
+89.96
+85.78
+94.69
+TABLE III
+CROSS-DATASET GENERALIZATION PERFORMANCE ON THE BC5CDR-DISEASE, NLM-CHEMICAL, AND NLM-GENE DATASETS. MEASURED BY
+MICRO-F1. THE BEST PERFORMANCE ON EACH DATASET IS HIGHLIGHTED IN BOLD.
+Method
+Backbone
+BC5CDR (Disease)
+NLM (Chemical)
+NLM (Gene)
+PubMedBERT
+PubMedBERT
+63.90
+74.20
+81.20
+PMC-LLaMA
+LLaMA2
+62.00
+69.50
+81.80
+BioNER-LLaMA
+LLaMA2
+66.90
+70.30
+82.20
+NERLlama3.1
+LLaMA3.1
+68.67
+68.00
+83.78
+MITE
+LLaMA2
+70.20
+75.28
+85.30
+TABLE IV
+ABLATION OF INDIVIDUAL PROGRAMMING-LANGUAGE
+REPRESENTATIONS. VALUES IN PARENTHESES DENOTE DIFFERENCES
+FROM THE FULL MITE MODEL.
+Training Setting
+Avg. Score
+MITEw/o Python
+89.54 (-0.60)
+MITEw/o C++
+89.68 (-0.46)
+MITEw/o Java
+89.61 (-0.53)
+MITE
+90.14
+achieves the best performance across all three datasets. No-
+tably, on the NLM-Gene dataset, MITE attains an F1 score
+of 85.30, outperforming all competing methods by a clear
+margin. Gene entities are known to be difficult to recognize
+due to their highly ambiguous and abbreviated surface forms,
+and this result suggests that the structured code-based formu-
+lation enables the model to better capture entity semantics
+and boundary constraints under distribution shifts. On the
+BC5CDR-Disease and NLM-Chemical datasets, where entity
+mentions are frequent and label definitions differ substantially
+from the training data, MITE also consistently surpasses the
+strongest baselines. These results indicate that MITE exhibits
+strong robustness and transferability across heterogeneous
+biomedical domains. Overall, the cross-dataset generalization
+performance demonstrates that MITE learns a structured and
+generalizable representation for biomedical entity extraction,
+rather than relying on dataset-specific patterns.
+C. Ablation Study
+To analyze the contribution of each programming-language
+representation, we remove one language at a time from the
+multi-language training corpus while keeping all other settings
+unchanged. As shown in Table IV, removing Python, C++, and
+Java decreases the average Micro-F1 by 0.60, 0.46, and 0.53
+points, respectively. The consistent performance drops indicate
+that different programming languages provide complementary
+structural information. Since the three drops are relatively
+close, the gains of MITE mainly come from jointly using
+multiple language representations rather than relying on a
+single dominant language.
+To further distinguish the effect of structural diversity from
+that of data scale, we conduct controlled experiments under
+the settings shown in Table V. Single-language settings, in-
+cluding Python1×, C++1×, and Java1×, use one programming-
+language representation. Their 3× variants enlarge the training
+corpus by changing output order and docstring descriptions
+while preserving the same programming-language structure.
+The results show that simply increasing the single-language
+corpus brings only limited gains. Python3× improves over
+Python1× by 0.08 points, while C++3× and Java3× improve by
+0.09 and 0.03 points, respectively. In contrast, MITEsampled-train,
+which keeps the same data scale as the 1× setting but samples
+templates from different programming languages, achieves
+89.62 and outperforms all single-language 1× variants. These
+results suggest that structural diversity across programming
+languages is more beneficial than simple format-level data
+expansion within one language.
+
+
+Fig. 3. Performance of various LLM backbones on BioNER tasks. The results are reported in Micro-F1 after SFT on NCBI-Disease, BC2GM-Gene, and
+BC5CDR-Chemical datasets.
+TABLE V
+EFFECT OF DATA SCALE AND PROGRAMMING-LANGUAGE DIVERSITY ON
+AVERAGE MICRO-F1. VALUES IN PARENTHESES DENOTE DIFFERENCES
+FROM THE FULL MITE MODEL.
+Training Setting
+Avg. Score
+Python1×
+89.51 (-0.63)
+C++1×
+89.39 (-0.75)
+Java1×
+89.42 (-0.72)
+MITEsampled-train
+89.62 (-0.52)
+Python3×
+89.59 (-0.55)
+C++3×
+89.48 (-0.66)
+Java3×
+89.45 (-0.69)
+MITE
+90.14
+D. The Effect of LLM Backbone
+BioNER requires accurate biomedical semantic understand-
+ing, while MITE further introduces code-style structured
+generation. Therefore, we investigate whether code-oriented
+LLMs are more suitable than base LLMs under the pro-
+posed instruction-tuning framework. Specifically, LLaMA2-
+7B and Qwen2.5-7B are categorized as base models, while
+CodeLLaMA-7B and Qwen2.5-Coder-7B are categorized as
+code-oriented models.
+As shown in Fig. 3, the base models consistently outperform
+the code-oriented models across all three datasets, indicating
+that code-oriented pretraining does not necessarily bring ad-
+vantages for BioNER under code-style instruction tuning. This
+trend can be attributed to the difference in pretraining data
+composition. Base models are pretrained on broader natural-
+language corpora and can better capture biomedical semantics
+while retaining basic structural generation ability. In contrast,
+code-oriented models are further specialized on source code
+and technical documentation, which improves programming-
+syntax modeling but may reduce their exposure to the rich
+natural-language contexts required for BioNER.
+TABLE VI
+PERFORMANCE COMPARISON OF DIFFERENT ENSEMBLE STRATEGIES
+USING WELL-TRAINED MITE MODELS, REPORTED AS AVERAGE SCORES.
+Model
+Prediction Method
+Avg. Score
+LLaMA2
+Python
+89.05
+C++
+87.40
+Java
+88.30
+Voting
+90.14
+CodeLLaMA
+Python
+88.78
+C++
+88.60
+Java
+88.64
+Voting
+89.16
+E. The Effect of Ensemble Strategies
+To examine the impact of inference-time aggregation,
+we compare single-language prediction with a voting-based
+ensemble strategy. In single-language inference, the well-
+trained MITE model predicts entities using one programming-
+language representation, including Python, C++, or Java. In
+the voting setting, entity predictions supported by multiple
+language-specific outputs are retained as the final results.
+As shown in Table VI, different programming-language rep-
+resentations achieve comparable but not identical performance,
+indicating that the specific code format can still influence
+BioNER prediction. For LLaMA2, Python obtains the best
+single-language score of 89.05, followed by Java and C++
+with 88.30 and 87.40, respectively. For CodeLLaMA, the
+three representations produce more stable results, with scores
+of 88.78, 88.60, and 88.64. The voting strategy consistently
+outperforms all single-language settings, improving the best
+single-language score from 89.05 to 90.14 for LLaMA2 and
+from 88.78 to 89.16 for CodeLLaMA. These results show
+that different programming-language representations provide
+complementary predictions, and entity-level voting can reduce
+
+
+language-specific prediction bias and improve the robustness
+of BioNER inference.
+VI. CONCLUSION
+In this paper, we propose MITE, a Multiple Program-
+ming Languages Instruction Tuning and Ensemble method
+for BioNER. MITE reformulates BioNER as a structure-to-
+structure generation task by representing both task instruc-
+tions and entity outputs in code-formatted structures, provid-
+ing stronger structural constraints for typed entity extraction
+and better aligning BioNER prediction with the structured
+patterns learned by LLMs during pretraining. To improve
+robustness without relying on external biomedical knowledge
+or additional annotations, MITE transforms each BioNER
+instance into multiple programming-language representations
+and aggregates their predictions through entity-level voting.
+Experiments on six BioNER datasets demonstrate that MITE
+consistently outperforms representative baselines, achieves
+strong cross-dataset generalization, and remains effective un-
+der ablation and parameter analyses.
+REFERENCES
+[1] B. Song, F. Li, Y. Liu, and X. Zeng, “Deep learning methods
+for biomedical named entity recognition: a survey and qualitative
+comparison,” Briefings Bioinform., vol. 22, no. 6, 2021. [Online].
+Available: https://doi.org/10.1093/bib/bbab282
+[2] Y. Hu, Y. Chen, R. Huang, Y. Qin, and Q. Zheng, “A hierarchical
+convolutional model for biomedical relation extraction,” Inf. Process.
+Manag., vol. 61, no. 1, p. 103560, 2024. [Online]. Available:
+https://doi.org/10.1016/j.ipm.2023.103560
+[3] V. Nguyen, “Question answering in the biomedical domain,” in
+Proceedings
+of
+the
+57th
+Conference
+of
+the
+Association
+for
+Computational Linguistics, ACL 2019, Florence, Italy, July 28 -
+August 2, 2019, Volume 2: Student Research Workshop, F. Alva-
+Manchego,
+E.
+Choi,
+and
+D.
+Khashabi,
+Eds.
+Association
+for
+Computational Linguistics, 2019, pp. 54–63. [Online]. Available:
+https://doi.org/10.18653/v1/p19-2008
+[4] V. K. Keloth, Y. Hu, Q. Xie, X. Peng, Y. Wang, A. Zheng, M. Selek,
+K. Raja, C. H. Wei, Q. Jin et al., “Advancing entity recognition in
+biomedicine via instruction tuning of large language models,” Bioinfor-
+matics, vol. 40, no. 4, p. btae163, 2024.
+[5] H. Liu, Z. Chen, P. Li, Y.-Z. Liu, X. Liu, R. X. Xu, and M. Sun,
+“Resource-efficient instruction tuning of large language models for
+biomedical named entity recognition,” Journal of Biomedical Informat-
+ics, p. 104896, 2025.
+[6] J. Bian, W. Zhai, X. Huang, J. Zheng, and S. Zhu, “Vaner: leveraging
+large language model for versatile and adaptive biomedical named entity
+recognition,” in ECAI 2024: 27th European Conference on Artificial
+Intelligence, 19–24 October 2024, Santiago de Compostela, Spain–
+Including 13th Conference on Prestigious Applications of Intelligent
+Systems (PAIS 2024).
+SAGE Publications Pvt. Ltd 1 Oliver’s Yard,
+55 City Road, London, EC1Y 1SP, 2024, pp. 1583–1590.
+[7] A. Cocchieri, G. Frisoni, M. M. Galindo, G. Moro, G. Tagliavini, and
+F. Candoli, “Openbioner: Lightweight open-domain biomedical named
+entity recognition through entity type description,” in Findings of the
+Association for Computational Linguistics: NAACL 2025, 2025, pp. 818–
+837.
+[8] G. K. Savova, J. J. Masanz, P. V. Ogren, J. Zheng, S. Sohn, K. C. Kipper-
+Schuler, and C. G. Chute, “Mayo clinical text analysis and knowledge
+extraction system (ctakes): architecture, component evaluation and ap-
+plications,” Journal of the American Medical Informatics Association,
+vol. 17, no. 5, pp. 507–513, 2010.
+[9] Y. Ren, H. Fei, and H. Ren, “Neural networks for bacterial named entity
+recognition,” in 2018 IEEE International Conference on Bioinformatics
+and Biomedicine (BIBM).
+IEEE, 2018, pp. 2797–2799.
+[10] J. Lee, W. Yoon, S. Kim, D. Kim, S. Kim, C. H. So, and J. Kang,
+“Biobert: a pre-trained biomedical language representation model for
+biomedical text mining,” Bioinformatics, vol. 36, no. 4, pp. 1234–1240,
+2020.
+[11] Y. Gu, R. Tinn, H. Cheng, M. Lucas, N. Usuyama, X. Liu, T. Naumann,
+J. Gao, and H. Poon, “Domain-specific language model pretraining
+for biomedical natural language processing,” ACM Transactions on
+Computing for Healthcare (HEALTH), vol. 3, no. 1, pp. 1–23, 2021.
+[12] R. Caruana, “Multitask learning,” Machine learning, vol. 28, no. 1, pp.
+41–75, 1997.
+[13] M. R. Khan, M. Ziyadi, and M. AbdelHady, “Mt-bioner: Multi-task
+learning for biomedical named entity recognition using deep bidirec-
+tional transformers,” arXiv preprint arXiv:2001.08904, 2020.
+[14] L. Luo, C.-H. Wei, P.-T. Lai, R. Leaman, Q. Chen, and Z. Lu, “Aioner:
+all-in-one scheme-based biomedical named entity recognition using deep
+learning,” Bioinformatics, vol. 39, no. 5, p. btad310, 2023.
+[15] R. Averly and X. Ning, “Entity decomposition with filtering: A zero-
+shot clinical named entity recognition framework,” in Proceedings of the
+2025 Conference of the Nations of the Americas Chapter of the Asso-
+ciation for Computational Linguistics: Human Language Technologies
+(Volume 1: Long Papers), 2025, pp. 2935–2951.
+[16] N. Isaradech, A. Riedel, W. Sirikul, M. Kreuzthaler, and S. Schulz,
+“Zero-and few-shot named entity recognition and text expansion in med-
+ication prescriptions using large language models,” Artificial Intelligence
+in Medicine, vol. 167, p. 103165, 2025.
+[17] Z. Liu and N. Yao, “Eicl: Entity-aware in-context learning for bioner via
+hybrid semantic-terminological retrieval,” in 2025 IEEE International
+Conference on Bioinformatics and Biomedicine (BIBM).
+IEEE, 2025,
+pp. 1–6.
+[18] X. Wang, W. Zhou, C. Zu, H. Xia, T. Chen, Y. Zhang, R. Zheng, J. Ye,
+Q. Zhang, T. Gui et al., “Instructuie: Multi-task instruction tuning for
+unified information extraction,” arXiv preprint arXiv:2304.08085, 2023.
+[19] W. Zhou, S. Zhang, Y. Gu, M. Chen, and H. Poon, “Universalner:
+Targeted distillation from large language models for open named entity
+recognition,” in International conference on learning representations,
+vol. 2024, 2024, pp. 12 276–12 294.
+[20] Y. Li, M. Guo, K. Zhang, S. Zhang, Y. Zhao, H. Li, C. Zhou, W. Zheng,
+Y. Yan, S. Wu, W. Ji, L. Cui, F. Wei, H. Fei, M.-L. Lee, and W. Hsu,
+“Unim: A unified any-to-any interleaved multimodal benchmark,” in
+Proceedings of the CVPR, 2026.
+[21] Z. Li, Y. Zeng, Y. Zuo, W. Ren, W. Liu, M. Su, Y. Guo, Y. Liu,
+L. Lixiang, Z. Hu et al., “Knowcoder: Coding structured knowledge
+into llms for universal information extraction,” in Proceedings of the
+62nd Annual Meeting of the Association for Computational Linguistics
+(Volume 1: Long Papers), 2024, pp. 8758–8779.
+[22] O.
+Sainz,
+I.
+Garc´ıa-Ferrero,
+R.
+Agerri,
+O.
+Lacalle,
+G.
+Rigau,
+and E. Agirre, “Gollie: Annotation guidelines improve zero-shot
+information-extraction,” in International Conference on Learning Rep-
+resentations, vol. 2024, 2024, pp. 47 083–47 107.
+[23] L. Smith, L. K. Tanabe, R. J. N. Ando, C.-J. Kuo, I.-F. Chung, C.-N. Hsu,
+Y.-S. Lin, R. Klinger, C. M. Friedrich, K. Ganchev et al., “Overview
+of biocreative ii gene mention recognition,” Genome biology, vol. 9, no.
+Suppl 2, p. S2, 2008.
+[24] J. Li, Y. Sun, R. J. Johnson, D. Sciaky, C.-H. Wei, R. Leaman, A. P.
+Davis, C. J. Mattingly, T. C. Wiegers, and Z. Lu, “Biocreative v cdr task
+corpus: a resource for chemical disease relation extraction,” Database,
+vol. 2016, 2016.
+[25] R. I. Do˘gan, R. Leaman, and Z. Lu, “Ncbi disease corpus: a resource
+for disease name recognition and concept normalization,” Journal of
+biomedical informatics, vol. 47, pp. 1–10, 2014.
+[26] R. Islamaj, C.-H. Wei, D. Cissel, N. Miliaras, O. Printseva, O. Rodionov,
+K. Sekiya, J. Ward, and Z. Lu, “Nlm-gene, a richly annotated gold
+standard dataset for gene entities that addresses ambiguity and multi-
+species gene recognition,” Journal of biomedical informatics, vol. 118,
+p. 103779, 2021.
+[27] R. Islamaj, R. Leaman, D. Cissel, C. Coss, J. Denicola, C. Fisher,
+R. Guzman, P. G. Kochar, N. Miliaras, Z. Punske et al., “Nlm-chem-bc7:
+manually annotated full-text resources for chemical entity annotation and
+indexing in biomedical articles,” Database, vol. 2022, p. baac102, 2022.
+[28] C. Wu, W. Lin, X. Zhang, Y. Zhang, W. Xie, and Y. Wang, “Pmc-llama:
+toward building open-source language models for medicine,” Journal
+of the American Medical Informatics Association, vol. 31, no. 9, pp.
+1833–1843, 2024.
+
+
+[29] Q. Li, S. Bai, N. Zhou, and N. Yao, “Causally graph-guided counterfac-
+tual analysis to biomedical named entity recognition,” Expert Systems
+with Applications, p. 130485, 2025.
+[30] H. Touvron, L. Martin, K. Stone, P. Albert, A. Almahairi, Y. Babaei,
+N. Bashlykov, S. Batra, P. Bhargava, S. Bhosale et al., “Llama
+2: Open foundation and fine-tuned chat models,” arXiv preprint
+arXiv:2307.09288, 2023.
+[31] B. Roziere, J. Gehring, F. Gloeckle, S. Sootla, I. Gat, X. E. Tan, Y. Adi,
+J. Liu, R. Sauvestre, T. Remez et al., “Code llama: Open foundation
+models for code,” arXiv preprint arXiv:2308.12950, 2023.
+[32] A. Yang, B. Yang, B. Zhang, B. Hui, B. Zheng, B. Yu, C. Li, D. Liu,
+F. Huang, H. Wei, H. Lin, J. Yang, J. Tu, J. Zhang, J. Yang, J. Yang,
+J. Zhou, J. Lin, K. Dang, K. Lu, K. Bao, K. Yang, L. Yu, M. Li,
+M. Xue, P. Zhang, Q. Zhu, R. Men, R. Lin, T. Li, T. Xia, X. Ren,
+X. Ren, Y. Fan, Y. Su, Y. Zhang, Y. Wan, Y. Liu, Z. Cui, Z. Zhang,
+and Z. Qiu, “Qwen2.5 technical report,” CoRR, vol. abs/2412.15115,
+2024. [Online]. Available: https://doi.org/10.48550/arXiv.2412.15115
+[33] B. Hui, J. Yang, Z. Cui, J. Yang, D. Liu, L. Zhang, T. Liu, J. Zhang,
+B. Yu, K. Lu et al., “Qwen2. 5-coder technical report,” arXiv preprint
+arXiv:2409.12186, 2024.
