@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-10-06</span>
+      <span class="dpr-home-dashboard-kicker">2026-10-08</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 8 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>4</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-10-06 23:41:27 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-10-08 00:15:12 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,10 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今天完成8篇论文筛选，精读4篇、速读4篇，主线集中在生物医学文本挖掘、基因集注释与生物智能体。</p>
-<p>最值得看的是9.0分的SoftGene（蛋白语言模型增强软提示，提升基因集注释可解释性）和8.0分的Guideline-Augmented多智能体框架（面向Schema-as-Code生物医学命名实体识别）。</p>
-<p>普通读者可先读这两篇精读，再结合速读中的多语言指令微调NER、生物工具选择与本地化药物发现智能体，判断这些方法能否用于自己的数据场景。</p>
+<p>今日共生成 3 篇推荐（精读 1 篇，速读 2 篇）</p>
+<p>精读：《BioStudyBench: Evaluating Agents on Post-Cutoff Biomedical Studies》（8.0/10）</p>
+<p>速读：《MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction》（7.0/10）, 《MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks》（6.0/10）</p>
+<p>这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +74,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="SoftGene: Protein Language Model-Enhanced Soft Prompting for Interpretable Gene Set Annotation">SoftGene: Protein Language Model-Enhanced Soft Prompting for Interpretable Gene Set Annotation</span></li><li><span class="dpr-home-dashboard-paper-title" title="A Guideline-Augmented Multi-Agent Framework for Schema-as-Code Biomedical Named Entity Recognition">A Guideline-Augmented Multi-Agent Framework for Schema-as-Code Biomedical Named Entity Recognition</span></li><li><span class="dpr-home-dashboard-paper-title" title="An LLM-in-the-loop RL Framework for Bioinformatics Feature Selection">An LLM-in-the-loop RL Framework for Bioinformatics Feature Selection</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="BioStudyBench: Evaluating Agents on Post-Cutoff Biomedical Studies">BioStudyBench: Evaluating Agents on Post-Cutoff Biomedical Studies</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>1</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -86,12 +87,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Enhancing Biomedical Named Entity Recognition via Multiple Programming Languages Instruction Tuning and Ensemble Method">Enhancing Biomedical Named Entity Recognition via Multiple Programming Languages Instruction Tuning and Ensemble Method</span></li><li><span class="dpr-home-dashboard-paper-title" title="Can LLM Agents Select and Engage with Biological Tools?">Can LLM Agents Select and Engage with Biological Tools?</span></li><li><span class="dpr-home-dashboard-paper-title" title="Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery">Toward a Locally Deployable Agentic Co-Scientist: Small-Model Planning for Early-Stage Drug Discovery</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction">MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction</span></li><li><span class="dpr-home-dashboard-paper-title" title="MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks">MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">llmagt <strong>2</strong></span></div>
 </section>
 </div>
 

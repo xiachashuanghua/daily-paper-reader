@@ -1,0 +1,918 @@
+Title: MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction
+
+URL Source: https://arxiv.org/pdf/2610.03992v1
+
+Published Time: Tue, 06 Oct 2026 00:15:10 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction 
+
+# Yiming Ren 1, Josh V. Vermaas 2,3, and Guo-Wei Wei 1,4,5,∗
+
+1Department of Mathematics, University of Georgia, Athens, GA 30602, USA. 
+
+2Department of Biochemistry and Molecular Biology, Michigan State University, East Lansing, MI, 48824, USA. 
+
+3 MSU-DOE Plant Research Laboratory, Michigan State University, East Lansing, MI, 48824, USA. 
+
+4Department of Biochemistry and Molecular Biology, University of Georgia, Athens, GA 30602, USA. 
+
+5School of Computing, University of Georgia, Athens, GA 30602, USA. 
+
+Abstract 
+
+Mathematical invariants provide complementary representations of molecular structure, but their predictive utility can vary across datasets and prediction tasks. For a new dataset, appropriate construction of invariant representations from algebraic topology, differential geometry, topological spectral theory, and commutative algebra is a challenging task, particularly when evaluating multiple representations is computationally expensive. We develop a Mathematical Agentic Model (MathAgent) to automatically optimize invariant representations in molecular property prediction. The framework combines dataset-aware representation design, low-cost candidate screening, and progressive evaluation. Language-model reasoning supports task interpretation, strategy proposal, and workflow coordination, while scientific computations and numerical decisions are carried out by deterministic tools. We evaluate MathAgent on protein–ligand binding-affinity and quantitative toxicity prediction tasks. Different datasets favor different combinations of mathematical invariants, demonstrating the need for dataset-adaptive representation selection rather than a fixed universal representation. Objective-conditioned executions further show that the framework can adjust its evaluation strategy according to user-specified goals. MathAgent therefore provides a systematic, evidence-driven, and traceable approach for optimizing mathematical invariant representations and reducing reliance on manual configuration and/or experimentation in molecular property prediction. 
+
+> ∗
+
+Corresponding author. Email: guowei.wei@uga.edu 
+
+1arXiv:2610.03992v1 [q-bio.BM] 2 Oct 2026 1 Introduction 
+
+Accurate molecular property prediction is central to multiple applications, including drug discovery, protein engineering, molecular design, and predictive toxicology [1, 2]. The success of in silico property predictions depends critically on how molecules are represented mathematically. Conventional fixed-length molecular representations, including physicochemical descriptors such as molecular weight, lipophilicity, polar surface area, and atom counts, as well as molecular fingerprints, provide compact summaries of molecular structure and composition [3, 4]. In contrast, graph-based and geometric models encode relational and three-dimensional spatial information more explicitly [5–8]. Mathematical invariants offer unique and explainable molecular representations through algebraic topology [9–13], topological spectral theory [14–16], differential geometry [17], discrete curvature [18], and commutative algebra [19, 20]. Because these formalisms encode different aspects of molecular organization, they provide complementary rather than interchangeable structural information, and existing machine learning methods in the literature utilize many of these information encodings to make their predictions [21–23]. However, introducing too many representations may result in overfitting to a given molecular dataset, and so determining which mathematical invariants should be used remains a nontrivial modeling problem. Different invariant families characterize distinct structural properties through different mathematical constructions, and their relative predictive utility may therefore vary across datasets and prediction tasks [11, 17–19]. Their implementation may also require dataset-specific choices of element groups, interaction domains, filtration ranges, and multiscale parameters [17–19]. As a result, representation selection involves not only choosing appropriate invariant families but also determining how they should be configured for the data at hand. In practice, these decisions can require substantial expert judgment, repeated experimentation, and extensive comparison. The associated computational burden grows with the number of candidate representations, particularly when multiscale mathematical features must be generated for multiple alternative configurations. These challenges motivate adaptive experimentation for the underlying mathematical representation used to describe the molecules. Rather than fixing a representation strategy entirely a priori , candidate representations can be progressively prioritized using dataset characteristics and empirical evidence obtained during the modeling process. Such a workflow requires stateful coordination of intermediate results and specialized computations, enabling subsequent modeling decisions to adapt to the evidence accumulated during execution. Large language model (LLM)-based agents provide a suitable computational paradigm for coordinating this type of sequential scientific workflow. Agentic models can maintain and update workflow state, invoke specialized external tools, incorporate intermediate computational results, and use this information to guide subsequent actions. General reasoning–action, memory, and agentic frameworks have established these capabilities [24–26], while related systems have extended agentic workflows to machine-learning experimentation and automated scientific research [27–29]. These developments are particularly relevant to scientific problems in which high-level reasoning must be coordinated with domain-specific computation rather than performed entirely by the language model. This paradigm has also begun to appear in molecular sciences. ChemCrow, CACTUS, and Co-scientist combine language-model reasoning with specialized computational or experimental tools [30–32], whereas SciToolAgent, SciAgents, and related multi-agent approaches address scientific tool orchestration, scientific discovery, and molecular analysis and design [33–35]. These studies demonstrate the potential of agentic models to coordinate iterative scientific workflows in which specialized tools perform domain computations and their outputs inform subsequent reasoning and actions. Despite this progress, the studies considered above do not directly address the dataset-adaptive selection and configuration of mathematical representations. This problem differs from general scientific tool orchestration because the relative utility of alternative representations is not known a priori and must be assessed from dataset characteristics and empirical evidence. Exploring across different strategies to overcome this challenge therefore motivates a specialized agentic framework for adaptive mathematical representation selection in molecular property predictions. To address this problem, we introduce MathAgent (Mathematical Agentic Model), an agentic framework for adaptive mathematical invariant modeling in molecular property prediction. MathAgent uses dataset 2characteristics and empirical evidence to configure, prioritize, and progressively evaluate candidate mathematical representations. LLM-based reasoning supports task interpretation, strategy proposal, and workflow coordination, whereas mathematical feature generation, candidate ranking, and performance evaluation are carried out by deterministic computational tools. We evaluate MathAgent across protein– ligand binding-affinity and quantitative toxicity prediction tasks. Across these benchmarks, different datasets favor different invariant combinations, indicating that no single mathematical representation is uniformly preferred across molecular prediction problems. Objective-conditioned executions further show how the workflow can adapt candidate evaluation and stopping behavior to different user-specified goals. More broadly, MathAgent recasts mathematical representation selection from a largely expert-driven process involving manual configuration and repeated experimentation into a systematic, evidence-driven, and traceable computational workflow tailored to a specific prediction task. By automating routine representation configuration and screening while retaining deterministic scientific computation, the framework allows human expertise to remain focused on scientific problem formulation, interpretation, and higher-level decision-making. 
+
+# 2 Methods 
+
+# 2.1 Overview of the MathAgent Framework 
+
+Given a molecular dataset D and a user request U, MathAgent adaptively configures, prioritizes, and evaluates mathematical invariant representations for molecular property prediction. In the present study, the molecular dataset D comprises molecular structures, their associated target values, and, when available, predefined training, validation, and test partitions. The user request U specifies the predictive objective and may further define constraints on the admissible invariant families, the evaluation criterion, and the execution strategy. The available invariant library is 
+
+M = {CA , PH , PL , EIC , FPRC },
+
+where CA denotes commutative algebra based on the persistent Stanley–Reisner framework [19], PH persistent homology [10], PL persistent Laplacian [36], EIC element interactive curvature [17], and FPRC Forman persistent Ricci curvature [18]. These invariant families provide mathematically distinct descriptions of molecular structure and constitute the representation library considered in the present framework. If the user restricts the admissible invariant families to MU ⊆ M , the corresponding candidate space is defined as the set of all nonempty subsets, 
+
+C = 2 MU \ {∅} .
+
+For each invariant family m ∈ M U , let Θ m denote its validated dataset-specific representation configuration, and let Θc = {Θm : m ∈ c}
+
+denote the configuration associated with a candidate combination c ∈ C . MathAgent uses dataset characteristics, training-side predictive evidence, and the user-specified execution objective to select a candidate c∗ ∈ C and its associated configuration Θ c∗ . The workflow returns the resulting molecular-property predictions ˆ y together with an auditable decision trace R:(D, U) −→ (c∗, Θc∗ , ˆy, R) .
+
+As illustrated in Figure 1, MathAgent takes as input a molecular dataset together with a user-specified prediction request, which defines the task objective and, when provided, constraints on the admissible representations or execution strategy. MathAgent organizes the workflow into four coordinated functional agents: DataAgent for task and data understanding, DesignAgent for adaptive representation design, ScreenAgent for subsampling and candidate screening, and TestAgent for progressive full-scale evaluation. 3DataAgent identifies the prediction objective, available molecular structures, target values, and data partitions. DesignAgent constructs and validates dataset-specific configurations for the admissible invariant families. ScreenAgent evaluates candidate combinations using a representative training subsample and produces an empirical priority ordering. TestAgent then promotes high-priority candidates to full-scale evaluation, where the required invariant representations are generated for the complete protocol-permitted data partitions rather than only for the training subsample. Candidates are evaluated according to the screening-derived ordering, while previously generated compatible representations are reused whenever possible. The extent of full-scale evaluation is determined by the execution objective: target-constrained execution may terminate once the prescribed criterion is satisfied, whereas best-available execution evaluates a predefined candidate pool before selecting among the evaluated candidates. Throughout the workflow, LLM-based reasoning supports task interpretation and strategy proposal, while deterministic tools perform data validation, representation generation, quality control, candidate ranking, model fitting, and performance evaluation. These agents are coordinated through a shared workflow state that stores validated information and reusable computational artifacts. User Input  MathAgent        
+
+> Protein –ligand complex
+> Small molecules
+> User request
+> Task and Data Understanding
+> II. DesignAgent
+> Adaptive Representation Design
+> IV. TestAgent
+> Memory
+> artifacts, configs, rankings, provenance
+> Commutative algebra
+> Persistent homology
+> Persistent Laplacian
+> Element interactive
+> curvature
+> Forman persistent
+> Ricci curvature
+> Tools
+> Data Audit Tools
+> Representation Design Tools
+> Feature QC & Repair Tools
+> Subsampling / Screening Tools
+> Modeling & Evaluation Tools
+> Mathematical invariant Tools
+> Progressive Full-Scale Evaluation
+> QC fail: repair
+> Output
+> Predictions, Performance, and Decision Trace
+> Prompt: Use this dataset to predict the target property and identify the best invariant combination.
+> I. DataAgent
+> LLM LLM
+> III. ScreenAgent
+> Subsampling and Candidate Screening
+> LLM
+
+Figure 1: Overview of MathAgent for adaptive mathematical invariant modeling in molecular property prediction. The framework coordinates task and data understanding, dataset-adaptive representation design, training-side candidate screening, and progressive full-scale evaluation. LLM-based reasoning proposes task-dependent strategies, while deterministic tools validate and execute scientific computations. Shared artifact state enables reuse of previously generated representations and records the provenance of the resulting predictions and representation-selection decisions. 
+
+# 2.2 MathAgent Pipeline 
+
+To implement the pipeline shown in Figure 1, MathAgent organizes adaptive mathematical representation selection through four coordinated functional agents: DataAgent, DesignAgent, ScreenAgent, and TestA-gent. These agents are coordinated through a shared workflow state maintained by the orchestration framework, which enables validated information and computational artifacts to be propagated across the workflow. The state stores validated task information, representation configurations, screening evidence, and reusable computational artifacts, and can be accessed and updated by both LLM-based reasoning 4components and deterministic computational tools throughout the workflow. 
+
+DataAgent: Task and Data Understanding. DataAgent converts the user request and the available molecular data into a well-defined prediction task. The LLM interprets the natural-language request and proposes a structured task specification that includes the prediction endpoint, molecular input type (e.g., protein–ligand complexes or small-molecule structures), evaluation metric, admissible invariant families 
+
+MU ⊆ M , and any user-specified performance objective or evaluation budget. The proposed task specification is then checked against the available data by deterministic data-validation and characterization procedures. These checks verify the presence and consistency of the required molecular structures, labels, and data partitions, while also summarizing dataset characteristics relevant to representation construction, including elemental composition, molecular-size distributions, interatomic-distance statistics, label distributions, and support for candidate element and element-pair groups. If essential information is missing or incompatible with the requested task, the workflow terminates with an explicit failure state rather than proceeding with an ill-defined prediction problem. 
+
+DesignAgent: Adaptive Representation Design. DesignAgent determines how the admissible mathematical invariants should be configured for the current dataset. We denote the collection of validated representation settings by Θ = {Θm : m ∈ M U },
+
+where Θ m specifies the dataset-dependent configuration associated with invariant family m. Depending on the method, these settings may include element-specific or element-pair groups, filtration ranges, discretization parameters, and other method-specific quantities. Using the validated task specification and dataset characteristics from DataAgent, the LLM proposes dataset-adaptive representation settings for the admissible invariant families. Deterministic validation procedures examine whether the proposed element groups are sufficiently represented in the dataset, whether parameter values are consistent with the observed structural statistics, and whether method-specific requirements are satisfied before a configuration is accepted for feature generation. Thus, the LLM provides dataset-aware representation hypotheses, while the configurations used in numerical computation are determined by explicit validation rules. 
+
+ScreenAgent: Subsampling and Candidate Screening. ScreenAgent obtains empirical evidence for candidate prioritization before committing to full-scale representation generation. A training subsample 
+
+Ds ⊂ Dtrain 
+
+is constructed exclusively from the training split of the input dataset(s) and is designed to preserve task-relevant characteristics of the full training data, including the target and molecular-size distributions, their joint variation, and the coverage of supported element and element-pair groups. The LLM proposes a subsampling strategy based on the task specification and training-set charac-teristics, including the candidate subsample size and the variables used for stratification. The actual subset Ds is then constructed by deterministic sampling from the resulting strata so that the sampled proportions approximately follow those of the full training set. The resulting subsample is checked for training-only membership, agreement with the target and molecular-size distributions, and structural coverage. Validation, acceptance, and test samples are excluded from subsample construction. Representations for the training subsample are generated according to the validated settings in Θ and subjected to quality-control and filtration checks before predictive screening. If a representation fails a repairable validity check, the affected configuration is returned to DesignAgent for revision, regeneration, and re-evaluation, while representations that have already passed validation are retained. This feedback loop is triggered by representation validity or feature quality rather than predictive performance; a valid representation that performs poorly remains eligible for empirical comparison. Only candidate combinations composed entirely of validated representations proceed to predictive screening. All eligible candidates are evaluated on the same training subsample using a common downstream 5modeling protocol and shared cross-validation partitions. Candidate ordering is determined primarily by predictive performance, with ranking stability and computational cost used as secondary criteria. Resampling-based ranking stability is used to distinguish closely matched candidates, with computational cost serving as a subsequent tie-breaking consideration. Numerical ranking is performed by deterministic tools. The resulting candidate priority order is denoted by Π = ( c1, c 2, . . . ).
+
+This ordering defines the candidate sequence for progressive full-scale evaluation. For best-available execution, the leading K candidates are fixed from Π before full-scale evaluation begins. 
+
+TestAgent: Progressive Full-Scale Evaluation. TestAgent promotes high-priority candidates from candidate screening to full-scale evaluation while avoiding redundant representation generation. Before evaluating a candidate, the workflow identifies which constituent invariant blocks are already available under compatible validated configurations and computes only the missing components. For example, if PH and PL have already been generated and the next candidate is PH+PL+CA, only the CA representation needs to be newly acquired. The extent of full-scale evaluation is determined by the execution objective. Under target-constrained execution, the user specifies an evaluation metric and a corresponding performance target, such as PCC 2 ≥ 0.60. Candidates are evaluated sequentially according to the screening-derived ordering Π, and evaluation stops as soon as a candidate satisfies the prescribed target. If no candidate meets the target after the queue has been exhausted, the best-performing evaluated candidate under the specified evaluation metric is returned together with a target-not-reached status. Under best-available execution, no performance threshold is required; instead, the leading K candidates in Π are fixed before full-scale evaluation begins, all K candidates are evaluated, and the best-performing candidate under the specified evaluation metric is selected. The execution objective determines how candidates are evaluated and when evaluation stops, whereas the evaluation protocol determines which data may be used to guide those decisions. Under the protected-test protocol, the benchmark test set is excluded from all adaptive representation-selection decisions, including stopping and candidate comparison. The final representation combination c⋆ is selected using only training- and validation-side information, after which the protected test set is queried once for final benchmark reporting. For objective-conditioned adaptive executions, the benchmark test partition is instead repurposed as an acceptance set and may be queried during candidate comparison or stopping decisions. Because this partition participates in adaptive execution, the resulting scores are interpreted as acceptance-set performance rather than protected-test benchmark estimates. The acceptance set may therefore be used to determine whether a prescribed target has been reached or to compare candidates within a frozen top-K pool. The workflow returns the selected combination c⋆, its validated representation configuration, molecular-property predictions, and associated performance records, while the decision trace R records the selection history and workflow provenance. Figure 4 illustrates the different evaluation trajectories induced by target-constrained and best-available objectives. 
+
+# 2.3 MathAgent Components 
+
+The four-agent MathAgent workflow is supported by a set of computational components for mathematical representation generation, state and artifact management, quality control, and execution control. These components provide the infrastructure required to implement the adaptive workflow described in Section 2.2. 
+
+Mathematical invariant tool library. The representation layer consists of deterministic generators for the five mathematical invariant families defined above: persistent homology (PH), persistent Laplacian (PL), commutative algebra (CA), element interactive curvature (EIC), and Forman persistent Ricci curvature (FPRC) [10, 17–19, 36]. Each tool accepts a validated dataset-specific configuration Θ m and 6Invariant representations  Dataset and screening evidence 
+
+PH  persistent homology summaries over filtrations 
+
+PL 
+
+> CA
+
+EIC 
+
+FPRC                
+
+> Dataset evidence
+> Screening evidence
+> Representation Specification
+> •retained element groups
+> •filtration range
+> •resolution / step size
+> •method-specific settings
+> Computed artifacts
+> •subsample features
+> •full-scale features
+> •predictions
+> •cache / reuse state
+> •provenance
+> •representative training
+> subsample
+> •screening CV performance
+> • ranking stability
+> • candidate ranking
+> • estimated computational cost
+> •task type
+> • input structure
+> •observed element types
+> • size and distance statistics
+> • label distribution
+> persistent Laplacian spectral statistics
+> facet / F-vector statistics from filtered complexes
+> element-interaction curvature statistics
+> filtration-based curvature statistics
+
+Validated state and artifacts Figure 2: Shared state and artifact memory in MathAgent. The maintained records include invariant representa-tion, dataset and screening evidence, validated configurations, and reusable computational artifacts. Provenance metadata supports compatibility checks and reuse across the workflow. 
+
+produces a feature artifact that can be stored, evaluated, and reused across candidate combinations. A common interface allows these mathematically distinct invariant families to be invoked within the same workflow while preserving their method-specific constructions. The mathematical definitions and feature constructions are given in Section 2.4. 
+
+Shared workflow state and artifact memory. MathAgent maintains a shared state that propagates validated task information, computational evidence, and reusable artifacts across agents. Following recent work on persistent and provenance-aware memory in agentic systems [37, 38], the maintained information includes invariant representation metadata, dataset and screening evidence, validated representation configurations, candidate priorities, generated invariant features, and their associated provenance. As summarized in Figure 2, this state provides a common record of validated intermediate results throughout the workflow. Reusable artifacts include subsample and full-scale feature blocks, predictions, quality-control records, and evaluation results. Each artifact records the dataset, representation configuration, and computational settings under which it was generated. Artifacts are reused only when these conditions are compatible with the current computation, thereby avoiding redundant generation of unchanged invariant blocks while preserving traceability. 
+
+Representation quality control. A deterministic quality-control layer verifies that generated repre-sentations are numerically and structurally suitable for predictive modeling. The checks include non-finite or missing values, degenerate or constant features, excessive sparsity, and method-specific filtration consistency. Failed checks trigger the representation repair mechanism described in Section 2.2, whereas predictive performance is evaluated separately through screening-based candidate ranking. 
+
+Execution control. A deterministic execution controller applies the candidate ordering, stopping rules, and evaluation protocol defined in Section 2.2. It also coordinates full-scale evaluation with the artifact memory so that compatible representations are reused and only missing invariant blocks are generated. Together, the invariant tool library, shared state and artifact memory, quality-control layer, and execution controller provide the computational infrastructure supporting the four-agent MathAgent 7workflow. Algorithm 1 summarizes how these components are coordinated across DataAgent, DesignAgent, ScreenAgent, and TestAgent during execution. 
+
+# 2.4 Mathematical Invariants 
+
+MathAgent permits mathematical constructions from five invariant families introduced above: commutative algebra (CA), persistent homology (PH), persistent Laplacian (PL), element interactive curvature (EIC), and Forman persistent Ricci curvature (FPRC). These representations describe molecular structure from complementary algebraic, topological, spectral, and geometric perspectives. Their dataset-specific implementations follow the validated representation configurations established in Section 2.2, and the resulting descriptors are organized into feature blocks for downstream predictive modeling. Although the five constructions differ mathematically, each is designed to preserve structural informa-tion under transformations appropriate to its definition, such as label-preserving reindexing, Euclidean rigid motion, or simplicial isomorphism. The corresponding invariance properties and scale-dependent constructions are specified separately below. PH characterizes the persistence of homological structure across a filtration; PL augments topological information with simplicial spectral structure; CA encodes algebraic–combinatorial properties of simplicial complexes; EIC describes continuous geometry through element-resolved interaction-density fields; and FPRC characterizes local combinatorial curvature across filtration scales. 
+
+2.4.1 Simplicial Complexes and Filtrations 
+
+PH, PL, CA, and FPRC share a common construction based on filtered simplicial complexes. We therefore introduce the required notation before describing the individual invariant families. EIC is based instead on continuous interaction-density fields and is treated separately below. A q-simplex is the convex hull of q + 1 affinely independent vertices. Thus, simplices of dimensions 0, 1, 2, and 3 correspond, respectively, to vertices, edges, filled triangles, and tetrahedra. A simplicial complex K is a finite collection of simplices that is closed under the face relation: whenever σ ∈ K , every face of σ also belongs to K.Let k be a field. The q-chain group Cq (K; k) is the vector space generated by the oriented q-simplices of K. The boundary operator is the linear map 
+
+∂q : Cq (K; k) −→ Cq−1(K; k),
+
+whose action on an oriented simplex is 
+
+∂q [u0, . . . , u q ] = 
+
+> q
+
+∑
+
+> ℓ=0
+
+(−1) ℓ[u0, . . . , ̂u ℓ, . . . , u q ],
+
+where ̂u ℓ indicates that the vertex uℓ is omitted. The identity ∂q ∂q+1 = 0 implies that every boundary is also a cycle. Consequently, the q-th homology group is 
+
+Hq (K; k) = ker ∂q
+
+im ∂q+1 
+
+,
+
+and the corresponding Betti number is 
+
+βq = dim k Hq (K; k).
+
+Geometrically, β0, β1, and β2 count independent connected components, one-dimensional loops, and enclosed two-dimensional cavities, respectively. Multiscale structure is introduced through a filtration, that is, a nested family of simplicial complexes 
+
+Kt0 ⊆ K t1 ⊆ · · · ⊆ K tM , t0 < t 1 < · · · < t M .
+
+8Algorithm 1 MathAgent execution workflow 
+
+Require: Molecular dataset D, user request U, invariant library M
+
+Ensure: Selected invariant combination c⋆, validated configuration Θ c⋆ , predictions ˆ y, workflow trace R
+
+I: DataAgent – Task and Data Understanding  
+
+> 1:
+
+(Stask , Sdata ) ← InterpretAndAudit (U, D, M) 
+
+> 2:
+
+Extract admissible methods MU , execution mode e, target τ , top-K budget K, and evaluation protocol q 
+
+> 3:
+
+if task or data validation fails then  
+
+> 4:
+
+return FailureReport  
+
+> 5:
+
+end if  
+
+> 6:
+
+Initialize or restore reusable artifact memory A 
+
+> 7:
+
+Define protocol-permitted evaluation data Deval  
+
+> 8:
+
+if q = PROTECTED then  
+
+> 9:
+
+Exclude Dtest from adaptive selection and stopping  
+
+> 10:
+
+end if 
+
+II: DesignAgent – Adaptive Representation Design  
+
+> 11:
+
+˜Θ ← LLMProposeRepresentation (Stask , Sdata , MU ) 
+
+> 12:
+
+Θ ← ValidateRepresentation ( ˜Θ, Sdata )
+
+III: ScreenAgent – Subsampling and Candidate Screening  
+
+> 13:
+
+˜S ← LLMProposeSubsamplingStrategy (Stask , Sdata , Θ)  
+
+> 14:
+
+Ds ← ConstructAndValidateSubsample ( ˜S, D train ) 
+
+> 15:
+
+(Mvalid , Fs, Θ) ← GenerateValidateRepair (Ds, MU , Θ)  
+
+> 16:
+
+Cvalid ← 2Mvalid \ {∅}  
+
+> 17:
+
+Π ← RankOnSubsample (Cvalid , Fs) 
+
+> 18:
+
+Πeval ←
+
+{
+
+TopK (Π , K ), e = BEST ,
+
+Π, e = TARGET .
+
+IV: TestAgent – Progressive Full-Scale Evaluation  
+
+> 19:
+
+for all c ∈ Πeval do  
+
+> 20:
+
+Acquire only invariant blocks in c that are missing or incompatible in A 
+
+> 21:
+
+(ˆ y eval  
+
+> c
+
+, r eval  
+
+> c
+
+) ← EvaluateCandidate (c, A, D eval ) 
+
+> 22:
+
+Store evaluation record and update A 
+
+> 23:
+
+if e = TARGET and Accept (reval  
+
+> c
+
+, τ ) then  
+
+> 24:
+
+c⋆ ← c 
+
+> 25:
+
+break  
+
+> 26:
+
+end if  
+
+> 27:
+
+end for  
+
+> 28:
+
+if c⋆ is undefined then  
+
+> 29:
+
+c⋆ ← BestEvaluatedCandidate ({(c, r eval  
+
+> c
+
+) : c ∈ Πeval }) 
+
+> 30:
+
+end if  
+
+> 31:
+
+Freeze c⋆ and its configuration Θ c⋆ 
+
+> 32:
+
+if q = PROTECTED then  
+
+> 33:
+
+Acquire any missing test-set artifacts required by c⋆ 
+
+> 34:
+
+(ˆ y, r test ) ← FinalEvaluate (c⋆, A, D test ) ▷ single protected-test evaluation  
+
+> 35:
+
+else  
+
+> 36:
+
+ˆy ← ˆy eval  
+
+> c⋆
+> 37:
+
+end if  
+
+> 38:
+
+R ← BuildTrace (c⋆, Θc⋆ , Π, A, e, q ) 
+
+> 39:
+
+return (c⋆, Θc⋆ , ˆy, R)9Examples relevant to geometric point-cloud data include the Vietoris–Rips and alpha filtrations [39–41]. Whenever ta ≤ tb, the canonical inclusion 
+
+Kta ↪→ K tb
+
+relates the simplicial structures at the two scales. This nested structure provides the common mathematical basis for the topological, spectral, algebraic–combinatorial, and discrete-curvature constructions developed below. Representative stages of such a filtration are illustrated in Figure 3A. D
+
+C
+
+A
+
+D
+
+E
+
+> Filtration parameter
+> Filtration parameter
+> Filtration parameter
+> Filtration parameter
+
+B
+
+Figure 3: Schematic comparison of the four filtration-based mathematical invariant families in MathAgent using a common Vietoris–Rips filtration of a 14-point point cloud containing two loop-like structures. (A) Representative simplicial complexes obtained as the filtration parameter increases. (B) Persistence intervals in dimensions 0 and 1, illustrating the PH representation. (C) Scale-dependent nonharmonic spectral information from the 0-dimensional Laplacian L0, represented by the smallest and largest positive eigenvalues, the mean positive eigenvalue ¯λ, and the positive spectral range, illustrating PL. (D) Persistence bars P0, P1, and P2 associated with 0-, 1-, and 2-dimensional facets, illustrating a component of the CA representation. (E) Evolution of the signed mean Forman curvature mean( Fp) for p = 0 , 1, 2, illustrating FPRC. EIC is omitted from this schematic because its construction is based on continuous element-interaction density fields rather than on the simplicial filtration shown here. 
+
+10 2.4.2 Persistent Homology (PH) 
+
+Persistent homology (PH) [10] extends ordinary simplicial homology by following homological classes as the filtration scale changes. For indices a ≤ b, the inclusion 
+
+Kta ↪→ K tb
+
+induces the homomorphism 
+
+ϕqa,b : Hq (Kta ; k) −→ Hq (Ktb ; k).
+
+The q-dimensional persistent homology group over the interval [ ta, t b] is defined by the image of this induced map, 
+
+Ha,b q = im ϕqa,b ,
+
+with persistent Betti number 
+
+βa,b q = dim k Ha,b q .
+
+Hence, βa,b q measures the number of independent q-dimensional homological classes present at scale ta
+
+that remain nontrivial at scale tb. Across the complete filtration, the appearance and disappearance of such classes are represented by persistence intervals, providing a multiscale description of the underlying topology. PH is unchanged by vertex relabelings and by simplicial isomorphisms that preserve the filtration. When the filtration is constructed from pairwise Euclidean distances, rigid translations and rotations also leave the persistence barcode unchanged because they preserve all pairwise distances. Uniform spatial rescaling, in contrast, rescales the filtration parameter and is therefore not included among the invariant transformations considered here. Figure 3B shows the H0 and H1 persistence intervals of the schematic point cloud. The H0 intervals track the merging of initially disconnected components, whereas the H1 intervals record the creation and subsequent filling of the two loop-like structures. 
+
+2.4.3 Persistent Laplacian (PL) 
+
+Persistent (combinatorial) Laplacian (PL), introduced by Wang et al. [14], enriches persistent homology by retaining both harmonic and nonharmonic spectral information associated with simplicial complexes across the filtration [42]. For this construction, the chain groups are taken over R and equipped with the inner product for which the oriented simplices form an orthonormal basis. The q-dimensional combinatorial Laplacian is 
+
+Lq = ∂q+1 ∂∗ 
+
+> q+1
+
++ ∂∗ 
+
+> q
+
+∂q , (1) where ∂∗ 
+
+> q
+
+is the adjoint of ∂q .The operator Lq is real, symmetric, and positive semidefinite. It yields the discrete Hodge decomposition 
+
+Cq (K; R) = im ∂q+1 ⊕ ker Lq ⊕ im ∂∗ 
+
+> q
+
+.
+
+Furthermore, ker Lq ∼= Hq (K; R),
+
+so that the multiplicity of the zero eigenvalue of Lq is precisely the q-th Betti number [43]. The harmonic part of the spectrum therefore recovers homological information, whereas the positive eigenvalues encode additional information about the incidence and connectivity structure of the simplicial complex. To extend the Laplacian construction across two filtration scales ta ≤ tb, define 
+
+Ca,b q+1 = {c ∈ Cq+1 (Ktb ; R) ∣∣ ∂bq+1 c ∈ Cq (Kta ; R)} .
+
+Restricting the boundary map at tb to this subspace gives the persistent boundary operator 
+
+∂a,b q+1 : Ca,b q+1 → Cq (Kta ; R).
+
+11 The corresponding persistent Laplacian is 
+
+La,b q = ∂a,b q+1 
+
+(∂a,b q+1 
+
+)∗ + (∂aq
+
+)∗∂aq . (2) Its null space satisfies ker La,b q ∼= Ha,b q ,
+
+and therefore the multiplicity of its zero eigenvalue equals the persistent Betti number βa,b q . In contrast, the positive portion of the spectrum captures nonharmonic structural information that cannot, in general, be recovered from persistent Betti numbers alone [36, 42, 44]. The PL spectrum is invariant under filtration-preserving simplicial relabelings. Reordering the simplices, or changing their orientations consistently, modifies the matrix representation of the Laplacian through an orthogonal signed-permutation similarity transformation, 
+
+L′ 
+
+> q
+
+= P ⊤ 
+
+> q
+
+Lq Pq ,
+
+which leaves its eigenvalues unchanged. For filtrations determined by Euclidean distances, rigid translations and rotations likewise preserve the filtered complexes and therefore their Laplacian spectra. Figure 3C illustrates the evolution of the positive spectrum of L0. At the initial scale, when all vertices are isolated, the spectrum contains only harmonic modes. Positive eigenvalues appear as edges are added and subsequently evolve with the connectivity of the complex. For the 14-point example, the positive eigenvalues eventually coincide once the Vietoris–Rips filtration reaches the complete clique complex. 
+
+2.4.4 Commutative Algebra (CA) 
+
+The commutative-algebra (CA) representation used in MathAgent is based on the persistent Stanley– Reisner theory introduced by Suwayyid and Wei [19]. This construction translates a filtered simplicial complex into a family of commutative-algebraic objects, thereby encoding its combinatorial organization through squarefree monomial ideals, Stanley–Reisner quotient rings, and facet-associated prime ideals. Let ∆ be a finite simplicial complex with vertex set W = {y1, . . . , y n}, and let φ : ∆ → R be a monotone face function satisfying φ(ω) ≤ φ(ω′) whenever ω ⊆ ω′. The sublevel sets of φ define the filtration ∆ϵ = {ω ∈ ∆ | φ(ω) ≤ ϵ},
+
+for which ∆ ϵa ⊆ ∆ϵb whenever ϵa ≤ ϵb.Fix a field k and consider the standard graded polynomial ring R = k[y1, . . . , y n]. At filtration scale ϵ,the Stanley–Reisner ideal associated with ∆ ϵ is 
+
+Iϵ = I(∆ ϵ) = ( yi1 · · · yis | { yi1 , . . . , y is } /∈ ∆ϵ) ⊆ R, (3) and the corresponding Stanley–Reisner ring is k[∆ ϵ] = R/I ϵ. Because increasing ϵ introduces additional simplices into the complex, the collection of nonfaces decreases, producing a descending family of squarefree monomial ideals. The facets of ∆ ϵ are encoded through the irredundant minimal-prime decomposition 
+
+Iϵ = ⋂
+
+> ω∈F (∆ ϵ)
+
+Pω , Pω = ( yi | yi /∈ ω), (4) where F(∆ ϵ) denotes the facet set of ∆ ϵ. To separate facets according to dimension, define 
+
+P(p) 
+
+> ϵ
+
+= {Pω | ω ∈ F (∆ ϵ), dim( ω) = p} .
+
+For two scales ϵa ≤ ϵb, the prime ideals associated with p-dimensional facets that occur at both scales form 
+
+P(p) 
+
+> ϵa,ϵ b
+
+= P(p) 
+
+> ϵa
+
+∩ P (p) 
+
+> ϵb
+
+, μϵa,ϵ b 
+
+> p
+
+=
+
+∣∣∣P(p)
+
+> ϵa,ϵ b
+
+∣∣∣ . (5) 12 The quantity μϵa,ϵ b 
+
+> p
+
+therefore summarizes the persistence of p-dimensional maximal simplices across the two filtration levels. Facet persistence characterizes only maximal simplices. To retain information about simplices of every dimension, let ∆ (p) 
+
+> ϵ
+
+denote the set of p-simplices in ∆ ϵ. The associated f -vector is 
+
+f ϵ =
+
+(
+
+f ϵ 
+
+> 0
+
+, f ϵ 
+
+> 1
+
+, . . . , f ϵ
+
+> dim(∆ ϵ)
+
+)
+
+, f ϵp =
+
+∣∣∣∆(p)
+
+> ϵ
+
+∣∣∣ . (6) Facet-persistence quantities and f -vectors thus provide complementary descriptions: the former track maximal simplices, whereas the latter quantify the full simplex population dimension by dimension. The CA quantities are invariant under vertex relabeling. A permutation of the vertices induces the corresponding permutation of the polynomial variables, hence a graded automorphism of R that carries the associated Stanley–Reisner ideals to isomorphic ideals. As a result, the facet-associated quantities and the components of the f -vector are unchanged. These quantities are therefore algebraic–combinatorial invariants, although they are not complete invariants, since distinct nonisomorphic simplicial complexes may possess identical facet counts or f -vectors. Figure 3D displays the persistence of 0-, 1-, and 2-dimensional facets along the filtration. A simplex enters the facet representation when it becomes maximal and ceases to appear as a facet once it is contained in a higher-dimensional maximal simplex. Accordingly, the P0, P1, and P2 bars describe the multiscale behavior of maximal vertices, edges, and triangles. 
+
+2.4.5 Element Interactive Curvature (EIC) 
+
+Element interactive curvature (EIC), introduced by Nguyen and Wei [17], represents molecular interactions through the differential geometry of continuous, element-resolved density fields. Consider a molecular system containing atoms at positions xj with associated weights wj . A continuous field is obtained from the discrete atomic configuration through 
+
+ρ(x; {ηj }, {wj }) = 
+
+> N
+
+∑
+
+> j=1
+
+wj Φ( ∥x − xj ∥; ηj ), (7) where wj = 1 produces a number-density field, whereas wj = qj produces a charge-density field. The correlation kernel Φ is assumed to be a monotonically decreasing C2 radial function satisfying Φ( d; η) → 1 as d → 0, Φ( d; η) → 0 as d → ∞ .
+
+Two commonly used choices are the generalized exponential and generalized Lorentz kernels, ΦE(d; η) = exp 
+
+[
+
+−
+
+( dη
+
+)κ]
+
+, κ > 0,
+
+ΦL(d; η) = 11 + 
+
+( dη
+
+)ν , ν > 0. (8) Chemical specificity is introduced by resolving the density field according to element pairs. For element type a, define its van der Waals domain by 
+
+Da = ⋃
+
+> i:ei=a
+
+B(xi, r i).
+
+For distinct element types a and b, the density generated by atoms of type b over the domain Da is 
+
+ρab (x; ηab ) = ∑     
+
+> j:ej=b
+> ∥xi−xj∥>r i+rj+σ, ∀i:ei=a
+
+wj Φ( ∥x − xj ∥; ηab ), x ∈ Da, (9) 13 where ri and rj are atomic radii and σ denotes the dataset-dependent correction used in the original EIC formulation. The distance condition removes covalent contributions from the interaction density. For interactions involving identical element types, atom-specific van der Waals domains are used to exclude self-contributions. Spatial scale is controlled through the characteristic interaction length. Following the EIC parametriza-tion, 
+
+ηab (τ ) = τ (¯ra + ¯ rb
+
+),
+
+where ¯ ra and ¯ rb are the van der Waals radii associated with the two element types and τ is dimensionless. Varying τ therefore changes the spatial extent over which the corresponding element-pair interaction is represented. For a fixed pair ( a, b ) and interaction scale ηab , an element-interactive manifold is obtained as a level set of the density field, 
+
+ρab (x; ηab ) = c ρ max , 0 ≤ c ≤ 1,
+
+where 
+
+ρmax = max 
+
+> x∈Da
+
+ρab (x; ηab ).
+
+At a regular point satisfying ∇ρ̸ = 0, define 
+
+g = ρ2 
+
+> x
+
++ ρ2 
+
+> y
+
++ ρ2 
+
+> z
+
+.
+
+The Gaussian curvature K of the level surface is 
+
+K = 1
+
+g2
+
+[
+
+2ρxρy ρxz ρyz + 2 ρxρz ρxy ρyz + 2 ρy ρz ρxy ρxz 
+
+− 2ρxρz ρxz ρyy − 2ρy ρz ρxx ρyz − 2ρxρy ρxy ρzz 
+
++ ρ2 
+
+> z
+
+ρxx ρyy + ρ2
+
+> x
+
+ρyy ρzz + ρ2 
+
+> y
+
+ρxx ρzz − ρ2
+
+> x
+
+ρ2 
+
+> yz
+
+− ρ2 
+
+> y
+
+ρ2 
+
+> xz
+
+− ρ2 
+
+> z
+
+ρ2
+
+> xy
+
+]
+
+, (10) while the mean curvature H is 
+
+H = 12g3/2
+
+[
+
+2ρxρy ρxy + 2 ρxρz ρxz + 2 ρy ρz ρyz 
+
+− (ρ2 
+
+> y
+
++ ρ2 
+
+> z
+
+)ρxx − (ρ2 
+
+> x
+
++ ρ2 
+
+> z
+
+)ρyy − (ρ2 
+
+> x
+
++ ρ2 
+
+> y
+
+)ρzz 
+
+]
+
+. (11) The two principal curvatures are then 
+
+κmin = H − √H2 − K, κmax = H + √H2 − K. 
+
+Together, these curvature quantities describe the local differential geometry of the element-specific interaction manifold at a prescribed spatial scale. Because the density fields are constructed from radial functions of Euclidean distance, relabeling atoms does not alter the resulting fields, provided the associated element labels and weights are preserved. Rigid translations and rotations carry the density fields and their level surfaces rigidly through space without changing their intrinsic curvature values. Gaussian curvature is independent of the orientation assigned to a level surface, whereas the sign of mean curvature depends on the chosen normal orientation. Under a consistent normal convention, the EIC representation is therefore invariant under atom reindexing and Euclidean rigid motions. 
+
+2.4.6 Forman Persistent Ricci Curvature (FPRC) 
+
+Forman persistent Ricci curvature (FPRC) describes how discrete combinatorial curvature changes as a simplicial filtration evolves [18]. Two distinct p-simplices α and ¯ α are said to be parallel, ¯ α ∥ α, when they share a common ( p − 1)-dimensional face but are not simultaneously faces of any common ( p + 1)-simplex. 14 For p > 0, the Forman Ricci curvature assigned to a p-simplex α in an unweighted simplicial complex is 
+
+Fp(α) = # {βp+1 | α < β p+1 } + # {γp−1 | γp−1 < α } − #{¯α | ¯α ∥ α}, (12) where the first term counts the ( p + 1)-dimensional cofaces containing α, the second counts its ( p − 1)-dimensional faces, and the final term counts parallel p-simplices. The curvature therefore combines local face–coface incidence with same-dimensional parallelism. Following the convention adopted in the FPRC construction [18], the curvature of a nonisolated vertex 
+
+v is derived from the Forman curvatures of the incident edges, 
+
+F0(v) = 1
+
+d(v)
+
+∑
+
+> e>v
+
+F1(e), (13) where d(v) denotes the number of edges incident to v. For an isolated vertex, F0(v) is set to zero. Evaluating these curvature quantities over multiple simplex dimensions and filtration values provides a multiscale description of the changing local combinatorial geometry. Forman Ricci curvature is determined entirely by local face–coface incidence and parallel-simplex relations. Because these combinatorial relations are preserved by simplicial isomorphisms and vertex relabelings, corresponding simplices retain the same curvature values. When the filtration is generated from Euclidean distances, translations and rotations additionally preserve the filtered simplicial complexes. The resulting FPRC quantities are therefore invariant under these transformations. Figure 3E shows the scale-dependent signed mean Forman curvature mean( Fp) for p = 0 , 1, 2. As the filtration proceeds, newly introduced simplices modify the local face–coface and parallel-simplex configurations, producing corresponding changes in the mean-curvature curves. In the illustrated 14-point example, the curves eventually coincide and remain constant once the Vietoris–Rips complex becomes the complete clique complex. 
+
+# 2.5 Implementation and Experimental Settings 
+
+MathAgent was implemented as a LangGraph-based agentic workflow with a shared state that coordinates language-model reasoning and deterministic scientific computation. The reported implementation used LangGraph 1.2.11 and GPT-5.6 Terra as the LLM backend. The LLM was restricted to task interpretation, representation and subsampling strategy proposal, and scientific advisory. Its outputs were schema constrained and were validated by deterministic Python procedures before execution; numerical candidate ranking and performance evaluation were performed independently by deterministic computational tools. All predictive experiments used a fixed gradient-boosted tree (GBT) learner, with no hyperparameter optimization performed during representation selection. The GBT model used 4000 estimators, a learning rate of 0.01, a maximum tree depth of 7, and a subsampling rate of 0.5. Predictions were averaged across three runs with random states 42, 43, and 44. Candidate prioritization on the training subsample was based on shared five-fold out-of-fold predictions and a deterministic ranking procedure that considered predictive performance, bootstrap-based ranking stability, computational cost, and fixed tie-breaking rules. To control stochastic variation, the random seeds for training-set subsampling, cross-validation, and bootstrap procedures were fixed at 2026. Representation generation was subject to deterministic quality-control and filtration checks before candidate evaluation. Invalid or inconsistent feature artifacts were rejected, while repairable filtration issues were handled by a deterministic repair procedure before model ranking. For benchmark evaluations using a protected test set, representation selection was completed using training-side and, where applicable, validation evidence before the final representation was fixed and evaluated on the protected test set. 15 3 Results 
+
+# 3.1 Benchmark Design and Evaluation Protocol 
+
+MathAgent was evaluated on nine molecular prediction benchmarks spanning protein–ligand binding-affinity prediction and quantitative toxicity prediction. Five mathematical invariant families were available to the workflow: persistent homology (PH), persistent Laplacian (PL), commutative algebra (CA), element interactive curvature (EIC), and Forman persistent Ricci curvature (FPRC). A common gradient-boosted tree (GBT)-based downstream modeling protocol was used throughout the present experiments. This controlled setting allows differences among MathAgent runs to be examined primarily in terms of adaptive representation construction and invariant selection rather than changes in predictive architecture. For protein–ligand binding-affinity prediction, we considered two complementary benchmark settings. The CASF-2007, CASF-2013, and CASF-2016 benchmarks evaluate scoring power using the PDBbind refined-set/core-set protocol [45–48]. CASF-2007 uses 1,105 training complexes and a 195-complex core test set, whereas the commonly used CASF-2013 protocol contains 2,764 training complexes and 195 test complexes. CASF-2016 contains 3,772 training complexes and 285 core-set test complexes [47, 48]. We additionally evaluated MathAgent on the LBA30 and LBA60 benchmarks, which are derived from PDBbind using protein sequence-identity-based partitioning [49]. The reference LBA30 split comprises 3,507 training, 466 validation, and 490 test complexes, whereas the reference LBA60 split comprises 3,678 training, 460 validation, and 460 test complexes. For quantitative toxicity prediction, four established endpoints were considered: IGC50, LC50, LC50DM, and LD50 [50]. IGC50 measures the concentration required to inhibit 50% of the growth of Tetrahymena pyriformis after 40 h. LC50 denotes the concentration of a test chemical in water that causes 50% mortality in fathead minnows after 96 h, whereas LC50DM measures the corresponding 50% lethal concentration for Daphnia magna after 48 h. LD50 quantifies the orally administered dose that results in 50% mortality in rats. Let yi and ˆ yi denote the reference and predicted target values, respectively, for sample i, and let ¯ y and ¯ˆy denote their sample means. The Pearson correlation coefficient is defined as PCC( y, ˆy) = 
+
+∑Ni=1 (yi − ¯y)(ˆ yi − ¯ˆy)
+
+√∑Ni=1 (yi − ¯y)2
+
+√∑Ni=1 (ˆ yi − ¯ˆy)2
+
+,
+
+and the root mean squared error is RMSE = 
+
+√√√√ 1
+
+N
+
+> N
+
+∑
+
+> i=1
+
+(yi − ˆyi)2.
+
+For the toxicity benchmarks, the squared Pearson correlation coefficient is reported as PCC 2 = [PCC( y, ˆy)] 2 ,
+
+together with RMSE, following the reporting convention adopted in previous quantitative toxicity studies [50–52]. A consistent evaluation protocol was used across all benchmarks. Candidate representations were selected using training-side evidence, and the selected representation was fixed before the held-out test set was accessed. The reported MathAgent result was then obtained from a single evaluation on the corresponding test set. 
+
+# 3.2 Protein–Ligand Binding-Affinity Prediction 
+
+3.2.1 CASF Scoring-Power Benchmarks 
+
+Protein–ligand binding affinity is a key metric in drug discovery, quantifies the interaction strength between a ligand and its macromolecular target, and is a central quantity in structure-based drug discovery [53, 54]. 16 Accurate computational prediction of binding affinity has therefore become an important objective in molecular modeling and machine learning, and is the first key metric we predict by MathAgent. While multiple ligand affinity benchmarks are available, our initial focuses for evaluating MathAgent were the CASF-2007, CASF-2013, and CASF-2016 scoring-power datasets [45–47], so that we can better compare to prior approaches. For each benchmark, invariant selection was performed exclusively from training-side evidence, after which the selected representation was fixed and evaluated once on the corresponding core test set. This protocol preserves a clear separation between representation selection and final benchmark evaluation. Table 1 compares MathAgent with representative machine-learning and conventional scoring methods reported under the corresponding CASF benchmark protocols. Depending on the input dataset, MathAgent selected different features to build a predictive model, using EIC+FPRC+PH+PL for CASF-2007, EIC+FPRC for CASF-2013, and EIC+FPRC+PH+PL for CASF-2016. This variation shows that the framework does not impose a fixed mathematical representation across related protein–ligand scoring tasks, but instead adapts the selected invariant combination to the characteristics of each benchmark dataset. These different approaches yielded PCC values of 0.825, 0.780, and 0.831 and RMSE values of 1.409, 1.496, and 1.297, respectively (Table 1). Across the three CASF benchmarks, MathAgent achieves higher PCC values than the reference methods included in Table 1. On CASF-2007, MathAgent attains a PCC of 0.825, exceeding the reported values for ChemScore@SYBYL, PLP1@DS, G-Score@SYBYL, PLP2@DS, ASP@GOLD, ChemScore@GOLD, D-Score@SYBYL, LUDI3@DS, LigScore2@DS, and LUDI2@DS. On CASF-2013, MathAgent achieves a PCC of 0.780, exceeding PLEC [55], Pafnucy [56], and the conventional scoring functions listed in the table, including X-Score, ChemPLP@GOLD, PLP1@DS, ASP@GOLD, and ChemScore@SYBYL. On CASF-2016, MathAgent achieves a PCC of 0.831, exceeding PLEC, Pafnucy, X-Score, ChemPLP@GOLD, ASP@GOLD, ChemScore@SYBYL, and the other conventional scoring functions included in the comparison.                                                                       
+
+> Table 1: Comparison of scoring power on the CASF-2007, CASF-2013, and CASF-2016 protein–ligand binding-affinity benchmarks, evaluated by the PCC. Published values are compiled from the corresponding CASF studies and cited method references [45–47, 55–57]. A dash indicates that a result was not reported for the corresponding benchmark. Method CASF-2007 CASF-2013 CASF-2016 PLEC [55] –0.757 0.817 Pafnucy [56] –0.700 0.780 X-Score –0.622 0.631 X-ScoreHS –0.620 0.629 X-ScoreHM –0.614 0.609 X-ScoreHP –0.607 0.621 ChemScore@SYBYL 0.555 0.592 0.590 ChemPLP@GOLD –0.579 0.614 PLP1@DS 0.545 0.568 0.581 G-Score@SYBYL 0.492 0.558 0.572 PLP2@DS 0.535 0.558 0.563 ASP@GOLD 0.534 0.556 0.617 ASE@MOE –0.544 0.591 ChemScore@GOLD 0.441 0.536 0.574 D-Score@SYBYL 0.392 0.526 0.531 Alpha-HB@MOE –0.511 0.569 LUDI3@DS 0.487 0.487 0.502 Affinity-dG@MOE –0.482 0.552 LigScore2@DS 0.464 0.456 0.540 GlideScore-SP –0.452 0.513 LUDI2@DS 0.410 0.451 0.526 MathAgent 0.825 0.780 0.831
+
+17 3.2.2 Sequence-Generalization on LBA Benchmarks 
+
+The CASF benchmarks assess scoring power under the conventional PDBbind refined-set/core-set protocol but do not explicitly control protein sequence similarity across data partitions. To examine generalization to less homologous protein targets, MathAgent was further evaluated on the Atom3D-derived LBA30 and LBA60 benchmarks, which employ sequence-identity-based partitioning [49]. For LBA30 and LBA60, MathAgent selected EIC+FPRC and EIC, respectively. The corresponding PCC values were 0.623 and 0.787, with RMSE values of 1.326 and 1.262. In both cases, representation selection was completed using training and validation information before access to the held-out test set, and the fixed representation was subsequently evaluated once on the corresponding test partition. On LBA30, MathAgent achieves a PCC of 0.623 and an RMSE of 1.326. The PCC exceeds those of most sequence-based, geometric, and pretrained baselines included in Table 2, while remaining slightly below BindNet. The RMSE is lower than the values reported for the listed comparison methods. Because LBA30 imposes the more stringent sequence-identity threshold, these results provide evidence that the selected mathematical representation retains predictive information under reduced protein homology between training and test sets. On LBA60, MathAgent achieves a PCC of 0.787 and an RMSE of 1.262, placing its performance numerically close to BindNet and SableBind and above several earlier reference methods. Overall, the LBA results complement the CASF scoring-power evaluation by showing that dataset-adaptive invariant selection remains effective under sequence-identity-constrained protein–ligand affinity prediction.                                                                     
+
+> Table 2: Performance on the Atom3D-derived LBA30 and LBA60 sequence-identity benchmarks [49]. RMSE is reported in pK dunits. Reference methods are ordered by LBA30 PCC from highest to lowest; MathAgent is shown separately for comparison. Method LBA30 LBA60 PCC RMSE PCC RMSE BindNet [58] 0.632 1.340 0.793 1.230 SableBind [59] 0.579 1.527 0.802 1.246 GeoSSL [60] 0.577 1.451 ––Uni-Mol [61] 0.565 1.434 0.753 1.357 ProNet [62] 0.551 1.463 0.765 1.343 Atom3D-CNN [49] 0.550 1.416 0.608 1.621 Atom3D-GNN [49] 0.545 1.601 0.743 1.408 HoloProt [63] 0.509 1.464 0.749 1.365 DeepDTA [64] 0.472 1.866 0.666 1.762 SMT-DTA [65] 0.458 1.574 0.758 1.347 ProtTrans [66] 0.438 1.544 0.595 1.641 DeepAffinity [67] 0.415 1.893 ––Atom3D-ENN [49] 0.389 1.568 0.623 1.620 TAPE [68] 0.338 1.890 0.568 1.633 MathAgent 0.623 1.326 0.787 1.262
+
+# 3.3 Quantitative Toxicity Prediction 
+
+Quantitative toxicity prediction is a fundamental component of chemical safety assessment and drug discovery, where the objective is to estimate the adverse biological effects associated with chemical exposure. We evaluated MathAgent on four established quantitative toxicity benchmarks: IGC50, LC50, LC50DM, and LD50. MathAgent exhibits distinct predictive performance across the four toxicity endpoints. On IGC50, the selected representation achieves PCC 2 of 0.733 and RMSE of 0 .508, placing its performance within the range of several established molecular-descriptor and toxicity-prediction approaches[50–52, 69, 71]. For 18 Table 3: Performance comparison on four quantitative toxicity benchmarks [50–52]. Squared Pearson correlation coefficient (PCC 2) and RMSE are reported when available. MathAgent results are obtained from a single evaluation of the fixed test set after the invariant combination has been selected using training-side evidence. A dash indicates that the corresponding metric was not reported in the source study. Method IGC50 LC50 LC50DM LD50 PCC 2 RMSE PCC 2 RMSE PCC 2 RMSE PCC 2 RMSE Hybrid model [69] 0.810 – 0.678 – 0.616 – 0.629 –3D MT-DNN consensus [50] 0.802 0.438 0.789 0.677 0.678 0.978 0.653 0.568 2D MTDNN consensus [52] 0.794 0.457 0.765 0.718 0.725 0.935 0.639 0.549 BTAMDL [70] 0.793 0.447 0.778 0.694 0.741 0.934 0.638 0.580 AweGNN [71] 0.789 0.451 0.737 0.753 0.541 1.171 0.667 0.557 2D GBDT consensus [52] 0.785 0.457 0.715 0.783 0.486 1.239 0.679 0.580 T.E.S.T. consensus [51] 0.764 0.475 0.728 0.768 0.739 0.911 0.626 0.594 FDA [51] 0.747 0.489 0.626 0.915 0.565 1.190 0.557 0.657 Estate2 [52] 0.742 – 0.662 – 0.623 – 0.589 –Estate1 [52] 0.735 – 0.694 – 0.684 – 0.605 –Hierarchical [51] 0.719 0.539 0.710 0.801 0.695 0.979 0.578 0.650 Daylight [52] 0.717 – 0.724 – 0.694 – 0.617 –Group contribution [51] 0.682 0.575 0.686 0.810 0.671 0.803 – –FP2 [52] 0.681 – 0.609 – 0.357 – 0.631 –MACCS [52] 0.643 – 0.608 – 0.434 – 0.643 –Nearest neighbor [51] 0.600 0.638 0.667 0.876 0.733 0.975 0.557 0.656 MathAgent 0.733 0.508 0.724 0.772 0.471 1.267 0.629 0.590 
+
+LC50, MathAgent attains PCC 2 of 0.724 and RMSE of 0 .772. The corresponding correlation matches that reported for the Daylight representation and is close to the T.E.S.T. consensus, which yields PCC 2 of 0.728 and RMSE of 0 .768. For LD50, the largest toxicity dataset considered here, MathAgent obtains PCC 2 of 0.629 and RMSE of 0 .590. Its correlation is comparable to those reported for FP2, the T.E.S.T. consensus, and the Hybrid model, although several multitask, ensemble, and graph-based approaches achieve higher values. These results indicate that the adaptively selected mathematical representations retain useful predictive signal across several toxicity endpoints, although their performance is more variable than on the protein–ligand benchmarks and does not uniformly match task-specific models. LC50DM represents a distinct small-data regime, containing only 283 training molecules and 70 test molecules [50]. Because further subsampling would substantially reduce the information available for representation screening, all 283 training compounds were used during candidate evaluation. The leading invariant combinations achieved similar training-side performance, providing limited evidence for a stable candidate ranking. Following the predefined selection protocol, EIC+FPRC+PH was retained and achieved a PCC 2 of 0.471 on the held-out test set. This result highlights the greater uncertainty of representation selection in data-limited settings. A natural future extension would be to couple MathAgent with closed-loop experimental design, allowing uncertain predictions or representation choices to guide the acquisition of informative new training data [72]. 
+
+# 3.4 Objective-Conditioned Workflow Adaptation 
+
+In addition to predictive benchmarking, we evaluated whether MathAgent adjusts its execution strategy in response to different user-specified objectives. Figure 4 contrasts two representative settings: a target-constrained LD50 task and a best-available CASF-2016 task. These analyses are intended to characterize objective-dependent workflow behavior rather than to provide additional benchmark comparisons. Detailed representation proposals, subsample construction, and quality-control decisions for both executions are summarized in the figure. For the target-constrained LD50 task, the admissible invariant families were restricted to PH, PL, and CA, yielding seven nonempty candidate combinations, and the user specified a target of PCC 2 ≥ 0.60. 19 Case A: target-constrained execution  Case B: best-available execution 
+
+User objective       
+
+> ●task: LD50 Quantitative toxicity regression
+> ●allowed methods: PH, PL, CA
+> ●objective: satisfy PCC² >= 0.6
+
+Adaptive design and screening evidence            
+
+> ●LLM representation proposals: hydrogen-inclusive 97.5%
+> range vs. heavy-atom 90% range
+> ●Deterministic selection: hydrogen-inclusive 97.5% range; 35 valid pair groups.
+> ●LLM subsampling proposal: target-size stratified, n≈750;
+> deterministic validation gives n=751.
+> ●QC repair: CA 0 –18.16 Å → 0– 9.64 Å; PH/PL reused
+> unchanged.
+> ●Combination ranking: PL(rank 1), PH+PL(rank 2).
+
+Progressive evaluation    
+
+> ●Candidate order is frozen from screening evidence.
+> ●Evaluate rank-1 PL on full training / acceptance set.
+> ● PCC²=0.607 ≥ 0. 6→ target met → stop after the first full -scale candidate.
+
+Output       
+
+> ●selected combination: PL
+> ●acceptance score: PCC²=0.607
+> ●stop reason: TARGET_MET
+
+TARGET MET 
+
+User objective       
+
+> ●task: CASF-2016 protein-ligand affinity regression
+> ●allowed methods: PH, PL, CA, FPRC, EIC
+> ●objective: maximize over top 5 from screening; no target
+
+Progressive evaluation        
+
+> ●Top-5 candidate order is frozen before acceptance evaluation.
+> ●Evaluate all five candidates
+> ●PCCs in screening order: 0.832, 0.826, 0.834, 0.832, 0.831.
+> ●Best: CA + EIC + FPRC + PH (0.834); top-k exhausted → stop.
+
+Output      
+
+> ●selected combination: ( CA ,EIC ,FPRC, PH)
+> ●acceptance score: PCC = 0.834
+> ●stop reason: MAXIMIZATION_COMPLETE
+
+COMPLETE 
+
+Adaptive design and screening evidence           
+
+> ●LLM representation proposals: support-filtered 95% local
+> range vs. conservative 90% local range.
+> ●Deterministic selection: support-filtered 95% local range; pair support = 99.5%; 30 observed pair groups.
+> ●LLM subsampling proposal: prefer a compact representative subsample with preserved target, size, and pair coverage.
+> ●Subsample sizes: n=381, 750, 754; smallest valid subsample
+> n=381 selected .
+> ●Combination ranking: all 31 nonempty subsets are evaluated on the training subsample.
+
+Figure 4: Objective-conditioned execution of MathAgent for target-constrained LD50 and best-available CASF-2016 tasks, illustrating adaptive candidate selection and stopping behavior under different user objectives. 
+
+After dataset-adaptive representation design and training-side candidate screening, PL received the highest candidate priority, followed by PH+PL. The candidate order was fixed before full-scale acceptance evaluation. The first promoted candidate, PL, achieved PCC 2 of 0.607, satisfying the prescribed target. The workflow therefore terminated after a single full-scale candidate evaluation rather than continuing through the remaining lower-priority combinations. This case demonstrates how a target-constrained objective can translate predictive evidence into an explicit early-stopping decision and thereby limit unnecessary full-scale computation. The CASF-2016 task illustrates a different execution objective. All five invariant families were admissible, producing 31 nonempty candidate combinations, and the objective was to identify the strongest representation within a predefined high-priority candidate pool rather than to satisfy a fixed performance threshold. All 31 combinations were ranked using training-only screening evidence, after which the top-five candidate pool was frozen before acceptance evaluation. Each candidate in this fixed pool was then evaluated, and CA+EIC+FPRC+PH achieved the highest acceptance PCC of 0.834. The workflow terminated only after the entire predefined pool had been evaluated. In contrast to the target-constrained case, this execution allocates additional computation to distinguishing among several high-priority candidates rather than stopping when a sufficient performance level is first reached. The contrast between these two executions shows that MathAgent does not impose a fixed evaluation trajectory across tasks. Instead, the same screening-based prioritization framework supports different evaluation and stopping behaviors according to the user-specified objective. The acceptance results shown here illustrate adaptive workflow control and are distinct from protected-test benchmark evaluation. 20 Table 4: Workflow-level computational reduction in representative MathAgent executions. Subsample/train reports the number of samples used for training-side screening relative to the full training set. Candidate counts report the complete candidate space and the number subsequently evaluated at full scale. Task / objective Subsample / train Candidates space / full-scale LD50, target-constrained 751 / 5931 7 / 1 IGC50, best-available 753 / 1434 31 / 3 LC50, best-available 659 / 659 31 / 7 CASF-2016, best-available 381 / 3772 31 / 5 
+
+# 3.5 Workflow-Level Computational Reduction 
+
+We evaluated the computational efficiency of MathAgent using two workflow-level quantities: the amount of training data used for candidate screening and the number of candidate combinations promoted to full-scale evaluation. These quantities directly reflect the reductions achieved through training-set subsampling, candidate screening, and progressive candidate prioritization. Because end-to-end wall-clock time depends on hardware, system load, and the computational characteristics of individual invariant generators, we focus on these workflow-level measures rather than reporting a hardware-independent speedup. Representative results are summarized in Table 4. Training-set subsampling reduces the amount of data required for preliminary candidate screening when a representative subsample can be constructed. As shown in Table 4, the LD50 and CASF–2016 executions used 751 of 5,931 and 381 of 3,772 training samples, respectively, for initial screening. The IGC50 execution used 753 of 1,434 samples, whereas the smaller LC50 dataset retained all 659 training samples. These results illustrate that subsample size is adapted to the available data rather than fixed across tasks, allowing screening cost to be reduced when subsampling is appropriate while avoiding unnecessary reduction for smaller datasets. Screening-based prioritization further limits the number of candidate combinations requiring full-scale evaluation. With five admissible invariant families, the complete candidate space contains 31 nonempty combinations. Nevertheless, only three candidates were promoted to full-scale evaluation for IGC50, seven for LC50, and five for the CASF–2016 best-available execution. The reduction was more pronounced in the target-constrained LD50 case. Among seven admissible PH/PL/CA combinations, the highest-priority candidate, PL, achieved PCC 2 = 0 .607 and satisfied the user-specified criterion of PCC 2 ≥ 0.60, allowing the workflow to terminate after a single full-scale candidate evaluation. In addition to reducing the amount of data used for screening and the number of full-scale candidate evaluations, MathAgent reuses previously generated invariant feature blocks whenever subsequent candi-dates require compatible representations. This avoids redundant feature generation across overlapping candidate combinations. Overall, the results in Table 4 show that MathAgent reduces computational workload by combining adaptive candidate screening with selective full-scale evaluation and representation reuse. 
+
+# 4 Concluding Remarks 
+
+We developed MathAgent as an agentic framework for adaptive mathematical representation selection in molecular property prediction. In the current implementation, GPT-5.6 Terra supports task interpretation, dataset-aware strategy proposal, and workflow coordination, while numerical scientific operations are carried out by deterministic computational tools. This separation enables flexible workflow adaptation while keeping feature generation, model fitting, candidate ranking, and performance evaluation under deterministic computational control. Across the binding-affinity and toxicity benchmarks, MathAgent selected different invariant combi-nations across datasets and prediction tasks. Within protein–ligand affinity prediction, the preferred representations varied between the conventional CASF scoring-power benchmarks and the sequence-identity-constrained LBA benchmarks, while the toxicity endpoints favored different invariant combi-21 nations. Objective-conditioned executions further demonstrated that the same workflow can operate under distinct user-defined goals, supporting target-constrained evaluation with criterion-based early stopping as well as best-available evaluation over a predefined candidate pool. These findings support a dataset-adaptive and objective-aware approach to mathematical representation selection rather than a fixed invariant composition or evaluation strategy. An additional pattern emerges from the comparison between task types. Relative to the corresponding reference methods, MathAgent is more competitive on the protein–ligand binding-affinity benchmarks than on the small-molecule toxicity benchmarks, where performance varies more substantially across endpoints. One possible explanation is that the mathematical invariants considered here are particularly well suited to structurally complex protein–ligand systems, where multiscale topology, geometry, spectral structure, and element-resolved intermolecular organization provide multiple sources of discriminative information. Individual small molecules are relatively structurally simple and may offer less pronounced multiscale structural organization for these sophisticated representations. Additionally, toxicity may depend more strongly on chemical information that is not explicitly encoded by the current invariant library. This interpretation should be regarded as a hypothesis rather than a mechanistic conclusion, because the present experiments were not designed to isolate structural complexity as a causal factor, and all experiments used the same fixed GBT learner. The study also highlights limitations of the current representation-selection strategy. Training-side candidate prioritization becomes less reliable when the available data are limited or when several representations achieve similar predictive performance, as observed for LC50DM. Under such conditions, the available evidence may be insufficient to establish a stable ordering among near-tied candidates. Candidate rankings should therefore be interpreted primarily as a mechanism for prioritizing subsequent computation rather than as precise estimates of the relative superiority of closely matched representations. The principal contribution of MathAgent is a structured framework that combines dataset-aware strategy generation, deterministic validation, empirical candidate prioritization, computational reuse, and objective-dependent execution within a unified representation-selection workflow. Future work will extend the representation library beyond the current mathematical invariants to include complementary physicochemical descriptors, molecular fingerprints, and learned representations, allowing MathAgent to determine when mathematical invariants are sufficient and when hybrid representations are more appropriate. Future directions include improving candidate selection in data-limited settings, incorporating uncertainty when leading candidates are weakly separated, extending the current fixed-GBT setting toward architecture-aware invariant integration, and considering a wide range of scientific problems both within and beyond molecular sciences. 
+
+# Data and Code Availability 
+
+All datasets used in this study are publicly available. Protein–ligand complex structures and experi-mentally measured binding affinities were obtained from the PDBbind database ( https://www.pdbb ind-plus.org.cn/ ). The quantitative toxicity datasets used in this study are publicly available at https://drive.google.com/drive/folders/1Nl9NgulYc08WjNnJcq1BCAmutCQH2TBb. The source code and implementation used to reproduce the computational experiments in this study are publicly available at https://github.com/yren24/MathAgent. 
+
+# Acknowledgments 
+
+This work was supported in part by NIH grant R35GM148196, the University of Georgia, the Georgia Research Alliance, and the Defense Advanced Research Projects Agency (DARPA) under Agreement No. HR00112969E087. The views and conclusions contained in this document are those of the authors, and should not be interpreted as representing the official policies, either expressed or implied, of the U.S. Government. 22 AI Usage Declaration 
+
+AI was used to assist with sentence structure, grammar, and selected coding tasks during manuscript preparation and implementation. All scientific content, computational results, and final text were reviewed and approved by the authors. GPT-5.6 Terra was also used as the language-model component of the MathAgent framework to support task interpretation, dataset-aware strategy proposal, and workflow coordination, while numerical scientific computations were performed by deterministic tools. 
+
+# References 
+
+[1] Keith T Butler, Daniel W Davies, Hugh Cartwright, Olexandr Isayev, and Aron Walsh. Machine learning for molecular and materials science. Nature , 559(7715):547–555, 2018. [2] Jessica Vamathevan, Dominic Clark, Paul Czodrowski, Ian Dunham, Edgardo Ferran, George Lee, Bin Li, Anant Madabhushi, Parantu Shah, Michaela Spitzer, et al. Applications of machine learning in drug discovery and development. Nature reviews Drug discovery , 18(6):463–477, 2019. [3] Roberto Todeschini and Viviana Consonni. Handbook of molecular descriptors . John Wiley & Sons, 2008. [4] David Rogers and Mathew Hahn. Extended-connectivity fingerprints. Journal of chemical information and modeling , 50(5):742–754, 2010. [5] Albert P Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B—Condensed Matter and Materials Physics , 87(18):184115, 2013. [6] Justin Gilmer, Samuel S Schoenholz, Patrick F Riley, Oriol Vinyals, and George E Dahl. Neural message passing for quantum chemistry. In International conference on machine learning , pages 1263–1272. Pmlr, 2017. [7] Vıctor Garcia Satorras, Emiel Hoogeboom, and Max Welling. E (n) equivariant graph neural networks. In International conference on machine learning , pages 9323–9332. PMLR, 2021. [8] Fabian Fuchs, Daniel Worrall, Volker Fischer, and Max Welling. Se (3)-transformers: 3d roto-translation equivariant attention networks. Advances in neural information processing systems , 33: 1970–1981, 2020. [9] Edelsbrunner, Letscher, and Zomorodian. Topological persistence and simplification. Discrete & computational geometry , 28(4):511–533, 2002. [10] Afra Zomorodian and Gunnar Carlsson. Computing persistent homology. In Proceedings of the twentieth annual symposium on Computational geometry , pages 347–356, 2004. [11] Zixuan Cang, Lin Mu, and Guo-Wei Wei. Representability of algebraic topology for biomolecules in machine learning based scoring and virtual screening. PLoS computational biology , 14(1):e1005929, 2018. [12] Theodore Papamarkou, Tolga Birdal, Michael Bronstein, Gunnar Carlsson, Justin Curry, Yue Gao, Mustafa Hajij, Roland Kwitt, Pietro Lio, Paolo Di Lorenzo, et al. Position: Topological deep learning is the new frontier for relational learning. Proceedings of machine learning research , 235:39529, 2024. [13] Dong Chen, Jian Liu, and Guo-Wei Wei. Multiscale topology-enabled structure-to-sequence trans-former for protein–ligand interaction predictions. Nature Machine Intelligence , 6(7):799–810, 2024. [14] Rui Wang, Duc Duy Nguyen, and Guo-Wei Wei. Persistent spectral graph. International journal for numerical methods in biomedical engineering , 36(9):e3376, 2020. 23 [15] Yuchi Qiu and Guo-Wei Wei. Persistent spectral theory-guided protein engineering. Nature computa-tional science , 3(2):149–163, 2023. [16] Xiaoqi Wei and Guo-Wei Wei. Persistent topological laplacians—a survey. Mathematics , 13(2):208, 2025. [17] Duc Duy Nguyen and Guo-Wei Wei. Dg-gl: Differential geometry-based geometric learning of molecular datasets. International journal for numerical methods in biomedical engineering , 35(3): e3179, 2019. [18] JunJie Wee and Kelin Xia. Forman persistent ricci curvature (fprc)-based machine learning models for protein–ligand binding affinity prediction. Briefings in Bioinformatics , 22(6):bbab136, 2021. [19] Faisal Suwayyid and Guo-Wei Wei. Persistent stanley–reisner theory. Foundations of data science (Springfield, Mo.) , 2025. [20] Faisal Suwayyid, Yuta Hozumi, Mushal Zia, JunJie Wee, Hongsong Feng, and Guo-Wei Wei. Cakr: commutative algebra k-mer representations for genomics. Nature Communications , 17(1):9644, 2026. [21] Duc Duy Nguyen, Zixuan Cang, and Guo-Wei Wei. A review of mathematical representations of biomolecular data. Physical Chemistry Chemical Physics , 22(8):4343–4367, 2020. [22] Zhe Su, Xiang Liu, Layal Bou Hamdan, Vasileios Maroulas, Jie Wu, Gunnar Carlsson, and Guo-Wei Wei. Topological data analysis and topological deep learning beyond persistent homology–a review. 
+
+Artificial Intelligence Review , 2025. [23] JunJie Wee and Jian Jiang. A review of topological data analysis and topological deep learning in molecular sciences. Journal of Chemical Information and Modeling , 65(23):12691–12706, 2025. [24] Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. React: Synergizing reasoning and acting in language models. arXiv preprint arXiv:2210.03629 , 2022. [25] Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. Reflexion: Language agents with verbal reinforcement learning. Advances in neural information processing systems , 36:8634–8652, 2023. [26] Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, et al. Autogen: Enabling next-gen llm applications via multi-agent conversation. arXiv preprint arXiv:2308.08155 , 2023. [27] Qian Huang, Jian Vora, Percy Liang, and Jure Leskovec. Mlagentbench: Evaluating language agents on machine learning experimentation. arXiv preprint arXiv:2310.03302 , 2023. [28] Siyuan Guo, Cheng Deng, Ying Wen, Hechang Chen, Yi Chang, and Jun Wang. Ds-agent: Automated data science by empowering large language models with case-based reasoning. arXiv preprint arXiv:2402.17453 , 2024. [29] Chris Lu, Cong Lu, Robert Tjarko Lange, Jakob Foerster, Jeff Clune, and David Ha. The ai scientist: Towards fully automated open-ended scientific discovery. arXiv preprint arXiv:2408.06292 , 2024. [30] Andres M. Bran, Sam Cox, Oliver Schilter, Carlo Baldassari, Andrew D White, and Philippe Schwaller. Augmenting large language models with chemistry tools. Nature machine intelligence , 6(5):525–535, 2024. [31] Andrew D McNaughton, Gautham Krishna Sankar Ramalaxmi, Agustin Kruel, Carter R Knutson, Rohith A Varikoti, and Neeraj Kumar. Cactus: Chemistry agent connecting tool usage to science. 
+
+ACS omega , 9(46):46563–46573, 2024. 24 [32] Daniil A Boiko, Robert MacKnight, Ben Kline, and Gabe Gomes. Autonomous chemical research with large language models. Nature , 624(7992):570–578, 2023. [33] Keyan Ding, Jing Yu, Junjie Huang, Yuchen Yang, Qiang Zhang, and Huajun Chen. Scitoolagent: a knowledge-graph-driven scientific agent for multitool integration. Nature Computational Science , 5 (10):962–972, 2025. [34] Alireza Ghafarollahi and Markus J Buehler. Sciagents: automating scientific discovery through bioinspired multi-agent intelligent graph reasoning. Advanced Materials , 37(22):2413523, 2025. [35] Isabella Stewart and Markus J Buehler. Molecular analysis and design using generative artificial intelligence via multi-agent modeling. Molecular Systems Design & Engineering , 10(4):314–337, 2025. [36] Facundo Mémoli, Zhengchao Wan, and Yusu Wang. Persistent laplacians: Properties, algorithms and implications. SIAM Journal on Mathematics of Data Science , 4(2):858–884, 2022. [37] Yiqi Wang, Zihao Yan, Jiaqi Zhang, Zhangkai Wu, Mingkai Zheng, Zequn Sun, Yanming Zhu, and Taotao Cai. Map-graph: Provenance-aware shared memory for multi-agent workflows. arXiv preprint arXiv:2608.10509 , 2026. [38] Hwai-Jung Hsu, Cheng-Jan Chi, and Hanna Everett. Ea-graph: Artifact-anchored verification memory for coding agents under upstream drift. arXiv preprint arXiv:2608.04278 , 2026. [39] Leopold Vietoris. Über den höheren zusammenhang kompakter räume und eine klasse von zusam-menhangstreuen abbildungen. Mathematische Annalen , 97(1):454–472, 1927. [40] Herbert Edelsbrunner and John Harer. Computational topology: an introduction . American Mathe-matical Soc., 2010. [41] Herbert Edelsbrunner. Alpha shapes-a survey. In Tessellations in the sciences: Virtues, techniques and applications of geometric tilings . 2011. [42] Rui Wang, Rundong Zhao, Emily Ribando-Gros, Jiahui Chen, Yiying Tong, and Guo-Wei Wei. Hermes: Persistent spectral graph software. Foundations of data science (Springfield, Mo.) , 3(1):67, 2021. [43] Beno Eckmann. Harmonische funktionen und randwertaufgaben in einem komplex. Commentarii Mathematici Helvetici , 17(1):240–255, 1944. [44] Benjamin Jones and Guo-Wei Wei. Petls: Persistent topological laplacian software. arXiv preprint arXiv:2508.11560 , 2025. [45] Tiejun Cheng, Xun Li, Yan Li, Zhihai Liu, and Renxiao Wang. Comparative assessment of scoring functions on a diverse test set. Journal of chemical information and modeling , 49(4):1079–1093, 2009. [46] Yan Li, Li Han, Zhihai Liu, and Renxiao Wang. Comparative assessment of scoring functions on an updated benchmark: 2. evaluation methods and general results. Journal of chemical information and modeling , 54(6):1717–1736, 2014. [47] Minyi Su, Qifan Yang, Yu Du, Guoqin Feng, Zhihai Liu, Yan Li, and Renxiao Wang. Comparative assessment of scoring functions: the casf-2016 update. Journal of chemical information and modeling ,59(2):895–913, 2018. [48] Zhihai Liu, Yan Li, Li Han, Jie Li, Jie Liu, Zhixiong Zhao, Wei Nie, Yuchen Liu, and Renxiao Wang. Pdb-wide collection of binding data: current status of the pdbbind database. Bioinformatics , 31(3): 405–412, 2015. [49] Raphael JL Townshend, Martin Vögele, Patricia Suriana, Alexander Derry, Alexander Powers, Yianni Laloudakis, Sidhika Balachandar, Bowen Jing, Brandon Anderson, Stephan Eismann, et al. Atom3d: Tasks on molecules in three dimensions. arXiv preprint arXiv:2012.04035 , 2020. 25 [50] Kedi Wu and Guo-Wei Wei. Quantitative toxicity prediction using topology based multitask deep neural networks. Journal of chemical information and modeling , 58(2):520–531, 2018. [51] Todd M. Martin. User’s guide for t.e.s.t. (version 4.2): Toxicity estimation software tool—a program to estimate toxicity from molecular structure. Technical Report EPA/600/R-16/058, U.S. Environmental Protection Agency, Office of Research and Development, Washington, DC, 2016. [52] Kaifu Gao, Duc Duy Nguyen, Vishnu Sresht, Alan M Mathiowetz, Meihua Tu, and Guo-Wei Wei. Are 2d fingerprints still valuable for drug discovery? Physical chemistry chemical physics , 22(16): 8373–8390, 2020. [53] Heng Cai, Chao Shen, Tianye Jian, Xujun Zhang, Tong Chen, Xiaoqi Han, Zhuo Yang, Wei Dang, Chang-Yu Hsieh, Yu Kang, et al. Carsidock: a deep learning paradigm for accurate protein–ligand docking and screening based on large-scale pre-training. Chemical Science , 15(4):1449–1471, 2024. [54] Qurrat Ul Ain, Antoniya Aleksandrova, Florian D Roessler, and Pedro J Ballester. Machine-learning scoring functions to improve structure-based binding affinity prediction and virtual screening. Wiley Interdisciplinary Reviews: Computational Molecular Science , 5(6):405–424, 2015. [55] Maciej Wójcikowski, Michał Kukiełka, Marta M Stepniewska-Dziubinska, and Pawel Siedlecki. Development of a protein–ligand extended connectivity (plec) fingerprint and its application for binding affinity predictions. Bioinformatics , 35(8):1334–1341, 2019. [56] Marta M Stepniewska-Dziubinska, Piotr Zielenkiewicz, and Pawel Siedlecki. Development and evaluation of a deep learning model for protein–ligand binding affinity prediction. Bioinformatics , 34 (21):3666–3674, 2018. [57] Cheng Wang and Yingkai Zhang. Improving scoring-docking-screening powers of protein–ligand scoring functions using random forest. Journal of computational chemistry , 38(3):169–177, 2017. [58] Shikun Feng, Minghao Li, Yinjun Jia, Weiying Ma, and Yanyan Lan. Protein-ligand binding representation learning from fine-grained interactions. arXiv preprint arXiv:2311.16160 , 2023. [59] Jiashan Li and Xinqi Gong. Harnessing pre-trained models for accurate prediction of protein-ligand binding affinity. BMC bioinformatics , 26(1):55, 2025. [60] Shengchao Liu, Hongyu Guo, and Jian Tang. Molecular geometry pretraining with se (3)-invariant denoising distance matching. arXiv preprint arXiv:2206.13602 , 2022. [61] Gengmo Zhou, Zhifeng Gao, Qiankun Ding, Hang Zheng, Hongteng Xu, Zhewei Wei, Linfeng Zhang, and Guolin Ke. Uni-mol: A universal 3d molecular representation learning framework. In The eleventh international conference on learning representations , 2023. [62] Limei Wang, Haoran Liu, Yi Liu, Jerry Kurtin, and Shuiwang Ji. Learning hierarchical protein representations via complete 3d graph networks. arXiv preprint arXiv:2207.12600 , 2022. [63] Vignesh Ram Somnath, Charlotte Bunne, and Andreas Krause. Multi-scale representation learning on proteins. Advances in Neural Information Processing Systems , 34:25244–25255, 2021. [64] Hakime Öztürk, Arzucan Özgür, and Elif Ozkirimli. Deepdta: deep drug–target binding affinity prediction. Bioinformatics , 34(17):i821–i829, 2018. [65] Qizhi Pei, Lijun Wu, Jinhua Zhu, Yingce Xia, Shufang Xie, Tao Qin, Haiguang Liu, and Tie-Yan Liu. Smt-dta: Improving drug-target affinity prediction with semi-supervised multi-task training. arXiv preprint arXiv:2206.09818 , 2022. [66] Ahmed Elnaggar, Michael Heinzinger, Christian Dallago, Ghalia Rehawi, Yu Wang, Llion Jones, Tom Gibbs, Tamas Feher, Christoph Angerer, Martin Steinegger, et al. Prottrans: toward understanding the language of life through self-supervised learning. IEEE transactions on pattern analysis and machine intelligence , 44(10):7112–7127, 2021. 26 [67] Mostafa Karimi, Di Wu, Zhangyang Wang, and Yang Shen. Deepaffinity: interpretable deep learning of compound–protein affinity through unified recurrent and convolutional neural networks. 
+
+Bioinformatics , 35(18):3329–3338, 2019. [68] Roshan Rao, Nicholas Bhattacharya, Neil Thomas, Yan Duan, Peter Chen, John Canny, Pieter Abbeel, and Yun Song. Evaluating protein transfer learning with tape. Advances in neural information processing systems , 32, 2019. [69] S Jannicke Moe, Anders L Madsen, Kristin A Connors, Jane M Rawlings, Scott E Belanger, Wayne G Landis, Raoul Wolf, and Adam D Lillicrap. Development of a hybrid bayesian network model for predicting acute fish toxicity using multiple lines of evidence. Environmental Modelling & Software ,126:104655, 2020. [70] Jian Jiang, Rui Wang, Menglun Wang, Kaifu Gao, Duc Duy Nguyen, and Guo-Wei Wei. Boosting tree-assisted multitask deep learning for small scientific datasets. Journal of chemical information and modeling , 60(3):1235–1244, 2020. [71] Timothy Szocinski, Duc Duy Nguyen, and Guo-Wei Wei. AweGNN: Auto-parametrized weighted element-specific graph neural networks for molecules. Computers in biology and medicine , 134:104460, 2021. [72] Pranal Chhetri. Closed-loop agentic ai in drug discovery. RSC Medicinal Chemistry , 2026. 27

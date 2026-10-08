@@ -1,0 +1,57 @@
+{
+  "date": "20261008",
+  "date_label": "",
+  "generated_at": "2026-10-08 00:15:12 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2610.07614v1",
+      "route": "202610/08/2610.07614v1-biostudybench-evaluating-agents-on-post-cutoff-biomedical-studies",
+      "title": "BioStudyBench: Evaluating Agents on Post-Cutoff Biomedical Studies",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "评估智能体长周期生物医学研究能力的基准",
+      "first_seen_at": "2026-10-08 00:15:12 UTC",
+      "updated_at": "2026-10-08 00:15:12 UTC"
+    },
+    {
+      "paper_id": "2610.03992v1",
+      "route": "202610/08/2610.03992v1-mathagent-multi-agent-optimization-of-mathematical-invariants-for-molecular-property-prediction",
+      "title": "MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "面向分子性质预测、优化不变量表示的LLM多智能体框架",
+      "first_seen_at": "2026-10-08 00:15:12 UTC",
+      "updated_at": "2026-10-08 00:15:12 UTC"
+    },
+    {
+      "paper_id": "2610.06695v1",
+      "route": "202610/08/2610.06695v1-medprune-topology-efficient-multimodal-multi-agent-communication-evolution-for-medical-vqa-tasks",
+      "title": "MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "llmagt"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "面向医学视觉问答的高效多模态多智能体协作框架",
+      "first_seen_at": "2026-10-08 00:15:12 UTC",
+      "updated_at": "2026-10-08 00:15:12 UTC"
+    }
+  ]
+}
