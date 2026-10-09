@@ -1,15 +1,15 @@
 {
   "mode": "standard",
-  "generated_at": "2026-10-08T00:11:01.762175+00:00",
+  "generated_at": "2026-10-08T23:56:49.749186+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
     "deep_divecandidates": 1,
     "deep_cap": 6,
     "deep_selected": 1,
-    "quick_candidates": 2,
+    "quick_candidates": 5,
     "quick_skim_target": 11,
-    "quick_selected": 2
+    "quick_selected": 5
   },
   "deep_dive": [
     {
@@ -33,13 +33,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "benchmark evaluating AI agents on long-horizon biomedical research studies",
-      "llm_evidence_cn": "评估智能体长周期生物医学研究能力的基准",
-      "llm_evidence": "评估智能体长周期生物医学研究能力的基准",
-      "canonical_evidence": "评估智能体长周期生物医学研究能力的基准",
-      "llm_tldr_en": "BioStudyBench evaluates whether AI agents can reproduce findings of post-cutoff biomedical studies using public data. Agents must find and download data and report results, separating genuine analysis from prior knowledge or answer retrieval.",
-      "llm_tldr_cn": "现有对AI智能体的评测难以区分其自身分析能力与对已发表答案的检索或先验知识，导致评估不够严格。作者构建BioStudyBench基准，从404019条PubMed记录中半自动筛选出25个长周期分析任务，任务均来自模型知识截止之后发表的生物医学研究。智能体只获得中性研究问题、没有数据文件，需自行查找并下载公开数据、通过仅返回截止前文献的工具检索，并以数据分析形式报告结论。该基准能更真实地衡量智能体的科研分析与发现能力，为生物医学智能体评估提供无泄漏的严格标准。",
-      "llm_tldr": "现有对AI智能体的评测难以区分其自身分析能力与对已发表答案的检索或先验知识，导致评估不够严格。作者构建BioStudyBench基准，从404019条PubMed记录中半自动筛选出25个长周期分析任务，任务均来自模型知识截止之后发表的生物医学研究。智能体只获得中性研究问题、没有数据文件，需自行查找并下载公开数据、通过仅返回截止前文献的工具检索，并以数据分析形式报告结论。该基准能更真实地衡量智能体的科研分析与发现能力，为生物医学智能体评估提供无泄漏的严格标准。",
+      "llm_evidence_en": "agents conducting post-cutoff biomedical studies from public data",
+      "llm_evidence_cn": "智能体开展截断后生物医学研究",
+      "llm_evidence": "智能体开展截断后生物医学研究",
+      "canonical_evidence": "智能体开展截断后生物医学研究",
+      "llm_tldr_en": "BioStudyBench evaluates whether AI agents can reproduce published biomedical findings from public data, separating analysis from prior knowledge.",
+      "llm_tldr_cn": "现有评测难以区分智能体的真实分析能力与对已发表答案的先验记忆或检索。作者构建BioStudyBench，从404019篇PubMed记录中筛选出25个发表于模型知识截止之后的生物医学长时程分析任务。智能体仅获中性研究问题，须自行检索下载公共数据并复现研究发现。该基准为评估智能体真实科研能力提供了更严格的标准。",
+      "llm_tldr": "现有评测难以区分智能体的真实分析能力与对已发表答案的先验记忆或检索。作者构建BioStudyBench，从404019篇PubMed记录中筛选出25个发表于模型知识截止之后的生物医学长时程分析任务。智能体仅获中性研究问题，须自行检索下载公共数据并复现研究发现。该基准为评估智能体真实科研能力提供了更严格的标准。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -50,6 +50,93 @@
     }
   ],
   "quick_skim": [
+    {
+      "id": "2609.38879v1",
+      "source": "arxiv",
+      "title": "Does Learning Protein Folding Generalize to Broader Reasoning?",
+      "abstract": "Large language models rely heavily on human text, which often conveys surface answers rather than the spatial and structural logic behind them. Protein folding is a natural testbed, because one solved structure yields thousands of exactly checkable spatial and topological statements. We ask: can learning to fold proteins teach general models reusable reasoning capabilities? To answer this, we build FoldingCorpus, a protein-derived question-answer dataset, and Fold2Reason, a recipe that post-trains on it through two complementary signals: discrete structural answers predicted via the model's native language head, and continuous 3D geometry decoded from the same shared representations. On FoldBench, Fold2Reason achieves structure prediction scores 2.7 to 3.5 times those of Qwen3.5-9B. Beyond protein structure prediction, it improves performance on all 10 benchmarks spanning spatial, graph, scientific, and general reasoning, raising macro-average accuracy from 45.09% to 48.33% (+3.23 pp), with positive gains on all 10 benchmarks, while matched controls built from random, synthetic, and shuffled structure yield substantially smaller or negative gains. Our work shows that non-linguistic, structure-dense scientific data can systematically improve broad reasoning in language models, making a solved scientific problem a practical source of post-training supervision.",
+      "authors": [
+        "Yong Liu",
+        "Zhanpeng Shi",
+        "Yizhou Dang",
+        "Zhongyue Zhang",
+        "Xiaoliang Shi",
+        "Zhijian Wei",
+        "Shuangjia Zheng"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-09-30T03:28:40+00:00",
+      "link": "https://arxiv.org/pdf/2609.38879v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM post-training on protein folding QA for computational biology reasoning",
+      "llm_evidence_cn": "用蛋白质折叠问答对LLM进行后训练",
+      "llm_evidence": "用蛋白质折叠问答对LLM进行后训练",
+      "canonical_evidence": "用蛋白质折叠问答对LLM进行后训练",
+      "llm_tldr_en": "The paper asks whether learning protein folding can teach LLMs reusable reasoning, building a protein-derived QA dataset and a two-signal post-training recipe that improves structural reasoning.",
+      "llm_tldr_cn": "针对大语言模型依赖人类文本、缺乏空间结构逻辑的问题，作者以蛋白质折叠作为测试平台，构建了由蛋白质衍生的问答数据集FoldingCorpus，并提出Fold2Reason后训练方法，通过离散结构答案与连续三维几何两种互补信号进行学习。在FoldBench上结构预测得分显著提升，表明折叠学习能迁移到更广泛的推理能力，为计算生物学中的LLM应用提供了新思路。",
+      "llm_tldr": "针对大语言模型依赖人类文本、缺乏空间结构逻辑的问题，作者以蛋白质折叠作为测试平台，构建了由蛋白质衍生的问答数据集FoldingCorpus，并提出Fold2Reason后训练方法，通过离散结构答案与连续三维几何两种互补信号进行学习。在FoldBench上结构预测得分显著提升，表明折叠学习能迁移到更广泛的推理能力，为计算生物学中的LLM应用提供了新思路。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2610.03852v1",
+      "source": "arxiv",
+      "title": "Testing Large Language Model Agents on the Use of Biological Tools for Nucleic Acid Synthesis Screening Evasion",
+      "abstract": "This report is a continuation of previous efforts to test the ability of large language model (LLM)-driven artificial intelligence (AI) agents to interface with AI-enabled biological tools (BTs). While rapid advancements in BTs in recent years have brought promise to accelerate scientific discovery, they also raise significant biosecurity concerns about potential misuse. The biosecurity community is particularly interested in the extent to which LLMs can lower technical barriers and assist non-expert users in accessing and operating BTs. Despite this interest, few evaluations have focused on LLM-BT interactions in the context of a defined threat model. To address this gap, this report describes a test of frontier LLM-driven AI Agents on their ability to use BTs to redesign peptides and proteins to evade nucleic acid synthesis screening measures. Highly relevant to biorisk, this task assesses a potential capability of AI agents that could enable a breach of a critical early defensive layer designed to prevent a multitude of biological misuse scenarios. The findings presented here intend to offer a foundation for biosecurity researchers and AI developers to conduct or further risk and capability assessments as these technologies progress.",
+      "authors": [
+        "Jeffrey Lee",
+        "Alyssa Worland",
+        "Christopher Rodriguez",
+        "Kyle Brady",
+        "Grant Ellison",
+        "Henry Alexander Bradley",
+        "Dawid Maciorowski",
+        "Jordan Despanie",
+        "Barbara Del Castello",
+        "Jason Johnson",
+        "Steph Guerra"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-10-02T17:03:41+00:00",
+      "link": "https://arxiv.org/pdf/2610.03852v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM agents interfacing with AI-enabled biological tools",
+      "llm_evidence_cn": "大模型智能体与生物工具交互",
+      "llm_evidence": "大模型智能体与生物工具交互",
+      "canonical_evidence": "大模型智能体与生物工具交互",
+      "llm_tldr_en": "Tests LLM-driven AI agents using AI-enabled biological tools for nucleic acid synthesis screening evasion, probing biosecurity risks of misuse.",
+      "llm_tldr_cn": "该报告关注大语言模型驱动的智能体与生物工具交互所引发的生物安全风险，指出以往评估多缺乏明确威胁模型。作者针对核酸合成筛查规避场景，测试前沿模型智能体调用AI赋能生物工具的能力。结果显示大模型可在一定程度上降低非专家操作生物工具的技术门槛。该工作为评估LLM与生物工具交互的安全风险提供了实证框架。",
+      "llm_tldr": "该报告关注大语言模型驱动的智能体与生物工具交互所引发的生物安全风险，指出以往评估多缺乏明确威胁模型。作者针对核酸合成筛查规避场景，测试前沿模型智能体调用AI赋能生物工具的能力。结果显示大模型可在一定程度上降低非专家操作生物工具的技术门槛。该工作为评估LLM与生物工具交互的安全风险提供了实证框架。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "Autonomous agents for biological research",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
     {
       "id": "2610.03992v1",
       "source": "arxiv",
@@ -71,13 +158,13 @@
         "query:LLMAGT"
       ],
       "llm_score": 7.0,
-      "llm_evidence_en": "LLM multi-agent framework optimizing invariant representations for molecular property prediction",
-      "llm_evidence_cn": "面向分子性质预测、优化不变量表示的LLM多智能体框架",
-      "llm_evidence": "面向分子性质预测、优化不变量表示的LLM多智能体框架",
-      "canonical_evidence": "面向分子性质预测、优化不变量表示的LLM多智能体框架",
-      "llm_tldr_en": "MathAgent is an LLM-driven multi-agent framework that automatically optimizes mathematical invariant representations for molecular property prediction via dataset-aware design, low-cost screening and progressive evaluation.",
-      "llm_tldr_cn": "针对分子性质预测中数学不变量表示选择依赖人工、评估代价高的问题，本文提出MathAgent多智能体框架，将数据集感知表示设计、低成本候选筛选与渐进式评估结合，由语言模型推理驱动任务分解与决策。实验表明该框架可自动优化不变量表示并降低评估成本，为计算生物与化学中的自动化表示学习提供了新思路。",
-      "llm_tldr": "针对分子性质预测中数学不变量表示选择依赖人工、评估代价高的问题，本文提出MathAgent多智能体框架，将数据集感知表示设计、低成本候选筛选与渐进式评估结合，由语言模型推理驱动任务分解与决策。实验表明该框架可自动优化不变量表示并降低评估成本，为计算生物与化学中的自动化表示学习提供了新思路。",
+      "llm_evidence_en": "Multi-agent LLM framework optimizing mathematical invariants for molecular property prediction",
+      "llm_evidence_cn": "多智能体优化数学不变量用于分子性质预测",
+      "llm_evidence": "多智能体优化数学不变量用于分子性质预测",
+      "canonical_evidence": "多智能体优化数学不变量用于分子性质预测",
+      "llm_tldr_en": "The paper proposes MathAgent, a multi-agent LLM framework that automatically designs and screens mathematical invariant representations to improve molecular property prediction.",
+      "llm_tldr_cn": "针对分子性质预测中数学不变量表示构建困难、评估代价高的问题，作者提出MathAgent多智能体框架，结合数据集感知的表示设计、低成本候选筛选与渐进式评估，由语言模型推理指导任务。实验表明该方法能自动优化不变量表示并提升预测效果，为计算生物学与化学中的多智能体方法提供了可复用思路。",
+      "llm_tldr": "针对分子性质预测中数学不变量表示构建困难、评估代价高的问题，作者提出MathAgent多智能体框架，结合数据集感知的表示设计、低成本候选筛选与渐进式评估，由语言模型推理指导任务。实验表明该方法能自动优化不变量表示并提升预测效果，为计算生物学与化学中的多智能体方法提供了可复用思路。",
       "llm_tags": [
         "query:llmagt"
       ],
@@ -88,44 +175,83 @@
       "quick_tier": "7"
     },
     {
-      "id": "2610.06695v1",
+      "id": "2610.05431v1",
       "source": "arxiv",
-      "title": "MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks",
-      "abstract": "While medical multimodal large language models (Med-MLLMs) advance medical visual question answering (VQA), existing clinical workflow-inspired multi-agent frameworks suffer from interaction patterns and excessive computational overhead caused by redundant communication topologies. In this paper, we propose MedPrune, an efficient medical multimodal multi-agent collaboration framework that dynamically prunes both nodes and edges from the communication topology to enhance reasoning ability and token efficiency. Specifically, we first formulate the diagnostic process as a heterogeneous communication graph, where nodes represent specialist agents from various departments and edges capture intra- and inter-departmental interactions. Building on this graph, we introduce two sparsification mechanisms to enable adaptive collaborative evolution: (1) Heterogeneous Node Sparsification, which eliminates task-irrelevant specialist agents irrelevant to the current multimodal question via reinforcement learning-driven topological optimization, and (2) Heterogeneous Edge Sparsification, which selectively retains only the most diagnostically salient intra- and inter-departmental connections by jointly optimizing task performance and topological complexity. Extensive medical VQA experiments under full-set and few-shot training settings prove MedPrune surpasses multi-agent baselines and boosts token efficiency with strong adversarial robustness.",
+      "title": "PharmAgent: Constraint-Aware Search with Frozen Language Models for Molecular Optimization",
+      "abstract": "Molecular optimization must improve target activity and satisfy developability constraints within limited evaluation budgets. Classical methods require tailored rules or training to incorporate chemical instructions and property feedback. Frozen language models can condition edits on this information, but need explicit constraint control and relevant experience. We therefore present PharmAgent, a constraint-aware molecular search method driven by adaptive external state. Its Lagrangian controller translates violations in accepted states into accumulated constraint pressure, keeping this history separate from current property measurements. Structure-indexed replay complements this feedback with relevant evaluated transitions that guide subsequent proposals. As a curriculum progressively activates constraints, candidates and the incumbent are compared under the same current objective, and the accepted state determines the next multiplier update. We derive an exact identity that characterizes how accepted-state violations accumulate in the controller's multipliers. Across five tasks with five independent runs, PharmAgent achieves a summed area under the target-score curves (AUC) of 3.9208 in target-only search, improving over MOLLEO by 37.3%. With online constraints, it achieves a property-adjusted AUC of 0.7076, improving over the strongest online baseline, ExLLM, by 53.8%. These results rank first among all evaluated methods in both target-only and constraint-aware search. The online comparison covers all five baseline frameworks. The full system leads every ablation variant in target quality, property-adjusted performance, and Pareto hypervolume. All five molecular cases reach feasible final states, documenting target gains and trade-offs.",
       "authors": [
-        "Jiuheng Wan",
-        "Runze Li",
-        "Chen Chen",
-        "Tingyuan Hu",
-        "Daiyang Yu",
-        "Yimin Jing",
-        "Taolin Zhang",
-        "Richang Hong"
+        "Nihui Shao",
+        "Guanxing Chen",
+        "Jilong Shi",
+        "Zhengyang Bai",
+        "Haohuai He",
+        "Zhenchao Tang",
+        "Qiujie Lv",
+        "Yu-An Huang",
+        "Zhi-An Huang"
       ],
-      "primary_category": "cs.CL",
+      "primary_category": "cs.AI",
       "categories": [
-        "cs.CL"
+        "cs.AI"
       ],
-      "published": "2026-10-05T16:55:58+00:00",
-      "link": "https://arxiv.org/pdf/2610.06695v1",
+      "published": "2026-10-04T18:11:55+00:00",
+      "link": "https://arxiv.org/pdf/2610.05431v1",
       "tags": [
         "keyword:LLMAGT",
         "query:LLMAGT"
       ],
       "llm_score": 6.0,
-      "llm_evidence_en": "efficient multimodal multi-agent collaboration framework for medical visual question answering",
-      "llm_evidence_cn": "面向医学视觉问答的高效多模态多智能体协作框架",
-      "llm_evidence": "面向医学视觉问答的高效多模态多智能体协作框架",
-      "canonical_evidence": "面向医学视觉问答的高效多模态多智能体协作框架",
-      "llm_tldr_en": "This paper proposes MedPrune, a multimodal multi-agent framework for medical VQA that prunes nodes and edges of the communication topology to cut redundancy while improving reasoning.",
-      "llm_tldr_cn": "医学多模态大模型推进了医学视觉问答，但受临床流程启发的现有多智能体框架存在交互模式冗余、通信拓扑开销过大的问题。作者提出MedPrune，将诊断过程建模为异质通信图，动态剪枝节点与边，以提升推理能力并节省token。实验表明该框架在保持诊断准确性的同时显著降低通信开销，为医疗多智能体协作提供了高效拓扑优化方案。",
-      "llm_tldr": "医学多模态大模型推进了医学视觉问答，但受临床流程启发的现有多智能体框架存在交互模式冗余、通信拓扑开销过大的问题。作者提出MedPrune，将诊断过程建模为异质通信图，动态剪枝节点与边，以提升推理能力并节省token。实验表明该框架在保持诊断准确性的同时显著降低通信开销，为医疗多智能体协作提供了高效拓扑优化方案。",
+      "llm_evidence_en": "constraint-aware molecular optimization with frozen language models",
+      "llm_evidence_cn": "基于冻结语言模型的约束感知分子优化",
+      "llm_evidence": "基于冻结语言模型的约束感知分子优化",
+      "canonical_evidence": "基于冻结语言模型的约束感知分子优化",
+      "llm_tldr_en": "Molecular optimization must improve activity under developability constraints and limited budgets; PharmAgent uses a Lagrangian controller and structure-indexed replay to steer frozen language models for constraint-aware molecular search.",
+      "llm_tldr_cn": "论文针对分子优化在有限评估预算下需同时提升目标活性并满足成药性约束的难题，指出传统方法依赖定制规则或再训练来注入化学指令与性质反馈。作者提出PharmAgent，一种由自适应外部状态驱动的约束感知分子搜索方法，其拉格朗日控制器将已接受状态中的约束违反转化为累积约束压力，并与当前性质测量分离。结构索引回放进一步提供相关的已评估迁移以引导编辑。该框架让冻结语言模型无需微调即可实现显式约束控制，为计算生物学中LLM驱动的可控分子设计提供了可复用范式。",
+      "llm_tldr": "论文针对分子优化在有限评估预算下需同时提升目标活性并满足成药性约束的难题，指出传统方法依赖定制规则或再训练来注入化学指令与性质反馈。作者提出PharmAgent，一种由自适应外部状态驱动的约束感知分子搜索方法，其拉格朗日控制器将已接受状态中的约束违反转化为累积约束压力，并与当前性质测量分离。结构索引回放进一步提供相关的已评估迁移以引导编辑。该框架让冻结语言模型无需微调即可实现显式约束控制，为计算生物学中LLM驱动的可控分子设计提供了可复用范式。",
       "llm_tags": [
         "query:llmagt"
       ],
       "matched_query_tag": "query:llmagt",
-      "matched_query_text": "Multi-agent systems in biological data analysis",
-      "matched_requirement_id": "req-6",
+      "matched_query_text": "Computational biology applications of LLMs",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2610.06307v1",
+      "source": "arxiv",
+      "title": "CorleoneGame: A library of biological dynamic games with a companion Julia solver",
+      "abstract": "Biological agents, from regulatory modules and microbial strains to organisms and populations, act on a common environment while each responds to its own costs, benefits, and limits. A dynamic game makes such interactions explicit by assigning who controls which decision, what each participant values, and which restrictions constrain unilateral deviations.   We present a library of 25 biological dynamic games with 2 to 10 players spanning molecular, cellular, organismal, and population scales and competitive, antagonistic, mutualistic, and regulatory interactions. Instances cover single seasons, cycles that return to their initial state, or episodic tasks; seven include duration choice and some players' feasible sets are coupled. For each game we provide biological motivation, an executable Julia specification with player-owned controls, objectives and restrictions, a parameter instance, and a reference open-loop generalized Nash equilibrium candidate with interpreted trajectories.   The solver CorleoneGame.jl computes candidates by sequential optimal-control best responses and audits them for feasibility and profitable unilateral deviations on a coarse and a refined control grid. All 25 reference computations satisfy the audit tolerances on both grids. Using a plant--herbivore game as a running example, we show how an executable specification yields an audited reference candidate that qualitatively reproduces a published prediction, how biological hypotheses become instance variants with different candidates, and how the candidates generate synthetic data for inverse games.",
+      "authors": [
+        "Sebastian Sager",
+        "Christoph Plate",
+        "Julius Martensen",
+        "Frank W. Ohl"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-10-05T13:29:45+00:00",
+      "link": "https://arxiv.org/pdf/2610.06307v1",
+      "tags": [
+        "keyword:LLMAGT",
+        "query:LLMAGT"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "library of biological dynamic games with Julia solver",
+      "llm_evidence_cn": "生物动态博弈库与Julia求解器",
+      "llm_evidence": "生物动态博弈库与Julia求解器",
+      "canonical_evidence": "生物动态博弈库与Julia求解器",
+      "llm_tldr_en": "CorleoneGame provides a library of 25 biological dynamic games across molecular to population scales with a companion Julia solver for computational modeling.",
+      "llm_tldr_cn": "从调控模块到种群的生物主体在共同环境中依据自身成本与收益行动，动态博弈可显式刻画这类交互。作者构建包含25个、2至10个参与者的生物动态博弈库，覆盖分子到种群尺度及竞争、互利、调控等关系，并提供配套Julia求解器。该资源为生物系统建模与博弈分析提供了标准化工具，属计算生物学范畴。",
+      "llm_tldr": "从调控模块到种群的生物主体在共同环境中依据自身成本与收益行动，动态博弈可显式刻画这类交互。作者构建包含25个、2至10个参与者的生物动态博弈库，覆盖分子到种群尺度及竞争、互利、调控等关系，并提供配套Julia求解器。该资源为生物系统建模与博弈分析提供了标准化工具，属计算生物学范畴。",
+      "llm_tags": [
+        "query:llmagt"
+      ],
+      "matched_query_tag": "query:llmagt",
+      "matched_query_text": "computational biology",
+      "matched_requirement_id": "req-2",
       "selection_source": "fresh_fetch",
       "quick_tier": "6"
     }

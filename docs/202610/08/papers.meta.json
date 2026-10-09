@@ -1,8 +1,8 @@
 {
   "label": "2026-10-08",
   "date": "2026-10-08",
-  "generated_at": "2026-10-08T00:15:16",
-  "count": 3,
+  "generated_at": "2026-10-09T00:02:46",
+  "count": 7,
   "papers": [
     {
       "paper_id": "202610/08/2610.07614v1-biostudybench-evaluating-agents-on-post-cutoff-biomedical-studies",
@@ -20,6 +20,21 @@
       "selection_source": "fresh_fetch"
     },
     {
+      "paper_id": "202610/08/2609.38879v1-does-learning-protein-folding-generalize-to-broader-reasoning",
+      "section": "quick",
+      "title_en": "Does Learning Protein Folding Generalize to Broader Reasoning?",
+      "authors": "Yong Liu, Zhanpeng Shi, Yizhou Dang, Zhongyue Zhang, Xiaoliang Shi, Zhijian Wei, Shuangjia Zheng",
+      "date": "2026-09-30",
+      "pdf": "https://arxiv.org/pdf/2609.38879v1",
+      "score": "7.0",
+      "evidence": "用蛋白质折叠问答对LLM进行后训练",
+      "tldr": "大语言模型依赖人类文本，常学表面答案而非空间结构逻辑。蛋白质折叠是天然试验台，一个结构可生成数千条可精确检验的空间与拓扑陈述。作者构建FoldingCorpus并提出Fold2Reason，用离散结构答案与3D几何双信号后训练。FoldBench上结构预测分数达Qwen3.5-9B的2.7–3.5倍，10个推理基准全部提升，宏平均从45.09%升至48.33%。这表明结构密集的非语言科学数据可提升广泛推理，使科学问题成为后训练监督来源。",
+      "tags": "query:llmagt",
+      "abstract_en": "Large language models rely heavily on human text, which often conveys surface answers rather than the spatial and structural logic behind them. Protein folding is a natural testbed, because one solved structure yields thousands of exactly checkable spatial and topological statements. We ask: can learning to fold proteins teach general models reusable reasoning capabilities? To answer this, we build FoldingCorpus, a protein-derived question-answer dataset, and Fold2Reason, a recipe that post-trains on it through two complementary signals: discrete structural answers predicted via the model's native language head, and continuous 3D geometry decoded from the same shared representations. On FoldBench, Fold2Reason achieves structure prediction scores 2.7 to 3.5 times those of Qwen3.5-9B. Beyond protein structure prediction, it improves performance on all 10 benchmarks spanning spatial, graph, scientific, and general reasoning, raising macro-average accuracy from 45.09% to 48.33% (+3.23 pp), with positive gains on all 10 benchmarks, while matched controls built from random, synthetic, and shuffled structure yield substantially smaller or negative gains. Our work shows that non-linguistic, structure-dense scientific data can systematically improve broad reasoning in language models, making a solved scientific problem a practical source of post-training supervision.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
       "paper_id": "202610/08/2610.03992v1-mathagent-multi-agent-optimization-of-mathematical-invariants-for-molecular-property-prediction",
       "section": "quick",
       "title_en": "MathAgent: Multi-Agent Optimization of Mathematical Invariants for Molecular Property Prediction",
@@ -31,6 +46,51 @@
       "tldr": "分子性质预测中，数学不变量可提供互补表示，但最优组合随数据集与任务变化，手工筛选代价高。为此提出MathAgent，以语言模型推理协调任务解读、策略提议与流程，结合确定性工具完成计算与数值决策，并采用数据集感知设计、低成本候选筛选和渐进评估。在蛋白-配体结合亲和力与定量毒性预测上，不同数据集偏好不同不变量组合，证明需按数据集自适应选择。该框架提供了系统、可追溯且目标条件化的不变量优化途径。",
       "tags": "query:llmagt",
       "abstract_en": "Mathematical invariants provide complementary representations of molecular structure, but their predictive utility can vary across datasets and prediction tasks. For a new dataset, appropriate construction of invariant representations from algebraic topology, differential geometry, topological spectral theory, and commutative algebra is a challenging task, particularly when evaluating multiple representations is computationally expensive. We develop a Mathematical Agentic Model (MathAgent) to automatically optimize invariant representations in molecular property prediction. The framework combines dataset-aware representation design, low-cost candidate screening, and progressive evaluation. Language-model reasoning supports task interpretation, strategy proposal, and workflow coordination, while scientific computations and numerical decisions are carried out by deterministic tools. We evaluate MathAgent on protein--ligand binding-affinity and quantitative toxicity prediction tasks. Different datasets favor different combinations of mathematical invariants, demonstrating the need for dataset-adaptive representation selection rather than a fixed universal representation. Objective-conditioned executions further show that the framework can adjust its evaluation strategy according to user-specified goals. MathAgent therefore provides a systematic, evidence-driven, and traceable approach for optimizing mathematical invariant representations and reducing reliance on manual configuration and/or experimentation in molecular property prediction.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/08/2610.03852v1-testing-large-language-model-agents-on-the-use-of-biological-tools-for-nucleic-acid-synthesis-screening-evasion",
+      "section": "quick",
+      "title_en": "Testing Large Language Model Agents on the Use of Biological Tools for Nucleic Acid Synthesis Screening Evasion",
+      "authors": "Jeffrey Lee, Alyssa Worland, Christopher Rodriguez, Kyle Brady, Grant Ellison, Henry Alexander Bradley, Dawid Maciorowski, Jordan Despanie, Barbara Del Castello, Jason Johnson, Steph Guerra",
+      "date": "2026-10-02",
+      "pdf": "https://arxiv.org/pdf/2610.03852v1",
+      "score": "6.0",
+      "evidence": "大模型智能体与生物工具交互",
+      "tldr": "该报告关注LLM驱动的AI智能体能否操作生物工具，从而规避核酸合成筛查。作者在前续工作基础上，针对明确威胁模型，测试前沿LLM智能体利用生物工具重设计多肽和蛋白质、逃避筛查的能力。摘要未披露具体成功率或量化结果，但指出该任务直接关系生物安全，可能突破早期防御层。其意义在于为生物安全研究者和AI开发者开展风险与能力评估提供基础。",
+      "tags": "query:llmagt",
+      "abstract_en": "This report is a continuation of previous efforts to test the ability of large language model (LLM)-driven artificial intelligence (AI) agents to interface with AI-enabled biological tools (BTs). While rapid advancements in BTs in recent years have brought promise to accelerate scientific discovery, they also raise significant biosecurity concerns about potential misuse. The biosecurity community is particularly interested in the extent to which LLMs can lower technical barriers and assist non-expert users in accessing and operating BTs. Despite this interest, few evaluations have focused on LLM-BT interactions in the context of a defined threat model. To address this gap, this report describes a test of frontier LLM-driven AI Agents on their ability to use BTs to redesign peptides and proteins to evade nucleic acid synthesis screening measures. Highly relevant to biorisk, this task assesses a potential capability of AI agents that could enable a breach of a critical early defensive layer designed to prevent a multitude of biological misuse scenarios. The findings presented here intend to offer a foundation for biosecurity researchers and AI developers to conduct or further risk and capability assessments as these technologies progress.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/08/2610.05431v1-pharmagent-constraint-aware-search-with-frozen-language-models-for-molecular-optimization",
+      "section": "quick",
+      "title_en": "PharmAgent: Constraint-Aware Search with Frozen Language Models for Molecular Optimization",
+      "authors": "Nihui Shao, Guanxing Chen, Jilong Shi, Zhengyang Bai, Haohuai He, Zhenchao Tang, Qiujie Lv, Yu-An Huang, Zhi-An Huang",
+      "date": "2026-10-04",
+      "pdf": "https://arxiv.org/pdf/2610.05431v1",
+      "score": "6.0",
+      "evidence": "基于冻结语言模型的约束感知分子优化",
+      "tldr": "分子优化需在有限评估预算下提升活性并满足可成药性约束，传统方法依赖定制规则或训练。PharmAgent用冻结语言模型做约束感知搜索，以拉格朗日控制器将违规转为累积约束压力，并用结构索引回放提供相关经验。在五项任务五次独立运行中，其仅目标搜索AUC达3.9208，较MOLLEO提升37.3%；带在线约束的调整AUC为0.7076，较ExLLM提升53.8%。结果在两类搜索中均排名第一，且五个分子案例均达可行终态。",
+      "tags": "query:llmagt",
+      "abstract_en": "Molecular optimization must improve target activity and satisfy developability constraints within limited evaluation budgets. Classical methods require tailored rules or training to incorporate chemical instructions and property feedback. Frozen language models can condition edits on this information, but need explicit constraint control and relevant experience. We therefore present PharmAgent, a constraint-aware molecular search method driven by adaptive external state. Its Lagrangian controller translates violations in accepted states into accumulated constraint pressure, keeping this history separate from current property measurements. Structure-indexed replay complements this feedback with relevant evaluated transitions that guide subsequent proposals. As a curriculum progressively activates constraints, candidates and the incumbent are compared under the same current objective, and the accepted state determines the next multiplier update. We derive an exact identity that characterizes how accepted-state violations accumulate in the controller's multipliers. Across five tasks with five independent runs, PharmAgent achieves a summed area under the target-score curves (AUC) of 3.9208 in target-only search, improving over MOLLEO by 37.3%. With online constraints, it achieves a property-adjusted AUC of 0.7076, improving over the strongest online baseline, ExLLM, by 53.8%. These results rank first among all evaluated methods in both target-only and constraint-aware search. The online comparison covers all five baseline frameworks. The full system leads every ablation variant in target quality, property-adjusted performance, and Pareto hypervolume. All five molecular cases reach feasible final states, documenting target gains and trade-offs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202610/08/2610.06307v1-corleonegame-a-library-of-biological-dynamic-games-with-a-companion-julia-solver",
+      "section": "quick",
+      "title_en": "CorleoneGame: A library of biological dynamic games with a companion Julia solver",
+      "authors": "Sebastian Sager, Christoph Plate, Julius Martensen, Frank W. Ohl",
+      "date": "2026-10-05",
+      "pdf": "https://arxiv.org/pdf/2610.06307v1",
+      "score": "6.0",
+      "evidence": "生物动态博弈库与Julia求解器",
+      "tldr": "生物系统中多主体在共享环境下按各自成本收益决策，动态博弈可显式刻画控制权、目标与约束。作者构建含25个生物动态博弈的库，覆盖2至10名玩家及分子到种群尺度，并提供可执行Julia规范与参考开环广义Nash均衡候选。配套求解器CorleoneGame.jl以序贯最优控制最优响应计算候选，并在粗细网格审计可行性与单边有利偏离。全部25个算例均通过审计，植物-食草动物例子复现文献预测，并支持假设变体与逆博弈合成数据。",
+      "tags": "query:llmagt",
+      "abstract_en": "Biological agents, from regulatory modules and microbial strains to organisms and populations, act on a common environment while each responds to its own costs, benefits, and limits. A dynamic game makes such interactions explicit by assigning who controls which decision, what each participant values, and which restrictions constrain unilateral deviations.   We present a library of 25 biological dynamic games with 2 to 10 players spanning molecular, cellular, organismal, and population scales and competitive, antagonistic, mutualistic, and regulatory interactions. Instances cover single seasons, cycles that return to their initial state, or episodic tasks; seven include duration choice and some players' feasible sets are coupled. For each game we provide biological motivation, an executable Julia specification with player-owned controls, objectives and restrictions, a parameter instance, and a reference open-loop generalized Nash equilibrium candidate with interpreted trajectories.   The solver CorleoneGame.jl computes candidates by sequential optimal-control best responses and audits them for feasibility and profitable unilateral deviations on a coarse and a refined control grid. All 25 reference computations satisfy the audit tolerances on both grids. Using a plant--herbivore game as a running example, we show how an executable specification yields an audited reference candidate that qualitatively reproduces a published prediction, how biological hypotheses become instance variants with different candidates, and how the candidates generate synthetic data for inverse games.",
       "source": "arxiv",
       "selection_source": "fresh_fetch"
     },
